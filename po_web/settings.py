@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-r$1_5!x!*_-vc&d7$usb94$pm)2h=q0+q))5wm96&#78l8#mn0'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
 
 ALLOWED_HOSTS = ['geo.portrate.io', '91.201.53.6']
 
