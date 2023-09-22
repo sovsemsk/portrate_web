@@ -4,6 +4,7 @@ django-admin-interface==0.26.1
 django-colorfield==0.10.1
 Pillow==10.0.1
 psycopg2==2.9.7
+python-dotenv==1.0.0
 python-slugify==8.0.1
 sqlparse==0.4.4
 text-unidecode==1.3
