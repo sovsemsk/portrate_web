@@ -49,8 +49,11 @@ coverage.xml
 # Sphinx documentation
 docs/_build/
 
+#
 /media
 /static
 /deploy.sh
 
+#
 *.DS_Store
+.env
