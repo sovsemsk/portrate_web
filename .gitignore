@@ -1,0 +1,5 @@
+/media
+/static
+/deploy.sh
+
+*.DS_Store
