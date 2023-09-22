@@ -12,7 +12,6 @@ class WebsiteExternalUrlInline(admin.StackedInline):
 class WebsiteExternalCardInline(admin.StackedInline):
     model = WebsiteExternalCard
 
-
 class WebsitePageInline(admin.StackedInline):
     model = WebsitePage
 
