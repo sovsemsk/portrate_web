@@ -20,34 +20,40 @@ class WebsiteContactInline(admin.StackedInline):
     extra = 0
     fields = ['platform', 'name', 'value']
 
+
 class WebsiteUrlInline(admin.StackedInline):
     model = WebsiteUrl
     extra = 0
-    #fields = ['name', 'file', 'sort', 'is_logo']
+    fields = ['platform', 'name', 'value']
+
 
 class WebsiteCardInline(admin.StackedInline):
     model = WebsiteCard
     extra = 0
+    fields = ['platform', 'name', 'value']
+
 
 class WebsitePageInline(admin.StackedInline):
     model = WebsitePage
     extra = 0
+    fields = ['platform', 'name', 'value']
+
 
 class WebsiteAdmin(admin.ModelAdmin):
-    list_display = ['group', 'branch']
-    list_filter = ['group__name']
+    list_display = ['group', 'name', 'branch',]
+    list_filter = ['group__name',]
     fieldsets = [
         (
             'НАСТРОЙКИ',
             {
                 'classes': ['collapse'],
-                'fields': ['group', 'branch', 'path', 'is_published'],
+                'fields': ['group', 'branch', 'path', 'is_published',],
             },
         ),
         (
             'ИНФОРМАЦИЯ',
             {
-                'classes': ['collapse'],
+                'classes': ['collapse',],
                 'fields': ['name', 'city', 'address', 'schedule', 'description',],},
         ),
     ]
