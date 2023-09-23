@@ -3,117 +3,128 @@ from django.db import models
 
 class Branch(models.Model):
     class Meta:
-        verbose_name = 'Филиал'
-        verbose_name_plural = 'Филиалы'
+        db_table = 'resources_branch'
+        verbose_name = 'филиал'
+        verbose_name_plural = 'филиалы'
 
-    group = models.ForeignKey(
-        Group,
-        on_delete=models.CASCADE
-    )
-
-    title = models.CharField()
+    name = models.CharField(verbose_name='название')
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, verbose_name='группа')
 
     def __str__(self):
-        return self.title
+        return f'{self.group.name} / {self.name}'
+
 
 class Website(models.Model):
     class Meta:
-        verbose_name = 'Вебсайт'
-        verbose_name_plural = 'Вебсайты'
+        db_table = 'resources_website'
+        verbose_name = 'вебсайт'
+        verbose_name_plural = 'вебсайты'
 
-    branch = models.ForeignKey(
-        Branch,
-        on_delete=models.CASCADE
-    )
+    is_published = models.BooleanField(default=False, verbose_name='опубликовано?')
+    path = models.CharField(max_length=255, unique=True, verbose_name='поддомен')
 
-    is_published = models.BooleanField(default=False)
-    path_url = models.CharField(max_length=255, unique=True)
-    info_title = models.CharField()
-    info_city =  models.CharField()
-    info_address = models.CharField()
-    info_schedule = models.CharField()
-    info_phone = models.CharField()
-    info_description = models.TextField()
-    info_website_url = models.CharField()
-    action_website_url = models.CharField()
-    action_title = models.CharField()
-    stat_reviews_count = models.IntegerField(default=0)
-    stat_reviews_rating = models.FloatField(default=0)
+    name = models.CharField(verbose_name='название')
+    city = models.CharField(verbose_name='город')
+    address = models.CharField(verbose_name='адрес')
+    schedule = models.CharField(verbose_name='график работы')
+    description = models.TextField(verbose_name='описание')
+
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, verbose_name='группа')
+    branch = models.ForeignKey('Branch', on_delete=models.CASCADE, verbose_name='филиал')
 
     def __str__(self):
-        return self.info_title
+        return f'{self.group.name} / {self.name}'
+
 
 class WebsiteImage(models.Model):
-    website = models.ForeignKey(
-        Website,
-        on_delete=models.CASCADE
-    )
+    class Meta:
+        db_table = 'resources_website_image'
+        verbose_name = 'изображение вебсайта'
+        verbose_name_plural = 'изображения вебсайта'
 
-    is_logo = models.BooleanField(default=False)
-    sort = models.IntegerField(default=0)
-    title = models.CharField(max_length=255)
-    image = models.ImageField(upload_to='images/%Y/%m/%d/')
+    is_logo = models.BooleanField(default=False, verbose_name='логотип?')
+    sort = models.IntegerField(default=0, verbose_name='порядок')
+    file = models.ImageField(upload_to='website_images/%Y/%m/%d/', verbose_name='файл')
+    name = models.CharField(verbose_name='название')
 
-    def __str__(self):
-        return self.title
+    website = models.ForeignKey('Website', on_delete=models.CASCADE, verbose_name='вебсайт')
 
-class WebsiteExternalUrl(models.Model):
 
-    class ExternalService(models.TextChoices):
-        CUSTOM = "CUSTOM"
-        VK = "VK"
-        OK = "OK"
-        X = "X"
-        FACEBOOK = "FACEBOOK"
-        INSTAGRAM = "INSTAGRAM"
-        YOUTUBE = "YOUTUBE"
-        VIMEO = "VIMEO"
-        RUTUBE = "RUTUBE"
+class WebsiteContact(models.Model):
+    class Meta:
+        db_table = 'resources_website_contact'
+        verbose_name = 'контакт вебсайта'
+        verbose_name_plural = 'контакты вебсайта'
 
-    external_service = models.CharField(
-        max_length=255,
-        choices=ExternalService.choices,
-        default=ExternalService.CUSTOM,
-    )
+    class Platform(models.TextChoices):
+        CUSTOM = 'CUSTOM'
+        PHONE = 'PHONE'
+        WHATSAPP = 'WHATSAPP'
+        TELEGRAM = 'TELEGRAM'
+        VIBER = 'VIBER'
+        EMAIL = 'EMAIL'
 
-    website = models.ForeignKey(
-        Website,
-        on_delete=models.CASCADE
-    )
+    platform = models.CharField(choices=Platform.choices, default=Platform.CUSTOM, verbose_name='тип')
+    name = models.CharField(blank=True, verbose_name='название')
+    value = models.CharField(verbose_name='контакт')
 
-    title = models.CharField(max_length=255)
-    url = models.CharField()
+    website = models.ForeignKey('Website', on_delete=models.CASCADE, verbose_name='вебсайт')
 
-    def __str__(self):
-        return self.title
 
-class WebsiteExternalCard(models.Model):
+class WebsiteUrl(models.Model):
+    class Meta:
+        db_table = 'resources_website_url'
+        verbose_name = 'ссылка вебсайта'
+        verbose_name_plural = 'ссылки вебсайта'
 
-    class ExternalService(models.TextChoices):
-        CUSTOM = "CUSTOM"
-        YANDEX = "YANDEX"
-        GOOGLE = "GOOGLE"
-        GIS = "GIS"
+    class Platform(models.TextChoices):
+        CUSTOM = 'CUSTOM'
+        VK = 'VK'
+        OK = 'OK'
+        X = 'X'
+        FACEBOOK = 'FACEBOOK'
+        INSTAGRAM = 'INSTAGRAM'
+        YOUTUBE = 'YOUTUBE'
+        VIMEO = 'VIMEO'
+        RUTUBE = 'RUTUBE'
 
-    external_service = models.CharField(
-        max_length=255,
-        choices=ExternalService.choices,
-        default=ExternalService.CUSTOM,
-    )
+    platform = models.CharField(choices=Platform.choices, default=Platform.CUSTOM, verbose_name='тип')
+    name = models.CharField(blank=True, verbose_name='название')
+    value = models.CharField(verbose_name='ссылка на ресурс')
 
-    website = models.ForeignKey(
-        Website,
-        on_delete=models.CASCADE
-    )
+    website = models.ForeignKey('Website', on_delete=models.CASCADE, verbose_name='вебсайт')
 
-    title = models.CharField(max_length=255)
-    url = models.CharField()
+    #def __str__(self):
+    #    return self.name
+
+
+class WebsiteCard(models.Model):
+    class Meta:
+        db_table = 'resources_website_card'
+        verbose_name = 'карточка вебсайта'
+        verbose_name_plural = 'карточки вебсайта'
+
+    class Platform(models.TextChoices):
+        CUSTOM = 'CUSTOM'
+        YANDEX = 'YANDEX'
+        GOOGLE = 'GOOGLE'
+        GIS = 'GIS'
+        MAPSME = 'MAPSME'
+
+    platform = models.CharField(choices=Platform.choices, default=Platform.CUSTOM, verbose_name='тип')
+    name = models.CharField(blank=True, verbose_name='название')
+    value = models.CharField(verbose_name='ссылка на карточку')
+
+    website = models.ForeignKey('Website', on_delete=models.CASCADE, verbose_name='вебсайт')
+
 
 class WebsitePage(models.Model):
-    website = models.ForeignKey(
-        Website,
-        on_delete=models.CASCADE
-    )
+    class Meta:
+        db_table = 'resources_website_page'
+        verbose_name = 'страница вебсайта'
+        verbose_name_plural = 'страницы вебсайта'
 
-    title = models.CharField(max_length=255)
-    content = models.TextField(max_length=255)
+    name = models.CharField(verbose_name='название')
+    value = models.TextField(verbose_name='значение')
+
+    website = models.ForeignKey('Website', on_delete=models.CASCADE, verbose_name='вебсайт')
