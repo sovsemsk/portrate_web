@@ -88,7 +88,8 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# @TODO: Убрать хардкод
+# DEBUG = True
 
 # 
 ALLOWED_HOSTS = ['geo.portrate.io', '91.201.53.6', '127.0.0.1']
