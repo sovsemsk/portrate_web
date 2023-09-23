@@ -27,14 +27,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-r$1_5!x!*_-vc&d7$usb94$pm)2h=q0+q))5wm96&#78l8#mn0'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
+DEBUG = True
 
-ALLOWED_HOSTS = ['geo.portrate.io', '91.201.53.6']
-
+ALLOWED_HOSTS = ['geo.portrate.io', '91.201.53.6', '127.0.0.1']
+INTERNAL_IPS = ['127.0.0.1']
 
 # Application definition
 
 INSTALLED_APPS = [
+    'tailwind',
+    'theme',
     'admin_interface',
     'colorfield',
     'django.contrib.admin',
@@ -43,6 +45,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'events',
+    'feedback',
+    'parsing',
     'resources'
 ]
 
@@ -114,26 +119,26 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
 STATIC_ROOT = 'static/'
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
-
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
+# Default primary key field type
+# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+#
 X_FRAME_OPTIONS = "SAMEORIGIN"
 SILENCED_SYSTEM_CHECKS = ["security.W019"]
+
+#
+TAILWIND_APP_NAME = 'theme'
