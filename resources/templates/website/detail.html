@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-    <title>Django Tailwind</title>
+    <title>{{ website.name }}</title>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">        
@@ -12,9 +12,12 @@
 
 	<body class="bg-neutral-300 px-4">
 		<div class="flex flex-col gap-4 mx-auto my-4 max-w-md">
+            
 			<!-- {/* Название и адрес */} -->
             <div class="bg-white flex overflow-hidden rounded-xl">
-                <div class="bg-red-100 h-16 w-16"></div>
+                <div class="bg-white h-16 w-16">
+                    <img class="h-16 w-16" src="{{ website.logo.file.url }}" alt="Company Logo">
+                </div>
                 <div class="flex grow h-16">
                     <div class="px-4 pt-2.5">
                         <h3 class="font-bold">{{ website.name }}</h3>

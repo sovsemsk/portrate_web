@@ -1,3 +1,4 @@
+from typing import Self
 from django.contrib.auth.models import Group
 from django.db import models
 
@@ -34,6 +35,17 @@ class Website(models.Model):
 
     def __str__(self):
         return f'{self.group.name} / {self.name}'
+
+    # @TODO: N+1, использовать только для одной записи
+    @property
+    def logo(self):
+        return WebsiteImage.objects.filter(website = self, is_logo = True).first
+
+    # @TODO: N+1, использовать только для одной записи
+    @property
+    def images(self):
+        return WebsiteImage.objects.filter(website = self, is_logo = False).order_by('sort').all
+
 
 
 class WebsiteImage(models.Model):
