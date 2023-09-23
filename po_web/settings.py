@@ -25,6 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 INSTALLED_APPS = [
     'tailwind',
     'theme',
+    'django_browser_reload',
     'admin_interface',
     'colorfield',
     'django.contrib.admin',
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'django_browser_reload.middleware.BrowserReloadMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',

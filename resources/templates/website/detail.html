@@ -1,0 +1,73 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+    <title>Django Tailwind</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">        
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+		{% tailwind_css %}
+	</head>
+
+	<body class="bg-neutral-300 px-4">
+		<div class="flex flex-col gap-4 mx-auto my-4 max-w-md">
+			<!-- {/* Название и адрес */} -->
+            <div class="bg-white flex overflow-hidden rounded-xl">
+                <div class="bg-red-100 h-16 w-16"></div>
+                <div class="flex grow h-16">
+                    <div class="px-4 pt-2.5">
+                        <h3 class="font-bold">{{ website.name }}</h3>
+                        <div class="text-xs">
+                            {{ website.city }}, {{ website.address }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- {/* Фотогалерея */} -->
+            <div class="bg-red-100 flex overflow-hidden rounded-xl">
+                <div class="h-80"></div>
+            </div>
+
+            <!-- {/* Записаться */} -->
+            <div class="bg-white overflow-hidden rounded-xl ">
+                <div class="border-b border-neutral-300 flex flex-col gap-4 pb-6 pt-4 px-6">
+                    <h1 class="font-bold text-2xl">{{ website.name }}</h1>
+                    <div class="flex gap-2">
+                        <div class="bg-red-600 px-2 rounded text-white">0.0</div>
+                        <div class="text-red-600">0 отзывов</div>
+                    </div>
+                    <div class="">{{ website.description }}</div>
+                    <a href="#" class="bg-teal-600 py-2 rounded text-center text-white">
+                        Записаться
+                    </a>
+                </div>
+                <div class="pb-6 pt-4 px-6">
+                    <div class="flex h-8 items-center gap-2">
+                        <div class="material-symbols-outlined text-teal-600 text-[1.2rem]">call</div>
+                        <div class="text-sm">{website?.infoPhone}</div>
+                    </div>
+
+                    <div class="flex h-8 items-center gap-2">
+                        <div class="material-symbols-outlined text-teal-600 text-[1.2rem]">schedule</div>
+                        <div>{{website.schedule}}</div>
+                    </div>
+
+                    <div class="flex h-8 items-center gap-2">
+                        <div class="material-symbols-outlined text-teal-600 text-[1.2rem]">location_on</div>
+                        <div>
+                            {{website.city}}, {{website.address}}
+                        </div>
+                    </div>
+
+                    <div class="flex h-8 items-center gap-2">
+                        <div class="material-symbols-outlined text-teal-600 text-[1.2rem]">open_in_new</div>
+                        <div>{website?.infoWebsiteUrl}</div>
+                    </div>
+                </div>
+            </div>
+
+		</div>
+	</body>
+</html>

@@ -1,7 +1,5 @@
 from django.contrib import admin
-
-# Register your models here.
-from resources.models import Branch, Website, WebsiteImage, WebsiteContact, WebsiteUrl, WebsiteCard, WebsitePage
+from .models import Branch, Website, WebsiteImage, WebsiteContact, WebsiteUrl, WebsiteCard, WebsitePage
 
 
 class BranchAdmin(admin.ModelAdmin):
