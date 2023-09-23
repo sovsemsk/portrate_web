@@ -3,6 +3,10 @@ from django.db import models
 from resources.models import Branch
 
 class ReviewsParser(models.Model):
+    class Meta:
+        verbose_name = 'Парсер отзывов'
+        verbose_name_plural = 'Парсеры отзывов'
+
     group = models.ForeignKey(
         Group,
         on_delete=models.CASCADE
@@ -19,6 +23,10 @@ class ReviewsParser(models.Model):
         return self.name
 
 class RatingParser(models.Model):
+    class Meta:
+        verbose_name = 'Парсер рейтинга'
+        verbose_name_plural = 'Парсеры рейтинга'
+
     group = models.ForeignKey(
         Group,
         on_delete=models.CASCADE

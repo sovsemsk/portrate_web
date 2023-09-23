@@ -2,6 +2,10 @@ from django.contrib.auth.models import Group
 from django.db import models
 
 class Branch(models.Model):
+    class Meta:
+        verbose_name = 'Филиал'
+        verbose_name_plural = 'Филиалы'
+
     group = models.ForeignKey(
         Group,
         on_delete=models.CASCADE
@@ -13,6 +17,10 @@ class Branch(models.Model):
         return self.title
 
 class Website(models.Model):
+    class Meta:
+        verbose_name = 'Вебсайт'
+        verbose_name_plural = 'Вебсайты'
+
     branch = models.ForeignKey(
         Branch,
         on_delete=models.CASCADE

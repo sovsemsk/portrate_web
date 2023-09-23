@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import NegativeMessageEvent, NegativeReviewEvent
 
-# Register your models here.
+admin.site.register(NegativeMessageEvent) 
+admin.site.register(NegativeReviewEvent)
