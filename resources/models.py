@@ -43,6 +43,10 @@ class Website(models.Model):
         verbose_name='название'
     )
 
+    specialization = models.CharField(
+        verbose_name='Специализация'
+    )
+
     city = models.CharField(
         verbose_name='город'
     )
@@ -51,8 +55,67 @@ class Website(models.Model):
         verbose_name='адрес'
     )
 
-    schedule = models.CharField(
-        verbose_name='график работы'
+    is_work_at_monday = models.BooleanField(
+        default=True,
+        verbose_name='работает в понедельник?'
+    )
+
+    is_work_at_tuesday = models.BooleanField(
+        default=True,
+        verbose_name='работает в вторник?'
+    )
+
+    is_work_at_wednesday = models.BooleanField(
+        default=True,
+        verbose_name='работает в среду?'
+    )
+
+    is_work_at_thursday = models.BooleanField(
+        default=True,
+        verbose_name='работает в четверг?'
+    )
+
+    is_work_at_friday = models.BooleanField(
+        default=True,
+        verbose_name='работает в пятницу?'
+    )
+
+    is_work_at_saturday = models.BooleanField(
+        default=True,
+        verbose_name='работает в субботу?'
+    )
+
+    is_work_at_sunday = models.BooleanField(
+        default=True,
+        verbose_name='работает в воскресенье?'
+    )
+
+    monday_schedule = models.CharField(
+        verbose_name='часы работы в понедельник'
+    )
+
+    tuesday_schedule = models.CharField(
+        verbose_name='часы работы во вторник'
+    )
+
+    wednesday_schedule = models.CharField(
+        verbose_name='часы работы в среду'
+    )
+
+    thursday_schedule = models.CharField(
+        verbose_name='часы работы в четверг'
+    )
+
+    friday_schedule = models.CharField(
+        verbose_name='часы работы в пятницу'
+    )
+
+    saturday_schedule = models.CharField(
+        verbose_name='часы работы в субботу'
+    )
+
+    sunday_schedule = models.CharField(
+        verbose_name='часы работы в воскресенье'
     )
 
     description = models.TextField(
@@ -72,7 +135,7 @@ class Website(models.Model):
     )
 
     def __str__(self):
-        return f'{self.group.name} / {self.name}'
+        return f'{self.group.name} / {self.branch.name}'
 
     # @TODO: N+1, использовать только для одной записи
     @property
@@ -117,7 +180,7 @@ class WebsiteImage(models.Model):
     )
 
     def __str__(self):
-        return f'{self.website} / {self.name}'
+        return self.name
 
 
 class WebsiteContact(models.Model):
@@ -156,7 +219,7 @@ class WebsiteContact(models.Model):
     )
 
     def __str__(self):
-        return f'{self.website} / {self.name}'
+        return self.name
 
 
 class WebsiteUrl(models.Model):
@@ -198,7 +261,7 @@ class WebsiteUrl(models.Model):
     )
 
     def __str__(self):
-        return f'{self.website} / {self.name}'
+        return self.name
 
 
 class WebsiteCard(models.Model):
@@ -215,12 +278,25 @@ class WebsiteCard(models.Model):
         MAPSME = 'MAPSME'
 
     platform = models.CharField(
-        choices=Platform.choices, default=Platform.CUSTOM, verbose_name='тип')
-    name = models.CharField(blank=True, verbose_name='название')
-    value = models.CharField(verbose_name='ссылка на карточку')
+        choices=Platform.choices,
+        default=Platform.CUSTOM,
+        verbose_name='тип'
+    )
+
+    name = models.CharField(
+        blank=True,
+        verbose_name='название'
+    )
+
+    value = models.CharField(
+        verbose_name='ссылка на карточку'
+    )
 
     website = models.ForeignKey(
-        'Website', on_delete=models.CASCADE, verbose_name='вебсайт')
+        'Website',
+        on_delete=models.CASCADE,
+        verbose_name='вебсайт'
+    )
 
     def __str__(self):
         return f'{self.website} / {self.name}'
@@ -232,11 +308,16 @@ class WebsitePage(models.Model):
         verbose_name = 'страница вебсайта'
         verbose_name_plural = 'страницы вебсайта'
 
-    name = models.CharField(verbose_name='название')
-    value = models.TextField(verbose_name='значение')
+    name = models.CharField(
+        verbose_name='название'
+    )
+
+    value = models.TextField(
+        verbose_name='значение'
+    )
 
     website = models.ForeignKey(
         'Website', on_delete=models.CASCADE, verbose_name='вебсайт')
 
     def __str__(self):
-        return f'{self.website} / {self.name}'
+        return self.name

@@ -5,4 +5,4 @@ from .models import Website
 
 def website_detail(request, path):
     website = get_object_or_404(Website, path=path)
-    return render(request, 'website/detail.html', {'website': website})
+    return render(request, 'resources/website_detail.html', {'website': website})

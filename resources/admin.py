@@ -45,14 +45,36 @@ class WebsiteAdmin(admin.ModelAdmin):
             'НАСТРОЙКИ',
             {
                 'classes': ['collapse'],
-                'fields': ['group', 'branch', 'path', 'color_accent', 'is_published',],
+                'fields': ['group', 'branch', 'path', 'is_published',],
             },
         ),
         (
             'ИНФОРМАЦИЯ',
             {
                 'classes': ['collapse',],
-                'fields': ['name', 'city', 'address', 'schedule', 'description',], },
+                'fields': ['name', 'specialization', 'city', 'address', 'description',], },
+        ),
+        (
+            'ГРАФИК РАБОТЫ',
+            {
+                'classes': ['collapse',],
+                'fields': [
+                    'monday_schedule',
+                    'is_work_at_monday',
+                    'tuesday_schedule',
+                    'is_work_at_tuesday',
+                    'wednesday_schedule',
+                    'is_work_at_wednesday',
+                    'thursday_schedule',
+                    'is_work_at_thursday',
+                    'friday_schedule',
+                    'is_work_at_friday',
+                    'saturday_schedule',
+                    'is_work_at_saturday',
+                    'sunday_schedule',
+                    'is_work_at_sunday',
+                ],
+            },
         ),
     ]
     inlines = [
