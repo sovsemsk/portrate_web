@@ -1,4 +1,5 @@
 from django.contrib.auth.models import Group
+from colorfield.fields import ColorField
 from django.db import models
 
 
@@ -8,9 +9,15 @@ class Branch(models.Model):
         verbose_name = 'филиал'
         verbose_name_plural = 'филиалы'
 
-    name = models.CharField(verbose_name='название')
+    name = models.CharField(
+        verbose_name='название'
+    )
+
     group = models.ForeignKey(
-        Group, on_delete=models.CASCADE, verbose_name='группа')
+        Group,
+        on_delete=models.CASCADE,
+        verbose_name='группа'
+    )
 
     def __str__(self):
         return f'{self.group.name} / {self.name}'
@@ -23,20 +30,52 @@ class Website(models.Model):
         verbose_name_plural = 'вебсайты'
 
     is_published = models.BooleanField(
-        default=False, verbose_name='опубликовано?')
-    path = models.CharField(max_length=255, unique=True,
-                            verbose_name='поддомен')
+        default=False,
+        verbose_name='опубликовано?'
+    )
 
-    name = models.CharField(verbose_name='название')
-    city = models.CharField(verbose_name='город')
-    address = models.CharField(verbose_name='адрес')
-    schedule = models.CharField(verbose_name='график работы')
-    description = models.TextField(verbose_name='описание')
+    path = models.CharField(
+        max_length=255,
+        unique=True,
+        verbose_name='поддомен'
+    )
+
+    color_accent = ColorField(
+        default='#FFFFFF',
+        verbose_name='цветовой акцент'
+    )
+
+    name = models.CharField(
+        verbose_name='название'
+    )
+
+    city = models.CharField(
+        verbose_name='город'
+    )
+
+    address = models.CharField(
+        verbose_name='адрес'
+    )
+
+    schedule = models.CharField(
+        verbose_name='график работы'
+    )
+
+    description = models.TextField(
+        verbose_name='описание'
+    )
 
     group = models.ForeignKey(
-        Group, on_delete=models.CASCADE, verbose_name='группа')
+        Group,
+        on_delete=models.CASCADE,
+        verbose_name='группа'
+    )
+
     branch = models.ForeignKey(
-        'Branch', on_delete=models.CASCADE, verbose_name='филиал')
+        'Branch',
+        on_delete=models.CASCADE,
+        verbose_name='филиал'
+    )
 
     def __str__(self):
         return f'{self.group.name} / {self.name}'
@@ -58,14 +97,33 @@ class WebsiteImage(models.Model):
         verbose_name = 'изображение вебсайта'
         verbose_name_plural = 'изображения вебсайта'
 
-    is_logo = models.BooleanField(default=False, verbose_name='логотип?')
-    sort = models.IntegerField(default=0, verbose_name='порядок')
+    is_logo = models.BooleanField(
+        default=False,
+        verbose_name='логотип?'
+    )
+
+    sort = models.IntegerField(
+        default=0,
+        verbose_name='порядок'
+    )
+
     file = models.ImageField(
-        upload_to='website_images/%Y/%m/%d/', verbose_name='файл')
-    name = models.CharField(verbose_name='название')
+        upload_to='website_images/%Y/%m/%d/',
+        verbose_name='файл'
+    )
+
+    name = models.CharField(
+        verbose_name='название'
+    )
 
     website = models.ForeignKey(
-        'Website', on_delete=models.CASCADE, verbose_name='вебсайт')
+        'Website',
+        on_delete=models.CASCADE,
+        verbose_name='вебсайт'
+    )
+
+    def __str__(self):
+        return f'{self.website} / {self.name}'
 
 
 class WebsiteContact(models.Model):
@@ -83,12 +141,28 @@ class WebsiteContact(models.Model):
         EMAIL = 'EMAIL'
 
     platform = models.CharField(
-        choices=Platform.choices, default=Platform.CUSTOM, verbose_name='тип')
-    name = models.CharField(blank=True, verbose_name='название')
-    value = models.CharField(verbose_name='контакт')
+        choices=Platform.choices,
+        default=Platform.CUSTOM,
+        verbose_name='тип'
+    )
+
+    name = models.CharField(
+        blank=True,
+        verbose_name='название'
+    )
+
+    value = models.CharField(
+        verbose_name='контакт'
+    )
 
     website = models.ForeignKey(
-        'Website', on_delete=models.CASCADE, verbose_name='вебсайт')
+        'Website',
+        on_delete=models.CASCADE,
+        verbose_name='вебсайт'
+    )
+
+    def __str__(self):
+        return f'{self.website} / {self.name}'
 
 
 class WebsiteUrl(models.Model):
@@ -109,15 +183,28 @@ class WebsiteUrl(models.Model):
         RUTUBE = 'RUTUBE'
 
     platform = models.CharField(
-        choices=Platform.choices, default=Platform.CUSTOM, verbose_name='тип')
-    name = models.CharField(blank=True, verbose_name='название')
-    value = models.CharField(verbose_name='ссылка на ресурс')
+        choices=Platform.choices,
+        default=Platform.CUSTOM,
+        verbose_name='тип'
+    )
+
+    name = models.CharField(
+        blank=True,
+        verbose_name='название'
+    )
+
+    value = models.CharField(
+        verbose_name='ссылка на ресурс'
+    )
 
     website = models.ForeignKey(
-        'Website', on_delete=models.CASCADE, verbose_name='вебсайт')
+        'Website',
+        on_delete=models.CASCADE,
+        verbose_name='вебсайт'
+    )
 
-    # def __str__(self):
-    #    return self.name
+    def __str__(self):
+        return f'{self.website} / {self.name}'
 
 
 class WebsiteCard(models.Model):
@@ -141,6 +228,9 @@ class WebsiteCard(models.Model):
     website = models.ForeignKey(
         'Website', on_delete=models.CASCADE, verbose_name='вебсайт')
 
+    def __str__(self):
+        return f'{self.website} / {self.name}'
+
 
 class WebsitePage(models.Model):
     class Meta:
@@ -153,3 +243,6 @@ class WebsitePage(models.Model):
 
     website = models.ForeignKey(
         'Website', on_delete=models.CASCADE, verbose_name='вебсайт')
+
+    def __str__(self):
+        return f'{self.website} / {self.name}'

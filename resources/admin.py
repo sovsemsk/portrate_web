@@ -38,14 +38,14 @@ class WebsitePageInline(admin.StackedInline):
 
 
 class WebsiteAdmin(admin.ModelAdmin):
-    list_display = ['group', 'name', 'branch',]
+    list_display = ['group', 'branch',]
     list_filter = ['group__name',]
     fieldsets = [
         (
             'НАСТРОЙКИ',
             {
                 'classes': ['collapse'],
-                'fields': ['group', 'branch', 'path', 'is_published',],
+                'fields': ['group', 'branch', 'path', 'color_accent', 'is_published',],
             },
         ),
         (

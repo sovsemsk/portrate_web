@@ -42,19 +42,23 @@ coverage.xml
 # Rope
 .ropeproject
 
-# Django stuff:
+# Django stuff
 *.log
 *.pot
+*.env
 
 # Sphinx documentation
 docs/_build/
 
-#
+# Static
 /media
 /static
+
+# Deploy script
 /deploy.sh
 
-#
+# MacOS staff
 *.DS_Store
-.env
+
+# IDE staff
 /.vscode
