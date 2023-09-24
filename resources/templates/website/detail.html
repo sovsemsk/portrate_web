@@ -8,9 +8,14 @@
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">        
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 		{% tailwind_css %}
+        <style>
+            body {
+                background-image: url({% static 'gradient.png' %});
+            }
+        </style>
 	</head>
 
-	<body class="bg-neutral-300 px-4">
+	<body class="px-4">
 		<div class="flex flex-col gap-4 mx-auto my-4 max-w-md">
             
 			<!-- {/* Название и адрес */} -->

@@ -52,7 +52,7 @@ class WebsiteAdmin(admin.ModelAdmin):
             'ИНФОРМАЦИЯ',
             {
                 'classes': ['collapse',],
-                'fields': ['name', 'city', 'address', 'schedule', 'description',],},
+                'fields': ['name', 'city', 'address', 'schedule', 'description',], },
         ),
     ]
     inlines = [
@@ -63,6 +63,6 @@ class WebsiteAdmin(admin.ModelAdmin):
         # WebsitePageInline
     ]
 
-admin.site.register(Branch, BranchAdmin) 
-admin.site.register(Website, WebsiteAdmin)
 
+admin.site.register(Branch, BranchAdmin)
+admin.site.register(Website, WebsiteAdmin)
