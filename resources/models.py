@@ -1,5 +1,4 @@
 from django.contrib.auth.models import Group
-from colorfield.fields import ColorField
 from django.db import models
 
 
@@ -38,11 +37,6 @@ class Website(models.Model):
         max_length=255,
         unique=True,
         verbose_name='поддомен'
-    )
-
-    color_accent = ColorField(
-        default='#FFFFFF',
-        verbose_name='цветовой акцент'
     )
 
     name = models.CharField(
