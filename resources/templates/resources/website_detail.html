@@ -96,12 +96,11 @@
         <div class="bg-white flex flex-col gap-1 rounded-xl pl-3 py-2">
             <div class="border-b border-neutral-200">
                 <div class="text-xs text-neutral-600">Описание</div>
-                <div class="text-neutral-800">{{website.description}}
-                </div>
+                <div class="pr-2 text-neutral-800">{{website.description}}</div>
             </div>
             <div class="">
                 <div class="text-xs text-neutral-600">Адрес</div>
-                <div class="text-sm text-neutral-800">{{website.city}}, {{website.address}}</div>
+                <div class="text-sm pr-2 text-neutral-800">{{website.city}}, {{website.address}}</div>
             </div>
         </div>
     </div>
@@ -112,21 +111,21 @@
         <div class="bg-white flex flex-col gap-1 rounded-xl pl-3 py-2">
             {% for contact in website.contacts %}
             <div class="border-b border-neutral-200 last:border-none">
-                <div class="text-xs text-neutral-600">{{contact.name}}</div>
-                <div class="text-neutral-800">{{contact.value}}</div>
+                <div class="pr-2 text-xs text-neutral-600">{{contact.name}}</div>
+                <div class="pr-2 text-neutral-800">{{contact.value}}</div>
             </div>
             {% endfor %}
         </div>
     </div>
 
-        <!-- Контакты -->
+        <!-- Интернет -->
         <div class="flex flex-col gap-1 px-4">
             <div class="font-bold text-neutral-800">Интернет</div>
             <div class="bg-white flex flex-col gap-1 rounded-xl pl-3 py-2">
                 {% for url in website.urls %}
                 <a class="border-b border-neutral-200 last:border-none" href="{{url.value}}" target="_blank">
                     <div class="text-xs text-neutral-600">{{url.name}}</div>
-                    <div class="text-sm text-neutral-800">{{url.value}}</div>
+                    <div class="text-sm text-blue-500">{{url.value}}</div>
                 </a>
                 {% endfor %}
             </div>
@@ -134,6 +133,6 @@
     
     <!-- @TODO; !!! -->
     <div class="h-4 mb-4 text-center">
-        работает на <a class="border-b border-neutral-400 text-neutral-800" href="https://portrate.io">portrate.io</a>
+        <sapn class="text-neutral-800">работает на</sapn> <a class="text-orange-500" href="https://portrate.io">portrate.io</a>
     </div>
 {% endblock %}
