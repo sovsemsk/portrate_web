@@ -33,7 +33,10 @@
     <div class="flex gap-2 relative">
         <div class="flex gap-1 hide-scrollbar -ml-6 -mr-4 overflow-x-scroll px-6 snap-x">            
             {% for image in website.images %}
-            <img class="min-w-3xl overflow-hidden rounded-lg snap-center" style="flex: 0 0 auto;  width: 100%;" src="{{ image.file.url }}" alt="{{ image.name }}">
+            <div class="overflow-hidden rounded-lg relative snap-center w-full" style="flex: 0 0 auto">
+                <img class="w-full"  src="{{ image.file.url }}" alt="{{ image.name }}">
+                <div class="absolute bottom-0 font-bold left-0 p-4 text-white text-2xl w-full">{{image.name}}</div>
+            </div>
             {% endfor %}
         </div>
     </div>
@@ -52,37 +55,37 @@
             {% if website.is_work_at_tuesday %}
             <div class="bg-white flex gap-1 rounded-lg px-2 py-1 snap-start whitespace-nowrap">
                 <div class="text-xs text-neutral-600">Вт</div>
-                <div class="text-xs">{{ website.monday_schedule}}</div>
+                <div class="text-xs text-neutral-800">{{ website.monday_schedule}}</div>
             </div>
             {% endif %}
             {% if website.is_work_at_wednesday %}
             <div class="bg-white flex gap-1 rounded-lg px-2 py-1 snap-start whitespace-nowrap">
                 <div class="text-xs text-neutral-600">Ср</div>
-                <div class="text-xs">{{ website.monday_schedule}}</div>
+                <div class="text-xs text-neutral-800">{{ website.monday_schedule}}</div>
             </div>
             {% endif %}
             {% if website.is_work_at_thursday %}
             <div class="bg-white flex gap-1 rounded-lg px-2 py-1 snap-start whitespace-nowrap">
                 <div class="text-xs text-neutral-600">Чт</div>
-                <div class="text-xs">{{ website.monday_schedule}}</div>
+                <div class="text-xs text-neutral-800">{{ website.monday_schedule}}</div>
             </div>
             {% endif %}
             {% if website.is_work_at_friday %}
             <div class="bg-white flex gap-1 rounded-lg px-2 py-1 snap-start whitespace-nowrap">
                 <div class="text-xs text-neutral-600">Пт</div>
-                <div class="text-xs">{{ website.monday_schedule}}</div>
+                <div class="text-xs text-neutral-800">{{ website.monday_schedule}}</div>
             </div>
             {% endif %}
             {% if website.is_work_at_saturday %}
             <div class="bg-white flex gap-1 rounded-lg px-2 py-1 snap-start whitespace-nowrap">
                 <div class="text-xs text-neutral-600">Сб</div>
-                <div class="text-xs">{{ website.monday_schedule}}</div>
+                <div class="text-xs text-neutral-800">{{ website.monday_schedule}}</div>
             </div>
             {% endif %}
             {% if website.is_work_at_sunday %}
             <div class="bg-white flex gap-1 rounded-lg px-2 py-1 snap-start whitespace-nowrap">
                 <div class="text-xs text-neutral-600">Вс</div>
-                <div class="text-xs">Выходной</div>
+                <div class="text-xs text-neutral-800">Выходной</div>
             </div>
             {% endif %}
         </div>        
