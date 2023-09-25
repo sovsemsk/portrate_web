@@ -2,19 +2,21 @@
 {% load static %}
 
 {% block content %}
-    <!-- Логотип -->
+    <!-- Логотип-->
     {% if website.logo.file %}
+    <div class="pt-8 px-4">
         <img class="h-16 overflow-hidden rounded-lg w-16" src="{{ website.logo.file.url }}" alt="{{ website.name }}">
+    </div>
     {% endif %}
-
-    <!-- Заголовок -->
-    <div class="flex flex-col gap-2">
+    
+    <!-- Заголовок-->
+    <div class="flex flex-col gap-2 px-4">
         <h1 class="font-bold text-neutral-800 text-2xl">{{ website.name }}</h1>
         <div class="text-xs text-neutral-600">{{ website.specialization }}</div>
     </div>
 
-    <!-- Быстрые кнопки -->
-    <div class="flex gap-1">
+    <!-- Быстрые кнопки-->
+    <div class="flex gap-1 px-4">
         <a class="bg-white hover:bg-white/80 flex flex-col items-center px-2 py-1 rounded-lg" href="#">
             <div class="material-symbols-outlined text-blue-500 text-[1.2rem]">arrow_outward</div>
             <div class="text-xs text-blue-500">Вебсайт</div>
@@ -30,22 +32,19 @@
     </div>
 
     <!-- Фото -->
-    <div class="flex gap-2 relative">
-        <div class="flex gap-1 hide-scrollbar -ml-6 -mr-4 overflow-x-scroll px-6 snap-x">            
-            {% for image in website.images %}
-            <div class="overflow-hidden rounded-lg relative snap-center w-full" style="flex: 0 0 auto">
-                <img class="w-full"  src="{{ image.file.url }}" alt="{{ image.name }}">
-                <div class="absolute bottom-0 font-bold left-0 p-4 text-white text-2xl w-full">{{image.name}}</div>
-            </div>
-            {% endfor %}
+    <div class="flex gap-1 hide-scrollbar overflow-x-scroll px-4 snap-x">
+        {% for image in website.images %}
+        <div class="overflow-hidden rounded-lg relative snap-center w-full" style="flex: 0 0 auto">
+            <img class="w-full"  src="{{ image.file.url }}" alt="{{ image.name }}">
+            <div class="absolute bottom-0 font-bold left-0 p-4 text-white text-2xl w-full">{{image.name}}</div>
         </div>
+        {% endfor %}
     </div>
 
     <!-- График работы -->
-    <div class="flex flex-col gap-2 relative">
-        <div class="font-bold text-neutral-800">График работы</div>
-        
-        <div class="flex gap-1 hide-scrollbar overflow-x-scroll px-6 -ml-6 -mr-4">            
+    <div class="flex flex-col gap-1">
+        <div class="font-bold px-4 text-neutral-800">График работы</div>
+        <div class="flex gap-1 hide-scrollbar overflow-x-scroll px-4">
             {% if website.is_work_at_monday %}
             <div class="bg-white flex gap-1 rounded-lg px-2 py-1 snap-start whitespace-nowrap">
                 <div class="text-xs text-neutral-600">Пн</div>
@@ -89,5 +88,52 @@
             </div>
             {% endif %}
         </div>        
+    </div>
+
+    <!-- Детали -->
+    <div class="flex flex-col gap-1 px-4">
+        <div class="font-bold text-neutral-800">Детали</div>
+        <div class="bg-white flex flex-col gap-1 rounded-xl pl-3 py-2">
+            <div class="border-b border-neutral-200">
+                <div class="text-xs text-neutral-600">Описание</div>
+                <div class="text-neutral-800">{{website.description}}
+                </div>
+            </div>
+            <div class="">
+                <div class="text-xs text-neutral-600">Адрес</div>
+                <div class="text-sm text-neutral-800">{{website.city}}, {{website.address}}</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Контакты -->
+    <div class="flex flex-col gap-1 px-4">
+        <div class="font-bold text-neutral-800">Контакты</div>
+        <div class="bg-white flex flex-col gap-1 rounded-xl pl-3 py-2">
+            {% for contact in website.contacts %}
+            <div class="border-b border-neutral-200 last:border-none">
+                <div class="text-xs text-neutral-600">{{contact.name}}</div>
+                <div class="text-neutral-800">{{contact.value}}</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+        <!-- Контакты -->
+        <div class="flex flex-col gap-1 px-4">
+            <div class="font-bold text-neutral-800">Интернет</div>
+            <div class="bg-white flex flex-col gap-1 rounded-xl pl-3 py-2">
+                {% for url in website.urls %}
+                <a class="border-b border-neutral-200 last:border-none" href="{{url.value}}" target="_blank">
+                    <div class="text-xs text-neutral-600">{{url.name}}</div>
+                    <div class="text-sm text-neutral-800">{{url.value}}</div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    
+    <!-- @TODO; !!! -->
+    <div class="h-4 mb-4 text-center">
+        работает на <a class="border-b border-neutral-400 text-neutral-800" href="https://portrate.io">portrate.io</a>
     </div>
 {% endblock %}

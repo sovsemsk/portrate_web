@@ -14,13 +14,12 @@
             .hide-scrollbar {-ms-overflow-style: none; scrollbar-width: none;}
         </style>
 	</head>
-	<body class="bg-neutral-200 p-4">
-        <div class="flex flex-col gap-4 mx-auto max-w-sm relative">
+	<body class="bg-neutral-200 m-0">
+        <div class="flex flex-col gap-4 max-w-sm mx-auto relative">
             {% block content %}
             {% endblock %}
-            <div class="absolute bg-gradient-to-r bottom-0 from-neutral-200 h-full to-neutral-200/0 -left-6 w-6 "></div>
-            <div class="absolute bg-gradient-to-r from-neutral-200/0 to-neutral-200 bottom-0  h-full -right-4 w-6 "></div>
-
+            <div class="absolute bg-gradient-to-r top-0 from-neutral-200 h-full to-neutral-200/0 left-0 w-4 "></div>
+            <div class="absolute bg-gradient-to-r from-neutral-200/0 to-neutral-200 top-0 h-full  right-0 w-4 "></div>
         </div>
     </body>
 </html>

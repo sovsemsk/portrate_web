@@ -144,8 +144,48 @@ class Website(models.Model):
 
     # @TODO: N+1, использовать только для одной записи
     @property
+    def phone(self):
+        return WebsiteContact.objects.filter(website=self, platform='PHONE').first
+
+    # @TODO: N+1, использовать только для одной записи
+    @property
+    def website(self):
+        return WebsiteUrl.objects.filter(website=self, platform='WEBSITE').first
+
+    # @TODO: N+1, использовать только для одной записи
+    @property
+    def email(self):
+        return WebsiteContact.objects.filter(website=self, platform='EMAIL').first
+
+    # @TODO: N+1, использовать только для одной записи
+    @property
+    def whatsapp(self):
+        return WebsiteContact.objects.filter(website=self, platform='WHATSAPP').first
+
+    # @TODO: N+1, использовать только для одной записи
+    @property
+    def telegram(self):
+        return WebsiteContact.objects.filter(website=self, platform='TELEGRAM').first
+
+    # @TODO: N+1, использовать только для одной записи
+    @property
+    def viber(self):
+        return WebsiteContact.objects.filter(website=self, platform='VIBER').first
+
+    # @TODO: N+1, использовать только для одной записи
+    @property
     def images(self):
         return WebsiteImage.objects.filter(website=self, is_logo=False).order_by('sort').all
+
+    # @TODO: N+1, использовать только для одной записи
+    @property
+    def contacts(self):
+        return WebsiteContact.objects.filter(website=self).all
+
+    # @TODO: N+1, использовать только для одной записи
+    @property
+    def urls(self):
+        return WebsiteUrl.objects.filter(website=self).all
 
 
 class WebsiteImage(models.Model):
@@ -230,6 +270,7 @@ class WebsiteUrl(models.Model):
 
     class Platform(models.TextChoices):
         CUSTOM = 'CUSTOM'
+        WEBSITE = 'WEBSITE'
         VK = 'VK'
         OK = 'OK'
         X = 'X'
