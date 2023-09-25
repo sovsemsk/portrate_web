@@ -34,7 +34,7 @@
     <!-- Фото -->
     <div class="flex gap-1 hide-scrollbar overflow-x-scroll px-4 snap-x">
         {% for image in website.images %}
-        <div class="overflow-hidden rounded-lg relative snap-center w-full" style="flex: 0 0 auto">
+        <div class="overflow-hidden rounded-xl relative snap-center w-full" style="flex: 0 0 auto">
             <img class="w-full"  src="{{ image.file.url }}" alt="{{ image.name }}">
             <div class="absolute bottom-3 font-bold left-4 leading-6 text-white text-xl">{{image.name}}</div>
         </div>
