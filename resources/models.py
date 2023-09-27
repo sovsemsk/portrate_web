@@ -160,6 +160,55 @@ class Website(models.Model):
     def website(self):
         return WebsiteUrl.objects.filter(website=self, platform='WEBSITE').first
 
+    # WEBSITE = 'WEBSITE'
+    # VK = 'VK'
+    # OK = 'OK'
+    # X = 'X'
+    # FACEBOOK = 'FACEBOOK'
+    # INSTAGRAM = 'INSTAGRAM'
+    # YOUTUBE = 'YOUTUBE'
+    # RUTUBE = 'RUTUBE'
+
+    # @TODO: N+1, использовать только для одной записи
+    @property
+    def website(self):
+        return WebsiteUrl.objects.filter(website=self, platform='WEBSITE').first
+
+    # @TODO: N+1, использовать только для одной записи
+    @property
+    def vk(self):
+        return WebsiteUrl.objects.filter(website=self, platform='VK').first
+
+    # @TODO: N+1, использовать только для одной записи
+    @property
+    def ok(self):
+        return WebsiteUrl.objects.filter(website=self, platform='OK').first
+
+    # @TODO: N+1, использовать только для одной записи
+    @property
+    def x(self):
+        return WebsiteUrl.objects.filter(website=self, platform='X').first
+
+    # @TODO: N+1, использовать только для одной записи
+    @property
+    def facebook(self):
+        return WebsiteUrl.objects.filter(website=self, platform='FACEBOOK').first
+
+    # @TODO: N+1, использовать только для одной записи
+    @property
+    def instagram(self):
+        return WebsiteUrl.objects.filter(website=self, platform='INSTAGRAM').first
+
+    # @TODO: N+1, использовать только для одной записи
+    @property
+    def youtube(self):
+        return WebsiteUrl.objects.filter(website=self, platform='YOUTUBE').first
+
+    # @TODO: N+1, использовать только для одной записи
+    @property
+    def rutube(self):
+        return WebsiteUrl.objects.filter(website=self, platform='RUTUBE').first
+
     # @TODO: N+1, использовать только для одной записи
     @property
     def email(self):
