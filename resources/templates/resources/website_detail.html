@@ -17,15 +17,15 @@
 
     <!-- Быстрые кнопки-->
     <div class="flex gap-1 px-4">
-        <a class="bg-white hover:bg-white/80 flex flex-col items-center px-2 py-1 rounded-lg" href="#">
+        <a class="bg-white hover:bg-white/80 flex flex-col items-center px-2 py-1 rounded-lg" href="{{ website.website.value }}">
             <div class="material-symbols-outlined text-blue-500 text-[1.2rem]">arrow_outward</div>
             <div class="text-xs text-blue-500">Вебсайт</div>
         </a>
-        <a class="bg-white hover:bg-white/80 flex flex-col items-center px-2 py-1 rounded-lg" href="#">
+        <a class="bg-white hover:bg-white/80 flex flex-col items-center px-2 py-1 rounded-lg" href="tel:{{ website.phone.value }}">
             <div class="material-symbols-outlined text-blue-500 text-[1.2rem]">call</div>
             <div class="text-xs text-blue-500">Позвонить</div>
         </a>
-        <a class="bg-white hover:bg-white/80 flex flex-col items-center px-2 py-1 rounded-lg" href="#">
+        <a class="bg-white hover:bg-white/80 flex flex-col items-center px-2 py-1 rounded-lg" href="mailto:{{ website.email.value }}">
             <div class="material-symbols-outlined text-blue-500 text-[1.2rem]">drafts</div>
             <div class="text-xs text-blue-500">Написать</div>
         </a>
@@ -36,10 +36,26 @@
         {% for image in website.images %}
         <div class="overflow-hidden rounded-xl relative snap-center w-full" style="flex: 0 0 auto">
             <img class="w-full"  src="{{ image.file.url }}" alt="{{ image.name }}">
-            <div class="absolute bottom-3 font-bold left-4 leading-6 text-white text-xl">{{image.name}}</div>
+            <div class="absolute bottom-3 font-bold left-4 leading-8 text-white text-3xl">{{image.name}}</div>
         </div>
         {% endfor %}
     </div>
+
+    <!-- Ссылки -->
+    <div class="flex gap-1 px-4">
+        <a class="bg-[#0077FF] flex flex-col items-center px-4 py-2 rounded-lg" href="{{ website.website.value }}">
+            <img class="h-4" src="{% static 'vk_icon_logo.svg' %}" />
+        </a>
+
+        <a class="bg-[#F7931E] flex flex-col items-center px-4 py-2 rounded-lg" href="{{ website.website.value }}">
+            <img class="h-4" src="{% static 'ok_icon_logo.svg' %}" />
+        </a>
+
+        <a class="bg-[#23B33A] flex flex-col items-center px-4 py-2 rounded-lg" href="{{ website.website.value }}">
+            <img class="h-4" src="{% static 'whatsapp_icon_logo.svg' %}" />
+        </a>
+
+    </div>    
 
     <!-- График работы -->
     <div class="flex flex-col gap-1">
@@ -92,8 +108,9 @@
 
     <!-- Детали -->
     <div class="flex flex-col gap-1 px-4">
-        <div class="font-bold text-neutral-800">Детали</div>
+        
         <div class="bg-white flex flex-col gap-1 rounded-xl pl-3 py-2">
+            <div class="font-bold text-xl pb-1 text-neutral-800">Детали</div>
             <div class="border-b border-neutral-200">
                 <div class="text-xs text-neutral-600">Описание</div>
                 <div class="pr-2 text-neutral-800">{{website.description}}</div>
@@ -107,8 +124,9 @@
 
     <!-- Контакты -->
     <div class="flex flex-col gap-1 px-4">
-        <div class="font-bold text-neutral-800">Контакты</div>
+        
         <div class="bg-white flex flex-col gap-1 rounded-xl pl-3 py-2">
+            <div class="font-bold text-xl pb-1 text-neutral-800">Контакты</div>
             {% for contact in website.contacts %}
             <div class="border-b border-neutral-200 last:border-none">
                 <div class="pr-2 text-xs text-neutral-600">{{contact.name}}</div>
@@ -120,8 +138,9 @@
 
         <!-- Интернет -->
         <div class="flex flex-col gap-1 px-4">
-            <div class="font-bold text-neutral-800">Интернет</div>
+            
             <div class="bg-white flex flex-col gap-1 rounded-xl pl-3 py-2">
+                <div class="font-bold text-xl pb-1 text-neutral-800">Интернет</div>
                 {% for url in website.urls %}
                 <a class="border-b border-neutral-200 last:border-none" href="{{url.value}}" target="_blank">
                     <div class="text-xs text-neutral-600">{{url.name}}</div>
@@ -132,7 +151,7 @@
         </div>
     
     <!-- @TODO; !!! -->
-    <div class="h-4 mb-4 text-center">
-        <sapn class="text-neutral-800">работает на</sapn> <a class="text-orange-500" href="https://portrate.io">portrate.io</a>
+    <div class="h-4 mb-8 text-center">
+        <sapn class="text-neutral-500 text-xs">работает на</sapn> <a class="border-b border-orange-500/50 text-neutral-800 hover:text-orange-500 text-xs" href="https://portrate.io">portrate.io</a>
     </div>
 {% endblock %}
