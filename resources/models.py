@@ -277,7 +277,6 @@ class WebsiteUrl(models.Model):
         FACEBOOK = 'FACEBOOK'
         INSTAGRAM = 'INSTAGRAM'
         YOUTUBE = 'YOUTUBE'
-        VIMEO = 'VIMEO'
         RUTUBE = 'RUTUBE'
 
     platform = models.CharField(

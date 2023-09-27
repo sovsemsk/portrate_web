@@ -17,15 +17,15 @@
 
     <!-- Быстрые кнопки-->
     <div class="flex gap-1 px-4">
-        <a class="bg-white hover:bg-white/80 flex flex-col items-center px-2 py-1 rounded-lg" href="{{ website.website.value }}">
+        <a class="bg-white hover:bg-white/90 flex flex-col items-center px-2 py-1 rounded-lg" href="{{ website.website.value }}" target="_blank">
             <div class="material-symbols-outlined text-blue-500 text-[1.2rem]">arrow_outward</div>
             <div class="text-xs text-blue-500">Вебсайт</div>
         </a>
-        <a class="bg-white hover:bg-white/80 flex flex-col items-center px-2 py-1 rounded-lg" href="tel:{{ website.phone.value }}">
+        <a class="bg-white hover:bg-white/90 flex flex-col items-center px-2 py-1 rounded-lg" href="tel:{{ website.phone.value }}" target="_blank">
             <div class="material-symbols-outlined text-blue-500 text-[1.2rem]">call</div>
             <div class="text-xs text-blue-500">Позвонить</div>
         </a>
-        <a class="bg-white hover:bg-white/80 flex flex-col items-center px-2 py-1 rounded-lg" href="mailto:{{ website.email.value }}">
+        <a class="bg-white hover:bg-white/90 flex flex-col items-center px-2 py-1 rounded-lg" href="mailto:{{ website.email.value }}" target="_blank">
             <div class="material-symbols-outlined text-blue-500 text-[1.2rem]">drafts</div>
             <div class="text-xs text-blue-500">Написать</div>
         </a>
@@ -42,19 +42,38 @@
     </div>
 
     <!-- Ссылки -->
-    <div class="flex gap-1 px-4">
-        <a class="bg-[#0077FF] flex flex-col items-center px-4 py-2 rounded-lg" href="{{ website.website.value }}">
-            <img class="h-4" src="{% static 'vk_icon_logo.svg' %}" />
-        </a>
-
-        <a class="bg-[#F7931E] flex flex-col items-center px-4 py-2 rounded-lg" href="{{ website.website.value }}">
-            <img class="h-4" src="{% static 'ok_icon_logo.svg' %}" />
-        </a>
-
-        <a class="bg-[#23B33A] flex flex-col items-center px-4 py-2 rounded-lg" href="{{ website.website.value }}">
+    <div class="flex flex-wrap gap-1 px-4">
+        <a class="bg-[#23B33A] hover:bg-[#23B33A]/90 flex flex-col items-center px-4 py-2 rounded-lg" href="{{ website.website.value }}">
             <img class="h-4" src="{% static 'whatsapp_icon_logo.svg' %}" />
         </a>
 
+        <a class="bg-[#38B0E3] hover:bg-[#38B0E3]/90 flex flex-col items-center px-4 py-2 rounded-lg" href="{{ website.website.value }}">
+            <img class="h-4" src="{% static 'telegram_icon_logo.svg' %}" />
+        </a>
+        <a class="bg-[#665CA7] hover:bg-[#665CA7]/90 flex flex-col items-center px-4 py-2 rounded-lg" href="{{ website.website.value }}">
+            <img class="h-4" src="{% static 'viber_icon_logo.svg' %}" />
+        </a>
+        <a class="bg-[#0077FF] hover:bg-[#0077FF]/90 flex flex-col items-center px-4 py-2 rounded-lg" href="{{ website.website.value }}">
+            <img class="h-4" src="{% static 'vk_icon_logo.svg' %}" />
+        </a>
+        <a class="bg-[#F7931E] hover:bg-[#F7931E]/90 flex flex-col items-center px-4 py-2 rounded-lg" href="{{ website.website.value }}">
+            <img class="h-4" src="{% static 'ok_icon_logo.svg' %}" />
+        </a>
+        <a class="bg-[#000000] hover:bg-[#000000]/90 flex flex-col items-center px-4 py-2 rounded-lg" href="{{ website.website.value }}">
+            <img class="h-4" src="{% static 'x_icon_logo.svg' %}" />
+        </a>
+        <a class="bg-[#0062E0] hover:bg-[#0062E0]/90 flex flex-col items-center px-4 py-2 rounded-lg" href="{{ website.website.value }}">
+            <img class="h-4" src="{% static 'facebook_icon_logo.svg' %}" />
+        </a>
+        <a class="bg-[#C837AB] hover:bg-[#C837AB]/90 flex flex-col items-center px-4 py-2 rounded-lg" href="{{ website.website.value }}">
+            <img class="h-4" src="{% static 'instagram_icon_logo.svg' %}" />
+        </a>
+        <a class="bg-[#FF0000] hover:bg-[#FF0000]/90 flex flex-col items-center px-4 py-2 rounded-lg" href="{{ website.website.value }}">
+            <img class="h-4" src="{% static 'youtube_icon_logo.svg' %}" />
+        </a>
+        <a class="bg-[#1C293E] hover:bg-[#1C293E]/90 flex flex-col items-center px-4 py-2 rounded-lg" href="{{ website.website.value }}">
+            <img class="h-4" src="{% static 'rutube_icon_logo.svg' %}" />
+        </a>        
     </div>    
 
     <!-- График работы -->
@@ -105,19 +124,22 @@
             {% endif %}
         </div>        
     </div>
+    <a class="bg-green-500 hover:bg-green-500/90 flex items-center mx-4 px-4 py-2 rounded-lg" href="{{ website.website.value }}" target="_blank">
+        <div class="font-bold text-white">Записаться</div>
+        <div class="material-symbols-outlined text-white ml-auto text-[1.2rem]">calendar_month</div>
+    </a>
 
     <!-- Детали -->
     <div class="flex flex-col gap-1 px-4">
         
-        <div class="bg-white flex flex-col gap-1 rounded-xl pl-3 py-2">
-            <div class="font-bold text-xl pb-1 text-neutral-800">Детали</div>
+        <div class="bg-white flex flex-col gap-1 rounded-xl pl-4 py-2">
+            <div class="font-bold text-xl text-neutral-800">О компании</div>
             <div class="border-b border-neutral-200">
-                <div class="text-xs text-neutral-600">Описание</div>
-                <div class="pr-2 text-neutral-800">{{website.description}}</div>
+                <div class="pr-4 text-neutral-800">{{website.description}}</div>
             </div>
             <div class="">
                 <div class="text-xs text-neutral-600">Адрес</div>
-                <div class="text-sm pr-2 text-neutral-800">{{website.city}}, {{website.address}}</div>
+                <div class="text-sm pr-4 text-neutral-800">{{website.city}}, {{website.address}}</div>
             </div>
         </div>
     </div>
@@ -125,8 +147,8 @@
     <!-- Контакты -->
     <div class="flex flex-col gap-1 px-4">
         
-        <div class="bg-white flex flex-col gap-1 rounded-xl pl-3 py-2">
-            <div class="font-bold text-xl pb-1 text-neutral-800">Контакты</div>
+        <div class="bg-white flex flex-col gap-1 rounded-xl pl-4 py-2">
+            <div class="font-bold text-xl text-neutral-800">Контакты</div>
             {% for contact in website.contacts %}
             <div class="border-b border-neutral-200 last:border-none">
                 <div class="pr-2 text-xs text-neutral-600">{{contact.name}}</div>
@@ -139,8 +161,8 @@
         <!-- Интернет -->
         <div class="flex flex-col gap-1 px-4">
             
-            <div class="bg-white flex flex-col gap-1 rounded-xl pl-3 py-2">
-                <div class="font-bold text-xl pb-1 text-neutral-800">Интернет</div>
+            <div class="bg-white flex flex-col gap-1 rounded-xl pl-4 py-2">
+                <div class="font-bold text-xl text-neutral-800">Интернет</div>
                 {% for url in website.urls %}
                 <a class="border-b border-neutral-200 last:border-none" href="{{url.value}}" target="_blank">
                     <div class="text-xs text-neutral-600">{{url.name}}</div>
