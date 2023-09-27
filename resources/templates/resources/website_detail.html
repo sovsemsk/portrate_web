@@ -36,7 +36,7 @@
         {% for image in website.images %}
         <div class="overflow-hidden rounded-xl relative snap-center w-full" style="flex: 0 0 auto">
             <img class="w-full"  src="{{ image.file.url }}" alt="{{ image.name }}">
-            <div class="absolute bottom-3 font-bold left-4 leading-8 text-white text-3xl">{{image.name}}</div>
+            <div class="absolute bottom-3 font-bold left-4 leading-8 right-4 text-white text-3xl">{{image.name}}</div>
         </div>
         {% endfor %}
     </div>
