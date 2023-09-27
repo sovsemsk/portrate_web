@@ -122,6 +122,14 @@ class Website(models.Model):
         verbose_name='описание'
     )
 
+    action_button_text = models.CharField(
+        verbose_name='текст кнопки действия'
+    )
+
+    action_button_url = models.CharField(
+        verbose_name='url кнопки действия'
+    )
+
     group = models.ForeignKey(
         Group,
         on_delete=models.CASCADE,

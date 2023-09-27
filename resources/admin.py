@@ -49,6 +49,12 @@ class WebsiteAdmin(admin.ModelAdmin):
             },
         ),
         (
+            'КНОПКА ДЕЙСТВИЯ',
+            {
+                'classes': ['collapse',],
+                'fields': ['action_button_text', 'action_button_url',], },
+        ),
+        (
             'ИНФОРМАЦИЯ',
             {
                 'classes': ['collapse',],

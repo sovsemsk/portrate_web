@@ -43,37 +43,56 @@
 
     <!-- Ссылки -->
     <div class="flex flex-wrap gap-1 px-4">
-        <a class="bg-[#23B33A] hover:bg-[#23B33A]/90 flex flex-col items-center px-4 py-2 rounded-lg" href="{{ website.website.value }}">
+        {% if website.whatsapp %}
+        <a class="bg-[#23B33A] hover:bg-[#23B33A]/90 flex flex-col items-center px-4 py-2 rounded-lg" href="{{ website.whatsapp.value }}" target="_blank">
             <img class="h-4" src="{% static 'whatsapp_icon_logo.svg' %}" />
         </a>
-
-        <a class="bg-[#38B0E3] hover:bg-[#38B0E3]/90 flex flex-col items-center px-4 py-2 rounded-lg" href="{{ website.website.value }}">
+        {% endif %}
+        {% if website.telegram %}
+        <a class="bg-[#38B0E3] hover:bg-[#38B0E3]/90 flex flex-col items-center px-4 py-2 rounded-lg" href="{{ website.telegram.value }}" target="_blank">
             <img class="h-4" src="{% static 'telegram_icon_logo.svg' %}" />
         </a>
-        <a class="bg-[#665CA7] hover:bg-[#665CA7]/90 flex flex-col items-center px-4 py-2 rounded-lg" href="{{ website.website.value }}">
+        {% endif %}
+        {% if website.viber %}
+        <a class="bg-[#665CA7] hover:bg-[#665CA7]/90 flex flex-col items-center px-4 py-2 rounded-lg" href="{{ website.viber.value }}" target="_blank">
             <img class="h-4" src="{% static 'viber_icon_logo.svg' %}" />
         </a>
-        <a class="bg-[#0077FF] hover:bg-[#0077FF]/90 flex flex-col items-center px-4 py-2 rounded-lg" href="{{ website.website.value }}">
+        {% endif %}
+        {% if website.vk %}
+        <a class="bg-[#0077FF] hover:bg-[#0077FF]/90 flex flex-col items-center px-4 py-2 rounded-lg" href="{{ website.vk.value }}" target="_blank">
             <img class="h-4" src="{% static 'vk_icon_logo.svg' %}" />
         </a>
-        <a class="bg-[#F7931E] hover:bg-[#F7931E]/90 flex flex-col items-center px-4 py-2 rounded-lg" href="{{ website.website.value }}">
+        {% endif %}
+        {% if website.ok %}
+        <a class="bg-[#F7931E] hover:bg-[#F7931E]/90 flex flex-col items-center px-4 py-2 rounded-lg" href="{{ website.ok.value }}" target="_blank">
             <img class="h-4" src="{% static 'ok_icon_logo.svg' %}" />
         </a>
-        <a class="bg-[#000000] hover:bg-[#000000]/90 flex flex-col items-center px-4 py-2 rounded-lg" href="{{ website.website.value }}">
+        {% endif %}
+        {% if website.x %}
+        <a class="bg-[#000000] hover:bg-[#000000]/90 flex flex-col items-center px-4 py-2 rounded-lg" href="{{ website.x.value }}" target="_blank">
             <img class="h-4" src="{% static 'x_icon_logo.svg' %}" />
         </a>
-        <a class="bg-[#0062E0] hover:bg-[#0062E0]/90 flex flex-col items-center px-4 py-2 rounded-lg" href="{{ website.website.value }}">
+        {% endif %}
+        {% if website.facebook %}
+        <a class="bg-[#0062E0] hover:bg-[#0062E0]/90 flex flex-col items-center px-4 py-2 rounded-lg" href="{{ website.facebook.value }}" target="_blank">
             <img class="h-4" src="{% static 'facebook_icon_logo.svg' %}" />
         </a>
-        <a class="bg-[#C837AB] hover:bg-[#C837AB]/90 flex flex-col items-center px-4 py-2 rounded-lg" href="{{ website.website.value }}">
+        {% endif %}
+        {% if website.instagram %}
+        <a class="bg-[#C837AB] hover:bg-[#C837AB]/90 flex flex-col items-center px-4 py-2 rounded-lg" href="{{ website.instagram.value }}" target="_blank">
             <img class="h-4" src="{% static 'instagram_icon_logo.svg' %}" />
         </a>
-        <a class="bg-[#FF0000] hover:bg-[#FF0000]/90 flex flex-col items-center px-4 py-2 rounded-lg" href="{{ website.website.value }}">
+        {% endif %}
+        {% if website.youtube %}
+        <a class="bg-[#FF0000] hover:bg-[#FF0000]/90 flex flex-col items-center px-4 py-2 rounded-lg" href="{{ website.youtube.value }}" target="_blank">
             <img class="h-4" src="{% static 'youtube_icon_logo.svg' %}" />
         </a>
-        <a class="bg-[#1C293E] hover:bg-[#1C293E]/90 flex flex-col items-center px-4 py-2 rounded-lg" href="{{ website.website.value }}">
+        {% endif %}
+        {% if website.rutube %}
+        <a class="bg-[#1C293E] hover:bg-[#1C293E]/90 flex flex-col items-center px-4 py-2 rounded-lg" href="{{ website.rutube.value }}" target="_blank">
             <img class="h-4" src="{% static 'rutube_icon_logo.svg' %}" />
-        </a>        
+        </a>       
+        {% endif %}
     </div>    
 
     <!-- График работы -->
@@ -83,37 +102,37 @@
             {% if website.is_work_at_monday %}
             <div class="bg-white flex gap-1 rounded-lg px-2 py-1 snap-start whitespace-nowrap">
                 <div class="text-xs text-neutral-600">Пн</div>
-                <div class="text-xs">{{ website.monday_schedule}}</div>
+                <div class="text-xs">{{ website.monday_schedule }}</div>
             </div>
             {% endif %}
             {% if website.is_work_at_tuesday %}
             <div class="bg-white flex gap-1 rounded-lg px-2 py-1 snap-start whitespace-nowrap">
                 <div class="text-xs text-neutral-600">Вт</div>
-                <div class="text-xs text-neutral-800">{{ website.monday_schedule}}</div>
+                <div class="text-xs text-neutral-800">{{ website.monday_schedule }}</div>
             </div>
             {% endif %}
             {% if website.is_work_at_wednesday %}
             <div class="bg-white flex gap-1 rounded-lg px-2 py-1 snap-start whitespace-nowrap">
                 <div class="text-xs text-neutral-600">Ср</div>
-                <div class="text-xs text-neutral-800">{{ website.monday_schedule}}</div>
+                <div class="text-xs text-neutral-800">{{ website.monday_schedule }}</div>
             </div>
             {% endif %}
             {% if website.is_work_at_thursday %}
             <div class="bg-white flex gap-1 rounded-lg px-2 py-1 snap-start whitespace-nowrap">
                 <div class="text-xs text-neutral-600">Чт</div>
-                <div class="text-xs text-neutral-800">{{ website.monday_schedule}}</div>
+                <div class="text-xs text-neutral-800">{{ website.monday_schedule }}</div>
             </div>
             {% endif %}
             {% if website.is_work_at_friday %}
             <div class="bg-white flex gap-1 rounded-lg px-2 py-1 snap-start whitespace-nowrap">
                 <div class="text-xs text-neutral-600">Пт</div>
-                <div class="text-xs text-neutral-800">{{ website.monday_schedule}}</div>
+                <div class="text-xs text-neutral-800">{{ website.monday_schedule }}</div>
             </div>
             {% endif %}
             {% if website.is_work_at_saturday %}
             <div class="bg-white flex gap-1 rounded-lg px-2 py-1 snap-start whitespace-nowrap">
                 <div class="text-xs text-neutral-600">Сб</div>
-                <div class="text-xs text-neutral-800">{{ website.monday_schedule}}</div>
+                <div class="text-xs text-neutral-800">{{ website.monday_schedule }}</div>
             </div>
             {% endif %}
             {% if website.is_work_at_sunday %}
@@ -124,56 +143,43 @@
             {% endif %}
         </div>        
     </div>
-    <a class="bg-green-500 hover:bg-green-500/90 flex items-center mx-4 px-4 py-2 rounded-lg" href="{{ website.website.value }}" target="_blank">
-        <div class="font-bold text-white">Записаться</div>
-        <div class="material-symbols-outlined text-white ml-auto text-[1.2rem]">calendar_month</div>
+
+    <!-- Записаться -->
+    <a class="bg-green-500 hover:bg-green-500/90 flex items-center mx-4 px-4 py-2 rounded-lg" href="{{ website.action_button_url }}" target="_blank">
+        <div class="font-bold text-lg text-white">{{ website.action_button_text }}</div>
+        <div class="material-symbols-outlined  text-white ml-auto ">calendar_month</div>
     </a>
 
     <!-- Детали -->
-    <div class="flex flex-col gap-1 px-4">
-        
-        <div class="bg-white flex flex-col gap-1 rounded-xl pl-4 py-2">
-            <div class="font-bold text-xl text-neutral-800">О компании</div>
-            <div class="border-b border-neutral-200">
-                <div class="pr-4 text-neutral-800">{{website.description}}</div>
-            </div>
-            <div class="">
-                <div class="text-xs text-neutral-600">Адрес</div>
-                <div class="text-sm pr-4 text-neutral-800">{{website.city}}, {{website.address}}</div>
-            </div>
+    <div class="bg-white flex flex-col gap-1 mx-4 pl-4 py-2 rounded-xl">
+        <div class="border-b border-neutral-200">
+            <div class="pr-4 text-neutral-800">{{ website.description }}</div>
+        </div>
+        <div class="border-b border-neutral-200 last:border-none">
+            <div class="text-xs text-neutral-600">Адрес</div>
+            <div class="text-sm pr-4 text-neutral-800">{{ website.city }}, {{ website.address }}</div>
         </div>
     </div>
 
     <!-- Контакты -->
-    <div class="flex flex-col gap-1 px-4">
-        
-        <div class="bg-white flex flex-col gap-1 rounded-xl pl-4 py-2">
-            <div class="font-bold text-xl text-neutral-800">Контакты</div>
-            {% for contact in website.contacts %}
-            <div class="border-b border-neutral-200 last:border-none">
-                <div class="pr-2 text-xs text-neutral-600">{{contact.name}}</div>
-                <div class="pr-2 text-neutral-800">{{contact.value}}</div>
-            </div>
-            {% endfor %}
+    <div class="bg-white flex flex-col gap-1 mx-4 pl-4 py-2 rounded-xl">
+        {% for contact in website.contacts %}
+        <div class="border-b border-neutral-200 last:border-none">
+            <div class="pr-2 text-xs text-neutral-600">{{ contact.name }}</div>
+            <div class="pr-2 text-neutral-800">{{ contact.value }}</div>
         </div>
+        {% endfor %}
+            
+        {% for url in website.urls %}
+        <a class="border-b border-neutral-200 last:border-none" href="{{ url.value }}" target="_blank">
+            <div class="text-xs text-neutral-600">{{url.name}}</div>
+            <div class="text-sm text-blue-500">{{url.value}}</div>
+        </a>
+        {% endfor %}
     </div>
 
-        <!-- Интернет -->
-        <div class="flex flex-col gap-1 px-4">
-            
-            <div class="bg-white flex flex-col gap-1 rounded-xl pl-4 py-2">
-                <div class="font-bold text-xl text-neutral-800">Интернет</div>
-                {% for url in website.urls %}
-                <a class="border-b border-neutral-200 last:border-none" href="{{url.value}}" target="_blank">
-                    <div class="text-xs text-neutral-600">{{url.name}}</div>
-                    <div class="text-sm text-blue-500">{{url.value}}</div>
-                </a>
-                {% endfor %}
-            </div>
-        </div>
-    
     <!-- @TODO; !!! -->
-    <div class="h-4 mb-8 text-center">
-        <sapn class="text-neutral-500 text-xs">работает на</sapn> <a class="border-b border-orange-500/50 text-neutral-800 hover:text-orange-500 text-xs" href="https://portrate.io">portrate.io</a>
+    <div class="mb-4 text-center">
+        <sapn class="text-neutral-500 text-xs">работает на</sapn> <a class="text-neutral-800 hover:text-orange-500 text-xs" href="https://portrate.io">portrate.io</a>
     </div>
 {% endblock %}
