@@ -1,4 +1,5 @@
 import os
+import json
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -77,7 +78,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # @TODO: Убрать хардкод
-# DEBUG = True
+DEBUG = json.loads(str(os.getenv('DEBUG')).lower())
 
 #
 ALLOWED_HOSTS = ['geo.portrate.io', '91.201.53.6', '127.0.0.1']
