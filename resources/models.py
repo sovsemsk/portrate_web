@@ -160,15 +160,6 @@ class Website(models.Model):
     def website(self):
         return WebsiteUrl.objects.filter(website=self, platform='WEBSITE').first
 
-    # WEBSITE = 'WEBSITE'
-    # VK = 'VK'
-    # OK = 'OK'
-    # X = 'X'
-    # FACEBOOK = 'FACEBOOK'
-    # INSTAGRAM = 'INSTAGRAM'
-    # YOUTUBE = 'YOUTUBE'
-    # RUTUBE = 'RUTUBE'
-
     # @TODO: N+1, использовать только для одной записи
     @property
     def website(self):
