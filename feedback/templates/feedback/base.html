@@ -15,15 +15,15 @@
         </style>
 	</head>
 	<body class="bg-neutral-200 m-0">
-        <div class="flex flex-col gap-4 max-w-sm mx-auto relative">
+        <div class="max-w-sm mx-auto">
             <!-- Логотип-->
             {% if website.logo.file %}
-            <div class="pt-32 px-4 z-10">
+            <div class="pt-32 z-10">
                 <img class="h-24 overflow-hidden mx-auto rounded-xl shadow-black/5 shadow-lg w-24" src="{{ website.logo.file.url }}" alt="{{ website.name }}">
             </div>
             {% endif %}
-            <div class="px-4 -mt-10 z-1">
-                <div class="bg-white rounded-2xl shadow-black/5 shadow-lg">
+            <div class="px-4 -mt-6 z-1">
+                <div class="bg-white rounded-3xl shadow-black/5 shadow-lg">
                     <h2 class="pt-10 text-center text-neutral-700">{{ website.name }}</h2>
                     {% block content %}
                     {% endblock %}
@@ -31,8 +31,8 @@
             </div>
 
             <!-- @TODO; !!! -->
-            <div class="mb-4 text-center">
-                <sapn class="text-neutral-500 text-xs">работает на</sapn> <a class="text-neutral-800 hover:text-orange-500 text-xs" href="https://portrate.io">portrate.io</a>
+            <div class="px-4 py-6 text-center">
+                <sapn class="text-neutral-500 text-xs">работает на</sapn> <a class="text-orange-600 hover:text-orange-500 text-xs" href="https://portrate.io">portrate.io</a>
             </div>
         </div>
     </body>

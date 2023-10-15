@@ -2,9 +2,9 @@
 {% load static %}
 
 {% block content %}
-<h1 class="font-bold py-5 text-2xl text-center text-neutral-700">Вам понравилось обслуживание?</h1>
-<div class="flex flex-col gap-4 p-4">
-    <a class="bg-[#28b6b2] p-3 rounded-lg text-lg text-center text-white" href="{% url 'feedback_request' website_id=website.id %}">Все отлично</a>
-    <a class="bg-neutral-200 p-3 rounded-lg text-lg text-center text-neutral-700" href="{% url 'feedback_create' website_id=website.id %}">Есть претензия</a>
+<h1 class="font-bold py-6 text-2xl text-center text-neutral-700">Вам понравилось обслуживание?</h1>
+<div class="flex flex-col gap-2 p-4">
+    <a class="bg-lime-600 py-2 px-4 rounded-xl text-center text-lg text-white" href="{% url 'feedback_request' website_id=website.id %}">Все отлично</a>
+    <a class="bg-neutral-200 py-2 px-4 rounded-xl text-center text-sm text-neutral-700" href="{% url 'feedback_create' website_id=website.id %}">Есть претензия</a>
 </div>
 {% endblock %}
