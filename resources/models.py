@@ -136,7 +136,7 @@ class Website(models.Model):
         verbose_name='группа'
     )
 
-    branch = models.ForeignKey(
+    branch = models.OneToOneField(
         'Branch',
         on_delete=models.CASCADE,
         verbose_name='филиал'
@@ -154,11 +154,6 @@ class Website(models.Model):
     @property
     def phone(self):
         return WebsiteContact.objects.filter(website=self, platform='PHONE').first
-
-    # @TODO: N+1, использовать только для одной записи
-    @property
-    def website(self):
-        return WebsiteUrl.objects.filter(website=self, platform='WEBSITE').first
 
     # @TODO: N+1, использовать только для одной записи
     @property
@@ -223,17 +218,22 @@ class Website(models.Model):
     # @TODO: N+1, использовать только для одной записи
     @property
     def images(self):
-        return WebsiteImage.objects.filter(website=self, is_logo=False).order_by('sort').all
+        return self.websiteimage_set.filter(is_logo=False).order_by('sort').all()
 
     # @TODO: N+1, использовать только для одной записи
     @property
     def contacts(self):
-        return WebsiteContact.objects.filter(website=self).all
+        return self.websitecontact_set.all()
 
     # @TODO: N+1, использовать только для одной записи
     @property
     def urls(self):
-        return WebsiteUrl.objects.filter(website=self).all
+        return self.websiteurl_set.all()
+
+    # @TODO: N+1, использовать только для одной записи
+    @property
+    def cards(self):
+        return self.websitecard_set.all()
 
 
 class WebsiteImage(models.Model):
@@ -364,6 +364,14 @@ class WebsiteCard(models.Model):
         GOOGLE = 'GOOGLE'
         GIS = 'GIS'
         MAPSME = 'MAPSME'
+        DIKIDI = 'DIKIDI'
+        RESTOCLUB = 'RESTOCLUB'
+        TRIPADVISOR = 'TRIPADVISOR'
+        PRODOCTOROV = 'PRODOCTOROV'
+        FLAMP = 'FLAMP'
+        ZOON = 'ZOON'
+        OTZOVIK = 'OTZOVIK'
+        IRECOMMEND = 'IRECOMMEND'
 
     platform = models.CharField(
         choices=Platform.choices,
