@@ -3,6 +3,22 @@ from django.db import models
 from resources.models import Branch
 
 
+class NegativeMessageTag(models.Model):
+    class Meta:
+        db_table = 'feedback_negative_message_tag'
+        verbose_name = 'тег негативного сообщения'
+        verbose_name_plural = 'теги негативного сообщения'
+
+    text = models.CharField(
+        blank=True,
+        max_length=255,
+        verbose_name='текст тега'
+    )
+
+    def __str__(self):
+        return self.text
+
+
 class NegativeMessage(models.Model):
     class Meta:
         db_table = 'feedback_negative_message'
@@ -23,22 +39,29 @@ class NegativeMessage(models.Model):
 
     phone = models.CharField(
         max_length=255,
-        verbose_name='Контактный телефон'
+        verbose_name='контактный телефон'
     )
 
     text = models.TextField(
-        verbose_name='Текст сообщения'
+        blank=True,
+        verbose_name='текст сообщения'
+    )
+
+    negative_message_tag = models.ManyToManyField(
+        NegativeMessageTag,
+        blank=True,
+        verbose_name='теги негативных сообщений'
     )
 
     def __str__(self):
-        return self.name
+        return self.phone
 
 
 class NegativeReview(models.Model):
     class Meta:
         db_table = 'feedback_negative_review'
-        verbose_name = 'Негативный отзыв'
-        verbose_name_plural = 'Негативные отзывы'
+        verbose_name = 'негативный отзыв'
+        verbose_name_plural = 'негативные отзывы'
 
     group = models.ForeignKey(
         Group,
@@ -60,8 +83,8 @@ class NegativeReview(models.Model):
 class PositiveReview(models.Model):
     class Meta:
         db_table = 'feedback_positive_review'
-        verbose_name = 'Позитивный отзыв'
-        verbose_name_plural = 'Позитивные отзывы'
+        verbose_name = 'позитивный отзыв'
+        verbose_name_plural = 'позитивные отзывы'
 
     group = models.ForeignKey(
         Group,
