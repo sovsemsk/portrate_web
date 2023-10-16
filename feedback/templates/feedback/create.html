@@ -2,26 +2,26 @@
 {% load static %}
 
 {% block content %}
-<h1 class="font-bold px-4 pt-6 text-2xl text-center text-neutral-700">Написать директору</h1>
-<div class="flex flex-col p-4 text-neutral-700">
+<h1 class="font-bold px-4 py-5 text-2xl text-center text-neutral-700">Написать директору</h1>
+
+<div class="px-4 pb-4 text-neutral-700">
     Расскажите что вам не понравилось и что мы можем сделать лучше.
     Директор накажет виновных, свяжется с вами и предложит решение проблемы.
 </div>
-<div class="flex flex-col gap-2 px-4 pb-4">
-    <h5 class="font-bold text-neutral-700">Что именно вам не понравилось?</h5>
-    <div class="flex flex-wrap gap-2">
-        <a class="bg-lime-600 px-2 py-1 rounded-lg text-white text-sm" href="#">Нагрубили</a>
-        <a class="bg-neutral-200 px-2 py-1 rounded-lg text-sm" href="#">Сделали не то</a>
-        <a class="bg-neutral-200 px-2 py-1 rounded-lg text-sm" href="#">Цена</a>
-        <a class="bg-neutral-200 px-2 py-1 rounded-lg text-sm" href="#">Плохое качество</a>
-        <a class="bg-neutral-200 px-2 py-1 rounded-lg text-sm" href="#">Долго</a>
+
+<form class="px-4 pb-4">
+    <h5 class="font-bold pb-1 text-neutral-700">Что именно вам не понравилось?</h5>
+    <div class="flex flex-wrap gap-2 pb-2">
+        <a class="bg-neutral-200 px-2 py-1 rounded-lg text-neutral-700 text-sm" href="#">Нагрубили</a>
+        <a class="bg-neutral-200 px-2 py-1 rounded-lg text-neutral-700 text-sm" href="#">Сделали не то</a>
+        <a class="bg-neutral-200 px-2 py-1 rounded-lg text-neutral-700 text-sm" href="#">Цена</a>
+        <a class="bg-neutral-200 px-2 py-1 rounded-lg text-neutral-700 text-sm" href="#">Плохое качество</a>
+        <a class="bg-neutral-200 px-2 py-1 rounded-lg text-neutral-700 text-sm" href="#">Долго</a>
     </div>
-    <textarea class="border border-neutral-200 px-2 py-1 rounded-lg resize-none text-sm placeholder:text-neutral-400" rows="4" placeholder="Расскажите подробнее, но достаточно и отмеченных тегов"></textarea>
-    <div>
-    <h5 class="font-bold text-neutral-700">Оставьте ваш контакт</h5>
-    <input type="text" class="w-full border border-neutral-200 px-2 py-1 rounded-lg resize-none text-sm placeholder:text-neutral-400" rows="4" placeholder="+7"></textarea>
-    </div>
-    <a class="bg-lime-600 py-2 px-4 rounded-lg text-center text-lg text-white" href="{% url 'feedback_create' website_id=website.id %}">Отправить</a>
-</div>
+    <textarea class="border border-neutral-200 focus:border-orange-300 focus:ring-0 px-2 py-1 rounded-lg resize-none text-sm placeholder:text-neutral-400 w-full" rows="4" placeholder="Расскажите подробнее, но достаточно и отмеченных тегов"></textarea>
+    <h5 class="font-bold pb-1 text-neutral-700">Оставьте ваш контакт</h5>
+    <input class="border border-neutral-200 focus:border-orange-300 focus:ring-0 px-2 py-1 rounded text-sm placeholder:text-neutral-400 w-full" type="text" rows="4" placeholder="+7"/>
+    <button class="bg-lime-600 mt-4 py-2 px-4 rounded-lg text-center text-lg text-white w-full" href="{% url 'feedback_create' website_id=website.id %}">Отправить</button>
+</form>
 
 {% endblock %}

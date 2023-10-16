@@ -6,15 +6,15 @@
 <div class="flex flex-col">
     {% for card in website.cards %}
     <a class="border-t border-neutral-200 last:border-b flex py-2 px-4 items-center" href="{{ card.value }}" target="_blank">
-        <div class=""></div>
+        <div class="pr-2">
+            <img class="h-8 w-8" src="{{ website.logo.file.url }}" alt="{{ website.name }}">
+        </div>
         <div class="">Оценить на {{ card.name }}</div>
         <div class="material-symbols-outlined ml-auto text-neutral-400 text-[1.2rem]">arrow_outward</div>
     </a>
     {% endfor %}
 </div>
 <div class="p-4">
-
-<a class="block bg-neutral-200 py-2 px-4 rounded-lg text-center text-sm text-neutral-700" href="{% url 'feedback_create' website_id=website.id %}">Связаться с администратором</a>
+    <a class="block bg-neutral-200 py-2 px-4 rounded-lg text-center text-sm text-neutral-700" href="{% url 'feedback_create' website_id=website.id %}">Связаться с администратором</a>
 </div>
-
 {% endblock %}

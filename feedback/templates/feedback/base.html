@@ -15,11 +15,11 @@
         </style>
 	</head>
 	<body class="bg-neutral-200 m-0">
-        <div class="max-w-sm mx-auto">
+        <div class="mx-auto max-w-sm">
             <!-- Логотип-->
             {% if website.logo.file %}
-            <div class="pt-32 z-10">
-                <img class="h-24 overflow-hidden mx-auto rounded-lg shadow-black/5 shadow-lg w-24" src="{{ website.logo.file.url }}" alt="{{ website.name }}">
+            <div class="pt-16 z-10">
+                <img class="h-24 mx-auto overflow-hidden rounded-lg shadow-black/5 shadow-lg w-24" src="{{ website.logo.file.url }}" alt="{{ website.name }}">
             </div>
             {% endif %}
             <div class="px-4 -mt-6 z-1">
