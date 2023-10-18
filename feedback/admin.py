@@ -3,7 +3,7 @@ from .models import NegativeMessage, NegativeMessageTag, NegativeReview, Positiv
 
 
 class NegativeMessageAdmin(admin.ModelAdmin):
-    list_display = ['group', 'branch', 'phone', 'text']
+    list_display = ['created_at', 'group', 'branch', 'phone', 'text']
     fields = ['group', 'branch', 'phone', 'text', 'negative_message_tag']
 
 

@@ -25,6 +25,11 @@ class NegativeMessage(models.Model):
         verbose_name = 'негативное сообщение'
         verbose_name_plural = 'негативные сообщения'
 
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name='дата создания'
+    )
+
     group = models.ForeignKey(
         Group,
         on_delete=models.CASCADE,

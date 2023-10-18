@@ -9,18 +9,15 @@
     Директор накажет виновных, свяжется с вами и предложит решение проблемы.
 </div>
 
-
-<form class="px-4 pb-4">
+<form class="px-4 pb-4" action="" method="post">
+    {% csrf_token %}
     <h5 class="font-bold pb-1 text-neutral-700">Что именно вам не понравилось?</h5>
-    <div class="flex flex-wrap gap-2 pb-2">
-        {% for tag in tags %}
-        <a class="bg-neutral-200 px-2 py-1 rounded-lg text-neutral-700 text-sm" href="#" onclick="onTagClick(event, this)">{{ tag.text }}</a>
-        {% endfor %}
-    </div>
-    <textarea class="border border-neutral-200 focus:border-orange-300 focus:ring-0 px-2 py-1 rounded-lg resize-none text-sm placeholder:text-neutral-400 w-full" rows="4" placeholder="Расскажите подробнее, но достаточно и отмеченных тегов"></textarea>
+    {{ form.negative_message_tag }}
+    <!-- <a class="bg-neutral-200 px-2 py-1 rounded-lg text-neutral-700 text-sm" href="#" onclick="onTagClick(event, this)">{{ tag.text }}</a> -->
+    {{ form.text }}
     <h5 class="font-bold pb-1 text-neutral-700">Оставьте ваш контакт</h5>
-    <input class="border border-neutral-200 focus:border-orange-300 focus:ring-0 px-2 py-1 rounded text-sm placeholder:text-neutral-400 w-full" type="text" rows="4" placeholder="+7"/>
-    <button class="bg-lime-600 mt-4 py-2 px-4 rounded-lg text-center text-lg text-white w-full" href="{% url 'feedback_create' website_id=website.id %}">Отправить</button>
+    {{ form.phone }}
+    <button class="bg-lime-600 mt-4 py-2 px-4 rounded-lg text-center text-lg text-white w-full" href="{% url 'feedback_create' website_id=website.id %}" type="submit">Отправить</button>
 </form>
 
 <script>
@@ -30,5 +27,16 @@ const onTagClick = (event, tag) => {
     tag.classList.toggle('bg-lime-600');
     tag.classList.toggle('text-white');
 };
+
+document.querySelectorAll('.tag_widget input[type=checkbox]')
+        .forEach(el => el.addEventListener('click', event => {
+            // event.preventDefault();
+            console.log(event.target.parentElement)
+            // event.target.parentElement.classList.toggle('bg-neutral-200');
+            event.target.parentElement.classList.toggle('bg-lime-600');
+            event.target.parentElement.classList.toggle('text-white');
+        }));
+
 </script>
+
 {% endblock %}
