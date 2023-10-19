@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @layer components {
+
     .char_field_widget, .text_area_widget {
         @apply border border-neutral-200 focus:border-orange-300 focus:ring-0 px-2 py-1 resize-none rounded text-sm placeholder:text-neutral-400 w-full;
     }
@@ -11,9 +12,8 @@
         @apply flex flex-wrap gap-2 pb-2;
 
         > div {
-            @apply bg-neutral-200 overflow-hidden rounded-lg;
             label {
-                @apply px-2 py-1 relative text-sm;
+                @apply bg-neutral-200 cursor-pointer px-2 py-1 relative rounded-lg text-sm;
 
                 input {
                     @apply absolute top-0 opacity-0;

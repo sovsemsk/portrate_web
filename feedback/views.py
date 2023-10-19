@@ -1,15 +1,16 @@
-from django.shortcuts import render, redirect
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render, redirect
+from django.views.decorators.http import require_http_methods
 from resources.models import Website
-from .models import NegativeMessageTag, NegativeMessage
 from .forms import NegativeMessageForm
 
 
+@require_http_methods(['GET'])
 def rate(request, website_id):
     website = get_object_or_404(Website, id=website_id)
-    return render(request, 'feedback/rate.html', {'website': website})
+    return (render(request, 'feedback/rate.html', {'website': website}))
 
 
+@require_http_methods(['GET', 'POST'])
 def create(request, website_id):
     website = get_object_or_404(Website, id=website_id)
 
@@ -17,17 +18,18 @@ def create(request, website_id):
         form = NegativeMessageForm(request.POST)
 
         if form.is_valid():
-            # @TODO: Перенести добавление группы в форму и сохранять через форму
-            negative_message = NegativeMessage(
-                group_id=website.group.id, branch_id=website.branch.id, phone=form['phone'].value(), text=form['text'].value()
-            )
-            negative_message.save()
-            return redirect(f'/~{website_id}')
+            form.instance.group = website.group
+            form.instance.branch = website.branch
+            form.save()
+            return (redirect(f'/~{website_id}'))
+
     else:
         form = NegativeMessageForm()
-        return render(request, 'feedback/create.html', {'website': website, 'form': form})
+
+    return (render(request, 'feedback/create.html', {'website': website, 'form': form}))
 
 
+@require_http_methods(['GET'])
 def request(request, website_id):
     website = get_object_or_404(Website, id=website_id)
-    return render(request, 'feedback/request.html', {'website': website})
+    return (render(request, 'feedback/request.html', {'website': website}))

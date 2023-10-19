@@ -8,7 +8,9 @@
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">        
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap">
-		{% tailwind_css %}
+        <script src="https://unpkg.com/imask"></script>
+		
+        {% tailwind_css %}
         <style>
             .hide-scrollbar::-webkit-scrollbar {display: none;}
             .hide-scrollbar {-ms-overflow-style: none; scrollbar-width: none;}
@@ -18,9 +20,9 @@
         <div class="mx-auto max-w-sm">
             <!-- Логотип-->
             {% if website.logo.file %}
-            <div class="pt-16 z-10">
+            <a class="block pt-16 z-10" href="{% url 'feedback_rate' website_id=website.id %}">
                 <img class="h-24 mx-auto overflow-hidden rounded-lg shadow-black/5 shadow-lg w-24" src="{{ website.logo.file.url }}" alt="{{ website.name }}">
-            </div>
+            </a>
             {% endif %}
             <div class="px-4 -mt-6 z-1">
                 <div class="bg-white rounded-2xl shadow-black/5 shadow-lg">

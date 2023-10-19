@@ -9,30 +9,35 @@
     Директор накажет виновных, свяжется с вами и предложит решение проблемы.
 </div>
 
-<form class="px-4 pb-4" action="" method="post">
+<form class="px-4 pb-4" action="" method="post" novalidate>
     {% csrf_token %}
+
+    <!-- Теги -->
     <h5 class="font-bold pb-1 text-neutral-700">Что именно вам не понравилось?</h5>
     {{ form.negative_message_tag }}
-    <!-- <a class="bg-neutral-200 px-2 py-1 rounded-lg text-neutral-700 text-sm" href="#" onclick="onTagClick(event, this)">{{ tag.text }}</a> -->
+
+    <!-- Комментарий -->
     {{ form.text }}
-    <h5 class="font-bold pb-1 text-neutral-700">Оставьте ваш контакт</h5>
+    
+    <!-- Контактный телефон -->
+    <h5 class="font-bold pb-1 text-neutral-700">Оставьте ваш контакт <span class="text-rose-600">*</span></h5>
     {{ form.phone }}
-    <button class="bg-lime-600 mt-4 py-2 px-4 rounded-lg text-center text-lg text-white w-full" href="{% url 'feedback_create' website_id=website.id %}" type="submit">Отправить</button>
+    {% if form.phone.errors %}
+    <div class="text-xs text-rose-600 pt-1">Необходимо заполнить контактный телефон </div>
+    {% endif %}
+    
+    <button class="bg-lime-600 active:bg-lime-700 mt-4 py-2 px-4 rounded-lg text-center text-lg text-white w-full" href="{% url 'feedback_create' website_id=website.id %}" type="submit">Отправить</button>
 </form>
 
 <script>
-const onTagClick = (event, tag) => {
-    event.preventDefault();
-    tag.classList.toggle('bg-neutral-200');
-    tag.classList.toggle('bg-lime-600');
-    tag.classList.toggle('text-white');
-};
+
+IMask(
+    document.getElementById('id_phone'),
+    {mask: '+7 000 000-00-00'}
+);
 
 document.querySelectorAll('.tag_widget input[type=checkbox]')
         .forEach(el => el.addEventListener('click', event => {
-            // event.preventDefault();
-            console.log(event.target.parentElement)
-            // event.target.parentElement.classList.toggle('bg-neutral-200');
             event.target.parentElement.classList.toggle('bg-lime-600');
             event.target.parentElement.classList.toggle('text-white');
         }));
