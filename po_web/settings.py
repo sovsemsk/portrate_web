@@ -28,7 +28,8 @@ INSTALLED_APPS = [
     'integrations',
     'mailing',
     'parsing',
-    'resources'
+    'resources',
+    'webhooks'
 ]
 
 MIDDLEWARE = [
@@ -81,7 +82,13 @@ AUTH_PASSWORD_VALIDATORS = [
 DEBUG = json.loads(str(os.getenv('DEBUG')).lower())
 
 #
-ALLOWED_HOSTS = ['geo.portrate.io', '91.201.53.6', '127.0.0.1']
+ALLOWED_HOSTS = [
+    'geo.portrate.io',
+    '91.201.53.6',
+    '127.0.0.1',
+    '1f7d-178-66-159-115.ngrok-free.app'
+]
+
 INTERNAL_IPS = ['127.0.0.1']
 
 # SECURITY WARNING: keep the secret key used in production secret!

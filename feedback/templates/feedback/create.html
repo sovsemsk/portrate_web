@@ -30,18 +30,22 @@
 </form>
 
 <script>
+    IMask(
+        document.getElementById('id_phone'),
+        {mask: '+7 000 000-00-00'}
+    );
 
-IMask(
-    document.getElementById('id_phone'),
-    {mask: '+7 000 000-00-00'}
-);
-
-document.querySelectorAll('.tag_widget input[type=checkbox]')
-        .forEach(el => el.addEventListener('click', event => {
-            event.target.parentElement.classList.toggle('bg-lime-600');
-            event.target.parentElement.classList.toggle('text-white');
-        }));
-
+    document.querySelectorAll('.tag_widget input[type=checkbox]')
+            .forEach(el => {
+                if(el.checked){
+                    el.parentElement.classList.add('bg-lime-600');
+                    el.parentElement.classList.add('text-white');
+                }
+                el.addEventListener('click', event => {
+                    event.target.parentElement.classList.toggle('bg-lime-600');
+                    event.target.parentElement.classList.toggle('text-white');
+                })
+            });
 </script>
 
 {% endblock %}

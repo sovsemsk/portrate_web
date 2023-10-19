@@ -1,5 +1,6 @@
-from django.contrib.auth.models import Group
+from django.utils.crypto import get_random_string
 from django.db import models
+from django.contrib.auth.models import Group
 
 
 class Branch(models.Model):
@@ -16,6 +17,12 @@ class Branch(models.Model):
         Group,
         on_delete=models.CASCADE,
         verbose_name='группа'
+    )
+
+    api_secret = models.CharField(
+        verbose_name='API ключ',
+        default=get_random_string(length=8),
+        # unique=True
     )
 
     def __str__(self):
