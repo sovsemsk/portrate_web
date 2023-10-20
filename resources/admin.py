@@ -5,6 +5,8 @@ from .models import Branch, Website, WebsiteImage, WebsiteContact, WebsiteUrl, W
 class BranchAdmin(admin.ModelAdmin):
     list_display = ['group', 'name']
     list_filter = ['group__name']
+    fields = ['group', 'name', 'telegram_subscribe_link']
+    readonly_fields = ['telegram_subscribe_link']
 
 
 class WebsiteImageInline(admin.StackedInline):

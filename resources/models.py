@@ -22,11 +22,19 @@ class Branch(models.Model):
     api_secret = models.CharField(
         verbose_name='API ключ',
         default=get_random_string(length=8),
-        # unique=True
+        unique=True
     )
 
+    # Ссылка подписки на оповещения
+    @property
+    def telegram_subscribe_link(self):
+        return (f'https://t.me/portrate_notify_bot?start={self.api_secret}')
+
+    # Название поля для админки
+    telegram_subscribe_link.fget.short_description = 'Ссылка подписки на оповещения telegram'
+
     def __str__(self):
-        return f'{self.group.name} / {self.name}'
+        return (f'{self.group.name} / {self.name}')
 
 
 class Website(models.Model):
@@ -149,9 +157,6 @@ class Website(models.Model):
         verbose_name='филиал'
     )
 
-    def __str__(self):
-        return f'{self.group.name} / {self.branch.name}'
-
     # @TODO: N+1, использовать только для одной записи
     @property
     def logo(self):
@@ -241,6 +246,9 @@ class Website(models.Model):
     @property
     def cards(self):
         return self.websitecard_set.all()
+
+    def __str__(self):
+        return f'{self.group.name} / {self.branch.name}'
 
 
 class WebsiteImage(models.Model):

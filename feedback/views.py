@@ -14,10 +14,10 @@ def rate(request, website_id):
 def create(request, website_id):
     website = get_object_or_404(Website, id=website_id)
 
-    if request.method == 'POST':
+    if (request.method == 'POST'):
         form = NegativeMessageForm(request.POST)
 
-        if form.is_valid():
+        if (form.is_valid()):
             form.instance.group = website.group
             form.instance.branch = website.branch
             form.save()
