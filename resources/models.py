@@ -1,6 +1,25 @@
-from django.utils.crypto import get_random_string
 from django.db import models
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import User
+
+
+class Company(models.Model):
+    class Meta:
+        db_table = 'resources_company'
+        verbose_name = 'сеть'
+        verbose_name_plural = 'сети'
+
+    user = models.ManyToManyField(
+        User,
+        blank=True,
+        verbose_name='пользователи'
+    )
+
+    name = models.CharField(
+        verbose_name='название'
+    )
+
+    def __str__(self):
+        return self.name
 
 
 class Branch(models.Model):
@@ -9,32 +28,18 @@ class Branch(models.Model):
         verbose_name = 'филиал'
         verbose_name_plural = 'филиалы'
 
+    company = models.ForeignKey(
+        'Company',
+        on_delete=models.CASCADE,
+        verbose_name='сеть'
+    )
+
     name = models.CharField(
         verbose_name='название'
     )
 
-    group = models.ForeignKey(
-        Group,
-        on_delete=models.CASCADE,
-        verbose_name='группа'
-    )
-
-    api_secret = models.CharField(
-        verbose_name='API ключ',
-        default=get_random_string(length=8),
-        unique=True
-    )
-
-    # Ссылка подписки на оповещения
-    @property
-    def telegram_subscribe_link(self):
-        return (f'https://t.me/portrate_notify_bot?start={self.api_secret}')
-
-    # Название поля для админки
-    telegram_subscribe_link.fget.short_description = 'Ссылка подписки на оповещения telegram'
-
     def __str__(self):
-        return (f'{self.group.name} / {self.name}')
+        return f'{self.company} - {self.name}'
 
 
 class Website(models.Model):
@@ -145,10 +150,10 @@ class Website(models.Model):
         verbose_name='url кнопки действия'
     )
 
-    group = models.ForeignKey(
-        Group,
+    company = models.ForeignKey(
+        'Company',
         on_delete=models.CASCADE,
-        verbose_name='группа'
+        verbose_name='сеть'
     )
 
     branch = models.OneToOneField(
@@ -248,7 +253,7 @@ class Website(models.Model):
         return self.websitecard_set.all()
 
     def __str__(self):
-        return f'{self.group.name} / {self.branch.name}'
+        return self.name
 
 
 class WebsiteImage(models.Model):
@@ -413,22 +418,106 @@ class WebsiteCard(models.Model):
         return f'{self.website} / {self.name}'
 
 
-class WebsitePage(models.Model):
+class NegativeMessageTag(models.Model):
     class Meta:
-        db_table = 'resources_website_page'
-        verbose_name = 'страница вебсайта'
-        verbose_name_plural = 'страницы вебсайта'
+        db_table = 'resources_negative_message_tag'
+        verbose_name = 'тег негативного сообщения'
+        verbose_name_plural = 'теги негативного сообщения'
 
-    name = models.CharField(
-        verbose_name='название'
+    text = models.CharField(
+        blank=True,
+        max_length=255,
+        verbose_name='текст тега'
     )
 
-    value = models.TextField(
-        verbose_name='значение'
+    def __str__(self):
+        return self.text
+
+
+class NegativeMessage(models.Model):
+    class Meta:
+        db_table = 'resources_negative_message'
+        verbose_name = 'негативное сообщение'
+        verbose_name_plural = 'негативные сообщения'
+
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name='дата создания'
     )
 
-    website = models.ForeignKey(
-        'Website', on_delete=models.CASCADE, verbose_name='вебсайт')
+    company = models.ForeignKey(
+        Company,
+        on_delete=models.CASCADE,
+        verbose_name='сеть'
+    )
+
+    branch = models.ForeignKey(
+        Branch,
+        on_delete=models.CASCADE,
+        verbose_name='филиал'
+    )
+
+    phone = models.CharField(
+        max_length=255,
+        verbose_name='контактный телефон'
+    )
+
+    text = models.TextField(
+        blank=True,
+        verbose_name='текст сообщения'
+    )
+
+    negative_message_tag = models.ManyToManyField(
+        NegativeMessageTag,
+        blank=True,
+        verbose_name='теги негативных сообщений'
+    )
+
+    def __str__(self):
+        return self.phone
+
+
+class NegativeReview(models.Model):
+    class Meta:
+        db_table = 'resources_negative_review'
+        verbose_name = 'негативный отзыв'
+        verbose_name_plural = 'негативные отзывы'
+
+    company = models.ForeignKey(
+        Company,
+        on_delete=models.CASCADE
+    )
+
+    branch = models.ForeignKey(
+        Branch,
+        on_delete=models.CASCADE
+    )
+
+    name = models.CharField()
+    text = models.TextField()
+
+    def __str__(self):
+        return self.name
+
+
+class PositiveReview(models.Model):
+    class Meta:
+        db_table = 'resources_positive_review'
+        verbose_name = 'позитивный отзыв'
+        verbose_name_plural = 'позитивные отзывы'
+
+    company = models.ForeignKey(
+        Company,
+        on_delete=models.CASCADE
+    )
+
+    branch = models.ForeignKey(
+        Branch,
+        on_delete=models.CASCADE
+    )
+
+    name = models.CharField()
+    text = models.TextField()
 
     def __str__(self):
         return self.name

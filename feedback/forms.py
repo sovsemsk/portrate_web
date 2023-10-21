@@ -1,5 +1,5 @@
 from django import forms
-from .models import NegativeMessage, NegativeMessageTag
+from resources.models import NegativeMessage, NegativeMessageTag
 
 
 class NegativeMessageForm(forms.ModelForm):

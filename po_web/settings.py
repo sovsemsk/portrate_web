@@ -13,24 +13,26 @@ load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 INSTALLED_APPS = [
+
+    # Пакеты
     'tailwind',
     'theme',
     'django_browser_reload',
     'admin_interface',
     'colorfield',
+
+    # Django
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'events',
-    'feedback',
-    'integrations',
-    'mailing',
-    'parsing',
-    'resources',
-    'webhooks'
+
+    # Приложения
+    'extensions.apps.ExtensionsConfig',
+    'resources.apps.ResourcesConfig',
+    'feedback.apps.FeedbackConfig'
 ]
 
 MIDDLEWARE = [

@@ -21,7 +21,7 @@ def create(request, website_id):
         form = NegativeMessageForm(request.POST)
 
         if form.is_valid():
-            form.instance.group = website.group
+            form.instance.company = website.company
             form.instance.branch = website.branch
             form.save()
             return redirect(f'/~{website_id}')

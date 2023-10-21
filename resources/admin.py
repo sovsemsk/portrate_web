@@ -1,12 +1,18 @@
 from django.contrib import admin
-from .models import Branch, Website, WebsiteImage, WebsiteContact, WebsiteUrl, WebsiteCard, WebsitePage
+from .models import Company, Branch, Website, WebsiteImage, WebsiteContact, WebsiteUrl, WebsiteCard, NegativeMessage, NegativeMessageTag, NegativeReview, PositiveReview
 
 
-class BranchAdmin(admin.ModelAdmin):
-    list_display = ['group', 'name']
-    list_filter = ['group__name']
-    fields = ['group', 'name', 'telegram_subscribe_link']
-    readonly_fields = ['telegram_subscribe_link']
+class BranchAdminInline(admin.StackedInline):
+    model = Branch
+    extra = 0
+    fields = ['name', 'company']
+
+
+@admin.register(Company)
+class CompanyAdmin(admin.ModelAdmin):
+    list_display = ['name']
+    fields = ['name', 'user']
+    inlines = [BranchAdminInline]
 
 
 class WebsiteImageInline(admin.StackedInline):
@@ -33,21 +39,16 @@ class WebsiteCardInline(admin.StackedInline):
     fields = ['platform', 'name', 'value']
 
 
-class WebsitePageInline(admin.StackedInline):
-    model = WebsitePage
-    extra = 0
-    fields = ['platform', 'name', 'value']
-
-
+@admin.register(Website)
 class WebsiteAdmin(admin.ModelAdmin):
-    list_display = ['group', 'branch',]
-    list_filter = ['group__name',]
+    list_display = ['branch', 'name']
+    list_filter = ['branch__name']
     fieldsets = [
         (
             'НАСТРОЙКИ',
             {
                 'classes': ['collapse'],
-                'fields': ['group', 'branch', 'path', 'is_published',],
+                'fields': ['company', 'branch', 'path', 'is_published',],
             },
         ),
         (
@@ -89,10 +90,27 @@ class WebsiteAdmin(admin.ModelAdmin):
         WebsiteImageInline,
         WebsiteContactInline,
         WebsiteUrlInline,
-        WebsiteCardInline,
-        # WebsitePageInline
+        WebsiteCardInline
     ]
 
 
-admin.site.register(Branch, BranchAdmin)
-admin.site.register(Website, WebsiteAdmin)
+@admin.register(NegativeMessage)
+class NegativeMessageAdmin(admin.ModelAdmin):
+    list_display = ['created_at', 'company', 'branch', 'phone', 'text']
+    fields = ['company', 'branch', 'phone', 'text', 'negative_message_tag']
+
+
+@admin.register(NegativeMessageTag)
+class NegativeMessageTagAdmin(admin.ModelAdmin):
+    list_display = ['text']
+    fields = ['text']
+
+
+@admin.register(NegativeReview)
+class NegativeReviewAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(PositiveReview)
+class PositiveReviewAdmin(admin.ModelAdmin):
+    pass
