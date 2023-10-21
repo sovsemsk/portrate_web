@@ -2,6 +2,7 @@ import os
 import json
 from pathlib import Path
 from dotenv import load_dotenv
+from telegram import Bot
 
 load_dotenv()
 
@@ -86,13 +87,13 @@ ALLOWED_HOSTS = [
     'geo.portrate.io',
     '91.201.53.6',
     '127.0.0.1',
-    '1f7d-178-66-159-115.ngrok-free.app'
+    'c2ed-178-66-159-115.ngrok-free.app'
 ]
 
 INTERNAL_IPS = ['127.0.0.1']
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-r$1_5!x!*_-vc&d7$usb94$pm)2h=q0+q))5wm96&#78l8#mn0'
+SECRET_KEY = '$1_5!x!*_-vc&d7$usb94$pm)2h=q0+q))5wm96&#78l8#mn0'
 ROOT_URLCONF = 'po_web.urls'
 WSGI_APPLICATION = 'po_web.wsgi.application'
 
@@ -120,3 +121,7 @@ SILENCED_SYSTEM_CHECKS = ['security.W019']
 
 #
 TAILWIND_APP_NAME = 'theme'
+
+# @TODO: Сделать по красоте (а может и хуй с ним)
+TELEGRAM_BOT_API_SECRET = '6949167498:AAE0xCjrGLn18tQEsDjSZpfLynSlp37BtOM'
+TELEGRAM_BOT = Bot(TELEGRAM_BOT_API_SECRET)

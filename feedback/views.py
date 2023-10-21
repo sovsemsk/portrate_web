@@ -1,35 +1,38 @@
+from django.conf import settings
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views.decorators.http import require_http_methods
 from resources.models import Website
-from .forms import NegativeMessageForm
+from feedback.forms import NegativeMessageForm
+
+from telegram import Bot
 
 
 @require_http_methods(['GET'])
 def rate(request, website_id):
     website = get_object_or_404(Website, id=website_id)
-    return (render(request, 'feedback/rate.html', {'website': website}))
+    return render(request, 'feedback/rate.html', {'website': website})
 
 
 @require_http_methods(['GET', 'POST'])
 def create(request, website_id):
     website = get_object_or_404(Website, id=website_id)
 
-    if (request.method == 'POST'):
+    if request.method == 'POST':
         form = NegativeMessageForm(request.POST)
 
-        if (form.is_valid()):
+        if form.is_valid():
             form.instance.group = website.group
             form.instance.branch = website.branch
             form.save()
-            return (redirect(f'/~{website_id}'))
+            return redirect(f'/~{website_id}')
 
     else:
         form = NegativeMessageForm()
 
-    return (render(request, 'feedback/create.html', {'website': website, 'form': form}))
+    return render(request, 'feedback/create.html', {'website': website, 'form': form})
 
 
 @require_http_methods(['GET'])
 def request(request, website_id):
     website = get_object_or_404(Website, id=website_id)
-    return (render(request, 'feedback/request.html', {'website': website}))
+    return render(request, 'feedback/request.html', {'website': website})
