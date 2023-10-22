@@ -32,7 +32,8 @@ INSTALLED_APPS = [
     # Приложения
     'extensions.apps.ExtensionsConfig',
     'resources.apps.ResourcesConfig',
-    'feedback.apps.FeedbackConfig'
+    'feedback.apps.FeedbackConfig',
+    'website.apps.WebsiteConfig',
 ]
 
 MIDDLEWARE = [
