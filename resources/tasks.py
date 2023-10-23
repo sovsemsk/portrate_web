@@ -30,10 +30,13 @@ def notify_negative_message(negative_message_id):
         bot = Bot(settings.TELEGRAM_BOT_API_SECRET)
         asyncio.run(bot.send_message(
             user.profile.telegram_id, f'''Негативное сообщение в Портрете.
+
 Теги:
 {tags[:len(tags) - 2]}
+
 Телефон:
 {negative_message.phone}
+
 Комментарий:
 {negative_message.text}'''
         ))

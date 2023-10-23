@@ -39,8 +39,11 @@ def webhooks_telegram_update(request):
     if re.match(r"/stop ([a-z,A-Z,0-9]){8}", message.text):
         return webhooks_telegram_update_stop(message=message)
 
+    return HttpResponse()
 
 # Хендлер команды /start Y1GNT1F5
+
+
 def webhooks_telegram_update_start(message):
     # Получение пользователя
     profile = Profile.objects.filter(
@@ -51,7 +54,7 @@ def webhooks_telegram_update_start(message):
     if not profile:
         return HttpResponse()
 
-    # Создание подписки
+   # Создание подписки
     try:
         profile.telegram_id = message.from_user.id
         profile.save()
