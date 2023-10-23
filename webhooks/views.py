@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 
-from telegram import Update, MessageEntity
+from telegram import Bot, Update, MessageEntity
 
 from extensions.models import Profile
 from resources.tasks import notify_subcrition_created
@@ -17,7 +17,8 @@ from resources.tasks import notify_subcrition_created
 @require_http_methods(['POST'])
 def webhooks_telegram_update(request):
     # @TODO: Добавить авторизацию и проверку запроса от api, это важно
-    update = Update.de_json(json.loads(request.body), settings.TELEGRAM_BOT)
+    bot = Bot(settings.TELEGRAM_BOT_API_SECRET)
+    update = Update.de_json(json.loads(request.body), bot)
     message = update.message or update.edited_message
 
     # Сброс если не команда бота
