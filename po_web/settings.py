@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'resources.apps.ResourcesConfig',
     'feedback.apps.FeedbackConfig',
     'website.apps.WebsiteConfig',
+    'dashboard.apps.DashboardConfig',
 ]
 
 MIDDLEWARE = [

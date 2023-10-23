@@ -13,6 +13,8 @@ def telegram_notify_subscribed(telegram_id):
         telegram_id, 'Вы подписаны на уведомления'
     ))
 
+    return 'Bot message sended'
+
 
 @shared_task
 def telegram_notify_negative_message(negative_message_id):
@@ -21,7 +23,7 @@ def telegram_notify_negative_message(negative_message_id):
     ).first()
 
     if not negative_message:
-        return
+        return 'Negative message not found'
 
     tags = ''
     bot = Bot(settings.TELEGRAM_BOT_API_SECRET)
@@ -45,3 +47,5 @@ def telegram_notify_negative_message(negative_message_id):
 📜 Комментарий:
 {negative_message.text}'''
         ))
+
+        return 'Bot message sended'

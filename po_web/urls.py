@@ -4,9 +4,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('@', include('website.urls')),
+    # path('@', include('website.urls')),
     path('~', include('feedback.urls')),
     path('webhooks/', include('webhooks.urls')),
+    path('dashboard/', include('dashboard.urls')),
     path('admin/', admin.site.urls),
     path('__reload__/', include('django_browser_reload.urls')),
 ]
