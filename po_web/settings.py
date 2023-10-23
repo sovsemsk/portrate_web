@@ -2,7 +2,7 @@ import os
 import json
 from pathlib import Path
 from dotenv import load_dotenv
-from telegram import Bot
+
 
 load_dotenv()
 
@@ -126,9 +126,8 @@ SILENCED_SYSTEM_CHECKS = ['security.W019']
 #
 TAILWIND_APP_NAME = 'theme'
 
-# @TODO: Сделать по красоте (а может и хуй с ним)
+#
 TELEGRAM_BOT_API_SECRET = '6949167498:AAE0xCjrGLn18tQEsDjSZpfLynSlp37BtOM'
-TELEGRAM_BOT = Bot(TELEGRAM_BOT_API_SECRET)
 
 # Celery
 # CELERY_TIMEZONE =

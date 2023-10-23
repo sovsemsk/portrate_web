@@ -1,12 +1,14 @@
 import asyncio
 from celery import shared_task
 from django.conf import settings
+from telegram import Bot
 from resources.models import NegativeMessage
 
 
 @shared_task
 def notify_subcrition_created(telegram_id):
-    asyncio.run(settings.TELEGRAM_BOT.send_message(
+    bot = Bot(settings.TELEGRAM_BOT_API_SECRET)
+    asyncio.run(bot.send_message(
         telegram_id, 'Вы подписаны на уведомления'
     ))
 
@@ -25,8 +27,8 @@ def notify_negative_message(negative_message_id):
         tags += f'{tag.text}, '
 
     for user in negative_message.company.user.exclude(profile__telegram_id=None).all():
-        print(user.profile.telegram_id)
-        asyncio.run(settings.TELEGRAM_BOT.send_message(
+        bot = Bot(settings.TELEGRAM_BOT_API_SECRET)
+        asyncio.run(bot.send_message(
             user.profile.telegram_id, f'''Негативное сообщение в Портрете.
 Теги:
 {tags[:len(tags) - 2]}
