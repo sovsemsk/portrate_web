@@ -22,6 +22,7 @@ class Profile(models.Model):
 
     telegram_id = models.CharField(
         blank=True,
+        null=True,
         verbose_name='telegram ID'
     )
 

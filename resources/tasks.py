@@ -18,6 +18,7 @@ def notify_negative_message(negative_message_id):
         tags += f'{tag.text}, '
 
     for user in negative_message.company.user.exclude(profile__telegram_id=None).all():
+        print(user.profile.telegram_id)
         asyncio.run(settings.TELEGRAM_BOT.send_message(
             user.profile.telegram_id, f'У вас новое негативное сообщение в Портрете\r\nТеги:\r\n{tags}\r\nТелефон: {negative_message.phone}\r\nКомментарий: \r\n{negative_message.text}'
         ))
