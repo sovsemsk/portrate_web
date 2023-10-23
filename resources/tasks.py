@@ -34,7 +34,7 @@ def telegram_notify_negative_message(negative_message_id):
             user.profile.telegram_id, f'''📍 Негативное сообщение в Портрете.
 
 🏪 Филиал:
-{negative_message.branch.company} - {negative_message.branch}
+{negative_message.branch}
 
 📯 Теги:
 {tags[:len(tags) - 2]}
