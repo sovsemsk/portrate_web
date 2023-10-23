@@ -9,6 +9,7 @@ from django.views.decorators.http import require_http_methods
 from telegram import Update, MessageEntity
 
 from extensions.models import Profile
+from resources.tasks import notify_subcrition_created
 
 
 # Вебхук для telegram
@@ -53,6 +54,7 @@ def webhooks_telegram_update_start(message):
     try:
         profile.telegram_id = message.from_user.id
         profile.save()
+        notify_subcrition_created.delay(message.from_user.id)
 
     finally:
         return HttpResponse()

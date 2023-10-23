@@ -5,6 +5,13 @@ from resources.models import NegativeMessage
 
 
 @shared_task
+def notify_subcrition_created(telegram_id):
+    asyncio.run(settings.TELEGRAM_BOT.send_message(
+        telegram_id, 'Вы подписаны на уведомления'
+    ))
+
+
+@shared_task
 def notify_negative_message(negative_message_id):
     negative_message = NegativeMessage.objects.filter(
         id=negative_message_id
@@ -20,5 +27,10 @@ def notify_negative_message(negative_message_id):
     for user in negative_message.company.user.exclude(profile__telegram_id=None).all():
         print(user.profile.telegram_id)
         asyncio.run(settings.TELEGRAM_BOT.send_message(
-            user.profile.telegram_id, f'У вас новое негативное сообщение в Портрете\r\nТеги:\r\n{tags}\r\nТелефон: {negative_message.phone}\r\nКомментарий: \r\n{negative_message.text}'
+            user.profile.telegram_id, f'''Негативное сообщение в Портрете.
+            Теги:
+            {tags[:len(tags) - 2]}
+            Телефон:
+            {negative_message.phone}
+            Комментарий:{negative_message.text}'''
         ))
