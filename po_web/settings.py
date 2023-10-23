@@ -15,11 +15,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 INSTALLED_APPS = [
 
     # Пакеты
-    'tailwind',
-    'theme',
-    'django_browser_reload',
     'admin_interface',
     'colorfield',
+    'django_browser_reload',
+    'django_celery_results',
+    'tailwind',
+    'theme',
 
     # Django
     'django.contrib.admin',
@@ -90,7 +91,7 @@ ALLOWED_HOSTS = [
     'geo.portrate.io',
     '91.201.53.6',
     '127.0.0.1',
-    'c2ed-178-66-159-115.ngrok-free.app'
+    '9ef5-178-66-159-115.ngrok-free.app'
 ]
 
 INTERNAL_IPS = ['127.0.0.1']
@@ -128,3 +129,10 @@ TAILWIND_APP_NAME = 'theme'
 # @TODO: Сделать по красоте (а может и хуй с ним)
 TELEGRAM_BOT_API_SECRET = '6949167498:AAE0xCjrGLn18tQEsDjSZpfLynSlp37BtOM'
 TELEGRAM_BOT = Bot(TELEGRAM_BOT_API_SECRET)
+
+# Celery
+# CELERY_TIMEZONE =
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'django-db'

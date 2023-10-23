@@ -20,6 +20,11 @@ class Profile(models.Model):
         verbose_name='API ключ'
     )
 
+    telegram_id = models.CharField(
+        blank=True,
+        verbose_name='telegram ID'
+    )
+
     def __str__(self):
         return self.user.username
 

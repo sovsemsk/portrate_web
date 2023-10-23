@@ -4,7 +4,7 @@ from django.views.decorators.http import require_http_methods
 from resources.models import Website
 from feedback.forms import NegativeMessageForm
 
-from telegram import Bot
+from resources.tasks import notify_negative_message
 
 
 @require_http_methods(['GET'])
@@ -23,7 +23,8 @@ def create(request, website_id):
         if form.is_valid():
             form.instance.company = website.company
             form.instance.branch = website.branch
-            form.save()
+            negative_message = form.save()
+            notify_negative_message.delay(negative_message.id)
             return redirect(f'/~{website_id}')
 
     else:

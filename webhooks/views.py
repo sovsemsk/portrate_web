@@ -8,8 +8,7 @@ from django.views.decorators.http import require_http_methods
 
 from telegram import Update, MessageEntity
 
-from resources.models import Branch
-from webhooks.models import TelegramSubscription
+from extensions.models import Profile
 
 
 # Вебхук для telegram
@@ -41,22 +40,19 @@ def webhooks_telegram_update(request):
 
 # Хендлер команды /start Y1GNT1F5
 def webhooks_telegram_update_start(message):
-    # Получение филиала
-    branch = Branch.objects.filter(
+    # Получение пользователя
+    profile = Profile.objects.filter(
         api_secret=message.text.replace('/start ', '')
     ).first()
 
-    # Сброс если нет такого филиала
-    if not branch:
+    # Сброс если нет такого пользователя
+    if not profile:
         return HttpResponse()
 
     # Создание подписки
     try:
-        TelegramSubscription.objects.create(
-            telegram_user_id=message.from_user.id,
-            group=branch.group,
-            branch=branch
-        )
+        profile.telegram_id = message.from_user.id
+        profile.save()
 
     finally:
         return HttpResponse()
