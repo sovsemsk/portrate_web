@@ -9,7 +9,7 @@ from django.views.decorators.http import require_http_methods
 from telegram import Bot, Update, MessageEntity
 
 from extensions.models import Profile
-from resources.tasks import notify_subcrition_created
+from resources.tasks import telegram_notify_subscribed
 
 
 # Вебхук для telegram
@@ -33,11 +33,11 @@ def webhooks_telegram_update(request):
 
     # Хендлер команды /start Y1GNT1F5
     if re.match(r"/start ([a-z,A-Z,0-9]){8}", message.text):
-        return webhooks_telegram_update_start(message=message)
+        webhooks_telegram_update_start(message=message)
 
     # Хендлер команды /stop Y1GNT1F5
     if re.match(r"/stop ([a-z,A-Z,0-9]){8}", message.text):
-        return webhooks_telegram_update_stop(message=message)
+        webhooks_telegram_update_stop(message=message)
 
     return HttpResponse()
 
@@ -52,16 +52,16 @@ def webhooks_telegram_update_start(message):
 
     # Сброс если нет такого пользователя
     if not profile:
-        return HttpResponse()
+        return
 
    # Создание подписки
     try:
         profile.telegram_id = message.from_user.id
         profile.save()
-        notify_subcrition_created.delay(message.from_user.id)
+        telegram_notify_subscribed.delay(message.from_user.id)
 
     finally:
-        return HttpResponse()
+        pass
 
 
 # Хендлер команды /stop Y1GNT1F5
