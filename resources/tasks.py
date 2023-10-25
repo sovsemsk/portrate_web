@@ -31,7 +31,7 @@ def telegram_notify_negative_message(negative_message_id):
     for tag in negative_message.negative_message_tag.all():
         tags += f'{tag.text}, '
 
-    for user in negative_message.company.user.exclude(profile__telegram_id=None).all():
+    for user in negative_message.company.users.exclude(profile__telegram_id=None).all():
         asyncio.run(bot.send_message(
             user.profile.telegram_id, f'''📍 Негативное сообщение в Портрете.
 
