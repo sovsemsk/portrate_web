@@ -7,32 +7,23 @@ from resources.models import NegativeMessage
 
 @shared_task
 def telegram_notify_subscribed(telegram_id):
-    bot = Bot(settings.TELEGRAM_BOT_API_SECRET)
-
-    asyncio.run(bot.send_message(
+    asyncio.run(Bot(settings.TELEGRAM_BOT_API_SECRET).send_message(
         telegram_id, 'Вы подписаны на уведомления'
     ))
 
-    return 'Bot message sended'
-
 
 @shared_task
-def telegram_notify_negative_message(negative_message_id):
-    negative_message = NegativeMessage.objects.filter(
-        id=negative_message_id
-    ).first()
+def telegram_notify_negative_message(telegram_id, negative_message_id):
+    negative_message = NegativeMessage.objects.get(id=negative_message_id)
 
-    if not negative_message:
-        return 'Negative message not found'
+    tags = ', '.join(
+        list(
+            negative_message.negative_message_tag.values_list('text', flat=True)
+        )
+    )
 
-    tags = ''
-    for tag in negative_message.negative_message_tag.all():
-        tags += f'{tag.text}, '
-
-    for user in negative_message.company.users.exclude(profile__telegram_id=None).all():
-        bot = Bot(settings.TELEGRAM_BOT_API_SECRET)
-        asyncio.run(bot.send_message(
-            user.profile.telegram_id, f'''📍 Негативное сообщение в Портрете.
+    asyncio.run(Bot(settings.TELEGRAM_BOT_API_SECRET).send_message(telegram_id,
+f'''📍 Негативное сообщение в Портрете.
 
 🏪 Филиал:
 {negative_message.branch}
@@ -47,4 +38,3 @@ def telegram_notify_negative_message(negative_message_id):
 {negative_message.text}'''
         ))
 
-        return 'Bot message sended'

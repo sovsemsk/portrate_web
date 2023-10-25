@@ -92,7 +92,7 @@ ALLOWED_HOSTS = [
     'geo.portrate.io',
     '91.201.53.6',
     '127.0.0.1',
-    'c063-178-66-159-115.ngrok-free.app'
+    '4837-178-66-130-72.ngrok-free.app'
 ]
 
 INTERNAL_IPS = ['127.0.0.1']
@@ -127,9 +127,8 @@ SILENCED_SYSTEM_CHECKS = ['security.W019']
 #
 TAILWIND_APP_NAME = 'theme'
 
-#
-TELEGRAM_BOT_API_SECRET = '6949167498:AAE0xCjrGLn18tQEsDjSZpfLynSlp37BtOM'
-# TELEGRAM_BOT_API_SECRET = '6968119939:AAGwZ2APMG2bVSevT3H87OIB9hQsoGBdtPQ'
+# Telegram
+TELEGRAM_BOT_API_SECRET = str(os.getenv('TELEGRAM_BOT_API_SECRET'))
 
 # Celery
 # CELERY_TIMEZONE =

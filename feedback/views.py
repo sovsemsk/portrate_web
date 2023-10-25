@@ -24,7 +24,10 @@ def create(request, website_id):
             form.instance.company = website.company
             form.instance.branch = website.branch
             negative_message = form.save()
-            telegram_notify_negative_message.delay(negative_message.id)
+
+            for user in negative_message.company.users.exclude(profile__telegram_id=None).all():
+                telegram_notify_negative_message.delay(user.profile.telegram_id, negative_message.id)
+
             return redirect(f'/~{website_id}')
 
     else:
