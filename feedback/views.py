@@ -1,10 +1,8 @@
-from django.conf import settings
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views.decorators.http import require_http_methods
-from resources.models import Website
+from resources.models import Notification, Website
 from feedback.forms import NegativeMessageForm
 
-from resources.tasks import telegram_notify_negative_message_task
 
 
 @require_http_methods(['GET'])
@@ -24,9 +22,12 @@ def create(request, website_id):
             form.instance.company = website.company
             form.instance.branch = website.branch
             negative_message = form.save()
-
-            for user in negative_message.company.users.exclude(profile__telegram_id=None).all():
-                telegram_notify_negative_message_task.delay(user.profile.telegram_id, negative_message.id)
+            
+            Notification.objects.create(
+                company=negative_message.company,
+                negative_message=negative_message,
+                text=negative_message.text,
+            )
 
             return redirect(f'/~{website_id}')
 

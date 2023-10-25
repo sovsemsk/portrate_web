@@ -32,7 +32,7 @@ class Profile(models.Model):
 
 # Сигналы модели User
 @receiver(post_save, sender=User)
-def create_or_update_profile(sender, instance, created, **kwargs):
+def create_or_update_profile_signal(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
     instance.profile.save()
@@ -40,6 +40,6 @@ def create_or_update_profile(sender, instance, created, **kwargs):
 
 # Сигналы модели Profile
 @receiver(post_init, sender=Profile)
-def init_api_secret(sender, instance, ** kwargs):
+def init_api_secret_signal(sender, instance, ** kwargs):
     if not instance.api_secret:
         instance.api_secret = get_random_string(length=8)

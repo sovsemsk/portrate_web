@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from resources.tasks import send_telegram_text_task
 
 
 class Company(models.Model):
@@ -523,3 +524,100 @@ class PositiveReview(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Notification(models.Model):
+    class Meta:
+        db_table = 'resources_notification'
+        verbose_name = 'оповещение'
+        verbose_name_plural = 'оповещения'
+
+    class Initiator(models.TextChoices):
+        PORTRATE_NEGATIVE_MESSAGE = "PORTRATE_NEGATIVE_MESSAGE", "Негативное сообщение Портрет"
+
+        YANDEX_NEGATIVE_REVIEW = "YANDEX_NEGATIVE_REVIEW", "Негативный отзыв Яндекс"
+        GIS_NEGATIVE_REVIEW = "GIS_NEGATIVE_REVIEW", "Негативный отзыв 2Гис"
+        GOOGLE_NEGATIVE_REVIEW = "GOOGLE_NEGATIVE_REVIEW", "Негативный отзыв Google"
+        
+        YANDEX_POSITIVE_REVIEW = "YANDEX_POSITIVE_REVIEW", "Позитивный отзыв Яндекс"
+        GIS_REVIEW = "GIS_POSITIVE_REVIEW", "Позитивный отзыв 2Гис"
+        GOOGLE_POSITIVE_REVIEW = "GOOGLE_POSITIVE_REVIEW", "Позитивный отзыв Google"
+
+        YANDEX_PARSE_SUCCESS = "YANDEX_PARSE_SUCCESS", "Отзывы загружены Яндекс"
+        GIS_PARSE_SUCCESS = "GIS_PARSE_SUCCESS", "Отзывы загружены 2Гис"
+        GOOGLE_PARSE_SUCCESS = "GOOGLE_PARSE_SUCCESS", "Отзывы загружены Google"
+
+        YANDEX_PARSE_ERROR = "YANDEX_PARSE_ERROR", "Ошибка загрузки Яндекс"
+        GIS_PARSE_ERROR = "GIS_PARSE_ERROR", "Ошибка загрузки 2Гис"
+        GOOGLE_PARSE_ERROR = "GOOGLE_PARSE_ERROR", "Ошибка загрузки Google"
+
+    initiator = models.CharField(
+        max_length=250,
+        choices=Initiator.choices,
+        default=Initiator.PORTRATE_NEGATIVE_MESSAGE,
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name='дата создания'
+    )
+
+    company = models.ForeignKey(
+        Company,
+        on_delete=models.CASCADE,
+        verbose_name='сеть'
+    )
+
+    negative_message = models.OneToOneField(
+        NegativeMessage,
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE,
+        verbose_name='негативное сообщение'
+    )
+
+    text = models.TextField(
+        verbose_name='текст оповещения'
+    )
+
+    url = models.CharField(
+        blank=True,
+        null=True,
+        verbose_name='url оповещения'
+    )
+
+    def __str__(self):
+        return self.url
+
+# Сигналы модели Notification
+@receiver(post_save, sender=Notification)
+def telegram_notify_signal(sender, instance, created, **kwargs):
+    if created and instance.initiator == 'PORTRATE_NEGATIVE_MESSAGE':
+        print(instance.negative_message.negative_message_tag.values_list('text'))
+        # Склейка тегов
+        tags = ', '.join(
+            list(
+                instance.negative_message.negative_message_tag.values_list('text', flat=True)
+            )
+        )
+
+        print(tags)
+
+        # Шаблон
+        text = f'''📍 Негативное сообщение в Портрете.
+
+🏪 Филиал:
+{instance.negative_message.branch}
+
+📯 Теги:
+{tags}
+
+📱 Телефон:
+{instance.negative_message.phone}
+
+📜 Комментарий:
+{instance.negative_message.text}'''
+
+        # Отправка всем пользователям компании
+        for user in instance.company.users.exclude(profile__telegram_id=None).all():
+            send_telegram_text_task.delay(user.profile.telegram_id, text)

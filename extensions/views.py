@@ -2,9 +2,10 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.http import JsonResponse
-from django.shortcuts import get_object_or_404, render, redirect
+from django.shortcuts import render, redirect
 from django.views.decorators.http import require_http_methods
+
+from resources.tasks import send_telegram_text_task
 from .forms import LoginForm
 
 
@@ -54,6 +55,7 @@ def login(request):
 @login_required
 @require_http_methods(('GET',))
 def telegram_notify_unsubscribe(request):
+    send_telegram_text_task(request.user.profile.telegram_id, '👋🏼 Вы отписаны от уведомлений telegram')
     request.user.profile.telegram_id = None
     request.user.profile.save()
 
