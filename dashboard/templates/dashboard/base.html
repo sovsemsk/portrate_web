@@ -17,13 +17,14 @@
             <div class="py-1 mr-4 hidden md:block">Портрет <span class="font-medium">Geo</span></div>
             <a class="{% if nav == 'index' %}bg-orange-500 text-white {% endif %}px-2 py-1 rounded-lg" href="/">События</a>
             <a class="{% if nav == 'branches' %}bg-orange-500 text-white {% endif %}px-2 py-1 rounded-lg" href="{% url 'dashboard_branches' %}">Филиалы</a>
-            {% if user.profile.api_secret %}
-            <a class="md:flex flex gap-2 hidden items-center ml-auto px-2 py-1 text-sky-800 rounded-lg " href="http://t.me/portrate_notify_bot?start={{user.profile.api_secret}}" target="_blank">
+            
+            {% if user.profile.telegram_id %}
+            <a class="md:flex flex gap-2 hidden items-center ml-auto px-2 py-1 text-sky-800 rounded-lg" href="{% url 'extensions_telegram_notify_unsubscribe' %}?next={{ request.path }}">
                 Отписаться от оповещений
                 <span class="material-symbols-outlined text-[1rem] text-sky-800">send</span>
             </a>
             {% else %}
-            <a class="md:flex flex gap-2 hidden items-center ml-auto px-2 py-1 text-sky-800 rounded-lg " href="http://t.me/portrate_notify_bot?start={{user.profile.api_secret}}" target="_blank">
+            <a class="md:flex flex gap-2 hidden items-center ml-auto px-2 py-1 text-sky-800 rounded-lg" href="http://t.me/portrate_notify_bot?start={{user.profile.api_secret}}" target="_blank">
                 Подписаться на оповещения
                 <span class="material-symbols-outlined text-[1rem] text-sky-800">send</span>
             </a>
