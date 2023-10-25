@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 	<head>
-        <title>{{ website.name }}</title>
+        <title>Портрет Geo</title>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">        
@@ -13,19 +13,27 @@
         {% tailwind_css %}
 	</head>
 	<body class="bg-neutral-200 m-0">
-        <div class="flex px-8 py-2">
-            <div class="mr-8 py-1">Портрет <span class="font-medium">Geo</span></div>
-            <a class="bg-orange-500 px-2 py-1 text-white rounded-lg" href="#">События</a>
-            <a class="px-2 py-1" href="#">Филиалы</a>
-            <a class="ml-auto px-2 py-1" href="#">Тарифы</a>
-            {% if user.is_authenticated %}
-                <a class="flex gap-2 items-center px-2 py-1" href="#">
-                    {{ user.get_username }}
-                    <span class="material-symbols-outlined text-blue-500 text-[1rem]">lock</span>
-                </a>
+        <div class="bg-white flex px-2 sm:px-8 py-2">
+            <div class="py-1 mr-4 hidden md:block">Портрет <span class="font-medium">Geo</span></div>
+            <a class="{% if nav == 'index' %}bg-orange-500 text-white {% endif %}px-2 py-1 rounded-lg" href="/">События</a>
+            <a class="{% if nav == 'branches' %}bg-orange-500 text-white {% endif %}px-2 py-1 rounded-lg" href="{% url 'dashboard_branches' %}">Филиалы</a>
+            {% if user.profile.api_secret %}
+            <a class="md:flex flex gap-2 hidden items-center ml-auto px-2 py-1 text-sky-800 rounded-lg " href="http://t.me/portrate_notify_bot?start={{user.profile.api_secret}}" target="_blank">
+                Отписаться от оповещений
+                <span class="material-symbols-outlined text-[1rem] text-sky-800">send</span>
+            </a>
+            {% else %}
+            <a class="md:flex flex gap-2 hidden items-center ml-auto px-2 py-1 text-sky-800 rounded-lg " href="http://t.me/portrate_notify_bot?start={{user.profile.api_secret}}" target="_blank">
+                Подписаться на оповещения
+                <span class="material-symbols-outlined text-[1rem] text-sky-800">send</span>
+            </a>
             {% endif %}
+            <a class="flex gap-2 items-center px-2 py-1 ml-auto md:ml-0" href="#">
+                {{ user.get_username }}
+                <span class="material-symbols-outlined text-blue-500 text-[1rem]">lock</span>
+            </a>
         </div>
-        <div class="mx-8 max-w-6xl">
+        <div class="mx-auto max-w-xl pb-8 px-2">
             {% block content %}
             {% endblock %}
 

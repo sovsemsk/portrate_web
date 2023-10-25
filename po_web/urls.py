@@ -7,8 +7,9 @@ urlpatterns = [
     # path('@', include('website.urls')),
     path('~', include('feedback.urls')),
     path('webhooks/', include('webhooks.urls')),
-    path('dashboard/', include('dashboard.urls')),
     path('admin/', admin.site.urls),
+    path('accounts/', include('extensions.urls')),
+    path('', include('dashboard.urls')),
     path('__reload__/', include('django_browser_reload.urls')),
 ]
 

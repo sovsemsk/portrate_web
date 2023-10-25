@@ -11,7 +11,7 @@ class BranchAdminInline(admin.StackedInline):
 @admin.register(Company)
 class CompanyAdmin(admin.ModelAdmin):
     list_display = ['name']
-    fields = ['name', 'user']
+    fields = ['name', 'users']
     inlines = [BranchAdminInline]
 
 
@@ -55,13 +55,15 @@ class WebsiteAdmin(admin.ModelAdmin):
             'КНОПКА ДЕЙСТВИЯ',
             {
                 'classes': ['collapse',],
-                'fields': ['action_button_text', 'action_button_url',], },
+                'fields': ['action_button_text', 'action_button_url',],
+            },
         ),
         (
             'ИНФОРМАЦИЯ',
             {
                 'classes': ['collapse',],
-                'fields': ['name', 'specialization', 'city', 'address', 'description',], },
+                'fields': ['name', 'specialization', 'city', 'address', 'description',],
+            },
         ),
         (
             'ГРАФИК РАБОТЫ',

@@ -1,0 +1,81 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h1 class="text-3xl pt-6 pb-3">Филиалы</h1>
+
+<div class="flex flex-col gap-2">
+
+
+    {% for branch in branches %}
+    <div class="bg-white rounded-2xl p-4">
+        <div class="flex flex-col gap-4">
+            <div class="flex gap-4 items-center">
+                <span class="material-symbols-outlined text-orange-300 text-[2.4rem]">storefront</span>
+                <div>
+
+                <div class="text-sm">{{ branch.company }}</div>
+        
+                {{ branch.name }}
+            </div>
+                
+
+            </div>            
+                <table class="border-t border-neutral-200">
+                    <tr class="border-b border-neutral-200">
+                        <td class="py-1 text-sm">Яндекс</td>
+                        <td class="py-1 text-sm text-rose-700">0.0</td>
+                        <td class="py-1 text-sm" width="1%">
+                            <div class="flex gap-1">
+                                <span class="material-symbols-outlined text-neutral-400 text-sm">grade</span>
+                                <span class="material-symbols-outlined text-neutral-400 text-sm">grade</span>
+                                <span class="material-symbols-outlined text-neutral-400 text-sm">grade</span>
+                                <span class="material-symbols-outlined text-neutral-400 text-sm">grade</span>
+                                <span class="material-symbols-outlined text-neutral-400 text-sm">grade</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="border-b border-neutral-200">
+                        <td class="py-1 text-sm">2Гис</td>
+                        <td class="py-1 text-sm text-rose-700">0.0</td>
+                        <td class="py-1 text-sm" width="1%">
+                            <div class="flex gap-1">
+                                <span class="material-symbols-outlined text-neutral-400 text-sm">grade</span>
+                                <span class="material-symbols-outlined text-neutral-400 text-sm">grade</span>
+                                <span class="material-symbols-outlined text-neutral-400 text-sm">grade</span>
+                                <span class="material-symbols-outlined text-neutral-400 text-sm">grade</span>
+                                <span class="material-symbols-outlined text-neutral-400 text-sm">grade</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="border-b border-neutral-200">
+                        <td class="py-1 text-sm">Google</td>
+                        <td class="py-1 text-sm text-rose-700">0.0</td>
+                        <td class="py-1 text-sm" width="1%">
+                            <div class="flex gap-1">
+                                <span class="material-symbols-outlined text-neutral-400 text-sm">grade</span>
+                                <span class="material-symbols-outlined text-neutral-400 text-sm">grade</span>
+                                <span class="material-symbols-outlined text-neutral-400 text-sm">grade</span>
+                                <span class="material-symbols-outlined text-neutral-400 text-sm">grade</span>
+                                <span class="material-symbols-outlined text-neutral-400 text-sm">grade</span>
+                            </div>
+                        </td>
+                    </tr>
+
+                </table>
+
+                <div class="flex gap-4">
+                    <a class="border-black/10 border active:bg-neutral-300 px-2 py-1 rounded self-start text-center text-sm text-neutral-700" href="#">Открыть</a>
+                </div>
+    
+        </div>        
+    </div>
+    {% endfor %}
+</div>
+
+
+<script>
+</script>
+
+{% endblock %}

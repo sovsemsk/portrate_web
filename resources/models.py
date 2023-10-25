@@ -10,7 +10,7 @@ class Company(models.Model):
         verbose_name = 'сеть'
         verbose_name_plural = 'сети'
 
-    user = models.ManyToManyField(
+    users = models.ManyToManyField(
         User,
         blank=True,
         verbose_name='пользователи'
