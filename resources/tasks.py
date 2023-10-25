@@ -26,12 +26,11 @@ def telegram_notify_negative_message(negative_message_id):
         return 'Negative message not found'
 
     tags = ''
-    bot = Bot(settings.TELEGRAM_BOT_API_SECRET)
-
     for tag in negative_message.negative_message_tag.all():
         tags += f'{tag.text}, '
 
     for user in negative_message.company.users.exclude(profile__telegram_id=None).all():
+        bot = Bot(settings.TELEGRAM_BOT_API_SECRET)
         asyncio.run(bot.send_message(
             user.profile.telegram_id, f'''📍 Негативное сообщение в Портрете.
 
