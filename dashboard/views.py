@@ -13,8 +13,10 @@ def index(request):
 @login_required
 @require_http_methods(['GET'])
 def branches(request):
-    branches = Branch.objects.filter(company__users__in=(request.user,)).all()
+    companies = Company.objects.filter(users__in=(request.user,)).all()
+    branches = Branch.objects.filter(company__in=companies).all()
     return render(request, 'dashboard/branches.html', {
         'nav': 'branches',
+        'companies': companies,
         'branches': branches
     })

@@ -3,7 +3,7 @@
 
 {% block content %}
 
-<div class="border-b border-px border-neutral-300 flex items-center pt-20 px-6 pb-3">
+<div class="flex items-center pt-3 px-6 pb-3">
     <h1 class="text-3xl">Филиалы</h1>
     <div class="flex gap-2 items-center ml-auto">
         {% if user.profile.telegram_id %}
@@ -21,37 +21,64 @@
     </div>
 </div>
 
-<div class="flex grow">
-    <div class="grow">
+<div class="flex">
+    <!-- Панель филиалов -->
+    <div class="grid gap-2 grid-cols-3  px-6 w-full max-w-screen-xl">
+        <!-- Контейнер филиалов -->
+
         {% for branch in branches %}
-        <div class="border-b border-neutral-300 flex w-full gap-2 px-6 py-3 ">
-            {% if branch.website.logo.file %}
-            <div class="bg-white overflow-hidden rounded-lg w-8 h-8" href="#">
+        <div class="bg-white flex flex-col gap-4 rounded-2xl p-2">
+
+            <div class="bg-orange-200 flex h-8 items-center overflow-hidden rounded-lg w-8">
+                {% if branch.website.logo.file %}
                 <img class="h-8  w-8" src="{{ branch.website.logo.file.url }}" alt="{{ branch.name }}">
-            </div>
-            {% endif %} 
-
-            <div class="bg-white rounded-2xl px-4 py-2">
-                <div class="text-xl">{{ branch.company }}</div>
-                <div class="text-sm text-neutral-500">{{ branch.name }}</div>
+                {% else %}
+                <span class="material-symbols-outlined text-2xl mx-auto">storefront</span>
+                {% endif %} 
             </div>
 
-            <div class="bg-white rounded-2xl px-4 py-2">
-                <div class="text-xl">289</div>
-                <div class="text-sm text-neutral-500">Отзывов</div>
+            <div>
+                <div class="text-xl truncate">{{ branch.company }}</div>
+                <div class="text-sm text-neutral-500 truncate">{{ branch.name }}</div>
             </div>
 
-            <div class="bg-lime-300 rounded-2xl px-4 py-2">
-                <div class="text-xl text-lime-900">4.5</div>
-                <div class="text-sm text-lime-700">Рейтинг</div>
+            <div class="grid gap-1 grid-cols-2 justify-stretch">
+                <div class="border border-neutral-200 rounded-lg px-2 py-1">
+                    <div class="text-xl">0</div>
+                    <div class="text-sm text-neutral-500">Отзывов</div>
+                </div>
+    
+                <div class="border border-neutral-200 rounded-lg px-2 py-1">
+                    <div class="text-xl text-rose-700">0,0</div>
+                    <div class="text-sm text-neutral-500">Яндекс</div>
+                </div>
+                <div class="border border-neutral-200 rounded-lg px-2 py-1">
+                    <div class="text-xl text-rose-700">0,0</div>
+                    <div class="text-sm text-neutral-500">2Гис</div>
+                </div>
+    
+                <div class="border border-neutral-200 rounded-lg px-2 py-1">
+                    <div class="text-xl text-rose-700">0,0</div>
+                    <div class="text-sm text-neutral-500">Google</div>
+                </div>
             </div>
+
+
 
         </div>
         {% endfor %}
     </div>
-    <div class="w-96 border-l border-neutral-300 p-6">
-        <!-- <a href="@">Портрет</a>
-        <a href="@">Пури</a> -->
+
+
+    <div class="w-96 pr-6">
+        <div class="pb-1 text-sm">Найти филиал</div>
+        <input class="char_field_widget mb-3" placeholder="Поиск"/>
+        <div class="pb-1 text-sm">Фильтровать филиал по сети</div>
+        <div class="flex flex-wrap gap-2">
+        {% for company in companies %}
+            <a class="bg-white cursor-pointer px-2 py-1 relative rounded-lg text-sm truncate" href="@">{{ company }}</a>
+        {% endfor %}
+        </div>
     </div>
 </div>
 
