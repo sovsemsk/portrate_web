@@ -2,9 +2,9 @@
 {% load static %}
 
 {% block content %}
-<h1 class="font-bold px-4 py-5 text-2xl text-center text-neutral-700">Написать директору</h1>
+<h1 class="font-bold px-4 py-5 text-2xl text-center">Написать директору</h1>
 
-<div class="px-4 pb-4 text-neutral-700">
+<div class="px-4 pb-4">
     Расскажите что вам не понравилось и что мы можем сделать лучше.
     Директор накажет виновных, свяжется с вами и предложит решение проблемы.
 </div>
@@ -13,14 +13,14 @@
     {% csrf_token %}
 
     <!-- Теги -->
-    <h5 class="font-bold pb-1 text-neutral-700">Что именно вам не понравилось?</h5>
+    <h5 class="font-bold pb-1">Что именно вам не понравилось?</h5>
     {{ form.negative_message_tag }}
 
     <!-- Комментарий -->
     {{ form.text }}
     
     <!-- Контактный телефон -->
-    <h5 class="font-bold pb-1 text-neutral-700">Оставьте ваш контакт <span class="text-rose-600">*</span></h5>
+    <h5 class="font-bold pb-1">Оставьте ваш контакт <span class="text-rose-600">*</span></h5>
     {{ form.phone }}
     {% if form.phone.errors %}
     <div class="text-xs text-rose-600 pt-1">Необходимо заполнить контактный телефон </div>

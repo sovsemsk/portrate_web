@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-<h1 class="font-bold py-5 text-2xl text-center text-neutral-700">Наградите нас отзывом</h1>
+<h1 class="font-bold py-5 text-2xl text-center">Наградите нас отзывом</h1>
 <div class="flex flex-col">
     {% for card in website.cards %}
     <a class="border-t border-neutral-200 last:border-b flex py-2 px-4 items-center" href="{{ card.value }}" target="_blank">
@@ -15,6 +15,6 @@
     {% endfor %}
 </div>
 <div class="p-4">
-    <a class="block bg-neutral-200 active:bg-neutral-300 py-2 px-4 rounded-lg text-center text-sm text-neutral-700" href="{% url 'feedback_create' website_id=website.id %}">Связаться с администратором</a>
+    <a class="block bg-neutral-200 active:bg-neutral-300 py-2 px-4 rounded-lg text-center text-sm" href="{% url 'feedback_create' website_id=website.id %}">Связаться с администратором</a>
 </div>
 {% endblock %}

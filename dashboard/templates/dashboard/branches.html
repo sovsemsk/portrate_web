@@ -3,77 +3,57 @@
 
 {% block content %}
 
-<h1 class="text-3xl pt-6 pb-3">Филиалы</h1>
-
-<div class="flex flex-col gap-2">
-
-
-    {% for branch in branches %}
-    <div class="bg-white rounded-2xl p-4">
-        <div class="flex flex-col gap-4">
-            <div class="flex gap-4 items-center">
-                <span class="material-symbols-outlined text-orange-300 text-[2.4rem]">storefront</span>
-                <div>
-
-                <div class="text-sm">{{ branch.company }}</div>
-        
-                {{ branch.name }}
-            </div>
-                
-
-            </div>            
-                <table class="border-t border-neutral-200">
-                    <tr class="border-b border-neutral-200">
-                        <td class="py-1 text-sm">Яндекс</td>
-                        <td class="py-1 text-sm text-rose-700">0.0</td>
-                        <td class="py-1 text-sm" width="1%">
-                            <div class="flex gap-1">
-                                <span class="material-symbols-outlined text-neutral-400 text-sm">grade</span>
-                                <span class="material-symbols-outlined text-neutral-400 text-sm">grade</span>
-                                <span class="material-symbols-outlined text-neutral-400 text-sm">grade</span>
-                                <span class="material-symbols-outlined text-neutral-400 text-sm">grade</span>
-                                <span class="material-symbols-outlined text-neutral-400 text-sm">grade</span>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="border-b border-neutral-200">
-                        <td class="py-1 text-sm">2Гис</td>
-                        <td class="py-1 text-sm text-rose-700">0.0</td>
-                        <td class="py-1 text-sm" width="1%">
-                            <div class="flex gap-1">
-                                <span class="material-symbols-outlined text-neutral-400 text-sm">grade</span>
-                                <span class="material-symbols-outlined text-neutral-400 text-sm">grade</span>
-                                <span class="material-symbols-outlined text-neutral-400 text-sm">grade</span>
-                                <span class="material-symbols-outlined text-neutral-400 text-sm">grade</span>
-                                <span class="material-symbols-outlined text-neutral-400 text-sm">grade</span>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="border-b border-neutral-200">
-                        <td class="py-1 text-sm">Google</td>
-                        <td class="py-1 text-sm text-rose-700">0.0</td>
-                        <td class="py-1 text-sm" width="1%">
-                            <div class="flex gap-1">
-                                <span class="material-symbols-outlined text-neutral-400 text-sm">grade</span>
-                                <span class="material-symbols-outlined text-neutral-400 text-sm">grade</span>
-                                <span class="material-symbols-outlined text-neutral-400 text-sm">grade</span>
-                                <span class="material-symbols-outlined text-neutral-400 text-sm">grade</span>
-                                <span class="material-symbols-outlined text-neutral-400 text-sm">grade</span>
-                            </div>
-                        </td>
-                    </tr>
-
-                </table>
-
-                <div class="flex gap-4">
-                    <a class="border-black/10 border active:bg-neutral-300 px-2 py-1 rounded self-start text-center text-sm text-neutral-700" href="#">Открыть</a>
-                </div>
-    
-        </div>        
+<div class="border-b border-px border-neutral-300 flex items-center pt-20 px-6 pb-3">
+    <h1 class="text-3xl">Филиалы</h1>
+    <div class="flex gap-2 items-center ml-auto">
+        {% if user.profile.telegram_id %}
+        <a class="border-black/10 border active:bg-neutral-300 flex gap-2 items-center px-2 py-1 rounded self-start text-center text-sm" href="{% url 'extensions_telegram_notify_unsubscribe' %}?next={{ request.path }}">
+            Отписаться от оповещений
+            <span class="material-symbols-outlined text-[1rem] text-sky-800">send</span>
+        </a>
+        {% else %}
+        <a class="border-black/10 border active:bg-neutral-300 px-2 py-1 rounded self-start text-center text-sm" href="http://t.me/portrate_notify_bot?start={{user.profile.api_secret}}" target="_blank">
+            Подписаться на оповещения
+            <span class="material-symbols-outlined text-[1rem] text-sky-800">send</span>
+        </a>
+        {% endif %}
+        <a class="border-black/10 border active:bg-neutral-300 px-2 py-1 rounded self-start text-center text-sm" href="#">Создать филиал</a>
     </div>
-    {% endfor %}
 </div>
 
+<div class="flex grow">
+    <div class="grow">
+        {% for branch in branches %}
+        <div class="border-b border-neutral-300 flex w-full gap-2 px-6 py-3 ">
+            {% if branch.website.logo.file %}
+            <div class="bg-white overflow-hidden rounded-lg w-8 h-8" href="#">
+                <img class="h-8  w-8" src="{{ branch.website.logo.file.url }}" alt="{{ branch.name }}">
+            </div>
+            {% endif %} 
+
+            <div class="bg-white rounded-2xl px-4 py-2">
+                <div class="text-xl">{{ branch.company }}</div>
+                <div class="text-sm text-neutral-500">{{ branch.name }}</div>
+            </div>
+
+            <div class="bg-white rounded-2xl px-4 py-2">
+                <div class="text-xl">289</div>
+                <div class="text-sm text-neutral-500">Отзывов</div>
+            </div>
+
+            <div class="bg-lime-300 rounded-2xl px-4 py-2">
+                <div class="text-xl text-lime-900">4.5</div>
+                <div class="text-sm text-lime-700">Рейтинг</div>
+            </div>
+
+        </div>
+        {% endfor %}
+    </div>
+    <div class="w-96 border-l border-neutral-300 p-6">
+        <!-- <a href="@">Портрет</a>
+        <a href="@">Пури</a> -->
+    </div>
+</div>
 
 <script>
 </script>

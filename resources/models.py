@@ -562,6 +562,16 @@ class Notification(models.Model):
         verbose_name='дата создания'
     )
 
+    text = models.TextField(
+        verbose_name='текст оповещения'
+    )
+
+    url = models.CharField(
+        blank=True,
+        null=True,
+        verbose_name='url оповещения'
+    )
+
     company = models.ForeignKey(
         Company,
         on_delete=models.CASCADE,
@@ -574,16 +584,6 @@ class Notification(models.Model):
         null=True,
         on_delete=models.CASCADE,
         verbose_name='негативное сообщение'
-    )
-
-    text = models.TextField(
-        verbose_name='текст оповещения'
-    )
-
-    url = models.CharField(
-        blank=True,
-        null=True,
-        verbose_name='url оповещения'
     )
 
     def __str__(self):
