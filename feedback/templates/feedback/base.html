@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 	<head>
-        <title>{{ website.name }}</title>
+        <title>{{ company.name }}</title>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">        
@@ -15,14 +15,14 @@
 	<body class="bg-neutral-200 m-0">
         <div class="mx-auto max-w-sm">
             <!-- Логотип-->
-            {% if website.logo.file %}
-            <a class="block pt-16 z-10" href="{% url 'feedback_rate' website_id=website.id %}">
-                <img class="h-24 mx-auto overflow-hidden rounded-lg shadow-black/5 shadow-lg w-24" src="{{ website.logo.file.url }}" alt="{{ website.name }}">
+            {% if company.logo.file %}
+            <a class="block pt-16 z-10" href="{% url 'feedback_rate' company_id=company.id %}">
+                <img class="h-24 mx-auto overflow-hidden rounded-lg shadow-black/10 shadow-xl w-24" src="{{ company.logo.url }}" alt="{{ company.name }}">
             </a>
             {% endif %}
             <div class="px-4 -mt-6 z-1">
-                <div class="bg-white rounded-2xl shadow-black/5 shadow-lg">
-                    <h2 class="pt-10 text-center">{{ website.name }}</h2>
+                <div class="bg-white rounded-2xl shadow-black/10 shadow-xl">
+                    <h2 class="pt-10 text-center">{{ company.name }}</h2>
                     {% block content %}
                     {% endblock %}
                 </div>

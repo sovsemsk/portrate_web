@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views.decorators.http import require_http_methods
-from resources.models import Branch, Company
+from resources.models import Company
 
 
 @login_required
@@ -12,11 +12,9 @@ def index(request):
 
 @login_required
 @require_http_methods(['GET'])
-def branches(request):
+def companies(request):
     companies = Company.objects.filter(users__in=(request.user,)).all()
-    branches = Branch.objects.filter(company__in=companies).all()
-    return render(request, 'dashboard/branches.html', {
-        'nav': 'branches',
-        'companies': companies,
-        'branches': branches
+    return render(request, 'dashboard/companies.html', {
+        'nav': 'companies',
+        'companies': companies
     })

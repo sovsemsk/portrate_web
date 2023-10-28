@@ -1,49 +1,25 @@
 from django.contrib import admin
-from .models import Company, Branch, Website, WebsiteImage, WebsiteContact, WebsiteUrl, WebsiteCard, NegativeMessage, NegativeMessageTag, NegativeReview, PositiveReview
-
-
-class BranchAdminInline(admin.StackedInline):
-    model = Branch
-    extra = 0
-    fields = ['name', 'company']
+from .models import Company, NegativeMessage, Notification
 
 
 @admin.register(Company)
 class CompanyAdmin(admin.ModelAdmin):
     list_display = ['name']
-    fields = ['name', 'users']
-    inlines = [BranchAdminInline]
 
 
-class WebsiteImageInline(admin.StackedInline):
-    model = WebsiteImage
-    extra = 0
-    fields = ['name', 'file', 'sort', 'is_logo']
+@admin.register(NegativeMessage)
+class NegativeMessageAdmin(admin.ModelAdmin):
+    list_display = ['created_at', 'company', 'phone', 'text']
+    fields = ['company', 'phone', 'text']
 
 
-class WebsiteContactInline(admin.StackedInline):
-    model = WebsiteContact
-    extra = 0
-    fields = ['platform', 'name', 'value']
+@admin.register(Notification)
+class NotificationAdmin(admin.ModelAdmin):
+    pass
 
 
-class WebsiteUrlInline(admin.StackedInline):
-    model = WebsiteUrl
-    extra = 0
-    fields = ['platform', 'name', 'value']
-
-
-class WebsiteCardInline(admin.StackedInline):
-    model = WebsiteCard
-    extra = 0
-    fields = ['platform', 'name', 'value']
-
-
-@admin.register(Website)
-class WebsiteAdmin(admin.ModelAdmin):
-    list_display = ['branch', 'name']
-    list_filter = ['branch__name']
-    fieldsets = [
+'''
+     fieldsets = [
         (
             'НАСТРОЙКИ',
             {
@@ -88,31 +64,4 @@ class WebsiteAdmin(admin.ModelAdmin):
             },
         ),
     ]
-    inlines = [
-        WebsiteImageInline,
-        WebsiteContactInline,
-        WebsiteUrlInline,
-        WebsiteCardInline
-    ]
-
-
-@admin.register(NegativeMessage)
-class NegativeMessageAdmin(admin.ModelAdmin):
-    list_display = ['created_at', 'company', 'branch', 'phone', 'text']
-    fields = ['company', 'branch', 'phone', 'text', 'negative_message_tag']
-
-
-@admin.register(NegativeMessageTag)
-class NegativeMessageTagAdmin(admin.ModelAdmin):
-    list_display = ['text']
-    fields = ['text']
-
-
-@admin.register(NegativeReview)
-class NegativeReviewAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(PositiveReview)
-class PositiveReviewAdmin(admin.ModelAdmin):
-    pass
+'''

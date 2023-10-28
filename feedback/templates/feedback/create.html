@@ -2,19 +2,24 @@
 {% load static %}
 
 {% block content %}
-<h1 class="font-bold px-4 py-5 text-2xl text-center">Написать директору</h1>
+<h1 class="font-bold px-4 py-5 text-2xl text-center">{{ company.request_form_negative_head }}</h1>
 
 <div class="px-4 pb-4">
-    Расскажите что вам не понравилось и что мы можем сделать лучше.
-    Директор накажет виновных, свяжется с вами и предложит решение проблемы.
+    {{ company.request_form_negative_text }}
 </div>
 
 <form class="px-4 pb-4" action="" method="post" novalidate>
     {% csrf_token %}
 
-    <!-- Теги -->
+    <!-- Теги, виджет из формы для чегбоксов m2m-->
     <h5 class="font-bold pb-1">Что именно вам не понравилось?</h5>
-    {{ form.negative_message_tag }}
+    <div class="tag_widget">
+    {% for tag in company.request_form_tags %}
+        <div>
+            <label><input name="tag" type="checkbox" value="{{ tag }}"/>{{ tag }}</label>
+        </div>
+    {% endfor %}
+    </div>
 
     <!-- Комментарий -->
     {{ form.text }}
@@ -26,26 +31,42 @@
     <div class="text-xs text-rose-600 pt-1">Необходимо заполнить контактный телефон </div>
     {% endif %}
     
-    <button class="bg-lime-600 active:bg-lime-700 mt-4 py-2 px-4 rounded-lg text-center text-lg text-white w-full" href="{% url 'feedback_create' website_id=website.id %}" type="submit">Отправить</button>
+    <button class="bg-lime-600 active:bg-lime-700 mt-4 py-2 px-4 rounded-lg text-center text-lg text-white w-full" href="{% url 'feedback_create' company_id=company.id %}" type="submit">Отправить</button>
 </form>
 
 <script>
+    d = document
     IMask(
         document.getElementById('id_phone'),
         {mask: '+7 000 000-00-00'}
     );
 
-    document.querySelectorAll('.tag_widget input[type=checkbox]')
-            .forEach(el => {
-                if(el.checked){
-                    el.parentElement.classList.add('bg-lime-600');
-                    el.parentElement.classList.add('text-white');
-                }
-                el.addEventListener('click', event => {
-                    event.target.parentElement.classList.toggle('bg-lime-600');
-                    event.target.parentElement.classList.toggle('text-white');
-                })
-            });
+    // тут не нужен чекбокс убрать потом
+    text = d.querySelector('textarea');
+    d.querySelectorAll('.tag_widget input[type=checkbox]')
+        .forEach(el => {
+
+            // if(el.checked){
+            //  el.parentElement.classList.add('bg-lime-600');
+            //  el.parentElement.classList.add('text-white');
+            // }
+
+            if(text.value.includes(el.value)){
+                el.checked = true;
+                el.parentElement.classList.add('bg-lime-600');
+                el.parentElement.classList.add('text-white');
+            }
+           
+            el.addEventListener('click', event => {
+                p = event.target.parentElement
+                p.classList.toggle('bg-lime-600');
+                p.classList.toggle('text-white');
+                text.value = [...d.querySelectorAll(`.tag_widget input[name=${el.name}]:checked`)]
+                                    .map(e => e.value)
+                                    .join(', ');
+            })
+        });
 </script>
 
-{% endblock %}
+{% endblock %}                
+

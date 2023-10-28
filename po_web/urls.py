@@ -3,13 +3,15 @@ from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
 
+# path('@', include('website.urls')),
 urlpatterns = [
-    # path('@', include('website.urls')),
     path('~', include('feedback.urls')),
     path('webhooks/', include('webhooks.urls')),
     path('admin/', admin.site.urls),
     path('accounts/', include('extensions.urls')),
     path('', include('dashboard.urls')),
+
+    # Автообновлние
     path('__reload__/', include('django_browser_reload.urls')),
 ]
 

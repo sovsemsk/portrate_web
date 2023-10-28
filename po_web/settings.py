@@ -34,7 +34,6 @@ INSTALLED_APPS = [
     'extensions.apps.ExtensionsConfig',
     'resources.apps.ResourcesConfig',
     'feedback.apps.FeedbackConfig',
-    'website.apps.WebsiteConfig',
     'dashboard.apps.DashboardConfig',
 ]
 
@@ -92,7 +91,7 @@ ALLOWED_HOSTS = [
     'geo.portrate.io',
     '91.201.53.6',
     '127.0.0.1',
-    '1e3d-178-66-130-72.ngrok-free.app'
+    '7180-178-66-130-72.ngrok-free.app'
 ]
 
 INTERNAL_IPS = ['127.0.0.1']

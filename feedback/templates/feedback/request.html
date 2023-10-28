@@ -2,19 +2,130 @@
 {% load static %}
 
 {% block content %}
-<h1 class="font-bold py-5 text-2xl text-center">Наградите нас отзывом</h1>
+<h1 class="font-bold py-5 text-2xl text-center">{{ company.request_form_positive_head }}</h1>
 <div class="flex flex-col">
-    {% for card in website.cards %}
-    <a class="border-t border-neutral-200 last:border-b flex py-2 px-4 items-center" href="{{ card.value }}" target="_blank">
+    {% if company.yandex_link %}
+    <a class="border-t border-neutral-200 last:border-b flex py-2 px-4 items-center" href="{{ company.yandex_link }}" target="_blank">
         <div class="pr-2">
-            <img class="h-8 w-8" src="{{ website.logo.file.url }}" alt="{{ website.name }}">
+            <img class="h-4 w-4" src="{% static 'yandex.svg' %}" alt="{{ company.name }}">
         </div>
-        <div class="">Оценить на {{ card.name }}</div>
+        <div class="">Оценить на Яндекс</div>
         <div class="material-symbols-outlined ml-auto text-neutral-400 text-[1.2rem]">arrow_outward</div>
     </a>
-    {% endfor %}
+    {% endif %}
+
+    {% if company.gis_link %}
+    <a class="border-t border-neutral-200 last:border-b flex py-2 px-4 items-center" href="{{ company.gis_link }}" target="_blank">
+        <div class="pr-2">
+            <img class="h-4 w-4" src="{% static 'gis.svg' %}" alt="{{ company.name }}">
+        </div>
+        <div class="">Оценить на 2Гис</div>
+        <div class="material-symbols-outlined ml-auto text-neutral-400 text-[1.2rem]">arrow_outward</div>
+    </a>
+    {% endif %}
+
+    {% if company.google_link %}
+    <a class="border-t border-neutral-200 last:border-b flex py-2 px-4 items-center" href="{{ company.google_link }}" target="_blank">
+        <div class="pr-2">
+            <img class="h-4 w-4" src="{% static 'google.svg' %}" alt="{{ company.name }}">
+        </div>
+        <div class="">Оценить на Google</div>
+        <div class="material-symbols-outlined ml-auto text-neutral-400 text-[1.2rem]">arrow_outward</div>
+    </a>
+    {% endif %}
+
+    {% if company.mapsme_link %}
+    <a class="border-t border-neutral-200 last:border-b flex py-2 px-4 items-center" href="{{ company.mapsme_link }}" target="_blank">
+        <div class="pr-2">
+            <img class="h-4 w-4" src="{% static 'mapsme.svg' %}" alt="{{ company.name }}">
+        </div>
+        <div class="">Оценить на Mapsme</div>
+        <div class="material-symbols-outlined ml-auto text-neutral-400 text-[1.2rem]">arrow_outward</div>
+    </a>
+    {% endif %}
+
+    {% if company.dikidi_link %}
+    <a class="border-t border-neutral-200 last:border-b flex py-2 px-4 items-center" href="{{ company.dikidi_link }}" target="_blank">
+        <div class="pr-2">
+            <img class="h-4 w-4" src="{% static 'dikidi.svg' %}" alt="{{ company.name }}">
+        </div>
+        <div class="">Оценить на Dikidi</div>
+        <div class="material-symbols-outlined ml-auto text-neutral-400 text-[1.2rem]">arrow_outward</div>
+    </a>
+    {% endif %}
+
+    {% if company.restoclub_link %}
+    <a class="border-t border-neutral-200 last:border-b flex py-2 px-4 items-center" href="{{ company.restoclub_link }}" target="_blank">
+        <div class="pr-2">
+            <img class="h-4 w-4" src="{% static 'restoclub.svg' %}" alt="{{ company.name }}">
+        </div>
+        <div class="">Оценить на Рестоклуб</div>
+        <div class="material-symbols-outlined ml-auto text-neutral-400 text-[1.2rem]">arrow_outward</div>
+    </a>
+    {% endif %}
+
+    {% if company.tripadvisor_link %}
+    <a class="border-t border-neutral-200 last:border-b flex py-2 px-4 items-center" href="{{ company.tripadvisor_link }}" target="_blank">
+        <div class="pr-2">
+            <img class="h-4 w-4" src="{% static 'tripadvisor.svg' %}" alt="{{ company.name }}">
+        </div>
+        <div class="">Оценить на Tripadvisor</div>
+        <div class="material-symbols-outlined ml-auto text-neutral-400 text-[1.2rem]">arrow_outward</div>
+    </a>
+    {% endif %}
+
+    {% if company.prodoctorov_link %}
+    <a class="border-t border-neutral-200 last:border-b flex py-2 px-4 items-center" href="{{ company.prodoctorov_link }}" target="_blank">
+        <div class="pr-2">
+            <img class="h-4 w-4" src="{% static 'prodoctorov.svg' %}" alt="{{ company.name }}">
+        </div>
+        <div class="">Оценить на Продокторов</div>
+        <div class="material-symbols-outlined ml-auto text-neutral-400 text-[1.2rem]">arrow_outward</div>
+    </a>
+    {% endif %}
+
+    {% if company.flamp_link %}
+    <a class="border-t border-neutral-200 last:border-b flex py-2 px-4 items-center" href="{{ company.flamp_link }}" target="_blank">
+        <div class="pr-2">
+            <img class="h-4 w-4" src="{% static 'flamp.svg' %}" alt="{{ company.name }}">
+        </div>
+        <div class="">Оценить на Flamp</div>
+        <div class="material-symbols-outlined ml-auto text-neutral-400 text-[1.2rem]">arrow_outward</div>
+    </a>
+    {% endif %}
+
+    {% if company.zoon_link %}
+    <a class="border-t border-neutral-200 last:border-b flex py-2 px-4 items-center" href="{{ company.zoon_link }}" target="_blank">
+        <div class="pr-2">
+            <img class="h-4 w-4" src="{% static 'zoon.svg' %}" alt="{{ company.name }}">
+        </div>
+        <div class="">Оценить на Zoon</div>
+        <div class="material-symbols-outlined ml-auto text-neutral-400 text-[1.2rem]">arrow_outward</div>
+    </a>
+    {% endif %}
+
+    {% if company.otzovik_link %}
+    <a class="border-t border-neutral-200 last:border-b flex py-2 px-4 items-center" href="{{ company.otzovik_link }}" target="_blank">
+        <div class="pr-2">
+            <img class="h-4 w-4" src="{% static 'otzovik.svg' %}" alt="{{ company.name }}">
+        </div>
+        <div class="">Оценить на Отзовик</div>
+        <div class="material-symbols-outlined ml-auto text-neutral-400 text-[1.2rem]">arrow_outward</div>
+    </a>
+    {% endif %}
+
+    {% if company.irecommend_link %}
+    <a class="border-t border-neutral-200 last:border-b flex py-2 px-4 items-center" href="{{ company.irecommend_link }}" target="_blank">
+        <div class="pr-2">
+            <img class="h-4 w-4" src="{% static 'irecommend.svg' %}" alt="{{ company.name }}">
+        </div>
+        <div class="">Оценить на Irecommend</div>
+        <div class="material-symbols-outlined ml-auto text-neutral-400 text-[1.2rem]">arrow_outward</div>
+    </a>
+    {% endif %}
+
 </div>
 <div class="p-4">
-    <a class="block bg-neutral-200 active:bg-neutral-300 py-2 px-4 rounded-lg text-center text-sm" href="{% url 'feedback_create' website_id=website.id %}">Связаться с администратором</a>
+    <a class="block bg-neutral-200 active:bg-neutral-300 py-2 px-4 rounded-lg text-center text-sm" href="{% url 'feedback_create' company_id=company.id %}">Связаться с администратором</a>
 </div>
 {% endblock %}

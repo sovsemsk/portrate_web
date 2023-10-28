@@ -1,5 +1,5 @@
 from django import forms
-from resources.models import NegativeMessage, NegativeMessageTag
+from resources.models import NegativeMessage
 
 
 class NegativeMessageForm(forms.ModelForm):
@@ -16,22 +16,16 @@ class NegativeMessageForm(forms.ModelForm):
         widget=forms.Textarea
     )
 
-    negative_message_tag = forms.ModelMultipleChoiceField(
-        label=False,
-        queryset=NegativeMessageTag.objects.all(),
-        widget=forms.CheckboxSelectMultiple
-    )
-
     class Meta:
         model = NegativeMessage
-        fields = ['phone', 'text', 'negative_message_tag']
+        fields = ['phone', 'text']
 
     # Конструктор формы
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         # Поле тегов
-        self.fields['negative_message_tag'].widget.attrs['class'] = 'tag_widget'
+        # self.fields['negative_message_tag'].widget.attrs['class'] = 'tag_widget'
 
         # Поле комментарий
         self.fields['text'].widget.attrs['class'] = 'text_area_widget'

@@ -16,7 +16,7 @@
         <div class="bg-neutral-200 flex px-6 py-2">
             <div class="py-1 mr-4">Портрет <span class="font-medium">Geo</span></div>
             <a class="{% if nav == 'index' %}bg-orange-500 text-white {% endif %}px-2 py-1 rounded-lg" href="/">Сегодня</a>
-            <a class="{% if nav == 'branches' %}bg-orange-500 text-white {% endif %}px-2 py-1 rounded-lg" href="{% url 'dashboard_branches' %}">Филиалы</a>
+            <a class="{% if nav == 'companies' %}bg-orange-500 text-white {% endif %}px-2 py-1 rounded-lg" href="{% url 'dashboard_companies' %}">Компании</a>
             <a class="{% if nav == 'notifications' %}bg-orange-500 text-white {% endif %}px-2 py-1 rounded-lg" href="/notifications">Оповещения</a>
             <a class="flex gap-2 items-center px-2 py-1 ml-auto" href="#">
                 {{ user.get_username }}

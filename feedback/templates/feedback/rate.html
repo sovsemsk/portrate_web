@@ -2,9 +2,9 @@
 {% load static %}
 
 {% block content %}
-<h1 class="font-bold py-6 text-2xl text-center">Вам понравилось обслуживание?</h1>
+<h1 class="font-bold py-6 text-2xl text-center">{{ company.request_form_home_head }}</h1>
 <div class="flex flex-col gap-2 p-4">
-    <a class="bg-lime-600 active:bg-lime-700 py-2 px-4 rounded-lg text-center text-lg text-white" href="{% url 'feedback_request' website_id=website.id %}">Все отлично</a>
-    <a class="bg-neutral-200 active:bg-neutral-300 py-2 px-4 rounded-lg text-center text-sm" href="{% url 'feedback_create' website_id=website.id %}">Есть претензия</a>
+    <a class="bg-lime-600 active:bg-lime-700 py-2 px-4 rounded-lg text-center text-lg text-white" href="{% url 'feedback_request' company_id=company.id %}">Все отлично</a>
+    <a class="bg-neutral-200 active:bg-neutral-300 py-2 px-4 rounded-lg text-center text-sm" href="{% url 'feedback_create' company_id=company.id %}">Есть претензия</a>
 </div>
 {% endblock %}
