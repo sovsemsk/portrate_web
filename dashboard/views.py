@@ -18,3 +18,13 @@ def companies(request):
         'nav': 'companies',
         'companies': companies
     })
+
+
+@login_required
+@require_http_methods(['GET'])
+def notifications(request):
+    companies = Company.objects.filter(users__in=(request.user,)).all()
+    return render(request, 'dashboard/notifications.html', {
+        'nav': 'notifications',
+        'companies': companies
+    })

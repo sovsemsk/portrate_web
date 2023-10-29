@@ -1,23 +1,33 @@
 {% extends "extensions/base.html" %}
 
 {% block content %}
-
-
 <div class="flex flex-col gap-4 mt-12">
-    {% if messages %}
-    {% for message in messages %}
-        <!-- <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li> -->
-        <div class="bg-rose-200 px-4 py-2 rounded-lg text-rose-700">{{message}}</div>
-    {% endfor %}
-    {% endif %}
-    <div class="bg-white rounded-2xl p-4 w-96">
-    <form class="flex flex-col gap-2 " action="" method="post" novalidate>
-        {% csrf_token %}
-        <h1 class=" text-2xl">Вход</h1>
-        {{ form.username }}
-        {{ form.password }}
-        <button class="border-black/10 border active:bg-neutral-300 px-2 py-1 rounded self-start text-sm" type="submit">Войти</button>
-    </form>
+    <div class="bg-white rounded-2xl p-2 pt-4 w-96">
+        <form class="flex flex-col gap-4" action="" method="post" novalidate>
+            {% csrf_token %}
+            <div>
+                <h1 class="font-bold text-2xl text-">Вход</h1>
+                <div class="text-">Портрет Geo</div>
+            </div>
+
+            {% if messages %}
+            {% for message in messages %}
+            <div class="bg-rose-100 flex items-center justify-between px-2 py-1 rounded text-sm text-rose-900">
+                {{message}}
+                <span class="material-symbols-outlined text-rose-900 text-sm">info_i</span>
+            </div>
+            {% endfor %}
+            {% endif %}
+
+            <div class="flex flex-col gap-1" action="" method="post" novalidate>
+                {{ form.username }}
+                {{ form.password }}
+            </div>
+
+            <div class="flex">
+                <button class="button_widget" type="submit">Войти</button>
+            </div>
+        </form>
     </div>
 </div>
 {% endblock %}

@@ -12,21 +12,48 @@
 		
         {% tailwind_css %}
 	</head>
-	<body class="bg-neutral-200 m-0">
-        <div class="bg-neutral-200 flex px-6 py-2 justify-between">
-            <div class="py-1">Портрет <span class="font-medium">Geo</span></div>
-            <div class="mx-3">
+	<body class="bg-neutral-200 gap-6 grid grid-cols-4 p-6 m-0">
+        <!-- Навигация -->
+        <div>
+            <div class="px-2 py-1">
+                Портрет <span class="font-medium text-orange-500">Geo</span>
+            </div>
+        </div>
+        <div class="col-span-2">
+            <div class="flex">
                 <a class="{% if nav == 'index' %}bg-orange-500 text-white {% endif %}px-2 py-1 rounded-lg" href="/">Сегодня</a>
                 <a class="{% if nav == 'companies' %}bg-orange-500 text-white {% endif %}px-2 py-1 rounded-lg" href="{% url 'dashboard_companies' %}">Компании</a>
                 <a class="{% if nav == 'notifications' %}bg-orange-500 text-white {% endif %}px-2 py-1 rounded-lg" href="/notifications">Оповещения</a>
             </div>
-            <a class="flex gap-2 items-center px-2 py-1" href="#">
-                {{ user.get_username }}
-                <span class="material-symbols-outlined text-blue-500 text-[1rem]">lock</span>
-            </a>
         </div>
         <div>
+            <a class="flex gap-2 items-center px-2 py-1" href="#">
+                {{ user.get_username }}
+                <span class="material-symbols-outlined text-orange-500 text-sm">lock</span>
+            </a>
+        </div>
+
+        <!-- Заголовок -->
+        <div class="col-start-2 col-span-3">
+            {% block head %}
+            {% endblock %}
+        </div>
+
+        <!-- Левое меню -->
+        <div class="">
+            {% block left %}
+            {% endblock %}
+        </div>
+
+        <!-- Контент -->
+        <div class="col-span-2">
             {% block content %}
+            {% endblock %}
+        </div>
+        
+        <!-- Правое меню -->
+        <div class="">
+            {% block right %}
             {% endblock %}
         </div>
     </body>
