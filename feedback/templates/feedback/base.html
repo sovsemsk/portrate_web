@@ -19,7 +19,7 @@
             {% if company.logo %}
                 <img class="h-24 mx-auto overflow-hidden rounded-lg shadow-black/10 shadow-xl w-24" src="{{ company.logo.url }}" alt="{{ company.name }}">
             {% else %}
-                <div class="bg-orange-200 flex items-center h-24 mx-auto rounded-lg w-24">
+                <div class="bg-orange-200 flex items-center h-24 mx-auto rounded-lg shadow-black/10 shadow-xl w-24 w-24">
                     <span class="material-symbols-outlined text-6xl mx-auto">storefront</span>
                 </div>
             {% endif %}
