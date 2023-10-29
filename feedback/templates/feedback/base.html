@@ -13,14 +13,19 @@
         {% tailwind_css %}
 	</head>
 	<body class="bg-neutral-200 m-0">
-        <div class="mx-auto max-w-sm">
+        <div class="mx-auto max-w-sm relative">
             <!-- Логотип-->
-            {% if company.logo.file %}
-            <a class="block pt-16 z-10" href="{% url 'feedback_rate' company_id=company.id %}">
+            <a class="absolute -top-16 w-full" href="{% url 'feedback_rate' company_id=company.id %}">
+            {% if company.logo %}
                 <img class="h-24 mx-auto overflow-hidden rounded-lg shadow-black/10 shadow-xl w-24" src="{{ company.logo.url }}" alt="{{ company.name }}">
-            </a>
+            {% else %}
+                <div class="bg-orange-200 flex items-center h-24 mx-auto rounded-lg w-24">
+                    <span class="material-symbols-outlined text-6xl mx-auto">storefront</span>
+                </div>
             {% endif %}
-            <div class="px-4 -mt-6 z-1">
+            </a>
+
+            <div class="px-4 mt-32">
                 <div class="bg-white rounded-2xl shadow-black/10 shadow-xl">
                     <h2 class="pt-10 text-center">{{ company.name }}</h2>
                     {% block content %}
