@@ -3,9 +3,9 @@
 
 {% block content %}
 
-<div class="flex items-center pt-3 px-6 pb-3">
+<div class="flex items-center pt-14 px-6 pb-3 max-w-3xl mx-auto">
     <h1 class="text-3xl">Компании</h1>
-    <div class="flex gap-2 items-center ml-auto">
+    <div class="flex gap-1 items-center ml-auto">
         {% if user.profile.telegram_id %}
         <a class="border-black/10 border active:bg-neutral-300 flex gap-2 items-center px-2 py-1 rounded self-start text-center text-sm" href="{% url 'extensions_telegram_notify_unsubscribe' %}?next={{ request.path }}">
             Отписаться от оповещений
@@ -17,13 +17,13 @@
             <span class="material-symbols-outlined text-[1rem] text-sky-800">send</span>
         </a>
         {% endif %}
-        <a class="border-black/10 border active:bg-neutral-300 px-2 py-1 rounded self-start text-center text-sm" href="#">Создать филиал</a>
+        <a class="border-black/10 border active:bg-neutral-300 px-2 py-1 rounded self-start text-center text-sm" href="#">Создать</a>
     </div>
 </div>
 
-<div class="flex">
+<div class="flex max-w-3xl mx-auto">
     <!-- Панель компаний -->
-    <div class="grid gap-2 grid-cols-2  px-6 w-full max-w-screen-xl">
+    <div class="grid gap-2 grid-cols-1  px-6 w-full max-w-screen-xl">
         <!-- Контейнер компаний -->
 
         {% for company in companies %}
@@ -31,7 +31,7 @@
 
             <div class="bg-orange-200 flex h-8 items-center overflow-hidden rounded-lg w-8">
                 {% if company.logo %}
-                <img class="h-8  w-8" src="{{ company.logo.file.url }}" alt="{{ company.name }}">
+                <img class="h-8  w-8" src="{{ company.logo.url }}" alt="{{ company.name }}">
                 {% else %}
                 <span class="material-symbols-outlined text-2xl mx-auto">storefront</span>
                 {% endif %} 
@@ -42,30 +42,63 @@
                 <div class="text-sm text-neutral-500 truncate">{{ company.address }}</div>
             </div>
 
+            <div class="flex gap-1">
+            <a class="border-black/10 border active:bg-neutral-300 px-2 py-1 rounded self-start text-center text-sm" href="#" >
+                Открыть
+            </a>
+            <a class="border-black/10 border active:bg-neutral-300 px-2 py-1 rounded self-start text-center text-sm" href="#">
+                Скопировать ссылку
+            </a>
+
+        </div>
+
             <div class="grid gap-1 grid-cols-2 justify-stretch">
                 <div class="border border-neutral-200 rounded-lg px-2 py-1">
-                    <div class="text-xl">12 098 489</div>
+                    <div class="text-xl">{{ company.portrate_negative_count|default:'0' }}</div>
                     <div class="text-sm text-neutral-500">Отзывов</div>
 
                 </div>
     
                 <div class="border border-neutral-200 rounded-lg px-2 py-1 ">
-                    <div class="text-xl text-lime-700">4,9</div>
-                    <div class="text-sm text-neutral-500">Яндекс</div>
+                    <div class="flex items-start text-xl">
+                        {{ company.yandex_rate|default:'0,0' }}
+                        {% if company.yandex_id and company.is_yandex_reviews_upload and company.is_yandex_reviews_download %}
+                        <div class="bg-lime-500 h-2 ml-auto mt-1 rounded-full text-center w-2"></div>
+                        {% else %}
+                        <div class="bg-red-500 h-2 ml-auto mt-1 rounded-full text-center w-2"></div>
+                        {% endif %}
+                    </div>
+                    <div class="text-sm text-neutral-500">
+                        Яндекс
+                    </div>
                 </div>
                 <div class="border border-neutral-200 rounded-lg px-2 py-1">
-                    <div class="text-xl text-rose-700">0,0</div>
+                    <div class="flex items-start text-xl">
+                        {{ company.gis_rate|default:'0,0' }}
+                        {% if company.gis_id and True %}
+                        <div class="bg-lime-500 h-2 ml-auto mt-1 rounded-full text-center w-2"></div>
+                        {% else %}
+                        <div class="bg-red-500 h-2 ml-auto mt-1 rounded-full text-center w-2"></div>
+                        {% endif %}
+                    </div>
                     <div class="text-sm text-neutral-500">2Гис</div>
                 </div>
     
                 <div class="border border-neutral-200 rounded-lg px-2 py-1">
-                    <div class="text-xl text-rose-700">0,0</div>
+                    <div class="flex items-start text-xl">
+                        {{ company.google_rate|default:'0,0' }}
+                        {% if company.google_id and True %}
+                        <div class="bg-lime-500 h-2 ml-auto mt-1 rounded-full text-center w-2"></div>
+                        {% else %}
+                        <div class="bg-red-500 h-2 ml-auto mt-1 rounded-full text-center w-2"></div>
+                        {% endif %}
+
+                    </div>
                     <div class="text-sm text-neutral-500">Google</div>
                 </div>
             </div>
 
-
-
+    
         </div>
         {% endfor %}
     </div>

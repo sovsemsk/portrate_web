@@ -667,7 +667,7 @@ def telegram_notify_signal(sender, instance, created, **kwargs):
         # Шаблон
         text = f'''📍 Негативное сообщение в Портрете.
 
-🏪 Филиал:
+🏪 Компания:
 {instance.negative_message.company}
 
 📱 Телефон:

@@ -13,17 +13,19 @@
         {% tailwind_css %}
 	</head>
 	<body class="bg-neutral-200 m-0">
-        <div class="bg-neutral-200 flex px-6 py-2">
-            <div class="py-1 mr-4">Портрет <span class="font-medium">Geo</span></div>
-            <a class="{% if nav == 'index' %}bg-orange-500 text-white {% endif %}px-2 py-1 rounded-lg" href="/">Сегодня</a>
-            <a class="{% if nav == 'companies' %}bg-orange-500 text-white {% endif %}px-2 py-1 rounded-lg" href="{% url 'dashboard_companies' %}">Компании</a>
-            <a class="{% if nav == 'notifications' %}bg-orange-500 text-white {% endif %}px-2 py-1 rounded-lg" href="/notifications">Оповещения</a>
-            <a class="flex gap-2 items-center px-2 py-1 ml-auto" href="#">
+        <div class="bg-neutral-200 flex px-6 py-2 justify-between">
+            <div class="py-1">Портрет <span class="font-medium">Geo</span></div>
+            <div class="mx-3">
+                <a class="{% if nav == 'index' %}bg-orange-500 text-white {% endif %}px-2 py-1 rounded-lg" href="/">Сегодня</a>
+                <a class="{% if nav == 'companies' %}bg-orange-500 text-white {% endif %}px-2 py-1 rounded-lg" href="{% url 'dashboard_companies' %}">Компании</a>
+                <a class="{% if nav == 'notifications' %}bg-orange-500 text-white {% endif %}px-2 py-1 rounded-lg" href="/notifications">Оповещения</a>
+            </div>
+            <a class="flex gap-2 items-center px-2 py-1" href="#">
                 {{ user.get_username }}
                 <span class="material-symbols-outlined text-blue-500 text-[1rem]">lock</span>
             </a>
         </div>
-        <div class="">
+        <div>
             {% block content %}
             {% endblock %}
         </div>
