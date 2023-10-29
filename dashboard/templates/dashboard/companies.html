@@ -7,17 +7,17 @@
     <h1 class="text-3xl">Компании</h1>
     <div class="flex gap-1 items-center ml-auto">
         {% if user.profile.telegram_id %}
-        <a class="border-black/10 border active:bg-neutral-300 flex gap-2 items-center px-2 py-1 rounded self-start text-center text-sm" href="{% url 'extensions_telegram_notify_unsubscribe' %}?next={{ request.path }}">
+        <a class="button_widget flex gap-1 items-center" href="{% url 'extensions_telegram_notify_unsubscribe' %}?next={{ request.path }}">
             Отписаться от оповещений
             <span class="material-symbols-outlined text-[1rem] text-sky-800">send</span>
         </a>
         {% else %}
-        <a class="border-black/10 border active:bg-neutral-300 px-2 py-1 rounded self-start text-center text-sm" href="http://t.me/portrate_notify_bot?start={{user.profile.api_secret}}" target="_blank">
+        <a class="button_widget flex gap-1 items-center" href="http://t.me/portrate_notify_bot?start={{user.profile.api_secret}}" target="_blank">
             Подписаться на оповещения
             <span class="material-symbols-outlined text-[1rem] text-sky-800">send</span>
         </a>
         {% endif %}
-        <a class="border-black/10 border active:bg-neutral-300 px-2 py-1 rounded self-start text-center text-sm" href="#">Создать</a>
+        <a class="button_widget" href="#">Создать</a>
     </div>
 </div>
 

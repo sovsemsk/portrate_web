@@ -1,39 +1,39 @@
 {% load static tailwind_tags %}
 <!DOCTYPE html>
 <html lang="ru">
-	<head>
+    <head>
         <title>{{ company.name }}</title>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta http-equiv="X-UA-Compatible" content="ie=edge">        
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">        
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap">
         <script src="https://unpkg.com/imask"></script>
-		
+
         {% tailwind_css %}
-	</head>
-	<body class="bg-neutral-200 m-0">
+    </head>
+    <body class="bg-neutral-200 m-0 pt-24">
         <div class="mx-auto max-w-sm relative">
+
             <!-- Логотип-->
             <a class="absolute -top-16 w-full" href="{% url 'feedback_rate' company_id=company.id %}">
             {% if company.logo %}
                 <img class="h-24 mx-auto overflow-hidden rounded-lg shadow-black/10 shadow-xl w-24" src="{{ company.logo.url }}" alt="{{ company.name }}">
             {% else %}
-                <div class="bg-orange-200 flex items-center h-24 mx-auto rounded-lg shadow-black/10 shadow-xl w-24 w-24">
-                    <span class="material-symbols-outlined text-6xl mx-auto">storefront</span>
+                <div class="bg-orange-200 flex h-24 items-center mx-auto rounded-lg shadow-black/10 shadow-xl w-24">
+                    <span class="material-symbols-outlined mx-auto text-6xl">storefront</span>
                 </div>
             {% endif %}
             </a>
 
-            <div class="px-4 mt-32">
-                <div class="bg-white rounded-2xl shadow-black/10 shadow-xl">
-                    <h2 class="pt-10 text-center">{{ company.name }}</h2>
+            <div class="px-4">
+                <div class="bg-white flex flex-col gap-6 p-2 rounded-2xl shadow-black/10 shadow-xl">
+                    <h1 class="pt-8 text-center">{{ company.name }}</h1>
                     {% block content %}
                     {% endblock %}
                 </div>
             </div>
 
-            <!-- @TODO; !!! -->
             <div class="px-4 py-6 text-center">
                 <sapn class="text-neutral-500 text-xs">работает на</sapn> <a class="text-orange-600 hover:text-orange-500 text-xs" href="https://portrate.io">portrate.io</a>
             </div>

@@ -2,17 +2,18 @@
 {% load static %}
 
 {% block content %}
-<h1 class="font-bold px-4 py-5 text-2xl text-center">{{ company.request_form_negative_head }}</h1>
+<h1 class="font-bold px-2 text-2xl text-center">{{ company.request_form_negative_head }}</h1>
 
-<div class="px-4 pb-4">
+<p>
     {{ company.request_form_negative_text }}
-</div>
+</p>
 
-<form class="px-4 pb-4" action="" method="post" novalidate>
+<form class="flex flex-col gap-4" action="" method="post" novalidate>
     {% csrf_token %}
 
     <!-- Теги, виджет из формы для чегбоксов m2m-->
-    <h5 class="font-bold pb-1">Что именно вам не понравилось?</h5>
+    <div class="flex flex-col gap-2">
+    <h5 class="font-bold">Что именно вам не понравилось?</h5>
     <div class="tag_widget">
     {% for tag in company.request_form_tags %}
         <div>
@@ -23,15 +24,19 @@
 
     <!-- Комментарий -->
     {{ form.text }}
+    </div>
     
+    <div>
+
     <!-- Контактный телефон -->
     <h5 class="font-bold pb-1">Оставьте ваш контакт <span class="text-rose-600">*</span></h5>
     {{ form.phone }}
     {% if form.phone.errors %}
     <div class="text-xs text-rose-600 pt-1">Необходимо заполнить контактный телефон </div>
     {% endif %}
+    </div>
     
-    <button class="bg-lime-600 active:bg-lime-700 mt-4 py-2 px-4 rounded-lg text-center text-lg text-white w-full" href="{% url 'feedback_create' company_id=company.id %}" type="submit">Отправить</button>
+    <button class="bg-lime-600 active:bg-lime-700 py-2 px-4 rounded-lg text-center text-lg text-white w-full" href="{% url 'feedback_create' company_id=company.id %}" type="submit">Отправить</button>
 </form>
 
 <script>

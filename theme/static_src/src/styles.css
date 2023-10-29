@@ -4,12 +4,16 @@
 
 @layer components {
 
+    .button_widget {
+        @apply border-black/10 border active:bg-neutral-300 px-2 py-1 rounded text-sm;
+    }
+    
     .char_field_widget, .text_area_widget {
-        @apply border border-neutral-300 focus:border-orange-300 focus:ring-0 px-2 py-1 resize-none rounded text-sm placeholder:text-neutral-400 w-full;
+        @apply block border border-neutral-300 focus:border-orange-300 m-0 px-2 py-1 resize-none rounded focus:ring-0 text-sm placeholder:text-neutral-400 w-full;
     }
 
     .tag_widget {
-        @apply flex flex-wrap gap-2 pb-2;
+        @apply flex flex-wrap gap-2;
 
         > div {
             label {
