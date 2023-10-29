@@ -8,25 +8,16 @@
 {% block content %}
 <div class="flex flex-col gap-2">
 
-    <!-- Тулбар -->
+    <!-- Тулбар
     <div class="bg-white flex gap-1 p-2 rounded-2xl">
         <a class="button_widget" href="#">Создать</a>
-        <!--
-        {% if user.profile.telegram_id %}  
-        <a class="button_widget flex gap-1 items-center" href="{% url 'extensions_telegram_notify_unsubscribe' %}?next={{ request.path }}">
-            Отписаться от оповещений <span class="material-symbols-outlined text-sm text-sky-800">send</span>
-        </a>
-        {% else %}
-        <a class="button_widget flex gap-1 items-center" href="http://t.me/portrate_notify_bot?start={{user.profile.api_secret}}" target="_blank">
-            Подписаться на оповещения <span class="material-symbols-outlined text-sm text-sky-800">send</span>
-        </a>
-        {% endif %}
-        -->
     </div>
-    
+    -->
+
     <!-- Компании -->
     {% for company in companies %}
-    <div class="bg-white flex flex-col gap-4 p-2 rounded-2xl">
+    <div class="bg-white border border-neutral-200 flex flex-col gap-4 p-2 rounded-2xl shadow shadow-black/5">
+
         
         <!-- Заголовок -->
         <div class="flex gap-2 items-center">
@@ -45,12 +36,12 @@
 
         <!-- Значения -->
         <div class="grid gap-1 grid-cols-2 justify-stretch">
-            <div class="border border-neutral-200 rounded-lg px-2 py-1">
+            <div class="border border-neutral-300 rounded-lg px-2 py-1 shadow-sm">
                 <div class="text-xl">{{ company.portrate_negative_count|default:'0' }}</div>
                 <div class="text-sm text-neutral-500">Отзывов</div>
             </div>
 
-            <div class="border border-neutral-200 rounded-lg px-2 py-1 ">
+            <div class="border border-neutral-300 rounded-lg px-2 py-1 ">
                 <div class="flex items-start text-xl">
                     {{ company.yandex_rate|default:'0,0' }}
                     {% if company.yandex_id and company.is_yandex_reviews_upload and company.is_yandex_reviews_download %}
@@ -64,7 +55,7 @@
                 </div>
             </div>
 
-            <div class="border border-neutral-200 rounded-lg px-2 py-1">
+            <div class="border border-neutral-300 rounded-lg px-2 py-1">
                 <div class="flex items-start text-xl">
                     {{ company.gis_rate|default:'0,0' }}
                     {% if company.gis_id and True %}
@@ -76,7 +67,7 @@
                 <div class="text-sm text-neutral-500">2Гис</div>
             </div>
 
-            <div class="border border-neutral-200 rounded-lg px-2 py-1">
+            <div class="border border-neutral-300 rounded-lg px-2 py-1">
                 <div class="flex items-start text-xl">
                     {{ company.google_rate|default:'0,0' }}
                     {% if company.google_id and True %}

@@ -5,25 +5,26 @@
 <h1 class="text-3xl items-center px-2 pt-6">Оповещения</h1>
 {% endblock %}
 
-{% block left %}
-<div class="flex flex-col gap-2">
-    {% for company in companies %}
-    <a href="?company_id={{ company.id }}" class="flex items-center">
-        {% if company.id == request.GET.company_id %}
-            <div class="bg-orange-500 rounded w-1 h-4 mr-1"></div>
-        {% else %}
-            <div class="bg-neutral-200 rounded w-1 h-4 mr-1"></div>
-        {% endif %}
-        {{ company }}
-    </a>
-    {% endfor %}
-</div>
-{% endblock %}
 
 {% block content %}
 <div class="flex flex-col gap-2">
+    <div class="flex gap-1 p-2 border border-neutral-200 rounded-2xl">
+        {% if user.profile.telegram_id %}  
+        <a class="button_widget flex gap-1 items-center" href="{% url 'extensions_telegram_notify_unsubscribe' %}?next={{ request.path }}">
+            Отписаться от оповещений <span class="material-symbols-outlined text-sm text-sky-800">send</span>
+        </a>
+        {% else %}
+        <a class="button_widget flex gap-1 items-center" href="http://t.me/portrate_notify_bot?start={{user.profile.api_secret}}" target="_blank">
+            Подписаться на оповещения <span class="material-symbols-outlined text-sm text-sky-800">send</span>
+        </a>
+        {% endif %}
+        <a class="button_widget flex gap-1 items-center" href="http://t.me/portrate_notify_bot?start={{user.profile.api_secret}}" target="_blank">
+            Настройки <span class="material-symbols-outlined text-sm text-orange-500">page_info</span>
+        </a>
+    </div>
+    
     {% for notification in notifications %}
-    <div class="bg-white flex flex-col gap-4 p-2 rounded-2xl">
+    <div class="bg-white border border-neutral-200 flex flex-col gap-4 p-2 rounded-2xl shadow shadow-black/5">
         <div class="flex gap-2 ">
             {% if notification.initiator == 'PORTRATE_NEGATIVE_MESSAGE' %}
             <div>

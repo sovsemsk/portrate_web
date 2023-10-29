@@ -12,9 +12,9 @@
 		
         {% tailwind_css %}
 	</head>
-	<body class="bg-neutral-200 gap-2 grid grid-cols-4 p-6 m-0">
+	<body class="bg-neutral-100 gap-2 grid grid-cols-4 p-6 m-0">
         <!-- Навигация -->
-        <div>
+        <div class="col-span-1">
             <div class="px-2 py-1">
                 Портрет <span class="font-medium text-orange-500">Geo</span>
             </div>
@@ -26,11 +26,18 @@
                 <a class="{% if nav == 'notifications' %}bg-orange-500 text-white {% endif %}px-2 py-1 rounded-lg" href="/notifications">Оповещения</a>
             </div>
         </div>
-        <div>
-            <a class="flex gap-2 items-center px-2 py-1" href="#">
-                {{ user.get_username }}
-                <span class="material-symbols-outlined text-orange-500 text-sm">lock</span>
-            </a>
+        <div class="col-span-1">
+            <div class="flex">
+                <a class="flex gap-2 items-center px-2 py-1" href="#">
+                    {{ user.get_username }}
+                </a>
+                <a class="flex gap-2 items-center px-2 py-1" href="#">
+                    <span class="material-symbols-outlined text-orange-500 text-sm">page_info</span>
+                </a>
+                <a class="flex gap-2 items-center px-2 py-1" href="#">
+                    <span class="material-symbols-outlined text-orange-500 text-sm">logout</span>
+                </a>
+            </div>
         </div>
 
         <!-- Заголовок -->
@@ -40,7 +47,7 @@
         </div>
 
         <!-- Левое меню -->
-        <div class="">
+        <div class="col-span-1">
             {% block left %}
             {% endblock %}
         </div>
@@ -52,7 +59,7 @@
         </div>
         
         <!-- Правое меню -->
-        <div class="">
+        <div class="col-span-1">
             {% block right %}
             {% endblock %}
         </div>
