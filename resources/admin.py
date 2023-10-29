@@ -103,11 +103,6 @@ class CompanyAdmin(admin.ModelAdmin):
             {
                 'classes': ['collapse'],
                 'fields': [
-                    'request_form_home_head',
-                    'request_form_positive_head',
-                    'request_form_negative_head',
-                    'request_form_negative_text',
-                    'request_form_tags',
                     'yandex_link',
                     'gis_link',
                     'google_link',
@@ -119,6 +114,11 @@ class CompanyAdmin(admin.ModelAdmin):
                     'zoon_link',
                     'otzovik_link',
                     'irecommend_link',
+                    'request_form_home_head',
+                    'request_form_positive_head',
+                    'request_form_negative_head',
+                    'request_form_negative_text',
+                    'request_form_tags',
                 ],
             },
         ),
