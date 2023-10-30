@@ -7,7 +7,11 @@ from resources.models import Company, Notification
 @login_required
 @require_http_methods(['GET'])
 def index(request):
-    return render(request, 'dashboard/index.html', {'nav': 'index'})
+    companies = Company.objects.filter(users__in=(request.user,)).all()
+    return render(request, 'dashboard/index.html', {
+        'nav': 'index',
+        'companies': companies
+    })
 
 
 @login_required
