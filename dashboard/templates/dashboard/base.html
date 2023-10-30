@@ -12,7 +12,7 @@
 		
         {% tailwind_css %}
 	</head>
-	<body class="bg-neutral-100 gap-2 grid grid-cols-4 p-6 m-0">
+	<body class="bg-neutral-200 gap-2 grid grid-cols-4 p-6 m-0">
         <!-- Навигация -->
         <div class="col-span-1">
             <div class="px-2 py-1">
@@ -21,9 +21,7 @@
         </div>
         <div class="col-span-2">
             <div class="flex">
-                <a class="{% if nav == 'index' %}bg-orange-500 text-white {% endif %}px-2 py-1 rounded-lg" href="/">Сегодня</a>
-                <a class="{% if nav == 'companies' %}bg-orange-500 text-white {% endif %}px-2 py-1 rounded-lg" href="{% url 'dashboard_companies' %}">Компании</a>
-                <a class="{% if nav == 'notifications' %}bg-orange-500 text-white {% endif %}px-2 py-1 rounded-lg" href="/notifications">Оповещения</a>
+                <a class="border-rose-300 text-rose-700 border text-xs px-2 py-1 rounded" href="/">У вас осталось 7 тестовых дней</a>
             </div>
         </div>
         <div class="col-span-1">
@@ -41,15 +39,49 @@
         </div>
 
         <!-- Заголовок -->
-        <div class=" col-span-4">
+        <div class=" col-span-1">
             {% block head %}
             {% endblock %}
         </div>
 
+        <div class="col-span-3">
+            <div class="flex">
+                <a class="{% if nav == 'statistics' %}bg-orange-500 text-white {% endif %}px-2 py-1 rounded-lg" href="/">Статистика</a>
+                <a class="{% if nav == 'research' %}bg-orange-500 text-white {% endif %}px-2 py-1 rounded-lg" href="#">Анализ</a>
+                <a class="{% if nav == 'reviews' %}bg-orange-500 text-white {% endif %}px-2 py-1 rounded-lg" href="#">Отзывы</a>
+                <a class="{% if nav == 'messages' %}bg-orange-500 text-white {% endif %}px-2 py-1 rounded-lg" href="#">Сообщения</a>
+                <a class="{% if nav == 'mailing' %}bg-orange-500 text-white {% endif %}px-2 py-1 rounded-lg" href="#">Рассылки</a>
+            </div>
+            
+        </div>
+
         <!-- Левое меню -->
         <div class="col-span-1">
-            {% block left %}
-            {% endblock %}
+            <div class="tile">
+                <div class="tile_head">
+                    <span class="icon-6 material-symbols-outlined">storefront</span> Компании
+                </div>
+                <div class="grid gap-1">
+                    {% for company in current_companies %}
+                    <a href="{% url 'dashboard_statistics' company_id=company.id %}" class="person {% if company.id == current_company.id %}border-orange-200{% endif %}">
+                        <div class="image-12">
+                            {% if company.logo %}
+                            <img class="h-12 w-12" src="{{ company.logo.url }}" alt="{{ company.name }}">
+                            {% else %}
+                            <span class="material-symbols-outlined text-3xl text-orange-200 mx-auto">image</span>
+                            {% endif %} 
+                        </div>
+                        <div class="person_body">
+                            <div class="text-lg">{{ company.name }}</div>
+                            <div class="text-xs text-neutral-500 truncate">{{ company.address }}</div>
+                        </div>
+                    </a>
+                {% endfor%}
+                </div>
+                <div class="flex">
+                    <a class="button_widget" href="#">Создать</a>
+                </div>
+            </div>
         </div>
 
         <!-- Контент -->

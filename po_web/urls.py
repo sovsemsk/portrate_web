@@ -5,7 +5,7 @@ from django.conf.urls.static import static
 
 # path('@', include('website.urls')),
 urlpatterns = [
-    path('~', include('feedback.urls')),
+    path('@', include('feedback.urls')),
     path('webhooks/', include('webhooks.urls')),
     path('admin/', admin.site.urls),
     path('accounts/', include('extensions.urls')),

@@ -1,0 +1,53 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="flex flex-col gap-2">
+    <div class="tile">
+        <div class="tile_head">
+            <span class="icon-6 material-symbols-outlined">reviews</span> Отзывы
+        </div>    
+        <div class="flex">
+            <a class="button_widget" href="#">Создать</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block right %}
+<div class="tile">
+    <div class="tile_head">
+        <span class="icon-6 material-symbols-outlined">storefront</span> Оповещения
+    </div>
+
+<div class="grid gap-2">
+{% for notification in current_notifications %}
+    <div class="flex gap-2 border-neutral-300 border rounded-lg p-2">
+        {% if notification.initiator == 'PORTRATE_NEGATIVE_MESSAGE' %}
+        <div>
+            <span class="material-symbols-outlined flex items-center justify-center text-rose-900 text-sm bg-rose-100 rounded-full w-6 h-6">info_i</span>
+        </div>
+        <div class="">
+            <div class="text-sm text-rose-900">
+            Негативное сообщение в портрете, {{ notification.company }}
+            </div>
+            <div class="text-xs text-neutral-500 py-1">
+                {{notification.created_at}}
+            </div>
+    {{ notification.text }}
+
+        </div>
+        {% endif %}
+    </div>
+
+{% endfor %}
+</div>
+<div class="flex gap-1">
+    <a class="button_widget" href="#">Открыть</a>
+</div>
+
+</div>
+
+{% endblock %}
