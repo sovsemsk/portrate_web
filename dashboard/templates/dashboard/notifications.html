@@ -2,10 +2,10 @@
 {% load static %}
 
 {% block content %}
-<div class="grid gap-2">
-    <h1 class="bp5-heading">Оповещения</h1>
+<div class="grid gap-4">
+    <h2 class="bp5-heading">Оповещения</h2>
     <!-- Тулбар -->
-    <div class="flex gap-1">
+    <div class="flex gap-2">
         {% if user.profile.telegram_id %}
         <a class="bp5-button bp5-intent-warning"
             href="{% url 'extensions_telegram_notify_unsubscribe' %}?next={{ request.path }}">
@@ -21,6 +21,8 @@
         <button type="button" class="bp5-button bp5-button">Настройки</button>
     </div>
     <!-- Оповещения -->
+<div class="grid gap-2">
+
     {% for current_notification in current_notifications %}
     <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon">
         <span aria-hidden="true" class="bp5-icon bp5-icon-issue"></span>
@@ -36,6 +38,7 @@
         </div>
     </div>
     {% endfor %}
+    </div>
     <div>
         <button type="button" class="bp5-button bp5-button">
             <span aria-hidden="true" class="bp5-icon bp5-icon-arrow-left"></span>
