@@ -1,35 +1,11 @@
 /* @import "../node_modules/@blueprintjs/icons/lib/css/blueprint-icons.css"; */
 /* @import "../node_modules/@blueprintjs/core/lib/css/blueprint.css"; */
 
-/* @tailwind base; */
-/* @tailwind components; */
+@tailwind base;
+@tailwind components;
 @tailwind utilities;
 
-/* @layer components {
-    .tile {
-        @apply bg-white grid gap-4 p-2 rounded-2xl;
-    }
-
-    .tile_head {
-        @apply gap-2 grid grid-flow-col items-center justify-start;
-    }
-
-    .person {
-        @apply border border-neutral-300 gap-2 grid grid-flow-col justify-start p-1 rounded-lg shadow-sm;
-    }
-
-    .icon-6 {
-        @apply bg-orange-100 grid justify-center h-6 items-center rounded-lg text-orange-900 text-sm w-6;
-    }
-
-    .image-12 {
-        @apply bg-orange-100 flex h-12 items-center overflow-hidden rounded w-12;
-    }
-
-    .button_widget {
-        @apply border border-neutral-300 bg-white border active:bg-neutral-200 px-2 py-1 rounded-lg text-sm shadow-sm;
-    }
-    
+@layer components {
     .char_field_widget, .text_area_widget {
         @apply bg-white block border border-neutral-300 focus:border-orange-300 m-0 px-2 py-1 resize-none rounded-lg focus:ring-0 shadow-inner text-sm placeholder:text-neutral-400 w-full;
     }
@@ -47,4 +23,4 @@
             }
         }
     }
-} */
+}
