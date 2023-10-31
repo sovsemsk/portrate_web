@@ -1,8 +1,11 @@
-@tailwind base;
-@tailwind components;
+/* @import "../node_modules/@blueprintjs/icons/lib/css/blueprint-icons.css"; */
+/* @import "../node_modules/@blueprintjs/core/lib/css/blueprint.css"; */
+
+/* @tailwind base; */
+/* @tailwind components; */
 @tailwind utilities;
 
-@layer components {
+/* @layer components {
     .tile {
         @apply bg-white grid gap-4 p-2 rounded-2xl;
     }
@@ -44,4 +47,4 @@
             }
         }
     }
-}
+} */

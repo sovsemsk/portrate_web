@@ -60,13 +60,12 @@ def companies(request):
 @require_http_methods(['GET'])
 def notifications(request):
     current_companies = get_current_companies(request.user)
-
-    notifications = Notification.objects.filter(
+    current_notifications = Notification.objects.filter(
         company__in=current_companies
-    ).all()
+    ).select_related('company').all()
 
     return render(request, 'dashboard/notifications.html', {
         'nav': 'notifications',
         'current_companies': current_companies,
-        'notifications': notifications
+        'current_notifications': current_notifications
     })

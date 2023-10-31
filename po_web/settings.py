@@ -19,6 +19,7 @@ INSTALLED_APPS = [
     'colorfield',
     'django_browser_reload',
     'django_celery_results',
+    'debug_toolbar',
     'tailwind',
     'theme',
 
@@ -45,7 +46,8 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware'
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 TEMPLATES = [

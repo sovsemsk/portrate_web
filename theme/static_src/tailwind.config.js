@@ -47,11 +47,7 @@ module.exports = {
         // '../../**/*.py'
     ],
     theme: {
-        extend: {
-            fontFamily: {
-                // 'sans': ['Rubik'],
-            },
-        }
+        extend: {}
     },
     plugins: [
         /**

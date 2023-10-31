@@ -1,48 +1,51 @@
 {% extends 'dashboard/base.html' %}
 {% load static %}
 
-{% block head %}
-<h1 class="text-3xl items-center px-2 pt-6">Оповещения</h1>
-{% endblock %}
-
-
 {% block content %}
-<div class="flex flex-col gap-2">
-    <div class="flex gap-1 p-2 border border-neutral-200 rounded-2xl">
-        {% if user.profile.telegram_id %}  
-        <a class="button_widget flex gap-1 items-center" href="{% url 'extensions_telegram_notify_unsubscribe' %}?next={{ request.path }}">
-            Отписаться от оповещений <span class="material-symbols-outlined text-sm text-sky-800">send</span>
+<div class="grid gap-2">
+    <h1 class="bp5-heading">Оповещения</h1>
+    <!-- Тулбар -->
+    <div class="flex gap-1">
+        {% if user.profile.telegram_id %}
+        <a class="bp5-button bp5-intent-warning"
+            href="{% url 'extensions_telegram_notify_unsubscribe' %}?next={{ request.path }}">
+            <span aria-hidden="true" class="bp5-icon bp5-icon-send-message"></span>
+            <span class="bp5-button-text">Отписаться от оповещений</span>
         </a>
         {% else %}
-        <a class="button_widget flex gap-1 items-center" href="http://t.me/portrate_notify_bot?start={{user.profile.api_secret}}" target="_blank">
-            Подписаться на оповещения <span class="material-symbols-outlined text-sm text-sky-800">send</span>
+        <a class="bp5-button" href="http://t.me/portrate_notify_bot?start={{user.profile.api_secret}}" target="_blank">
+            <span aria-hidden="true" class="bp5-icon bp5-icon-send-message"></span>
+            <span class="bp5-button-text">Подписаться на оповещения</span>
         </a>
         {% endif %}
-        <a class="button_widget flex gap-1 items-center" href="http://t.me/portrate_notify_bot?start={{user.profile.api_secret}}" target="_blank">
-            Настройки <span class="material-symbols-outlined text-sm text-orange-500">page_info</span>
-        </a>
+        <button type="button" class="bp5-button bp5-button">Настройки</button>
     </div>
-    
-    {% for notification in notifications %}
-    <div class="bg-white border border-neutral-200 flex flex-col gap-4 p-2 rounded-2xl shadow shadow-black/5">
-        <div class="flex gap-2 ">
-            {% if notification.initiator == 'PORTRATE_NEGATIVE_MESSAGE' %}
-            <div>
-                <span class="material-symbols-outlined flex items-center justify-center text-rose-900 text-sm bg-rose-100 rounded-full w-5 h-5">info_i</span>
-            </div>
-            <div class="text-sm text-rose-900">
-                Негативное сообщение в портрете, {{ notification.company }}
-                <div class="text-xs text-neutral-500">
-                    {{notification.created_at}}
-                </div>
-            </div>
-            {% endif %}
-        </div>
-        {{ notification.text }}
-        <div class="flex gap-1">
-            <a class="button_widget" href="#">Открыть</a>
+    <!-- Оповещения -->
+    {% for current_notification in current_notifications %}
+    <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon">
+        <span aria-hidden="true" class="bp5-icon bp5-icon-issue"></span>
+        <h5 class="bp5-heading">
+            {{current_notification.created_at}}
+        </h5>
+        <p>
+            {{ current_notification.text }}
+        </p>
+        <div class="flex flex-wrap gap-1">
+            <span class="bp5-tag bp5-minimal bp5-intent-primary bp5-round">{{ current_notification.company }}</span>
+            <span class="bp5-tag bp5-minimal bp5-intent-danger bp5-round">Негативное сообщение в портрете</span>
         </div>
     </div>
     {% endfor %}
+    <div>
+        <button type="button" class="bp5-button bp5-button">
+            <span aria-hidden="true" class="bp5-icon bp5-icon-arrow-left"></span>
+            <span class="bp5-button-text">Новее</span>
+        </button>
+        <button type="button" class="bp5-button bp5-button">
+            <span class="bp5-button-text">Старее</span>
+            <span aria-hidden="true" class="bp5-icon bp5-icon-arrow-right"></span>
+        </button>
+    </div>
 </div>
+
 {% endblock %}

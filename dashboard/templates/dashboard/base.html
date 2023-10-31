@@ -1,99 +1,54 @@
 {% load static tailwind_tags %}
 <!DOCTYPE html>
 <html lang="ru">
-	<head>
-        <title>Портрет Geo</title>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta http-equiv="X-UA-Compatible" content="ie=edge">        
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap">
-        <script src="https://unpkg.com/imask"></script>
-		
-        {% tailwind_css %}
-	</head>
-	<body class="bg-neutral-200 gap-2 grid grid-cols-4 p-6 m-0">
-        <!-- Навигация -->
-        <div class="col-span-1">
-            <div class="px-2 py-1">
-                Портрет <span class="font-medium text-orange-500">Geo</span>
-            </div>
-        </div>
-        <div class="col-span-2">
-            <div class="flex">
-                <a class="border-rose-300 text-rose-700 border text-xs px-2 py-1 rounded" href="/">У вас осталось 7 тестовых дней</a>
-            </div>
-        </div>
-        <div class="col-span-1">
-            <div class="flex">
-                <a class="flex gap-2 items-center px-2 py-1" href="#">
-                    {{ user.get_username }}
-                </a>
-                <a class="flex gap-2 items-center px-2 py-1" href="#">
-                    <span class="material-symbols-outlined text-orange-500 text-sm">page_info</span>
-                </a>
-                <a class="flex gap-2 items-center px-2 py-1" href="#">
-                    <span class="material-symbols-outlined text-orange-500 text-sm">logout</span>
-                </a>
-            </div>
-        </div>
 
-        <!-- Заголовок -->
-        <div class=" col-span-1">
-            {% block head %}
-            {% endblock %}
-        </div>
+<head>
+    <title>Портрет Geo</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap">
+    <link rel="stylesheet" href="https://unpkg.com/normalize.css@^8.0.1" />
+    <link rel="stylesheet" href="https://unpkg.com/@blueprintjs/icons@^5.3.0/lib/css/blueprint-icons.css" />
+    <link rel="stylesheet" href="https://unpkg.com/@blueprintjs/core@^5.6.0/lib/css/blueprint.css" />
+    {% tailwind_css %}
+    <script src="https://unpkg.com/imask"></script>
+</head>
 
-        <div class="col-span-3">
-            <div class="flex">
-                <a class="{% if nav == 'statistics' %}bg-orange-500 text-white {% endif %}px-2 py-1 rounded-lg" href="/">Статистика</a>
-                <a class="{% if nav == 'research' %}bg-orange-500 text-white {% endif %}px-2 py-1 rounded-lg" href="#">Анализ</a>
-                <a class="{% if nav == 'reviews' %}bg-orange-500 text-white {% endif %}px-2 py-1 rounded-lg" href="#">Отзывы</a>
-                <a class="{% if nav == 'messages' %}bg-orange-500 text-white {% endif %}px-2 py-1 rounded-lg" href="#">Сообщения</a>
-                <a class="{% if nav == 'mailing' %}bg-orange-500 text-white {% endif %}px-2 py-1 rounded-lg" href="#">Рассылки</a>
-            </div>
-            
+<body class="bg-white m-0">
+    <nav class="bp5-navbar bg-orange-100">
+        <div class="bp5-navbar-group bp5-align-left">
+            <div class="bp5-navbar-heading">Портрет <strong>Geo</strong></div>
+            <a class="
+            bp5-button 
+            bp5-minimal 
+            {% if nav == 'companies' %} bp5-active{% endif %}
+            " href="{% url 'dashboard_companies' %}">
+                Компании
+            </a>
+            <button class="bp5-button bp5-minimal">Помощь</button>
+            <button class="bp5-button bp5-minimal">Тарифы</button>
         </div>
+        <div class="bp5-navbar-group bp5-align-right">
+            <span class="bp5-tag bp5-intent-warning bp5-minimal">У вас осталось 7 тестовых дней</span>
+            <span class="bp5-navbar-divider"></span>
+            <button class="bp5-button bp5-minimal bp5-icon-user"></button>
+            <a class="
+            bp5-button
+            bp5-minimal
+            bp5-icon-notifications
+            {% if nav == 'notifications' %} bp5-active{% endif %}
+            " href="{% url 'dashboard_notifications' %}"></a>
+            <button class="bp5-button bp5-minimal bp5-icon-cog"></button>
+        </div>
+    </nav>
 
-        <!-- Левое меню -->
-        <div class="col-span-1">
-            <div class="tile">
-                <div class="tile_head">
-                    <span class="icon-6 material-symbols-outlined">storefront</span> Компании
-                </div>
-                <div class="grid gap-1">
-                    {% for company in current_companies %}
-                    <a href="{% url 'dashboard_statistics' company_id=company.id %}" class="person {% if company.id == current_company.id %}border-orange-200{% endif %}">
-                        <div class="image-12">
-                            {% if company.logo %}
-                            <img class="h-12 w-12" src="{{ company.logo.url }}" alt="{{ company.name }}">
-                            {% else %}
-                            <span class="material-symbols-outlined text-3xl text-orange-200 mx-auto">image</span>
-                            {% endif %} 
-                        </div>
-                        <div class="person_body">
-                            <div class="text-lg">{{ company.name }}</div>
-                            <div class="text-xs text-neutral-500 truncate">{{ company.address }}</div>
-                        </div>
-                    </a>
-                {% endfor%}
-                </div>
-                <div class="flex">
-                    <a class="button_widget" href="#">Создать</a>
-                </div>
-            </div>
-        </div>
+    <div class="max-w-4xl mx-auto my-8">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
 
-        <!-- Контент -->
-        <div class="col-span-2">
-            {% block content %}
-            {% endblock %}
-        </div>
-        
-        <!-- Правое меню -->
-        <div class="col-span-1">
-            {% block right %}
-            {% endblock %}
-        </div>
-    </body>
 </html>
