@@ -45,7 +45,7 @@ def login(request):
             return render(request, 'extensions/login.html', {'form': form})
 
         auth_login(request, user)
-        return redirect('dashboard_index')
+        return redirect('company-list')
 
     else:
         form = LoginForm(request.POST)

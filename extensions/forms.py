@@ -9,7 +9,7 @@ class LoginForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.fields['username'].widget.attrs['class'] = 'text_area_widget'
+        self.fields['username'].widget.attrs['class'] = 'bp5-input'
         self.fields['username'].widget.attrs['placeholder'] = 'логин'
-        self.fields['password'].widget.attrs['class'] = 'text_area_widget'
+        self.fields['password'].widget.attrs['class'] = 'bp5-input'
         self.fields['password'].widget.attrs['placeholder'] = 'пароль'

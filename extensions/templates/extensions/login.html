@@ -1,20 +1,29 @@
 {% extends "extensions/base.html" %}
+{% load static %}
 
 {% block content %}
 <div class="flex flex-col gap-4 mt-12">
-    <div class="bg-white border border-neutral-300 flex flex-col gap-4 p-2 rounded-2xl shadow shadow-black/5 w-96">
-        <form class="flex flex-col gap-4" action="" method="post" novalidate>
-            {% csrf_token %}
-            <div>
-                <h1 class="font-bold text-2xl text-">Вход</h1>
-                <div class="text-sm text-neutral-500">Портрет Geo</div>
-            </div>
 
+    <div class="bp5-section bp5-card bp5-elevation-1">
+        <div class="bp5-section-header">
+            <div class="bp5-section-header-left">
+                
+                <img class="h-8 w-8" src="{% static 'logo.png' %}" alt="p">
+                
+                <div>
+                    <h6 class="bp5-heading bp5-section-header-title">Портрет Гео</h6>
+                    <div class="bp5-text-muted bp5-section-header-sub-title">Вход</div>
+                </div>
+            </div>
+        </div>
+        <div class="bp5-section-card bp5-padded">
+            <form class="flex flex-col gap-4" action="" method="post" novalidate>
+                {% csrf_token %}
+    
             {% if messages %}
             {% for message in messages %}
-            <div class="bg-rose-100 flex items-center justify-between px-2 py-1 rounded text-sm text-rose-900">
-                {{message}}
-                <span class="material-symbols-outlined text-rose-900 text-sm">info_i</span>
+            <div class="bp5-callout bp5-callout-has-body-content bp5-intent-danger">
+                    {{message}}                
             </div>
             {% endfor %}
             {% endif %}
@@ -25,9 +34,12 @@
             </div>
 
             <div class="flex">
-                <button class="button_widget" type="submit">Войти</button>
+                <button class="bp5-button" type="submit">Войти</button>
             </div>
         </form>
+
+        </div>
     </div>
+
 </div>
 {% endblock %}

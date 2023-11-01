@@ -27,7 +27,7 @@ def create(request, company_id):
                 text=negative_message.text,
             )
 
-            return redirect(f'/~{company_id}')
+            return redirect(f'/@{company_id}')
 
     else:
         form = NegativeMessageForm()
