@@ -20,8 +20,6 @@
                 <div class="bp5-section-header-left">
                     {% if company.logo %}
                     <img class="h-8 w-8" src="{{ company.logo.url }}" alt="{{ company.name }}">
-                    {% else %}
-                    <span aria-hidden="true" tabindex="-1" class="bp5-icon bp5-icon-shop bp5-text-muted"></span>
                     {% endif %}
                     <div>
                         <h6 class="bp5-heading bp5-section-header-title">{{company.name}}</h6>
@@ -81,7 +79,7 @@
             <div class="bp5-section-card bp5-padded">
                 <div class="flex gap-2">
                     <button type="button" class="bp5-button">Открыть</button>
-                    <button type="button" class="bp5-button">Скопировать ссылку</button>
+                    <a class="bp5-button" href="{{company.host}}/@{{company.id}}" target="_blank">Форма запроса отзыва</a>
                 </div>
             </div>
         </div>

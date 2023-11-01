@@ -84,11 +84,12 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'}
 ]
 
-# SECURITY WARNING: don't run with debug turned on in production!
-# @TODO: Убрать хардкод
+#
 DEBUG = json.loads(str(os.getenv('DEBUG')).lower())
 
 #
+HOST = str(os.getenv('HOST'))
+
 ALLOWED_HOSTS = [
     'geo.portrate.io',
     '91.201.53.6',

@@ -60,3 +60,12 @@ def telegram_notify_unsubscribe(request):
     request.user.profile.save()
 
     return redirect(request.GET.get('next'))
+
+
+@login_required
+@require_http_methods(('GET',))
+def profile(request):
+    return render(request, 'extensions/profile.html', {
+        'nav': 'pref'
+    })
+
