@@ -30,45 +30,39 @@
             </div>
             <div class="bp5-section-card bp5-padded">
                 <div class="grid gap-1 grid-cols-4 justify-stretch">
-                    <div class="bp5-menu bp5-elevation-1">
-                        <div class="">{{ company.portrate_negative_count|default:'0' }}</div>
-                        <div class="text-sm text-neutral-500">Отзывов</div>
-                    </div>
-                    <div class="bp5-menu bp5-elevation-1">
-                        <div class="flex items-start">
+                    <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon">
+                        <img class="bp5-icon h-4 w-4" src="{% static 'yandex.svg' %}" >
+                        <h5 class="bp5-heading">
                             {{ company.yandex_rate|default:'0,0' }}
-                            {% if company.yandex_id and company.is_yandex_reviews_upload and company.is_yandex_reviews_download %}
-                            <div class="bg-lime-500 h-2 ml-auto mt-1 rounded-full text-center w-2"></div>
-                            {% else %}
-                            <div class="bg-red-500 h-2 ml-auto mt-1 rounded-full text-center w-2"></div>
-                            {% endif %}
-                        </div>
+                        </h5>
                         <div class="text-sm text-neutral-500">
-                            Яндекс
+                            Рейтинг Яндекс
                         </div>
                     </div>
-                    <div class="bp5-menu bp5-elevation-1">
-                        <div class="flex items-start">
+                    <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon">
+                        <img class="bp5-icon h-4 w-4" src="{% static 'gis.svg' %}" >
+                        <h5 class="bp5-heading">
                             {{ company.gis_rate|default:'0,0' }}
-                            {% if company.gis_id and True %}
-                            <div class="bg-lime-500 h-2 ml-auto mt-1 rounded-full text-center w-2"></div>
-                            {% else %}
-                            <div class="bg-red-500 h-2 ml-auto mt-1 rounded-full text-center w-2"></div>
-                            {% endif %}
+                        </h5>
+                        <div class="text-sm text-neutral-500">
+                            Рейтинг 2Гис
                         </div>
-                        <div class="text-sm text-neutral-500">2Гис</div>
                     </div>
-                    <div class="bp5-menu bp5-elevation-1">
-                        <div class="flex items-start ">
+                    <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon">
+                        <img class="bp5-icon h-4 w-4" src="{% static 'google.svg' %}" >
+                        <h5 class="bp5-heading">
                             {{ company.google_rate|default:'0,0' }}
-                            {% if company.google_id and True %}
-                            <div class="bg-lime-500 h-2 ml-auto mt-1 rounded-full text-center w-2"></div>
-                            {% else %}
-                            <div class="bg-red-500 h-2 ml-auto mt-1 rounded-full text-center w-2"></div>
-                            {% endif %}
+                        </h5>
+                        <div class="text-sm text-neutral-500">
+                            Рейтинг Google
                         </div>
-                        <div class="text-sm text-neutral-500">Google</div>
                     </div>
+                    <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon">
+                        <span aria-hidden="true" tabindex="-1" class="bp5-icon bp5-icon-key-enter"></span>
+                        <h5 class="bp5-heading">{{ company.portrate_negative_count|default:'0' }}</h5>
+                        <div class="text-sm text-neutral-500">Всего отзывов</div>
+                    </div>
+
                 </div>
             </div>
             <div class="bp5-section-card bp5-padded">
