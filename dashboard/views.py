@@ -1,8 +1,51 @@
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views.decorators.http import require_http_methods
 from resources.models import Company, Notification
+
+from django.views.generic import ListView
+
+
+class CompanyListView(ListView):
+    template_name = 'dashboard/company_list.html'
+    model = Company
+    paginate_by = 5
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['nav'] = 'companies'
+        context['host'] = settings.HOST
+        return context
+
+    def get_queryset(self, **kwargs):
+        queryset = super().get_queryset(**kwargs)
+        queryset = queryset.filter(
+            is_active=True,
+            users__in=(self.request.user,)
+        ).order_by('name')
+        return queryset
+
+
+class NotificationListView(ListView):
+    template_name = 'dashboard/notification_list.html'
+    model = Notification
+    paginate_by = 10
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['nav'] = 'notification_list'
+        return context
+
+    def get_queryset(self, **kwargs):
+        queryset = super().get_queryset(**kwargs)
+        queryset = queryset.filter(
+            company__users__in=(self.request.user,)
+        ).select_related('company')
+        return queryset
+
+
 
 # @TODO: Сделать тут кеш
 def get_first_company(user):
@@ -27,10 +70,12 @@ def get_current_companies(user):
 @login_required
 @require_http_methods(['GET'])
 def companies(request):
+    current_companies = get_current_companies(request.user)
     return render(request, 'dashboard/companies.html', {
         'nav': 'companies',
         'host': settings.HOST,
-        'current_companies': get_current_companies(request.user),
+        'current_companies': current_companies,
+        'current_companies_paginator': Paginator(current_companies, 1)
     })
 
 

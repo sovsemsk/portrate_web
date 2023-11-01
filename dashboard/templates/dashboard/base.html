@@ -1,3 +1,4 @@
+{% load static %}
 {% load static tailwind_tags %}
 <!DOCTYPE html>
 <html lang="ru">
@@ -20,12 +21,14 @@
 <body class="bg-neutral-100 m-0">
     <nav class="bp5-navbar bg-orange-100">
         <div class="bp5-navbar-group bp5-align-left">
-            <div class="bp5-navbar-heading">Портрет <strong>Geo</strong></div>
+            <div class="bp5-navbar-heading">
+                <img class="w-16" src="{% static 'logo.svg' %}" alt="Portrate">
+            </div>
             <a class="
             bp5-button 
             bp5-minimal 
             {% if nav == 'companies' %} bp5-active{% endif %}
-            " href="{% url 'dashboard_companies' %}">
+            " href="{% url 'company-list' %}">
                 Компании
             </a>
             <a class="
@@ -56,8 +59,8 @@
             bp5-button
             bp5-minimal
             bp5-icon-notifications
-            {% if nav == 'notifications' %} bp5-active{% endif %}
-            " href="{% url 'dashboard_notifications' %}"></a>
+            {% if nav == 'notification_list' %} bp5-active{% endif %}
+            " href="{% url 'notifications-list' %}"></a>
             <a class="
             bp5-button
             bp5-minimal

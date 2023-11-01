@@ -66,6 +66,6 @@ def telegram_notify_unsubscribe(request):
 @require_http_methods(('GET',))
 def profile(request):
     return render(request, 'extensions/profile.html', {
-        'nav': 'pref'
+        'nav': 'profile'
     })
 
