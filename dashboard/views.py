@@ -2,7 +2,7 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.views.decorators.http import require_http_methods
-from django.views.generic import ListView
+from django.views.generic import DetailView, ListView
 from django.shortcuts import get_object_or_404, render, redirect
 from django.utils.decorators import method_decorator
 
@@ -14,8 +14,9 @@ class CompanyListView(ListView):
     model = Company
     paginate_by = 5
 
+
     @method_decorator(login_required)
-    def dispatch(self, request, *args, **kwargs):        
+    def dispatch(self, request, *args, **kwargs):
         return super(CompanyListView, self).dispatch(request, *args, **kwargs)
 
 
@@ -24,6 +25,7 @@ class CompanyListView(ListView):
         context['nav'] = 'companies'
         context['host'] = settings.HOST
         return context
+
 
     def get_queryset(self, **kwargs):
         queryset = super().get_queryset(**kwargs)
@@ -34,19 +36,48 @@ class CompanyListView(ListView):
         return queryset
 
 
+class CompanyDetailView(DetailView):
+    template_name = 'dashboard/company_detail.html'
+    model = Company
+
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(CompanyDetailView, self).dispatch(request, *args, **kwargs)
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['nav'] = 'companies'
+        context['host'] = settings.HOST
+        return context
+
+
+    def get_queryset(self, **kwargs):
+        queryset = super().get_queryset(**kwargs)
+        queryset = queryset.filter(
+            is_active=True,
+            users__in=(self.request.user,)
+        )
+        return queryset
+
+
 class NotificationListView(ListView):
     template_name = 'dashboard/notification_list.html'
     model = Notification
     paginate_by = 10
 
+
     @method_decorator(login_required)
-    def dispatch(self, request, *args, **kwargs):        
+    def dispatch(self, request, *args, **kwargs):
         return super(NotificationListView, self).dispatch(request, *args, **kwargs)
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['nav'] = 'notification_list'
         return context
+
 
     def get_queryset(self, **kwargs):
         queryset = super().get_queryset(**kwargs)

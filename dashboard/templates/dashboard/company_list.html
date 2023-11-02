@@ -7,10 +7,10 @@
     <!-- Тулбар -->
     <div class="flex gap-2">
         <button type="button" class="bp5-button bp5-intent-warning">
-            <span aria-hidden="true" class="bp5-icon bp5-icon-plus"></span>
             <span class="bp5-button-text">Создать компанию</span>
+            <span aria-hidden="true" class="bp5-icon bp5-icon-plus"></span>
         </button>
-        <button type="button" class="bp5-button bp5-button">Настройки</button>
+        <button type="button" class="bp5-button">Настройки</button>
     </div>
     
     <!-- Компании -->
@@ -20,7 +20,7 @@
             <div class="bp5-section-header">
                 <div class="bp5-section-header-left">
                     {% if company.logo %}
-                    <img class="h-8 w-8" src="{{ company.logo.url }}" alt="{{ company.name }}">
+                    <img class="h-8 rounded w-8" src="{{ company.logo.url }}" alt="{{ company.name }}">
                     {% endif %}
                     <div>
                         <h6 class="bp5-heading bp5-section-header-title">{{company.name}}</h6>
@@ -60,7 +60,7 @@
             </div>
             <div class="bp5-section-card bp5-padded">
                 <div class="flex gap-2">
-                    <button type="button" class="bp5-button">Открыть</button>
+                    <a class="bp5-button" href="{% url 'company_detail' company.id %}">Открыть</a>
                     <a class="bp5-button" href="{{company.host}}/@{{company.id}}" target="_blank">Форма запроса отзыва</a>
                 </div>
             </div>
@@ -87,7 +87,7 @@
         <span>1 страница</span>
         {% endif %}
         {% if page_obj.has_next %}    
-        <a class="bp5-button bp5-button" href="/?page={{page_obj.next_page_number}}">
+        <a class="bp5-button" href="/?page={{page_obj.next_page_number}}">
             <span class="bp5-button-text">Вперед</span>
             <span aria-hidden="true" class="bp5-icon bp5-icon-arrow-right"></span>    
         </a>
