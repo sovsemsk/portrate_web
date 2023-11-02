@@ -2,21 +2,20 @@
 {% load static %}
 
 {% block content %}
-<div class="grid gap-4">
-    <div class="flex gap-4 items-center">
-        {% if company.logo %}
-        <img class="h-20 rounded w-20" src="{{ company.logo.url }}" alt="{{ company.name }}">
-        {% endif %}
-    
-        <div>
-            <h2 class="bp5-heading">{{object.name}}</h2>
-            <h5 class="bp5-heading bp5-text-muted">{{object.address}}</h5>
-            
-        </div>
+<!--  Название  -->
+<div class="flex gap-4 items-center pb-4">
+    {% if company.logo %}
+    <img class="h-16 rounded w-16" src="{{ company.logo.url }}" alt="{{ company.name }}">
+    {% endif %}
+    <div>
+        <h3 class="bp5-heading">{{object.name}}</h3>
+        <h5 class="bp5-heading bp5-text-muted">{{object.address}}</h5>
     </div>
-    
-    {% include 'dashboard/_company_tabs.html' %}
+</div>
 
+<div class="grid gap-4">
+    <!--  Табы  -->
+    {% include 'dashboard/_company_tabs.html' %}
     <!-- Тулбар -->
     <div class="flex gap-2">
         <div class="bp5-button-group">
