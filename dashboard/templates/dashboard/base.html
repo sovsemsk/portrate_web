@@ -13,8 +13,8 @@
     <script src="https://unpkg.com/imask"></script>
 </head>
 
-<body class="bg-neutral-100 m-0">
-    <nav class="bp5-navbar bg-orange-100">
+<body class="bg-neutral-200 m-0">
+    <nav class="bp5-navbar bp5-dark bg-black">
         <div class="bp5-navbar-group bp5-align-left">
             <div class="bp5-navbar-heading pt-0.5">
                 <img class="w-16 " src="{% static 'logo.svg' %}" alt="Portrate">
@@ -62,6 +62,11 @@
             bp5-icon-cog
             {% if nav == 'pref' %} bp5-active{% endif %}
             " href="{% url 'dashboard_pref' %}"></a>
+            <a class="
+            bp5-button
+            bp5-minimal
+            bp5-icon-log-out
+            " href="{% url 'extensions_logout' %}"></a>
         </div>
     </nav>
     <div class="max-w-4xl mx-auto my-8">

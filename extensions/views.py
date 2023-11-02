@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
+from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.shortcuts import render, redirect
@@ -52,14 +53,10 @@ def login(request):
         return render(request, 'extensions/login.html', {'form': form})
 
 
-@login_required
-@require_http_methods(('GET',))
-def telegram_notify_unsubscribe(request):
-    send_telegram_text_task(request.user.profile.telegram_id, '👋🏼 Вы отписаны от уведомлений telegram')
-    request.user.profile.telegram_id = None
-    request.user.profile.save()
-
-    return redirect(request.GET.get('next'))
+@require_http_methods(('GET', 'POST',))
+def logout(request):
+    auth_logout(request)
+    return redirect('extensions_login')
 
 
 @login_required
@@ -69,3 +66,12 @@ def profile(request):
         'nav': 'profile'
     })
 
+
+@login_required
+@require_http_methods(('GET',))
+def telegram_notify_unsubscribe(request):
+    send_telegram_text_task(request.user.profile.telegram_id, '👋🏼 Вы отписаны от уведомлений telegram')
+    request.user.profile.telegram_id = None
+    request.user.profile.save()
+
+    return redirect(request.GET.get('next'))
