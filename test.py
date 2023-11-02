@@ -1,5 +1,5 @@
-from src.utils import YandexParser
-id_ya = 1234 #ID Компании Yandex
+from yandex_reviews_parser.utils import YandexParser
+id_ya = 21556448302 #ID Компании Yandex
 parser = YandexParser(id_ya)
 
 all_data = parser.parse() #Получаем все данные
