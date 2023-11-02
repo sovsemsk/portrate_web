@@ -52,7 +52,7 @@ class NotificationListView(ListView):
         queryset = super().get_queryset(**kwargs)
         queryset = queryset.filter(
             company__users__in=(self.request.user,)
-        ).select_related('company')
+        ).select_related('company').order_by('-created_at')
         return queryset
 
 
