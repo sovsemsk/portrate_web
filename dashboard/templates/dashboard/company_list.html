@@ -11,7 +11,7 @@
             <span aria-hidden="true" class="bp5-icon bp5-icon-plus"></span>
         </button>
         <button type="button" class="bp5-button bp5-intent-warning">
-            <span class="bp5-button-text">Создать QR</span>
+            <span class="bp5-button-text">Создать QR код</span>
             <span aria-hidden="true" class="bp5-icon bp5-icon-link"></span>
         </button>
         <button type="button" class="bp5-button bp5-intent-warning">
@@ -25,7 +25,7 @@
     <!-- Компании -->
     <div class="grid gap-2">
         {% for company in object_list %}
-        <div class="bp5-section bp5-card bp5-elevation-1">
+        <div class="bp5-section bp5-card bp5-elevation-2">
             <div class="bp5-section-header">
                 <div class="bp5-section-header-left">
                     {% if company.logo %}
@@ -108,4 +108,4 @@
         {% endif %}
     </div>
 </div>
-{% endblock %}  
+{% endblock %}

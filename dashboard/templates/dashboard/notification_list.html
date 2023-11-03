@@ -19,18 +19,19 @@
             <span aria-hidden="true" class="bp5-icon bp5-icon-send-message"></span>
         </a>
         {% endif %}
+        <div class="bp5-divider"></div>
         <button type="button" class="bp5-button">Настройки</button>
     </div>
     
     <!-- Оповещения -->
     <div class="grid gap-2">
         {% for notification in object_list %}
-        <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-elevation-1 bg-white">
+        <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-elevation-2 bg-white">
             <span aria-hidden="true" class="bp5-icon bp5-icon-issue"></span>
             <h5 class="bp5-heading">
                 {{notification.created_at}}
             </h5>
-            <p class="pb-4">
+            <p class="pb-2">
                 {{ notification.text }}
             </p>
             <div class="flex flex-wrap gap-1">

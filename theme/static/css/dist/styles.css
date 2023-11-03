@@ -9177,10 +9177,18 @@ a > .bp5-dark .bp5-tooltip .bp5-running-text code{
     margin-left:auto !important;
   }.dashboard .mt-12{
     margin-top:3rem !important;
+  }.dashboard .mt-1{
+    margin-top:0.25rem !important;
+  }.dashboard .mt-0{
+    margin-top:0px !important;
+  }.dashboard .mt-0\.5{
+    margin-top:0.125rem !important;
   }.dashboard .block{
     display:block !important;
   }.dashboard .flex{
     display:flex !important;
+  }.dashboard .table{
+    display:table !important;
   }.dashboard .grid{
     display:grid !important;
   }.dashboard .h-14{
@@ -9191,6 +9199,8 @@ a > .bp5-dark .bp5-tooltip .bp5-running-text code{
     height:1rem !important;
   }.dashboard .h-8{
     height:2rem !important;
+  }.dashboard .h-12{
+    height:3rem !important;
   }.dashboard .w-14{
     width:3.5rem !important;
   }.dashboard .w-16{
@@ -9203,10 +9213,14 @@ a > .bp5-dark .bp5-tooltip .bp5-running-text code{
     width:2rem !important;
   }.dashboard .w-full{
     width:100% !important;
+  }.dashboard .w-12{
+    width:3rem !important;
   }.dashboard .max-w-4xl{
     max-width:56rem !important;
   }.dashboard .max-w-sm{
     max-width:24rem !important;
+  }.dashboard .transform{
+    transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y)) !important;
   }.dashboard .grid-cols-4{
     grid-template-columns:repeat(4, minmax(0, 1fr)) !important;
   }.dashboard .flex-col{
@@ -9257,6 +9271,9 @@ a > .bp5-dark .bp5-tooltip .bp5-running-text code{
   }.dashboard .bg-white{
     --tw-bg-opacity:1 !important;
     background-color:rgb(255 255 255 / var(--tw-bg-opacity)) !important;
+  }.dashboard .bg-red-100{
+    --tw-bg-opacity:1 !important;
+    background-color:rgb(254 226 226 / var(--tw-bg-opacity)) !important;
   }.dashboard .p-2{
     padding:0.5rem !important;
   }.dashboard .px-2{

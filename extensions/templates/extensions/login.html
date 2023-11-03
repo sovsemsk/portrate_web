@@ -3,13 +3,10 @@
 
 {% block content %}
 <div class="flex flex-col gap-4 mt-12">
-
-    <div class="bp5-section bp5-card bp5-elevation-1">
+    <div class="bp5-section bp5-card bp5-elevation-2">
         <div class="bp5-section-header">
             <div class="bp5-section-header-left">
-                
                 <img class="h-8 rounded w-8" src="{% static 'logo.png' %}" alt="p">
-                
                 <div>
                     <h6 class="bp5-heading bp5-section-header-title">Портрет</h6>
                     <div class="bp5-text-muted bp5-section-header-sub-title">Вход</div>
@@ -19,27 +16,22 @@
         <div class="bp5-section-card bp5-padded">
             <form class="flex flex-col gap-4" action="" method="post" novalidate>
                 {% csrf_token %}
-    
-            {% if messages %}
-            {% for message in messages %}
-            <div class="bp5-callout bp5-callout-has-body-content bp5-intent-danger">
-                    {{message}}                
-            </div>
-            {% endfor %}
-            {% endif %}
-
-            <div class="flex flex-col gap-1" action="" method="post" novalidate>
-                {{ form.username }}
-                {{ form.password }}
-            </div>
-
-            <div class="flex">
-                <button class="bp5-button" type="submit">Войти</button>
-            </div>
-        </form>
-
+                {% if messages %}
+                {% for message in messages %}
+                <div class="bp5-callout bp5-callout-has-body-content bp5-intent-danger">
+                    {{message}}
+                </div>
+                {% endfor %}
+                {% endif %}
+                <div class="flex flex-col gap-1" action="" method="post" novalidate>
+                    {{ form.username }}
+                    {{ form.password }}
+                </div>
+                <div class="flex">
+                    <button class="bp5-button" type="submit">Войти</button>
+                </div>
+            </form>
         </div>
     </div>
-
 </div>
 {% endblock %}
