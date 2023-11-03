@@ -13,29 +13,28 @@
 
     <!-- Теги, виджет из формы для чегбоксов m2m-->
     <div class="flex flex-col gap-2">
-    <h5 class="font-bold">Что именно вам не понравилось?</h5>
-    <div class="tag_widget">
-    {% for tag in company.request_form_tags %}
-        <div>
-            <label><input name="tag" type="checkbox" value="{{ tag }}"/>{{ tag }}</label>
+        <h5 class="font-bold">Что именно вам не понравилось?</h5>
+        <div class="tag_widget">
+            {% for tag in company.request_form_tags %}
+            <div>
+                <label><input name="tag" type="checkbox" value="{{ tag }}"/>{{ tag }}</label>
+            </div>
+            {% endfor %}
         </div>
-    {% endfor %}
+
+        <!-- Комментарий -->
+        {{ form.text }}
     </div>
 
-    <!-- Комментарий -->
-    {{ form.text }}
+    <div class="">
+        <!-- Контактный телефон -->
+        <h5 class="font-bold pb-1">Оставьте ваш контакт <span class="text-rose-600">*</span></h5>
+        {{ form.phone }}
+        {% if form.phone.errors %}
+        <div class="text-xs text-rose-600 pt-1">Необходимо заполнить контактный телефон </div>
+        {% endif %}
     </div>
-    
-    <div>
 
-    <!-- Контактный телефон -->
-    <h5 class="font-bold pb-1">Оставьте ваш контакт <span class="text-rose-600">*</span></h5>
-    {{ form.phone }}
-    {% if form.phone.errors %}
-    <div class="text-xs text-rose-600 pt-1">Необходимо заполнить контактный телефон </div>
-    {% endif %}
-    </div>
-    
     <button class="bg-lime-600 active:bg-lime-700 py-2 px-4 rounded-lg text-center text-lg text-white w-full" href="{% url 'feedback_create' company_id=company.id %}" type="submit">Отправить</button>
 </form>
 
@@ -61,7 +60,7 @@
                 el.parentElement.classList.add('bg-lime-600');
                 el.parentElement.classList.add('text-white');
             }
-           
+
             el.addEventListener('click', event => {
                 p = event.target.parentElement
                 p.classList.toggle('bg-lime-600');
@@ -73,5 +72,5 @@
         });
 </script>
 
-{% endblock %}                
+{% endblock %}
 

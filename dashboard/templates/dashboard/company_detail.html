@@ -5,11 +5,13 @@
 <!--  Название  -->
 <div class="flex gap-4 items-center pb-4">
     {% if company.logo %}
-    <img class="h-16 rounded w-16" src="{{ company.logo.url }}" alt="{{ company.name }}">
+    <img class="h-14 rounded w-14" src="{{ company.logo.url }}" alt="{{ company.name }}">
     {% endif %}
-    <div>
-        <h3 class="bp5-heading">{{object.name}}</h3>
-        <h5 class="bp5-heading bp5-text-muted">{{object.address}}</h5>
+    <div class="">
+        <h3 class="bp5-heading mb-1">
+            {{object.name}}
+        </h3>
+        <div class="bp5-heading bp5-text-muted">{{object.address}}</div>
     </div>
 </div>
 
