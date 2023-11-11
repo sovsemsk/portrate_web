@@ -6,10 +6,19 @@
 <!--  Название  -->
 {% include 'dashboard/_company_head.html' %}
 
-
 <div class="grid gap-4">
     <!--  Табы  -->
     {% include 'dashboard/_company_tabs.html' %}
-</div>
 
+    <!-- Тулбар -->
+    <div class="flex gap-2">
+        <input class="bp5-input" placeholder="Имя пользователя"/>
+        <button type="button" class="bp5-button bp5-intent-warning">Найти</button>
+        <div class="bp5-divider"></div>
+        <a class="bp5-button" href="{{company.host}}/@{{company.id}}" target="_blank">
+            <span class="bp5-button-text">Форма запроса отзыва</span>
+            <span aria-hidden="true" class="bp5-icon bp5-icon-share"></span>
+        </a>
+    </div>
+</div>
 {% endblock %}

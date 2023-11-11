@@ -762,8 +762,16 @@ class Notification(models.Model):
         return str(self.text)
 
 
+# Сигналы модели NegativeMessage
+@receiver(post_save, sender=NegativeMessage)
+def update_aggregation_signal(sender, instance, created, **kwargs):
+    if created:
+        instance.company.portrate_negative_count = instance.company.negativemessage_set.count()
+        instance.company.save()
+
+
 # Сигналы модели Notification
-@ receiver(post_save, sender=Notification)
+@receiver(post_save, sender=Notification)
 def telegram_notify_signal(sender, instance, created, **kwargs):
     if created and instance.initiator == 'PORTRATE_NEGATIVE_MESSAGE':
         # Шаблон

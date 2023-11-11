@@ -69,7 +69,7 @@ class ReviewListView(ListView):
     template_name = 'dashboard/review_list.html'
     model = Review
     context_object_name = 'review_list'
-    paginate_by = 10
+    paginate_by = 5
 
 
     @method_decorator(login_required)
@@ -99,7 +99,7 @@ class MessageListView(ListView):
     template_name = 'dashboard/message_list.html'
     model = NegativeMessage
     context_object_name = 'message_list'
-    paginate_by = 10
+    paginate_by = 5
 
 
     @method_decorator(login_required)
