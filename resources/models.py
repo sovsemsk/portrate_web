@@ -327,239 +327,266 @@ class Company(models.Model):
     portrate_rate = models.DecimalField(
         blank=True,
         decimal_places=1,
-        default=None,
+        default=0.0,
         max_digits=1,
         null=True
     )
 
     portrate_negative_count = models.IntegerField(
         blank=True,
+        default=0,
         null=True
     )
 
     yandex_rate = models.DecimalField(
         blank=True,
         decimal_places=1,
-        default=None,
+        default=0.0,
         max_digits=1,
         null=True
     )
 
     yandex_positive_count = models.IntegerField(
         blank=True,
+        default=0,
         null=True
     )
 
     yandex_negative_count = models.IntegerField(
         blank=True,
+        default=0,
         null=True
     )
 
     gis_rate = models.DecimalField(
         blank=True,
         decimal_places=1,
-        default=None,
+        default=0.0,
         max_digits=1,
         null=True
     )
 
     gis_positive_count = models.IntegerField(
         blank=True,
+        default=0,
         null=True
     )
 
     gis_negative_count = models.IntegerField(
         blank=True,
+        default=0,
         null=True
     )
 
     google_rate = models.DecimalField(
         blank=True,
         decimal_places=1,
-        default=None,
+        default=0.0,
         max_digits=1,
         null=True
     )
 
     google_positive_count = models.IntegerField(
         blank=True,
+        default=0,
         null=True
     )
 
     google_negative_count = models.IntegerField(
         blank=True,
+        default=0,
         null=True
     )
 
     mapsme_rate = models.DecimalField(
         blank=True,
         decimal_places=1,
-        default=None,
+        default=0.0,
         max_digits=1,
         null=True
     )
 
     mapsme_positive_count = models.IntegerField(
         blank=True,
+        default=0,
         null=True
     )
 
     mapsme_negative_count = models.IntegerField(
         blank=True,
+        default=0,
         null=True
     )
 
     dikidi_rate = models.DecimalField(
         blank=True,
         decimal_places=1,
-        default=None,
+        default=0.0,
         max_digits=1,
         null=True
     )
 
     dikidi_positive_count = models.IntegerField(
         blank=True,
+        default=0,
         null=True
     )
 
     dikidi_negative_count = models.IntegerField(
         blank=True,
+        default=0,
         null=True
     )
 
     restoclub_rate = models.DecimalField(
         blank=True,
         decimal_places=1,
-        default=None,
+        default=0.0,
         max_digits=1,
         null=True
     )
 
     restoclub_positive_count = models.IntegerField(
         blank=True,
+        default=0,
         null=True
     )
 
     restoclub_negative_count = models.IntegerField(
         blank=True,
+        default=0,
         null=True
     )
 
     tripadvisor_rate = models.DecimalField(
         blank=True,
         decimal_places=1,
-        default=None,
+        default=0.0,
         max_digits=1,
         null=True
     )
 
     tripadvisor_positive_count = models.IntegerField(
         blank=True,
+        default=0,
         null=True
     )
 
     tripadvisor_negative_count = models.IntegerField(
         blank=True,
+        default=0,
         null=True
     )
 
     prodoctorov_rate = models.DecimalField(
         blank=True,
         decimal_places=1,
-        default=None,
+        default=0.0,
         max_digits=1,
         null=True
     )
 
     prodoctorov_positive_count = models.IntegerField(
         blank=True,
+        default=0,
         null=True
     )
 
     prodoctorov_negative_count = models.IntegerField(
         blank=True,
+        default=0,
         null=True
     )
 
     flamp_rate = models.DecimalField(
         blank=True,
         decimal_places=1,
-        default=None,
+        default=0.0,
         max_digits=1,
         null=True
     )
 
     flamp_positive_count = models.IntegerField(
         blank=True,
+        default=0,
         null=True
     )
 
     flamp_negative_count = models.IntegerField(
         blank=True,
+        default=0,
         null=True
     )
 
     zoon_rate = models.DecimalField(
         blank=True,
         decimal_places=1,
-        default=None,
+        default=0.0,
         max_digits=1,
         null=True
     )
 
     zoon_positive_count = models.IntegerField(
         blank=True,
+        default=0,
         null=True
     )
 
     zoon_negative_count = models.IntegerField(
         blank=True,
+        default=0,
         null=True
     )
 
     otzovik_rate = models.DecimalField(
         blank=True,
         decimal_places=1,
-        default=None,
+        default=0.0,
         max_digits=1,
         null=True
     )
 
     otzovik_positive_count = models.IntegerField(
         blank=True,
+        default=0,
         null=True
     )
 
     otzovik_negative_count = models.IntegerField(
         blank=True,
+        default=0,
         null=True
     )
 
     irecommend_rate = models.DecimalField(
         blank=True,
         decimal_places=1,
-        default=None,
+        default=0.0,
         max_digits=1,
         null=True
     )
 
     irecommend_positive_count = models.IntegerField(
         blank=True,
+        default=0,
         null=True
     )
 
     irecommend_negative_count = models.IntegerField(
         blank=True,
+        default=0,
         null=True
     )
 
     total_positive_count = models.IntegerField(
         blank=True,
+        default=0,
         null=True
     )
 
     total_negative_count = models.IntegerField(
         blank=True,
+        default=0,
         null=True
     )
 
