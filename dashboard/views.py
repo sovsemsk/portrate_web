@@ -153,6 +153,26 @@ class NotificationListView(ListView):
 
 @login_required
 @require_http_methods(['GET'])
+def qr(request, company_pk):
+    return render(request, 'dashboard/qr_list.html', {
+        'company': get_object_or_404(Company, pk=company_pk),
+        'nav': 'company',
+        'sub_nav': 'qr'
+    })
+
+
+@login_required
+@require_http_methods(['GET'])
+def widget(request, company_pk):
+    return render(request, 'dashboard/widget_list.html', {
+        'company': get_object_or_404(Company, pk=company_pk),
+        'nav': 'company',
+        'sub_nav': 'widget'
+    })
+
+
+@login_required
+@require_http_methods(['GET'])
 def help(request):
     return render(request, 'dashboard/help.html', {
         'nav': 'help'
