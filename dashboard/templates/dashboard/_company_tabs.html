@@ -1,12 +1,29 @@
+{% load mathtag %}
+
+
 <div class="bp5-tabs">
     <ul class="bp5-tab-list" role="tablist">
-        <li class="bp5-tab" role="tab" aria-selected="true">Показатели</li>
-        <li class="bp5-tab" role="tab">Отзывы
-            <span class="bp5-tag bp5-minimal bp5-tab-tag"><span class="bp5-text-overflow-ellipsis bp5-fill">4</span></span>
-        </li>
-        <li class="bp5-tab" role="tab">Негативные сообщения
-            <span class="bp5-tag bp5-minimal bp5-tab-tag"><span class="bp5-text-overflow-ellipsis bp5-fill">3</span></span>
-        </li>
+        <a 
+        class="bp5-tab"
+        {% if sub_nav == 'detail' %}aria-selected="true"{% endif %}
+        href="{% url 'company_detail' company.id %}"
+        >
+            Показатели
+        </a>
+        <a
+        class="bp5-tab"
+        {% if sub_nav == 'review' %}aria-selected="true"{% endif %}
+        href="{% url 'review_list' company.id %}">
+            Отзывы
+            <span class="bp5-tag bp5-minimal bp5-tab-tag"><span class="bp5-text-overflow-ellipsis bp5-fill">{{ company.total_positive_count|sum:company.total_negative_count  }}</span></span>
+        </a>
+        <a
+        class="bp5-tab"
+        {% if sub_nav == 'message' %}aria-selected="true"{% endif %}
+        href="{% url 'message_list' company.id %}">
+            Негативные сообщения
+            <span class="bp5-tag bp5-minimal bp5-tab-tag"><span class="bp5-text-overflow-ellipsis bp5-fill">{{ company.portrate_negative_count|default:'0' }}</span></span>
+        </a>
         <li class="bp5-tab" role="tab">Рассылки</li>
         <li class="bp5-tab" role="tab">QR коды</li>
         <li class="bp5-tab" role="tab">Виджеты</li>

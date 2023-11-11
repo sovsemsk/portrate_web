@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Company, NegativeMessage, Notification
+from .models import Company, NegativeMessage, Notification, Review
 
 
 @admin.register(Company)
@@ -42,7 +42,10 @@ class CompanyAdmin(admin.ModelAdmin):
         'otzovik_negative_count',
         'irecommend_rate',
         'irecommend_positive_count',
-        'irecommend_negative_count'
+        'irecommend_negative_count',
+        'total_negative_count',
+        'total_positive_count'
+
     ]
     fieldsets = [
         (
@@ -172,10 +175,93 @@ class CompanyAdmin(admin.ModelAdmin):
 
 @ admin.register(NegativeMessage)
 class NegativeMessageAdmin(admin.ModelAdmin):
-    list_display = ['created_at', 'company', 'phone', 'text']
-    fields = ['company', 'phone', 'text']
+    list_display = ['created_at', 'company', 'phone']
+    list_filter = ['company']
+    readonly_fields = ['created_at']
 
+    fieldsets = [
+        (
+            'КОНТЕНТ',
+            {
+                'fields': ['text']
+            }
+        ),
+        (
+            'ДАННЫЕ',
+            {
+                'classes': ['collapse'],
+                'fields': ['created_at', 'phone']
+            }
+        ),
+        (
+            'НАСТРОЙКИ',
+            {
+                'classes': ['collapse'],
+                'fields': ['company']
+            }
+        ),
+    ]
 
 @ admin.register(Notification)
 class NotificationAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['created_at', 'company', 'initiator']
+    list_filter = ['company', 'initiator']
+    readonly_fields = ['created_at']
+
+    fieldsets = [
+        (
+            'КОНТЕНТ',
+            {
+                'fields': ['text']
+            }
+        ),
+        (
+            'ДАННЫЕ',
+            {
+                'classes': ['collapse'],
+                'fields': ['created_at']
+            }
+        ),
+        (
+            'НАСТРОЙКИ',
+            {
+                'classes': ['collapse'],
+                'fields': ['company', 'negative_message', 'initiator']
+            }
+        ),
+    ]
+
+
+@ admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ['created_at', 'company', 'name']
+    list_filter = ['company', 'service']
+
+    readonly_fields = [
+        'created_at',
+        'remote_id',
+        'conversation_id'
+    ]
+
+    fieldsets = [
+        (
+            'КОНТЕНТ',
+            {
+                'fields': ['name', 'text']
+            }
+        ),
+        (
+            'ДАННЫЕ',
+            {
+                'classes': ['collapse'],
+                'fields': ['created_at', 'rate', 'remote_id', 'conversation_id', 'avatar_url']
+            }
+        ),
+        (
+            'НАСТРОЙКИ',
+            {
+                'classes': ['collapse'],
+                'fields': ['company', 'service']
+            }
+        ),
+    ]

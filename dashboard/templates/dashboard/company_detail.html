@@ -1,19 +1,10 @@
 {% extends 'dashboard/base.html' %}
 {% load static %}
+{% load mathtag %}
 
 {% block content %}
 <!--  Название  -->
-<div class="flex gap-4 pb-4">
-    {% if company.logo %}
-    <img class="h-12 rounded w-12" src="{{ company.logo.url }}" alt="{{ company.name }}">
-    {% endif %}
-    <div class="">
-        <h3 class="bp5-heading mb-1">
-            {{object.name}}
-        </h3>
-        <div class="bp5-heading bp5-text-muted">{{object.address}}</div>
-    </div>
-</div>
+{% include 'dashboard/_company_head.html' %}
 
 <div class="grid gap-4">
     <!--  Табы  -->
@@ -21,23 +12,21 @@
 
     <!-- Тулбар -->
     <div class="flex gap-2">
-        <div class="bp5-button-group">
-            <button type="button" class="bp5-button bp5-intent-warning">
-                <span class="bp5-button-text">Дата от</span>
-                <span aria-hidden="true" class="bp5-icon bp5-icon-calendar"></span>
-            </button>
-            <button type="button" class="bp5-button bp5-intent-warning">
-                <span class="bp5-button-text">Дата до</span>
-                <span aria-hidden="true" class="bp5-icon bp5-icon-calendar"></span>
-            </button>
-        </div>
+        <button type="button" class="bp5-button bp5-intent-warning">
+            <span class="bp5-button-text">Создать QR код</span>
+            <span aria-hidden="true" class="bp5-icon bp5-icon-link"></span>
+        </button>
+        <button type="button" class="bp5-button bp5-intent-warning">
+            <span class="bp5-button-text">Создать виджет</span>
+            <span aria-hidden="true" class="bp5-icon bp5-icon-code"></span>
+        </button>
         <div class="bp5-divider"></div>
         <button type="button" class="bp5-button">Настройки</button>
     </div>
 
-    <!-- Компании -->
-    <div class="grid gap-2">
-        <div class="bp5-section bp5-card bp5-elevation-2">
+    <!--  -->
+    <div class="grid gap-2 grid-cols-4">
+        <div class="bp5-section bp5-card bp5-elevation-2 col-span-4">
             <div class="bp5-section-header">
                 <div class="bp5-section-header-left">
                     <div>
@@ -47,84 +36,77 @@
                 </div>
             </div>
             <div class="bp5-section-card bp5-padded">
-                <div class="grid gap-1 grid-cols-4 justify-stretch">
-                    <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon">
+                <div class="grid gap-2 grid-cols-4 justify-stretch">
+                    <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
                         <img class="bp5-icon h-4 w-4" src="{% static 'yandex.svg' %}" >
                         <h5 class="bp5-heading">
-                            {{ object.yandex_rate|default:'0,0' }}
+                            {{ company.yandex_rate|default:'0,0' }}
                         </h5>
                         Яндекс
-                        <div><small class="bp5-text-muted">28 октября 2023 г. 22:50</small></div>
                     </div>
-                    <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon">
+                    <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
                         <img class="bp5-icon h-4 w-4" src="{% static 'gis.svg' %}" >
                         <h5 class="bp5-heading">
-                            {{ object.gis_rate|default:'0,0' }}
+                            {{ company.gis_rate|default:'0,0' }}
                         </h5>
                         2Гис
-                        <div><small class="bp5-text-muted">28 октября 2023 г. 22:50</small></div>
                     </div>
-                    <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon">
+                    <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
                         <img class="bp5-icon h-4 w-4" src="{% static 'google.svg' %}" >
                         <h5 class="bp5-heading">
-                            {{ object.google_rate|default:'0,0' }}
+                            {{ company.google_rate|default:'0,0' }}
                         </h5>
                         Google
-                        <div><small class="bp5-text-muted">28 октября 2023 г. 22:50</small></div>
                     </div>
-                    <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon">
+                    <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
                         <img class="bp5-icon h-4 w-4" src="{% static 'mapsme.svg' %}" >
-                        <h5 class="bp5-heading">{{ object.portrate_negative_count|default:'0' }}</h5>
+                        <h5 class="bp5-heading">{{ company.mapsme_rate|default:'0,0' }}</h5>
                         Mapsme
-                        <div><small class="bp5-text-muted">28 октября 2023 г. 22:50</small></div>
                     </div>
                 </div>
             </div>
             <div class="bp5-section-card bp5-padded">
-                <table class="bp5-elevation-1 bp5-html-table bp5-compact bp5-html-table-striped w-full">
+                <table class="bp5-elevation-1 bp5-html-table bp5-compact bp5-html-table-striped">
                     <thead>
                         <tr>
-                            <th>класифаер</th>
-                            <th>рейтинг</th>
-                            <th>обновлено</th>
+                            <th>Классифаер</th>
+                            <th width="1%">Рейтинг</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>Dikidi</td>
-                            <td>0,0</td>
-                            <td>28 октября 2023 г. 22:50</td>
+                            <td class="text-right">{{ company.dikidi_rate|default:'0,0' }}</td>
                         </tr>
                         <tr>
                             <td>Рестоклуб</td>
-                            <td>0,0</td>
-                            <td>28 октября 2023 г. 22:50</td>
+                            <td class="text-right">{{ company.restoclub_rate|default:'0,0' }}</td>
                         </tr>
                         <tr>
                             <td>Tripadvisor</td>
-                            <td>0,0</td>
-                            <td>28 октября 2023 г. 22:50</td>
+                            <td class="text-right">{{ company.tripadvisor_rate|default:'0,0' }}</td>
                         </tr>
                         <tr>
-                            <td>Prodoctorov</td>
-                            <td>0,0</td>
-                            <td>28 октября 2023 г. 22:50</td>
+                            <td>Продокторов</td>
+                            <td class="text-right">{{ company.prodoctorov_rate|default:'0,0' }}</td>
+                        </tr>
+                        <tr>
+                            <td>Yclients</td>
+                            <td class="text-right">{{ company.yclients_rate|default:'0,0' }}</td>
                         </tr>
                         <tr>
                             <td>Flamp</td>
-                            <td>0,0</td>
-                            <td>28 октября 2023 г. 22:50</td>
+                            <td class="text-right">{{ company.flamp_rate|default:'0,0' }}</td>
                         </tr>
                         <tr>
                             <td>Отзовик</td>
-                            <td>0,0</td>
-                            <td>28 октября 2023 г. 22:50</td>
+                            <td class="text-right">{{ company.otzovik_rate|default:'0,0' }}</td>
                         </tr>
                         <tr>
                             <td>Irecommend</td>
-                            <td>0,0</td>
-                            <td>28 октября 2023 г. 22:50</td>
+                            <td class="text-right">{{ company.irecommend_rate|default:'0,0' }}</td>
                         </tr>
+                    </table>
                 </table>
             </div>
         </div>
@@ -132,14 +114,108 @@
 </div>
 {% endblock %}
 
-# Каталоги
-dikidi:       2000,
-restoclub:    2001,
-tripadvisor:  2002,
-prodoctorov:  2003,
 
-# Отзовики
-flamp:        3000,
-zoon:         3001,
-otzovik:      3002,
-irecommend:   3003
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="bp5-section bp5-card bp5-elevation-2 col-span-2">
+    <div class="bp5-section-header">
+        <div class="bp5-section-header-left">
+            <div>
+                <h6 class="bp5-heading bp5-section-header-title">Рейтинг</h6>
+                <div class="bp5-text-muted bp5-section-header-sub-title">показатели рейтинга в поисковых системах и класифаерах</div>
+            </div>
+        </div>
+    </div>
+    <div class="bp5-section-card bp5-padded">
+        <div class="grid gap-2 grid-cols-2 justify-stretch">
+            <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
+                <img class="bp5-icon h-4 w-4" src="{% static 'yandex.svg' %}" >
+                <h5 class="bp5-heading">
+                    {{ object.yandex_rate|default:'0,0' }}
+                </h5>
+                Яндекс
+            </div>
+            <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
+                <img class="bp5-icon h-4 w-4" src="{% static 'gis.svg' %}" >
+                <h5 class="bp5-heading">
+                    {{ object.gis_rate|default:'0,0' }}
+                </h5>
+                2Гис
+            </div>
+            <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
+                <img class="bp5-icon h-4 w-4" src="{% static 'google.svg' %}" >
+                <h5 class="bp5-heading">
+                    {{ object.google_rate|default:'0,0' }}
+                </h5>
+                Google
+            </div>
+            <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
+                <img class="bp5-icon h-4 w-4" src="{% static 'mapsme.svg' %}" >
+                <h5 class="bp5-heading">{{ object.portrate_negative_count|default:'0' }}</h5>
+                Mapsme
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bp5-section bp5-card bp5-elevation-2 col-span-2">
+    <div class="bp5-section-header">
+        <div class="bp5-section-header-left">
+            <div>
+                <h6 class="bp5-heading bp5-section-header-title">Отзывы</h6>
+                <div class="bp5-text-muted bp5-section-header-sub-title">количество отзывов в поисковых системах и класифаерах</div>
+            </div>
+        </div>
+    </div>
+    <div class="bp5-section-card bp5-padded">
+        <div class="grid gap-2 grid-cols-2 justify-stretch">
+            <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
+                <img class="bp5-icon h-4 w-4" src="{% static 'yandex.svg' %}" >
+                <h5 class="bp5-heading">
+                    {{ object.yandex_rate|default:'0,0' }}
+                </h5>
+                Яндекс
+            </div>
+            <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
+                <img class="bp5-icon h-4 w-4" src="{% static 'gis.svg' %}" >
+                <h5 class="bp5-heading">
+                    {{ object.gis_rate|default:'0,0' }}
+                </h5>
+                2Гис
+            </div>
+            <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
+                <img class="bp5-icon h-4 w-4" src="{% static 'google.svg' %}" >
+                <h5 class="bp5-heading">
+                    {{ object.google_rate|default:'0,0' }}
+                </h5>
+                Google
+            </div>
+            <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
+                <img class="bp5-icon h-4 w-4" src="{% static 'mapsme.svg' %}" >
+                <h5 class="bp5-heading">{{ object.portrate_negative_count|default:'0' }}</h5>
+                Mapsme
+            </div>
+        </div>
+    </div>
+</div>

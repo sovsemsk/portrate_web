@@ -3,6 +3,7 @@
 
 {% block content %}
 <h3 class="bp5-heading pb-2">Компании</h3>
+
 <div class="grid gap-4">
     <!-- Тулбар -->
     <div class="flex gap-2">
@@ -38,29 +39,29 @@
                 </div>
             </div>
             <div class="bp5-section-card bp5-padded">
-                <div class="grid gap-1 grid-cols-4 justify-stretch">
-                    <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon">
+                <div class="grid gap-2 grid-cols-4 justify-stretch">
+                    <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
                         <img class="bp5-icon h-4 w-4" src="{% static 'yandex.svg' %}" >
                         <h5 class="bp5-heading">
                             {{ company.yandex_rate|default:'0,0' }}
                         </h5>
                         Рейтинг Яндекс
                     </div>
-                    <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon">
+                    <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
                         <img class="bp5-icon h-4 w-4" src="{% static 'gis.svg' %}" >
                         <h5 class="bp5-heading">
                             {{ company.gis_rate|default:'0,0' }}
                         </h5>
                         Рейтинг 2Гис
                     </div>
-                    <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon">
+                    <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
                         <img class="bp5-icon h-4 w-4" src="{% static 'google.svg' %}" >
                         <h5 class="bp5-heading">
                             {{ company.google_rate|default:'0,0' }}
                         </h5>
                         Рейтинг Google
                     </div>
-                    <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon">
+                    <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
                         <span aria-hidden="true" tabindex="-1" class="bp5-icon bp5-icon-key-enter"></span>
                         <h5 class="bp5-heading">{{ company.portrate_negative_count|default:'0' }}</h5>
                         <div class="">Всего отзывов</div>

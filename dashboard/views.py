@@ -6,7 +6,7 @@ from django.views.generic import DetailView, ListView
 from django.shortcuts import get_object_or_404, render, redirect
 from django.utils.decorators import method_decorator
 
-from resources.models import Company, Notification
+from resources.models import Company, NegativeMessage, Notification, Review
 
 
 class CompanyListView(ListView):
@@ -22,7 +22,7 @@ class CompanyListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['nav'] = 'companies'
+        context['nav'] = 'company'
         context['host'] = settings.HOST
         return context
 
@@ -48,7 +48,8 @@ class CompanyDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['nav'] = 'companies'
+        context['nav'] = 'company'
+        context['sub_nav'] = 'detail'
         context['host'] = settings.HOST
         return context
 
@@ -59,6 +60,64 @@ class CompanyDetailView(DetailView):
             is_active=True,
             users__in=(self.request.user,)
         )
+        return queryset
+
+
+class ReviewListView(ListView):
+    template_name = 'dashboard/review_list.html'
+    model = Review
+    paginate_by = 10
+
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(ReviewListView, self).dispatch(request, *args, **kwargs)
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['company'] = get_object_or_404(Company, pk=self.kwargs['company_pk'])
+        context['nav'] = 'company'
+        context['sub_nav'] = 'review'
+        return context
+
+
+    def get_queryset(self, **kwargs):
+        queryset = super().get_queryset(**kwargs)
+        company = get_object_or_404(Company, pk=self.kwargs['company_pk'])
+        queryset = queryset.filter(
+            company__in=(company.id,),
+            company__users__in=(self.request.user,)
+        ).select_related('company').order_by('-created_at')
+        return queryset
+
+
+class MessageListView(ListView):
+    template_name = 'dashboard/message_list.html'
+    model = NegativeMessage
+    paginate_by = 10
+
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(MessageListView, self).dispatch(request, *args, **kwargs)
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['company'] = get_object_or_404(Company, pk=self.kwargs['company_pk'])
+        context['nav'] = 'company'
+        context['sub_nav'] = 'message'
+        return context
+
+
+    def get_queryset(self, **kwargs):
+        queryset = super().get_queryset(**kwargs)
+        company = get_object_or_404(Company, pk=self.kwargs['company_pk'])
+        queryset = queryset.filter(
+            company__in=(company.id,),
+            company__users__in=(self.request.user,)
+        ).select_related('company').order_by('-created_at')
         return queryset
 
 
@@ -75,7 +134,7 @@ class NotificationListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['nav'] = 'notification_list'
+        context['nav'] = 'notification'
         return context
 
 

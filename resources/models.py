@@ -553,6 +553,16 @@ class Company(models.Model):
         null=True
     )
 
+    total_positive_count = models.IntegerField(
+        blank=True,
+        null=True
+    )
+
+    total_negative_count = models.IntegerField(
+        blank=True,
+        null=True
+    )
+
     # Связи
     users = models.ManyToManyField(
         User,
@@ -596,6 +606,76 @@ class NegativeMessage(models.Model):
         return self.phone
 
 
+# Отзыв
+class Review(models.Model):
+    class Meta:
+        db_table = 'resources_review'
+        verbose_name = 'отзыв'
+        verbose_name_plural = 'отзывы'
+
+    class Service(models.TextChoices):
+        YANDEX = 'YANDEX', 'Яндекс'
+        GIS = 'GIS', '2Гис'
+        GOOGLE = 'GOOGLE', 'Google'
+
+    service = models.CharField(
+        choices=Service.choices,
+        default=Service.YANDEX,
+        verbose_name='сервис'
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name='дата создания'
+    )
+
+    from_bot = models.BooleanField(
+        default=False,
+        verbose_name='Отправлено ботом Портрет'
+    )
+
+    remote_id = models.CharField(
+        blank=True,
+        null=True,
+        verbose_name='ID сервиса'
+    )
+
+    conversation_id = models.CharField(
+        blank=True,
+        null=True,
+        verbose_name='ID диалога'
+    )
+
+    rate = models.IntegerField(
+        blank=True,
+        null=True,
+        verbose_name='рейтинг'
+    )
+
+    avatar_url = models.CharField(
+        blank=True,
+        null=True,
+        verbose_name='url аватара'
+    )
+
+    name = models.CharField(
+        verbose_name='пользователь'
+    )
+
+    text = models.TextField(
+        verbose_name='текст отзыва'
+    )
+
+    company = models.ForeignKey(
+        Company,
+        on_delete=models.CASCADE,
+        verbose_name='сеть'
+    )
+
+    def __str__(self):
+        return f'{self.name}'
+
+
 # Оповещение
 class Notification(models.Model):
     class Meta:
@@ -625,6 +705,7 @@ class Notification(models.Model):
     initiator = models.CharField(
         choices=Initiator.choices,
         default=Initiator.PORTRATE_NEGATIVE_MESSAGE,
+        verbose_name='инициатор'
     )
 
     created_at = models.DateTimeField(
@@ -634,12 +715,6 @@ class Notification(models.Model):
 
     text = models.TextField(
         verbose_name='текст оповещения'
-    )
-
-    url = models.CharField(
-        blank=True,
-        null=True,
-        verbose_name='url оповещения'
     )
 
     company = models.ForeignKey(
@@ -657,7 +732,7 @@ class Notification(models.Model):
     )
 
     def __str__(self):
-        return str(self.created_at)
+        return str(self.text)
 
 
 # Сигналы модели Notification
