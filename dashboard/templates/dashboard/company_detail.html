@@ -4,11 +4,11 @@
 
 {% block content %}
 <!--  Название  -->
-{ include 'dashboard/_company_head.html' }
+{% include 'dashboard/_company_head.html' %}
 
 <div class="grid gap-4">
     <!--  Табы  -->
-    { include 'dashboard/_company_tabs.html' }
+    {% include 'dashboard/_company_tabs.html' %}
 
     <!-- Тулбар -->
     <div class="flex gap-2">
@@ -113,109 +113,3 @@
     </div>
 </div>
 {% endblock %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="bp5-section bp5-card bp5-elevation-2 col-span-2">
-    <div class="bp5-section-header">
-        <div class="bp5-section-header-left">
-            <div>
-                <h6 class="bp5-heading bp5-section-header-title">Рейтинг</h6>
-                <div class="bp5-text-muted bp5-section-header-sub-title">показатели рейтинга в поисковых системах и класифаерах</div>
-            </div>
-        </div>
-    </div>
-    <div class="bp5-section-card bp5-padded">
-        <div class="grid gap-2 grid-cols-2 justify-stretch">
-            <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
-                <img class="bp5-icon h-4 w-4" src="{% static 'yandex.svg' %}" >
-                <h5 class="bp5-heading">
-                    {{ object.yandex_rate|default:'0,0' }}
-                </h5>
-                Яндекс
-            </div>
-            <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
-                <img class="bp5-icon h-4 w-4" src="{% static 'gis.svg' %}" >
-                <h5 class="bp5-heading">
-                    {{ object.gis_rate|default:'0,0' }}
-                </h5>
-                2Гис
-            </div>
-            <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
-                <img class="bp5-icon h-4 w-4" src="{% static 'google.svg' %}" >
-                <h5 class="bp5-heading">
-                    {{ object.google_rate|default:'0,0' }}
-                </h5>
-                Google
-            </div>
-            <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
-                <img class="bp5-icon h-4 w-4" src="{% static 'mapsme.svg' %}" >
-                <h5 class="bp5-heading">{{ object.portrate_negative_count|default:'0' }}</h5>
-                Mapsme
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="bp5-section bp5-card bp5-elevation-2 col-span-2">
-    <div class="bp5-section-header">
-        <div class="bp5-section-header-left">
-            <div>
-                <h6 class="bp5-heading bp5-section-header-title">Отзывы</h6>
-                <div class="bp5-text-muted bp5-section-header-sub-title">количество отзывов в поисковых системах и класифаерах</div>
-            </div>
-        </div>
-    </div>
-    <div class="bp5-section-card bp5-padded">
-        <div class="grid gap-2 grid-cols-2 justify-stretch">
-            <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
-                <img class="bp5-icon h-4 w-4" src="{% static 'yandex.svg' %}" >
-                <h5 class="bp5-heading">
-                    {{ object.yandex_rate|default:'0,0' }}
-                </h5>
-                Яндекс
-            </div>
-            <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
-                <img class="bp5-icon h-4 w-4" src="{% static 'gis.svg' %}" >
-                <h5 class="bp5-heading">
-                    {{ object.gis_rate|default:'0,0' }}
-                </h5>
-                2Гис
-            </div>
-            <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
-                <img class="bp5-icon h-4 w-4" src="{% static 'google.svg' %}" >
-                <h5 class="bp5-heading">
-                    {{ object.google_rate|default:'0,0' }}
-                </h5>
-                Google
-            </div>
-            <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
-                <img class="bp5-icon h-4 w-4" src="{% static 'mapsme.svg' %}" >
-                <h5 class="bp5-heading">{{ object.portrate_negative_count|default:'0' }}</h5>
-                Mapsme
-            </div>
-        </div>
-    </div>
-</div>

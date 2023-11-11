@@ -12,6 +12,7 @@ from resources.models import Company, NegativeMessage, Notification, Review
 class CompanyListView(ListView):
     template_name = 'dashboard/company_list.html'
     model = Company
+    context_object_name = 'company_list'
     paginate_by = 5
 
 
@@ -39,6 +40,7 @@ class CompanyListView(ListView):
 class CompanyDetailView(DetailView):
     template_name = 'dashboard/company_detail.html'
     model = Company
+    context_object_name = 'company'
 
 
     @method_decorator(login_required)
@@ -66,6 +68,7 @@ class CompanyDetailView(DetailView):
 class ReviewListView(ListView):
     template_name = 'dashboard/review_list.html'
     model = Review
+    context_object_name = 'review_list'
     paginate_by = 10
 
 
@@ -95,6 +98,7 @@ class ReviewListView(ListView):
 class MessageListView(ListView):
     template_name = 'dashboard/message_list.html'
     model = NegativeMessage
+    context_object_name = 'message_list'
     paginate_by = 10
 
 
@@ -124,6 +128,7 @@ class MessageListView(ListView):
 class NotificationListView(ListView):
     template_name = 'dashboard/notification_list.html'
     model = Notification
+    context_object_name = 'notification_list'
     paginate_by = 10
 
 
