@@ -1,10 +1,10 @@
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator
+from django.shortcuts import get_object_or_404, render, redirect
 from django.views.decorators.http import require_http_methods
 from django.views.generic import DetailView, ListView
-from django.shortcuts import get_object_or_404, render, redirect
 from django.utils.decorators import method_decorator
+
 
 from resources.models import Company, NegativeMessage, Notification, Review
 

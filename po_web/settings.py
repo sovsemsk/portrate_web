@@ -84,19 +84,12 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'}
 ]
 
-#
+# Env
 DEBUG = json.loads(str(os.getenv('DEBUG')).lower())
 
-#
+# Addresses
 HOST = str(os.getenv('HOST'))
-
-ALLOWED_HOSTS = [
-    'geo.portrate.io',
-    '91.201.53.6',
-    '127.0.0.1',
-    '7180-178-66-130-72.ngrok-free.app'
-]
-
+ALLOWED_HOSTS = ['127.0.0.1', 'geo.portrate.io']
 INTERNAL_IPS = ['127.0.0.1']
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -131,6 +124,9 @@ TAILWIND_APP_NAME = 'theme'
 
 # Telegram
 TELEGRAM_BOT_API_SECRET = str(os.getenv('TELEGRAM_BOT_API_SECRET'))
+
+#
+SELENIUM_BOT_API_SECRET = str(os.getenv('SELENIUM_BOT_API_SECRET'))
 
 # Celery
 # CELERY_TIMEZONE =
