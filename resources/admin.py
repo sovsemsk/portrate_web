@@ -8,44 +8,83 @@ class CompanyAdmin(admin.ModelAdmin):
     readonly_fields = [
         'portrate_rate',
         'portrate_negative_count',
+
         'yandex_rate',
+        'yandex_rate_count',
+        'yandex_rate_stars',
         'yandex_positive_count',
         'yandex_negative_count',
+        'yandex_rate_last_parse_at',
+        'yandex_reviews_last_parse_at',
+
         'gis_rate',
         'gis_positive_count',
         'gis_negative_count',
+        'gis_rate_last_parse_at',
+        'gis_reviews_last_parse_at',
+
         'google_rate',
         'google_positive_count',
         'google_negative_count',
+        'google_rate_last_parse_at',
+        'google_reviews_last_parse_at',
+
         'mapsme_rate',
         'mapsme_positive_count',
         'mapsme_negative_count',
+        'mapsme_rate_last_parse_at',
+        'mapsme_reviews_last_parse_at',
+
         'dikidi_rate',
         'dikidi_positive_count',
         'dikidi_negative_count',
+        'dikidi_rate_last_parse_at',
+        'dikidi_reviews_last_parse_at',
+
         'restoclub_rate',
         'restoclub_positive_count',
         'restoclub_negative_count',
+        'restoclub_rate_last_parse_at',
+        'restoclub_reviews_last_parse_at',
+
         'tripadvisor_rate',
         'tripadvisor_positive_count',
         'tripadvisor_negative_count',
+        'tripadvisor_rate_last_parse_at',
+        'tripadvisor_reviews_last_parse_at',
+
         'prodoctorov_rate',
         'prodoctorov_positive_count',
         'prodoctorov_negative_count',
+        'prodoctorov_rate_last_parse_at',
+        'prodoctorov_reviews_last_parse_at',
+
         'flamp_rate',
         'flamp_positive_count',
+        'flamp_negative_count',
+        'flamp_rate_last_parse_at',
+        'flamp_reviews_last_parse_at',
+
         'zoon_rate',
         'zoon_positive_count',
         'zoon_negative_count',
+        'zoon_rate_last_parse_at',
+        'zoon_reviews_last_parse_at',
+
         'otzovik_rate',
         'otzovik_positive_count',
         'otzovik_negative_count',
+        'otzovik_rate_last_parse_at',
+        'otzovik_reviews_last_parse_at',
+
         'irecommend_rate',
         'irecommend_positive_count',
         'irecommend_negative_count',
+        'irecommend_rate_last_parse_at',
+        'irecommend_reviews_last_parse_at',
+
         'total_negative_count',
         'total_positive_count'
-
     ]
     fieldsets = [
         (
@@ -131,41 +170,83 @@ class CompanyAdmin(admin.ModelAdmin):
                 'fields': [
                     'portrate_rate',
                     'portrate_negative_count',
+
                     'yandex_rate',
+                    'yandex_rate_count',
+                    'yandex_rate_stars',
                     'yandex_positive_count',
                     'yandex_negative_count',
+                    'yandex_rate_last_parse_at',
+                    'yandex_reviews_last_parse_at',
+
                     'gis_rate',
                     'gis_positive_count',
                     'gis_negative_count',
+                    'gis_rate_last_parse_at',
+                    'gis_reviews_last_parse_at',
+
                     'google_rate',
                     'google_positive_count',
                     'google_negative_count',
+                    'google_rate_last_parse_at',
+                    'google_reviews_last_parse_at',
+
                     'mapsme_rate',
                     'mapsme_positive_count',
                     'mapsme_negative_count',
+                    'mapsme_rate_last_parse_at',
+                    'mapsme_reviews_last_parse_at',
+
                     'dikidi_rate',
                     'dikidi_positive_count',
                     'dikidi_negative_count',
+                    'dikidi_rate_last_parse_at',
+                    'dikidi_reviews_last_parse_at',
+
                     'restoclub_rate',
                     'restoclub_positive_count',
                     'restoclub_negative_count',
+                    'restoclub_rate_last_parse_at',
+                    'restoclub_reviews_last_parse_at',
+
                     'tripadvisor_rate',
                     'tripadvisor_positive_count',
                     'tripadvisor_negative_count',
+                    'tripadvisor_rate_last_parse_at',
+                    'tripadvisor_reviews_last_parse_at',
+
                     'prodoctorov_rate',
                     'prodoctorov_positive_count',
                     'prodoctorov_negative_count',
+                    'prodoctorov_rate_last_parse_at',
+                    'prodoctorov_reviews_last_parse_at',
+
                     'flamp_rate',
                     'flamp_positive_count',
+                    'flamp_negative_count',
+                    'flamp_rate_last_parse_at',
+                    'flamp_reviews_last_parse_at',
+
                     'zoon_rate',
                     'zoon_positive_count',
                     'zoon_negative_count',
+                    'zoon_rate_last_parse_at',
+                    'zoon_reviews_last_parse_at',
+
                     'otzovik_rate',
                     'otzovik_positive_count',
                     'otzovik_negative_count',
+                    'otzovik_rate_last_parse_at',
+                    'otzovik_reviews_last_parse_at',
+
                     'irecommend_rate',
                     'irecommend_positive_count',
                     'irecommend_negative_count',
+                    'irecommend_rate_last_parse_at',
+                    'irecommend_reviews_last_parse_at',
+
+                    'total_negative_count',
+                    'total_positive_count'
                 ]
             }
         ),
@@ -239,22 +320,21 @@ class ReviewAdmin(admin.ModelAdmin):
 
     readonly_fields = [
         'created_at',
-        'remote_id',
-        'conversation_id'
+        'remote_id'
     ]
 
     fieldsets = [
         (
             'КОНТЕНТ',
             {
-                'fields': ['name', 'text']
+                'fields': ['name', 'text', 'answer']
             }
         ),
         (
             'ДАННЫЕ',
             {
                 'classes': ['collapse'],
-                'fields': ['created_at', 'rate', 'remote_id', 'conversation_id', 'avatar_url']
+                'fields': ['created_at', 'rate', 'remote_id', 'avatar_url']
             }
         ),
         (

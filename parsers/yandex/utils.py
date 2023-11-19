@@ -6,20 +6,21 @@ from .parsers import Parser
 
 
 class YandexParser:
-    def __init__(self, api_secret: str, id_yandex: int):
+    def __init__(self, api_secret: str, yandex_id: int):
         """
-        @param id_yandex: ID Яндекс компании
+        @param yandex_id: ID Яндекс компании
         """
         self.api_secret = api_secret
-        self.id_yandex = id_yandex
+        self.yandex_id = yandex_id
+
 
     def __open_page(self):
-        url: str = 'https://yandex.ru/maps/org/{}/reviews/'.format(str(self.id_yandex))
+        url: str = 'https://yandex.ru/maps/org/{}/reviews/'.format(str(self.yandex_id))
 
         options = webdriver.ChromeOptions()
         options.set_capability('selenoid:options', {'enableVNC': True})
 
-        # http://{self.api_secret}@185.41.161.121:4444/wd/hub
+        # http://{self.api_secret}@80.87.109.112:4444/wd/hub
         driver = webdriver.Remote(
             command_executor=f'http://80.87.109.112:4444/wd/hub',
             options=options
@@ -28,6 +29,7 @@ class YandexParser:
         parser = Parser(driver)
         driver.get(url)
         return parser
+
 
     def parse(self, type_parse: str = 'default') -> dict:
         """

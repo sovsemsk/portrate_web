@@ -1,4 +1,4 @@
-{% load mathtag %}
+{% load extensions %}
 
 
 <div class="bp5-tabs">
@@ -16,7 +16,7 @@
         href="{% url 'review_list' company.id %}"
         >
             Отзывы
-            <span class="bp5-tag bp5-minimal bp5-tab-tag"><span class="bp5-text-overflow-ellipsis bp5-fill">{{ company.total_positive_count|sum:company.total_negative_count  }}</span></span>
+            <span class="bp5-tag bp5-minimal bp5-tab-tag"><span class="bp5-text-overflow-ellipsis bp5-fill">{{ company.total_positive_count|sum:company.total_negative_count }}</span></span>
         </a>
         <a
         class="bp5-tab"

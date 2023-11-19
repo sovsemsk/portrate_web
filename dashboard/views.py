@@ -31,7 +31,6 @@ class CompanyListView(ListView):
     def get_queryset(self, **kwargs):
         queryset = super().get_queryset(**kwargs)
         queryset = queryset.filter(
-            is_active=True,
             users__in=(self.request.user,)
         ).order_by('name')
         return queryset
@@ -59,7 +58,6 @@ class CompanyDetailView(DetailView):
     def get_queryset(self, **kwargs):
         queryset = super().get_queryset(**kwargs)
         queryset = queryset.filter(
-            is_active=True,
             users__in=(self.request.user,)
         )
         return queryset
