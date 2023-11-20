@@ -964,6 +964,14 @@ class Notification(models.Model):
         verbose_name='негативное сообщение'
     )
 
+    review = models.OneToOneField(
+        Review,
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE,
+        verbose_name='отзыв'
+    )
+
     def __str__(self):
         return str(self.text)
 
@@ -999,7 +1007,9 @@ def review_post_save_signal(sender, instance, created, **kwargs):
 # Сигналы модели Notification
 @receiver(post_save, sender=Notification)
 def notification_post_save_signal(sender, instance, created, **kwargs):
-    if created and instance.initiator == 'PORTRATE_NEGATIVE_MESSAGE':
+
+    # Негативное сообщение из формы запроса отзыва
+    if created and instance.initiator == Notification.Initiator.PORTRATE_NEGATIVE_MESSAGE:
         # Шаблон
         text = f'''📍 Негативное сообщение в Портрете.
 
@@ -1012,6 +1022,19 @@ def notification_post_save_signal(sender, instance, created, **kwargs):
 📜 Комментарий:
 {instance.negative_message.text}'''
 
-    # Отправка всем пользователям компании
-    for user in instance.company.users.exclude(profile__telegram_id=None).all():
-        send_telegram_text_task.delay(user.profile.telegram_id, text)
+        for user in instance.company.users.exclude(profile__telegram_id=None).all():
+            send_telegram_text_task.delay(user.profile.telegram_id, text)
+
+    # Негативное сообщение из формы запроса отзыва
+    elif created and instance.initiator == Notification.Initiator.YANDEX_NEGATIVE_REVIEW:
+        # Шаблон
+        text = f'''📍 Негативный отзыв в Яндексе.
+
+🏪 Компания:
+{instance.review.company}
+
+📜 Текст:
+{instance.review.text}'''
+
+        for user in instance.company.users.exclude(profile__telegram_id=None).all():
+            send_telegram_text_task.delay(user.profile.telegram_id, text)

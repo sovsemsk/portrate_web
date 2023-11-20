@@ -31,7 +31,7 @@ def parse_yandex_rate(company_id):
 @shared_task
 def parse_yandex_reviews(company_id):
     from parsers.yandex.utils import YandexParser
-    from resources.models import Company, Review
+    from resources.models import Company, Notification, Review
 
     company = Company.objects.get(pk=company_id)
 
@@ -44,7 +44,7 @@ def parse_yandex_reviews(company_id):
         ).hexdigest()
 
         try:
-            Review.objects.create(
+            review = Review.objects.create(
                 name=review.get('name'),
                 text=review.get('text'),
                 answer=review.get('answer'),
@@ -54,6 +54,15 @@ def parse_yandex_reviews(company_id):
                 created_at=datetime.fromtimestamp(review.get('date'), tz=timezone.utc),
                 company=company
             )
+
+            if review.get('stars') < 4:
+                Notification.objects.create(
+                    company=review.company,
+                    review=review,
+                    text=review.text,
+                    initiator=Notification.Initiator.YANDEX_NEGATIVE_REVIEW
+                )
+
         except:
             pass
 
