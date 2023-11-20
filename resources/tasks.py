@@ -40,7 +40,7 @@ def parse_yandex_reviews(company_id):
 
     for parsed_review in result.get('company_reviews', None):
         id = hashlib.md5(
-            f"{review.get('name')}{review.get('date')}".encode()
+            f"{parsed_review.get('name')}{parsed_review.get('date')}".encode()
         ).hexdigest()
 
         try:
