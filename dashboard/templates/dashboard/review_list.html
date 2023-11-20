@@ -29,24 +29,27 @@
     <div class="grid gap-2">
         {% for review in review_list %}
         <div class="bp5-section bp5-card bp5-elevation-2">
-
             <div class="bp5-section-header">
                 <div class="bp5-section-header-left">
                     {% if review.avatar_url %}
                     <img class="h-8 rounded w-8" src="{{ review.avatar_url }}" alt="{{ review.name }}">
                     {% endif %}
+                    
                     <div>
-                        <h6 class="bp5-heading bp5-section-header-title">{{review.created_at}}</h6>
-                        <div class="bp5-text-muted bp5-section-header-sub-title">{{review.name}}</div>
+                        <h6 class="bp5-heading bp5-section-header-title">
+                            {{review.name}}
+                        </h6>
+                        <div class="bp5-section-header-sub-title">
+                            {% with ''|center:review.rate as range %}
+                            {% for _ in range %}
+                            <span aria-hidden="true" class="bp5-icon bp5-icon-star text-[#F0B726]"></span>
+                            {% endfor %}
+                            {% endwith %}
+                        </div>
                     </div>
                 </div>
                 <div class="bp5-section-header-right">
-                    {% with ''|center:review.rate as range %}
-                    {% for _ in range %}
-                        <span aria-hidden="true" class="bp5-icon bp5-icon-star text-[#F0B726]"></span>
-                    {% endfor %}
-                    {% endwith %}
-                    <div class="bp5-divider h-5"></div>
+                    <span class="bp5-text-muted ">{{review.created_at}}</span>
                     {% if review.service == 'YANDEX' %}
                     <img class="h-4 w-4" src="{% static 'yandex.svg' %}" alt="Google">
                     {% endif %}
@@ -61,9 +64,11 @@
             <div class="bp5-section-card bp5-padded">
                 {{ review.text }}
             </div>
+            {% if review.answer %}
             <div class="bp5-section-card bp5-padded">
                 {{ review.answer }}
             </div>
+            {% endif %}
         </div>
         {% endfor %}
     </div>
