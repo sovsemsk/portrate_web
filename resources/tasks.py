@@ -55,7 +55,7 @@ def parse_yandex_reviews(company_id):
                 company=company
             )
 
-            if review.get('stars') < 4:
+            if review.get('stars') <= 3:
                 Notification.objects.create(
                     company=review.company,
                     review=review,
