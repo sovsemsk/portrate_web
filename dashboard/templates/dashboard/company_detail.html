@@ -46,6 +46,9 @@
                             {{ company.yandex_rate|default:'0,0' }}
                         </h5>
                         Яндекс
+                        <div class="bp5-text-muted text-xs">
+                            {{ company.yandex_rate_last_parse_at }}
+                        </div>
                     </div>
                     <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
                         <img class="bp5-icon h-4 w-4" src="{% static 'gis.svg' %}" >

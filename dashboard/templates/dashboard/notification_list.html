@@ -36,7 +36,11 @@
             </p>
             <div class="flex flex-wrap gap-1">
                 <span class="bp5-tag bp5-minimal bp5-intent-primary bp5-round">{{ notification.company }}</span>
-                <span class="bp5-tag bp5-minimal bp5-intent-danger bp5-round">Негативное сообщение в портрете</span>
+                {% if notification.initiator == 'YANDEX_NEGATIVE_REVIEW' %}
+                <span class="bp5-tag bp5-minimal bp5-intent-danger bp5-round">Негативный отзыв в Яндекс Карты</span>
+                {% elif notification.initiator == 'PORTRATE_NEGATIVE_MESSAGE' %}
+                <span class="bp5-tag bp5-minimal bp5-intent-danger bp5-round">Негативное сообщение в Портрет</span>
+                {% endif %}
             </div>
         </div>
         {% endfor %}

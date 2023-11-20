@@ -1011,7 +1011,7 @@ def notification_post_save_signal(sender, instance, created, **kwargs):
     # Негативное сообщение из формы запроса отзыва
     if created and instance.initiator == Notification.Initiator.PORTRATE_NEGATIVE_MESSAGE:
         # Шаблон
-        text = f'''📍 Негативное сообщение в Портрете.
+        text = f'''📍 Негативное сообщение в Портрет.
 
 🏪 Компания:
 {instance.negative_message.company}
@@ -1028,7 +1028,7 @@ def notification_post_save_signal(sender, instance, created, **kwargs):
     # Негативное сообщение из формы запроса отзыва
     elif created and instance.initiator == Notification.Initiator.YANDEX_NEGATIVE_REVIEW:
         # Шаблон
-        text = f'''📍 Негативный отзыв в Яндексе.
+        text = f'''📍 Негативный отзыв в Яндекс Карты.
 
 🏪 Компания:
 {instance.review.company}
