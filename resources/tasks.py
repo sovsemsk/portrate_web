@@ -38,29 +38,29 @@ def parse_yandex_reviews(company_id):
     parser = YandexParser(settings.SELENIUM_BOT_API_SECRET, int(company.yandex_id))
     result = parser.parse(type_parse='reviews')
 
-    for review in result.get('company_reviews', None):
+    for parsed_review in result.get('company_reviews', None):
         id = hashlib.md5(
             f"{review.get('name')}{review.get('date')}".encode()
         ).hexdigest()
 
         try:
             review = Review.objects.create(
-                name=review.get('name'),
-                text=review.get('text'),
-                answer=review.get('answer'),
-                rate=review.get('stars'),
-                remote_id=id,
-                avatar_url=review.get('icon_href'),
-                created_at=datetime.fromtimestamp(review.get('date'), tz=timezone.utc),
-                company=company
+                name=       parsed_review.get('name'),
+                text=       parsed_review.get('text'),
+                answer=     parsed_review.get('answer'),
+                rate=       parsed_review.get('stars'),
+                remote_id=  id,
+                avatar_url= parsed_review.get('icon_href'),
+                created_at= datetime.fromtimestamp(parsed_review.get('date'), tz=timezone.utc),
+                company=    company
             )
 
-            if review.get('stars') <= 3:
+            if parsed_review.get('stars') <= 3:
                 Notification.objects.create(
-                    company=review.company,
-                    review=review,
-                    text=review.text,
-                    initiator=Notification.Initiator.YANDEX_NEGATIVE_REVIEW
+                    company=    review.company,
+                    review=     review,
+                    text=       review.text,
+                    initiator=  Notification.Initiator.YANDEX_NEGATIVE_REVIEW
                 )
 
         except:
