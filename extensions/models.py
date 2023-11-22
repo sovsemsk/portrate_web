@@ -10,6 +10,9 @@ class Profile(models.Model):
         db_table = 'extensions_profile'
         verbose_name = 'профиль'
         verbose_name_plural = 'профили'
+    
+    class DefaultTimezone(models.TextChoices):
+        UTC = 'UTC', 'UTC'
 
     user = models.OneToOneField(
         User,
@@ -24,6 +27,54 @@ class Profile(models.Model):
         blank=True,
         null=True,
         verbose_name='telegram ID'
+    )
+
+    default_timezone = models.CharField(
+        blank=True,
+        null=True,
+        choices=DefaultTimezone.choices,
+        default=DefaultTimezone.UTC,
+        verbose_name='Временная зона по умолчанию'
+    )
+
+    can_notify_at_start = models.TimeField(
+        blank=True,
+        null=True,
+        verbose_name='можно оповещать с'
+    )
+
+    can_notify_at_end = models.TimeField(
+        blank=True,
+        null=True,
+        verbose_name='можно оповещать до'
+    )
+
+    can_notify_negative_portrate = models.BooleanField(
+        blank=True,
+        default=True,
+        null=True,
+        verbose_name='получать оповещения в Telegram о негативных сообщениях в Портрет'
+    )
+
+    can_notify_negative_yandex = models.BooleanField(
+        blank=True,
+        default=True,
+        null=True,
+        verbose_name='получать оповещения в Telegram о негативных отзывах в Яндекс Карты'
+    )
+
+    can_notify_negative_gis = models.BooleanField(
+        blank=True,
+        default=True,
+        null=True,
+        verbose_name='получать оповещения в Telegram о негативных отзывах в 2Гис Карты'
+    )
+
+    can_notify_negative_google = models.BooleanField(
+        blank=True,
+        default=True,
+        null=True,
+        verbose_name='получать оповещения в Telegram о негативных отзывах в Google Maps'
     )
 
     def __str__(self):

@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views.decorators.http import require_http_methods
@@ -6,6 +7,7 @@ from django.views.generic import DetailView, ListView
 from django.utils.decorators import method_decorator
 
 
+from dashboard.forms import ProfileForm
 from resources.models import Company, NegativeMessage, Notification, Review
 
 
@@ -186,8 +188,23 @@ def price(request):
 
 
 @login_required
-@require_http_methods(['GET'])
+@require_http_methods(['GET', 'POST'])
 def pref(request):
+    company_list = Company.objects.filter(users__in=(request.user,)).order_by('name').all()
+
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, instance=request.user.profile)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Настройки успешно сохранены')
+
+    else:
+        form = ProfileForm(instance=request.user.profile)
+
     return render(request, 'dashboard/pref.html', {
+        'form': form,
+        'user': request.user,
+        'company_list': company_list,
         'nav': 'pref'
     })

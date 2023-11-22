@@ -9,7 +9,7 @@ class ProfileInline(admin.StackedInline):
     model = Profile
     can_delete = False
     fk_name = 'user'
-    fields = ('api_secret', 'telegram_id', )
+    fields = ('api_secret', 'telegram_id', 'default_timezone', 'can_notify_at_start', 'can_notify_at_end')
     readonly_fields = ('api_secret', 'telegram_id', )
     verbose_name_plural = 'профиль'
 
