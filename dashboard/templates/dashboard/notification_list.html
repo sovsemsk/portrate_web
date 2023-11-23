@@ -3,6 +3,7 @@
 
 {% block content %}
 <h3 class="bp5-heading pb-2">Оповещения</h3>
+
 <div class="grid gap-4">
 
     <!-- Тулбар -->
@@ -20,7 +21,7 @@
         </a>
         {% endif %}
         <div class="bp5-divider"></div>
-        <button type="button" class="bp5-button">Настройки</button>
+        <a class="bp5-button" href="{% url 'dashboard_pref' %}">Настройки</a>
     </div>
     
     <!-- Оповещения -->

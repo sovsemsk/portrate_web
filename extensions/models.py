@@ -39,12 +39,14 @@ class Profile(models.Model):
 
     can_notify_at_start = models.TimeField(
         blank=True,
+        default='09:00:00',
         null=True,
         verbose_name='можно оповещать с'
     )
 
     can_notify_at_end = models.TimeField(
         blank=True,
+        default='17:00:00',
         null=True,
         verbose_name='можно оповещать до'
     )

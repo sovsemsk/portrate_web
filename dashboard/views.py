@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views.decorators.http import require_http_methods
-from django.views.generic import DetailView, ListView
+from django.views.generic import CreateView, DetailView, ListView, UpdateView
 from django.utils.decorators import method_decorator
 
 
@@ -63,6 +63,16 @@ class CompanyDetailView(DetailView):
             users__in=(self.request.user,)
         )
         return queryset
+
+
+class CompanyCreateView(CreateView):
+    model = Company
+    fields = ["name"]
+
+
+class CompanyUpdateView(UpdateView):
+    model = Company
+    fields = ["name"]
 
 
 class ReviewListView(ListView):
@@ -203,8 +213,7 @@ def pref(request):
         form = ProfileForm(instance=request.user.profile)
 
     return render(request, 'dashboard/pref.html', {
-        'form': form,
-        'user': request.user,
         'company_list': company_list,
+        'form': form,
         'nav': 'pref'
     })
