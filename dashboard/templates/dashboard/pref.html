@@ -14,7 +14,7 @@
             <span aria-hidden="true" class="bp5-icon bp5-icon-send-message"></span>
         </a>
         {% else %}
-        <a class="bp5-button" href="http://t.me/portrate_notify_bot?start={{ user.profile.api_secret }}" target="_blank">
+        <a class="bp5-button bp5-intent-warning" href="http://t.me/portrate_notify_bot?start={{ user.profile.api_secret }}" target="_blank">
             <span class="bp5-button-text">Подписаться на оповещения</span>
             <span aria-hidden="true" class="bp5-icon bp5-icon-send-message"></span>
         </a>
@@ -22,7 +22,7 @@
         <div class="bp5-divider"></div>
         <button class="bp5-button bp5-intent-success" form="pref-form" type="submit">
             <span class="bp5-button-text">Сохранить</span>
-            <span aria-hidden="true" class="bp5-icon bp5-icon-floppy-disk"></span>
+            <span aria-hidden="true" class="bp5-icon bp5-icon-tick"></span>
         </button>
     </div>
 

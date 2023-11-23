@@ -1,3 +1,4 @@
+import datetime
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_init, post_save
@@ -39,14 +40,14 @@ class Profile(models.Model):
 
     can_notify_at_start = models.TimeField(
         blank=True,
-        default='09:00:00',
+        default=datetime.time(9, 00),
         null=True,
         verbose_name='можно оповещать с'
     )
 
     can_notify_at_end = models.TimeField(
         blank=True,
-        default='17:00:00',
+        default=datetime.time(17, 00),
         null=True,
         verbose_name='можно оповещать до'
     )
