@@ -1,0 +1,41 @@
+<ul class="bp5-menu bp5-elevation-1 bg-[rgba(143,153,168,.15)]">
+                
+    <!--  -->
+    <li class="bp5-menu-header">
+        <h6 class="bp5-heading">Основное</h6>
+    </li>
+    <a class="bp5-menu-item {% if sub_nav == 'notification' %}bp5-active{% endif %}" href="{% url 'dashboard_pref' %}">
+        Оповещения
+    </a>
+    <li class="bp5-menu-item">
+        Рассылки
+        <span class="bp5-tag bp5-minimal bp5-tab-tag"><span class="bp5-text-overflow-ellipsis bp5-fill">Скоро</span></span>
+
+    </li>
+
+    <li class="bp5-menu-header">
+        <h6 class="bp5-heading">Компании</h6>
+    </li>
+    {% for item in company_list %}
+    <a 
+    class="
+    bp5-menu-item
+    {% if company.id == item.id %}bp5-active{% endif %}
+    "
+    href="{% url 'company_update' item.id %}"
+    >
+        {{item.name}} - {{item.address}}
+    </a>
+    {% endfor %}
+
+    <!--  -->
+    <li class="bp5-menu-header">
+        <h6 class="bp5-heading">QR коды</h6>
+    </li>
+
+    <!--  -->
+    <li class="bp5-menu-header">
+        <h6 class="bp5-heading">Виджеты</h6>
+    </li>
+  </ul>
+  {{ request.GET.params }}

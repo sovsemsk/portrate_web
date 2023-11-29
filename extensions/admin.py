@@ -19,6 +19,7 @@ class ProfileInline(admin.StackedInline):
         'can_notify_negative_yandex',
         'can_notify_negative_gis',
         'can_notify_negative_google'
+        'can_notify_negative_mapsme'
     )
 
     readonly_fields = ('api_secret', 'telegram_id', )

@@ -9171,6 +9171,10 @@ a > .bp5-dark .bp5-tooltip .bp5-running-text code{
     grid-column:span 4 / span 4 !important;
   }.dashboard .col-span-9{
     grid-column:span 9 / span 9 !important;
+  }.dashboard .col-span-6{
+    grid-column:span 6 / span 6 !important;
+  }.dashboard .col-span-12{
+    grid-column:span 12 / span 12 !important;
   }.dashboard .m-0{
     margin:0px !important;
   }.dashboard .mx-auto{
@@ -9203,6 +9207,8 @@ a > .bp5-dark .bp5-tooltip .bp5-running-text code{
     height:1rem !important;
   }.dashboard .h-8{
     height:2rem !important;
+  }.dashboard .h-16{
+    height:4rem !important;
   }.dashboard .w-12{
     width:3rem !important;
   }.dashboard .w-16{
@@ -9346,6 +9352,9 @@ a > .bp5-dark .bp5-tooltip .bp5-running-text code{
   }.dashboard .text-white{
     --tw-text-opacity:1 !important;
     color:rgb(255 255 255 / var(--tw-text-opacity)) !important;
+  }.dashboard .text-\[\#ac2f33\]{
+    --tw-text-opacity:1 !important;
+    color:rgb(172 47 51 / var(--tw-text-opacity)) !important;
   }.dashboard .shadow-xl{
     --tw-shadow:0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1) !important;
     --tw-shadow-colored:0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color) !important;

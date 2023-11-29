@@ -1,13 +1,15 @@
 from django.conf import settings
-from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404, render, redirect
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib import messages
+from django.shortcuts import get_object_or_404, render
 from django.views.decorators.http import require_http_methods
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 from django.utils.decorators import method_decorator
+from django.urls import reverse
 
 
-from dashboard.forms import ProfileForm
+from dashboard.forms import CompanyForm, ProfileForm
 from resources.models import Company, NegativeMessage, Notification, Review
 
 
@@ -65,14 +67,88 @@ class CompanyDetailView(DetailView):
         return queryset
 
 
-class CompanyCreateView(CreateView):
+class CompanyCreateView(SuccessMessageMixin, CreateView):
+    context_object_name = 'company'
+    form_class = CompanyForm
     model = Company
-    fields = ["name"]
+    success_message = 'Компания успешно создана'
+    template_name = 'dashboard/company_create.html'
 
 
-class CompanyUpdateView(UpdateView):
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(CompanyCreateView, self).dispatch(request, *args, **kwargs)
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        companies = Company.objects.filter(
+            users__in=(self.request.user,)
+        ).order_by('name').all()
+
+        context['nav'] = 'company'
+        context['sub_nav'] = 'update'
+        context['host'] = settings.HOST
+        context['company_list'] = companies
+        return context
+
+
+    def get_queryset(self, **kwargs):
+        queryset = super().get_queryset(**kwargs)
+        queryset = queryset.filter(
+            users__in=(self.request.user,)
+        )
+        return queryset
+
+
+    def form_valid(self, form, **kwargs):
+        response = super(CompanyCreateView, self).form_valid(form, **kwargs)
+        self.object.is_active = True
+        self.object.users.add(self.request.user)
+        return response
+
+
+    def get_success_url(self):
+        return reverse('company_update', kwargs={'pk': self.object.id})
+
+
+class CompanyUpdateView(SuccessMessageMixin, UpdateView):
+    context_object_name = 'company'
+    form_class = CompanyForm
     model = Company
-    fields = ["name"]
+    success_message = 'Настройки успешно сохранены'
+    template_name = 'dashboard/company_update.html'
+
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(CompanyUpdateView, self).dispatch(request, *args, **kwargs)
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        companies = Company.objects.filter(
+            users__in=(self.request.user,)
+        ).order_by('name').all()
+
+        context['nav'] = 'company'
+        context['sub_nav'] = 'update'
+        context['host'] = settings.HOST
+        context['company_list'] = companies
+        return context
+
+
+    def get_queryset(self, **kwargs):
+        queryset = super().get_queryset(**kwargs)
+        queryset = queryset.filter(
+            users__in=(self.request.user,)
+        )
+        return queryset
+
+
+    def get_success_url(self):
+        return reverse('company_update', kwargs={'pk': self.object.id})
 
 
 class ReviewListView(ListView):
@@ -215,5 +291,6 @@ def pref(request):
     return render(request, 'dashboard/pref.html', {
         'company_list': company_list,
         'form': form,
-        'nav': 'pref'
+        'nav': 'pref',
+        'sub_nav': 'notification'
     })

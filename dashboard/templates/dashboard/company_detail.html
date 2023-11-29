@@ -20,7 +20,7 @@
             <span aria-hidden="true" class="bp5-icon bp5-icon-code"></span>
         </button>
         <div class="bp5-divider"></div>
-        <button type="button" class="bp5-button">Настройки</button>
+        <a class="bp5-button" href="{% url 'company_update' company.id %}">Настройки</a>
         <a class="bp5-button" href="{{company.host}}/@{{company.id}}" target="_blank">
             <span class="bp5-button-text">Форма запроса отзыва</span>
             <span aria-hidden="true" class="bp5-icon bp5-icon-share"></span>
@@ -47,7 +47,7 @@
                         </h5>
                         Яндекс
                         <div class="bp5-text-muted text-xs">
-                            {{ company.yandex_rate_last_parse_at }}
+                            {{ company.yandex_rate_last_parse_at|default:'Нет данных' }}
                         </div>
                     </div>
                     <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
@@ -56,6 +56,9 @@
                             {{ company.gis_rate|default:'0,0' }}
                         </h5>
                         2Гис
+                        <div class="bp5-text-muted text-xs">
+                            {{ company.gis_rate_last_parse_at|default:'Нет данных' }}
+                        </div>
                     </div>
                     <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
                         <img class="bp5-icon h-4 w-4" src="{% static 'google.svg' %}" >
@@ -63,11 +66,17 @@
                             {{ company.google_rate|default:'0,0' }}
                         </h5>
                         Google
+                        <div class="bp5-text-muted text-xs">
+                            {{ company.google_rate_last_parse_at|default:'Нет данных' }}
+                        </div>
                     </div>
                     <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
                         <img class="bp5-icon h-4 w-4" src="{% static 'mapsme.svg' %}" >
                         <h5 class="bp5-heading">{{ company.mapsme_rate|default:'0,0' }}</h5>
                         Mapsme
+                        <div class="bp5-text-muted text-xs">
+                            {{ company.mapsme_rate_last_parse_at|default:'Нет данных' }}
+                        </div>
                     </div>
                 </div>
             </div>

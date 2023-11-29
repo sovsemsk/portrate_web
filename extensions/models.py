@@ -80,6 +80,13 @@ class Profile(models.Model):
         verbose_name='получать оповещения в Telegram о негативных отзывах в Google Maps'
     )
 
+    can_notify_negative_mapsme = models.BooleanField(
+        blank=True,
+        default=True,
+        null=True,
+        verbose_name='получать оповещения в Telegram о негативных отзывах в Mapsme'
+    )
+
     def __str__(self):
         return self.user.username
 

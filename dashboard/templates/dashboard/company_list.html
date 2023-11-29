@@ -7,10 +7,10 @@
 <div class="grid gap-4">
     <!-- Тулбар -->
     <div class="flex gap-2">
-        <button type="button" class="bp5-button bp5-intent-warning">
+        <a class="bp5-button bp5-intent-warning" href="{% url 'company_create' %}">
             <span class="bp5-button-text">Создать компанию</span>
             <span aria-hidden="true" class="bp5-icon bp5-icon-plus"></span>
-        </button>
+        </a>
         <div class="bp5-divider"></div>
         <a class="bp5-button" href="{% url 'dashboard_pref' %}">Настройки</a>
     </div>
@@ -22,7 +22,7 @@
             <div class="bp5-section-header">
                 <div class="bp5-section-header-left">
                     {% if company.logo %}
-                    <img class="h-8 rounded w-8" src="{{ company.logo.url }}" alt="{{ company.name }}">
+                    <img class="bp5-elevation-1 h-8 rounded w-8" src="{{ company.logo.url }}" alt="{{ company.name }}">
                     {% endif %}
                     <div>
                         <h6 class="bp5-heading bp5-section-header-title">{{company.name}}</h6>
@@ -39,7 +39,7 @@
                         </h5>
                         Рейтинг Яндекс
                         <div class="bp5-text-muted text-xs">
-                            {{ company.yandex_rate_last_parse_at }}
+                            {{ company.yandex_rate_last_parse_at|default:'Нет данных' }}
                         </div>
                     </div>
                     <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
@@ -48,6 +48,9 @@
                             {{ company.gis_rate|default:'0,0' }}
                         </h5>
                         Рейтинг 2Гис
+                        <div class="bp5-text-muted text-xs">
+                            {{ company.gis_rate_last_parse_at|default:'Нет данных' }}
+                        </div>
                     </div>
                     <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
                         <img class="bp5-icon h-4 w-4" src="{% static 'google.svg' %}" >
@@ -55,6 +58,9 @@
                             {{ company.google_rate|default:'0,0' }}
                         </h5>
                         Рейтинг Google
+                        <div class="bp5-text-muted text-xs">
+                            {{ company.google_rate_last_parse_at|default:'Нет данных' }}
+                        </div>
                     </div>
                     <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
                         <span aria-hidden="true" tabindex="-1" class="bp5-icon bp5-icon-key-enter"></span>

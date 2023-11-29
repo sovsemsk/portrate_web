@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-<h3 class="bp5-heading pb-2">Настройки</h3>
+<h3 class="bp5-heading pb-2">Настройки оповещений</h3>
 
 <div class="grid gap-4">
 
@@ -26,7 +26,6 @@
             <span aria-hidden="true" class="bp5-icon bp5-icon-tick"></span>
         </button>
     </div>
-
 
     <div class="grid grid-cols-12 gap-2">
         <!-- Настройки -->
@@ -79,7 +78,7 @@
                                     <span class="bp5-control-indicator"></span>
                                     <div class="bp5-control-card-label">
                                         <img class="bp5-icon h-4 w-4 mr-2" src="{% static 'gis.svg' %}" >
-                                        Получать оповещения в Telegram о негативных отзывах в 2Гис
+                                        Получать оповещения в Telegram о негативных отзывах в 2Гис Карты
                                     </div>
                                 </label>
                             </div>
@@ -93,7 +92,21 @@
                                     <span class="bp5-control-indicator"></span>
                                     <div class="bp5-control-card-label">
                                         <img class="bp5-icon h-4 w-4 mr-2" src="{% static 'google.svg' %}" >
-                                        Получать оповещения в Telegram о негативных отзывах в Google
+                                        Получать оповещения в Telegram о негативных отзывах в Google Maps
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bp5-section-card">
+                        <div class="bp5-card-list bp5-card bp5-elevation-0" role="list">
+                            <div class="bp5-control-card bp5-switch-control-card bp5-card bp5-elevation-0 bp5-interactive">
+                                <label class="bp5-control bp5-switch bp5-inline bp5-align-right">
+                                    {{ form.can_notify_negative_mapsme }}
+                                    <span class="bp5-control-indicator"></span>
+                                    <div class="bp5-control-card-label">
+                                        <img class="bp5-icon h-4 w-4 mr-2" src="{% static 'mapsme.svg' %}" >
+                                        Получать оповещения в Telegram о негативных отзывах в Mapsme
                                     </div>
                                 </label>
                             </div>
@@ -124,9 +137,9 @@
                                 {{ form.can_notify_at_start }} <div class="flex items-center">-</div> {{ form.can_notify_at_end }}
                             </div>
                             {% if form.can_notify_at_start.errors %}
-                            <div class="bp5-form-helper-text">Время рассылки обязательно</div>
+                            <div class="bp5-form-helper-text text-[#ac2f33]">Время рассылки обязательно</div>
                             {% elif form.can_notify_at_end.errors %}
-                            <div class="bp5-form-helper-text">Время рассылки обязательно</div>
+                            <div class="bp5-form-helper-text text-[#ac2f33]">Время рассылки обязательно</div>
                             {% endif %}
                         </div>      
                     </div>
@@ -163,35 +176,9 @@
             </form>
         </div>
 
-        <!-- Табы -->
+        <!-- Меню -->
         <div class="col-span-3">
-            <ul class="bp5-menu bp5-elevation-1 bg-[rgba(143,153,168,.15)]">
-                <li class="bp5-menu-header">
-                    <h6 class="bp5-heading">Основное</h6>
-                </li>
-                <li class="bp5-menu-item">Оповещения</li>
-                <li class="bp5-menu-item">Рассылки</li>
-
-                <li class="bp5-menu-header">
-                    <h6 class="bp5-heading">Компании</h6>
-                </li>
-                {% for company in company_list %}
-                    <li class="bp5-menu-item">
-                        {{company.name}} - {{company.address}}
-                    </li>
-                {% endfor %}
-
-                <li class="bp5-menu-header">
-                    <h6 class="bp5-heading">QR коды</h6>
-                </li>
-                <li class="bp5-menu-item">Тестовый код 1</li>
-                <li class="bp5-menu-item">Тестовый код 2</li>
-                <li class="bp5-menu-header">
-                    <h6 class="bp5-heading">Виджеты</h6>
-                </li>
-                <li class="bp5-menu-item">Тестовый виджет 1</li>
-                <li class="bp5-menu-item">Тестовый виджет 2</li>
-              </ul>
+            {% include 'dashboard/_pref_tabs.html' %}
         </div>
     </div>
 </div>
