@@ -20,8 +20,8 @@
             <span aria-hidden="true" class="bp5-icon bp5-icon-code"></span>
         </button>
         <div class="bp5-divider"></div>
-        <a class="bp5-button" href="{% url 'company_update' company.id %}">Настройки</a>
-        <a class="bp5-button" href="{{company.host}}/@{{company.id}}" target="_blank">
+        <a class="bp5-button bp5-intent-warning" href="{% url 'company_update' company.id %}">Настройки</a>
+        <a class="bp5-button bp5-intent-warning" href="{{company.host}}/@{{company.id}}" target="_blank">
             <span class="bp5-button-text">Форма запроса отзыва</span>
             <span aria-hidden="true" class="bp5-icon bp5-icon-share"></span>
         </a>

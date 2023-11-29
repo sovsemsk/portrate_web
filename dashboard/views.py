@@ -132,7 +132,7 @@ class CompanyUpdateView(SuccessMessageMixin, UpdateView):
             users__in=(self.request.user,)
         ).order_by('name').all()
 
-        context['nav'] = 'company'
+        context['nav'] = 'pref'
         context['sub_nav'] = 'update'
         context['host'] = settings.HOST
         context['company_list'] = companies

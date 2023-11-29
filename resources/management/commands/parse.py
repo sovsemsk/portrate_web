@@ -37,19 +37,17 @@ class Command(BaseCommand):
 
 
     def handle(self, *args, **options):
-        companies = Company.objects.exclude(
-            yandex_id=None
-        ).filter(
+        companies = Company.objects.filter(
             is_active=True,
             is_yandex_reviews_download=True
+        ).exclude(
+            yandex_id=None,
         ).values('id').all()
 
-        if options['rating']:
-            if options['yandex']:
-                for company in companies:
-                    parse_yandex_rate.delay(company['id'])
+        if options['yandex'] and options['rating']:
+            for company in companies:
+                parse_yandex_rate.delay(company['id'])
 
-        if options['reviews']:
-            if options['yandex']:
-                for company in companies:
-                    parse_yandex_reviews.delay(company['id'])
+        if options['reviews'] and options['yandex']:
+            for company in companies:
+                parse_yandex_reviews.delay(company['id'])

@@ -5,13 +5,13 @@ from celery import shared_task
 from django.conf import settings
 
 
-@shared_task
+@shared_task(name="Отправка сообщения telegram")
 def send_telegram_text_task(telegram_id, text):
     from telegram import Bot
     asyncio.run(Bot(settings.TELEGRAM_BOT_API_SECRET).send_message(telegram_id, text))
 
 
-@shared_task
+@shared_task(name="Парсинг рейтинга Яндекс Карты")
 def parse_yandex_rate(company_id):
     from parsers.yandex.utils import YandexParser
     from resources.models import Company

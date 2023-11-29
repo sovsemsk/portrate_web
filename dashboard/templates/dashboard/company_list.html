@@ -7,14 +7,14 @@
 <div class="grid gap-4">
     <!-- Тулбар -->
     <div class="flex gap-2">
-        <a class="bp5-button bp5-intent-warning" href="{% url 'company_create' %}">
+        <a class="bp5-button bp5-intent-success" href="{% url 'company_create' %}">
             <span class="bp5-button-text">Создать компанию</span>
             <span aria-hidden="true" class="bp5-icon bp5-icon-plus"></span>
         </a>
         <div class="bp5-divider"></div>
-        <a class="bp5-button" href="{% url 'dashboard_pref' %}">Настройки</a>
+        <a class="bp5-button bp5-intent-warning" href="{% url 'dashboard_pref' %}">Настройки</a>
     </div>
-    
+
     <!-- Компании -->
     <div class="grid gap-2">
         {% for company in company_list %}
@@ -71,8 +71,8 @@
             </div>
             <div class="bp5-section-card bp5-padded">
                 <div class="flex gap-2">
-                    <a class="bp5-button" href="{% url 'company_detail' company.id %}">Открыть</a>
-                    <a class="bp5-button" href="{{company.host}}/@{{company.id}}" target="_blank">
+                    <a class="bp5-button bp5-intent-warning" href="{% url 'company_detail' company.id %}">Открыть</a>
+                    <a class="bp5-button bp5-intent-warning" href="{{company.host}}/@{{company.id}}" target="_blank">
                         <span class="bp5-button-text">Форма запроса отзыва</span>
                         <span aria-hidden="true" class="bp5-icon bp5-icon-share"></span>
                     </a>
