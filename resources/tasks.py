@@ -5,13 +5,13 @@ from celery import shared_task
 from django.conf import settings
 
 
-@shared_task(name="Отправка сообщения telegram")
+@shared_task(name='Отправка сообщения telegram')
 def send_telegram_text_task(telegram_id, text):
     from telegram import Bot
     asyncio.run(Bot(settings.TELEGRAM_BOT_API_SECRET).send_message(telegram_id, text))
 
 
-@shared_task(name="Парсинг рейтинга Яндекс Карты")
+@shared_task(name='Парсинг рейтинга Яндекс Карты')
 def parse_yandex_rate(company_id):
     from parsers.yandex.utils import YandexParser
     from resources.models import Company
@@ -28,8 +28,9 @@ def parse_yandex_rate(company_id):
     company.save()
 
 
-@shared_task
+@shared_task(name='Парсинг отзывов Яндекс Карты')
 def parse_yandex_reviews(company_id):
+    # @TODO: Отрезать по дате сделать побыстрее
     from parsers.yandex.utils import YandexParser
     from resources.models import Company, Notification, Review
 
