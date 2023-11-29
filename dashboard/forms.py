@@ -46,7 +46,7 @@ class ProfileForm(forms.ModelForm):
 
 class CompanyForm(forms.ModelForm):
     # ID
-    logo = forms.CharField(
+    logo = forms.ImageField(
         widget=forms.widgets.FileInput(),
         required=False
     )

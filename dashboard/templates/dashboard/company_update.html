@@ -29,7 +29,7 @@
     <div class="grid grid-cols-12 gap-2">
         <!-- Настройки -->
         <div class="col-span-9">
-            <form class="grid gap-2" action="" id="company-form" method="post" novalidate>
+            <form class="grid gap-2" action="" enctype="multipart/form-data" id="company-form" method="post" novalidate>
                 {% csrf_token %}
 
                 <div class="bp5-section bp5-card bp5-elevation-2">
@@ -211,11 +211,11 @@
                         </div>
                     </div>
                     <div class="bp5-section-card bp5-padded">
+                        {% if company.logo %}
                         <div class="bp5-form-group col-span-6">
-                            {% if company.logo %}
                             <img class="bp5-elevation-1 h-16 rounded w-16" src="{{ company.logo.url }}" alt="{{ company.name }}">
-                            {% endif %}
                         </div>
+                        {% endif %}
                         <div class="bp5-form-group col-span-6">
                             <label class="bp5-label" for="">Логотип</label>
                             <label class="bp5-file-input max-w-sm">
