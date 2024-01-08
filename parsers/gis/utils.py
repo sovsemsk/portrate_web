@@ -1,32 +1,42 @@
-import datetime
 import time
 
+import undetected_chromedriver
 from selenium import webdriver
 
 from .parsers import Parser
 
 
-class YandexParser:
-    def __init__(self, api_secret: str, yandex_id: int, last_parse_at: datetime = None):
+class GisParser:
+    def __init__(self, api_secret: str, gis_id: int):
         """
-        @param yandex_id: ID Яндекс компании
+        @param gis_id: ID 2Gis компании
         """
         self.api_secret = api_secret
-        self.yandex_id = yandex_id
-        self.last_parse_at = last_parse_at
+        self.gis_id = gis_id
 
     def __open_page(self):
-        url: str = "https://yandex.ru/maps/org/{}/reviews/".format(str(self.yandex_id))
+        url: str = "https://2gis.ru/spb/firm/{}/tab/reviews".format(str(self.gis_id))
 
-        options = webdriver.ChromeOptions()
-        options.set_capability("selenoid:options", {"enableVNC": True})
+        # options = webdriver.ChromeOptions()
+        # options.set_capability('selenoid:options', {'enableVNC': True})
 
         # http://{self.api_secret}@80.87.109.112:4444/wd/hub
-        driver = webdriver.Remote(
-            command_executor=f"http://80.87.109.112:4444/wd/hub", options=options
-        )
+        # driver = webdriver.Remote(
+        #     command_executor=f'http://80.87.109.112:4444/wd/hub',
+        #     options=options
+        # )
 
-        parser = Parser(driver, self.last_parse_at)
+        # parser = Parser(driver)
+        # driver.get(url)
+        # return parser
+
+        opts = undetected_chromedriver.ChromeOptions()
+        opts.add_argument("--no-sandbox")
+        opts.add_argument("--disable-dev-shm-usage")
+        # opts.add_argument('headless')
+        opts.add_argument("--disable-gpu")
+        driver = undetected_chromedriver.Chrome(options=opts)
+        parser = Parser(driver)
         driver.get(url)
         return parser
 
@@ -41,7 +51,7 @@ class YandexParser:
         """
         result: dict = {}
         page = self.__open_page()
-        time.sleep(5)
+        time.sleep(4)
         try:
             if type_parse == "default":
                 result = page.parse_all_data()

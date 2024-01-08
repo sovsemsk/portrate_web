@@ -26,77 +26,74 @@
         </a>
     </div>
 
-    
     <!-- Отзывы -->
     <div class="grid gap-2">
-            <!--  -->
-
-                <div class="grid gap-2 grid-cols-4 justify-stretch">
-                    <div class="bp5-elevation-2 bp5-callout bp5-callout-has-body-content bp5-callout-icon bg-white">
-                        <img class="bp5-icon h-4 w-4" src="{% static 'yandex.svg' %}" >
-                        <h5 class="bp5-heading">
-                            <span class="text-[#238551]">
-                                {{ company.yandex_positive_count|default:'0' }}
-                            </span>
-                            -
-                            <span class="text-[#ac2f33]">
-                                {{ company.yandex_negative_count|default:'0' }}
-                            </span>
-                        </h5>
-                        Яндекс
-                        <div class="bp5-text-muted text-xs">
-                            {{ company.yandex_reviews_last_parse_at|default:'Нет данных' }}
-                        </div>
-                    </div>
-                    <div class="bp5-elevation-2 bp5-callout bp5-callout-has-body-content bp5-callout-icon bg-white">
-                        <img class="bp5-icon h-4 w-4" src="{% static 'gis.svg' %}" >
-                        <h5 class="bp5-heading">
-                            <span class="text-[#238551]">
-                                {{ company.gis_positive_count|default:'0' }}
-                            </span>
-                            -
-                            <span class="text-[#ac2f33]">
-                                {{ company.gis_negative_count|default:'0' }}
-                            </span>
-                        </h5>
-                        2Гис
-                        <div class="bp5-text-muted text-xs">
-                            {{ company.gis_rate_last_parse_at|default:'Нет данных' }}
-                        </div>
-                    </div>
-                    <div class="bp5-elevation-2 bp5-callout bp5-callout-has-body-content bp5-callout-icon bg-white">
-                        <img class="bp5-icon h-4 w-4" src="{% static 'google.svg' %}" >
-                        <h5 class="bp5-heading">
-                            <span class="text-[#238551]">
-                                {{ company.google_positive_count|default:'0' }}
-                            </span>
-                            -
-                            <span class="text-[#ac2f33]">
-                                {{ company.google_negative_count|default:'0' }}
-                            </span>
-                        </h5>
-                        Google
-                        <div class="bp5-text-muted text-xs">
-                            {{ company.google_rate_last_parse_at|default:'Нет данных' }}
-                        </div>
-                    </div>
-                    <div class="bp5-elevation-2 bp5-callout bp5-callout-has-body-content bp5-callout-icon bg-white">
-                        <img class="bp5-icon h-4 w-4" src="{% static 'mapsme.svg' %}" >
-                        <h5 class="bp5-heading">
-                            <span class="text-[#238551]">
-                                {{ company.mapsme_positive_count|default:'0' }}
-                            </span>
-                            -
-                            <span class="text-[#ac2f33]">
-                                {{ company.mapsme_negative_count|default:'0' }}
-                            </span>
-                        </h5>
-                        Mapsme
-                        <div class="bp5-text-muted text-xs">
-                            {{ company.mapsme_rate_last_parse_at|default:'Нет данных' }}
-                        </div>
-                    </div>
+        <div class="grid gap-2 grid-cols-4 justify-stretch">
+            <div class="bp5-elevation-2 bp5-callout bp5-callout-has-body-content bp5-callout-icon bg-white">
+                <img class="bp5-icon h-4 w-4" src="{% static 'yandex.svg' %}" >
+                <h5 class="bp5-heading">
+                    <span class="text-[#238551]">
+                        {{ company.yandex_positive_count|default:'0' }}
+                    </span>
+                    -
+                    <span class="text-[#ac2f33]">
+                        {{ company.yandex_negative_count|default:'0' }}
+                    </span>
+                </h5>
+                Яндекс
+                <div class="bp5-text-muted text-xs">
+                    {{ company.yandex_reviews_last_parse_at|default:'Нет данных' }}
                 </div>
+            </div>
+            <div class="bp5-elevation-2 bp5-callout bp5-callout-has-body-content bp5-callout-icon bg-white">
+                <img class="bp5-icon h-4 w-4" src="{% static 'gis.svg' %}" >
+                <h5 class="bp5-heading">
+                    <span class="text-[#238551]">
+                        {{ company.gis_positive_count|default:'0' }}
+                    </span>
+                    -
+                    <span class="text-[#ac2f33]">
+                        {{ company.gis_negative_count|default:'0' }}
+                    </span>
+                </h5>
+                2Гис
+                <div class="bp5-text-muted text-xs">
+                    {{ company.gis_rate_last_parse_at|default:'Нет данных' }}
+                </div>
+            </div>
+            <div class="bp5-elevation-2 bp5-callout bp5-callout-has-body-content bp5-callout-icon bg-white">
+                <img class="bp5-icon h-4 w-4" src="{% static 'google.svg' %}" >
+                <h5 class="bp5-heading">
+                    <span class="text-[#238551]">
+                        {{ company.google_positive_count|default:'0' }}
+                    </span>
+                    -
+                    <span class="text-[#ac2f33]">
+                        {{ company.google_negative_count|default:'0' }}
+                    </span>
+                </h5>
+                Google
+                <div class="bp5-text-muted text-xs">
+                    {{ company.google_rate_last_parse_at|default:'Нет данных' }}
+                </div>
+            </div>
+            <div class="bp5-elevation-2 bp5-callout bp5-callout-has-body-content bp5-callout-icon bg-white">
+                <img class="bp5-icon h-4 w-4" src="{% static 'mapsme.svg' %}" >
+                <h5 class="bp5-heading">
+                    <span class="text-[#238551]">
+                        {{ company.mapsme_positive_count|default:'0' }}
+                    </span>
+                    -
+                    <span class="text-[#ac2f33]">
+                        {{ company.mapsme_negative_count|default:'0' }}
+                    </span>
+                </h5>
+                Mapsme
+                <div class="bp5-text-muted text-xs">
+                    {{ company.mapsme_rate_last_parse_at|default:'Нет данных' }}
+                </div>
+            </div>
+        </div>
 
         {% for review in review_list %}
         <div class="bp5-section bp5-card bp5-elevation-2">

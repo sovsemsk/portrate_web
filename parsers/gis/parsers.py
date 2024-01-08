@@ -1,4 +1,3 @@
-import datetime
 import time
 from dataclasses import asdict
 
@@ -10,9 +9,8 @@ from .storage import Info, Review
 
 
 class Parser:
-    def __init__(self, driver, last_parse_at: datetime = None):
+    def __init__(self, driver):
         self.driver = driver
-        self.last_parse_at = last_parse_at
 
     def __scroll_to_bottom(self, elem) -> None:
         """
@@ -23,31 +21,10 @@ class Parser:
         """
         self.driver.execute_script("arguments[0].scrollIntoView();", elem)
         time.sleep(1)
-        new_elem = self.driver.find_elements(
-            By.CLASS_NAME, "business-reviews-card-view__review"
-        )[-1]
+        new_elem = self.driver.find_elements(By.CLASS_NAME, "_11gvyqv")[-1]
         if elem == new_elem:
             return
         self.__scroll_to_bottom(new_elem)
-
-    def __sort_by_date_descending(self) -> None:
-        try:
-            rank_select = self.driver.find_element(
-                By.XPATH, ".//div[@class='rating-ranking-view']"
-            )
-            rank_select.click()
-            time.sleep(5)
-        except NoSuchElementException:
-            pass
-
-        try:
-            newest = self.driver.find_element(
-                By.XPATH, ".//div[@class='rating-ranking-view__popup']/div[2]"
-            )
-            newest.click()
-            time.sleep(5)
-        except NoSuchElementException:
-            pass
 
     def __get_data_item(self, elem):
         """
@@ -63,51 +40,43 @@ class Parser:
         }
         """
         try:
-            name = elem.find_element(By.XPATH, ".//span[@itemprop='name']").text
+            name = elem.find_element(By.XPATH, ".//span[@class='_16s5yj36']").text
+
         except NoSuchElementException:
             name = None
-
+        print("!!!")
+        print(name)
         try:
             icon_href = elem.find_element(
-                By.XPATH, ".//div[@class='user-icon-view__icon']"
+                By.XPATH, ".//div[@class='_1dk5lq4']"
             ).get_attribute("style")
             icon_href = icon_href.split('"')[1]
         except NoSuchElementException:
             icon_href = None
 
         try:
-            date = elem.find_element(
-                By.XPATH, ".//meta[@itemprop='datePublished']"
-            ).get_attribute("content")
+            date = elem.find_element(By.XPATH, ".//div[@class='_4mwq3d']").text
         except NoSuchElementException:
             date = None
 
         try:
-            text = elem.find_element(
-                By.XPATH, ".//span[@class='business-review-view__body-text']"
-            ).text
+            text = elem.find_element(By.XPATH, ".//a[@class='_1it5ivp']").text
         except NoSuchElementException:
             text = None
 
         try:
-            stars = elem.find_elements(
-                By.XPATH, ".//div[@class='business-rating-badge-view__stars']/span"
-            )
+            stars = elem.find_elements(By.XPATH, ".//div[@class='_1fkin5c']/span")
             stars = ParserHelper.get_count_star(stars)
         except NoSuchElementException:
             stars = 0
 
         try:
-            answer = elem.find_element(
-                By.CLASS_NAME, "business-review-view__comment-expand"
-            )
-            if answer:
-                self.driver.execute_script("arguments[0].click()", answer)
-                answer = elem.find_element(
-                    By.CLASS_NAME, "business-review-comment-content__bubble"
-                ).text
-            else:
-                answer = None
+            answer = elem.find_element(By.XPATH, ".//div[@class='_j1il10']").text
+            # if answer:
+            #     self.driver.execute_script("arguments[0].click()", answer)
+            #     answer = elem.find_element(By.CLASS_NAME, "business-review-comment-content__bubble").text
+            # else:
+            #     answer = None
         except NoSuchElementException:
             answer = None
 
@@ -164,35 +133,18 @@ class Parser:
 
     def __get_data_reviews(self) -> list:
         reviews = []
-
-        elements = self.driver.find_elements(
-            By.CLASS_NAME, "business-reviews-card-view__review"
-        )
-
+        self.driver.find_element(By.CLASS_NAME, "_fs4sw2").click()
+        elements = self.driver.find_elements(By.CLASS_NAME, "_11gvyqv")
         if len(elements) > 1:
             self.__scroll_to_bottom(elements[-1])
-
-            elements = self.driver.find_elements(
-                By.CLASS_NAME, "business-reviews-card-view__review"
-            )
-
+            elements = self.driver.find_elements(By.CLASS_NAME, "_11gvyqv")
             for elem in elements:
-                review = self.__get_data_item(elem)
-                reviews.append(review)
-
-                if self.last_parse_at is not None:
-                    created_at = datetime.datetime.fromtimestamp(
-                        review["date"], datetime.timezone.utc
-                    )
-
-                    if created_at < self.last_parse_at:
-                        break
-
+                reviews.append(self.__get_data_item(elem))
         return reviews
 
     def __isinstance_page(self):
         try:
-            xpath_name = ".//h1[@class='orgpage-header-view__header']"
+            xpath_name = ".//h1[@class='_tvxwjf']"
             name = self.driver.find_element(By.XPATH, xpath_name).text
             return True
         except NoSuchElementException:
@@ -222,8 +174,6 @@ class Parser:
         """
         if not self.__isinstance_page():
             return {"error": "Страница не найдена"}
-
-        self.__sort_by_date_descending()
         return {
             "company_info": self.__get_data_campaign(),
             "company_reviews": self.__get_data_reviews(),
@@ -248,8 +198,6 @@ class Parser:
         """
         if not self.__isinstance_page():
             return {"error": "Страница не найдена"}
-
-        self.__sort_by_date_descending()
         return {"company_reviews": self.__get_data_reviews()}
 
     def parse_company_info(self) -> dict:

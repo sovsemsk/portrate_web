@@ -1,53 +1,77 @@
 from django.conf import settings
 from django.core.management.base import BaseCommand
-
-
-from resources.tasks import parse_yandex_rate, parse_yandex_reviews
 from resources.models import Company
+from resources.tasks import (parse_gis_reviews, parse_yandex_rate,
+                             parse_yandex_reviews)
 
 
 class Command(BaseCommand):
-    help = 'Парсинг (загрузка) данных'
-
+    help = "Парсинг (загрузка) данных"
 
     def add_arguments(self, parser):
         parser.add_argument(
-            '-rt',
-            '--rating',
-            action='store_true',
+            "-rt",
+            "--rating",
+            action="store_true",
             default=False,
-            help='Парсинг рейтинга'
+            help="Парсинг рейтинга",
         )
 
         parser.add_argument(
-            '-rv',
-            '--reviews',
-            action='store_true',
+            "-rv",
+            "--reviews",
+            action="store_true",
             default=False,
-            help='Парсинг отзывов'
+            help="Парсинг отзывов",
         )
 
         parser.add_argument(
-            '-ya',
-            '--yandex',
-            action='store_true',
-            default=False,
-            help='Парсинг Яндекс'
+            "-ya", "--yandex", action="store_true", default=False, help="Парсинг Яндекс"
         )
 
+        parser.add_argument(
+            "-gi", "--gis", action="store_true", default=False, help="Парсинг 2Гис"
+        )
 
     def handle(self, *args, **options):
-        companies = Company.objects.filter(
-            is_active=True,
-            is_yandex_reviews_download=True
-        ).exclude(
-            yandex_id=None,
-        ).values('id').all()
+        # Рейтинг Яндекс
+        if options["yandex"] and options["rating"]:
+            companies = (
+                Company.objects.filter(is_active=True, is_yandex_reviews_download=True)
+                .exclude(
+                    yandex_id=None,
+                )
+                .values("id")
+                .all()
+            )
 
-        if options['yandex'] and options['rating']:
             for company in companies:
-                parse_yandex_rate.delay(company['id'])
+                parse_yandex_rate.delay(company["id"])
 
-        if options['reviews'] and options['yandex']:
+        # Отзывы Яндекс
+        if options["yandex"] and options["reviews"]:
+            companies = (
+                Company.objects.filter(is_active=True, is_yandex_reviews_download=True)
+                .exclude(
+                    yandex_id=None,
+                )
+                .values("id")
+                .all()
+            )
+
             for company in companies:
-                parse_yandex_reviews.delay(company['id'])
+                parse_yandex_reviews.delay(company["id"])
+
+        # Отзывы 2Гис
+        if options["gis"] and options["reviews"]:
+            companies = (
+                Company.objects.filter(is_active=True, is_gis_reviews_download=True)
+                .exclude(
+                    gis_id=None,
+                )
+                .values("id")
+                .all()
+            )
+
+            for company in companies:
+                parse_gis_reviews.delay(company["id"])
