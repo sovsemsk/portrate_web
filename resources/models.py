@@ -678,6 +678,8 @@ def review_post_save_signal(sender, instance, created, **kwargs):
 # Сигналы модели Notification
 @receiver(post_save, sender=Notification)
 def notification_post_save_signal(sender, instance, created, **kwargs):
+    from resources.tasks import send_telegram_text_task
+
     # Негативное сообщение из формы запроса отзыва
     if created and instance.initiator == Notification.Initiator.PORTRATE_NEGATIVE_MESSAGE:
         # Шаблон
@@ -707,4 +709,4 @@ def notification_post_save_signal(sender, instance, created, **kwargs):
 {instance.review.text}"""
 
         for user in instance.company.users.exclude(profile__telegram_id=None).all():
-            resources.tasks.send_telegram_text_task.delay(user.profile.telegram_id, text)
+            send_telegram_text_task.delay(user.profile.telegram_id, text)
