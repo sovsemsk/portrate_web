@@ -62,3 +62,7 @@ docs/_build/
 
 # IDE staff
 /.vscode
+.flake8
+.isort.cfg
+.pylintrc
+.tm_properties
