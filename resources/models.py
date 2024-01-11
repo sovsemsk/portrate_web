@@ -146,6 +146,8 @@ class Company(models.Model):
     irecommend_link = models.CharField(blank=True, null=True, verbose_name="ссылка Irecommend")
 
     # Агрегация
+
+    """ Портрет """
     portrate_rate = models.DecimalField(
         blank=True,
         decimal_places=1,
@@ -162,6 +164,7 @@ class Company(models.Model):
         verbose_name="количество негативных отзывов Портрет",
     )
 
+    """ Яндекс """
     yandex_rate = models.DecimalField(
         blank=True,
         decimal_places=1,
@@ -200,6 +203,7 @@ class Company(models.Model):
 
     yandex_reviews_last_parse_at = models.DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки отзывов Яндекс")
 
+    """ 2Гис """
     gis_rate = models.DecimalField(
         blank=True,
         decimal_places=1,
@@ -227,6 +231,7 @@ class Company(models.Model):
 
     gis_reviews_last_parse_at = models.DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки отзывов 2Гис")
 
+    """ Google """
     google_rate = models.DecimalField(
         blank=True,
         decimal_places=1,
@@ -254,6 +259,7 @@ class Company(models.Model):
 
     google_reviews_last_parse_at = models.DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки отзывов Google")
 
+    """ Mapsme """
     mapsme_rate = models.DecimalField(
         blank=True,
         decimal_places=1,
@@ -281,6 +287,7 @@ class Company(models.Model):
 
     mapsme_reviews_last_parse_at = models.DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки отзывов Mapsme")
 
+    """ Dikidi """
     dikidi_rate = models.DecimalField(
         blank=True,
         decimal_places=1,
@@ -308,6 +315,7 @@ class Company(models.Model):
 
     dikidi_reviews_last_parse_at = models.DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки отзывов Dikidi")
 
+    """ Рестоклуб """
     restoclub_rate = models.DecimalField(
         blank=True,
         decimal_places=1,
@@ -335,6 +343,7 @@ class Company(models.Model):
 
     restoclub_reviews_last_parse_at = models.DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки отзывов Рестоклуб")
 
+    """ Tripadvisor """
     tripadvisor_rate = models.DecimalField(
         blank=True,
         decimal_places=1,
@@ -370,6 +379,7 @@ class Company(models.Model):
         verbose_name="дата последней загрузки отзывов Tripadvisor",
     )
 
+    """ Продокторов """
     prodoctorov_rate = models.DecimalField(
         blank=True,
         decimal_places=1,
@@ -405,6 +415,7 @@ class Company(models.Model):
         verbose_name="дата последней загрузки отзывов Продокторов",
     )
 
+    """ Flamp """
     flamp_rate = models.DecimalField(
         blank=True,
         decimal_places=1,
@@ -432,6 +443,7 @@ class Company(models.Model):
 
     flamp_reviews_last_parse_at = models.DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки отзывов Flamp")
 
+    """ Zoon """
     zoon_rate = models.DecimalField(
         blank=True,
         decimal_places=1,
@@ -459,6 +471,7 @@ class Company(models.Model):
 
     zoon_reviews_last_parse_at = models.DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки отзывов Zoon")
 
+    """ Отзовик """
     otzovik_rate = models.DecimalField(
         blank=True,
         decimal_places=1,
@@ -486,6 +499,7 @@ class Company(models.Model):
 
     otzovik_reviews_last_parse_at = models.DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки отзывов Отзовик")
 
+    """ Irecommend """
     irecommend_rate = models.DecimalField(
         blank=True,
         decimal_places=1,
@@ -517,6 +531,7 @@ class Company(models.Model):
 
     irecommend_reviews_last_parse_at = models.DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки отзывов Irecommend")
 
+    """ Общее """
     total_positive_count = models.IntegerField(
         blank=True,
         default=0,
@@ -665,13 +680,9 @@ def negativemessage_post_save_signal(sender, instance, created, **kwargs):
 def review_post_save_signal(sender, instance, created, **kwargs):
     if created:
         instance.company.yandex_negative_count = instance.company.review_set.filter(service=Review.Service.YANDEX, rate__lt=4).count()
-
         instance.company.yandex_positive_count = instance.company.review_set.filter(service=Review.Service.YANDEX, rate__gt=3).count()
-
         instance.company.total_negative_count = instance.company.review_set.filter(rate__lt=4).count()
-
         instance.company.total_positive_count = instance.company.review_set.filter(rate__gt=3).count()
-
         instance.company.save()
 
 
@@ -685,14 +696,14 @@ def notification_post_save_signal(sender, instance, created, **kwargs):
         # Шаблон
         text = f"""📍 Негативное сообщение в Портрет.
 
-🏪 Компания:
-{instance.negative_message.company}
+        🏪 Компания:
+        {instance.negative_message.company}
 
-📱 Телефон:
-{instance.negative_message.phone}
+        📱 Телефон:
+        {instance.negative_message.phone}
 
-📜 Комментарий:
-{instance.negative_message.text}"""
+        📜 Комментарий:
+        {instance.negative_message.text}"""
 
         for user in instance.company.users.exclude(profile__telegram_id=None).all():
             send_telegram_text_task.delay(user.profile.telegram_id, text)
@@ -702,11 +713,11 @@ def notification_post_save_signal(sender, instance, created, **kwargs):
         # Шаблон
         text = f"""📍 Негативный отзыв в Яндекс Карты.
 
-🏪 Компания:
-{instance.review.company}
+        🏪 Компания:
+        {instance.review.company}
 
-📜 Текст:
-{instance.review.text}"""
+        📜 Текст:
+        {instance.review.text}"""
 
         for user in instance.company.users.exclude(profile__telegram_id=None).all():
             send_telegram_text_task.delay(user.profile.telegram_id, text)

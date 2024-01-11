@@ -1,5 +1,7 @@
 {% extends 'dashboard/base.html' %}
+
 {% load static %}
+{% load extensions %}
 
 {% block content %}
 <h3 class="bp5-heading pb-2">Компании</h3>
@@ -64,7 +66,7 @@
                     </div>
                     <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
                         <span aria-hidden="true" tabindex="-1" class="bp5-icon bp5-icon-key-enter"></span>
-                        <h5 class="bp5-heading">{{ company.portrate_negative_count|default:'0' }}</h5>
+                        <h5 class="bp5-heading">{{ company.total_positive_count|sum:company.total_negative_count }}</h5>
                         <div class="">Всего отзывов</div>
                     </div>
                 </div>
