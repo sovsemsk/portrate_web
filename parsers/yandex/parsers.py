@@ -23,27 +23,21 @@ class Parser:
         """
         self.driver.execute_script("arguments[0].scrollIntoView();", elem)
         time.sleep(1)
-        new_elem = self.driver.find_elements(
-            By.CLASS_NAME, "business-reviews-card-view__review"
-        )[-1]
+        new_elem = self.driver.find_elements(By.CLASS_NAME, "business-reviews-card-view__review")[-1]
         if elem == new_elem:
             return
         self.__scroll_to_bottom(new_elem)
 
     def __sort_by_date_descending(self) -> None:
         try:
-            rank_select = self.driver.find_element(
-                By.XPATH, ".//div[@class='rating-ranking-view']"
-            )
+            rank_select = self.driver.find_element(By.XPATH, ".//div[@class='rating-ranking-view']")
             rank_select.click()
             time.sleep(5)
         except NoSuchElementException:
             pass
 
         try:
-            newest = self.driver.find_element(
-                By.XPATH, ".//div[@class='rating-ranking-view__popup']/div[2]"
-            )
+            newest = self.driver.find_element(By.XPATH, ".//div[@class='rating-ranking-view__popup']/div[2]")
             newest.click()
             time.sleep(5)
         except NoSuchElementException:
@@ -68,44 +62,32 @@ class Parser:
             name = None
 
         try:
-            icon_href = elem.find_element(
-                By.XPATH, ".//div[@class='user-icon-view__icon']"
-            ).get_attribute("style")
+            icon_href = elem.find_element(By.XPATH, ".//div[@class='user-icon-view__icon']").get_attribute("style")
             icon_href = icon_href.split('"')[1]
         except NoSuchElementException:
             icon_href = None
 
         try:
-            date = elem.find_element(
-                By.XPATH, ".//meta[@itemprop='datePublished']"
-            ).get_attribute("content")
+            date = elem.find_element(By.XPATH, ".//meta[@itemprop='datePublished']").get_attribute("content")
         except NoSuchElementException:
             date = None
 
         try:
-            text = elem.find_element(
-                By.XPATH, ".//span[@class='business-review-view__body-text']"
-            ).text
+            text = elem.find_element(By.XPATH, ".//span[@class='business-review-view__body-text']").text
         except NoSuchElementException:
             text = None
 
         try:
-            stars = elem.find_elements(
-                By.XPATH, ".//div[@class='business-rating-badge-view__stars']/span"
-            )
+            stars = elem.find_elements(By.XPATH, ".//div[@class='business-rating-badge-view__stars']/span")
             stars = ParserHelper.get_count_star(stars)
         except NoSuchElementException:
             stars = 0
 
         try:
-            answer = elem.find_element(
-                By.CLASS_NAME, "business-review-view__comment-expand"
-            )
+            answer = elem.find_element(By.CLASS_NAME, "business-review-view__comment-expand")
             if answer:
                 self.driver.execute_script("arguments[0].click()", answer)
-                answer = elem.find_element(
-                    By.CLASS_NAME, "business-review-comment-content__bubble"
-                ).text
+                answer = elem.find_element(By.CLASS_NAME, "business-review-comment-content__bubble").text
             else:
                 answer = None
         except NoSuchElementException:
@@ -138,22 +120,16 @@ class Parser:
         except NoSuchElementException:
             name = None
         try:
-            xpath_rating_block = (
-                ".//div[@class='business-summary-rating-badge-view__rating-and-stars']"
-            )
+            xpath_rating_block = (".//div[@class='business-summary-rating-badge-view__rating-and-stars']")
             rating_block = self.driver.find_element(By.XPATH, xpath_rating_block)
             xpath_rating = ".//div[@class='business-summary-rating-badge-view__rating']/span[contains(@class, 'business-summary-rating-badge-view__rating-text')]"
             rating = rating_block.find_elements(By.XPATH, xpath_rating)
             rating = ParserHelper.format_rating(rating)
             xpath_count_rating = ".//div[@class='business-summary-rating-badge-view__rating-count']/span[@class='business-rating-amount-view _summary']"
-            count_rating_list = rating_block.find_element(
-                By.XPATH, xpath_count_rating
-            ).text
+            count_rating_list = rating_block.find_element(By.XPATH, xpath_count_rating).text
             count_rating = ParserHelper.list_to_num(count_rating_list)
             xpath_stars = ".//div[@class='business-rating-badge-view__stars']/span"
-            stars = ParserHelper.get_count_star(
-                rating_block.find_elements(By.XPATH, xpath_stars)
-            )
+            stars = ParserHelper.get_count_star(rating_block.find_elements(By.XPATH, xpath_stars))
         except NoSuchElementException:
             rating = 0
             count_rating = 0
@@ -165,25 +141,19 @@ class Parser:
     def __get_data_reviews(self) -> list:
         reviews = []
 
-        elements = self.driver.find_elements(
-            By.CLASS_NAME, "business-reviews-card-view__review"
-        )
+        elements = self.driver.find_elements(By.CLASS_NAME, "business-reviews-card-view__review")
 
         if len(elements) > 1:
             self.__scroll_to_bottom(elements[-1])
 
-            elements = self.driver.find_elements(
-                By.CLASS_NAME, "business-reviews-card-view__review"
-            )
+            elements = self.driver.find_elements(By.CLASS_NAME, "business-reviews-card-view__review")
 
             for elem in elements:
                 review = self.__get_data_item(elem)
                 reviews.append(review)
 
                 if self.last_parse_at is not None:
-                    created_at = datetime.datetime.fromtimestamp(
-                        review["date"], datetime.timezone.utc
-                    )
+                    created_at = datetime.datetime.fromtimestamp(review["date"], datetime.timezone.utc)
 
                     if created_at < self.last_parse_at:
                         break

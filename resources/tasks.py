@@ -5,6 +5,7 @@ from datetime import datetime, timezone
 from celery import shared_task
 from django.conf import settings
 from parsers.yandex.utils import YandexParser
+from parsers.gis.utils import GisParser
 from telegram import Bot
 
 from resources.models import Company, Notification, Review
@@ -88,6 +89,7 @@ def parse_gis_reviews(company_id):
                 avatar_url=parsed_review.get("icon_href"),
                 created_at=datetime.fromtimestamp(parsed_review.get("date"), tz=timezone.utc),
                 company=company,
+                service=Review.Service.GIS
             )
 
             if parsed_review.get("stars") <= 3:
@@ -102,5 +104,5 @@ def parse_gis_reviews(company_id):
             pass
 
     # Запись агрегаций
-    company.yandex_reviews_last_parse_at = datetime.now(timezone.utc)
+    company.gis_reviews_last_parse_at = datetime.now(timezone.utc)
     company.save()

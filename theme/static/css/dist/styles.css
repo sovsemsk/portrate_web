@@ -9195,8 +9195,6 @@ a > .bp5-dark .bp5-tooltip .bp5-running-text code{
     display:block !important;
   }.dashboard .flex{
     display:flex !important;
-  }.dashboard .table{
-    display:table !important;
   }.dashboard .grid{
     display:grid !important;
   }.dashboard .h-12{
@@ -9313,8 +9311,6 @@ a > .bp5-dark .bp5-tooltip .bp5-running-text code{
     padding-top:2rem !important;
   }.dashboard .text-center{
     text-align:center !important;
-  }.dashboard .text-right{
-    text-align:right !important;
   }.dashboard .text-2xl{
     font-size:1.5rem !important;
     line-height:2rem !important;

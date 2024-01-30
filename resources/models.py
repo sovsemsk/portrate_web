@@ -590,7 +590,7 @@ class Review(models.Model):
 
     service = models.CharField(choices=Service.choices, default=Service.YANDEX, verbose_name="сервис")
 
-    created_at = models.DateTimeField(verbose_name="дата создания")
+    created_at = models.DateField(verbose_name="дата создания")
 
     from_bot = models.BooleanField(default=False, verbose_name="Отправлено ботом Портрет")
 
@@ -696,14 +696,14 @@ def notification_post_save_signal(sender, instance, created, **kwargs):
         # Шаблон
         text = f"""📍 Негативное сообщение в Портрет.
 
-        🏪 Компания:
-        {instance.negative_message.company}
+🏪 Компания:
+{instance.negative_message.company}
 
-        📱 Телефон:
-        {instance.negative_message.phone}
+📱 Телефон:
+{instance.negative_message.phone}
 
-        📜 Комментарий:
-        {instance.negative_message.text}"""
+📜 Комментарий:
+{instance.negative_message.text}"""
 
         for user in instance.company.users.exclude(profile__telegram_id=None).all():
             send_telegram_text_task.delay(user.profile.telegram_id, text)
@@ -713,11 +713,11 @@ def notification_post_save_signal(sender, instance, created, **kwargs):
         # Шаблон
         text = f"""📍 Негативный отзыв в Яндекс Карты.
 
-        🏪 Компания:
-        {instance.review.company}
+🏪 Компания:
+{instance.review.company}
 
-        📜 Текст:
-        {instance.review.text}"""
+📜 Текст:
+{instance.review.text}"""
 
         for user in instance.company.users.exclude(profile__telegram_id=None).all():
             send_telegram_text_task.delay(user.profile.telegram_id, text)

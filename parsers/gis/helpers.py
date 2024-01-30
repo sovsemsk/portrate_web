@@ -1,5 +1,7 @@
 import json
+import locale
 import re
+
 from datetime import datetime
 from typing import Union
 
@@ -45,12 +47,20 @@ class ParserHelper:
     def form_date(date_string: str) -> float:
         """
         Приводим дату в формат Timestamp
-        :param date_string: Дата в формате %Y-%m-%dT%H:%M:%S.%fZ
+        :param date_string: Дата в формате %d %b %Y
         :return: Дата в формате Timestamp
         """
+
+        splitted_date_string = date_string.replace(", отредактирован", "").split()
+        splitted_date_string[1] = splitted_date_string[1][:3]
+        cutted_date_string = " ".join(splitted_date_string).replace("мая", "май")
+
+        locale.setlocale(locale.LC_ALL, 'ru_RU.UTF-8')
+
         datetime_object: datetime = datetime.strptime(
-            date_string, "%Y-%m-%dT%H:%M:%S.%fZ"
+            cutted_date_string, "%d %b %Y"
         )
+
         return datetime_object.timestamp()
 
     @staticmethod
@@ -60,12 +70,5 @@ class ParserHelper:
         :param review_stars: Массив элементов звезд рейтинга
         :return: Рейтинг
         """
-        star_count: float = 0
-        for review_star in review_stars:
-            if "_empty" in review_star.get_attribute("class"):
-                continue
-            if "_half" in review_star.get_attribute("class"):
-                star_count = star_count + 0.5
-                continue
-            star_count = star_count + 1
-        return star_count
+
+        return float(len(review_stars))
