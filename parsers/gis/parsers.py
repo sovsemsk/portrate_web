@@ -59,7 +59,10 @@ class Parser:
             date = None
 
         try:
-            text = elem.find_element(By.XPATH, ".//a[@class='_1it5ivp']").get_attribute('innerHTML')
+            try:
+                text = elem.find_element(By.XPATH, ".//a[@class='_1it5ivp']").get_attribute('innerHTML')
+            except:
+                text = elem.find_element(By.XPATH, ".//a[@class='_ayej9u3']").get_attribute('innerHTML')
         except NoSuchElementException:
             text = None
 
