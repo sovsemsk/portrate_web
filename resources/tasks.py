@@ -79,8 +79,8 @@ def parse_gis_reviews(company_id):
     for parsed_review in result.get("company_reviews", []):
         id = hashlib.md5(f"{parsed_review.get('name')}{parsed_review.get('date')}".encode()).hexdigest()
 
-        try:
-            review = Review.objects.create(
+#         try:
+        review = Review.objects.create(
                 name=parsed_review.get("name"),
                 text=parsed_review.get("text"),
                 answer=parsed_review.get("answer"),
@@ -90,18 +90,18 @@ def parse_gis_reviews(company_id):
                 created_at=datetime.fromtimestamp(parsed_review.get("date"), tz=timezone.utc),
                 company=company,
                 service=Review.Service.GIS
-            )
+        )
 
-            if parsed_review.get("stars") <= 3:
-                Notification.objects.create(
-                    company=review.company,
-                    review=review,
-                    text=review.text,
-                    initiator=Notification.Initiator.GIS_NEGATIVE_REVIEW,
-                )
+#             if parsed_review.get("stars") <= 3:
+#                 Notification.objects.create(
+#                     company=review.company,
+#                     review=review,
+#                     text=review.text,
+#                     initiator=Notification.Initiator.GIS_NEGATIVE_REVIEW,
+#                 )
 
-        except:
-            pass
+#         except:
+#             pass
 
     # Запись агрегаций
     company.gis_reviews_last_parse_at = datetime.now(timezone.utc)
