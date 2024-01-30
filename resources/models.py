@@ -681,6 +681,8 @@ def review_post_save_signal(sender, instance, created, **kwargs):
     if created:
         instance.company.yandex_negative_count = instance.company.review_set.filter(service=Review.Service.YANDEX, rate__lt=4).count()
         instance.company.yandex_positive_count = instance.company.review_set.filter(service=Review.Service.YANDEX, rate__gt=3).count()
+        instance.company.gis_negative_count = instance.company.review_set.filter(service=Review.Service.GIS, rate__lt=4).count()
+        instance.company.gis_positive_count = instance.company.review_set.filter(service=Review.Service.GIS, rate__gt=3).count()
         instance.company.total_negative_count = instance.company.review_set.filter(rate__lt=4).count()
         instance.company.total_positive_count = instance.company.review_set.filter(rate__gt=3).count()
         instance.company.save()
@@ -708,10 +710,24 @@ def notification_post_save_signal(sender, instance, created, **kwargs):
         for user in instance.company.users.exclude(profile__telegram_id=None).all():
             send_telegram_text_task.delay(user.profile.telegram_id, text)
 
-    # Негативное сообщение из формы запроса отзыва
+    # Негативный отзыв из Яндекса
     elif created and instance.initiator == Notification.Initiator.YANDEX_NEGATIVE_REVIEW:
         # Шаблон
         text = f"""📍 Негативный отзыв в Яндекс Карты.
+
+🏪 Компания:
+{instance.review.company}
+
+📜 Текст:
+{instance.review.text}"""
+
+        for user in instance.company.users.exclude(profile__telegram_id=None).all():
+            send_telegram_text_task.delay(user.profile.telegram_id, text)
+
+    # Негативный отзыв из Яндекса
+    elif created and instance.initiator == Notification.Initiator.GIS_NEGATIVE_REVIEW:
+        # Шаблон
+        text = f"""📍 Негативный отзыв в 2Гис Карты.
 
 🏪 Компания:
 {instance.review.company}

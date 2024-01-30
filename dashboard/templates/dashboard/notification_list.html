@@ -38,6 +38,8 @@
                 <span class="bp5-tag bp5-minimal bp5-intent-primary bp5-round">{{ notification.company }}</span>
                 {% if notification.initiator == 'YANDEX_NEGATIVE_REVIEW' %}
                 <span class="bp5-tag bp5-minimal bp5-intent-danger bp5-round">Негативный отзыв в Яндекс Карты</span>
+                {% elif notification.initiator == 'GIS_NEGATIVE_REVIEW' %}
+                <span class="bp5-tag bp5-minimal bp5-intent-danger bp5-round">Негативный отзыв в 2Гис Карты</span>
                 {% elif notification.initiator == 'PORTRATE_NEGATIVE_MESSAGE' %}
                 <span class="bp5-tag bp5-minimal bp5-intent-danger bp5-round">Негативное сообщение в Портрет</span>
                 {% endif %}
