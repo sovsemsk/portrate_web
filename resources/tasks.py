@@ -4,10 +4,10 @@ from datetime import datetime, timezone
 
 from celery import shared_task
 from django.conf import settings
-from parsers.yandex.utils import YandexParser
-from parsers.gis.utils import GisParser
 from telegram import Bot
 
+from parsers.gis.utils import GisParser
+from parsers.yandex.utils import YandexParser
 from resources.models import Company, Notification, Review
 
 
@@ -19,12 +19,12 @@ def send_telegram_text_task(telegram_id, text):
 @shared_task(name="Парсинг рейтинга Яндекс Карты")
 def parse_yandex_rate(company_id):
     company = Company.objects.get(pk=company_id)
-    parser = YandexParser(settings.SELENIUM_BOT_API_SECRET, int(company.yandex_id), company.yandex_reviews_last_parse_at)
+    parser = YandexParser(settings.SELENIUM_BOT_API_SECRET, int(company.yandex_id))
     result = parser.parse(type_parse="company")
 
     # Запись данных
     company.yandex_rate = result.get("company_info", None).get("rating")
-    company.yandex_rate_stars = result.get("company_info", None).get("start")
+    company.yandex_rate_stars = result.get("company_info", None).get("stars")
     company.yandex_rate_count = result.get("company_info", None).get("count_rating")
 
     # Запись агрегаций
@@ -69,7 +69,23 @@ def parse_yandex_reviews(company_id):
     company.save()
 
 
-@shared_task(name="Парсинг отзывов Гис Карты")
+@shared_task(name="Парсинг рейтинга 2Гис Карты")
+def parse_gis_rate(company_id):
+    company = Company.objects.get(pk=company_id)
+    parser = GisParser(settings.SELENIUM_BOT_API_SECRET, int(company.gis_id))
+    result = parser.parse(type_parse="company")
+
+    # Запись данных
+    company.gis_rate = result.get("company_info", None).get("rating")
+    company.gis_rate_stars = result.get("company_info", None).get("stars")
+    company.gis_rate_count = result.get("company_info", None).get("count_rating")
+
+    # Запись агрегаций
+    company.gis_rate_last_parse_at = datetime.now(timezone.utc)
+    company.save()
+
+
+@shared_task(name="Парсинг отзывов 2Гис Карты")
 def parse_gis_reviews(company_id):
     company = Company.objects.get(pk=company_id)
     parser = GisParser(settings.SELENIUM_BOT_API_SECRET, int(company.gis_id), company.gis_reviews_last_parse_at)

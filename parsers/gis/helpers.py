@@ -22,15 +22,24 @@ class ParserHelper:
         return int(float(numbers[0]))
 
     @staticmethod
-    def format_rating(l: list) -> float:
+    def format_rating(s: str) -> float:
         """
         Форматирует рейтинг в число с плавающей точкой
-        @param l: Массив значений ['1','.','5']
+        @param s: Строка [4.4]
         @return: Число с плавающей точкой 1.5
         """
-        if len(l) <= 0:
-            return 0
-        return float("".join(x.text for x in l).replace(",", "."))
+        return float(s)
+
+    @staticmethod
+    def format_rating_count(s: str) -> int:
+        """
+        Форматирует количество отзывов в число
+        @param s: Строка [4.4]
+        @return: Число с плавающей точкой 1.5
+        """
+
+        str_count = s.split()
+        return int(str_count[0])
 
     @staticmethod
     def write_json_txt(result, file) -> None:

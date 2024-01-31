@@ -99,34 +99,29 @@ class Parser:
             stars: float
         }
         """
+
         try:
-            xpath_name = ".//h1[@class='orgpage-header-view__header']"
-            name = self.driver.find_element(By.XPATH, xpath_name).text
+            name = self.driver.find_element(By.XPATH, ".//h1[@class='_tvxwjf']").text
         except NoSuchElementException:
             name = None
+
         try:
-            xpath_rating_block = (
-                ".//div[@class='business-summary-rating-badge-view__rating-and-stars']"
-            )
-            rating_block = self.driver.find_element(By.XPATH, xpath_rating_block)
-            xpath_rating = ".//div[@class='business-summary-rating-badge-view__rating']/span[contains(@class, 'business-summary-rating-badge-view__rating-text')]"
-            rating = rating_block.find_elements(By.XPATH, xpath_rating)
-            rating = ParserHelper.format_rating(rating)
-            xpath_count_rating = ".//div[@class='business-summary-rating-badge-view__rating-count']/span[@class='business-rating-amount-view _summary']"
-            count_rating_list = rating_block.find_element(
-                By.XPATH, xpath_count_rating
-            ).text
-            count_rating = ParserHelper.list_to_num(count_rating_list)
-            xpath_stars = ".//div[@class='business-rating-badge-view__stars']/span"
-            stars = ParserHelper.get_count_star(
-                rating_block.find_elements(By.XPATH, xpath_stars)
-            )
+            rating = self.driver.find_element(By.XPATH, ".//div[@class='_y10azs']").text
+            count_rating = self.driver.find_element(By.XPATH, ".//div[@class='_jspzdm']").text
+            stars = rating # Кек лол :)
+
         except NoSuchElementException:
             rating = 0
             count_rating = 0
             stars = 0
 
-        item = Info(name=name, rating=rating, count_rating=count_rating, stars=stars)
+        item = Info(
+            name=name,
+            rating=ParserHelper.format_rating(rating),
+            count_rating=ParserHelper.format_rating_count(count_rating),
+            stars=ParserHelper.format_rating(stars)
+        )
+
         return asdict(item)
 
     def __get_data_reviews(self) -> list:
