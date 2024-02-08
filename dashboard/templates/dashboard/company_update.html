@@ -23,7 +23,7 @@
                     <div class="bp5-section-header">
                         <div class="bp5-section-header-left">
                             <div>
-                                <h6 id="section-title-12" class="bp5-heading bp5-section-header-title">Активация загрузки отзывов</h6>
+                                <h6 class="bp5-heading bp5-section-header-title">Активация загрузки отзывов</h6>
                                 <div class="bp5-text-muted bp5-section-header-sub-title">Настройки активации загрузки и выгрузки данных и отзывов</div>
                             </div>
                         </div>
@@ -70,47 +70,29 @@
                             </div>
                         </div>
                     </div>
-                    <div class="bp5-section-card">
-                        <div class="bp5-card-list bp5-card bp5-elevation-0" role="list">
-                            <div class="bp5-control-card bp5-switch-control-card bp5-card bp5-elevation-0 bp5-interactive">
-                                <label class="bp5-control bp5-switch bp5-inline bp5-align-right">
-                                    {{ form.is_mapsme_reviews_download }}
-                                    <span class="bp5-control-indicator"></span>
-                                    <div class="bp5-control-card-label">
-                                        <img class="bp5-icon h-4 w-4 mr-2" src="{% static 'mapsme.svg' %}" >
-                                        Загружать отзывы и данные из Mapsme
-                                    </div>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="bp5-section bp5-card bp5-elevation-2">
                     <div class="bp5-section-header">
                         <div class="bp5-section-header-left">
                             <div>
-                                <h6 id="section-title-12" class="bp5-heading bp5-section-header-title">ID карточек</h6>
+                                <h6 class="bp5-heading bp5-section-header-title">ID карточек</h6>
                                 <div class="bp5-text-muted bp5-section-header-sub-title">Настройки ID карточек для загрузки отзывов и данных</div>
                             </div>
                         </div>
                     </div>
                     <div class="bp5-section-card bp5-padded">
                         <div class="bp5-form-group">
-                            <label class="bp5-label" for="">ID Яндекс Карты</label>
-                            {{ form.yandex_id }}
+                            <label class="bp5-label">Ссылка на страницу с отзывами в Яндекс Картах</label>
+                            {{ form.yandex_parser_link }}
                         </div>
                         <div class="bp5-form-group">
-                            <label class="bp5-label" for="">ID 2Гис Карты</label>
-                            {{ form.gis_id }}
+                            <label class="bp5-label">Ссылка на страницу с отзывами в 2Гис Картах</label>
+                            {{ form.gis_parser_link }}
                         </div>
                         <div class="bp5-form-group">
-                            <label class="bp5-label" for="">ID Google Maps</label>
-                            {{ form.google_id }}
-                        </div>
-                        <div class="bp5-form-group">
-                            <label class="bp5-label" for="">ID Mapsme</label>
-                            {{ form.mapsme_id }}
+                            <label class="bp5-label">Ссылка на страницу с отзывами в Google Картах</label>
+                            {{ form.google_parser_link }}
                         </div>
                     </div>
                 </div>
@@ -119,54 +101,54 @@
                     <div class="bp5-section-header">
                         <div class="bp5-section-header-left">
                             <div>
-                                <h6 id="section-title-12" class="bp5-heading bp5-section-header-title">Форма запроса отзыва</h6>
+                                <h6 class="bp5-heading bp5-section-header-title">Форма запроса отзыва</h6>
                                 <div class="bp5-text-muted bp5-section-header-sub-title">Настройки ссылок для запроса отзыва</div>
                             </div>
                         </div>
                     </div>
                     <div class="bp5-section-card bp5-padded">
                         <div class="bp5-form-group">
-                            <label class="bp5-label" for="">Ссылка Яндекс Карты</label>
+                            <label class="bp5-label">Ссылка Яндекс Карты</label>
                             {{ form.yandex_link }}
                         </div>
                         <div class="bp5-form-group">
-                            <label class="bp5-label" for="">Ссылка 2Гис Карты</label>
+                            <label class="bp5-label">Ссылка 2Гис Карты</label>
                             {{ form.gis_link }}
                         </div>
                         <div class="bp5-form-group">
-                            <label class="bp5-label" for="">Ссылка Google Maps</label>
+                            <label class="bp5-label">Ссылка Google Maps</label>
                             {{ form.google_link }}
                         </div>
                         <div class="bp5-form-group">
-                            <label class="bp5-label" for="">Ссылка Mapsme</label>
+                            <label class="bp5-label">Ссылка Mapsme</label>
                             {{ form.mapsme_link }}
                         </div>
                         <div class="bp5-form-group">
-                            <label class="bp5-label" for="">Ссылка Dikidi</label>
+                            <label class="bp5-label">Ссылка Dikidi</label>
                             {{ form.dikidi_link }}
                         </div>
                         <div class="bp5-form-group">
-                            <label class="bp5-label" for="">Ссылка Рестоклуб</label>
+                            <label class="bp5-label">Ссылка Рестоклуб</label>
                             {{ form.restoclub_link }}
                         </div>
                         <div class="bp5-form-group">
-                            <label class="bp5-label" for="">Ссылка Tripadvisor</label>
+                            <label class="bp5-label">Ссылка Tripadvisor</label>
                             {{ form.tripadvisor_link }}
                         </div>
                         <div class="bp5-form-group">
-                            <label class="bp5-label" for="">Ссылка Продокторов</label>
+                            <label class="bp5-label">Ссылка Продокторов</label>
                             {{ form.prodoctorov_link }}
                         </div>
                         <div class="bp5-form-group">
-                            <label class="bp5-label" for="">Ссылка Zoon</label>
+                            <label class="bp5-label">Ссылка Zoon</label>
                             {{ form.zoon_link }}
                         </div>
                         <div class="bp5-form-group">
-                            <label class="bp5-label" for="">Ссылка Отзовик</label>
+                            <label class="bp5-label">Ссылка Отзовик</label>
                             {{ form.otzovik_link }}
                         </div>
                         <div class="bp5-form-group">
-                            <label class="bp5-label" for="">Ссылка Irecommend</label>
+                            <label class="bp5-label">Ссылка Irecommend</label>
                             {{ form.irecommend_link }}
                         </div>
                     </div>
@@ -176,21 +158,21 @@
                     <div class="bp5-section-header">
                         <div class="bp5-section-header-left">
                             <div>
-                                <h6 id="section-title-12" class="bp5-heading bp5-section-header-title">Данные</h6>
+                                <h6 class="bp5-heading bp5-section-header-title">Данные</h6>
                                 <div class="bp5-text-muted bp5-section-header-sub-title">Настройки названия и адреса компании</div>
                             </div>
                         </div>
                     </div>
                     <div class="bp5-section-card bp5-padded">
                         <div class="bp5-form-group">
-                            <label class="bp5-label" for="">Название</label>
+                            <label class="bp5-label">Название</label>
                             {{ form.name }}
                             {% if form.errors.name %}
                             <div class="bp5-form-helper-text text-[#ac2f33]">Название обязателено</div>
                             {% endif %}
                         </div>
                         <div class="bp5-form-group">
-                            <label class="bp5-label" for="">Адрес</label>
+                            <label class="bp5-label">Адрес</label>
                             {{ form.address }}
                             {% if form.errors.address %}
                             <div class="bp5-form-helper-text text-[#ac2f33]">Адрес обязателен</div>
@@ -204,7 +186,7 @@
                         </div>
                         {% endif %}
                         <div class="bp5-form-group col-span-6">
-                            <label class="bp5-label" for="">Логотип</label>
+                            <label class="bp5-label">Логотип</label>
                             <label class="bp5-file-input max-w-sm">
                                 {{ form.logo }}
                                 <span class="bp5-file-upload-input">Выбрать файл...</span>

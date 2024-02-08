@@ -37,7 +37,7 @@
                     <div class="bp5-section-header">
                         <div class="bp5-section-header-left">
                             <div>
-                                <h6 id="section-title-12" class="bp5-heading bp5-section-header-title">Типы оповещений</h6>
+                                <h6 class="bp5-heading bp5-section-header-title">Типы оповещений</h6>
                                 <div class="bp5-text-muted bp5-section-header-sub-title">Выберите типы оповещений которые будут приходить вам в Telegram</div>
                             </div>
                         </div>
@@ -98,41 +98,27 @@
                             </div>
                         </div>
                     </div>
-                    <div class="bp5-section-card">
-                        <div class="bp5-card-list bp5-card bp5-elevation-0" role="list">
-                            <div class="bp5-control-card bp5-switch-control-card bp5-card bp5-elevation-0 bp5-interactive">
-                                <label class="bp5-control bp5-switch bp5-inline bp5-align-right">
-                                    {{ form.can_notify_negative_mapsme }}
-                                    <span class="bp5-control-indicator"></span>
-                                    <div class="bp5-control-card-label">
-                                        <img class="bp5-icon h-4 w-4 mr-2" src="{% static 'mapsme.svg' %}" >
-                                        Получать оповещения в Telegram о негативных отзывах в Mapsme
-                                    </div>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="bp5-section bp5-card bp5-elevation-2">
                     <div class="bp5-section-header">
                         <div class="bp5-section-header-left">
                             <div>
-                                <h6 id="section-title-12" class="bp5-heading bp5-section-header-title">Время</h6>
+                                <h6 class="bp5-heading bp5-section-header-title">Время</h6>
                                 <div class="bp5-text-muted bp5-section-header-sub-title">Настройки времени когда оповещения могут быть отправлены вам в Telegram</div>
                             </div>
                         </div>
                     </div>
                     <div class="bp5-section-card bp5-padded">
                         <div class="bp5-form-group">
-                            <label class="bp5-label" for="form-group-input">Часовой пояс</label>
+                            <label class="bp5-label">Часовой пояс</label>
                             <div class="bp5-html-select max-w-sm">
                                 {{ form.default_timezone }}
                                 <span class="bp5-icon bp5-icon-double-caret-vertical"></span>
                             </div>
                         </div>
                         <div class="bp5-form-group">
-                            <label class="bp5-label" for="form-group-input">Допустимое время оповещения</label>
+                            <label class="bp5-label">Допустимое время оповещения</label>
                             <div class="flex gap-2">
                                 {{ form.can_notify_at_start }} <div class="flex items-center">-</div> {{ form.can_notify_at_end }}
                             </div>
@@ -149,14 +135,14 @@
                     <div class="bp5-section-header">
                         <div class="bp5-section-header-left">
                             <div>
-                                <h6 id="section-title-12" class="bp5-heading bp5-section-header-title">Аккаунт Telegram</h6>
+                                <h6 class="bp5-heading bp5-section-header-title">Аккаунт Telegram</h6>
                                 <div class="bp5-text-muted bp5-section-header-sub-title">Если вы корректно привязали свой Telegram то ваш ID должен быть заполнен</div>
                             </div>
                         </div>
                     </div>
                     <div class="bp5-section-card bp5-padded">
                         <div class="bp5-form-group">
-                            <label class="bp5-label" for="form-group-input">Telegram ID</label>
+                            <label class="bp5-label">Telegram ID</label>
                             <input class="bp5-input max-w-sm"
                                     type="text" 
                                     value="{{ request.user.profile.telegram_id|default:'Telegram не привязан' }}" 
@@ -164,7 +150,7 @@
                             />
                         </div>
                         <div class="bp5-form-group">
-                            <label class="bp5-label" for="form-group-input">Личный API Ключ</label>
+                            <label class="bp5-label">Личный API Ключ</label>
                             <input class="bp5-input max-w-sm"
                                     type="password" 
                                     value="{{ request.user.profile.api_secret }}" 

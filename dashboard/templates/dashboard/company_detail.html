@@ -35,7 +35,7 @@
                 <div class="bp5-section-header-left">
                     <div>
                         <h6 class="bp5-heading bp5-section-header-title">Рейтинг</h6>
-                        <div class="bp5-text-muted bp5-section-header-sub-title">показатели рейтинга в поисковых системах и класифаерах</div>
+                        <div class="bp5-text-muted bp5-section-header-sub-title">показатели рейтинга в поисковых системах и классифаерах</div>
                     </div>
                 </div>
             </div>
@@ -73,7 +73,9 @@
                     </div>
                     <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
                         <img class="bp5-icon h-4 w-4" src="{% static 'mapsme.svg' %}" >
-                        <h5 class="bp5-heading">{{ company.mapsme_rate|default:'0,0' }}</h5>
+                        <h5 class="bp5-heading">
+                            {{ company.mapsme_rate|default:'0,0' }}
+                        </h5>
                         Mapsme
                         <div class="bp5-text-muted text-xs">
                             {{ company.mapsme_rate_last_parse_at|default:'Нет данных' }}
@@ -96,29 +98,31 @@
                     <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
                         <span class="bp5-icon bp5-icon-key-enter h-4 w-4"></span>
                         <h5 class="bp5-heading">
-                            {{ company.gis_rate|default:'0,0' }}
+                            {{ company.restoclub_rate|default:'0,0' }}
                         </h5>
                         Рестоклуб
                         <div class="bp5-text-muted text-xs">
-                            {{ company.gis_rate_last_parse_at|default:'Нет данных' }}
+                            {{ company.restoclub_rate_last_parse_at|default:'Нет данных' }}
                         </div>
                     </div>
                     <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
                         <span class="bp5-icon bp5-icon-key-enter h-4 w-4"></span>
                         <h5 class="bp5-heading">
-                            {{ company.google_rate|default:'0,0' }}
+                            {{ company.tripadvisor_rate|default:'0,0' }}
                         </h5>
                         Tripadvisor
                         <div class="bp5-text-muted text-xs">
-                            {{ company.google_rate_last_parse_at|default:'Нет данных' }}
+                            {{ company.tripadvisor_rate_last_parse_at|default:'Нет данных' }}
                         </div>
                     </div>
                     <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
                         <span class="bp5-icon bp5-icon-key-enter h-4 w-4"></span>
-                        <h5 class="bp5-heading">{{ company.mapsme_rate|default:'0,0' }}</h5>
+                        <h5 class="bp5-heading">
+                            {{ company.prodoctorov_rate|default:'0,0' }}
+                        </h5>
                         Продокторов
                         <div class="bp5-text-muted text-xs">
-                            {{ company.mapsme_rate_last_parse_at|default:'Нет данных' }}
+                            {{ company.prodoctorov_rate_last_parse_at|default:'Нет данных' }}
                         </div>
                     </div>
                 </div>
@@ -128,39 +132,41 @@
                     <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
                         <span class="bp5-icon bp5-icon-key-enter h-4 w-4"></span>
                         <h5 class="bp5-heading">
-                            {{ company.dikidi_rate|default:'0,0' }}
+                            {{ company.zoon_rate|default:'0,0' }}
                         </h5>
                         Zoon
                         <div class="bp5-text-muted text-xs">
-                            {{ company.dikidi_rate_last_parse_at|default:'Нет данных' }}
+                            {{ company.zoon_rate_last_parse_at|default:'Нет данных' }}
                         </div>
                     </div>
                     <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
                         <span class="bp5-icon bp5-icon-key-enter h-4 w-4"></span>
                         <h5 class="bp5-heading">
-                            {{ company.gis_rate|default:'0,0' }}
+                            {{ company.restoclub_rate|default:'0,0' }}
                         </h5>
                         Рестоклуб
                         <div class="bp5-text-muted text-xs">
-                            {{ company.gis_rate_last_parse_at|default:'Нет данных' }}
+                            {{ company.restoclub_rate_last_parse_at|default:'Нет данных' }}
                         </div>
                     </div>
                     <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
                         <span class="bp5-icon bp5-icon-key-enter h-4 w-4"></span>
                         <h5 class="bp5-heading">
-                            {{ company.google_rate|default:'0,0' }}
+                            {{ company.otzovik_rate|default:'0,0' }}
                         </h5>
                         Отзовик
                         <div class="bp5-text-muted text-xs">
-                            {{ company.google_rate_last_parse_at|default:'Нет данных' }}
+                            {{ company.otzovik_rate_last_parse_at|default:'Нет данных' }}
                         </div>
                     </div>
                     <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
                         <span class="bp5-icon bp5-icon-key-enter h-4 w-4"></span>
-                        <h5 class="bp5-heading">{{ company.mapsme_rate|default:'0,0' }}</h5>
+                        <h5 class="bp5-heading">
+                            {{ company.irecommend_rate|default:'0,0' }}
+                        </h5>
                         Irecommend
                         <div class="bp5-text-muted text-xs">
-                            {{ company.mapsme_rate_last_parse_at|default:'Нет данных' }}
+                            {{ company.irecommend_rate_last_parse_at|default:'Нет данных' }}
                         </div>
                     </div>
                 </div>

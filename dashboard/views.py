@@ -7,16 +7,16 @@ from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.http import require_http_methods
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
-from resources.models import Company, NegativeMessage, Notification, Review
 
 from dashboard.forms import CompanyForm, ProfileForm
+from resources.models import Company, NegativeMessage, Notification, Review
 
 
 class CompanyListView(ListView):
     template_name = "dashboard/company_list.html"
     model = Company
     context_object_name = "company_list"
-    paginate_by = 5
+    paginate_by = 15
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
@@ -69,11 +69,7 @@ class CompanyCreateView(SuccessMessageMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        companies = (
-            Company.objects.filter(users__in=(self.request.user,))
-            .order_by("name")
-            .all()
-        )
+        companies = Company.objects.filter(users__in=(self.request.user,)).order_by("name").all()
 
         context["nav"] = "company"
         context["sub_nav"] = "update"
@@ -109,12 +105,7 @@ class CompanyUpdateView(SuccessMessageMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        companies = (
-            Company.objects.filter(users__in=(self.request.user,))
-            .order_by("name")
-            .all()
-        )
+        companies = Company.objects.filter(users__in=(self.request.user,)).order_by("name").all()
 
         context["nav"] = "pref"
         context["sub_nav"] = "update"
@@ -135,7 +126,7 @@ class ReviewListView(ListView):
     template_name = "dashboard/review_list.html"
     model = Review
     context_object_name = "review_list"
-    paginate_by = 5
+    paginate_by = 15
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
@@ -151,21 +142,18 @@ class ReviewListView(ListView):
     def get_queryset(self, **kwargs):
         queryset = super().get_queryset(**kwargs)
         company = get_object_or_404(Company, pk=self.kwargs["company_pk"])
-        queryset = (
-            queryset.filter(
-                company__in=(company.id,), company__users__in=(self.request.user,)
-            )
-            .select_related("company")
-            .order_by("-created_at")
-        )
-        return queryset
+
+        return queryset.filter(
+            company__in=(company.id,),
+            company__users__in=(self.request.user,)
+        ).select_related("company").order_by("-created_at")
 
 
 class MessageListView(ListView):
     template_name = "dashboard/message_list.html"
     model = NegativeMessage
     context_object_name = "message_list"
-    paginate_by = 5
+    paginate_by = 15
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
@@ -181,21 +169,18 @@ class MessageListView(ListView):
     def get_queryset(self, **kwargs):
         queryset = super().get_queryset(**kwargs)
         company = get_object_or_404(Company, pk=self.kwargs["company_pk"])
-        queryset = (
-            queryset.filter(
-                company__in=(company.id,), company__users__in=(self.request.user,)
-            )
-            .select_related("company")
-            .order_by("-created_at")
-        )
-        return queryset
+
+        return queryset.filter(
+            company__in=(company.id,),
+            company__users__in=(self.request.user,)
+        ).select_related("company").order_by("-created_at")
 
 
 class NotificationListView(ListView):
     template_name = "dashboard/notification_list.html"
     model = Notification
     context_object_name = "notification_list"
-    paginate_by = 10
+    paginate_by = 15
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
@@ -208,12 +193,9 @@ class NotificationListView(ListView):
 
     def get_queryset(self, **kwargs):
         queryset = super().get_queryset(**kwargs)
-        queryset = (
-            queryset.filter(company__users__in=(self.request.user,))
-            .select_related("company")
-            .order_by("-created_at")
-        )
-        return queryset
+        return queryset.filter(
+            company__users__in=(self.request.user,)
+        ).select_related("company").order_by("-created_at")
 
 
 @login_required
@@ -247,9 +229,7 @@ def widget(request, company_pk):
 @login_required
 @require_http_methods(["GET", "POST"])
 def pref(request):
-    company_list = (
-        Company.objects.filter(users__in=(request.user,)).order_by("name").all()
-    )
+    company_list = Company.objects.filter(users__in=(request.user,)).order_by("name").all()
 
     if request.method == "POST":
         form = ProfileForm(request.POST, instance=request.user.profile)

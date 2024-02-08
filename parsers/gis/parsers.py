@@ -10,22 +10,24 @@ from .storage import Info, Review
 
 
 class Parser:
-    def __init__(self, driver, last_parse_at: datetime = None):
+    def __init__(self, driver, last_parse_at=None):
         self.driver = driver
         self.last_parse_at = last_parse_at
 
-    def __scroll_to_bottom(self, elem) -> None:
+    def __scroll_to_bottom(self, elem):
         """
         Скроллим список до последнего отзыва
         :param elem: Последний отзыв в списке
         :param driver: Драйвер undetected_chromedriver
         :return: None
         """
+
         self.driver.execute_script("arguments[0].scrollIntoView();", elem)
         time.sleep(1)
         new_elem = self.driver.find_elements(By.CLASS_NAME, "_11gvyqv")[-1]
         if elem == new_elem:
             return
+
         self.__scroll_to_bottom(new_elem)
 
     def __get_data_item(self, elem):
@@ -88,7 +90,7 @@ class Parser:
 
         return asdict(item)
 
-    def __get_data_campaign(self) -> dict:
+    def __get_data_campaign(self):
         """
         Получаем данные по компании.
         :return: Словарь данных
@@ -124,7 +126,7 @@ class Parser:
 
         return asdict(item)
 
-    def __get_data_reviews(self) -> list:
+    def __get_data_reviews(self):
         reviews = []
 
         try:
@@ -158,7 +160,7 @@ class Parser:
         except NoSuchElementException:
             return False
 
-    def parse_all_data(self) -> dict:
+    def parse_all_data(self):
         """
         Начинаем парсить данные.
         :return: Словарь данных
@@ -180,14 +182,16 @@ class Parser:
             ]
         }
         """
+
         if not self.__isinstance_page():
             return {"error": "Страница не найдена"}
+
         return {
             "company_info": self.__get_data_campaign(),
             "company_reviews": self.__get_data_reviews(),
         }
 
-    def parse_reviews(self) -> dict:
+    def parse_reviews(self):
         """
         Начинаем парсить данные только отзывы.
         :return: Массив отзывов
@@ -202,13 +206,14 @@ class Parser:
                 }
             ]
         }
-
         """
+
         if not self.__isinstance_page():
             return {"error": "Страница не найдена"}
+
         return {"company_reviews": self.__get_data_reviews()}
 
-    def parse_company_info(self) -> dict:
+    def parse_company_info(self):
         """
         Начинаем парсить данные только данные о компании.
         :return: Объект компании
@@ -222,6 +227,8 @@ class Parser:
                 }
         }
         """
+
         if not self.__isinstance_page():
             return {"error": "Страница не найдена"}
+
         return {"company_info": self.__get_data_campaign()}

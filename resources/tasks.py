@@ -19,13 +19,13 @@ def send_telegram_text_task(telegram_id, text):
 @shared_task(name="Парсинг рейтинга Яндекс Карты")
 def parse_yandex_rate(company_id):
     company = Company.objects.get(pk=company_id)
-    parser = YandexParser(settings.SELENIUM_BOT_API_SECRET, int(company.yandex_id))
+    parser = YandexParser(settings.SELENIUM_BOT_API_SECRET, company.yandex_parser_link)
     result = parser.parse(type_parse="company")
 
     # Запись данных
-    company.yandex_rate = result.get("company_info", None).get("rating")
-    company.yandex_rate_stars = result.get("company_info", None).get("stars")
-    company.yandex_rate_count = result.get("company_info", None).get("count_rating")
+    company.yandex_rate = result.get("company_info", None).get("rating", None)
+    company.yandex_rate_stars = result.get("company_info", None).get("stars", None)
+    company.yandex_rate_count = result.get("company_info", None).get("count_rating", None)
 
     # Запись агрегаций
     company.yandex_rate_last_parse_at = datetime.now(timezone.utc)
@@ -35,7 +35,7 @@ def parse_yandex_rate(company_id):
 @shared_task(name="Парсинг отзывов Яндекс Карты")
 def parse_yandex_reviews(company_id):
     company = Company.objects.get(pk=company_id)
-    parser = YandexParser(settings.SELENIUM_BOT_API_SECRET, int(company.yandex_id), company.yandex_reviews_last_parse_at)
+    parser = YandexParser(settings.SELENIUM_BOT_API_SECRET, company.yandex_parser_link, company.yandex_reviews_last_parse_at)
     result = parser.parse(type_parse="reviews")
 
     # Запись данных
@@ -72,13 +72,13 @@ def parse_yandex_reviews(company_id):
 @shared_task(name="Парсинг рейтинга 2Гис Карты")
 def parse_gis_rate(company_id):
     company = Company.objects.get(pk=company_id)
-    parser = GisParser(settings.SELENIUM_BOT_API_SECRET, int(company.gis_id))
+    parser = GisParser(settings.SELENIUM_BOT_API_SECRET, company.gis_parser_link)
     result = parser.parse(type_parse="company")
 
     # Запись данных
-    company.gis_rate = result.get("company_info", None).get("rating")
-    company.gis_rate_stars = result.get("company_info", None).get("stars")
-    company.gis_rate_count = result.get("company_info", None).get("count_rating")
+    company.gis_rate = result.get("company_info", None).get("rating", None)
+    company.gis_rate_stars = result.get("company_info", None).get("stars", None)
+    company.gis_rate_count = result.get("company_info", None).get("count_rating", None)
 
     # Запись агрегаций
     company.gis_rate_last_parse_at = datetime.now(timezone.utc)
@@ -88,8 +88,11 @@ def parse_gis_rate(company_id):
 @shared_task(name="Парсинг отзывов 2Гис Карты")
 def parse_gis_reviews(company_id):
     company = Company.objects.get(pk=company_id)
-    parser = GisParser(settings.SELENIUM_BOT_API_SECRET, int(company.gis_id), company.gis_reviews_last_parse_at)
+    parser = GisParser(settings.SELENIUM_BOT_API_SECRET, company.gis_parser_link, company.gis_reviews_last_parse_at)
     result = parser.parse(type_parse="reviews")
+
+    print("!!!")
+    print(result)
 
     # Запись данных
     for parsed_review in result.get("company_reviews", []):

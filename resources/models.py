@@ -14,73 +14,73 @@ class Company(models.Model):
     # Настройки
     is_active = models.BooleanField(default=False, verbose_name="Активно?")
 
-    yandex_id = models.CharField(blank=True, null=True, verbose_name="ID Яндекс")
+    yandex_parser_link = models.CharField(blank=True, null=True, verbose_name="Ссылка на страницу с отзывами Яндекс")
 
     is_yandex_reviews_upload = models.BooleanField(default=False, verbose_name="Загружать отзывы в Яндекс?")
 
     is_yandex_reviews_download = models.BooleanField(default=False, verbose_name="Загружать отзывы с Яндекс?")
 
-    gis_id = models.CharField(blank=True, null=True, verbose_name="ID Gis")
+    gis_parser_link = models.CharField(blank=True, null=True, verbose_name="Ссылка на страницу с отзывами 2Гис")
 
     is_gis_reviews_upload = models.BooleanField(default=False, verbose_name="Загружать отзывы в 2Гис?")
 
     is_gis_reviews_download = models.BooleanField(default=False, verbose_name="Загружать отзывы с 2Гис?")
 
-    google_id = models.CharField(blank=True, null=True, verbose_name="ID Google")
+    google_parser_link = models.CharField(blank=True, null=True, verbose_name="Ссылка на страницу с отзывами Google")
 
     is_google_reviews_upload = models.BooleanField(default=False, verbose_name="Загружать отзывы в Google?")
 
     is_google_reviews_download = models.BooleanField(default=False, verbose_name="Загружать отзывы с Google?")
 
-    mapsme_id = models.CharField(blank=True, null=True, verbose_name="ID Mapsme")
+    mapsme_parser_link = models.CharField(blank=True, null=True, verbose_name="Ссылка на страницу с отзывами Mapsme")
 
     is_mapsme_reviews_upload = models.BooleanField(default=False, verbose_name="Загружать отзывы в Mapsme?")
 
     is_mapsme_reviews_download = models.BooleanField(default=False, verbose_name="Загружать отзывы с Mapsme?")
 
-    dikidi_id = models.CharField(blank=True, null=True, verbose_name="ID Dikidi")
+    dikidi_parser_link = models.CharField(blank=True, null=True, verbose_name="Ссылка на страницу с отзывами Dikidi")
 
     is_dikidi_reviews_upload = models.BooleanField(default=False, verbose_name="Загружать отзывы в Dikidi?")
 
     is_dikidi_reviews_download = models.BooleanField(default=False, verbose_name="Загружать отзывы с Dikidi?")
 
-    restoclub_id = models.CharField(blank=True, null=True, verbose_name="ID Рестоклуб")
+    restoclub_parser_link = models.CharField(blank=True, null=True, verbose_name="Ссылка на страницу с отзывами Рестоклуб")
 
     is_restoclub_reviews_upload = models.BooleanField(default=False, verbose_name="Загружать отзывы в Рестоклуб?")
 
     is_restoclub_reviews_download = models.BooleanField(default=False, verbose_name="Загружать отзывы с Рестоклуб?")
 
-    tripadvisor_id = models.CharField(blank=True, null=True, verbose_name="ID Tripadvisor")
+    tripadvisor_parser_link = models.CharField(blank=True, null=True, verbose_name="Ссылка на страницу с отзывами Tripadvisor")
 
     is_tripadvisor_reviews_upload = models.BooleanField(default=False, verbose_name="Загружать отзывы в Tripadvisor?")
 
     is_tripadvisor_reviews_download = models.BooleanField(default=False, verbose_name="Загружать отзывы с Tripadvisor?")
 
-    prodoctorov_id = models.CharField(blank=True, null=True, verbose_name="ID Продокторов")
+    prodoctorov_parser_link = models.CharField(blank=True, null=True, verbose_name="Ссылка на страницу с отзывами Продокторов")
 
     is_prodoctorov_reviews_upload = models.BooleanField(default=False, verbose_name="Загружать отзывы в Продокторов?")
 
     is_prodoctorov_reviews_download = models.BooleanField(default=False, verbose_name="Загружать отзывы с Продокторов?")
 
-    flamp_id = models.CharField(blank=True, null=True, verbose_name="ссылка Flamp")
+    flamp_parser_link = models.CharField(blank=True, null=True, verbose_name="ссылка Flamp")
 
     is_flamp_reviews_upload = models.BooleanField(default=False, verbose_name="Загружать отзывы в Flamp?")
 
     is_flamp_reviews_download = models.BooleanField(default=False, verbose_name="Загружать отзывы с Flamp?")
 
-    zoon_id = models.CharField(blank=True, null=True, verbose_name="ID Zoon")
+    zoon_parser_link = models.CharField(blank=True, null=True, verbose_name="Ссылка на страницу с отзывами Zoon")
 
     is_zoon_reviews_upload = models.BooleanField(default=False, verbose_name="Загружать отзывы в Zoon?")
 
     is_zoon_reviews_download = models.BooleanField(default=False, verbose_name="Загружать отзывы с Zoon?")
 
-    otzovik_id = models.CharField(blank=True, null=True, verbose_name="ID Отзовик")
+    otzovik_parser_link = models.CharField(blank=True, null=True, verbose_name="Ссылка на страницу с отзывами Отзовик")
 
     is_otzovik_reviews_upload = models.BooleanField(default=False, verbose_name="Загружать отзывы в Отзовик?")
 
     is_otzovik_reviews_download = models.BooleanField(default=False, verbose_name="Загружать отзывы с Отзовик?")
 
-    irecommend_id = models.CharField(blank=True, null=True, verbose_name="ID Irecommend")
+    irecommend_parser_link = models.CharField(blank=True, null=True, verbose_name="Ссылка на страницу с отзывами Irecommend")
 
     is_irecommend_reviews_upload = models.BooleanField(default=False, verbose_name="Загружать отзывы в Irecommend?")
 

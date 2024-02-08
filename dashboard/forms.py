@@ -1,4 +1,5 @@
 from django import forms
+
 from extensions.models import Profile
 from resources.models import Company
 
@@ -59,22 +60,17 @@ class CompanyForm(forms.ModelForm):
         attrs={'class': 'bp5-input max-w-sm'}
     ))
 
-    yandex_id = forms.CharField(
+    yandex_parser_link = forms.CharField(
         widget=forms.widgets.TextInput(attrs={'class': 'bp5-input max-w-sm'}),
         required=False
     )
 
-    gis_id = forms.CharField(
+    gis_parser_link = forms.CharField(
         widget=forms.widgets.TextInput(attrs={'class': 'bp5-input max-w-sm'}),
         required=False
     )
 
-    google_id = forms.CharField(
-        widget=forms.widgets.TextInput(attrs={'class': 'bp5-input max-w-sm'}),
-        required=False
-    )
-
-    mapsme_id = forms.CharField(
+    google_parser_link = forms.CharField(
         widget=forms.widgets.TextInput(attrs={'class': 'bp5-input max-w-sm'}),
         required=False
     )
@@ -152,53 +148,17 @@ class CompanyForm(forms.ModelForm):
             'name',
             'address',
 
-            'yandex_id',
+            'yandex_parser_link',
             'is_yandex_reviews_upload',
             'is_yandex_reviews_download',
 
-            'gis_id',
+            'gis_parser_link',
             'is_gis_reviews_upload',
             'is_gis_reviews_download',
 
-            'google_id',
+            'google_parser_link',
             'is_google_reviews_upload',
             'is_google_reviews_download',
-
-            'mapsme_id',
-            'is_mapsme_reviews_upload',
-            'is_mapsme_reviews_download',
-
-            # 'dikidi_id',
-            # 'is_dikidi_reviews_upload',
-            # 'is_dikidi_reviews_upload',
-
-            # 'restoclub_id',
-            # 'is_mapsme_reviews_upload',
-            # 'is_mapsme_reviews_upload',
-
-            # 'tripadvisor_id',
-            # 'is_tripadvisor_reviews_upload',
-            # 'is_tripadvisor_reviews_upload',
-
-            # 'prodoctorov_id',
-            # 'is_prodoctorov_reviews_upload',
-            # 'is_prodoctorov_reviews_upload',
-
-            # 'flamp_id',
-            # 'is_flamp_reviews_upload',
-            # 'is_flamp_reviews_upload',
-
-            # 'zoon_id',
-            # 'is_zoon_reviews_upload',
-            # 'is_zoon_reviews_upload',
-
-            # 'otzovik_id',
-            # 'is_otzovik_reviews_upload',
-            # 'is_otzovik_reviews_upload',
-
-            # 'irecommend_id',
-            # 'is_irecommend_reviews_upload',
-            # 'is_irecommend_reviews_upload',
 
             'yandex_link',
             'gis_link',

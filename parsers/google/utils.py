@@ -1,3 +1,4 @@
+import datetime
 import time
 
 from selenium import webdriver
@@ -5,30 +6,31 @@ from selenium import webdriver
 from .parsers import Parser
 
 
-class YandexParser:
-    def __init__(self, api_secret, parser_link, last_parse_at=None):
+class GoogleParser:
+    def __init__(self, api_secret: str, google_id: int, last_parse_at: datetime = None):
         """
-        @param api_secret: Ключ доступа Selenoid
-        @param parser_link: Ссылка на катрочку компании
-        @param last_parse_at: Дата последнего парсинга
+        @param google_id: ID Google компании
         """
-
         self.api_secret = api_secret
-        self.parser_link = parser_link
+        self.google_id = google_id
         self.last_parse_at = last_parse_at
 
     def __open_page(self):
+        url: str = "https://yandex.ru/maps/org/{}/reviews/".format(str(self.yandex_id))
+
         options = webdriver.ChromeOptions()
         options.set_capability("selenoid:options", {"enableVNC": True})
 
         # http://{self.api_secret}@80.87.109.112:4444/wd/hub
-        driver = webdriver.Remote(command_executor=f"http://80.87.109.112:4444/wd/hub", options=options)
+        driver = webdriver.Remote(
+            command_executor=f"http://80.87.109.112:4444/wd/hub", options=options
+        )
 
         parser = Parser(driver, self.last_parse_at)
-        driver.get(self.parser_link)
+        driver.get(url)
         return parser
 
-    def parse(self, type_parse="default"):
+    def parse(self, type_parse: str = "default") -> dict:
         """
         Функция получения данных в виде
         @param type_parse: Тип данных, принимает значения:
@@ -37,11 +39,9 @@ class YandexParser:
             reviews - получает данные по отчетам
         @return: Данные по запрошенному типу
         """
-
-        result = {}
+        result: dict = {}
         page = self.__open_page()
         time.sleep(5)
-
         try:
             if type_parse == "default":
                 result = page.parse_all_data()
@@ -49,11 +49,9 @@ class YandexParser:
                 result = page.parse_company_info()
             if type_parse == "reviews":
                 result = page.parse_reviews()
-
         except Exception as e:
             print(e)
             return result
-
         finally:
             page.driver.close()
             page.driver.quit()
