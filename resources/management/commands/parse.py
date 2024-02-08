@@ -1,7 +1,8 @@
 from django.core.management.base import BaseCommand
 
 from resources.models import Company
-from resources.tasks import parse_gis_rate, parse_gis_reviews, parse_yandex_rate, parse_yandex_reviews
+from resources.tasks import parse_gis_rate, parse_gis_reviews, parse_yandex_rate, parse_yandex_reviews, \
+    send_telegram_text_task
 
 
 class Command(BaseCommand):
@@ -12,8 +13,12 @@ class Command(BaseCommand):
         parser.add_argument("-rv", "--reviews", action="store_true", default=False, help="Парсинг отзывов")
         parser.add_argument("-ya", "--yandex", action="store_true", default=False, help="Парсинг Яндекс")
         parser.add_argument("-gi", "--gis", action="store_true", default=False, help="Парсинг 2Гис")
+        parser.add_argument("-tg", "--telegram", action="store_true", default=False, help="Telegram test")
 
     def handle(self, *args, **options):
+        if options["telegram"]:
+            send_telegram_text_task("5304013231", "TEST")
+
         # Рейтинг Яндекс
         if options["yandex"] and options["rating"]:
             companies = Company.objects.filter(is_active=True, is_yandex_reviews_download=True).exclude(yandex_parser_link=None).values("id").all()
