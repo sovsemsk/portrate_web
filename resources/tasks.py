@@ -7,6 +7,7 @@ from django.conf import settings
 from telegram import Bot
 
 from parsers.gis.utils import GisParser
+from parsers.google.utils import GoogleParser
 from parsers.yandex.utils import YandexParser
 from resources.models import Company, Notification, Review
 
@@ -91,9 +92,6 @@ def parse_gis_reviews(company_id):
     parser = GisParser(settings.SELENIUM_BOT_API_SECRET, company.gis_parser_link, company.gis_reviews_last_parse_at)
     result = parser.parse(type_parse="reviews")
 
-    print("!!!")
-    print(result)
-
     # Запись данных
     for parsed_review in result.get("company_reviews", []):
         id = hashlib.md5(f"{parsed_review.get('name')}{parsed_review.get('date')}".encode()).hexdigest()
@@ -124,4 +122,59 @@ def parse_gis_reviews(company_id):
 
     # Запись агрегаций
     company.gis_reviews_last_parse_at = datetime.now(timezone.utc)
+    company.save()
+
+
+@shared_task(name="Парсинг рейтинга Google Карты")
+def parse_google_rate(company_id):
+    company = Company.objects.get(pk=company_id)
+    parser = GoogleParser(settings.SELENIUM_BOT_API_SECRET, company.google_parser_link)
+    result = parser.parse(type_parse="company")
+
+    # Запись данных
+    company.google_rate = result.get("company_info", None).get("rating", None)
+    company.google_rate_stars = result.get("company_info", None).get("stars", None)
+    company.google_rate_count = result.get("company_info", None).get("count_rating", None)
+
+    # Запись агрегаций
+    company.google_rate_last_parse_at = datetime.now(timezone.utc)
+    company.save()
+
+
+@shared_task(name="Парсинг отзывов Google Карты")
+def parse_google_reviews(company_id):
+    company = Company.objects.get(pk=company_id)
+    parser = GoogleParser(settings.SELENIUM_BOT_API_SECRET, company.google_parser_link, company.google_reviews_last_parse_at)
+    result = parser.parse(type_parse="reviews")
+
+    # Запись данных
+    for parsed_review in result.get("company_reviews", []):
+        id = hashlib.md5(f"{parsed_review.get('name')}{parsed_review.get('date')}".encode()).hexdigest()
+
+        try:
+            review = Review.objects.create(
+                name=parsed_review.get("name"),
+                text=parsed_review.get("text"),
+                answer=parsed_review.get("answer"),
+                rate=parsed_review.get("stars"),
+                remote_id=id,
+                avatar_url=parsed_review.get("icon_href"),
+                created_at=datetime.fromtimestamp(parsed_review.get("date"), tz=timezone.utc),
+                company=company,
+                service=Review.Service.GOOGLE
+            )
+
+            if parsed_review.get("stars") <= 3:
+                Notification.objects.create(
+                    company=review.company,
+                    review=review,
+                    text=review.text,
+                    initiator=Notification.Initiator.GOOGLE_NEGATIVE_REVIEW,
+                )
+
+        except:
+            pass
+
+    # Запись агрегаций
+    company.google_reviews_last_parse_at = datetime.now(timezone.utc)
     company.save()

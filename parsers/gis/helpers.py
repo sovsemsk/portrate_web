@@ -27,8 +27,8 @@ class ParserHelper:
     def format_rating(s):
         """
         Форматирует рейтинг в число с плавающей точкой
-        @param s: Строка [4.4]
-        @return: Число с плавающей точкой 1.5
+        @param s: Строка 4.4
+        @return: Число с плавающей точкой 4.4
         """
 
         return float(s)
@@ -37,8 +37,8 @@ class ParserHelper:
     def format_rating_count(s):
         """
         Форматирует количество отзывов в число
-        @param s: Строка [4.4]
-        @return: Число с плавающей точкой 1.5
+        @param s: Строка 4.4
+        @return: Число с плавающей точкой 4.4
         """
 
         str_count = s.split()

@@ -10,27 +10,30 @@ from .storage import Info, Review
 
 
 class Parser:
-    def __init__(self, driver, last_parse_at: datetime = None):
+    def __init__(self, driver, last_parse_at=None):
         self.driver = driver
         self.last_parse_at = last_parse_at
 
-    def __scroll_to_bottom(self, elem) -> None:
+    def __scroll_to_bottom(self, elem):
         """
         Скроллим список до последнего отзыва
         :param elem: Последний отзыв в списке
         :param driver: Драйвер undetected_chromedriver
         :return: None
         """
+
         self.driver.execute_script("arguments[0].scrollIntoView();", elem)
         time.sleep(1)
         new_elem = self.driver.find_elements(By.CLASS_NAME, "business-reviews-card-view__review")[-1]
+
         if elem == new_elem:
             return
+
         self.__scroll_to_bottom(new_elem)
 
-    def __sort_by_date_descending(self) -> None:
+    def __sort_by_date_descending(self):
         try:
-            rank_select = self.driver.find_element(By.XPATH, ".//div[@class='rating-ranking-view']")
+            rank_select = self.driver.find_element(By.XPATH, ".//div[@class='k5lwKb']")
             rank_select.click()
             time.sleep(5)
         except NoSuchElementException:
@@ -56,6 +59,7 @@ class Parser:
             stars: float
         }
         """
+
         try:
             name = elem.find_element(By.XPATH, ".//span[@itemprop='name']").text
         except NoSuchElementException:
@@ -93,17 +97,10 @@ class Parser:
         except NoSuchElementException:
             answer = None
 
-        item = Review(
-            name=name,
-            icon_href=icon_href,
-            date=ParserHelper.form_date(date),
-            text=text,
-            stars=stars,
-            answer=answer,
-        )
+        item = Review(name=name, icon_href=icon_href, date=ParserHelper.form_date(date), text=text, stars=stars, answer=answer)
         return asdict(item)
 
-    def __get_data_campaign(self) -> dict:
+    def __get_data_campaign(self):
         """
         Получаем данные по компании.
         :return: Словарь данных
@@ -114,11 +111,13 @@ class Parser:
             stars: float
         }
         """
+
         try:
             xpath_name = ".//h1[@class='orgpage-header-view__header']"
             name = self.driver.find_element(By.XPATH, xpath_name).text
         except NoSuchElementException:
             name = None
+
         try:
             xpath_rating_block = (".//div[@class='business-summary-rating-badge-view__rating-and-stars']")
             rating_block = self.driver.find_element(By.XPATH, xpath_rating_block)
@@ -138,7 +137,7 @@ class Parser:
         item = Info(name=name, rating=rating, count_rating=count_rating, stars=stars)
         return asdict(item)
 
-    def __get_data_reviews(self) -> list:
+    def __get_data_reviews(self):
         reviews = []
 
         elements = self.driver.find_elements(By.CLASS_NAME, "business-reviews-card-view__review")
@@ -168,7 +167,7 @@ class Parser:
         except NoSuchElementException:
             return False
 
-    def parse_all_data(self) -> dict:
+    def parse_all_data(self):
         """
         Начинаем парсить данные.
         :return: Словарь данных
@@ -190,16 +189,18 @@ class Parser:
             ]
         }
         """
+
         if not self.__isinstance_page():
             return {"error": "Страница не найдена"}
 
         self.__sort_by_date_descending()
+
         return {
             "company_info": self.__get_data_campaign(),
             "company_reviews": self.__get_data_reviews(),
         }
 
-    def parse_reviews(self) -> dict:
+    def parse_reviews(self):
         """
         Начинаем парсить данные только отзывы.
         :return: Массив отзывов
@@ -222,7 +223,7 @@ class Parser:
         self.__sort_by_date_descending()
         return {"company_reviews": self.__get_data_reviews()}
 
-    def parse_company_info(self) -> dict:
+    def parse_company_info(self):
         """
         Начинаем парсить данные только данные о компании.
         :return: Объект компании
@@ -236,6 +237,8 @@ class Parser:
                 }
         }
         """
+
         if not self.__isinstance_page():
             return {"error": "Страница не найдена"}
+
         return {"company_info": self.__get_data_campaign()}

@@ -1,8 +1,13 @@
 from django.core.management.base import BaseCommand
 
 from resources.models import Company
-from resources.tasks import parse_gis_rate, parse_gis_reviews, parse_yandex_rate, parse_yandex_reviews, \
-    send_telegram_text_task
+from resources.tasks import (parse_gis_rate,
+                             parse_gis_reviews,
+                             parse_yandex_rate,
+                             parse_yandex_reviews,
+                             parse_google_rate,
+                             parse_google_reviews,
+                             send_telegram_text_task)
 
 
 class Command(BaseCommand):
@@ -13,6 +18,7 @@ class Command(BaseCommand):
         parser.add_argument("-rv", "--reviews", action="store_true", default=False, help="Парсинг отзывов")
         parser.add_argument("-ya", "--yandex", action="store_true", default=False, help="Парсинг Яндекс")
         parser.add_argument("-gi", "--gis", action="store_true", default=False, help="Парсинг 2Гис")
+        parser.add_argument("-go", "--google", action="store_true", default=False, help="Парсинг Google")
         parser.add_argument("-tg", "--telegram", action="store_true", default=False, help="Telegram test")
 
     def handle(self, *args, **options):
@@ -46,3 +52,17 @@ class Command(BaseCommand):
 
             for company in companies:
                 parse_gis_reviews.delay(company["id"])
+
+        # Рейтинг Google
+        if options["google"] and options["rating"]:
+            companies = Company.objects.filter(is_active=True, is_google_reviews_download=True).exclude(google_parser_link=None).values("id").all()
+
+            for company in companies:
+                parse_google_rate.delay(company["id"])
+
+        # Отзывы Google
+        if options["google"] and options["reviews"]:
+            companies = Company.objects.filter(is_active=True, is_google_reviews_download=True).exclude(google_parser_link=None).values("id").all()
+
+            for company in companies:
+                parse_google_reviews.delay(company["id"])
