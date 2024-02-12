@@ -149,7 +149,7 @@ class GisParser:
             pass
 
         finally:
-            self.company.yandex_reviews_last_parse_at = datetime.now(timezone.utc)
+            self.company.gis_reviews_last_parse_at = datetime.now(timezone.utc)
             self.company.save()
 
     @staticmethod
