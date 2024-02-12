@@ -135,10 +135,6 @@ class Company(models.Model):
     """ Яндекс """
     yandex_rate = models.DecimalField(blank=True, decimal_places=1, default=0.0, max_digits=10, null=True, verbose_name="рейтинг Яндекс")
 
-    yandex_rate_stars = models.DecimalField(blank=True, decimal_places=1, default=0.0, max_digits=10, null=True, verbose_name="звезды Яндекс")
-
-    yandex_rate_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество оценок Яндекс")
-
     yandex_positive_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество позитивных отзывов Яндекс")
 
     yandex_negative_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество негативных отзывов Яндекс")
@@ -149,10 +145,6 @@ class Company(models.Model):
 
     """ 2Гис """
     gis_rate = models.DecimalField(blank=True, decimal_places=1, default=0.0, max_digits=10, null=True, verbose_name="рейтинг 2Гис")
-
-    gis_rate_stars = models.DecimalField(blank=True, decimal_places=1, default=0.0, max_digits=10, null=True,verbose_name="звезды 2Гис")
-
-    gis_rate_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество оценок 2Гис")
 
     gis_positive_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество позитивных отзывов 2Гис")
 
