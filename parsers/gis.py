@@ -163,7 +163,7 @@ class GisParser:
 
         splitted_date_string = date_string.replace(", отредактирован", "").split()
         splitted_date_string[1] = splitted_date_string[1][:3]
-        cutted_date_string = " ".join(splitted_date_string).replace("мая", "май")
+        cutted_date_string = " ".join(splitted_date_string) #.replace("мая", "май")
 
         locale.setlocale(locale.LC_ALL, "ru_RU.UTF-8") # Установка локали для парсинга
         datetime_object = datetime.strptime(cutted_date_string, "%d %b %Y")
