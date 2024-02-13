@@ -34,7 +34,7 @@ class GisParser:
             return ", ".join(self.result)
         except NoSuchElementException:
             self.close_page()
-            return "Page not found"
+            return "Gis page not found"
 
     def close_page(self):
         """ Закрытие страницы """
@@ -63,11 +63,11 @@ class GisParser:
             self.company.gis_rate_last_parse_at = datetime.now(timezone.utc)
             self.company.save()
 
-            self.result.append("Rating parse success")
+            self.result.append("Gis rating parse success")
             self.parse_reviews()
 
         except NoSuchElementException:
-            self.result.append("Rating parse success")
+            self.result.append("Gis rating parse error")
             self.close_page()
 
     def parse_reviews(self):
@@ -83,10 +83,10 @@ class GisParser:
             self.scroll_reviews_to_bottom(reviews_elements[-1])
             reviews_elements = self.driver.find_elements(By.CLASS_NAME, "_11gvyqv")
 
-            for review_element in reviews_elements:
-                self.parse_review(review_element)
+        for review_element in reviews_elements:
+            self.parse_review(review_element)
 
-        self.result.append("Reviews parse success")
+        self.result.append("Gis reviews parse success")
         self.close_page()
 
     def parse_review(self, element):
@@ -163,7 +163,7 @@ class GisParser:
 
         splitted_date_string = date_string.replace(", отредактирован", "").split()
         splitted_date_string[1] = splitted_date_string[1][:3]
-        cutted_date_string = " ".join(splitted_date_string) #.replace("мая", "май")
+        cutted_date_string = " ".join(splitted_date_string).replace("мая", "май")
 
         locale.setlocale(locale.LC_ALL, "ru_RU.UTF-8") # Установка локали для парсинга
         datetime_object = datetime.strptime(cutted_date_string, "%d %b %Y")

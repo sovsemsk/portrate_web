@@ -34,7 +34,7 @@ class YandexParser:
             return ", ".join(self.result)
         except NoSuchElementException:
             self.close_page()
-            return "Page not found"
+            return "Yandex page not found"
 
     def close_page(self):
         """ Закрытие страницы """
@@ -62,12 +62,11 @@ class YandexParser:
             self.company.yandex_rate = rating
             self.company.yandex_rate_last_parse_at = datetime.now(timezone.utc)
             self.company.save()
-
-            self.result.append("Rating parse success")
+            self.result.append("Yandex rating parse success")
             self.parse_reviews()
 
         except NoSuchElementException:
-            self.result.append("Rating parse success")
+            self.result.append("Yandex rating parse error")
             self.close_page()
 
     def parse_reviews(self):
@@ -78,8 +77,8 @@ class YandexParser:
             self.scroll_reviews_to_bottom(reviews_elements[-1])
             reviews_elements = self.driver.find_elements(By.CLASS_NAME, "business-reviews-card-view__review")
 
-            for review_element in reviews_elements:
-                self.parse_review(review_element)
+        for review_element in reviews_elements:
+            self.parse_review(review_element)
 
         self.result.append("Reviews parse success")
         self.close_page()
