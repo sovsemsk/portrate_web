@@ -23,7 +23,9 @@ def parse_cards(company_id):
         is_active=True,
         is_yandex_reviews_download=True
     ).exclude(
-        yandex_parser_link=None
+        yandex_parser_link=None,
+    ).exclude(
+        yandex_parser_link="",
     ).values("id").first()
 
     if company_with_yandex_link:
@@ -38,6 +40,8 @@ def parse_cards(company_id):
         is_gis_reviews_download=True
     ).exclude(
         gis_parser_link=None
+    ).exclude(
+        gis_parser_link="",
     ).values("id").first()
 
     if company_with_gis_link:
