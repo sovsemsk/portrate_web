@@ -1,18 +1,19 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views.decorators.http import require_http_methods
-from resources.models import Company, Notification
+
 from feedback.forms import NegativeMessageForm
+from resources.models import Company, Notification
 
 
 @require_http_methods(['GET'])
 def rate(request, company_id):
-    company = get_object_or_404(Company, id=company_id)
+    company = get_object_or_404(Company, id=company_id, is_active=True)
     return render(request, 'feedback/rate.html', {'company': company})
 
 
 @require_http_methods(['GET', 'POST'])
 def create(request, company_id):
-    company = get_object_or_404(Company, id=company_id)
+    company = get_object_or_404(Company, id=company_id, is_active=True)
 
     if request.method == 'POST':
         form = NegativeMessageForm(request.POST)
@@ -37,5 +38,5 @@ def create(request, company_id):
 
 @require_http_methods(['GET'])
 def request(request, company_id):
-    company = get_object_or_404(Company, id=company_id)
+    company = get_object_or_404(Company, id=company_id, is_active=True)
     return render(request, 'feedback/request.html', {'company': company})

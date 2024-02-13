@@ -8,4 +8,13 @@
         </h3>
         <span class="bp5-heading bp5-text-muted">{{ company.address }}</span>
     </div>
+    <div class="bp5-section-header-right">
+        {% if company.is_active %}
+        <span class="bp5-icon bp5-icon-endorsed bp5-intent-success"></span>
+        <div class="bp5-section-header-sub-title bp5-text-muted bp5-text-small">Активно</div>
+        {% else %}
+        <span class="bp5-icon bp5-icon-cross-circle bp5-intent-danger"></span>
+        <div class="bp5-section-header-sub-title bp5-text-muted bp5-text-small">Не активно</div>
+        {% endif %}
+    </div>
 </div>
