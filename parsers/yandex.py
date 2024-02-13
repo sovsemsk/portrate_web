@@ -15,7 +15,6 @@ class YandexParser:
     def __init__(self, company_id):
         options = webdriver.ChromeOptions()
         options.set_capability("selenoid:options", {"enableVNC": True})
-
         self.result = []
         self.company = Company.objects.get(id=company_id)
         self.driver = webdriver.Remote(command_executor=f"http://80.87.109.112:4444/wd/hub", options=options)
@@ -43,7 +42,6 @@ class YandexParser:
 
     def scroll_reviews_to_bottom(self, element):
         """ Скроллим список до последнего отзыва """
-
         self.driver.execute_script("arguments[0].scrollIntoView();", element)
         time.sleep(1)
         new_element = self.driver.find_elements(By.CLASS_NAME, "business-reviews-card-view__review")[-1]
@@ -55,7 +53,6 @@ class YandexParser:
 
     def parse_rating(self):
         """ Получение названия и рейтинга организации """
-
         try:
             rating_element = self.driver.find_element(By.CLASS_NAME, "business-summary-rating-badge-view__rating")
             rating = float(".".join(re.findall(r'\d+', rating_element.text)))
@@ -80,12 +77,11 @@ class YandexParser:
         for review_element in reviews_elements:
             self.parse_review(review_element)
 
-        self.result.append("Reviews parse success")
+        self.result.append("Yandex reviews parse success")
         self.close_page()
 
     def parse_review(self, element):
         """ Спарсить данные по отзыву """
-
         try:
             date = element.find_element(By.XPATH, ".//meta[@itemprop='datePublished']").get_attribute("content")
         except NoSuchElementException:
@@ -147,7 +143,6 @@ class YandexParser:
     @staticmethod
     def calc_review_stars_count(review_stars):
         """ Считаем рейтинг по звездам """
-
         star_count = 0
 
         for review_star in review_stars:
@@ -165,6 +160,5 @@ class YandexParser:
     @staticmethod
     def format_review_date(date_string):
         """ Приводим дату в формат Timestamp """
-
         datetime_object = datetime.strptime(date_string, "%Y-%m-%dT%H:%M:%S.%fZ")
         return datetime_object.timestamp()

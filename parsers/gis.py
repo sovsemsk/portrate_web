@@ -15,7 +15,6 @@ class GisParser:
     def __init__(self, company_id):
         options = webdriver.ChromeOptions()
         options.set_capability("selenoid:options", {"enableVNC": True})
-
         self.result = []
         self.company = Company.objects.get(id=company_id)
         self.driver = webdriver.Remote(command_executor=f"http://80.87.109.112:4444/wd/hub", options=options)
@@ -43,7 +42,6 @@ class GisParser:
 
     def scroll_reviews_to_bottom(self, element):
         """ Скроллим список до последнего отзыва """
-
         self.driver.execute_script("arguments[0].scrollIntoView();", element)
         time.sleep(1)
         new_element = self.driver.find_elements(By.CLASS_NAME, "_11gvyqv")[-1]
@@ -55,7 +53,6 @@ class GisParser:
 
     def parse_rating(self):
         """ Получение названия и рейтинга организации """
-
         try:
             rating_element = self.driver.find_element(By.CLASS_NAME, "_y10azs")
             rating = float(rating_element.text)
@@ -91,7 +88,6 @@ class GisParser:
 
     def parse_review(self, element):
         """ Спарсить данные по отзыву """
-
         try:
             date = element.find_element(By.XPATH, ".//div[@class='_4mwq3d']").get_attribute('innerHTML')
         except NoSuchElementException:
@@ -160,12 +156,9 @@ class GisParser:
     @staticmethod
     def format_review_date(date_string):
         """ Приводим дату в формат Timestamp """
-
         splitted_date_string = date_string.replace(", отредактирован", "").split()
         splitted_date_string[1] = splitted_date_string[1][:3]
-        cutted_date_string = " ".join(splitted_date_string).replace("мая", "май")
-
+        cutted_date_string = " ".join(splitted_date_string) #.replace("мая", "май")
         locale.setlocale(locale.LC_ALL, "ru_RU.UTF-8") # Установка локали для парсинга
         datetime_object = datetime.strptime(cutted_date_string, "%d %b %Y")
-
         return datetime_object.timestamp()
