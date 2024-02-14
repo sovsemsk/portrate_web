@@ -273,7 +273,7 @@ class ReviewAdmin(admin.ModelAdmin):
     list_filter = ['company', 'service']
     readonly_fields = ['created_at', 'remote_id']
     fieldsets = [
-        ('КОНТЕНТ', {'fields': ['name', 'text', 'answer']}),
-        ('ДАННЫЕ', {'classes': ['collapse'], 'fields': ['created_at', 'rate', 'remote_id', 'avatar_url']}),
+        ('КОНТЕНТ', {'fields': ['name', 'text']}),
+        ('ДАННЫЕ', {'classes': ['collapse'], 'fields': ['created_at', 'rate', 'remote_id']}),
         ('НАСТРОЙКИ', {'classes': ['collapse'], 'fields': ['company', 'service']}),
     ]

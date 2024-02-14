@@ -3,12 +3,14 @@ import locale
 import time
 from datetime import datetime, timezone
 
+from bs4 import BeautifulSoup
 from django.db import IntegrityError
+from lxml import etree
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 
-from resources.models import Company, Notification, Review
+from resources.models import Company, Review, Notification
 
 
 class GisParser:
@@ -28,7 +30,7 @@ class GisParser:
         time.sleep(5)
 
         try:
-            self.driver.find_element(By.CLASS_NAME, "_tvxwjf")
+            self.driver.find_element(By.CLASS_NAME, "_y10azs")
             self.parse_rating()
             return ", ".join(self.result)
         except NoSuchElementException:
@@ -69,6 +71,7 @@ class GisParser:
 
     def parse_reviews(self):
         """ Спарсить все отзывы """
+        str_reviews_elements = []
         reviews_elements = self.driver.find_elements(By.CLASS_NAME, "_11gvyqv")
 
         try:
@@ -81,16 +84,23 @@ class GisParser:
             reviews_elements = self.driver.find_elements(By.CLASS_NAME, "_11gvyqv")
 
         for review_element in reviews_elements:
-            self.parse_review(review_element)
+            str_reviews_elements.append(review_element.get_attribute("innerHTML"))
 
-        self.result.append("Gis reviews parse success")
         self.close_page()
 
-    def parse_review(self, element):
+        for str_review_element in str_reviews_elements:
+            self.parse_review(str_review_element)
+
+        self.result.append("Gis reviews parse success")
+
+    def parse_review(self, str_review_element):
         """ Спарсить данные по отзыву """
+        bs_element = BeautifulSoup(str_review_element, "html.parser")
+        lxml_element = etree.HTML(str(bs_element))
+
         try:
-            date = element.find_element(By.XPATH, ".//div[@class='_4mwq3d']").get_attribute('innerHTML')
-        except NoSuchElementException:
+            date = lxml_element.xpath(".//div[@class='_4mwq3d']")[0].text
+        except:
             date = None
 
         # @TODO: сделать отмену парсинга отзыва если он не сегодняшний, учесть первый парсинг
@@ -98,32 +108,25 @@ class GisParser:
         # now_date = datetime.now(timezone.utc).date()
 
         try:
-            name = element.find_element(By.XPATH, ".//span[@class='_16s5yj36']").get_attribute('innerHTML')
-        except NoSuchElementException:
+            name = lxml_element.xpath(".//span[@class='_16s5yj36']")[0].text
+        except:
             name = None
 
         try:
             try:
-                text = element.find_element(By.XPATH, ".//a[@class='_1it5ivp']").get_attribute('innerHTML')
-            except NoSuchElementException:
-                text = element.find_element(By.XPATH, ".//a[@class='_ayej9u3']").get_attribute('innerHTML')
-        except NoSuchElementException:
+                text = lxml_element.xpath(".//a[@class='_1it5ivp']")[0].text
+            except:
+                text = lxml_element.xpath(".//a[@class='_ayej9u3']")[0].text
+        except:
             text = None
 
         try:
-            icon_href = element.find_element(By.XPATH, ".//div[@class='_1dk5lq4']").get_attribute("style")
-            icon_href = icon_href.split('"')[1]
-        except NoSuchElementException:
-            icon_href = None
-
-        try:
-            stars = element.find_elements(By.XPATH, ".//div[@class='_1fkin5c']/span")
-        except NoSuchElementException:
-            stars = 0
+            stars = lxml_element.xpath(".//div[@class='_1fkin5c']/span")
+        except:
+            stars = []
 
         try:
             review = Review.objects.create(
-                avatar_url=icon_href,
                 created_at=datetime.fromtimestamp(self.format_review_date(date), tz=timezone.utc),
                 company=self.company,
                 name=name,

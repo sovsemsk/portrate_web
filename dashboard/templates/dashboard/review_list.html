@@ -99,9 +99,6 @@
         <div class="bp5-section bp5-card bp5-elevation-2">
             <div class="bp5-section-header">
                 <div class="bp5-section-header-left">
-                    {% if review.avatar_url %}
-                    <img class="h-8 rounded w-8 bp5-elevation-1" src="{{ review.avatar_url }}" alt="{{ review.name }}">
-                    {% endif %}
                     <div>
                         <h6 class="bp5-heading bp5-section-header-title">
                             {{review.name}}
@@ -109,9 +106,16 @@
                         <div class="bp5-section-header-sub-title">
                             {% with ''|center:review.rate as range %}
                             {% for _ in range %}
-                            <span aria-hidden="true" class="bp5-icon bp5-icon-star text-[#F0B726]"></span>
+                            <span aria-hidden="true" class="bp5-icon bp5-icon-star text-xs text-[#F0B726]"></span>
                             {% endfor %}
                             {% endwith %}
+
+                            {% with ''|center:review.rate_rest as range %}
+                            {% for _ in range %}
+                            <span aria-hidden="true" class="bp5-icon bp5-icon-star text-xs text-[#CCCCCC]"></span>
+                            {% endfor %}
+                            {% endwith %}
+
                         </div>
                     </div>
                 </div>

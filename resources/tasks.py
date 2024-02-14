@@ -5,6 +5,7 @@ from django.conf import settings
 from telegram import Bot
 
 from parsers.gis import GisParser
+from parsers.google import GoogleParser
 from parsers.yandex import YandexParser
 from resources.models import Company
 
@@ -34,6 +35,22 @@ def parse_cards(company_id):
         result.append(yandex_result)
     else:
         result.append("Company not valid for YandexParser")
+
+    company_with_google_link = Company.objects.filter(
+        is_active=True,
+        is_google_reviews_download=True
+    ).exclude(
+        google_parser_link=None
+    ).exclude(
+        google_parser_link="",
+    ).values("id").first()
+
+    if company_with_google_link:
+        google_parser = GoogleParser(company_id)
+        google_result = google_parser.parse()
+        result.append(google_result)
+    else:
+        result.append("Company not valid for GoogleParser")
 
     company_with_gis_link = Company.objects.filter(
         is_active=True,

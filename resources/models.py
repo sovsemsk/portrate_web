@@ -312,21 +312,19 @@ class Review(models.Model):
 
     created_at = models.DateField(verbose_name="дата создания")
 
-    from_bot = models.BooleanField(default=False, verbose_name="Отправлено ботом Портрет")
-
     remote_id = models.CharField(blank=True, null=True, verbose_name="ID (агрегация)")
 
     rate = models.IntegerField(blank=True, null=True, verbose_name="рейтинг")
-
-    avatar_url = models.CharField(blank=True, null=True, verbose_name="url аватара")
 
     name = models.CharField(blank=True, null=True, verbose_name="пользователь")
 
     text = models.TextField(blank=True, null=True, verbose_name="текст отзыва")
 
-    answer = models.TextField(blank=True, null=True, verbose_name="текст ответа")
-
     company = models.ForeignKey(Company, on_delete=models.CASCADE, verbose_name="сеть")
+
+    @property
+    def rate_rest(self):
+        return 5 - self.rate
 
     def __str__(self):
         return f"{self.name}"
@@ -397,6 +395,8 @@ def review_post_save_signal(sender, instance, created, **kwargs):
         instance.company.yandex_positive_count = instance.company.review_set.filter(service=Review.Service.YANDEX, rate__gt=3).count()
         instance.company.gis_negative_count = instance.company.review_set.filter(service=Review.Service.GIS, rate__lt=4).count()
         instance.company.gis_positive_count = instance.company.review_set.filter(service=Review.Service.GIS, rate__gt=3).count()
+        instance.company.google_negative_count = instance.company.review_set.filter(service=Review.Service.GOOGLE, rate__lt=4).count()
+        instance.company.google_positive_count = instance.company.review_set.filter(service=Review.Service.GOOGLE, rate__gt=3).count()
         instance.company.total_negative_count = instance.company.review_set.filter(rate__lt=4).count()
         instance.company.total_positive_count = instance.company.review_set.filter(rate__gt=3).count()
         instance.company.save()

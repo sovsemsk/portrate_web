@@ -9333,6 +9333,9 @@ a > .bp5-dark .bp5-tooltip .bp5-running-text code{
   }.dashboard .text-\[\#238551\]{
     --tw-text-opacity:1 !important;
     color:rgb(35 133 81 / var(--tw-text-opacity)) !important;
+  }.dashboard .text-\[\#CCCCCC\]{
+    --tw-text-opacity:1 !important;
+    color:rgb(204 204 204 / var(--tw-text-opacity)) !important;
   }.dashboard .text-\[\#F0B726\]{
     --tw-text-opacity:1 !important;
     color:rgb(240 183 38 / var(--tw-text-opacity)) !important;
