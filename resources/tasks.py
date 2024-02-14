@@ -22,6 +22,7 @@ def parse_cards(company_id):
 
     """ Яндекс карты """
     company_with_yandex_link = Company.objects.filter(is_active=True, is_yandex_reviews_download=True).values("id").first()
+    print(company_with_yandex_link)
     if company_with_yandex_link:
         yandex_parser = YandexParser(company_id)
         yandex_result = yandex_parser.parse()
@@ -31,6 +32,7 @@ def parse_cards(company_id):
 
     """ 2Гис карты """
     company_with_gis_link = Company.objects.filter(is_active=True, is_gis_reviews_download=True).values("id").first()
+    print(company_with_gis_link)
     if company_with_gis_link:
         gis_parser = GisParser(company_id)
         gis_result = gis_parser.parse()
@@ -40,6 +42,7 @@ def parse_cards(company_id):
 
     """ Google карты """
     company_with_google_link = Company.objects.filter(is_active=True, is_google_reviews_download=True).values("id").first()
+    print(company_with_google_link)
     if company_with_google_link:
         google_parser = GoogleParser(company_id)
         google_result = google_parser.parse()
