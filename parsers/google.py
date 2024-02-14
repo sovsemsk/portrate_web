@@ -107,7 +107,6 @@ class GoogleParser:
         except NoSuchElementException:
             date = None
 
-        print(self.parse_relative_date(date))
         # @TODO: сделать отмену парсинга отзыва если он не сегодняшний, учесть первый парсинг
         # review_date = datetime.fromtimestamp(self.format_review_date(date), tz=timezone.utc).date()
         # now_date = datetime.now(timezone.utc).date()
@@ -168,6 +167,7 @@ class GoogleParser:
     @staticmethod
     def parse_relative_date(string_date):
         curr_date = datetime.now()
+        string_date = string_date.replace(" ", " ")
 
         """ Если сегодня или вчера """
         if string_date == "сегодня":
