@@ -91,6 +91,8 @@ class GisParser:
         for str_review_element in str_reviews_elements:
             self.parse_review(str_review_element)
 
+        self.company.gis_reviews_last_parse_at = datetime.now(timezone.utc)
+        self.company.save()
         self.result.append("Gis reviews parse success")
 
     def parse_review(self, str_review_element):
@@ -146,10 +148,6 @@ class GisParser:
 
         except IntegrityError:
             pass
-
-        finally:
-            self.company.gis_reviews_last_parse_at = datetime.now(timezone.utc)
-            self.company.save()
 
     @staticmethod
     def calc_review_stars_count(review_stars):

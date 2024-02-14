@@ -422,7 +422,8 @@ def notification_post_save_signal(sender, instance, created, **kwargs):
 {instance.negative_message.text}"""
 
         for user in instance.company.users.exclude(profile__telegram_id=None).all():
-            send_telegram_text_task.delay(user.profile.telegram_id, text)
+            if user.profile.can_notify_negative_portrate:
+                send_telegram_text_task.delay(user.profile.telegram_id, text)
 
     # Негативный отзыв из Яндекса
     elif created and instance.initiator == Notification.Initiator.YANDEX_NEGATIVE_REVIEW:
@@ -436,7 +437,8 @@ def notification_post_save_signal(sender, instance, created, **kwargs):
 {instance.review.text}"""
 
         for user in instance.company.users.exclude(profile__telegram_id=None).all():
-            send_telegram_text_task.delay(user.profile.telegram_id, text)
+            if user.profile.can_notify_negative_yandex:
+                send_telegram_text_task.delay(user.profile.telegram_id, text)
 
     # Негативный отзыв из Яндекса
     elif created and instance.initiator == Notification.Initiator.GIS_NEGATIVE_REVIEW:
@@ -450,4 +452,20 @@ def notification_post_save_signal(sender, instance, created, **kwargs):
 {instance.review.text}"""
 
         for user in instance.company.users.exclude(profile__telegram_id=None).all():
-            send_telegram_text_task.delay(user.profile.telegram_id, text)
+            if user.profile.can_notify_negative_gis:
+                send_telegram_text_task.delay(user.profile.telegram_id, text)
+
+    # Негативный отзыв из Яндекса
+    elif created and instance.initiator == Notification.Initiator.GOOGLE_NEGATIVE_REVIEW:
+        # Шаблон
+        text = f"""📍 Негативный отзыв в Google Карты.
+
+🏪 Компания:
+{instance.review.company}
+
+📜 Текст:
+{instance.review.text}"""
+
+        for user in instance.company.users.exclude(profile__telegram_id=None).all():
+            if user.profile.can_notify_negative_google:
+                send_telegram_text_task.delay(user.profile.telegram_id, text)

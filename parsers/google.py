@@ -1,5 +1,5 @@
 import time
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 
 from bs4 import BeautifulSoup
 from django.db import IntegrityError
@@ -93,6 +93,8 @@ class GoogleParser:
         for str_review_element in str_reviews_elements:
             self.parse_review(str_review_element)
 
+        self.company.gis_reviews_last_parse_at = datetime.now(timezone.utc)
+        self.company.save()
         self.result.append("Google reviews parse success")
 
     def parse_review(self, str_review_element):
@@ -100,11 +102,12 @@ class GoogleParser:
         bs_element = BeautifulSoup(str_review_element, "html.parser")
         lxml_element = etree.HTML(str(bs_element))
 
-        # try:
-        #     date = lxml_element.xpath(".//span[@class='_16s5yj36']")[0].text
-        # except NoSuchElementException:
-        #     date = None
+        try:
+            date = lxml_element.xpath(".//span[@class='rsqaWe']")[0].text
+        except NoSuchElementException:
+            date = None
 
+        print(self.parse_relative_date(date))
         # @TODO: сделать отмену парсинга отзыва если он не сегодняшний, учесть первый парсинг
         # review_date = datetime.fromtimestamp(self.format_review_date(date), tz=timezone.utc).date()
         # now_date = datetime.now(timezone.utc).date()
@@ -132,7 +135,7 @@ class GoogleParser:
         try:
             if text:
                 review = Review.objects.create(
-                    created_at=datetime.now(timezone.utc),
+                    created_at=self.parse_relative_date(date),
                     company=self.company,
                     name=name,
                     rate=self.calc_review_stars_count(stars),
@@ -152,10 +155,6 @@ class GoogleParser:
         except IntegrityError:
             pass
 
-        finally:
-            self.company.gis_reviews_last_parse_at = datetime.now(timezone.utc)
-            self.company.save()
-
     @staticmethod
     def calc_review_stars_count(review_stars):
         """ Считаем рейтинг по звездам """
@@ -165,3 +164,68 @@ class GoogleParser:
     def format_review_date(date_string):
         """ Приводим дату в формат Timestamp """
         pass
+
+    @staticmethod
+    def parse_relative_date(string_date):
+        curr_date = datetime.now()
+
+        """ Если сегодня или вчера """
+        if string_date == "сегодня":
+            return curr_date
+        elif string_date == "вчера":
+            return curr_date - timedelta(days=1)
+
+        """ Если не сегодня или вчера """
+        split_date = string_date.split(" ")
+
+        if len(split_date) == 2:
+            n = split_date[1]
+            delta = split_date[0]
+        elif len(split_date) == 3:
+            n = split_date[0]
+            delta = split_date[1]
+
+        if delta == "год":
+            return curr_date - timedelta(days=365)
+        elif delta == "года":
+            return curr_date - timedelta(days=365 * int(n))
+        elif delta == "лет":
+            return curr_date - timedelta(days=365 * int(n))
+
+        elif delta == "месяц":
+            return curr_date - timedelta(days=30)
+        elif delta == "месяца":
+            return curr_date - timedelta(days=30 * int(n))
+        elif delta == "месяцев":
+            return curr_date - timedelta(days=30 * int(n))
+
+        elif delta == "неделю":
+            return curr_date - timedelta(weeks=1)
+        elif delta == "недели":
+            return curr_date - timedelta(weeks=int(n))
+        elif delta == "недель":
+            return curr_date - timedelta(weeks=int(n))
+
+        elif delta == "день":
+            return curr_date - timedelta(days=1)
+        elif delta == "дня":
+            return curr_date - timedelta(days=int(n))
+        elif delta == "дней":
+            return curr_date - timedelta(days=int(n))
+
+        elif delta == "час":
+            return curr_date - timedelta(hours=1)
+        elif delta == "часа":
+            return curr_date - timedelta(hours=int(n))
+        elif delta == "часов":
+            return curr_date - timedelta(hours=int(n))
+
+        elif delta == "минута":
+            return curr_date - timedelta(minutes=1)
+        elif delta == "минуты":
+            return curr_date - timedelta(minutes=int(n))
+        elif delta == "минут":
+            return curr_date - timedelta(minutes=int(n))
+
+        else:
+            return curr_date

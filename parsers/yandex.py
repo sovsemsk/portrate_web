@@ -85,6 +85,8 @@ class YandexParser:
         for str_review_element in str_reviews_elements:
             self.parse_review(str_review_element)
 
+        self.company.yandex_reviews_last_parse_at = datetime.now(timezone.utc)
+        self.company.save()
         self.result.append("Yandex reviews parse success")
 
     def parse_review(self, str_review_element):
@@ -137,10 +139,6 @@ class YandexParser:
 
         except IntegrityError:
             pass
-
-        finally:
-            self.company.yandex_reviews_last_parse_at = datetime.now(timezone.utc)
-            self.company.save()
 
     @staticmethod
     def calc_review_stars_count(review_stars):
