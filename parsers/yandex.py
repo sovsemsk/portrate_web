@@ -10,15 +10,15 @@ from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 
-from resources.models import Company, Notification, Review
+from resources.models import Notification, Review
 
 
 class YandexParser:
-    def __init__(self, company_id):
+    def __init__(self, company):
         options = webdriver.ChromeOptions()
         options.set_capability("selenoid:options", {"enableVNC": True})
         self.result = []
-        self.company = Company.objects.get(id=company_id)
+        self.company = company
         self.driver = webdriver.Remote(command_executor=f"http://80.87.109.112:4444/wd/hub", options=options)
 
     def parse(self):

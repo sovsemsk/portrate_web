@@ -20,31 +20,30 @@ def send_telegram_text_task(telegram_id, text):
 def parse_cards(company_id):
     result = []
 
+    company = Company.objects.get(
+        id=company_id,
+        is_active=True
+    )
+
     """ Яндекс карты """
-    company_with_yandex_link = Company.objects.filter(is_active=True, is_yandex_reviews_download=True).values("id").first()
-    print(company_with_yandex_link)
-    if company_with_yandex_link:
-        yandex_parser = YandexParser(company_id)
+    if company.is_yandex_reviews_download:
+        yandex_parser = YandexParser(company)
         yandex_result = yandex_parser.parse()
         result.append(yandex_result)
     else:
         result.append("Company not valid for YandexParser")
 
     """ 2Гис карты """
-    company_with_gis_link = Company.objects.filter(is_active=True, is_gis_reviews_download=True).values("id").first()
-    print(company_with_gis_link)
-    if company_with_gis_link:
-        gis_parser = GisParser(company_id)
+    if company.is_gis_reviews_download:
+        gis_parser = GisParser(company)
         gis_result = gis_parser.parse()
         result.append(gis_result)
     else:
         result.append("Company not valid for GisParser")
 
     """ Google карты """
-    company_with_google_link = Company.objects.filter(is_active=True, is_google_reviews_download=True).values("id").first()
-    print(company_with_google_link)
-    if company_with_google_link:
-        google_parser = GoogleParser(company_id)
+    if company.is_google_reviews_download:
+        google_parser = GoogleParser(company)
         google_result = google_parser.parse()
         result.append(google_result)
     else:
