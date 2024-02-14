@@ -23,7 +23,7 @@
                     <div class="bp5-section-header">
                         <div class="bp5-section-header-left">
                             <div>
-                                <h6 class="bp5-heading bp5-section-header-title">Активация загрузки отзывов</h6>
+                                <h6 class="bp5-heading bp5-section-header-title">Загрузка отзывов</h6>
                                 <div class="bp5-text-muted bp5-section-header-sub-title">Настройки активации загрузки и выгрузки данных и отзывов</div>
                             </div>
                         </div>
@@ -76,8 +76,8 @@
                     <div class="bp5-section-header">
                         <div class="bp5-section-header-left">
                             <div>
-                                <h6 class="bp5-heading bp5-section-header-title">ID карточек</h6>
-                                <div class="bp5-text-muted bp5-section-header-sub-title">Настройки ID карточек для загрузки отзывов и данных</div>
+                                <h6 class="bp5-heading bp5-section-header-title">Загрузка отзывов</h6>
+                                <div class="bp5-text-muted bp5-section-header-sub-title">Настройки ссылок на страницы с отзывами и данных о рейтинге</div>
                             </div>
                         </div>
                     </div>
@@ -85,14 +85,23 @@
                         <div class="bp5-form-group">
                             <label class="bp5-label">Ссылка на страницу с отзывами в Яндекс Картах</label>
                             {{ form.yandex_parser_link }}
+                            {% if form.errors.yandex_parser_link %}
+                            <div class="bp5-form-helper-text text-[#ac2f33]">Ссылка на страницу с отзывами в Яндекс Картах обязателена</div>
+                            {% endif %}
                         </div>
                         <div class="bp5-form-group">
                             <label class="bp5-label">Ссылка на страницу с отзывами в 2Гис Картах</label>
                             {{ form.gis_parser_link }}
+                            {% if form.errors.gis_parser_link %}
+                            <div class="bp5-form-helper-text text-[#ac2f33]">Ссылка на страницу с отзывами в 2Гис Картах обязателена</div>
+                            {% endif %}
                         </div>
                         <div class="bp5-form-group">
                             <label class="bp5-label">Ссылка на страницу с отзывами в Google Картах</label>
                             {{ form.google_parser_link }}
+                            {% if form.errors.google_parser_link %}
+                            <div class="bp5-form-helper-text text-[#ac2f33]">Ссылка на страницу с отзывами в Google Картах обязателена</div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

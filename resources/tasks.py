@@ -20,15 +20,8 @@ def send_telegram_text_task(telegram_id, text):
 def parse_cards(company_id):
     result = []
 
-    company_with_yandex_link = Company.objects.filter(
-        is_active=True,
-        is_yandex_reviews_download=True
-    ).exclude(
-        yandex_parser_link=None,
-    ).exclude(
-        yandex_parser_link="",
-    ).values("id").first()
-
+    """ Яндекс карты """
+    company_with_yandex_link = Company.objects.filter(is_active=True, is_yandex_reviews_download=True).values("id").first()
     if company_with_yandex_link:
         yandex_parser = YandexParser(company_id)
         yandex_result = yandex_parser.parse()
@@ -36,36 +29,22 @@ def parse_cards(company_id):
     else:
         result.append("Company not valid for YandexParser")
 
-    company_with_google_link = Company.objects.filter(
-        is_active=True,
-        is_google_reviews_download=True
-    ).exclude(
-        google_parser_link=None
-    ).exclude(
-        google_parser_link="",
-    ).values("id").first()
-
-    if company_with_google_link:
-        google_parser = GoogleParser(company_id)
-        google_result = google_parser.parse()
-        result.append(google_result)
-    else:
-        result.append("Company not valid for GoogleParser")
-
-    company_with_gis_link = Company.objects.filter(
-        is_active=True,
-        is_gis_reviews_download=True
-    ).exclude(
-        gis_parser_link=None
-    ).exclude(
-        gis_parser_link="",
-    ).values("id").first()
-
+    """ 2Гис карты """
+    company_with_gis_link = Company.objects.filter(is_active=True, is_gis_reviews_download=True).values("id").first()
     if company_with_gis_link:
         gis_parser = GisParser(company_id)
         gis_result = gis_parser.parse()
         result.append(gis_result)
     else:
         result.append("Company not valid for GisParser")
+
+    """ Google карты """
+    company_with_google_link = Company.objects.filter(is_active=True, is_google_reviews_download=True).values("id").first()
+    if company_with_google_link:
+        google_parser = GoogleParser(company_id)
+        google_result = google_parser.parse()
+        result.append(google_result)
+    else:
+        result.append("Company not valid for GoogleParser")
 
     return f"Done for company [{company_id}] with result [{', '.join(result)}]"
