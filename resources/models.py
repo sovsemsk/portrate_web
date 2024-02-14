@@ -3,7 +3,6 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-
 # Компания
 class Company(models.Model):
     class Meta:
@@ -325,6 +324,7 @@ class Review(models.Model):
     @property
     def rate_rest(self):
         return 5 - self.rate
+
 
     def __str__(self):
         return f"{self.name}"

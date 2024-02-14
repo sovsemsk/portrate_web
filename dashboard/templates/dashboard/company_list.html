@@ -2,6 +2,7 @@
 
 {% load static %}
 {% load extensions %}
+{% load tz %}
 
 {% block content %}
 <h3 class="bp5-heading pb-2">Компании</h3>
@@ -50,7 +51,9 @@
                         </h5>
                         Рейтинг Яндекс
                         <div class="bp5-text-muted text-xs">
+                            {% timezone user.profile.default_timezone %}
                             {{ company.yandex_rate_last_parse_at|default:'Нет данных' }}
+                            {% endtimezone %}
                         </div>
                     </div>
                     <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
@@ -60,7 +63,9 @@
                         </h5>
                         Рейтинг 2Гис
                         <div class="bp5-text-muted text-xs">
+                            {% timezone user.profile.default_timezone %}
                             {{ company.gis_rate_last_parse_at|default:'Нет данных' }}
+                            {% endtimezone %}
                         </div>
                     </div>
                     <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
@@ -70,7 +75,9 @@
                         </h5>
                         Рейтинг Google
                         <div class="bp5-text-muted text-xs">
+                            {% timezone user.profile.default_timezone %}
                             {{ company.google_rate_last_parse_at|default:'Нет данных' }}
+                            {% endtimezone %}
                         </div>
                     </div>
                     <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">

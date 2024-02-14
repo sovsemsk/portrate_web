@@ -1,6 +1,5 @@
 import datetime
 
-from celery import states
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_init, post_save
@@ -17,6 +16,8 @@ class Profile(models.Model):
 
     class DefaultTimezone(models.TextChoices):
         UTC = "UTC", "UTC"
+        Europe_Moscow = "Europe/Moscow", "Москва"
+        Asia_Yekaterinburg = "Asia/Yekaterinburg", "Екатеринбург"
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
@@ -25,8 +26,8 @@ class Profile(models.Model):
     telegram_id = models.CharField(blank=True, null=True, verbose_name="telegram ID")
 
     default_timezone = models.CharField(
-        blank=True,
-        null=True,
+        blank=False,
+        null=False,
         choices=DefaultTimezone.choices,
         default=DefaultTimezone.UTC,
         verbose_name="Временная зона по умолчанию",

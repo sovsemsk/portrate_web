@@ -1,6 +1,7 @@
 {% extends 'dashboard/base.html' %}
 
 {% load static %}
+{% load tz %}
 
 {% block content %}
 <!--  Название  -->
@@ -40,7 +41,9 @@
                         </h5>
                         Яндекс
                         <div class="bp5-text-muted text-xs">
+                            {% timezone user.profile.default_timezone %}
                             {{ company.yandex_rate_last_parse_at|default:'Нет данных' }}
+                            {% endtimezone %}
                         </div>
                     </div>
                     <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
@@ -50,7 +53,9 @@
                         </h5>
                         2Гис
                         <div class="bp5-text-muted text-xs">
+                            {% timezone user.profile.default_timezone %}
                             {{ company.gis_rate_last_parse_at|default:'Нет данных' }}
+                            {% endtimezone %}
                         </div>
                     </div>
                     <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
@@ -60,7 +65,9 @@
                         </h5>
                         Google
                         <div class="bp5-text-muted text-xs">
+                            {% timezone user.profile.default_timezone %}
                             {{ company.google_rate_last_parse_at|default:'Нет данных' }}
+                            {% endtimezone %}
                         </div>
                     </div>
                     <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
@@ -70,7 +77,9 @@
                         </h5>
                         Mapsme
                         <div class="bp5-text-muted text-xs">
+                            {% timezone user.profile.default_timezone %}
                             {{ company.mapsme_rate_last_parse_at|default:'Нет данных' }}
+                            {% endtimezone %}
                         </div>
                     </div>
                 </div>
@@ -85,7 +94,9 @@
                         </h5>
                         Dikidi
                         <div class="bp5-text-muted text-xs">
+                            {% timezone user.profile.default_timezone %}
                             {{ company.dikidi_rate_last_parse_at|default:'Нет данных' }}
+                            {% endtimezone %}
                         </div>
                     </div>
                     <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
@@ -95,7 +106,9 @@
                         </h5>
                         Рестоклуб
                         <div class="bp5-text-muted text-xs">
+                            {% timezone user.profile.default_timezone %}
                             {{ company.restoclub_rate_last_parse_at|default:'Нет данных' }}
+                            {% endtimezone %}
                         </div>
                     </div>
                     <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
@@ -105,7 +118,9 @@
                         </h5>
                         Tripadvisor
                         <div class="bp5-text-muted text-xs">
+                            {% timezone user.profile.default_timezone %}
                             {{ company.tripadvisor_rate_last_parse_at|default:'Нет данных' }}
+                            {% endtimezone %}
                         </div>
                     </div>
                     <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
@@ -115,7 +130,9 @@
                         </h5>
                         Продокторов
                         <div class="bp5-text-muted text-xs">
+                            {% timezone user.profile.default_timezone %}
                             {{ company.prodoctorov_rate_last_parse_at|default:'Нет данных' }}
+                            {% endtimezone %}
                         </div>
                     </div>
                 </div>
@@ -129,7 +146,9 @@
                         </h5>
                         Zoon
                         <div class="bp5-text-muted text-xs">
+                            {% timezone user.profile.default_timezone %}
                             {{ company.zoon_rate_last_parse_at|default:'Нет данных' }}
+                            {% endtimezone %}
                         </div>
                     </div>
                     <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
@@ -139,7 +158,9 @@
                         </h5>
                         Flamp
                         <div class="bp5-text-muted text-xs">
+                            {% timezone user.profile.default_timezone %}
                             {{ company.flamp_rate_last_parse_at|default:'Нет данных' }}
+                            {% endtimezone %}
                         </div>
                     </div>
                     <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
@@ -149,7 +170,9 @@
                         </h5>
                         Отзовик
                         <div class="bp5-text-muted text-xs">
+                            {% timezone user.profile.default_timezone %}
                             {{ company.otzovik_rate_last_parse_at|default:'Нет данных' }}
+                            {% endtimezone %}
                         </div>
                     </div>
                     <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
@@ -159,7 +182,9 @@
                         </h5>
                         Irecommend
                         <div class="bp5-text-muted text-xs">
+                            {% timezone user.profile.default_timezone %}
                             {{ company.irecommend_rate_last_parse_at|default:'Нет данных' }}
+                            {% endtimezone %}
                         </div>
                     </div>
                 </div>

@@ -1,6 +1,8 @@
 {% extends 'dashboard/base.html' %}
+
 {% load static %}
 {% load extensions %}
+{% load tz %}
 
 {% block content %}
 <!--  Название  -->
@@ -37,7 +39,9 @@
                 </h5>
                 Яндекс
                 <div class="bp5-text-muted text-xs">
+                    {% timezone user.profile.default_timezone %}
                     {{ company.yandex_reviews_last_parse_at|default:'Нет данных' }}
+                    {% endtimezone %}
                 </div>
             </div>
             <div class="bp5-elevation-2 bp5-callout bp5-callout-has-body-content bp5-callout-icon bg-white">
@@ -53,7 +57,9 @@
                 </h5>
                 2Гис
                 <div class="bp5-text-muted text-xs">
+                    {% timezone user.profile.default_timezone %}
                     {{ company.gis_reviews_last_parse_at|default:'Нет данных' }}
+                    {% endtimezone %}
                 </div>
             </div>
             <div class="bp5-elevation-2 bp5-callout bp5-callout-has-body-content bp5-callout-icon bg-white">
@@ -69,7 +75,9 @@
                 </h5>
                 Google
                 <div class="bp5-text-muted text-xs">
+                    {% timezone user.profile.default_timezone %}
                     {{ company.google_rate_last_parse_at|default:'Нет данных' }}
+                    {% endtimezone %}
                 </div>
             </div>
             <div class="bp5-elevation-2 bp5-callout bp5-callout-has-body-content bp5-callout-icon bg-white">
@@ -85,7 +93,9 @@
                 </h5>
                 Mapsme
                 <div class="bp5-text-muted text-xs">
+                    {% timezone user.profile.default_timezone %}
                     {{ company.mapsme_rate_last_parse_at|default:'Нет данных' }}
+                    {% endtimezone %}
                 </div>
             </div>
         </div>

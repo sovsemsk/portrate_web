@@ -1,5 +1,6 @@
 {% extends 'dashboard/base.html' %}
 {% load static %}
+{% load tz %}
 
 {% block content %}
 <h3 class="bp5-heading pb-2">Оповещения</h3>
@@ -25,11 +26,14 @@
     
     <!-- Оповещения -->
     <div class="grid gap-2">
+
         {% for notification in notification_list %}
         <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-elevation-2 bg-white">
             <span aria-hidden="true" class="bp5-icon bp5-icon-issue"></span>
             <h5 class="bp5-heading">
-                {{notification.created_at}}
+                {% timezone user.profile.default_timezone %}
+                {{ notification.created_at }}
+                {% endtimezone %}
             </h5>
             <p class="pb-2">
                 {{ notification.text }}
