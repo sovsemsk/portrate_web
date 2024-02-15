@@ -5,7 +5,6 @@
 <h3 class="bp5-heading pb-2">Настройки оповещений</h3>
 
 <div class="grid gap-4">
-
     <!-- Тулбар -->
     <div class="flex gap-2">
         {% if request.user.profile.telegram_id %}
@@ -26,13 +25,11 @@
             <span aria-hidden="true" class="bp5-icon bp5-icon-tick"></span>
         </button>
     </div>
-
     <div class="grid grid-cols-12 gap-2">
         <!-- Настройки -->
         <div class="col-span-9">
             <form class="grid gap-2" action="" id="pref-form" method="post" novalidate>
                 {% csrf_token %}
-
                 <div class="bp5-section bp5-card bp5-elevation-2">
                     <div class="bp5-section-header">
                         <div class="bp5-section-header-left">
@@ -99,7 +96,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="bp5-section bp5-card bp5-elevation-2">
                     <div class="bp5-section-header">
                         <div class="bp5-section-header-left">
@@ -127,10 +123,9 @@
                             {% elif form.can_notify_at_end.errors %}
                             <div class="bp5-form-helper-text text-[#ac2f33]">Время рассылки обязательно</div>
                             {% endif %}
-                        </div>      
+                        </div>
                     </div>
                 </div>
-
                 <div class="bp5-section bp5-card bp5-elevation-2">
                     <div class="bp5-section-header">
                         <div class="bp5-section-header-left">
@@ -143,39 +138,23 @@
                     <div class="bp5-section-card bp5-padded">
                         <div class="bp5-form-group">
                             <label class="bp5-label">Telegram ID</label>
-                            <input class="bp5-input max-w-sm"
-                                    type="text" 
-                                    value="{{ request.user.profile.telegram_id|default:'Telegram не привязан' }}" 
-                                    disabled
-                            />
+                            <input class="bp5-input max-w-sm" type="text" value="{{ request.user.profile.telegram_id|default:'Telegram не привязан' }}" disabled/>
                         </div>
                         <div class="bp5-form-group">
                             <label class="bp5-label">Личный API Ключ</label>
-                            <input class="bp5-input max-w-sm"
-                                    type="password" 
-                                    value="{{ request.user.profile.api_secret }}" 
-                                    disabled
-                            />
+                            <input class="bp5-input max-w-sm" type="password" value="{{ request.user.profile.api_secret }}" disabled/>
                         </div>
                     </div>
                 </div>
             </form>
         </div>
-
         <!-- Меню -->
         <div class="col-span-3">
             {% include 'dashboard/_pref_tabs.html' %}
         </div>
     </div>
 </div>
-
-
-
-</div>
-
-
 {% endblock %}
-
 
 {% block right %}
 {% endblock %}

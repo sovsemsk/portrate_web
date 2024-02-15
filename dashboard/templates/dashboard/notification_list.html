@@ -21,7 +21,7 @@
         </a>
         {% endif %}
         <div class="bp5-divider"></div>
-        <a class="bp5-button bp5-intent-warning" href="{% url 'dashboard_pref' %}">Настройки</a>
+        <a class="bp5-button bp5-intent-warning" href="{% url 'pref' %}">Настройки</a>
     </div>
     
     <!-- Оповещения -->
@@ -44,6 +44,8 @@
                 <span class="bp5-tag bp5-minimal bp5-intent-danger bp5-round">Негативный отзыв в Яндекс Карты</span>
                 {% elif notification.initiator == 'GIS_NEGATIVE_REVIEW' %}
                 <span class="bp5-tag bp5-minimal bp5-intent-danger bp5-round">Негативный отзыв в 2Гис Карты</span>
+                {% elif notification.initiator == 'GOOGLE_NEGATIVE_REVIEW' %}
+                <span class="bp5-tag bp5-minimal bp5-intent-danger bp5-round">Негативный отзыв в Google Карты</span>
                 {% elif notification.initiator == 'PORTRATE_NEGATIVE_MESSAGE' %}
                 <span class="bp5-tag bp5-minimal bp5-intent-danger bp5-round">Негативное сообщение в Портрет</span>
                 {% endif %}

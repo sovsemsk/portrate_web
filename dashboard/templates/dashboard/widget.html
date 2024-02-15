@@ -1,0 +1,69 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block content %}
+<!--  Название  -->
+{% include 'dashboard/_company_head.html' %}
+
+<div class="grid gap-4">
+    <!--  Табы  -->
+    {% include 'dashboard/_company_tabs.html' %}
+
+    <!-- Тулбар -->
+    <div class="flex gap-2">
+        <button type="button" class="bp5-button bp5-intent-warning">
+            <span class="bp5-button-text">Скопировать код виджета</span>
+            <span aria-hidden="true" class="bp5-icon bp5-icon-code"></span>
+        </button>
+    </div>
+
+    <div class="grid grid-cols-12 gap-2">
+        <!-- Настройки -->
+        <div class="col-span-9">
+            <div class="bp5-section bp5-card bp5-elevation-2 col-span-4">
+                <div class="bp5-section-card bp5-padded relative">
+                    <span class="left-5 right-5 top-12 bottom-12 hidden"></span>
+                    <img class="w-full" src="{% static 'frame.svg' %}">
+                    <img class="absolute {{ position_class }}" src="{% static theme_svg %}">
+                </div>
+            </div>
+        </div>
+
+        <!-- Меню -->
+        <div class="col-span-3">
+            <ul class="bp5-menu bp5-elevation-1 bg-[rgba(143,153,168,.15)]">
+                <li class="bp5-menu-header">
+                    <h6 class="bp5-heading">Вариант</h6>
+                </li>
+                <a class="bp5-menu-item {% if theme == 'light' %}bp5-active{% endif %}" href="{% url 'widget' company.id %}?theme=light&position={{position}}">
+                    <div class="bp5-fill">Светлый</div>
+                    <span class="bp5-icon bp5-icon-flash bp5-submenu-icon"></span>
+                </a>
+                <a class="bp5-menu-item {% if theme == 'dark' %}bp5-active{% endif %}" href="{% url 'widget' company.id %}?theme=dark&position={{position}}">
+                    <div class="bp5-fill">Темный</div>
+                    <span class="bp5-icon bp5-icon-moon bp5-submenu-icon"></span>
+                </a>
+                <li class="bp5-menu-header">
+                    <h6 class="bp5-heading">Расположение</h6>
+                </li>
+                <a class="bp5-menu-item {% if position == 'lb' %}bp5-active{% endif %}" href="{% url 'widget' company.id %}?theme={{theme}}&position=lb">
+                    <div class="bp5-fill">Слева снизу</div>
+                    <span class="bp5-icon bp5-icon-arrow-bottom-left bp5-submenu-icon"></span>
+                </a>
+                <a class="bp5-menu-item {% if position == 'lt' %}bp5-active{% endif %}" href="{% url 'widget' company.id %}?theme={{theme}}&position=lt">
+                    <div class="bp5-fill">Слева сверху</div>
+                    <span class="bp5-icon bp5-icon-arrow-top-left bp5-submenu-icon"></span>
+                </a>
+                <a class="bp5-menu-item {% if position == 'rt' %}bp5-active{% endif %}" href="{% url 'widget' company.id %}?theme={{theme}}&position=rt">
+                    <div class="bp5-fill">Справа сверху</div>
+                    <span class="bp5-icon bp5-icon-arrow-top-right bp5-submenu-icon"></span>
+                </a>
+                <a class="bp5-menu-item {% if position == 'rb' %}bp5-active{% endif %}" href="{% url 'widget' company.id %}?theme={{theme}}&position=rb">
+                    <div class="bp5-fill">Справа снизу</div>
+                    <span class="bp5-icon bp5-icon-arrow-bottom-right bp5-submenu-icon"></span>
+                </a>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

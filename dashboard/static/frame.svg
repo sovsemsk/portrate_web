@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="650px" height="450px" viewBox="0 0 650 450" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Frame</title>
+    <g id="Frame" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle" fill="#D8D8D8" x="0" y="0" width="650" height="450" rx="15"></rect>
+        <rect id="Rectangle" fill="#FFFFFF" x="175" y="9" width="300" height="16" rx="2"></rect>
+        <circle id="Oval" fill="#FF0000" cx="20.5" cy="17.5" r="4.5"></circle>
+        <circle id="Oval" fill="#FFB000" cx="32.5" cy="17.5" r="4.5"></circle>
+        <circle id="Oval" fill="#2AB142" cx="44.5" cy="17.5" r="4.5"></circle>
+    </g>
+</svg>

@@ -16,7 +16,7 @@ class CompanyListView(ListView):
     template_name = "dashboard/company_list.html"
     model = Company
     context_object_name = "company_list"
-    paginate_by = 15
+    paginate_by = 30
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
@@ -126,7 +126,7 @@ class ReviewListView(ListView):
     template_name = "dashboard/review_list.html"
     model = Review
     context_object_name = "review_list"
-    paginate_by = 15
+    paginate_by = 30
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
@@ -153,7 +153,7 @@ class MessageListView(ListView):
     template_name = "dashboard/message_list.html"
     model = NegativeMessage
     context_object_name = "message_list"
-    paginate_by = 15
+    paginate_by = 30
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
@@ -180,7 +180,7 @@ class NotificationListView(ListView):
     template_name = "dashboard/notification_list.html"
     model = Notification
     context_object_name = "notification_list"
-    paginate_by = 15
+    paginate_by = 30
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
@@ -201,28 +201,47 @@ class NotificationListView(ListView):
 @login_required
 @require_http_methods(["GET"])
 def qr(request, company_pk):
+    dark = bool(request.GET.get("dark", False))
+
     return render(
         request,
-        "dashboard/qr_list.html",
+        "dashboard/qr.html",
         {
             "company": get_object_or_404(Company, pk=company_pk),
             "nav": "company",
             "sub_nav": "qr",
-        },
+            "dark": dark
+        }
     )
 
 
 @login_required
 @require_http_methods(["GET"])
 def widget(request, company_pk):
+    theme = request.GET.get("theme", "light")
+    theme_svg = f"widget_{theme}.svg"
+    position = request.GET.get("position", "lb") # lb, lt, rt, rb
+    if position == "lb":
+        position_class = "left-5 bottom-6"
+    elif position == "lt":
+        position_class = "left-5 top-12"
+    elif position == "rt":
+        position_class = "right-5 top-12"
+    elif position == "rb":
+        position_class = "right-5 bottom-6"
+
     return render(
         request,
-        "dashboard/widget_list.html",
+        "dashboard/widget.html",
         {
             "company": get_object_or_404(Company, pk=company_pk),
             "nav": "company",
             "sub_nav": "widget",
-        },
+            "theme": theme,
+            "theme_svg": theme_svg,
+            "position": position,
+            "position_class": position_class
+        }
     )
 
 
