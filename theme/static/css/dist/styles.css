@@ -9165,26 +9165,14 @@ a > .bp5-dark .bp5-tooltip .bp5-running-text code{
     position:relative !important;
   }.dashboard .-top-16{
     top:-4rem !important;
-  }.dashboard .left-0{
-    left:0px !important;
-  }.dashboard .left-5{
-    left:1.25rem !important;
-  }.dashboard .bottom-0{
-    bottom:0px !important;
-  }.dashboard .bottom-8{
-    bottom:2rem !important;
-  }.dashboard .bottom-5{
-    bottom:1.25rem !important;
   }.dashboard .bottom-6{
     bottom:1.5rem !important;
-  }.dashboard .top-10{
-    top:2.5rem !important;
-  }.dashboard .top-12{
-    top:3rem !important;
-  }.dashboard .bottom-12{
-    bottom:3rem !important;
+  }.dashboard .left-5{
+    left:1.25rem !important;
   }.dashboard .right-5{
     right:1.25rem !important;
+  }.dashboard .top-12{
+    top:3rem !important;
   }.dashboard .col-span-12{
     grid-column:span 12 / span 12 !important;
   }.dashboard .col-span-3{
@@ -9211,8 +9199,6 @@ a > .bp5-dark .bp5-tooltip .bp5-running-text code{
     margin-right:0.5rem !important;
   }.dashboard .mt-12{
     margin-top:3rem !important;
-  }.dashboard .mb-2{
-    margin-bottom:0.5rem !important;
   }.dashboard .block{
     display:block !important;
   }.dashboard .flex{
@@ -9243,12 +9229,10 @@ a > .bp5-dark .bp5-tooltip .bp5-running-text code{
     width:1rem !important;
   }.dashboard .w-8{
     width:2rem !important;
-  }.dashboard .w-full{
-    width:100% !important;
   }.dashboard .w-\[56rem\]{
     width:56rem !important;
-  }.dashboard .max-w-4xl{
-    max-width:56rem !important;
+  }.dashboard .w-full{
+    width:100% !important;
   }.dashboard .max-w-sm{
     max-width:24rem !important;
   }.dashboard .grid-cols-12{
@@ -9307,8 +9291,6 @@ a > .bp5-dark .bp5-tooltip .bp5-running-text code{
     background-color:rgb(255 255 255 / var(--tw-bg-opacity)) !important;
   }.dashboard .p-2{
     padding:0.5rem !important;
-  }.dashboard .p-4{
-    padding:1rem !important;
   }.dashboard .px-2{
     padding-left:0.5rem !important;
     padding-right:0.5rem !important;
@@ -9321,12 +9303,6 @@ a > .bp5-dark .bp5-tooltip .bp5-running-text code{
   }.dashboard .py-6{
     padding-top:1.5rem !important;
     padding-bottom:1.5rem !important;
-  }.dashboard .py-4{
-    padding-top:1rem !important;
-    padding-bottom:1rem !important;
-  }.dashboard .px-6{
-    padding-left:1.5rem !important;
-    padding-right:1.5rem !important;
   }.dashboard .pb-1{
     padding-bottom:0.25rem !important;
   }.dashboard .pb-2{
