@@ -19,11 +19,7 @@ def send_telegram_text_task(telegram_id, text):
 @shared_task(name="Парсинг карточек")
 def parse_cards(company_id):
     result = []
-
-    company = Company.objects.get(
-        id=company_id,
-        is_active=True
-    )
+    company = Company.objects.get(id=company_id, is_active=True)
 
     """ Яндекс карты """
     if company.is_yandex_reviews_download:

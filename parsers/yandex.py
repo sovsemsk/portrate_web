@@ -30,12 +30,12 @@ class YandexParser:
         time.sleep(5)
 
         try:
-            self.driver.find_element(By.CLASS_NAME, "business-summary-rating-badge-view__rating")
+            self.driver.find_element(By.CLASS_NAME, "orgpage-header-view__header")
             self.parse_rating()
             return ", ".join(self.result)
         except NoSuchElementException:
             self.close_page()
-            return "Yandex page not found"
+            return "Page not valid for YandexParser"
 
     def close_page(self):
         """ Закрытие страницы """
@@ -59,14 +59,15 @@ class YandexParser:
             rating_element = self.driver.find_element(By.CLASS_NAME, "business-summary-rating-badge-view__rating")
             rating = float(".".join(re.findall(r'\d+', rating_element.text)))
             self.company.yandex_rate = rating
-            self.company.yandex_rate_last_parse_at = datetime.now(timezone.utc)
-            self.company.save()
             self.result.append("Yandex rating parse success")
             self.parse_reviews()
 
         except NoSuchElementException:
             self.result.append("Yandex rating parse error")
             self.close_page()
+
+        self.company.yandex_rate_last_parse_at = datetime.now(timezone.utc)
+        self.company.save()
 
     def parse_reviews(self):
         """ Спарсить все отзывы """

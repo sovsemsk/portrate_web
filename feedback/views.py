@@ -5,17 +5,17 @@ from feedback.forms import NegativeMessageForm
 from resources.models import Company, Notification
 
 
-@require_http_methods(['GET'])
+@require_http_methods(["GET"])
 def rate(request, company_id):
     company = get_object_or_404(Company, id=company_id, is_active=True)
-    return render(request, 'feedback/rate.html', {'company': company})
+    return render(request, "feedback/rate.html", {"company": company})
 
 
-@require_http_methods(['GET', 'POST'])
+@require_http_methods(["GET", "POST"])
 def create(request, company_id):
     company = get_object_or_404(Company, id=company_id, is_active=True)
 
-    if request.method == 'POST':
+    if request.method == "POST":
         form = NegativeMessageForm(request.POST)
         form.instance.company = company
 
@@ -28,15 +28,15 @@ def create(request, company_id):
                 text=negative_message.text,
             )
 
-            return redirect(f'/@{company_id}')
+            return redirect(f"/@{company_id}")
 
     else:
         form = NegativeMessageForm()
 
-    return render(request, 'feedback/create.html', {'company': company, 'form': form})
+    return render(request, "feedback/create.html", {"company": company, "form": form})
 
 
-@require_http_methods(['GET'])
+@require_http_methods(["GET"])
 def request(request, company_id):
     company = get_object_or_404(Company, id=company_id, is_active=True)
-    return render(request, 'feedback/request.html', {'company': company})
+    return render(request, "feedback/request.html", {"company": company})

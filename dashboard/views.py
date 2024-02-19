@@ -221,6 +221,7 @@ def widget(request, company_pk):
     theme = request.GET.get("theme", "light")
     theme_svg = f"widget_{theme}.svg"
     position = request.GET.get("position", "lb") # lb, lt, rt, rb
+
     if position == "lb":
         position_class = "left-5 bottom-6"
     elif position == "lt":

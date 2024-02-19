@@ -33,7 +33,7 @@ class GoogleParser:
             return ", ".join(self.result)
         except NoSuchElementException:
             self.close_page()
-            return "Google page not found"
+            return "Page not valid for GoogleParser"
 
     def close_page(self):
         """ Закрытие страницы """
@@ -65,14 +65,15 @@ class GoogleParser:
             rating_element = self.driver.find_element(By.XPATH, ".//div[@class='jANrlb ']/div[@class='fontDisplayLarge']")
             rating = float(rating_element.text.replace(",", "."))
             self.company.google_rate = rating
-            self.company.google_rate_last_parse_at = datetime.now(timezone.utc)
-            self.company.save()
             self.result.append("Google rating parse success")
             self.parse_reviews()
 
         except NoSuchElementException:
             self.result.append("Google rating parse error")
             self.close_page()
+
+        self.company.google_rate_last_parse_at = datetime.now(timezone.utc)
+        self.company.save()
 
     def parse_reviews(self):
         """ Спарсить все отзывы """

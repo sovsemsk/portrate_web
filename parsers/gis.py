@@ -30,12 +30,12 @@ class GisParser:
         time.sleep(5)
 
         try:
-            self.driver.find_element(By.CLASS_NAME, "_y10azs")
+            self.driver.find_element(By.CLASS_NAME, "_tvxwjf")
             self.parse_rating()
             return ", ".join(self.result)
         except NoSuchElementException:
             self.close_page()
-            return "Gis page not found"
+            return "Page not valid for GisParser"
 
     def close_page(self):
         """ Закрытие страницы """
@@ -59,15 +59,15 @@ class GisParser:
             rating_element = self.driver.find_element(By.CLASS_NAME, "_y10azs")
             rating = float(rating_element.text)
             self.company.gis_rate = rating
-            self.company.gis_rate_last_parse_at = datetime.now(timezone.utc)
-            self.company.save()
-
             self.result.append("Gis rating parse success")
             self.parse_reviews()
 
         except NoSuchElementException:
             self.result.append("Gis rating parse error")
             self.close_page()
+
+        self.company.gis_rate_last_parse_at = datetime.now(timezone.utc)
+        self.company.save()
 
     def parse_reviews(self):
         """ Спарсить все отзывы """
