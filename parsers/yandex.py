@@ -59,7 +59,7 @@ class YandexParser:
             rating_element = self.driver.find_element(By.CLASS_NAME, "business-summary-rating-badge-view__rating")
             rating = float(".".join(re.findall(r'\d+', rating_element.text)))
             self.company.yandex_rate = rating
-            self.company.portrate_rate = (self.company.yandex_rate + self.company.portrate_rate + self.company.gis_rate) / 3
+            # self.company.portrate_rate = (self.company.yandex_rate + self.company.portrate_rate + self.company.gis_rate) / 3
             self.result.append("Yandex rating parse success")
             self.parse_reviews()
 

@@ -65,7 +65,7 @@ class GoogleParser:
             rating_element = self.driver.find_element(By.XPATH, ".//div[@class='jANrlb ']/div[@class='fontDisplayLarge']")
             rating = float(rating_element.text.replace(",", "."))
             self.company.google_rate = rating
-            self.company.portrate_rate = (self.company.yandex_rate + self.company.portrate_rate + self.company.gis_rate) / 3
+            # self.company.portrate_rate = (self.company.yandex_rate + self.company.portrate_rate + self.company.gis_rate) / 3
             self.result.append("Google rating parse success")
             self.parse_reviews()
 
