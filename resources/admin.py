@@ -5,7 +5,7 @@ from .models import Company, NegativeMessage, Notification, Review
 
 @admin.register(Company)
 class CompanyAdmin(admin.ModelAdmin):
-    list_display = ['name', 'yandex_rate', 'gis_rate', 'google_rate',]
+    list_display = ['name', 'portrate_rate', 'yandex_rate', 'gis_rate', 'google_rate',]
     readonly_fields = [
         'portrate_rate',
         'portrate_negative_count',

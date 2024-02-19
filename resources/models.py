@@ -399,6 +399,7 @@ def review_post_save_signal(sender, instance, created, **kwargs):
         instance.company.google_positive_count = instance.company.review_set.filter(service=Review.Service.GOOGLE, rate__gt=3).count()
         instance.company.total_negative_count = instance.company.review_set.filter(rate__lt=4).count()
         instance.company.total_positive_count = instance.company.review_set.filter(rate__gt=3).count()
+        instance.company.portrate_rate = (instance.company.yandex_rate + instance.company.portrate_rate + instance.company.gis_rate) / 3
         instance.company.save()
 
 
