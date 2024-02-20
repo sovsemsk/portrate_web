@@ -8,7 +8,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.http import require_http_methods
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
-from dashboard.forms import CompanyForm, ProfileForm
+from dashboard.forms import CompanyForm, ProfileForm, ReviewForm
 from resources.models import Company, NegativeMessage, Notification, Review
 
 
@@ -96,7 +96,7 @@ class CompanyUpdateView(SuccessMessageMixin, UpdateView):
     context_object_name = "company"
     form_class = CompanyForm
     model = Company
-    success_message = "Настройки успешно сохранены"
+    success_message = "Настройки компании успешно сохранены"
     template_name = "dashboard/company_update.html"
 
     @method_decorator(login_required)
@@ -147,6 +147,37 @@ class ReviewListView(ListView):
             company__in=(company.id,),
             company__users__in=(self.request.user,)
         ).select_related("company").order_by("-created_at")
+
+
+class ReviewUpdateView(SuccessMessageMixin, UpdateView):
+    context_object_name = "review"
+    form_class = ReviewForm
+    model = Review
+    success_message = "Настройки отзыва успешно сохранены"
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(ReviewUpdateView, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["company"] = get_object_or_404(Company, pk=self.kwargs["company_pk"])
+        context["nav"] = "company"
+        context["sub_nav"] = "review"
+        return context
+
+    def get_queryset(self, **kwargs):
+        queryset = super().get_queryset(**kwargs)
+        company = get_object_or_404(Company, pk=self.kwargs["company_pk"])
+
+        queryset = queryset.filter(
+            company__in=(company.id,),
+            company__users__in=(self.request.user,)
+        )
+        return queryset
+
+    def get_success_url(self):
+        return reverse("review_list", kwargs={"company_pk": self.object.company.id})
 
 
 class MessageListView(ListView):

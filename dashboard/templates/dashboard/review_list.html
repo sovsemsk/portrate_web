@@ -120,7 +120,6 @@
                             <span aria-hidden="true" class="bp5-icon bp5-icon-star text-xs text-[#CCCCCC]"></span>
                             {% endfor %}
                             {% endwith %}
-
                         </div>
                     </div>
                 </div>
@@ -140,15 +139,22 @@
             <div class="bp5-section-card bp5-padded">
                 {{ review.text }}
             </div>
-            {% if review.answer %}
             <div class="bp5-section-card bp5-padded">
-                {{ review.answer }}
+                <form action="{% url 'review_update' company.id review.id %}" method="post">
+                    {% csrf_token %}
+                    {% if review.is_hidden %}
+                    <button type="submit" class="bp5-button bp5-small bp5-intent-warning">Показать в виджете</button>
+                    {% else %}
+                    <input name="is_hidden" type="hidden" value="true">
+                    <button type="submit" class="bp5-button bp5-small bp5-intent-warning">Скрыть из виджета</button>
+                    {% endif %}
+                </form>
             </div>
-            {% endif %}
         </div>
         {% endfor %}
     </div>
 
+    {{ formset }}
     <!-- Пагинация -->
     <div class="flex items-center justify-between">
         {% if page_obj.has_previous %}    

@@ -1,7 +1,10 @@
 from django import forms
 
 from extensions.models import Profile
-from resources.models import Company
+from resources.models import Company, Review
+
+
+# from django.forms import modelformset_factory
 
 
 class DateInput(forms.DateInput):
@@ -185,3 +188,18 @@ class CompanyForm(forms.ModelForm):
 
         if self.data and self.data.get("is_google_reviews_download"):
                 self.fields.get("google_parser_link").required = True
+
+
+class ReviewForm(forms.ModelForm):
+    is_hidden = forms.BooleanField(required=False)
+
+    class Meta:
+        model = Review
+        fields = ["is_hidden"]
+
+    # Конструктор формы
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+
+# ReviewFormSet = modelformset_factory(Review, form=ReviewForm)

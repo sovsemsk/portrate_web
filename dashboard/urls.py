@@ -8,6 +8,7 @@ urlpatterns = [
     path("company/<int:pk>", views.CompanyDetailView.as_view(), name="company_detail"),
     path("company/<int:pk>/update", views.CompanyUpdateView.as_view(), name="company_update"),
     path("company/<int:company_pk>/review", views.ReviewListView.as_view(), name="review_list"),
+    path("company/<int:company_pk>/review/<int:pk>/update", views.ReviewUpdateView.as_view(), name="review_update"),
     path("company/<int:company_pk>/message", views.MessageListView.as_view(), name="message_list"),
     path("companies/<int:company_pk>/qr", views.qr, name="qr"),
     path("companies/<int:company_pk>/widget", views.widget, name="widget"),

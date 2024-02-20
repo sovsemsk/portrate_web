@@ -309,6 +309,8 @@ class Review(models.Model):
 
     service = models.CharField(choices=Service.choices, default=Service.YANDEX, verbose_name="сервис")
 
+    is_hidden = models.BooleanField(verbose_name="скрыто в виджете", default=False)
+
     created_at = models.DateField(verbose_name="дата создания")
 
     remote_id = models.CharField(blank=True, null=True, verbose_name="ID (агрегация)")

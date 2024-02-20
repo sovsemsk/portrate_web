@@ -59,7 +59,6 @@ class GisParser:
             rating_element = self.driver.find_element(By.CLASS_NAME, "_y10azs")
             rating = float(rating_element.text)
             self.company.gis_rate = rating
-            # self.company.portrate_rate = (self.company.yandex_rate + self.company.portrate_rate + self.company.gis_rate) / 3
             self.result.append("Gis rating parse success")
             self.parse_reviews()
 
