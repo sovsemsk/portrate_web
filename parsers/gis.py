@@ -158,7 +158,7 @@ class GisParser:
     def format_review_date(date_string):
         """ Приводим дату в формат Timestamp """
         if date_string == "сегодня":
-            return datetime.now()
+            return datetime.now().timestamp()
         else:
             splitted_date_string = date_string.replace(", отредактирован", "").split()
             splitted_date_string[1] = splitted_date_string[1][:3]
