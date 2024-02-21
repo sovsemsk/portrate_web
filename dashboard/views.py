@@ -1,3 +1,4 @@
+from chartjs.views.lines import BaseLineChartView
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -302,3 +303,20 @@ def pref(request):
             "sub_nav": "notification",
         },
     )
+
+
+class LineChartJSONView(BaseLineChartView):
+    def get_labels(self):
+        """Return 7 labels for the x-axis."""
+        return ["January", "February", "March", "April", "May", "June", "July"]
+
+    def get_providers(self):
+        """Return names of datasets."""
+        return ["Яндекс", "2Гис", "Google"]
+
+    def get_data(self):
+        """Return 3 datasets to plot."""
+
+        return [[4.1, 4.2, 4.3, 4.4, 4.4, 4.7, 4.8],
+                [4.7, 4.6, 4.5, 4.4, 4.3, 4.1, 4.2],
+                [4.9, 5.0, 5.0, 4.9, 4.8, 4.7, 4.6]]

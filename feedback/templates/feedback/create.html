@@ -35,7 +35,7 @@
         {% endif %}
     </div>
 
-    <button class="bg-lime-600 active:bg-lime-700 py-2 px-4 rounded-lg text-center text-lg text-white w-full" href="{% url 'feedback_create' company_id=company.id %}" type="submit">Отправить</button>
+    <button class="bg-lime-600 active:bg-lime-700 py-2 px-4 rounded-lg text-center text-lg text-white w-full" href="{% url 'feedback_create' company_pk=company.id %}" type="submit">Отправить</button>
 </form>
 
 <script>

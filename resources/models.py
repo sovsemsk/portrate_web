@@ -102,6 +102,10 @@ class Company(models.Model):
 
     request_form_tags = models.JSONField(default=["Нагрубили", "Сделали не то", "Цена", "Плохое качество", "Долго"], verbose_name="Теги формы запроса отзыва")
 
+    request_form_success_head = models.TextField(default="Ваша успешно отправлена", verbose_name="Заголовок формы запроса отзыва (резулита отправки негатива)", )
+
+    request_form_success_text = models.TextField(default="В близжайшее время с вами свяжется администратор", verbose_name="Текст формы запроса отзыва (резулита отправки негатива)", )
+
     yandex_link = models.CharField(blank=True, null=True, verbose_name="ссылка Яндекс")
 
     gis_link = models.CharField(blank=True, null=True, verbose_name="ссылка 2Гис")
@@ -294,7 +298,7 @@ class NegativeMessage(models.Model):
         return self.phone
 
 
-# Отзыв
+# Отзыв=
 class Review(models.Model):
     class Meta:
         db_table = "resources_review"

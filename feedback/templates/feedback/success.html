@@ -1,0 +1,7 @@
+{% extends 'feedback/base.html' %}
+{% load static %}
+
+{% block content %}
+<h1 class="font-bold text-2xl text-center">{{ company.request_form_success_head }}</h1>
+<div class="text-center pb-4">{{ company.request_form_success_text }}</div>
+{% endblock %}

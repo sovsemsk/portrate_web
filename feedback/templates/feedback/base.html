@@ -12,16 +12,15 @@
     </head>
     <body class="dashboard feedback">
         <div class="mx-auto max-w-sm relative">
-
             <!-- Логотип-->
-            <a class="absolute -top-16 w-full" href="{% url 'feedback_rate' company_id=company.id %}">
-            {% if company.logo %}
+            <a class="absolute -top-16 w-full" href="{% url 'feedback_rate' company_pk=company.id %}">
+                {% if company.logo %}
                 <img class="h-24 mx-auto overflow-hidden rounded-lg shadow-black/10 shadow-xl w-24" src="{{ company.logo.url }}" alt="{{ company.name }}">
-            {% else %}
+                {% else %}
                 <div class="bg-orange-200 flex h-24 items-center mx-auto rounded-lg shadow-black/10 shadow-xl w-24">
                     <span class="material-symbols-outlined mx-auto text-6xl">storefront</span>
                 </div>
-            {% endif %}
+                {% endif %}
             </a>
 
             <div class="px-4">

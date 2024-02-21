@@ -190,6 +190,29 @@
                 </div>
             </div>
         </div>
+
+        <!--div class="bp5-section bp5-card bp5-elevation-2 col-span-4">
+            <div class="bp5-section-header">
+                <div class="bp5-section-header-left">
+                    <div>
+                        <h6 class="bp5-heading bp5-section-header-title">Динамика</h6>
+                        <div class="bp5-text-muted bp5-section-header-sub-title">динамика рейтинга в поисковых системах и классифаерах</div>
+                    </div>
+                </div>
+            </div>
+            <div class="bp5-section-card bp5-padded">
+                <canvas id="myChart" width="500" height="200"></canvas>
+            </div>
+        </div-->
     </div>
 </div>
+
+<!--script type="text/javascript">
+    $.get('{% url "line_chart_json" %}', function(data) {
+        var ctx = $("#myChart").get(0).getContext("2d");
+        new Chart(ctx, {
+            type: 'line', data: data
+        });
+    });
+</script-->
 {% endblock %}

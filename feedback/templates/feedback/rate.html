@@ -4,7 +4,7 @@
 {% block content %}
 <h1 class="font-bold text-2xl text-center">{{ company.request_form_home_head }}</h1>
 <div class="flex flex-col gap-1">
-    <a class="bg-lime-600 active:bg-lime-700 py-2 px-4 rounded-lg text-center text-lg text-white" href="{% url 'feedback_request' company_id=company.id %}">Все отлично</a>
-    <a class="bg-neutral-200 active:bg-neutral-300 py-2 px-4 rounded-lg text-center text-sm" href="{% url 'feedback_create' company_id=company.id %}">Есть претензия</a>
+    <a class="bg-lime-600 active:bg-lime-700 py-2 px-4 rounded-lg text-center text-lg text-white" href="{% url 'feedback_request' company_pk=company.id %}">Все отлично</a>
+    <a class="bg-neutral-200 active:bg-neutral-300 py-2 px-4 rounded-lg text-center text-sm" href="{% url 'feedback_create' company_pk=company.id %}">Есть претензия</a>
 </div>
 {% endblock %}

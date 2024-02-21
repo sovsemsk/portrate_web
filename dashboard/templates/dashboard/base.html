@@ -9,6 +9,8 @@
     <meta name="theme-color" content="#000000">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="{% static 'jquery.min.js' %}"></script>
+    <script src="{% static 'chart.js' %}"></script>
     {% tailwind_css %}
 </head>
 
@@ -21,7 +23,6 @@
             </div>
             <a class="bp5-button bp5-minimal {% if nav == 'company' %} bp5-active{% endif %}" href="{% url 'company_list' %}">Компании</a>
             <a class="bp5-button bp5-minimal" href="https://portrate.io">Помощь</a>
-            <!-- a class="bp5-button bp5-minimal" href="https://portrate.io">Тарифы</a -->
         </div>
         <div class="bp5-navbar-group bp5-align-right">
             <!--

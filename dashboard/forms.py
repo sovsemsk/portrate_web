@@ -4,9 +4,6 @@ from extensions.models import Profile
 from resources.models import Company, Review
 
 
-# from django.forms import modelformset_factory
-
-
 class DateInput(forms.DateInput):
     input_type = "date"
 
@@ -202,4 +199,3 @@ class ReviewForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
 
-# ReviewFormSet = modelformset_factory(Review, form=ReviewForm)

@@ -153,7 +153,9 @@ class CompanyAdmin(admin.ModelAdmin):
                     "request_form_positive_head",
                     "request_form_negative_head",
                     "request_form_negative_text",
-                    "request_form_tags",
+                    "request_form_success_head",
+                    "request_form_success_text",
+                    "request_form_tags"
                 ],
             },
         ),
