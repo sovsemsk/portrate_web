@@ -7,6 +7,8 @@ from .models import Company, NegativeMessage, Notification, Review
 class CompanyAdmin(admin.ModelAdmin):
     list_display = ["name", "portrate_rate", "yandex_rate", "gis_rate", "google_rate",]
     readonly_fields = [
+        "api_secret",
+
         "portrate_rate",
         "portrate_negative_count",
 
@@ -93,6 +95,7 @@ class CompanyAdmin(admin.ModelAdmin):
                 "classes": ["collapse"],
                 "fields": [
                     "is_active",
+                    "api_secret",
                     "users",
                     "yandex_parser_link",
                     "is_yandex_reviews_upload",

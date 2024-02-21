@@ -1,7 +1,9 @@
 from django.contrib.auth.models import User
 from django.db import models
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, post_init
 from django.dispatch import receiver
+from django.utils.crypto import get_random_string
+
 
 # Компания
 class Company(models.Model):
@@ -12,6 +14,8 @@ class Company(models.Model):
 
     # Настройки
     is_active = models.BooleanField(default=False, verbose_name="Активно?")
+
+    api_secret = models.CharField(verbose_name="API ключ", blank=True, null=True)
 
     yandex_parser_link = models.CharField(blank=True, null=True, verbose_name="Ссылка на страницу с отзывами Яндекс")
 
@@ -102,7 +106,7 @@ class Company(models.Model):
 
     request_form_tags = models.JSONField(default=["Нагрубили", "Сделали не то", "Цена", "Плохое качество", "Долго"], verbose_name="Теги формы запроса отзыва")
 
-    request_form_success_head = models.TextField(default="Ваша успешно отправлена", verbose_name="Заголовок формы запроса отзыва (резулита отправки негатива)", )
+    request_form_success_head = models.TextField(default="Ваша претензия отправлена", verbose_name="Заголовок формы запроса отзыва (резулита отправки негатива)", )
 
     request_form_success_text = models.TextField(default="В близжайшее время с вами свяжется администратор", verbose_name="Текст формы запроса отзыва (резулита отправки негатива)", )
 
@@ -383,6 +387,14 @@ class Notification(models.Model):
 
     def __str__(self):
         return str(self.text)
+
+
+# Сигналы модели Company
+@receiver(post_init, sender=Company)
+def init_api_secret_signal(sender, instance, **kwargs):
+    if not instance.api_secret:
+        instance.api_secret = get_random_string(length=8)
+
 
 # Сигналы модели NegativeMessage
 @receiver(post_save, sender=NegativeMessage)

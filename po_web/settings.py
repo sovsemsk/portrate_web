@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     "extensions.apps.ExtensionsConfig",
     "resources.apps.ResourcesConfig",
     "feedback.apps.FeedbackConfig",
+    "widget.apps.WidgetConfig",
     "dashboard.apps.DashboardConfig",
 ]
 

@@ -104,5 +104,4 @@ def init_api_secret_signal(sender, instance, **kwargs):
 # Сигналы модели TaskResult
 @receiver(post_init, sender=TaskResult)
 def task_result_post_save_signal(sender, instance, **kwargs):
-    # if instance.status == states.ALL_STATES.SUCCESS:
-    print(instance.status)
+    pass
