@@ -15,7 +15,7 @@ class Company(models.Model):
     # Настройки
     is_active = models.BooleanField(default=False, verbose_name="Активно?")
 
-    api_secret = models.CharField(verbose_name="API ключ", blank=True, null=True)
+    api_secret = models.CharField(verbose_name="API ключ")
 
     yandex_parser_link = models.CharField(blank=True, null=True, verbose_name="Ссылка на страницу с отзывами Яндекс")
 
