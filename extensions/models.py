@@ -21,7 +21,7 @@ class Profile(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
-    api_secret = models.CharField(verbose_name="API ключ")
+    api_secret = models.CharField(verbose_name="API ключ", db_index=True)
 
     telegram_id = models.CharField(blank=True, null=True, verbose_name="telegram ID")
 
