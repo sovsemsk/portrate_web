@@ -33,30 +33,30 @@
                 <li class="bp5-menu-header">
                     <h6 class="bp5-heading">Вариант</h6>
                 </li>
-                <a class="bp5-menu-item {% if theme == 'light' %}bp5-active{% endif %}" href="{% url 'widget' company.id %}?theme=light&position={{position}}">
+                <a class="bp5-menu-item {% if theme == 'light' %}bp5-active{% endif %}" href="{% url 'rate_widget' company.id %}?theme=light&position={{position}}">
                     <div class="bp5-fill">Светлый</div>
                     <span class="bp5-icon bp5-icon-flash bp5-submenu-icon"></span>
                 </a>
-                <a class="bp5-menu-item {% if theme == 'dark' %}bp5-active{% endif %}" href="{% url 'widget' company.id %}?theme=dark&position={{position}}">
+                <a class="bp5-menu-item {% if theme == 'dark' %}bp5-active{% endif %}" href="{% url 'rate_widget' company.id %}?theme=dark&position={{position}}">
                     <div class="bp5-fill">Темный</div>
                     <span class="bp5-icon bp5-icon-moon bp5-submenu-icon"></span>
                 </a>
                 <li class="bp5-menu-header">
                     <h6 class="bp5-heading">Расположение</h6>
                 </li>
-                <a class="bp5-menu-item {% if position == 'lb' %}bp5-active{% endif %}" href="{% url 'widget' company.id %}?theme={{theme}}&position=lb">
+                <a class="bp5-menu-item {% if position == 'lb' %}bp5-active{% endif %}" href="{% url 'rate_widget' company.id %}?theme={{theme}}&position=lb">
                     <div class="bp5-fill">Слева снизу</div>
                     <span class="bp5-icon bp5-icon-arrow-bottom-left bp5-submenu-icon"></span>
                 </a>
-                <a class="bp5-menu-item {% if position == 'lt' %}bp5-active{% endif %}" href="{% url 'widget' company.id %}?theme={{theme}}&position=lt">
+                <a class="bp5-menu-item {% if position == 'lt' %}bp5-active{% endif %}" href="{% url 'rate_widget' company.id %}?theme={{theme}}&position=lt">
                     <div class="bp5-fill">Слева сверху</div>
                     <span class="bp5-icon bp5-icon-arrow-top-left bp5-submenu-icon"></span>
                 </a>
-                <a class="bp5-menu-item {% if position == 'rt' %}bp5-active{% endif %}" href="{% url 'widget' company.id %}?theme={{theme}}&position=rt">
+                <a class="bp5-menu-item {% if position == 'rt' %}bp5-active{% endif %}" href="{% url 'rate_widget' company.id %}?theme={{theme}}&position=rt">
                     <div class="bp5-fill">Справа сверху</div>
                     <span class="bp5-icon bp5-icon-arrow-top-right bp5-submenu-icon"></span>
                 </a>
-                <a class="bp5-menu-item {% if position == 'rb' %}bp5-active{% endif %}" href="{% url 'widget' company.id %}?theme={{theme}}&position=rb">
+                <a class="bp5-menu-item {% if position == 'rb' %}bp5-active{% endif %}" href="{% url 'rate_widget' company.id %}?theme={{theme}}&position=rb">
                     <div class="bp5-fill">Справа снизу</div>
                     <span class="bp5-icon bp5-icon-arrow-bottom-right bp5-submenu-icon"></span>
                 </a>

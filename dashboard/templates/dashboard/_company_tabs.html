@@ -9,10 +9,8 @@
         <a class="bp5-tab" {% if sub_nav == 'message' %}aria-selected="true"{% endif %} href="{% url 'message_list' company.id %}">
             Негативные сообщения <span class="bp5-tag bp5-minimal bp5-tab-tag"><span class="bp5-text-overflow-ellipsis bp5-fill">{{ company.portrate_negative_count|default:'0' }}</span></span>
         </a>
-        <li class="bp5-tab" aria-disabled="true" role="tab">
-            Рассылки <span class="bp5-tag bp5-minimal bp5-tab-tag"><span class="bp5-text-overflow-ellipsis bp5-fill">Скоро</span></span>
-        </li>
         <a class="bp5-tab" {% if sub_nav == 'qr' %}aria-selected="true"{% endif %} href="{% url 'qr' company.id %}">QR код</a>
-        <a class="bp5-tab" {% if sub_nav == 'widget' %}aria-selected="true"{% endif %} href="{% url 'widget' company.id %}">Виджет</a>
+        <a class="bp5-tab" {% if sub_nav == 'rate_widget' %}aria-selected="true"{% endif %} href="{% url 'rate_widget' company.id %}">Виджет рейтинга</a>
+        <a class="bp5-tab" {% if sub_nav == 'reviews_widget' %}aria-selected="true"{% endif %} href="{% url 'reviews_widget' company.id %}">Виджет отзывов</a>
     </ul>
 </div>

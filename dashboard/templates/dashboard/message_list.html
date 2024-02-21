@@ -1,5 +1,6 @@
 {% extends 'dashboard/base.html' %}
 {% load static %}
+{% load tz %}
 {% load extensions %}
 
 {% block content %}
@@ -27,7 +28,11 @@
             <div class="bp5-section-header">
                 <div class="bp5-section-header-left">
                     <div>
-                        <h6 class="bp5-heading bp5-section-header-title">{{message.created_at}}</h6>
+                        <h6 class="bp5-heading bp5-section-header-title">
+                            {% timezone user.profile.default_timezone %}
+                            {{message.created_at}}
+                            {% endtimezone %}
+                        </h6>
                         <div class="bp5-text-muted bp5-section-header-sub-title">{{message.phone}}</div>
                     </div>
                 </div>

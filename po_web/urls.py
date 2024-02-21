@@ -15,7 +15,9 @@ urlpatterns = [
     # Автообновлние
     path("__reload__/", include("django_browser_reload.urls")),
     path("__debug__/", include("debug_toolbar.urls")),
+    # path(r"^i18n/", include("django.conf.urls.i18n"))
 ]
+
 
 if settings.DEBUG:
     urlpatterns += static(

@@ -1,7 +1,44 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.decorators.http import require_http_methods
+
+from resources.models import Company
 
 
 @require_http_methods(["GET"])
-def javascript(request):
-    return render(request, "widget/javascript.js", content_type="application/javascript")
+def javascript(request, company_api_secret):
+    company = get_object_or_404(Company, api_secret=company_api_secret, is_active=True)
+    theme = request.GET.get("theme", "light")
+    position = request.GET.get("position", "lb") # lb, lt, rt, rb
+
+    return render(
+        request,
+        "widget/javascript.js",
+        {
+            "company": company,
+            "theme": theme,
+            "position": position
+        },
+        content_type="application/javascript"
+    )
+
+
+@require_http_methods(["GET"])
+def rate(request, company_api_secret):
+    company = get_object_or_404(Company, api_secret=company_api_secret, is_active=True)
+    # company_stars = (5.0 / 100) * float(company.portrate_rate)
+    company_stars = int((float(company.portrate_rate) / 5.0) * 100)
+    company_reviews_count = company.total_positive_count + company.total_negative_count
+    theme = request.GET.get("theme", "light")
+
+    response = render(
+        request,
+        "widget/rate.html",
+        {
+            "company_rate": company.portrate_rate,
+            "company_stars": company_stars,
+            "company_reviews_count": company_reviews_count,
+            "theme": theme,
+        }
+    )
+    response["X-Frame-Options"] = "*"
+    return response

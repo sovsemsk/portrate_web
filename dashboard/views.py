@@ -107,7 +107,6 @@ class CompanyUpdateView(SuccessMessageMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         companies = Company.objects.filter(users__in=(self.request.user,)).order_by("name").all()
-
         context["nav"] = "pref"
         context["sub_nav"] = "update"
         context["host"] = settings.HOST
@@ -135,17 +134,15 @@ class ReviewListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["company"] = get_object_or_404(Company, pk=self.kwargs["company_pk"])
+        context["company"] = get_object_or_404(Company, pk=self.kwargs["company_pk"], users__in=(self.request.user,))
         context["nav"] = "company"
         context["sub_nav"] = "review"
         return context
 
     def get_queryset(self, **kwargs):
         queryset = super().get_queryset(**kwargs)
-        company = get_object_or_404(Company, pk=self.kwargs["company_pk"])
-
         return queryset.filter(
-            company__in=(company.id,),
+            company__in=(self.kwargs["company_pk"],),
             company__users__in=(self.request.user,)
         ).select_related("company").order_by("-created_at")
 
@@ -162,20 +159,17 @@ class ReviewUpdateView(SuccessMessageMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["company"] = get_object_or_404(Company, pk=self.kwargs["company_pk"])
+        context["company"] = get_object_or_404(Company, pk=self.kwargs["company_pk"], users__in=(self.request.user,))
         context["nav"] = "company"
         context["sub_nav"] = "review"
         return context
 
     def get_queryset(self, **kwargs):
         queryset = super().get_queryset(**kwargs)
-        company = get_object_or_404(Company, pk=self.kwargs["company_pk"])
-
-        queryset = queryset.filter(
-            company__in=(company.id,),
+        return queryset.filter(
+            company__in=(self.kwargs["company_pk"],),
             company__users__in=(self.request.user,)
         )
-        return queryset
 
     def get_success_url(self):
         return reverse("review_list", kwargs={"company_pk": self.object.company.id})
@@ -193,17 +187,15 @@ class MessageListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["company"] = get_object_or_404(Company, pk=self.kwargs["company_pk"])
+        context["company"] = get_object_or_404(Company, pk=self.kwargs["company_pk"], users__in=(self.request.user,))
         context["nav"] = "company"
         context["sub_nav"] = "message"
         return context
 
     def get_queryset(self, **kwargs):
         queryset = super().get_queryset(**kwargs)
-        company = get_object_or_404(Company, pk=self.kwargs["company_pk"])
-
         return queryset.filter(
-            company__in=(company.id,),
+            company__in=(self.kwargs["company_pk"],),
             company__users__in=(self.request.user,)
         ).select_related("company").order_by("-created_at")
 
@@ -249,23 +241,52 @@ def qr(request, company_pk):
 
 @login_required
 @require_http_methods(["GET"])
-def widget(request, company_pk):
+def rate_widget(request, company_pk):
+    company = get_object_or_404(Company, pk=company_pk, users__in=(request.user,))
+
     theme = request.GET.get("theme", "light")
     theme_svg = f"widget_{theme}.svg"
-    position = request.GET.get("position", "lb") # lb, lt, rt, rb
 
-    if position == "lb":
-        position_class = "left-5 bottom-6"
-    elif position == "lt":
-        position_class = "left-5 top-12"
-    elif position == "rt":
-        position_class = "right-5 top-12"
-    elif position == "rb":
-        position_class = "right-5 bottom-6"
+    position = request.GET.get("position", "lb")
+    position_class = {
+        "lb": "left-5 bottom-6",
+        "lt": "left-5 top-12",
+        "rt": "right-5 top-12",
+        "rb": "right-5 bottom-6"
+    }
 
     return render(
         request,
-        "dashboard/widget.html",
+        "dashboard/rate_widget.html",
+        {
+            "company": company,
+            "theme": theme,
+            "theme_svg": theme_svg,
+            "nav": "company",
+            "position": position,
+            "position_class": position_class[position],
+            "sub_nav": "rate_widget"
+        }
+    )
+
+
+@login_required
+@require_http_methods(["GET"])
+def reviews_widget(request, company_pk):
+    theme = request.GET.get("theme", "light")
+    theme_svg = f"widget_{theme}.svg"
+
+    position = request.GET.get("position", "lb") # lb, lt, rt, rb
+    position_class = {
+        "lb": "left-5 bottom-6",
+        "lt": "left-5 top-12",
+        "rt": "right-5 top-12",
+        "rb": "right-5 bottom-6"
+    }
+
+    return render(
+        request,
+        "dashboard/reviews_widget.html",
         {
             "company": get_object_or_404(Company, pk=company_pk),
             "nav": "company",
@@ -273,7 +294,7 @@ def widget(request, company_pk):
             "theme": theme,
             "theme_svg": theme_svg,
             "position": position,
-            "position_class": position_class
+            "position_class": position_class[position]
         }
     )
 
