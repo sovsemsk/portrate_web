@@ -21,5 +21,5 @@ def rate(request, company_api_secret):
             "theme": theme,
         }
     )
-    # response["X-Frame-Options"] = "ALLOW-FROM *"
+    response["X-Frame-Options"] = "*"
     return response
