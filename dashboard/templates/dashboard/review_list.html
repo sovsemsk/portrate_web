@@ -3,11 +3,8 @@
 {% load extensions %}
 {% load tz %}
 {% block content %}
-<!--  Название  -->
 {% include 'dashboard/_company_head.html' %}
-<!--  Табы  -->
 {% include 'dashboard/_company_tabs.html' %}
-<!-- Фильтр -->
 <div class="bp5-form-group">
     <div class="bp5-section bp5-card bp5-elevation-2">
         <div class="bp5-section-header">
@@ -72,7 +69,6 @@
         </div>
     </div>
 </div>
-<!-- Отзывы -->
 {% for review in review_list %}
 <div class="bp5-form-group">
     <div class="bp5-section bp5-card bp5-elevation-2">
@@ -88,7 +84,6 @@
                         <span aria-hidden="true" class="bp5-icon bp5-icon-star" style="color:#F0B726;font-size:10px;"></span>
                         {% endfor %}
                         {% endwith %}
-
                         {% with ''|center:review.rate_rest as range %}
                         {% for _ in range %}
                         <span aria-hidden="true" class="bp5-icon bp5-icon-star" style="color:#CCCCCC;font-size:10px;"></span>
@@ -98,7 +93,7 @@
                 </div>
             </div>
             <div class="bp5-section-header-right">
-                <span class="bp5-text-muted">{{review.created_at}}</span>
+                <span class="bp5-text-muted bp5-text-small">{{review.created_at}}</span>
                 {% if review.service == 'YANDEX' %}
                 <img style="width:16px;" src="{% static 'yandex.svg' %}" alt="Яндекс">
                 {% endif %}
@@ -127,6 +122,5 @@
     </div>
 </div>
 {% endfor %}
-<!-- Пагинация -->
 {% include 'dashboard/_pagination.html' %}
 {% endblock %}

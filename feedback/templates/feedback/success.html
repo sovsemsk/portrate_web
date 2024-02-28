@@ -3,11 +3,13 @@
 
 {% block content %}
 <div class="bp5-padded bp5-section-card">
-    <h1 style="margin:0 0 15px 0;text-align:center;">
-        {{ company.request_form_success_head }}
-    </h1>
-    <div style="text-align:center;">
+    <div class="bp5-form-group">
+        <h2 class="bp5-heading" style="text-align:center;">
+            {{ company.request_form_success_head }}
+        </h2>
+        </div>
+    <p class="bp5-text-muted" style="text-align:center;">
         {{ company.request_form_success_text }}
-    </div>
+    </p>
 </div>
 {% endblock %}

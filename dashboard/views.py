@@ -74,7 +74,6 @@ class CompanyCreateView(SuccessMessageMixin, CreateView):
         context["company_list"] = companies
         context["host"] = settings.HOST
         context["nav"] = "company"
-        context["sub_nav"] = "update"
         return context
 
     def get_queryset(self, **kwargs):
@@ -108,8 +107,7 @@ class CompanyUpdateView(SuccessMessageMixin, UpdateView):
         companies = Company.objects.filter(users__in=[self.request.user]).order_by("name").all()
         context["company_list"] = companies
         context["host"] = settings.HOST
-        context["nav"] = "pref"
-        context["sub_nav"] = "update"
+        context["nav"] = "company"
         return context
 
     def get_queryset(self, **kwargs):

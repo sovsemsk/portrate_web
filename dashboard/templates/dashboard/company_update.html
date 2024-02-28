@@ -1,9 +1,7 @@
 {% extends 'dashboard/base.html' %}
 {% load static %}
 {% block content %}
-<h3 class="bp5-heading">
-    Настройки - {{ company }}
-</h3>
+{% include 'dashboard/_company_head.html' %}
 <div class="bp5-form-group">
     <div class="bp5-button-group">
         <button class="bp5-button bp5-intent-success" form="company-form" type="submit">Сохранить</button>
@@ -170,6 +168,20 @@
                     </div>
                 </div>
                 <div class="bp5-padded bp5-section-card">
+                    {% if company.logo %}
+                    <div class="bp5-form-group">
+                        <img class="bp5-elevation-1" style="width:60px;" src="{{ company.logo.url }}" alt="{{ company.name }}">
+                    </div>
+                    {% endif %}
+                    <div class="bp5-form-group">
+                        <label class="bp5-label">Логотип</label>
+                        <label class="bp5-file-input">
+                            {{ form.logo }}
+                            <span class="bp5-file-upload-input">Выбрать файл...</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="bp5-padded bp5-section-card">
                     <div class="bp5-form-group">
                         <label class="bp5-label">Название</label>
                         {{ form.name }}
@@ -185,26 +197,15 @@
                         {% endif %}
                     </div>
                 </div>
-                <div class="bp5-padded bp5-section-card">
-                    {% if company.logo %}
-                    <div class="bp5-form-group">
-                        <img class="bp5-elevation-1" style="width:60px;" src="{{ company.logo.url }}" alt="{{ company.name }}">
-                    </div>
-                    {% endif %}
-                    <div class="bp5-form-group">
-                        <label class="bp5-label">Логотип</label>
-                        <label class="bp5-file-input">
-                            {{ form.logo }}
-                            <span class="bp5-file-upload-input">Выбрать файл...</span>
-                        </label>
-                    </div>
-                </div>
             </div>
         </form>
     </div>
-    <!-- Меню -->
     <div style="grid-column: span 3 / span 3;">
-        {% include 'dashboard/_pref_tabs.html' %}
+        <ul class="bp5-elevation-2 bp5-menu">
+            {% for item in company_list %}
+            <a class="bp5-menu-item {% if company.id == item.id %}bp5-active{% endif %}" href="{% url 'company_update' item.id %}">{{item.name}} - {{item.address}}</a>
+            {% endfor %}
+        </ul>
     </div>
 </div>
 {% endblock %}

@@ -2,9 +2,11 @@
 {% load static %}
 {% block content %}
 <div class="bp5-padded bp5-section-card">
-    <h1 style="margin:0 0 15px 0;text-align:center;">
-        {{ company.request_form_positive_head }}
-    </h1>
+    <div class="bp5-form-group">
+        <h2 class="bp5-heading" style="text-align:center;">
+            {{ company.request_form_positive_head }}
+        </h2>
+    </div>
     <div class="bp5-card-list bp5-card-list-bordered bp5-compact bp5-card bp5-elevation-0" role="list">
         {% if company.yandex_link %}
         <a class="bp5-card bp5-elevation-0 bp5-interactive" style="color:black;" href="{{ company.yandex_link }}" target="_blank">

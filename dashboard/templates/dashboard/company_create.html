@@ -1,9 +1,20 @@
 {% extends 'dashboard/base.html' %}
 {% load static %}
 {% block content %}
-<h3 class="bp5-heading">
-    Создание компании
-</h3>
+<div class="bp5-form-group">
+    <div class="bp5-entity-title bp5-entity-title-heading-h3">
+        <div class="bp5-entity-title-icon-container">
+            <span class="bp5-icon bp5-icon-shop bp5-icon-large bp5-text-muted"></span>
+        </div>
+        <div class="bp5-entity-title-text">
+            <div class="bp5-entity-title-title-and-tags">
+                <h3 class="bp5-heading bp5-entity-title-title">
+                    Создание компании
+                </h3>
+            </div>
+        </div>
+    </div>
+</div>
 <form action="" enctype="multipart/form-data" id="company-form" method="post" novalidate>
     {% csrf_token %}
     <div class="bp5-card bp5-elevation-2 bp5-section">
