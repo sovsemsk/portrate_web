@@ -21,8 +21,6 @@ INSTALLED_APPS = [
     "django_celery_results",
     "debug_toolbar",
     "chartjs",
-    "tailwind",
-    "theme",
 
     # Django
     "django.contrib.admin",
@@ -121,9 +119,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 #
 X_FRAME_OPTIONS = "SAMEORIGIN"
 SILENCED_SYSTEM_CHECKS = ["security.W019"]
-
-#
-TAILWIND_APP_NAME = "theme"
 
 # Telegram
 TELEGRAM_BOT_API_SECRET = str(os.getenv("TELEGRAM_BOT_API_SECRET"))

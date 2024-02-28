@@ -2,77 +2,40 @@
 {% load static %}
 {% load tz %}
 {% load extensions %}
-
 {% block content %}
 <!--  Название  -->
 {% include 'dashboard/_company_head.html' %}
-
-<div class="grid gap-4">
-    <!--  Табы  -->
-    {% include 'dashboard/_company_tabs.html' %}
-
-    <!-- Тулбар -->
-    <div class="flex gap-2">
-        <input class="bp5-input w-36" type="date"/>
-        <div class="flex items-center">—</div>
-        <input class="bp5-input w-36" type="date"/>
-        <div class="bp5-divider"></div>
-        <input class="bp5-input">
-        <button type="button" class="bp5-button bp5-intent-warning">Найти</button>
-    </div>
-
-    <!-- Негативные сообщения -->
-    <div class="grid gap-2">
-        {% for message in message_list %}
-        <div class="bp5-section bp5-card bp5-elevation-2">
-            <div class="bp5-section-header">
-                <div class="bp5-section-header-left">
-                    <div>
-                        <h6 class="bp5-heading bp5-section-header-title">
-                            {% timezone user.profile.default_timezone %}
-                            {{message.created_at}}
-                            {% endtimezone %}
-                        </h6>
-                        <div class="bp5-text-muted bp5-section-header-sub-title">{{message.phone}}</div>
-                    </div>
-                </div>
-            </div>
-            <div class="bp5-section-card bp5-padded">
-                {{ message.text }}
-            </div>
+<!--  Табы  -->
+{% include 'dashboard/_company_tabs.html' %}
+<!-- Тулбар -->
+<div style="display:flex;gap:5px;margin-bottom:15px">
+    <input class="bp5-input w-36" type="date"/>
+    <div style="display:flex;align-items:center;">—</div>
+    <input class="bp5-input w-36" type="date"/>
+    <div class="bp5-divider"></div>
+    <input class="bp5-input"/>
+    <button type="button" class="bp5-button bp5-intent-warning">Найти</button>
+</div>
+<!-- Негативные сообщения -->
+{% for message in message_list %}
+<div class="bp5-section bp5-card bp5-elevation-2" style="margin-bottom:15px;">
+    <div class="bp5-section-header">
+        <div class="bp5-section-header-left">
+            <h6 class="bp5-heading bp5-section-header-title">
+                {{message.phone}}
+            </h6>
         </div>
-        {% endfor %}
+        <div class="bp5-section-header-right">
+            {% timezone user.profile.default_timezone %}
+            <span class="bp5-text-muted">{{message.created_at}}</span>
+            {% endtimezone %}
+        </div>
     </div>
-
-    <!-- Пагинация -->
-    <div class="flex items-center justify-between">
-        {% if page_obj.has_previous %}    
-        <a class="bp5-button" href="?page={{page_obj.previous_page_number}}">
-            <span aria-hidden="true" class="bp5-icon bp5-icon-arrow-left"></span>
-            <span class="bp5-button-text">Назад</span>
-        </a>
-        {% else %}
-        <button class="bp5-button bp5-disabled">
-            <span aria-hidden="true" class="bp5-icon bp5-icon-arrow-left"></span>
-            <span class="bp5-button-text">Назад</span>
-        </button>
-        {% endif %}
-        {% if is_paginated %}
-        <span>Страниц {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span>
-        {% else %}
-        <span>1 страница</span>
-        {% endif %}
-        {% if page_obj.has_next %}    
-        <a class="bp5-button" href="?page={{page_obj.next_page_number}}">
-            <span class="bp5-button-text">Вперед</span>
-            <span aria-hidden="true" class="bp5-icon bp5-icon-arrow-right"></span>    
-        </a>
-        {% else %}
-        <button class="bp5-button bp5-disabled">
-            <span class="bp5-button-text">Вперед</span>
-            <span aria-hidden="true" class="bp5-icon bp5-icon-arrow-right"></span>    
-        </button>
-        {% endif %}
+    <div class="bp5-section-card bp5-padded">
+        {{ message.text }}
     </div>
 </div>
+{% endfor %}
+<!-- Пагинация -->
+{% include 'dashboard/_pagination.html' %}
 {% endblock %}

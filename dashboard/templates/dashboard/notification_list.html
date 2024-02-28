@@ -1,88 +1,52 @@
 {% extends 'dashboard/base.html' %}
 {% load static %}
 {% load tz %}
-
 {% block content %}
-<h3 class="bp5-heading pb-2">Оповещения</h3>
-
-<div class="grid gap-4">
-    <!-- Тулбар -->
-    <div class="flex gap-2">
-        {% if user.profile.telegram_id %}
-        <a class="bp5-button bp5-intent-warning"
-            href="{% url 'extensions_telegram_notify_unsubscribe' %}?next={{ request.path }}">
-            <span class="bp5-button-text">Отписаться от оповещений</span>
-            <span aria-hidden="true" class="bp5-icon bp5-icon-send-message"></span>
-        </a>
-        {% else %}
-        <a class="bp5-button bp5-intent-warning" href="http://t.me/portrate_notify_bot?start={{user.profile.api_secret}}" target="_blank">
-            <span class="bp5-button-text">Подписаться на оповещения</span>
-            <span aria-hidden="true" class="bp5-icon bp5-icon-send-message"></span>
-        </a>
-        {% endif %}
-        <div class="bp5-divider"></div>
-        <a class="bp5-button bp5-intent-warning" href="{% url 'pref' %}">Настройки</a>
-    </div>
-    
-    <!-- Оповещения -->
-    <div class="grid gap-2">
-
-        {% for notification in notification_list %}
-        <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-elevation-2 bg-white">
-            <span aria-hidden="true" class="bp5-icon bp5-icon-issue"></span>
-            <h5 class="bp5-heading">
-                {% timezone user.profile.default_timezone %}
-                {{ notification.created_at }}
-                {% endtimezone %}
-            </h5>
-            <p class="pb-2">
-                {{ notification.text }}
-            </p>
-            <div class="flex flex-wrap gap-1">
-                <span class="bp5-tag bp5-minimal bp5-intent-primary bp5-round">{{ notification.company }}</span>
-                {% if notification.initiator == 'YANDEX_NEGATIVE_REVIEW' %}
-                <span class="bp5-tag bp5-minimal bp5-intent-danger bp5-round">Негативный отзыв в Яндекс Карты</span>
-                {% elif notification.initiator == 'GIS_NEGATIVE_REVIEW' %}
-                <span class="bp5-tag bp5-minimal bp5-intent-danger bp5-round">Негативный отзыв в 2Гис Карты</span>
-                {% elif notification.initiator == 'GOOGLE_NEGATIVE_REVIEW' %}
-                <span class="bp5-tag bp5-minimal bp5-intent-danger bp5-round">Негативный отзыв в Google Карты</span>
-                {% elif notification.initiator == 'PORTRATE_NEGATIVE_MESSAGE' %}
-                <span class="bp5-tag bp5-minimal bp5-intent-danger bp5-round">Негативное сообщение в Портрет</span>
-                {% endif %}
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-
-    <!-- Пагинация -->
-    <div class="flex items-center justify-between">
-        {% if page_obj.has_previous %}    
-        <a class="bp5-button" href="?page={{page_obj.previous_page_number}}">
-            <span aria-hidden="true" class="bp5-icon bp5-icon-arrow-left"></span>
-            <span class="bp5-button-text">Назад</span>
-        </a>
-        {% else %}
-        <button class="bp5-button bp5-disabled">
-            <span aria-hidden="true" class="bp5-icon bp5-icon-arrow-left"></span>
-            <span class="bp5-button-text">Назад</span>
-        </button>
-        {% endif %}
-        {% if is_paginated %}
-        <span>Страниц {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span>
-        {% else %}
-        <span>1 страница</span>
-        {% endif %}
-        {% if page_obj.has_next %}    
-        <a class="bp5-button" href="?page={{page_obj.next_page_number}}">
-            <span class="bp5-button-text">Вперед</span>
-            <span aria-hidden="true" class="bp5-icon bp5-icon-arrow-right"></span>    
-        </a>
-        {% else %}
-        <button class="bp5-button bp5-disabled">
-            <span class="bp5-button-text">Вперед</span>
-            <span aria-hidden="true" class="bp5-icon bp5-icon-arrow-right"></span>    
-        </button>
+<h3 class="bp5-heading" style="margin-bottom:15px;">
+    Оповещения
+</h3>
+<!-- Тулбар -->
+<div style="display:flex;gap:5px;padding-bottom:15px">
+    {% if user.profile.telegram_id %}
+    <a class="bp5-button bp5-intent-warning" href="{% url 'extensions_telegram_notify_unsubscribe' %}?next={{ request.path }}">
+        <span class="bp5-button-text">Отписаться от оповещений</span>
+        <span aria-hidden="true" class="bp5-icon bp5-icon-send-message"></span>
+    </a>
+    {% else %}
+    <a class="bp5-button bp5-intent-warning" href="http://t.me/portrate_notify_bot?start={{user.profile.api_secret}}" target="_blank">
+        <span class="bp5-button-text">Подписаться на оповещения</span>
+        <span aria-hidden="true" class="bp5-icon bp5-icon-send-message"></span>
+    </a>
+    {% endif %}
+    <div class="bp5-divider"></div>
+    <a class="bp5-button bp5-intent-warning" href="{% url 'pref' %}">Настройки</a>
+</div>
+<!-- Оповещения -->
+{% for notification in notification_list %}
+<div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-elevation-2" style="background:white;margin-bottom:15px;">
+    <span class="bp5-icon bp5-icon-issue"></span>
+    <h6 class="bp5-heading">
+        {% timezone user.profile.default_timezone %}
+        {{ notification.created_at }}
+        {% endtimezone %}
+    </h6>
+    <p>
+        {{ notification.text }}
+    </p>
+    <div class="flex flex-wrap gap-1" style="display:flex;flex-wrap:wrap;gap:5px;">
+        <span class="bp5-intent-primary bp5-minimal bp5-round bp5-tag">{{ notification.company }}</span>
+        {% if notification.initiator == 'YANDEX_NEGATIVE_REVIEW' %}
+        <span class="bp5-intent-danger bp5-minimal bp5-round bp5-tag">Негативный отзыв в Яндекс Карты</span>
+        {% elif notification.initiator == 'GIS_NEGATIVE_REVIEW' %}
+        <span class="bp5-intent-danger bp5-minimal bp5-round bp5-tag">Негативный отзыв в 2Гис Карты</span>
+        {% elif notification.initiator == 'GOOGLE_NEGATIVE_REVIEW' %}
+        <span class="bp5-intent-danger bp5-minimal bp5-round bp5-tag">Негативный отзыв в Google Карты</span>
+        {% elif notification.initiator == 'PORTRATE_NEGATIVE_MESSAGE' %}
+        <span class="bp5-intent-danger bp5-minimal bp5-round bp5-tag">Негативное сообщение в Портрет</span>
         {% endif %}
     </div>
 </div>
+{% endfor %}
+<!-- Пагинация -->
+{% include 'dashboard/_pagination.html' %}
 {% endblock %}

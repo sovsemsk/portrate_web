@@ -1,4 +1,4 @@
-{% load static tailwind_tags %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="ru">
     <head>
@@ -7,32 +7,30 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">        
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
-        <script src="https://unpkg.com/imask"></script>
-        {% tailwind_css %}
+        <link href="{% static 'normalize.css' %}" rel="stylesheet" />
+        <link href="{% static 'blueprint.css' %}" rel="stylesheet" />
+        <link href="{% static 'blueprint-icons.css' %}" rel="stylesheet" />
+        <script src="{% static 'jquery.min.js' %}"></script>
+        <script src="{% static 'imask.min.js' %}"></script>
+        <style>a{ text-decoration:none !important}</style>
     </head>
-    <body class="dashboard feedback">
-        <div class="mx-auto max-w-sm relative">
+    <body style="background:#d3d8de;margin:15px;">
+        <div style="margin:60px auto 30px auto;max-width:400px">
             <!-- Логотип-->
-            <a class="absolute -top-16 w-full" href="{% url 'feedback_rate' company_pk=company.id %}">
+            <a style="border-radius:2px;display:block;height:60px;margin:0 auto -5px auto;width:60px" href="{% url 'feedback_rate' company_pk=company.id %}">
                 {% if company.logo %}
-                <img class="h-24 mx-auto overflow-hidden rounded-lg shadow-black/10 shadow-xl w-24" src="{{ company.logo.url }}" alt="{{ company.name }}">
-                {% else %}
-                <div class="bg-orange-200 flex h-24 items-center mx-auto rounded-lg shadow-black/10 shadow-xl w-24">
-                    <span class="material-symbols-outlined mx-auto text-6xl">storefront</span>
-                </div>
+                <img class="bp5-elevation-3" style="border-radius:2px;height:60px;width:60px" src="{{ company.logo.url }}" alt="{{ company.name }}">
                 {% endif %}
             </a>
-
-            <div class="px-4">
-                <div class="bg-white flex flex-col gap-6 p-2 rounded-2xl shadow-black/10 shadow-xl">
-                    <h1 class="pt-8 text-center">{{ company.name }}</h1>
-                    {% block content %}
-                    {% endblock %}
+            <div class="bp5-section bp5-card bp5-elevation-3">
+                <div class="bp5-section-card bp5-padded">
+                    <h1 style="font-size:14px;font-weight:normal;margin:0;text-align:center">{{ company.name }}</h1>
                 </div>
+                {% block content %}
+                {% endblock %}
             </div>
-
-            <div class="px-4 py-6 text-center">
-                <sapn class="text-neutral-500 text-xs">работает на</sapn> <a class="text-orange-600 hover:text-orange-500 text-xs" href="https://portrate.io">portrate.io</a>
+            <div style="font-size:10px;margin-top:15px;text-align:center;">
+                <span class="bp5-text-muted">работает на</span> <a style="" href="https://portrate.io">portrate.io</a>
             </div>
         </div>
     </body>

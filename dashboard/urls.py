@@ -16,5 +16,5 @@ urlpatterns = [
     path("notifications", views.NotificationListView.as_view(), name="notification_list"),
     path("pref", views.pref, name="pref"),
 
-    path('chartJSON', views.LineChartJSONView.as_view(), name='line_chart_json'),
+    path("chartJSON", views.LineChartJSONView.as_view(), name="line_chart_json"),
 ]

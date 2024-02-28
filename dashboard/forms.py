@@ -14,11 +14,11 @@ class ProfileForm(forms.ModelForm):
     )
 
     can_notify_at_start = forms.TimeField(widget=forms.widgets.TimeInput(
-        attrs={"type": "time", "class": "bp5-input w-36"}
+        attrs={"type": "time", "class": "bp5-input"}
     ))
 
     can_notify_at_end = forms.TimeField(widget=forms.widgets.TimeInput(
-        attrs={"type": "time", "class": "bp5-input w-36"}
+        attrs={"type": "time", "class": "bp5-input"}
     ))
 
     can_notify_negative_portrate = forms.BooleanField(required=False)
@@ -53,81 +53,81 @@ class CompanyForm(forms.ModelForm):
     )
 
     name = forms.CharField(widget=forms.widgets.TextInput(
-        attrs={"class": "bp5-input max-w-sm"}
+        attrs={"class": "bp5-input"}
     ))
 
     address = forms.CharField(widget=forms.widgets.TextInput(
-        attrs={"class": "bp5-input max-w-sm"}
+        attrs={"class": "bp5-input"}
     ))
 
     yandex_parser_link = forms.CharField(
-        widget=forms.widgets.TextInput(attrs={"class": "bp5-input max-w-sm"}),
+        widget=forms.widgets.TextInput(attrs={"class": "bp5-input"}),
         required=False
     )
 
     gis_parser_link = forms.CharField(
-        widget=forms.widgets.TextInput(attrs={"class": "bp5-input max-w-sm"}),
+        widget=forms.widgets.TextInput(attrs={"class": "bp5-input"}),
         required=False
     )
 
     google_parser_link = forms.CharField(
-        widget=forms.widgets.TextInput(attrs={"class": "bp5-input max-w-sm"}),
+        widget=forms.widgets.TextInput(attrs={"class": "bp5-input"}),
         required=False
     )
 
     # Ссылки
     yandex_link = forms.CharField(
-        widget=forms.widgets.TextInput(attrs={"class": "bp5-input max-w-sm"}),
+        widget=forms.widgets.TextInput(attrs={"class": "bp5-input"}),
         required=False
     )
 
     gis_link = forms.CharField(
-        widget=forms.widgets.TextInput(attrs={"class": "bp5-input max-w-sm"}),
+        widget=forms.widgets.TextInput(attrs={"class": "bp5-input"}),
         required=False
     )
 
     google_link = forms.CharField(
-        widget=forms.widgets.TextInput(attrs={"class": "bp5-input max-w-sm"}),
+        widget=forms.widgets.TextInput(attrs={"class": "bp5-input"}),
         required=False
     )
 
     mapsme_link = forms.CharField(
-        widget=forms.widgets.TextInput(attrs={"class": "bp5-input max-w-sm"}),
+        widget=forms.widgets.TextInput(attrs={"class": "bp5-input"}),
         required=False
     )
 
     dikidi_link = forms.CharField(
-        widget=forms.widgets.TextInput(attrs={"class": "bp5-input max-w-sm"}),
+        widget=forms.widgets.TextInput(attrs={"class": "bp5-input"}),
         required=False
     )
 
     restoclub_link = forms.CharField(
-        widget=forms.widgets.TextInput(attrs={"class": "bp5-input max-w-sm"}),
+        widget=forms.widgets.TextInput(attrs={"class": "bp5-input"}),
         required=False
     )
 
     tripadvisor_link = forms.CharField(
-        widget=forms.widgets.TextInput(attrs={"class": "bp5-input max-w-sm"}),
+        widget=forms.widgets.TextInput(attrs={"class": "bp5-input"}),
         required=False
     )
 
     prodoctorov_link = forms.CharField(
-        widget=forms.widgets.TextInput(attrs={"class": "bp5-input max-w-sm"}),
+        widget=forms.widgets.TextInput(attrs={"class": "bp5-input"}),
         required=False
     )
 
     zoon_link = forms.CharField(
-        widget=forms.widgets.TextInput(attrs={"class": "bp5-input max-w-sm"}),
+        widget=forms.widgets.TextInput(attrs={"class": "bp5-input"}),
         required=False
     )
 
     otzovik_link = forms.CharField(
-        widget=forms.widgets.TextInput(attrs={"class": "bp5-input max-w-sm"}),
+        widget=forms.widgets.TextInput(attrs={"class": "bp5-input"}),
         required=False
     )
 
     irecommend_link = forms.CharField(
-        widget=forms.widgets.TextInput(attrs={"class": "bp5-input max-w-sm"}),
+        widget=forms.widgets.TextInput(attrs={"class": "bp5-input"}),
         required=False
     )
 

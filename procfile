@@ -1,3 +1,2 @@
 django:     python manage.py runserver
-tailwind:   python manage.py tailwind start
 celery:     celery -A po_web worker --loglevel=INFO

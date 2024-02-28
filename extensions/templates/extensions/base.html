@@ -1,6 +1,4 @@
 {% load static %}
-{% load static tailwind_tags %}
-
 <!DOCTYPE html>
 <html lang="ru">
 	<head>
@@ -8,11 +6,12 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">        
-        <link rel="stylesheet" href="https://unpkg.com/normalize.css@^8.0.1" />
-        {% tailwind_css %}
+        <link href="{% static 'normalize.css' %}" rel="stylesheet" />
+        <link href="{% static 'blueprint.css' %}" rel="stylesheet" />
+        <link href="{% static 'blueprint-icons.css' %}" rel="stylesheet" />
 	</head>
-	<body class="bg-neutral-200 m-0 dashboard">
-        <div class="mx-auto max-w-sm pb-8">
+	<body style="background:#d3d8de;margin:0;">
+        <div style="margin:30px auto;width:300px">
             {% block content %}
             {% endblock %}
         </div>

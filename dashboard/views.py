@@ -14,10 +14,10 @@ from resources.models import Company, NegativeMessage, Notification, Review
 
 
 class CompanyListView(ListView):
-    template_name = "dashboard/company_list.html"
-    model = Company
     context_object_name = "company_list"
+    model = Company
     paginate_by = 30
+    template_name = "dashboard/company_list.html"
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
@@ -25,20 +25,20 @@ class CompanyListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["nav"] = "company"
         context["host"] = settings.HOST
+        context["nav"] = "company"
         return context
 
     def get_queryset(self, **kwargs):
         queryset = super().get_queryset(**kwargs)
-        queryset = queryset.filter(users__in=(self.request.user,)).order_by("name")
+        queryset = queryset.filter(users__in=[self.request.user]).order_by("name")
         return queryset
 
 
 class CompanyDetailView(DetailView):
-    template_name = "dashboard/company_detail.html"
-    model = Company
     context_object_name = "company"
+    model = Company
+    template_name = "dashboard/company_detail.html"
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
@@ -46,14 +46,14 @@ class CompanyDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["host"] = settings.HOST
         context["nav"] = "company"
         context["sub_nav"] = "detail"
-        context["host"] = settings.HOST
         return context
 
     def get_queryset(self, **kwargs):
         queryset = super().get_queryset(**kwargs)
-        queryset = queryset.filter(users__in=(self.request.user,))
+        queryset = queryset.filter(users__in=[self.request.user])
         return queryset
 
 
@@ -70,17 +70,16 @@ class CompanyCreateView(SuccessMessageMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        companies = Company.objects.filter(users__in=(self.request.user,)).order_by("name").all()
-
+        companies = Company.objects.filter(users__in=[self.request.user]).order_by("name").all()
+        context["company_list"] = companies
+        context["host"] = settings.HOST
         context["nav"] = "company"
         context["sub_nav"] = "update"
-        context["host"] = settings.HOST
-        context["company_list"] = companies
         return context
 
     def get_queryset(self, **kwargs):
         queryset = super().get_queryset(**kwargs)
-        queryset = queryset.filter(users__in=(self.request.user,))
+        queryset = queryset.filter(users__in=[self.request.user])
         return queryset
 
     def form_valid(self, form, **kwargs):
@@ -106,16 +105,16 @@ class CompanyUpdateView(SuccessMessageMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        companies = Company.objects.filter(users__in=(self.request.user,)).order_by("name").all()
+        companies = Company.objects.filter(users__in=[self.request.user]).order_by("name").all()
+        context["company_list"] = companies
+        context["host"] = settings.HOST
         context["nav"] = "pref"
         context["sub_nav"] = "update"
-        context["host"] = settings.HOST
-        context["company_list"] = companies
         return context
 
     def get_queryset(self, **kwargs):
         queryset = super().get_queryset(**kwargs)
-        queryset = queryset.filter(users__in=(self.request.user,))
+        queryset = queryset.filter(users__in=[self.request.user])
         return queryset
 
     def get_success_url(self):
@@ -123,10 +122,10 @@ class CompanyUpdateView(SuccessMessageMixin, UpdateView):
 
 
 class ReviewListView(ListView):
-    template_name = "dashboard/review_list.html"
-    model = Review
     context_object_name = "review_list"
     paginate_by = 30
+    model = Review
+    template_name = "dashboard/review_list.html"
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
@@ -134,7 +133,7 @@ class ReviewListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["company"] = get_object_or_404(Company, pk=self.kwargs["company_pk"], users__in=(self.request.user,))
+        context["company"] = get_object_or_404(Company, pk=self.kwargs["company_pk"], users__in=[self.request.user])
         context["nav"] = "company"
         context["sub_nav"] = "review"
         return context
@@ -142,8 +141,8 @@ class ReviewListView(ListView):
     def get_queryset(self, **kwargs):
         queryset = super().get_queryset(**kwargs)
         return queryset.filter(
-            company__in=(self.kwargs["company_pk"],),
-            company__users__in=(self.request.user,)
+            company__in=[self.kwargs["company_pk"]],
+            company__users__in=[self.request.user]
         ).select_related("company").order_by("-created_at")
 
 
@@ -159,27 +158,24 @@ class ReviewUpdateView(SuccessMessageMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["company"] = get_object_or_404(Company, pk=self.kwargs["company_pk"], users__in=(self.request.user,))
+        context["company"] = get_object_or_404(Company, pk=self.kwargs["company_pk"], users__in=[self.request.user])
         context["nav"] = "company"
         context["sub_nav"] = "review"
         return context
 
     def get_queryset(self, **kwargs):
         queryset = super().get_queryset(**kwargs)
-        return queryset.filter(
-            company__in=(self.kwargs["company_pk"],),
-            company__users__in=(self.request.user,)
-        )
+        return queryset.filter(company__in=[self.kwargs["company_pk"]], company__users__in=[self.request.user])
 
     def get_success_url(self):
         return reverse("review_list", kwargs={"company_pk": self.object.company.id})
 
 
 class MessageListView(ListView):
-    template_name = "dashboard/message_list.html"
-    model = NegativeMessage
     context_object_name = "message_list"
+    model = NegativeMessage
     paginate_by = 30
+    template_name = "dashboard/message_list.html"
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
@@ -187,7 +183,7 @@ class MessageListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["company"] = get_object_or_404(Company, pk=self.kwargs["company_pk"], users__in=(self.request.user,))
+        context["company"] = get_object_or_404(Company, pk=self.kwargs["company_pk"], users__in=[self.request.user])
         context["nav"] = "company"
         context["sub_nav"] = "message"
         return context
@@ -195,8 +191,8 @@ class MessageListView(ListView):
     def get_queryset(self, **kwargs):
         queryset = super().get_queryset(**kwargs)
         return queryset.filter(
-            company__in=(self.kwargs["company_pk"],),
-            company__users__in=(self.request.user,)
+            company__in=[self.kwargs["company_pk"]],
+            company__users__in=[self.request.user]
         ).select_related("company").order_by("-created_at")
 
 
@@ -217,9 +213,7 @@ class NotificationListView(ListView):
 
     def get_queryset(self, **kwargs):
         queryset = super().get_queryset(**kwargs)
-        return queryset.filter(
-            company__users__in=(self.request.user,)
-        ).select_related("company").order_by("-created_at")
+        return queryset.filter(company__users__in=[self.request.user]).select_related("company").order_by("-created_at")
 
 
 @login_required
@@ -242,30 +236,19 @@ def qr(request, company_pk):
 @login_required
 @require_http_methods(["GET"])
 def rate_widget(request, company_pk):
-    company = get_object_or_404(Company, pk=company_pk, users__in=(request.user,))
-
+    company = get_object_or_404(Company, pk=company_pk, users__in=[request.user])
     theme = request.GET.get("theme", "light")
-    theme_svg = f"widget_{theme}.svg"
-
     position = request.GET.get("position", "lb")
-    position_class = {
-        "lb": "left-5 bottom-6",
-        "lt": "left-5 top-12",
-        "rt": "right-5 top-12",
-        "rb": "right-5 bottom-6"
-    }
 
     return render(
         request,
         "dashboard/rate_widget.html",
         {
             "company": company,
-            "theme": theme,
-            "theme_svg": theme_svg,
             "nav": "company",
             "position": position,
-            "position_class": position_class[position],
-            "sub_nav": "rate_widget"
+            "sub_nav": "rate_widget",
+            "theme": theme
         }
     )
 
@@ -273,28 +256,17 @@ def rate_widget(request, company_pk):
 @login_required
 @require_http_methods(["GET"])
 def reviews_widget(request, company_pk):
+    company = get_object_or_404(Company, pk=company_pk, users__in=[request.user])
     theme = request.GET.get("theme", "light")
-    theme_svg = f"widget_{theme}.svg"
-
-    position = request.GET.get("position", "lb") # lb, lt, rt, rb
-    position_class = {
-        "lb": "left-5 bottom-6",
-        "lt": "left-5 top-12",
-        "rt": "right-5 top-12",
-        "rb": "right-5 bottom-6"
-    }
 
     return render(
         request,
         "dashboard/reviews_widget.html",
         {
-            "company": get_object_or_404(Company, pk=company_pk),
+            "company": company,
             "nav": "company",
-            "sub_nav": "widget",
-            "theme": theme,
-            "theme_svg": theme_svg,
-            "position": position,
-            "position_class": position_class[position]
+            "sub_nav": "reviews_widget",
+            "theme": theme
         }
     )
 

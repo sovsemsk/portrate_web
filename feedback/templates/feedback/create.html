@@ -2,75 +2,67 @@
 {% load static %}
 
 {% block content %}
-<h1 class="font-bold px-2 text-2xl text-center">{{ company.request_form_negative_head }}</h1>
-
-<p>
-    {{ company.request_form_negative_text }}
-</p>
-
-<form class="flex flex-col gap-4" action="" method="post" novalidate>
-    {% csrf_token %}
-
-    <!-- Теги, виджет из формы для чегбоксов m2m-->
-    <div class="flex flex-col gap-2">
-        <h5 class="font-bold">Что именно вам не понравилось?</h5>
-        <div class="tag_widget">
-            {% for tag in company.request_form_tags %}
-            <div>
-                <label><input name="tag" type="checkbox" value="{{ tag }}"/>{{ tag }}</label>
+<div class="bp5-padded bp5-section-card">
+    <h1 style="margin:0 0 15px 0;text-align:center;">
+        {{ company.request_form_negative_head }}
+    </h1>
+    <p class="bp5-text-muted" style="font-size:12px;margin:0 0 15px 0;text-align:center;">
+        {{ company.request_form_negative_text }}
+    </p>
+</div>
+<div class="bp5-padded bp5-section-card">
+    <form action="" id="request-form" method="post" novalidate>
+        {% csrf_token %}
+        <div class="bp5-form-group tag_widget">
+            <label class="bp5-label">Что именно вам не понравилось?</label>
+            <div style="display:flex;flex-wrap:wrap;gap:5px">
+                {% for tag in company.request_form_tags %}
+                <label class="bp5-interactive bp5-minimal bp5-intent-success bp5-tag">
+                    <input name="tag" type="checkbox" value="{{ tag }}" style="display:none"/>
+                    {{ tag }}
+                </label>
+                {% endfor %}
             </div>
-            {% endfor %}
         </div>
-
-        <!-- Комментарий -->
-        {{ form.text }}
-    </div>
-
-    <div class="">
-        <!-- Контактный телефон -->
-        <h5 class="font-bold pb-1">Оставьте ваш контакт <span class="text-rose-600">*</span></h5>
-        {{ form.phone }}
-        {% if form.phone.errors %}
-        <div class="text-xs text-rose-600 pt-1">Необходимо заполнить контактный телефон </div>
-        {% endif %}
-    </div>
-
-    <button class="bg-lime-600 active:bg-lime-700 py-2 px-4 rounded-lg text-center text-lg text-white w-full" href="{% url 'feedback_create' company_pk=company.id %}" type="submit">Отправить</button>
-</form>
+        <div class="bp5-form-group">
+            {{ form.text }}
+        </div>
+        <div class="bp5-form-group">
+            <!-- Контактный телефон -->
+            <label class="bp5-label">Оставьте ваш контакт</label>
+            {{ form.phone }}
+            {% if form.phone.errors %}
+            <div class="bp5-form-helper-text" style="color:#ac2f33">Необходимо заполнить контактный телефон</div>
+            {% endif %}
+        </div>
+    </form>
+</div>
+<div class="bp5-padded bp5-section-card">
+    <button class="bp5-button bp5-fill bp5-intent-success bp5-large" form="request-form" type="submit">Отправить</button>
+</div>
 
 <script>
-    d = document
+    const textarea = $('textarea[name=text]');
+
+    $('input[type=checkbox]').each((index, element) => {
+        const checkbox = $(element);
+
+        if(textarea.val().includes(checkbox.val())){
+            checkbox.checked = true;
+            checkbox.parent().addClass('bp5-active');
+        }
+
+        checkbox.click((event) => {
+            $(event.target).parent().toggleClass('bp5-active')
+            textarea.val(
+                [...$('input[name=tag]:checked')].map(e => e.value).join(', ')
+            );
+        });
+    });
+
     IMask(
         document.getElementById('id_phone'),
         {mask: '+7 000 000-00-00'}
     );
-
-    // тут не нужен чекбокс убрать потом
-    text = d.querySelector('textarea');
-    d.querySelectorAll('.tag_widget input[type=checkbox]')
-        .forEach(el => {
-
-            // if(el.checked){
-            //  el.parentElement.classList.add('bg-lime-600');
-            //  el.parentElement.classList.add('text-white');
-            // }
-
-            if(text.value.includes(el.value)){
-                el.checked = true;
-                el.parentElement.classList.add('bg-lime-600');
-                el.parentElement.classList.add('text-white');
-            }
-
-            el.addEventListener('click', event => {
-                p = event.target.parentElement
-                p.classList.toggle('bg-lime-600');
-                p.classList.toggle('text-white');
-                text.value = [...d.querySelectorAll(`.tag_widget input[name=${el.name}]:checked`)]
-                                    .map(e => e.value)
-                                    .join(', ');
-            })
-        });
 </script>
-
 {% endblock %}
-

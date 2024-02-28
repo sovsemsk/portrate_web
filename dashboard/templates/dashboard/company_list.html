@@ -1,132 +1,88 @@
 {% extends 'dashboard/base.html' %}
-
 {% load static %}
 {% load extensions %}
 {% load tz %}
-
 {% block content %}
-<h3 class="bp5-heading pb-2">Компании</h3>
-
-<div class="grid gap-4">
-    <!-- Тулбар -->
-    <div class="flex gap-2">
-        <a class="bp5-button bp5-intent-success" href="{% url 'company_create' %}">
-            <span class="bp5-button-text">Создать компанию</span>
-            <span aria-hidden="true" class="bp5-icon bp5-icon-plus"></span>
-        </a>
-        <div class="bp5-divider"></div>
-        <a class="bp5-button bp5-intent-warning" href="{% url 'pref' %}">Настройки</a>
-    </div>
-
-    <!-- Компании -->
-    <div class="grid gap-2">
-        {% for company in company_list %}
-        <div class="bp5-section bp5-card bp5-elevation-2">
-            <div class="bp5-section-header">
-                <div class="bp5-section-header-left">
-                    {% if company.logo %}
-                    <img class="bp5-elevation-1 h-8 rounded w-8" src="{{ company.logo.url }}" alt="{{ company.name }}">
-                    {% endif %}
-                    <div>
-                        <h6 class="bp5-heading bp5-section-header-title">{{company.name}}</h6>
-                        <div class="bp5-text-muted bp5-section-header-sub-title">{{company.address}}</div>
-                    </div>
-                </div>
-                <div class="bp5-section-header-right">
-                    {% if company.is_active %}
-                    <span class="bp5-tag bp5-minimal bp5-intent-success">Активно</span>
-                    {% else %}
-                    <span class="bp5-tag bp5-minimal bp5-intent-danger">Не активно</span>
-                    {% endif %}
-                </div>
-            </div>
-            <div class="bp5-section-card bp5-padded">
-                <div class="grid gap-2 grid-cols-4 justify-stretch">
-                    <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
-                        <img class="bp5-icon h-4 w-4" src="{% static 'yandex.svg' %}" >
-                        <h5 class="bp5-heading">
-                            {{ company.yandex_rate|default:'0,0' }}
-                        </h5>
-                        Рейтинг Яндекс
-                        <div class="bp5-text-muted text-xs">
-                            {% timezone user.profile.default_timezone %}
-                            {{ company.yandex_rate_last_parse_at|default:'Нет данных' }}
-                            {% endtimezone %}
-                        </div>
-                    </div>
-                    <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
-                        <img class="bp5-icon h-4 w-4" src="{% static 'gis.svg' %}" >
-                        <h5 class="bp5-heading">
-                            {{ company.gis_rate|default:'0,0' }}
-                        </h5>
-                        Рейтинг 2Гис
-                        <div class="bp5-text-muted text-xs">
-                            {% timezone user.profile.default_timezone %}
-                            {{ company.gis_rate_last_parse_at|default:'Нет данных' }}
-                            {% endtimezone %}
-                        </div>
-                    </div>
-                    <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
-                        <img class="bp5-icon h-4 w-4" src="{% static 'google.svg' %}" >
-                        <h5 class="bp5-heading">
-                            {{ company.google_rate|default:'0,0' }}
-                        </h5>
-                        Рейтинг Google
-                        <div class="bp5-text-muted text-xs">
-                            {% timezone user.profile.default_timezone %}
-                            {{ company.google_rate_last_parse_at|default:'Нет данных' }}
-                            {% endtimezone %}
-                        </div>
-                    </div>
-                    <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon">
-                        <span class="bp5-icon bp5-icon-comment"></span>
-                        <h5 class="bp5-heading">{{ company.total_positive_count|sum:company.total_negative_count }}</h5>
-                        <div class="">Всего отзывов</div>
-                    </div>
-                </div>
-            </div>
-            <div class="bp5-section-card bp5-padded">
-                <div class="flex gap-2">
-                    <a class="bp5-button bp5-intent-warning" href="{% url 'company_detail' company.id %}">Открыть</a>
-                    <a class="bp5-button bp5-intent-warning" href="{{company.host}}/@{{company.id}}" target="_blank">
-                        <span class="bp5-button-text">Форма запроса отзыва</span>
-                        <span aria-hidden="true" class="bp5-icon bp5-icon-share"></span>
-                    </a>
-                </div>
+<h3 class="bp5-heading">Компании</h3>
+<!-- Тулбар -->
+<div style="display:flex;gap:5px;margin-bottom:15px">
+    <a class="bp5-button bp5-intent-success" href="{% url 'company_create' %}"><span class="bp5-button-text">Создать компанию</span><span aria-hidden="true" class="bp5-icon bp5-icon-plus"></span></a>
+    <a class="bp5-button bp5-intent-warning" href="{% url 'pref' %}">Настройки</a>
+</div>
+<!-- Компании -->
+{% for company in company_list %}
+<div class="bp5-section bp5-card bp5-elevation-2" style="margin-bottom:15px">
+    <div class="bp5-section-header">
+        <div class="bp5-section-header-left">
+            {% if company.logo %}
+            <img class="bp5-elevation-1" style="width:35px" src="{{ company.logo.url }}" alt="{{ company.name }}">
+            {% endif %}
+            <div>
+                <h6 class="bp5-heading bp5-section-header-title">{{company.name}}</h6>
+                <div class="bp5-text-muted bp5-section-header-sub-title">{{company.address}}</div>
             </div>
         </div>
-        {% endfor %}
+        <div class="bp5-section-header-right">
+            {% if company.is_active %}
+            <span class="bp5-intent-success bp5-minimal bp5-tag">Активно</span>
+            {% else %}
+            <span class="bp5-intent-danger bp5-minimal bp5-tag">Не активно</span>
+            {% endif %}
+        </div>
     </div>
-
-    <!-- Пагинация -->
-    <div class="flex items-center justify-between">
-        {% if page_obj.has_previous %}
-        <a class="bp5-button" href="/?page={{page_obj.previous_page_number}}">
-            <span aria-hidden="true" class="bp5-icon bp5-icon-arrow-left"></span>
-            <span class="bp5-button-text">Назад</span>
-        </a>
-        {% else %}
-        <button class="bp5-button bp5-disabled">
-            <span aria-hidden="true" class="bp5-icon bp5-icon-arrow-left"></span>
-            <span class="bp5-button-text">Назад</span>
-        </button>
-        {% endif %}
-        {% if is_paginated %}
-        <span>Страниц {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span>
-        {% else %}
-        <span>1 страница</span>
-        {% endif %}
-        {% if page_obj.has_next %}
-        <a class="bp5-button" href="/?page={{page_obj.next_page_number}}">
-            <span class="bp5-button-text">Вперед</span>
-            <span aria-hidden="true" class="bp5-icon bp5-icon-arrow-right"></span>
-        </a>
-        {% else %}
-        <button class="bp5-button bp5-disabled">
-            <span class="bp5-button-text">Вперед</span>
-            <span aria-hidden="true" class="bp5-icon bp5-icon-arrow-right"></span>
-        </button>
-        {% endif %}
+    <div class="bp5-padded bp5-section-card">
+        <div style="display:flex;gap:5px">
+            <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-elevation-1">
+                <img class="bp5-icon" style="width:16px" src="{% static 'yandex.svg' %}" >
+                <h5 class="bp5-heading">
+                    {{ company.yandex_rate|default:'0,0' }}
+                </h5>
+                Рейтинг Яндекс
+                <div class="bp5-text-muted" style="font-size:10px">
+                    {% timezone user.profile.default_timezone %}
+                    {{ company.yandex_rate_last_parse_at|default:'Нет данных' }}
+                    {% endtimezone %}
+                </div>
+            </div>
+            <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-elevation-1">
+                <img class="bp5-icon" style="width:16px" src="{% static 'gis.svg' %}" >
+                <h5 class="bp5-heading">
+                    {{ company.gis_rate|default:'0,0' }}
+                </h5>
+                Рейтинг 2Гис
+                <div class="bp5-text-muted" style="font-size:10px">
+                    {% timezone user.profile.default_timezone %}
+                    {{ company.gis_rate_last_parse_at|default:'Нет данных' }}
+                    {% endtimezone %}
+                </div>
+            </div>
+            <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-elevation-1">
+                <img class="bp5-icon" style="width:16px" src="{% static 'google.svg' %}" >
+                <h5 class="bp5-heading">
+                    {{ company.google_rate|default:'0,0' }}
+                </h5>
+                Рейтинг Google
+                <div class="bp5-text-muted" style="font-size:10px">
+                    {% timezone user.profile.default_timezone %}
+                    {{ company.google_rate_last_parse_at|default:'Нет данных' }}
+                    {% endtimezone %}
+                </div>
+            </div>
+            <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-elevation-1">
+                <span class="bp5-icon bp5-icon-comment"></span>
+                <h5 class="bp5-heading">{{ company.total_positive_count|sum:company.total_negative_count }}</h5>
+                <div class="">Всего отзывов</div>
+            </div>
+        </div>
+    </div>
+    <div class="bp5-padded bp5-section-card">
+        <div style="display:flex;gap:5px">
+            <a class="bp5-button bp5-intent-warning bp5-small" href="{% url 'company_detail' company.id %}">Открыть</a>
+            <a class="bp5-button bp5-intent-warning bp5-small" href="{{company.host}}/@{{company.id}}" target="_blank"><span class="bp5-button-text">Форма запроса отзыва</span><span class="bp5-icon bp5-icon-share"></span></a>
+        </div>
     </div>
 </div>
+{% endfor %}
+<!-- Пагинация -->
+{% include 'dashboard/_pagination.html' %}
 {% endblock %}

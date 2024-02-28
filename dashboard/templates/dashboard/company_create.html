@@ -1,63 +1,58 @@
 {% extends 'dashboard/base.html' %}
 {% load static %}
-
 {% block content %}
-<h3 class="bp5-heading pb-2">Создание компании</h3>
-
-<div class="grid grid-cols-12 gap-4">
-    <!-- Настройки -->
-    <form class="grid gap-2 col-span-9" action="" enctype="multipart/form-data" id="company-form" method="post" novalidate>
-        {% csrf_token %}
-
-        <div class="bp5-section bp5-card bp5-elevation-2">
-            <div class="bp5-section-header">
-                <div class="bp5-section-header-left">
-                    <div>
-                        <h6 id="section-title-12" class="bp5-heading bp5-section-header-title">Данные</h6>
-                        <div class="bp5-text-muted bp5-section-header-sub-title">Название, адрес и логотип компании</div>
-                    </div>
-                </div>
-            </div>
-            <div class="bp5-section-card bp5-padded">
-                    <div class="bp5-elevation-1 bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-intent-success">
-                        <span aria-hidden="true" class="bp5-icon bp5-icon-issue"></span>
-                        <h5 class="bp5-heading">Информация</h5>
-                        Соотношение сторон для логотипа следует выбрать 1 к 1. Полный список всех настроек компании будет доступен после ее создания, в настроках компании.
-                    </div>
-                </div>
-                <div class="bp5-section-card bp5-padded">    
-
-                <div class="bp5-form-group col-span-6">
-                    <label class="bp5-label" for="">Название</label>
-                    {{ form.name }}
-                    {% if form.errors.name %}
-                    <div class="bp5-form-helper-text text-[#ac2f33]">Название обязателено</div>
-                    {% endif %}
-                </div>
-                <div class="bp5-form-group col-span-6">
-                    <label class="bp5-label" for="">Адрес</label>
-                    {{ form.address }}
-                    {% if form.errors.address %}
-                    <div class="bp5-form-helper-text text-[#ac2f33]">Адрес обязателен</div>
-                    {% endif %}
-                </div>
-            </div>
-            <div class="bp5-section-card bp5-padded">
-                <div class="bp5-form-group col-span-6">
-                    <label class="bp5-label" for="">Логотип</label>
-                    <label class="bp5-file-input max-w-sm">
-                        {{ form.logo }}
-                        <span class="bp5-file-upload-input">Выбрать файл...</span>
-                    </label>
+<h3 class="bp5-heading" style="margin-bottom:15px">Создание компании</h3>
+<form style="margin-bottom:15px" action="" enctype="multipart/form-data" id="company-form" method="post" novalidate>
+    {% csrf_token %}
+    <div class="bp5-card bp5-elevation-2 bp5-section">
+        <div class="bp5-section-header">
+            <div class="bp5-section-header-left">
+                <div>
+                    <h6 class="bp5-heading bp5-section-header-title">
+                        Данные
+                    </h6>
+                    <div class="bp5-section-header-sub-title bp5-text-muted">Название, адрес и логотип компании</div>
                 </div>
             </div>
         </div>
-    </form>
-    <div class="col-span-12">
-        <button class="bp5-button bp5-intent-success bp5-large" form="company-form" type="submit">
-            <span class="bp5-button-text">Создать компанию</span>
-            <span aria-hidden="true" class="bp5-icon bp5-icon-arrow-right"></span>
-        </button>
+        <div class="bp5-section-card bp5-padded">
+            <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-elevation-1 bp5-intent-success">
+                <span class="bp5-icon bp5-icon-issue"></span>
+                <h5 class="bp5-heading">
+                    Информация
+                </h5>
+                Соотношение сторон для логотипа следует выбрать 1 к 1. Полный список всех настроек компании будет доступен после ее создания, в настроках компании.
+            </div>
+        </div>
+        <div class="bp5-section-card bp5-padded">
+            <div class="bp5-form-group">
+                <label class="bp5-label">Название</label>
+                {{ form.name }}
+                {% if form.errors.name %}
+                <div class="bp5-form-helper-text" style="color:#ac2f33">Название обязателено</div>
+                {% endif %}
+            </div>
+            <div class="bp5-form-group">
+                <label class="bp5-label">Адрес</label>
+                {{ form.address }}
+                {% if form.errors.address %}
+                <div class="bp5-form-helper-text" style="color:#ac2f33">Адрес обязателен</div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="bp5-section-card bp5-padded">
+            <div class="bp5-form-group">
+                <label class="bp5-label">Логотип</label>
+                <label class="bp5-file-input">
+                    {{ form.logo }}
+                    <span class="bp5-file-upload-input">Выбрать файл...</span>
+                </label>
+            </div>
+        </div>
     </div>
-</div>
+</form>
+<button class="bp5-button bp5-intent-success bp5-large" form="company-form" type="submit">
+    <span class="bp5-button-text">Создать компанию</span>
+    <span class="bp5-icon bp5-icon-arrow-right"></span>
+</button>
 {% endblock %}

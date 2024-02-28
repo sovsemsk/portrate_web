@@ -1,4 +1,5 @@
 from django import forms
+
 from resources.models import NegativeMessage
 
 
@@ -18,20 +19,20 @@ class NegativeMessageForm(forms.ModelForm):
 
     class Meta:
         model = NegativeMessage
-        fields = ['phone', 'text']
+        fields = ["phone", "text"]
 
     # Конструктор формы
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         # Поле тегов
-        # self.fields['negative_message_tag'].widget.attrs['class'] = 'tag_widget'
+        # self.fields["negative_message_tag"].widget.attrs["class"] = "tag_widget"
 
         # Поле комментарий
-        self.fields['text'].widget.attrs['class'] = 'text_area_widget'
-        self.fields['text'].widget.attrs['placeholder'] = 'Расскажите подробнее, но достаточно и отмеченных тегов'
-        self.fields['text'].widget.attrs['rows'] = 4
+        self.fields["text"].widget.attrs["class"] = "bp5-input bp5-fill"
+        self.fields["text"].widget.attrs["placeholder"] = "Расскажите подробнее, но достаточно и отмеченных тегов"
+        self.fields["text"].widget.attrs["rows"] = 4
 
         # Поле телефон
-        self.fields['phone'].widget.attrs['class'] = 'char_field_widget'
-        self.fields['phone'].widget.attrs['placeholder'] = '+7'
+        self.fields["phone"].widget.attrs["class"] = "bp5-input bp5-fill"
+        self.fields["phone"].widget.attrs["placeholder"] = "+7"

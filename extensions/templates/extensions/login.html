@@ -1,37 +1,32 @@
 {% extends "extensions/base.html" %}
 {% load static %}
-
 {% block content %}
-<div class="flex flex-col gap-4 mt-12">
-    <div class="bp5-section bp5-card bp5-elevation-2">
-        <div class="bp5-section-header">
-            <div class="bp5-section-header-left">
-                <img class="h-8 rounded w-8" src="{% static 'logo.png' %}" alt="p">
-                <div>
-                    <h6 class="bp5-heading bp5-section-header-title">Портрет</h6>
-                    <div class="bp5-text-muted bp5-section-header-sub-title">Вход</div>
-                </div>
+<div class="bp5-card bp5-elevation-2 bp5-section">
+    <div class="bp5-section-header">
+        <div class="bp5-section-header-left">
+            <img style="width:24px;" src="{% static 'logo.png' %}" alt="p">
+            <div>
+                <h6 class="bp5-heading bp5-section-header-title">Портрет</h6>
+                <div class="bp5-section-header-sub-title bp5-text-muted">Вход</div>
             </div>
         </div>
-        <div class="bp5-section-card bp5-padded">
-            <form class="flex flex-col gap-4" action="" method="post" novalidate>
-                {% csrf_token %}
-                {% if messages %}
-                {% for message in messages %}
-                <div class="bp5-callout bp5-callout-has-body-content bp5-intent-danger bp5-elevation-1">
-                    {{message}}
-                </div>
-                {% endfor %}
-                {% endif %}
-                <div class="flex flex-col gap-1" action="" method="post" novalidate>
-                    {{ form.username }}
-                    {{ form.password }}
-                </div>
-                <div class="flex">
-                    <button class="bp5-button" type="submit">Войти</button>
-                </div>
-            </form>
-        </div>
+    </div>
+    <div class="bp5-section-card bp5-padded">
+        <form action="" method="post" novalidate>
+            {% csrf_token %}
+            {% if messages %}
+            {% for message in messages %}
+            <div class="bp5-callout bp5-callout-has-body-content bp5-intent-danger bp5-elevation-1" style="margin-bottom:15px;">
+                {{message}}
+            </div>
+            {% endfor %}
+            {% endif %}
+            <div action="" method="post" novalidate  style="display:flex;flex-direction:column;gap:5px;margin-bottom:15px;">
+                {{ form.username }}
+                {{ form.password }}
+            </div>
+            <button class="bp5-button" type="submit">Войти</button>
+        </form>
     </div>
 </div>
 {% endblock %}

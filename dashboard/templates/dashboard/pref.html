@@ -2,159 +2,156 @@
 {% load static %}
 
 {% block content %}
-<h3 class="bp5-heading pb-2">Настройки оповещений</h3>
-
-<div class="grid gap-4">
-    <!-- Тулбар -->
-    <div class="flex gap-2">
-        {% if request.user.profile.telegram_id %}
-        <a class="bp5-button bp5-intent-warning"
-            href="{% url 'extensions_telegram_notify_unsubscribe' %}?next={{ request.path }}">
-            <span class="bp5-button-text">Отписаться от оповещений</span>
-            <span aria-hidden="true" class="bp5-icon bp5-icon-send-message"></span>
-        </a>
-        {% else %}
-        <a class="bp5-button bp5-intent-warning" href="http://t.me/portrate_notify_bot?start={{ user.profile.api_secret }}" target="_blank">
-            <span class="bp5-button-text">Подписаться на оповещения</span>
-            <span aria-hidden="true" class="bp5-icon bp5-icon-send-message"></span>
-        </a>
-        {% endif %}
-        <div class="bp5-divider"></div>
-        <button class="bp5-button bp5-intent-success" form="pref-form" type="submit">
-            <span class="bp5-button-text">Сохранить</span>
-            <span aria-hidden="true" class="bp5-icon bp5-icon-tick"></span>
-        </button>
+<h3 class="bp5-heading" style="margin-bottom:15px">
+    Настройки оповещений
+</h3>
+<!-- Тулбар -->
+<div style="display:flex;gap:5px;margin-bottom:15px">
+    {% if request.user.profile.telegram_id %}
+    <a class="bp5-button bp5-intent-warning"
+        href="{% url 'extensions_telegram_notify_unsubscribe' %}?next={{ request.path }}">
+        <span class="bp5-button-text">Отписаться от оповещений</span>
+        <span aria-hidden="true" class="bp5-icon bp5-icon-send-message"></span>
+    </a>
+    {% else %}
+    <a class="bp5-button bp5-intent-warning" href="http://t.me/portrate_notify_bot?start={{ user.profile.api_secret }}" target="_blank">
+        <span class="bp5-button-text">Подписаться на оповещения</span>
+        <span class="bp5-icon bp5-icon-send-message"></span>
+    </a>
+    {% endif %}
+    <div class="bp5-divider"></div>
+    <button class="bp5-button bp5-intent-success" form="pref-form" type="submit">
+        <span class="bp5-button-text">Сохранить</span>
+        <span aria-hidden="true" class="bp5-icon bp5-icon-tick"></span>
+    </button>
+</div>
+<!-- Форма -->
+<div style="display:grid;grid-template-columns: repeat(12, minmax(0, 1fr));gap:15px">
+    <!-- Настройки -->
+    <div style="grid-column: span 9 / span 9;">
+        <form action="" id="pref-form" method="post" novalidate>
+            {% csrf_token %}
+            <div class="bp5-card bp5-elevation-2 bp5-section" style="margin-bottom:15px;">
+                <div class="bp5-section-header">
+                    <div class="bp5-section-header-left">
+                        <div>
+                            <h6 class="bp5-heading bp5-section-header-title">Типы оповещений</h6>
+                            <div class="bp5-section-header-sub-title bp5-text-muted">Выберите типы оповещений которые будут приходить вам в Telegram</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bp5-section-card">
+                    <div class="bp5-card-list bp5-card bp5-elevation-0">
+                        <div class="bp5-card bp5-control-card bp5-elevation-0 bp5-interactive bp5-switch-control-card">
+                            <label class="bp5-align-right bp5-control bp5-inline bp5-switch">
+                                {{ form.can_notify_negative_portrate }}
+                                <span class="bp5-control-indicator"></span>
+                                <div class="bp5-control-card-label">
+                                    <img class="bp5-icon" style="width:16px" src="{% static 'logo.png' %}" >
+                                    Получать оповещения в Telegram о негативных сообщениях в Портрет
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="bp5-section-card">
+                    <div class="bp5-card-list bp5-card bp5-elevation-0">
+                        <div class="bp5-card bp5-control-card bp5-elevation-0 bp5-interactive bp5-switch-control-card">
+                            <label class="bp5-align-right bp5-control bp5-inline bp5-switch">
+                                {{ form.can_notify_negative_yandex }}
+                                <span class="bp5-control-indicator"></span>
+                                <div class="bp5-control-card-label">
+                                    <img class="bp5-icon" style="width:16px" src="{% static 'yandex.svg' %}" >
+                                    Получать оповещения в Telegram о негативных отзывах в Яндекс Карты
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="bp5-section-card">
+                    <div class="bp5-card-list bp5-card bp5-elevation-0">
+                        <div class="bp5-card bp5-control-card bp5-elevation-0 bp5-interactive bp5-switch-control-card">
+                            <label class="bp5-align-right bp5-control bp5-inline bp5-switch">
+                                {{ form.can_notify_negative_gis }}
+                                <span class="bp5-control-indicator"></span>
+                                <div class="bp5-control-card-label">
+                                    <img class="bp5-icon" style="width:16px" src="{% static 'gis.svg' %}" >
+                                    Получать оповещения в Telegram о негативных отзывах в 2Гис Карты
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="bp5-section-card">
+                    <div class="bp5-card-list bp5-card bp5-elevation-0">
+                        <div class="bp5-card bp5-control-card bp5-elevation-0 bp5-interactive bp5-switch-control-card">
+                            <label class="bp5-align-right bp5-control bp5-inline bp5-switch">
+                                {{ form.can_notify_negative_google }}
+                                <span class="bp5-control-indicator"></span>
+                                <div class="bp5-control-card-label">
+                                    <img class="bp5-icon" style="width:16px" src="{% static 'google.svg' %}" >
+                                    Получать оповещения в Telegram о негативных отзывах в Google Maps
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bp5-card bp5-elevation-2 bp5-section" style="margin-bottom:15px;">
+                <div class="bp5-section-header">
+                    <div class="bp5-section-header-left">
+                        <div>
+                            <h6 class="bp5-heading bp5-section-header-title">Время</h6>
+                            <div class="bp5-section-header-sub-title bp5-text-muted">Настройки времени когда оповещения могут быть отправлены вам в Telegram</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bp5-padded bp5-section-card">
+                    <div class="bp5-form-group">
+                        <label class="bp5-label">Часовой пояс</label>
+                        <div class="bp5-html-select">
+                            {{ form.default_timezone }}
+                            <span class="bp5-icon bp5-icon-double-caret-vertical"></span>
+                        </div>
+                    </div>
+                    <div class="bp5-form-group">
+                        <label class="bp5-label">Допустимое время оповещения</label>
+                        <div style="display:flex;gap:5px;">
+                            {{ form.can_notify_at_start }} <div style="display:flex;align-items:center;">—</div> {{ form.can_notify_at_end }}
+                        </div>
+                        {% if form.can_notify_at_start.errors %}
+                        <div class="bp5-form-helper-text" style="color:#ac2f33">Время рассылки обязательно</div>
+                        {% elif form.can_notify_at_end.errors %}
+                        <div class="bp5-form-helper-text" style="color:#ac2f33">Время рассылки обязательно</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="bp5-card bp5-elevation-2 bp5-section" style="margin-bottom:15px;">
+                <div class="bp5-section-header">
+                    <div class="bp5-section-header-left">
+                        <div>
+                            <h6 class="bp5-heading bp5-section-header-title">Аккаунт Telegram</h6>
+                            <div class="bp5-section-header-sub-title bp5-text-muted">Если вы корректно привязали свой Telegram то ваш ID должен быть заполнен</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bp5-padded bp5-section-card">
+                    <div class="bp5-form-group">
+                        <label class="bp5-label">Telegram ID</label>
+                        <input class="bp5-input" type="text" value="{{ request.user.profile.telegram_id|default:'Telegram не привязан' }}" disabled/>
+                    </div>
+                    <div class="bp5-form-group">
+                        <label class="bp5-label">Личный API Ключ</label>
+                        <input class="bp5-input" type="password" value="{{ request.user.profile.api_secret }}" disabled/>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
-    <div class="grid grid-cols-12 gap-2">
-        <!-- Настройки -->
-        <div class="col-span-9">
-            <form class="grid gap-2" action="" id="pref-form" method="post" novalidate>
-                {% csrf_token %}
-                <div class="bp5-section bp5-card bp5-elevation-2">
-                    <div class="bp5-section-header">
-                        <div class="bp5-section-header-left">
-                            <div>
-                                <h6 class="bp5-heading bp5-section-header-title">Типы оповещений</h6>
-                                <div class="bp5-text-muted bp5-section-header-sub-title">Выберите типы оповещений которые будут приходить вам в Telegram</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bp5-section-card">
-                        <div class="bp5-card-list bp5-card bp5-elevation-0" role="list">
-                            <div class="bp5-control-card bp5-switch-control-card bp5-card bp5-elevation-0 bp5-interactive">
-                                <label class="bp5-control bp5-switch bp5-inline bp5-align-right">
-                                    {{ form.can_notify_negative_portrate }}
-                                    <span class="bp5-control-indicator"></span>
-                                    <div class="bp5-control-card-label">
-                                        <img class="bp5-icon h-4 w-4 mr-2" src="{% static 'logo.png' %}" >
-                                        Получать оповещения в Telegram о негативных сообщениях в Портрет
-                                    </div>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bp5-section-card">
-                        <div class="bp5-card-list bp5-card bp5-elevation-0" role="list">
-                            <div class="bp5-control-card bp5-switch-control-card bp5-card bp5-elevation-0 bp5-interactive">
-                                <label class="bp5-control bp5-switch bp5-inline bp5-align-right">
-                                    {{ form.can_notify_negative_yandex }}
-                                    <span class="bp5-control-indicator"></span>
-                                    <div class="bp5-control-card-label">
-                                        <img class="bp5-icon h-4 w-4 mr-2" src="{% static 'yandex.svg' %}" >
-                                        Получать оповещения в Telegram о негативных отзывах в Яндекс Карты
-                                    </div>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bp5-section-card">
-                        <div class="bp5-card-list bp5-card bp5-elevation-0" role="list">
-                            <div class="bp5-control-card bp5-switch-control-card bp5-card bp5-elevation-0 bp5-interactive">
-                                <label class="bp5-control bp5-switch bp5-inline bp5-align-right">
-                                    {{ form.can_notify_negative_gis }}
-                                    <span class="bp5-control-indicator"></span>
-                                    <div class="bp5-control-card-label">
-                                        <img class="bp5-icon h-4 w-4 mr-2" src="{% static 'gis.svg' %}" >
-                                        Получать оповещения в Telegram о негативных отзывах в 2Гис Карты
-                                    </div>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bp5-section-card">
-                        <div class="bp5-card-list bp5-card bp5-elevation-0" role="list">
-                            <div class="bp5-control-card bp5-switch-control-card bp5-card bp5-elevation-0 bp5-interactive">
-                                <label class="bp5-control bp5-switch bp5-inline bp5-align-right">
-                                    {{ form.can_notify_negative_google }}
-                                    <span class="bp5-control-indicator"></span>
-                                    <div class="bp5-control-card-label">
-                                        <img class="bp5-icon h-4 w-4 mr-2" src="{% static 'google.svg' %}" >
-                                        Получать оповещения в Telegram о негативных отзывах в Google Maps
-                                    </div>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="bp5-section bp5-card bp5-elevation-2">
-                    <div class="bp5-section-header">
-                        <div class="bp5-section-header-left">
-                            <div>
-                                <h6 class="bp5-heading bp5-section-header-title">Время</h6>
-                                <div class="bp5-text-muted bp5-section-header-sub-title">Настройки времени когда оповещения могут быть отправлены вам в Telegram</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bp5-section-card bp5-padded">
-                        <div class="bp5-form-group">
-                            <label class="bp5-label">Часовой пояс</label>
-                            <div class="bp5-html-select max-w-sm">
-                                {{ form.default_timezone }}
-                                <span class="bp5-icon bp5-icon-double-caret-vertical"></span>
-                            </div>
-                        </div>
-                        <div class="bp5-form-group">
-                            <label class="bp5-label">Допустимое время оповещения</label>
-                            <div class="flex gap-2">
-                                {{ form.can_notify_at_start }} <div class="flex items-center">-</div> {{ form.can_notify_at_end }}
-                            </div>
-                            {% if form.can_notify_at_start.errors %}
-                            <div class="bp5-form-helper-text text-[#ac2f33]">Время рассылки обязательно</div>
-                            {% elif form.can_notify_at_end.errors %}
-                            <div class="bp5-form-helper-text text-[#ac2f33]">Время рассылки обязательно</div>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-                <div class="bp5-section bp5-card bp5-elevation-2">
-                    <div class="bp5-section-header">
-                        <div class="bp5-section-header-left">
-                            <div>
-                                <h6 class="bp5-heading bp5-section-header-title">Аккаунт Telegram</h6>
-                                <div class="bp5-text-muted bp5-section-header-sub-title">Если вы корректно привязали свой Telegram то ваш ID должен быть заполнен</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bp5-section-card bp5-padded">
-                        <div class="bp5-form-group">
-                            <label class="bp5-label">Telegram ID</label>
-                            <input class="bp5-input max-w-sm" type="text" value="{{ request.user.profile.telegram_id|default:'Telegram не привязан' }}" disabled/>
-                        </div>
-                        <div class="bp5-form-group">
-                            <label class="bp5-label">Личный API Ключ</label>
-                            <input class="bp5-input max-w-sm" type="password" value="{{ request.user.profile.api_secret }}" disabled/>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <!-- Меню -->
-        <div class="col-span-3">
-            {% include 'dashboard/_pref_tabs.html' %}
-        </div>
+    <!-- Меню -->
+    <div style="grid-column: span 3 / span 3;">
+        {% include 'dashboard/_pref_tabs.html' %}
     </div>
 </div>
-{% endblock %}
-
-{% block right %}
 {% endblock %}

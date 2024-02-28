@@ -1,18 +1,18 @@
-<div class="flex gap-4 pb-4">
+<div style="display:flex;gap:15px;margin-bottom:15px">
     {% if company.logo %}
-        <img class="bp5-elevation-1 h-12 rounded w-12" src="{{ company.logo.url }}" alt="{{ company.name }}">
+        <img class="bp5-elevation-1" style="height:60px;width:60px" src="{{ company.logo.url }}" alt="{{ company.name }}">
     {% endif %}
     <div>
-        <h3 class="bp5-heading mb-1">
+        <h2 class="bp5-heading">
             {{ company.name }}
-        </h3>
+        </h2>
         <span class="bp5-heading bp5-text-muted">{{ company.address }}</span>
     </div>
-    <div class="ml-auto">
+    <div style="margin-left:auto">
         {% if company.is_active %}
-        <span class="bp5-tag bp5-minimal bp5-intent-success">Активно</span>
+        <span class="bp5-intent-success bp5-minimal bp5-tag">Активно</span>
         {% else %}
-        <span class="bp5-tag bp5-minimal bp5-intent-danger">Не активно</span>
+        <span class="bp5-intent-danger bp5-minimal bp5-tag">Не активно</span>
         {% endif %}
     </div>
 </div>
