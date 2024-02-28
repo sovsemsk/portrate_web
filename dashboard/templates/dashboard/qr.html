@@ -1,20 +1,6 @@
 {% extends 'dashboard/base.html' %}
 {% load static %}
-
 {% block content %}
-
-<!--  Название  -->
 {% include 'dashboard/_company_head.html' %}
-
-<!--  Табы  -->
 {% include 'dashboard/_company_tabs.html' %}
-
-<!-- Тулбар -->
-<div style="display:flex;gap:5px;margin-bottom:15px">
-    <button type="button" class="bp5-button bp5-intent-warning">
-        <span class="bp5-button-text">Скачать макет QR кода</span>
-        <span aria-hidden="true" class="bp5-icon bp5-icon-code"></span>
-    </button>
-</div>
-
 {% endblock %}

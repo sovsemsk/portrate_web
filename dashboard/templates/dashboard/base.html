@@ -37,11 +37,13 @@
         </nav>
         <div style="margin:15px auto;width:800px">
             {% if messages %}
-            <div style="padding-bottom:15px">
+            <div class="bp5-form-group">
                 {% for message in messages %}
                 <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-elevation-1 bp5-intent-{% if message.tags %}{{ message.tags }}{% endif %}">
                     <span class="bp5-icon bp5-icon-issue"></span>
-                    <h5 class="bp5-heading">Оповещение системы</h5>
+                    <h5 class="bp5-heading">
+                        Оповещение системы
+                    </h5>
                     {{ message }}
                 </div>
                 {% endfor %}

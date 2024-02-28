@@ -1,18 +1,26 @@
-<div style="display:flex;gap:15px;margin-bottom:15px">
-    {% if company.logo %}
-        <img class="bp5-elevation-1" style="height:60px;width:60px" src="{{ company.logo.url }}" alt="{{ company.name }}">
-    {% endif %}
-    <div>
-        <h2 class="bp5-heading">
-            {{ company.name }}
-        </h2>
-        <span class="bp5-heading bp5-text-muted">{{ company.address }}</span>
-    </div>
-    <div style="margin-left:auto">
-        {% if company.is_active %}
-        <span class="bp5-intent-success bp5-minimal bp5-tag">Активно</span>
-        {% else %}
-        <span class="bp5-intent-danger bp5-minimal bp5-tag">Не активно</span>
+<div class="bp5-form-group">
+    <div class="bp5-entity-title bp5-entity-title-heading-h3">
+        {% if company.logo %}
+        <div class="bp5-entity-title-icon-container bp5-entity-title-has-subtitle">
+            <img class="bp5-elevation-1" style="height:60px;width:60px;" src="{{ company.logo.url }}" alt="{{ company.name }}">
+        </div>
         {% endif %}
+        <div class="bp5-entity-title-text">
+            <div class="bp5-entity-title-title-and-tags">
+                <h3 class="bp5-heading bp5-entity-title-title">
+                    {{ company.name }}
+                </h3>
+                <div class="bp5-entity-title-tags-container">
+                    {% if company.is_active %}
+                    <span class="bp5-intent-success bp5-minimal bp5-tag">Активно</span>
+                    {% else %}
+                    <span class="bp5-intent-danger bp5-minimal bp5-tag">Не активно</span>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="bp5-text-muted bp5-entity-title-subtitle">
+                {{ company.address }}
+            </div>
+        </div>
     </div>
 </div>

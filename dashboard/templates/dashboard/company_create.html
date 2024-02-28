@@ -1,8 +1,10 @@
 {% extends 'dashboard/base.html' %}
 {% load static %}
 {% block content %}
-<h3 class="bp5-heading" style="margin-bottom:15px">Создание компании</h3>
-<form style="margin-bottom:15px" action="" enctype="multipart/form-data" id="company-form" method="post" novalidate>
+<h3 class="bp5-heading">
+    Создание компании
+</h3>
+<form action="" enctype="multipart/form-data" id="company-form" method="post" novalidate>
     {% csrf_token %}
     <div class="bp5-card bp5-elevation-2 bp5-section">
         <div class="bp5-section-header">
@@ -49,10 +51,9 @@
                 </label>
             </div>
         </div>
+        <div class="bp5-section-card bp5-padded">
+            <button class="bp5-button bp5-intent-success bp5-large" form="company-form" type="submit">Создать компанию</button>
+        </div>
     </div>
 </form>
-<button class="bp5-button bp5-intent-success bp5-large" form="company-form" type="submit">
-    <span class="bp5-button-text">Создать компанию</span>
-    <span class="bp5-icon bp5-icon-arrow-right"></span>
-</button>
 {% endblock %}

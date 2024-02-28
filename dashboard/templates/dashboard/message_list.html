@@ -1,41 +1,30 @@
 {% extends 'dashboard/base.html' %}
+{% load extensions %}
 {% load static %}
 {% load tz %}
-{% load extensions %}
 {% block content %}
-<!--  Название  -->
 {% include 'dashboard/_company_head.html' %}
-<!--  Табы  -->
 {% include 'dashboard/_company_tabs.html' %}
-<!-- Тулбар -->
-<div style="display:flex;gap:5px;margin-bottom:15px">
-    <input class="bp5-input w-36" type="date"/>
-    <div style="display:flex;align-items:center;">—</div>
-    <input class="bp5-input w-36" type="date"/>
-    <div class="bp5-divider"></div>
-    <input class="bp5-input"/>
-    <button type="button" class="bp5-button bp5-intent-warning">Найти</button>
-</div>
-<!-- Негативные сообщения -->
 {% for message in message_list %}
-<div class="bp5-section bp5-card bp5-elevation-2" style="margin-bottom:15px;">
-    <div class="bp5-section-header">
-        <div class="bp5-section-header-left">
-            <h6 class="bp5-heading bp5-section-header-title">
-                {{message.phone}}
-            </h6>
+<div class="bp5-form-group">
+    <div class="bp5-card bp5-elevation-2 bp5-section">
+        <div class="bp5-section-header">
+            <div class="bp5-section-header-left">
+                <h6 class="bp5-heading bp5-section-header-title">
+                    {{message.phone}}
+                </h6>
+            </div>
+            <div class="bp5-section-header-right">
+                {% timezone user.profile.default_timezone %}
+                <span class="bp5-text-muted">{{message.created_at}}</span>
+                {% endtimezone %}
+            </div>
         </div>
-        <div class="bp5-section-header-right">
-            {% timezone user.profile.default_timezone %}
-            <span class="bp5-text-muted">{{message.created_at}}</span>
-            {% endtimezone %}
+        <div class="bp5-section-card bp5-padded">
+            {{ message.text }}
         </div>
-    </div>
-    <div class="bp5-section-card bp5-padded">
-        {{ message.text }}
     </div>
 </div>
 {% endfor %}
-<!-- Пагинация -->
 {% include 'dashboard/_pagination.html' %}
 {% endblock %}

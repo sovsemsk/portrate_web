@@ -15,17 +15,21 @@
         <form action="" method="post" novalidate>
             {% csrf_token %}
             {% if messages %}
+            <div class="bp5-form-group">
             {% for message in messages %}
-            <div class="bp5-callout bp5-callout-has-body-content bp5-intent-danger bp5-elevation-1" style="margin-bottom:15px;">
+            <div class="bp5-callout bp5-callout-has-body-content bp5-intent-danger bp5-elevation-1">
                 {{message}}
             </div>
             {% endfor %}
-            {% endif %}
-            <div action="" method="post" novalidate  style="display:flex;flex-direction:column;gap:5px;margin-bottom:15px;">
-                {{ form.username }}
-                {{ form.password }}
             </div>
-            <button class="bp5-button" type="submit">Войти</button>
+            {% endif %}
+            <div class="bp5-form-group">
+            {{ form.username }}
+            </div>
+            <div class="bp5-form-group">
+            {{ form.password }}
+            </div>
+            <button class="bp5-button bp5-fill" type="submit">Войти</button>
         </form>
     </div>
 </div>

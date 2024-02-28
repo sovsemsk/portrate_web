@@ -1,35 +1,29 @@
 {% extends 'dashboard/base.html' %}
 {% load static %}
 {% block content %}
-<!--  Название  -->
 {% include 'dashboard/_company_head.html' %}
-<!--  Табы  -->
 {% include 'dashboard/_company_tabs.html' %}
-<!-- Тулбар -->
-<div style="display:flex;gap:5px;margin-bottom:15px">
-    <button type="button" class="bp5-button bp5-intent-warning">
-        <span class="bp5-button-text">Скопировать код виджета</span>
-        <span aria-hidden="true" class="bp5-icon bp5-icon-code"></span>
-    </button>
+<div class="bp5-form-group">
+    <div class="bp5-button-group">
+        <button type="button" class="bp5-button bp5-intent-warning">Скопировать код виджета</button>
+    </div>
 </div>
 <div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:15px">
-    <!-- Отображение -->
     <div style="grid-column: span 9 / span 9;">
         <div class="bp5-card bp5-elevation-2 bp5-section">
             <img style="width:100%" src="{% static 'frame.svg' %}">
         </div>
     </div>
-    <!-- Меню -->
     <div style="grid-column: span 3 / span 3;">
         <ul class="bp5-menu bp5-elevation-2">
             <li class="bp5-menu-header">
                 <h6 class="bp5-heading">Вариант</h6>
             </li>
-            <a class="bp5-menu-item {% if theme == 'light' %}bp5-active{% endif %}" href="{% url 'rate_widget' company.id %}?theme=light&position={{position}}">
+            <a class="bp5-menu-item {% if theme == 'light' %}bp5-active{% endif %}" href="{% url 'reviews_widget' company.id %}?theme=light&position={{position}}">
                 <div class="bp5-fill">Светлый</div>
                 <span class="bp5-icon bp5-icon-flash bp5-submenu-icon"></span>
             </a>
-            <a class="bp5-menu-item {% if theme == 'dark' %}bp5-active{% endif %}" href="{% url 'rate_widget' company.id %}?theme=dark&position={{position}}">
+            <a class="bp5-menu-item {% if theme == 'dark' %}bp5-active{% endif %}" href="{% url 'reviews_widget' company.id %}?theme=dark&position={{position}}">
                 <div class="bp5-fill">Темный</div>
                 <span class="bp5-icon bp5-icon-moon bp5-submenu-icon"></span>
             </a>

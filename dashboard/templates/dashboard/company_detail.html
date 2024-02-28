@@ -2,17 +2,15 @@
 {% load static %}
 {% load tz %}
 {% block content %}
-<!--  Название  -->
 {% include 'dashboard/_company_head.html' %}
-<!--  Табы  -->
 {% include 'dashboard/_company_tabs.html' %}
-<!-- Тулбар -->
-<div style="display:flex;gap:5px;padding-bottom:15px">
-    <a class="bp5-button bp5-intent-warning" href="{% url 'company_update' company.id %}">Настройки</a>
-    <a class="bp5-button bp5-intent-warning" href="{{company.host}}/@{{company.id}}" target="_blank"><span class="bp5-button-text">Форма запроса отзыва</span><span aria-hidden="true" class="bp5-icon bp5-icon-share"></span></a>
+<div class="bp5-form-group">
+    <div class="bp5-button-group">
+        <a class="bp5-button bp5-intent-warning" href="{% url 'company_update' company.id %}">Настройки</a>
+        <a class="bp5-button bp5-intent-warning" href="{{company.host}}/@{{company.id}}" target="_blank">Форма запроса отзыва</a>
+    </div>
 </div>
-<!-- Рейтинг -->
-<div class="bp5-section bp5-card bp5-elevation-2">
+<div class="bp5-card bp5-elevation-2 bp5-section">
     <div class="bp5-section-header">
         <div class="bp5-section-header-left">
             <div>
@@ -29,7 +27,7 @@
                     {{ company.yandex_rate|default:'0,0' }}
                 </h5>
                 Яндекс
-                <div class="bp5-text-muted" style="font-size:10px">
+                <div class="bp5-text-muted" style="font-size:10px;">
                     {% timezone user.profile.default_timezone %}
                     {{ company.yandex_rate_last_parse_at|default:'Нет данных' }}
                     {% endtimezone %}
@@ -41,7 +39,7 @@
                     {{ company.gis_rate|default:'0,0' }}
                 </h5>
                 2Гис
-                <div class="bp5-text-muted" style="font-size:10px">
+                <div class="bp5-text-muted" style="font-size:10px;">
                     {% timezone user.profile.default_timezone %}
                     {{ company.gis_rate_last_parse_at|default:'Нет данных' }}
                     {% endtimezone %}
@@ -53,7 +51,7 @@
                     {{ company.google_rate|default:'0,0' }}
                 </h5>
                 Google
-                <div class="bp5-text-muted" style="font-size:10px">
+                <div class="bp5-text-muted" style="font-size:10px;">
                     {% timezone user.profile.default_timezone %}
                     {{ company.google_rate_last_parse_at|default:'Нет данных' }}
                     {% endtimezone %}
@@ -65,7 +63,7 @@
                     {{ company.mapsme_rate|default:'0,0' }}
                 </h5>
                 Mapsme
-                <div class="bp5-text-muted" style="font-size:10px">
+                <div class="bp5-text-muted" style="font-size:10px;">
                     {% timezone user.profile.default_timezone %}
                     {{ company.mapsme_rate_last_parse_at|default:'Нет данных' }}
                     {% endtimezone %}
@@ -81,7 +79,7 @@
                     {{ company.dikidi_rate|default:'0,0' }}
                 </h5>
                 Dikidi
-                <div class="bp5-text-muted" style="font-size:10px">
+                <div class="bp5-text-muted" style="font-size:10px;">
                     {% timezone user.profile.default_timezone %}
                     {{ company.dikidi_rate_last_parse_at|default:'Нет данных' }}
                     {% endtimezone %}
@@ -93,7 +91,7 @@
                     {{ company.restoclub_rate|default:'0,0' }}
                 </h5>
                 Рестоклуб
-                <div class="bp5-text-muted" style="font-size:10px">
+                <div class="bp5-text-muted" style="font-size:10px;">
                     {% timezone user.profile.default_timezone %}
                     {{ company.restoclub_rate_last_parse_at|default:'Нет данных' }}
                     {% endtimezone %}
@@ -105,7 +103,7 @@
                     {{ company.tripadvisor_rate|default:'0,0' }}
                 </h5>
                 Tripadvisor
-                <div class="bp5-text-muted" style="font-size:10px">
+                <div class="bp5-text-muted" style="font-size:10px;">
                     {% timezone user.profile.default_timezone %}
                     {{ company.tripadvisor_rate_last_parse_at|default:'Нет данных' }}
                     {% endtimezone %}
@@ -117,7 +115,7 @@
                     {{ company.prodoctorov_rate|default:'0,0' }}
                 </h5>
                 Продокторов
-                <div class="bp5-text-muted" style="font-size:10px">
+                <div class="bp5-text-muted" style="font-size:10px;">
                     {% timezone user.profile.default_timezone %}
                     {{ company.prodoctorov_rate_last_parse_at|default:'Нет данных' }}
                     {% endtimezone %}
@@ -133,7 +131,7 @@
                     {{ company.zoon_rate|default:'0,0' }}
                 </h5>
                 Zoon
-                <div class="bp5-text-muted" style="font-size:10px">
+                <div class="bp5-text-muted" style="font-size:10px;">
                     {% timezone user.profile.default_timezone %}
                     {{ company.zoon_rate_last_parse_at|default:'Нет данных' }}
                     {% endtimezone %}
@@ -145,7 +143,7 @@
                     {{ company.flamp_rate|default:'0,0' }}
                 </h5>
                 Flamp
-                <div class="bp5-text-muted" style="font-size:10px">
+                <div class="bp5-text-muted" style="font-size:10px;">
                     {% timezone user.profile.default_timezone %}
                     {{ company.flamp_rate_last_parse_at|default:'Нет данных' }}
                     {% endtimezone %}
@@ -157,7 +155,7 @@
                     {{ company.otzovik_rate|default:'0,0' }}
                 </h5>
                 Отзовик
-                <div class="bp5-text-muted" style="font-size:10px">
+                <div class="bp5-text-muted" style="font-size:10px;">
                     {% timezone user.profile.default_timezone %}
                     {{ company.otzovik_rate_last_parse_at|default:'Нет данных' }}
                     {% endtimezone %}
@@ -169,7 +167,7 @@
                     {{ company.irecommend_rate|default:'0,0' }}
                 </h5>
                 Irecommend
-                <div class="bp5-text-muted" style="font-size:10px">
+                <div class="bp5-text-muted" style="font-size:10px;">
                     {% timezone user.profile.default_timezone %}
                     {{ company.irecommend_rate_last_parse_at|default:'Нет данных' }}
                     {% endtimezone %}
@@ -178,8 +176,8 @@
         </div>
     </div>
 </div>
+{% endblock %}
 
-<!-- Динамика -->
 <!-- div class="bp5-section bp5-card bp5-elevation-2 col-span-4">
     <div class="bp5-section-header">
         <div class="bp5-section-header-left">
@@ -201,5 +199,3 @@
         });
     });
 </script -->
-
-{% endblock %}
