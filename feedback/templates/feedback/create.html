@@ -7,7 +7,7 @@
         <h2 class="bp5-heading" style="text-align:center;">
             {{ company.request_form_negative_head }}
         </h2>
-        <p class="bp5-text-muted">
+        <p class="bp5-text-muted" style="text-align:center;">
             {{ company.request_form_negative_text }}
         </p>
     </div>
@@ -40,7 +40,9 @@
 <div class="bp5-padded bp5-section-card">
     <button class="bp5-button bp5-fill bp5-intent-success bp5-large" form="request-form" type="submit">Отправить</button>
 </div>
+{% endblock %}
 
+{% block script %}
 <script>
     const textarea = $('textarea[name=text]');
 
@@ -53,16 +55,11 @@
         }
 
         checkbox.click((event) => {
-            $(event.target).parent().toggleClass('bp5-active')
-            textarea.val(
-                [...$('input[name=tag]:checked')].map(e => e.value).join(', ')
-            );
+            $(event.target).parent().toggleClass('bp5-active');
+            textarea.val([...$('input[name=tag]:checked')].map(e => e.value).join(', '));
         });
     });
 
-    IMask(
-        document.getElementById('id_phone'),
-        {mask: '+7 000 000-00-00'}
-    );
+    IMask(document.getElementById('id_phone'), {mask: '+7 000 000-00-00'});
 </script>
 {% endblock %}

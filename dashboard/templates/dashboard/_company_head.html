@@ -2,17 +2,17 @@
     <div class="bp5-entity-title bp5-entity-title-heading-h3">
         {% if company.logo %}
         <div class="bp5-entity-title-icon-container bp5-entity-title-has-subtitle">
-            <img class="bp5-elevation-1" style="height:60px;width:60px;" src="{{ company.logo.url }}" alt="{{ company.name }}">
+            <img class="bp5-elevation-1" style="height:60px;width:60px;" alt="{{ company.name }}" src="{{ company.logo.url }}">
         </div>
         {% endif %}
-        <div class="bp5-entity-title-text">
+        <div class="bp5-entity-title-text" style="width:100%">
             <div class="bp5-entity-title-title-and-tags">
                 <h3 class="bp5-heading bp5-entity-title-title">
                     {{ company.name }}
                 </h3>
-                <div class="bp5-entity-title-tags-container">
+                <div class="bp5-entity-title-tags-container" style="margin-left:auto">
                     {% if company.is_active %}
-                    <span class="bp5-intent-success bp5-minimal bp5-tag">Активно</span>
+                    <span class="bp5-minimal bp5-intent-success bp5-tag">Активно</span>
                     {% else %}
                     <span class="bp5-intent-danger bp5-minimal bp5-tag">Не активно</span>
                     {% endif %}

@@ -16,15 +16,16 @@
     </head>
     <body style="background:#d3d8de;margin:15px;">
         <div style="margin:60px auto 30px auto;max-width:400px">
-            <!-- Логотип-->
             <a style="border-radius:2px;display:block;height:60px;margin:0 auto -5px auto;width:60px" href="{% url 'feedback_rate' company_pk=company.id %}">
                 {% if company.logo %}
                 <img class="bp5-elevation-3" style="border-radius:2px;height:60px;width:60px" src="{{ company.logo.url }}" alt="{{ company.name }}">
                 {% endif %}
             </a>
             <div class="bp5-section bp5-card bp5-elevation-3">
-                <div class="bp5-section-card bp5-padded">
-                    <h1 style="font-size:14px;font-weight:normal;margin:0;text-align:center">{{ company.name }}</h1>
+                <div class="bp5-padded bp5-section-card">
+                    <h1 style="font-size:14px;font-weight:normal;margin:0;text-align:center">
+                        {{ company.name }}
+                    </h1>
                 </div>
                 {% block content %}
                 {% endblock %}
@@ -33,5 +34,7 @@
                 <span class="bp5-text-muted">работает на</span> <a style="" href="https://portrate.io">portrate.io</a>
             </div>
         </div>
+        {% block script %}
+        {% endblock %}
     </body>
 </html>
