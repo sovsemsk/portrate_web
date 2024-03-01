@@ -1,3 +1,5 @@
+import math
+
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save, post_init
@@ -278,6 +280,18 @@ class Company(models.Model):
 
     # Связи
     users = models.ManyToManyField(User, blank=True, verbose_name="пользователи")
+
+    @property
+    def portrate_rate_ceil(self):
+        return int(math.modf(self.portrate_rate)[1])
+
+    @property
+    def portrate_rate_float(self):
+        return round(math.modf(self.portrate_rate)[0], 1)
+
+    @property
+    def portrate_rate_rest(self):
+        return 4 - self.portrate_rate_ceil
 
     def __str__(self):
         return self.name
