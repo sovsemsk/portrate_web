@@ -45,4 +45,13 @@ def parse_cards(company_id):
     else:
         result.append("Company not valid for GoogleParser")
 
+    ratings = [
+        company.yandex_rate,
+        company.gis_rate,
+        company.google_rate
+    ]
+
+    company.portrate_rate = max(ratings)
+    company.save()
+
     return f"Done for company [{company_id}] with result [{', '.join(result)}]"
