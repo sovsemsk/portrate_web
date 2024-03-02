@@ -290,7 +290,11 @@ class Company(models.Model):
         return round(math.modf(self.portrate_rate)[0], 1)
 
     @property
-    def portrate_rate_rest(self):
+    def portrate_rate_ceil_rest(self):
+        return 5 - self.portrate_rate_ceil
+
+    @property
+    def portrate_rate_ceil_sub_rest(self):
         return 4 - self.portrate_rate_ceil
 
     def __str__(self):
@@ -316,7 +320,7 @@ class NegativeMessage(models.Model):
         return self.phone
 
 
-# Отзыв=
+# Отзыв
 class Review(models.Model):
     class Meta:
         db_table = "resources_review"

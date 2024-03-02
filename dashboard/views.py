@@ -235,7 +235,7 @@ def qr(request, company_pk):
 @require_http_methods(["GET"])
 def rate_widget(request, company_pk):
     company = get_object_or_404(Company, pk=company_pk, users__in=[request.user])
-    theme = request.GET.get("theme", "light")
+    theme = request.GET.get("theme", "l")
     position = request.GET.get("position", "lb")
 
     return render(
