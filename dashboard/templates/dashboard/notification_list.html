@@ -2,6 +2,7 @@
 {% load static %}
 {% load tz %}
 {% block content %}
+{% if notification_list %}
 <div class="bp5-form-group">
     <div class="bp5-entity-title bp5-entity-title-heading-h3">
         <div class="bp5-entity-title-icon-container">
@@ -16,7 +17,6 @@
         </div>
     </div>
 </div>
-
 {% for notification in notification_list %}
 <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-elevation-2" style="background:white;margin-bottom:15px;">
     <span class="bp5-icon bp5-icon-issue"></span>
@@ -43,4 +43,21 @@
 </div>
 {% endfor %}
 {% include 'dashboard/_pagination.html' %}
+{% else %}
+<div class="bp5-form-group">
+    <div class="bp5-non-ideal-state">
+      <div class="bp5-non-ideal-state-visual" style="font-size: 48px; line-height: 48px;">
+        <span class="bp5-icon bp5-icon-muted bp5-icon-notifications"></span>
+      </div>
+      <div class="bp5-non-ideal-state-text">
+        <h3 class="bp5-heading">
+            Оповещения
+        </h3>
+        <div>
+            Ни одного оповещения не найдено.
+        </div>
+      </div>
+    </div>
+</div>
+{% endif %}
 {% endblock %}

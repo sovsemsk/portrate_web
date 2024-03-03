@@ -3,6 +3,7 @@
 {% load static %}
 {% load tz %}
 {% block content %}
+{% if company_list %}
 <div class="bp5-form-group">
     <div class="bp5-entity-title bp5-entity-title-heading-h3">
         <div class="bp5-entity-title-icon-container">
@@ -97,4 +98,22 @@
 </div>
 {% endfor %}
 {% include 'dashboard/_pagination.html' %}
+{% else %}
+<div class="bp5-form-group">
+    <div class="bp5-non-ideal-state">
+        <div class="bp5-non-ideal-state-visual" style="font-size: 48px; line-height: 48px;">
+            <span class="bp5-icon bp5-icon-muted bp5-icon-shop"></span>
+        </div>
+        <div class="bp5-non-ideal-state-text">
+            <h3 class="bp5-heading">
+                Компании
+            </h3>
+            <div>
+                Ни одной компании не найдено.
+            </div>
+        </div>
+        <a class="bp5-button bp5-intent-success" href="{% url 'company_create' %}">Создать компанию</a>
+    </div>
+</div>
+{% endif %}
 {% endblock %}
