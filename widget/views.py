@@ -26,3 +26,19 @@ def rate(request, company_api_secret):
         },
         content_type="application/javascript"
     )
+
+
+@require_http_methods(["GET"])
+def reviews(request, company_api_secret):
+    company = get_object_or_404(Company, api_secret=company_api_secret, is_active=True)
+    # company_reviews_yandex = company.total_positive_count + company.total_negative_count
+    theme = request.GET.get("theme", "l")
+
+    return render(
+        request,
+        "widget/rate.js",
+        {
+            "theme": theme
+        },
+        content_type="application/javascript"
+    )
