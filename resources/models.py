@@ -282,6 +282,10 @@ class Company(models.Model):
     users = models.ManyToManyField(User, blank=True, verbose_name="пользователи")
 
     @property
+    def total_reviews_count(self):
+        return self.total_positive_count + self.total_negative_count
+
+    @property
     def portrate_rate_ceil(self):
         return int(math.modf(self.portrate_rate)[1])
 

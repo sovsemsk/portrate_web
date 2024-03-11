@@ -5,13 +5,20 @@
 {% include 'dashboard/_company_tabs.html' %}
 <div class="bp5-form-group">
     <div class="bp5-button-group">
-        <button type="button" class="bp5-button bp5-intent-warning">Скопировать код виджета</button>
+        <button id="COPY_CODE_BUTTON" type="button" class="bp5-button bp5-intent-warning">Скопировать код виджета</button>
     </div>
 </div>
 <div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:15px">
     <div style="grid-column:span 9 / span 9;">
-        <div class="bp5-card bp5-elevation-2 bp5-section">
-            <img style="width:100%" src="{% static 'frame.svg' %}">
+        <div class="bp5-form-group">
+            <div class="bp5-card bp5-elevation-2 bp5-section" style="position:relative;">
+                <img style="width:95%;left:15px;position:absolute;top:80px;" {% if theme == 'l' %}src="{% static 'widget_reviews_light.svg' %}"{% else %}src="{% static 'widget_reviews_dark.svg' %}"{% endif %}>
+                <img style="width:100%" src="{% static 'frame.svg' %}">
+            </div>
+        </div>
+        <div class="bp5-form-group" style="margin-bottom:0;">
+            <label class="bp5-label">Код виджета</label>
+            <textarea class="bp5-input bp5-fill" style="font-size:12px;resize:none;" id="CODE_INPUT" type="text"><script src="https://geo.portrate.io/widget/{{company.api_secret}}/reviews.js?theme={{theme}}&position={{position}}" id="PIO_REVIEWS_WIDGET_SCRIPT"></script></textarea>
         </div>
     </div>
     <div style="grid-column:span 3 / span 3;">
@@ -19,15 +26,23 @@
             <li class="bp5-menu-header">
                 <h6 class="bp5-heading">Тема</h6>
             </li>
-            <a class="bp5-menu-item {% if theme == 'light' %}bp5-active{% endif %}" href="{% url 'reviews_widget' company.id %}?theme=light&position={{position}}">
+            <a class="bp5-menu-item {% if theme == 'l' %}bp5-active{% endif %}" href="{% url 'reviews_widget' company.id %}?theme=l">
                 <div class="bp5-fill">Светлый</div>
                 <span class="bp5-icon bp5-icon-flash bp5-submenu-icon"></span>
             </a>
-            <a class="bp5-menu-item {% if theme == 'dark' %}bp5-active{% endif %}" href="{% url 'reviews_widget' company.id %}?theme=dark&position={{position}}">
+            <a class="bp5-menu-item {% if theme == 'd' %}bp5-active{% endif %}" href="{% url 'reviews_widget' company.id %}?theme=d">
                 <div class="bp5-fill">Темный</div>
                 <span class="bp5-icon bp5-icon-moon bp5-submenu-icon"></span>
             </a>
         </ul>
     </div>
 </div>
+{% endblock %}
+{% block script %}
+<script>
+    $("#COPY_CODE_BUTTON").click((event) => {
+        $("#CODE_INPUT").select();
+        document.execCommand("copy");
+    });
+</script>
 {% endblock %}

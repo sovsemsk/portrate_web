@@ -18,7 +18,7 @@
         </div>
         <div class="bp5-form-group" style="margin-bottom:0;">
             <label class="bp5-label">Код виджета</label>
-            <textarea class="bp5-input bp5-fill" style="font-size:12px;resize:none;" id="CODE_INPUT" type="text"><script src="https://geo.portrate.io/widget/{{company.api_secret}}/rate.js?theme={{theme}}&position={{position}}"></script></textarea>
+            <textarea class="bp5-input bp5-fill" style="font-size:12px;resize:none;" id="CODE_INPUT" type="text"><script src="https://geo.portrate.io/widget/{{company.api_secret}}/rate.js?theme={{theme}}&position={{position}}" id="PIO_RATE_WIDGET_SCRIPT"></script></textarea>
         </div>
     </div>
     <div style="grid-column: span 3 / span 3;">
@@ -65,4 +65,3 @@
     });
 </script>
 {% endblock %}
-

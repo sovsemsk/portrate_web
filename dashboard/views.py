@@ -255,7 +255,7 @@ def rate_widget(request, company_pk):
 @require_http_methods(["GET"])
 def reviews_widget(request, company_pk):
     company = get_object_or_404(Company, pk=company_pk, users__in=[request.user])
-    theme = request.GET.get("theme", "light")
+    theme = request.GET.get("theme", "l")
 
     return render(
         request,

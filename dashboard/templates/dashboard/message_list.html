@@ -1,13 +1,10 @@
 {% extends 'dashboard/base.html' %}
-{% load extensions %}
 {% load static %}
 {% load tz %}
 {% block content %}
 {% include 'dashboard/_company_head.html' %}
 {% include 'dashboard/_company_tabs.html' %}
-
 {% if message_list %}
-
 {% for message in message_list %}
 <div class="bp5-form-group">
     <div class="bp5-card bp5-elevation-2 bp5-section">
@@ -31,9 +28,6 @@
 </div>
 {% endfor %}
 {% include 'dashboard/_pagination.html' %}
-
-
-
 {% else %}
 <div class="bp5-form-group">
     <div class="bp5-non-ideal-state">
@@ -50,6 +44,5 @@
         </div>
     </div>
 </div>
-
 {% endif %}
 {% endblock %}

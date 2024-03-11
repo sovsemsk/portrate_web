@@ -1,5 +1,4 @@
 {% extends 'dashboard/base.html' %}
-{% load extensions %}
 {% load static %}
 {% load tz %}
 {% block content %}
@@ -85,7 +84,7 @@
                 <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-elevation-1">
                     <span class="bp5-icon bp5-icon-comment"></span>
                     <h5 class="bp5-heading">
-                        {{ company.total_positive_count|sum:company.total_negative_count }}
+                        {{ company.total_reviews_count }}
                     </h5>
                     Всего отзывов
                 </div>

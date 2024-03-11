@@ -1,6 +1,5 @@
 {% extends 'dashboard/base.html' %}
 {% load static %}
-{% load extensions %}
 {% load tz %}
 {% block content %}
 {% include 'dashboard/_company_head.html' %}
@@ -82,19 +81,21 @@
                     <div class="bp5-section-header-sub-title">
                         {% with ''|center:review.rate as range %}
                         {% for _ in range %}
-                        <span aria-hidden="true" class="bp5-icon bp5-icon-star" style="color:#F0B726;font-size:10px;"></span>
+                        <span class="bp5-icon bp5-icon-star" style="color:#F0B726;font-size:10px;"></span>
                         {% endfor %}
                         {% endwith %}
                         {% with ''|center:review.rate_rest as range %}
                         {% for _ in range %}
-                        <span aria-hidden="true" class="bp5-icon bp5-icon-star" style="color:#CCCCCC;font-size:10px;"></span>
+                        <span class="bp5-icon bp5-icon-star" style="color:#CCCCCC;font-size:10px;"></span>
                         {% endfor %}
                         {% endwith %}
                     </div>
                 </div>
             </div>
             <div class="bp5-section-header-right">
+                {% timezone user.profile.default_timezone %}
                 <span class="bp5-text-muted bp5-text-small">{{review.created_at}}</span>
+                {% endtimezone %}
                 {% if review.service == 'YANDEX' %}
                 <img style="width:16px;" src="{% static 'yandex.svg' %}" alt="Яндекс">
                 {% endif %}
