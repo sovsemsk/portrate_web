@@ -42,19 +42,18 @@
                             {{review.created_at}}
                         </div>
                         <div style="display:flex;gap:5px;">
-                            <!--img style="height:10px;width:10px;" src="https://geo.portrate.io/static/star-yellow.svg"-->
-                            <img style="height:10px;width:10px;" src="https://geo.portrate.io/static/images/stars/{{review.stars_svg}}">
+                            <img style="height:10px;width:10px;" src="https://geo.portrate.io/static/{{review.stars_svg}}">
                         </div>
                     </div>
                     <div>
                         {% if review.service == 'YANDEX' %}
-                        <img style="width:16px;" src="https://geo.portrate.io/static/yandex.svg" alt="Яндекс">
+                        <img style="width:16px;" src="https://geo.portrate.io/static/images/services/yandex.svg" alt="Яндекс">
                         {% endif %}
                         {% if review.service == 'GIS' %}
-                        <img style="width:16px;" src="https://geo.portrate.io/static/gis.svg" alt="2Гис">
+                        <img style="width:16px;" src="https://geo.portrate.io/static/images/services/gis.svg" alt="2Гис">
                         {% endif %}
                         {% if review.service == 'GOOGLE' %}
-                        <img style="width:16px;" src="https://geo.portrate.io/static/google.svg" alt="Google">
+                        <img style="width:16px;" src="https://geo.portrate.io/static/images/services/google.svg" alt="Google">
                         {% endif %}
                     </div>
                 </div>
