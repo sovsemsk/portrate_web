@@ -1,5 +1,6 @@
 beautifulsoup4==4.12.3
 celery==5.3.6
+dateparser==1.2.0
 django==5.0.2
 django-admin-interface==0.28.5
 django-browser-reload==1.12.1

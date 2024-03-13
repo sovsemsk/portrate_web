@@ -5,197 +5,151 @@
 {% include 'dashboard/_company_head.html' %}
 {% include 'dashboard/_company_tabs.html' %}
 <div class="bp5-form-group">
-    <div class="bp5-button-group">
+    <div>
         <a class="bp5-button bp5-intent-warning" href="{% url 'company_update' company.id %}">Настройки</a>
         <a class="bp5-button bp5-intent-warning" href="{{company.host}}/@{{company.id}}" target="_blank">Форма запроса отзыва</a>
     </div>
 </div>
-<div class="bp5-card bp5-elevation-2 bp5-section">
+<div class="bp5-form-group">
+    <div class="bp5-card bp5-elevation-2 bp5-section">
+        <div class="bp5-section-header">
+            <div class="bp5-section-header-left">
+                <div>
+                    <h6 class="bp5-heading bp5-section-header-title">Рейтинг</h6>
+                    <div class="bp5-section-header-sub-title bp5-text-muted">показатели рейтинга в поисковых системах и классифаерах</div>
+                </div>
+            </div>
+        </div>
+        <div class="bp5-padded bp5-section-card">
+            <div style="display:flex;gap:5px">
+                <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-elevation-1">
+                    <img class="bp5-icon" style="width:16px" src="{% static 'images/services/yandex.svg' %}" >
+                    <h5 class="bp5-heading">
+                        {{ company.rating_yandex|default:'0,0' }}
+                    </h5>
+                    Яндекс
+                    <div class="bp5-text-muted bp5-text-small">
+                        {% timezone user.profile.default_timezone %}
+                        {{ company.rating_yandex_last_parse_at|default:'Нет данных' }}
+                        {% endtimezone %}
+                    </div>
+                </div>
+                <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-elevation-1">
+                    <img class="bp5-icon" style="width:16px" src="{% static 'images/services/gis.svg' %}" >
+                    <h5 class="bp5-heading">
+                        {{ company.rating_gis|default:'0,0' }}
+                    </h5>
+                    2Гис
+                    <div class="bp5-text-muted bp5-text-small">
+                        {% timezone user.profile.default_timezone %}
+                        {{ company.rating_gis_last_parse_at|default:'Нет данных' }}
+                        {% endtimezone %}
+                    </div>
+                </div>
+                <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-elevation-1">
+                    <img class="bp5-icon" style="width:16px" src="{% static 'images/services/google.svg' %}" >
+                    <h5 class="bp5-heading">
+                        {{ company.rating_google|default:'0,0' }}
+                    </h5>
+                    Google
+                    <div class="bp5-text-muted bp5-text-small">
+                        {% timezone user.profile.default_timezone %}
+                        {{ company.rating_google_last_parse_at|default:'Нет данных' }}
+                        {% endtimezone %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--div class="bp5-padded bp5-section-card">
+            <canvas id="RATE_DYNAMIC_CHART" width="500" height="160"></canvas>
+        </div-->
+    </div>
+</div>
+<div class="bp5-section bp5-card bp5-elevation-2">
     <div class="bp5-section-header">
         <div class="bp5-section-header-left">
             <div>
-                <h6 class="bp5-heading bp5-section-header-title">Рейтинг</h6>
-                <div class="bp5-section-header-sub-title bp5-text-muted">показатели рейтинга в поисковых системах и классифаерах</div>
+                <h6 class="bp5-heading bp5-section-header-title">Отзывы</h6>
+                <div class="bp5-section-header-sub-title bp5-text-muted">количество отзывов поисковых системах и классифаерах</div>
             </div>
         </div>
     </div>
-    <div class="bp5-padded bp5-section-card">
-        <div style="display:flex;gap:5px">
-            <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-elevation-1">
-                <img class="bp5-icon" style="width:16px" src="{% static 'yandex.svg' %}" >
-                <h5 class="bp5-heading">
-                    {{ company.yandex_rate|default:'0,0' }}
-                </h5>
-                Яндекс
-                <div class="bp5-text-muted" style="font-size:10px;">
-                    {% timezone user.profile.default_timezone %}
-                    {{ company.yandex_rate_last_parse_at|default:'Нет данных' }}
-                    {% endtimezone %}
-                </div>
-            </div>
-            <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-elevation-1">
-                <img class="bp5-icon" style="width:16px" src="{% static 'gis.svg' %}" >
-                <h5 class="bp5-heading">
-                    {{ company.gis_rate|default:'0,0' }}
-                </h5>
-                2Гис
-                <div class="bp5-text-muted" style="font-size:10px;">
-                    {% timezone user.profile.default_timezone %}
-                    {{ company.gis_rate_last_parse_at|default:'Нет данных' }}
-                    {% endtimezone %}
-                </div>
-            </div>
-            <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-elevation-1">
-                <img class="bp5-icon" style="width:16px" src="{% static 'google.svg' %}" >
-                <h5 class="bp5-heading">
-                    {{ company.google_rate|default:'0,0' }}
-                </h5>
-                Google
-                <div class="bp5-text-muted" style="font-size:10px;">
-                    {% timezone user.profile.default_timezone %}
-                    {{ company.google_rate_last_parse_at|default:'Нет данных' }}
-                    {% endtimezone %}
-                </div>
-            </div>
-            <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-elevation-1">
-                <img class="bp5-icon" style="width:16px" src="{% static 'mapsme.svg' %}" >
-                <h5 class="bp5-heading">
-                    {{ company.mapsme_rate|default:'0,0' }}
-                </h5>
-                Mapsme
-                <div class="bp5-text-muted" style="font-size:10px;">
-                    {% timezone user.profile.default_timezone %}
-                    {{ company.mapsme_rate_last_parse_at|default:'Нет данных' }}
-                    {% endtimezone %}
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="bp5-section-card bp5-padded">
-        <div style="display:flex;gap:5px">
-            <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-elevation-1">
-                <img class="bp5-icon" style="width:16px" src="{% static 'dikidi.png' %}" >
-                <h5 class="bp5-heading">
-                    {{ company.dikidi_rate|default:'0,0' }}
-                </h5>
-                Dikidi
-                <div class="bp5-text-muted" style="font-size:10px;">
-                    {% timezone user.profile.default_timezone %}
-                    {{ company.dikidi_rate_last_parse_at|default:'Нет данных' }}
-                    {% endtimezone %}
-                </div>
-            </div>
-            <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-elevation-1">
-                <img class="bp5-icon" style="width:16px" src="{% static 'restoclub.svg' %}" >
-                <h5 class="bp5-heading">
-                    {{ company.restoclub_rate|default:'0,0' }}
-                </h5>
-                Рестоклуб
-                <div class="bp5-text-muted" style="font-size:10px;">
-                    {% timezone user.profile.default_timezone %}
-                    {{ company.restoclub_rate_last_parse_at|default:'Нет данных' }}
-                    {% endtimezone %}
-                </div>
-            </div>
-            <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-elevation-1">
-                <img class="bp5-icon" style="width:16px" src="{% static 'tripadvisor.svg' %}" >
-                <h5 class="bp5-heading">
-                    {{ company.tripadvisor_rate|default:'0,0' }}
-                </h5>
-                Tripadvisor
-                <div class="bp5-text-muted" style="font-size:10px;">
-                    {% timezone user.profile.default_timezone %}
-                    {{ company.tripadvisor_rate_last_parse_at|default:'Нет данных' }}
-                    {% endtimezone %}
-                </div>
-            </div>
-            <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-elevation-1">
-                <img class="bp5-icon" style="width:16px" src="{% static 'prodoctorov.png' %}" >
-                <h5 class="bp5-heading">
-                    {{ company.prodoctorov_rate|default:'0,0' }}
-                </h5>
-                Продокторов
-                <div class="bp5-text-muted" style="font-size:10px;">
-                    {% timezone user.profile.default_timezone %}
-                    {{ company.prodoctorov_rate_last_parse_at|default:'Нет данных' }}
-                    {% endtimezone %}
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="bp5-section-card bp5-padded">
-        <div style="display:flex;gap:5px">
-            <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-elevation-1">
-                <img class="bp5-icon" style="width:16px" src="{% static 'zoon.svg' %}" >
-                <h5 class="bp5-heading">
-                    {{ company.zoon_rate|default:'0,0' }}
-                </h5>
-                Zoon
-                <div class="bp5-text-muted" style="font-size:10px;">
-                    {% timezone user.profile.default_timezone %}
-                    {{ company.zoon_rate_last_parse_at|default:'Нет данных' }}
-                    {% endtimezone %}
-                </div>
-            </div>
-            <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-elevation-1">
-                <img class="bp5-icon" style="width:16px" src="{% static 'flamp.png' %}" >
-                <h5 class="bp5-heading">
-                    {{ company.flamp_rate|default:'0,0' }}
-                </h5>
-                Flamp
-                <div class="bp5-text-muted" style="font-size:10px;">
-                    {% timezone user.profile.default_timezone %}
-                    {{ company.flamp_rate_last_parse_at|default:'Нет данных' }}
-                    {% endtimezone %}
-                </div>
-            </div>
-            <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-elevation-1">
-                <img class="bp5-icon" style="width:16px" src="{% static 'otzovik.svg' %}" >
-                <h5 class="bp5-heading">
-                    {{ company.otzovik_rate|default:'0,0' }}
-                </h5>
-                Отзовик
-                <div class="bp5-text-muted" style="font-size:10px;">
-                    {% timezone user.profile.default_timezone %}
-                    {{ company.otzovik_rate_last_parse_at|default:'Нет данных' }}
-                    {% endtimezone %}
-                </div>
-            </div>
-            <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-elevation-1">
-                <img class="bp5-icon" style="width:16px" src="{% static 'irecommend.png' %}" >
-                <h5 class="bp5-heading">
-                    {{ company.irecommend_rate|default:'0,0' }}
-                </h5>
-                Irecommend
-                <div class="bp5-text-muted" style="font-size:10px;">
-                    {% timezone user.profile.default_timezone %}
-                    {{ company.irecommend_rate_last_parse_at|default:'Нет данных' }}
-                    {% endtimezone %}
-                </div>
-            </div>
-        </div>
+    <div class="bp5-section-card">
+        <table class="bp5-html-table bp5-html-table-bordered bp5-html-table-striped" style="width:100%;">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Время обновления</th>
+                    <th>Позитив</th>
+                    <th>Негатив</th>
+                    <th>Всего</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <img class="bp5-icon" style="height:16px;margin-left:10px;margin-right:5px;width:16px;" src="{% static 'images/services/yandex.svg' %}">Яндекс
+                    </td>
+                    <td>
+                        <span class="bp5-text-muted bp5-text-small">
+                            {% timezone user.profile.default_timezone %}
+                            {{ company.reviews_yandex_last_parse_at|default:'Нет данных' }}
+                            {% endtimezone %}
+                        </span>
+                    </td>
+                    <td>{{ company.reviews_yandex_positive_count|default:'0' }}</td>
+                    <td>{{ company.reviews_yandex_negative_count|default:'0' }}</td>
+                    <td>{{ company.reviews_yandex_total_count|default:'0' }}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <img class="bp5-icon" style="height:16px;margin-left:10px;margin-right:5px;width:16px;" src="{% static 'images/services/gis.svg' %}">2Гис
+                    </td>
+                    <td>
+                        <span class="bp5-text-muted bp5-text-small">
+                            {% timezone user.profile.default_timezone %}
+                            {{ company.reviews_gis_last_parse_at|default:'Нет данных' }}
+                            {% endtimezone %}
+                        </span>
+                    </td>
+                    <td>{{ company.reviews_gis_positive_count|default:'0' }}</td>
+                    <td>{{ company.reviews_gis_negative_count|default:'0' }}</td>
+                    <td>{{ company.reviews_gis_total_count|default:'0' }}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <img class="bp5-icon" style="height:16px;margin-left:10px;margin-right:5px;width:16px;" src="{% static 'images/services/google.svg' %}">Google
+                    </td>
+                    <td>
+                        <span class="bp5-text-muted bp5-text-small">
+                            {% timezone user.profile.default_timezone %}
+                            {{ company.reviews_google_last_parse_at|default:'Нет данных' }}
+                            {% endtimezone %}
+                        </span>
+                    </td>
+                    <td>{{ company.reviews_google_positive_count|default:'0' }}</td>
+                    <td>{{ company.reviews_google_negative_count|default:'0' }}</td>
+                    <td>{{ company.reviews_google_total_count|default:'0' }}</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan=4></td>
+                    <td>{{ company.reviews_total_count|default:'0' }}</td>
+                </tr>
+            </tfoot>
+        </table>
     </div>
 </div>
 {% endblock %}
-
-<!-- div class="bp5-section bp5-card bp5-elevation-2 col-span-4">
-    <div class="bp5-section-header">
-        <div class="bp5-section-header-left">
-            <div>
-                <h6 class="bp5-heading bp5-section-header-title">Динамика</h6>
-                <div class="bp5-text-muted bp5-section-header-sub-title">динамика рейтинга в поисковых системах и классифаерах</div>
-            </div>
-        </div>
-    </div>
-    <div class="bp5-section-card bp5-padded">
-        <canvas id="myChart" width="500" height="200"></canvas>
-    </div>
-</div>
+{% block script %}
 <script type="text/javascript">
-    $.get('{% url "line_chart_json" %}', function(data) {
-        var ctx = $("#myChart").get(0).getContext("2d");
+    $.get('{% url "company_rate_dynamic" company.id %}', function(data) {
+        var ctx = $("#RATE_DYNAMIC_CHART").get(0).getContext("2d");
         new Chart(ctx, {
-            type: 'line', data: data
+            type: 'line',
+            data: data
         });
     });
-</script -->
+</script>
+{% endblock %}

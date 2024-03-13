@@ -3,33 +3,16 @@
     <style type="text/css">@media only screen and (max-width: 480px){#PIO_RATE_WIDGET_CONTAINER{left:-350px !important;}}</style>
     <div style="display:flex;height:80px;place-items:center;width:90px;">
         <div style="color:{% if theme == 'l' %}#2b2b2b{% else %}#f6f6f6{% endif %};font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:42px;text-align:center;padding-left:5px;width:100%;">
-            {{company_rate}}
+            {{rating}}
         </div>
     </div>
     <div style="display:flex;height:80px;place-items:center;width:150px;">
         <div style="display:flex;flex-direction:column;gap:5px;width:150px;">
             <div style="display:flex;gap:5px;height:13px;width:150px;">
-                {% with ''|center:company_rate_ceil as range %}
-                {% for _ in range %}
                 <img src="https://geo.portrate.io/static/star-yellow.svg">
-                {% endfor %}
-                {% endwith %}
-                {% if company_rate_ceil != 5 %}
-                <div style="height:13px;position:relative;width:13px;">
-                    <img style="display:block;" src="https://geo.portrate.io/static/star-gray.svg">
-                    <div style="left:0;overflow:hidden;position:absolute;top:0;width:{{company_rate_float_percentage}}px;">
-                        <img style="display:block;" src="https://geo.portrate.io/static/star-yellow.svg">
-                    </div>
-                </div>
-                {% endif %}
-                {% with ''|center:company_rate_sub_rest as range %}
-                {% for _ in range %}
-                <img src="https://geo.portrate.io/static/star-gray.svg">
-                {% endfor %}
-                {% endwith %}
             </div>
             <div style="color:{% if theme == 'l' %}#696969{% else %}#adadad{% endif %};font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:12px;width:150px;">
-                {{ company_reviews_count }} {{ company_reviews_count|rupluralize:"отзыв, отзыва, отзывов" }}
+                {{reviews_total_count}} {{reviews_total_count|rupluralize:"отзыв, отзыва, отзывов"}}
             </div>
             <div style="color:{% if theme == 'l' %}#adadad{% else %}#696969{% endif %};font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:10px;width:150px;">
                 работает на <a target="_blank" style="color:#a77300;text-decoration:none" href="https://portrate.io">portrate.io</a>

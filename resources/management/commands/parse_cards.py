@@ -5,7 +5,7 @@ from resources.tasks import parse_cards
 
 
 class Command(BaseCommand):
-    help = "Парсинг (загрузка) данных"
+    help = "Парсинг карточек"
 
     def handle(self, *args, **options):
         companies = Company.objects.filter(is_active=True).values("id").all()

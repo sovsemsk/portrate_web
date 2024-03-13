@@ -4,7 +4,7 @@
 <div class="bp5-card bp5-elevation-2 bp5-section">
     <div class="bp5-section-header">
         <div class="bp5-section-header-left">
-            <img style="width:24px;" src="{% static 'logo.png' %}" alt="p">
+            <img style="width:24px;" src="{% static 'images/dashboard/logo.png' %}" alt="P">
             <div>
                 <h6 class="bp5-heading bp5-section-header-title">Портрет</h6>
                 <div class="bp5-section-header-sub-title bp5-text-muted">Вход</div>
@@ -16,18 +16,18 @@
             {% csrf_token %}
             {% if messages %}
             <div class="bp5-form-group">
-            {% for message in messages %}
-            <div class="bp5-callout bp5-callout-has-body-content bp5-intent-danger bp5-elevation-1">
-                {{message}}
-            </div>
-            {% endfor %}
+                {% for message in messages %}
+                <div class="bp5-callout bp5-callout-has-body-content bp5-intent-danger bp5-elevation-1">
+                    {{message}}
+                </div>
+                {% endfor %}
             </div>
             {% endif %}
             <div class="bp5-form-group">
-            {{ form.username }}
+                {{ form.username }}
             </div>
             <div class="bp5-form-group">
-            {{ form.password }}
+                {{ form.password }}
             </div>
             <button class="bp5-button bp5-fill" type="submit">Войти</button>
         </form>

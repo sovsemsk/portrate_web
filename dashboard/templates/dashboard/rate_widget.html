@@ -12,8 +12,8 @@
     <div style="grid-column: span 9 / span 9;">
         <div class="bp5-form-group">
             <div class="bp5-card bp5-elevation-2 bp5-section" style="position:relative;">
-                <img style="{% if position == 'lb' or position == 'lt' %}left:0px;{% elif position == 'rt' or position == 'rb' %}right:0px;{% endif %}position:absolute;{% if position == 'lb' or position == 'rb' %}bottom:0px;{% elif position == 'lt' or position == 'rt' %}top:25px;{% endif %}" {% if theme == 'l' %}src="{% static 'widget_rate_light.svg' %}"{% else %}src="{% static 'widget_rate_dark.svg' %}"{% endif %}>
-                <img style="width:100%" src="{% static 'frame.svg' %}">
+                <img style="{% if position == 'lb' or position == 'lt' %}left:0px;{% elif position == 'rt' or position == 'rb' %}right:0px;{% endif %}position:absolute;{% if position == 'lb' or position == 'rb' %}bottom:0px;{% elif position == 'lt' or position == 'rt' %}top:25px;{% endif %}" {% if theme == 'l' %}src="{% static 'images/dashboard/widget_rate_light.svg' %}"{% else %}src="{% static 'images/dashboard/widget_rate_dark.svg' %}"{% endif %}>
+                <img style="width:100%" src="{% static 'images/dashboard/frame.svg' %}">
             </div>
         </div>
         <div class="bp5-form-group" style="margin-bottom:0;">

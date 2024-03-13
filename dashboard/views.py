@@ -1,3 +1,4 @@
+from chartjs.colors import next_color
 from chartjs.views.lines import BaseLineChartView
 from django.conf import settings
 from django.contrib import messages
@@ -10,7 +11,7 @@ from django.views.decorators.http import require_http_methods
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
 from dashboard.forms import CompanyForm, ProfileForm, ReviewForm
-from resources.models import Company, NegativeMessage, Notification, Review
+from resources.models import Company, Message, Review
 
 
 class CompanyListView(ListView):
@@ -119,6 +120,22 @@ class CompanyUpdateView(SuccessMessageMixin, UpdateView):
         return reverse("company_update", kwargs={"pk": self.object.id})
 
 
+class CompanyRateDynamic(BaseLineChartView):
+    def get_labels(self):
+        return ["January", "February", "March", "April", "May", "June", "July"]
+
+    def get_providers(self):
+        return ["Яндекс", "2Гис", "Google"]
+
+    def get_colors(self):
+        return next_color([(160, 5, 84)])
+
+    def get_data(self):
+        return [[4.1, 4.2, 4.3, 4.4, 4.4, 4.7, 4.8],
+                [4.7, 4.6, 4.5, 4.4, 4.3, 4.1, 4.2],
+                [4.9, 5.0, 5.0, 4.9, 4.8, 4.7, 4.6]]
+
+
 class ReviewListView(ListView):
     context_object_name = "review_list"
     paginate_by = 30
@@ -171,7 +188,7 @@ class ReviewUpdateView(SuccessMessageMixin, UpdateView):
 
 class MessageListView(ListView):
     context_object_name = "message_list"
-    model = NegativeMessage
+    model = Message
     paginate_by = 30
     template_name = "dashboard/message_list.html"
 
@@ -192,26 +209,6 @@ class MessageListView(ListView):
             company__in=[self.kwargs["company_pk"]],
             company__users__in=[self.request.user]
         ).select_related("company").order_by("-created_at")
-
-
-class NotificationListView(ListView):
-    template_name = "dashboard/notification_list.html"
-    model = Notification
-    context_object_name = "notification_list"
-    paginate_by = 30
-
-    @method_decorator(login_required)
-    def dispatch(self, request, *args, **kwargs):
-        return super(NotificationListView, self).dispatch(request, *args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["nav"] = "notification"
-        return context
-
-    def get_queryset(self, **kwargs):
-        queryset = super().get_queryset(**kwargs)
-        return queryset.filter(company__users__in=[self.request.user]).select_related("company").order_by("-created_at")
 
 
 @login_required
@@ -294,20 +291,3 @@ def pref(request):
             "sub_nav": "notification",
         },
     )
-
-
-class LineChartJSONView(BaseLineChartView):
-    def get_labels(self):
-        """Return 7 labels for the x-axis."""
-        return ["January", "February", "March", "April", "May", "June", "July"]
-
-    def get_providers(self):
-        """Return names of datasets."""
-        return ["Яндекс", "2Гис", "Google"]
-
-    def get_data(self):
-        """Return 3 datasets to plot."""
-
-        return [[4.1, 4.2, 4.3, 4.4, 4.4, 4.7, 4.8],
-                [4.7, 4.6, 4.5, 4.4, 4.3, 4.1, 4.2],
-                [4.9, 5.0, 5.0, 4.9, 4.8, 4.7, 4.6]]

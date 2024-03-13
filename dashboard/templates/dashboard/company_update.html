@@ -3,7 +3,7 @@
 {% block content %}
 {% include 'dashboard/_company_head.html' %}
 <div class="bp5-form-group">
-    <div class="bp5-button-group">
+    <div>
         <button class="bp5-button bp5-intent-warning" form="company-form" type="submit">Сохранить</button>
         <a class="bp5-button bp5-intent-warning" href="{% url 'company_detail' company.id %}">Закрыть</a>
     </div>
@@ -24,10 +24,10 @@
                 <div class="bp5-card-list bp5-card bp5-elevation-0">
                     <div class="bp5-card bp5-control-card bp5-elevation-0 bp5-interactive bp5-switch-control-card">
                         <label class="bp5-control bp5-switch bp5-inline bp5-align-right">
-                            {{ form.is_yandex_reviews_download }}
+                            {{ form.is_parse_yandex }}
                             <span class="bp5-control-indicator"></span>
                             <div class="bp5-control-card-label">
-                                <img class="bp5-icon" style="margin-right:5px;width:16px" src="{% static 'yandex.svg' %}" >
+                                <img class="bp5-icon" style="margin-right:5px;width:16px" src="{% static 'images/services/yandex.svg' %}" >
                                 Загружать отзывы и данные из Яндекс Карты
                             </div>
                         </label>
@@ -38,10 +38,10 @@
                 <div class="bp5-card-list bp5-card bp5-elevation-0">
                     <div class="bp5-card bp5-control-card bp5-elevation-0 bp5-interactive bp5-switch-control-card">
                         <label class="bp5-control bp5-switch bp5-inline bp5-align-right">
-                            {{ form.is_gis_reviews_download }}
+                            {{ form.is_parse_gis }}
                             <span class="bp5-control-indicator"></span>
                             <div class="bp5-control-card-label">
-                                <img class="bp5-icon" style="margin-right:5px;width:16px" src="{% static 'gis.svg' %}" >
+                                <img class="bp5-icon" style="margin-right:5px;width:16px" src="{% static 'images/services/gis.svg' %}" >
                                 Загружать отзывы и данные из 2Гис Карты
                             </div>
                         </label>
@@ -52,10 +52,10 @@
                 <div class="bp5-card-list bp5-card bp5-elevation-0">
                     <div class="bp5-card bp5-control-card bp5-elevation-0 bp5-interactive bp5-switch-control-card">
                         <label class="bp5-control bp5-switch bp5-inline bp5-align-right">
-                            {{ form.is_google_reviews_download }}
+                            {{ form.is_parse_google }}
                             <span class="bp5-control-indicator"></span>
                             <div class="bp5-control-card-label">
-                                <img class="bp5-icon" style="margin-right:5px;width:16px" src="{% static 'google.svg' %}" >
+                                <img class="bp5-icon" style="margin-right:5px;width:16px" src="{% static 'images/services/google.svg' %}" >
                                 Загружать отзывы и данные из Google Maps
                             </div>
                         </label>
@@ -77,22 +77,22 @@
             <div class="bp5-padded bp5-section-card">
                 <div class="bp5-form-group">
                     <label class="bp5-label">Ссылка на страницу с отзывами в Яндекс Картах</label>
-                    {{ form.yandex_parser_link }}
-                    {% if form.errors.yandex_parser_link %}
+                    {{ form.parser_link_yandex }}
+                    {% if form.errors.parser_link_yandex %}
                     <div class="bp5-form-helper-text" style="color:#ac2f33;">Ссылка на страницу с отзывами в Яндекс Картах обязателена</div>
                     {% endif %}
                 </div>
                 <div class="bp5-form-group">
                     <label class="bp5-label">Ссылка на страницу с отзывами в 2Гис Картах</label>
-                    {{ form.gis_parser_link }}
-                    {% if form.errors.gis_parser_link %}
+                    {{ form.parser_link_gis }}
+                    {% if form.errors.parser_link_gis %}
                     <div class="bp5-form-helper-text" style="color:#ac2f33;">Ссылка на страницу с отзывами в 2Гис Картах обязателена</div>
                     {% endif %}
                 </div>
                 <div class="bp5-form-group">
                     <label class="bp5-label">Ссылка на страницу с отзывами в Google Картах</label>
-                    {{ form.google_parser_link }}
-                    {% if form.errors.google_parser_link %}
+                    {{ form.parser_link_google }}
+                    {% if form.errors.parser_link_google %}
                     <div class="bp5-form-helper-text" style="color:#ac2f33;">Ссылка на страницу с отзывами в Google Картах обязателена</div>
                     {% endif %}
                 </div>
@@ -112,47 +112,51 @@
             <div class="bp5-padded bp5-section-card">
                 <div class="bp5-form-group">
                     <label class="bp5-label">Ссылка Яндекс Карты</label>
-                    {{ form.yandex_link }}
+                    {{ form.form_link_yandex }}
                 </div>
                 <div class="bp5-form-group">
                     <label class="bp5-label">Ссылка 2Гис Карты</label>
-                    {{ form.gis_link }}
+                    {{ form.form_link_gis }}
                 </div>
                 <div class="bp5-form-group">
                     <label class="bp5-label">Ссылка Google Maps</label>
-                    {{ form.google_link }}
+                    {{ form.form_link_google }}
                 </div>
                 <div class="bp5-form-group">
                     <label class="bp5-label">Ссылка Mapsme</label>
-                    {{ form.mapsme_link }}
+                    {{ form.form_link_mapsme }}
                 </div>
                 <div class="bp5-form-group">
                     <label class="bp5-label">Ссылка Dikidi</label>
-                    {{ form.dikidi_link }}
+                    {{ form.form_link_dikidi }}
                 </div>
                 <div class="bp5-form-group">
                     <label class="bp5-label">Ссылка Рестоклуб</label>
-                    {{ form.restoclub_link }}
+                    {{ form.form_link_restoclub }}
                 </div>
                 <div class="bp5-form-group">
                     <label class="bp5-label">Ссылка Tripadvisor</label>
-                    {{ form.tripadvisor_link }}
+                    {{ form.form_link_tripadvisor }}
                 </div>
                 <div class="bp5-form-group">
                     <label class="bp5-label">Ссылка Продокторов</label>
-                    {{ form.prodoctorov_link }}
+                    {{ form.form_link_prodoctorov }}
+                </div>
+                <div class="bp5-form-group">
+                    <label class="bp5-label">Ссылка Flamp</label>
+                    {{ form.form_link_flamp }}
                 </div>
                 <div class="bp5-form-group">
                     <label class="bp5-label">Ссылка Zoon</label>
-                    {{ form.zoon_link }}
+                    {{ form.form_link_zoon }}
                 </div>
                 <div class="bp5-form-group">
                     <label class="bp5-label">Ссылка Отзовик</label>
-                    {{ form.otzovik_link }}
+                    {{ form.form_link_otzovik }}
                 </div>
                 <div class="bp5-form-group">
                     <label class="bp5-label">Ссылка Irecommend</label>
-                    {{ form.irecommend_link }}
+                    {{ form.form_link_irecommend }}
                 </div>
             </div>
         </div>

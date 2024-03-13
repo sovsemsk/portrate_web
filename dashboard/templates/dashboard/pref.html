@@ -16,7 +16,7 @@
     </div>
 </div>
 <div class="bp5-form-group">
-    <div class="bp5-button-group">
+    <div>
         <button class="bp5-button bp5-intent-warning" form="pref-form" type="submit">Сохранить</button>
         {% if request.user.profile.telegram_id %}
         <a class="bp5-button bp5-intent-warning" href="{% url 'extensions_telegram_notify_unsubscribe' %}?next={{ request.path }}">Отписаться от оповещений</a>
@@ -44,7 +44,7 @@
                             {{ form.can_notify_negative_portrate }}
                             <span class="bp5-control-indicator"></span>
                             <div class="bp5-control-card-label">
-                                <img class="bp5-icon" style="margin-right:5px;width:16px" src="{% static 'logo.png' %}" >
+                                <img class="bp5-icon" style="margin-right:5px;width:16px" src="{% static 'images/dashboard/logo.png' %}" >
                                 Получать оповещения в Telegram о негативных сообщениях в Портрет
                             </div>
                         </label>
@@ -58,7 +58,7 @@
                             {{ form.can_notify_negative_yandex }}
                             <span class="bp5-control-indicator"></span>
                             <div class="bp5-control-card-label">
-                                <img class="bp5-icon" style="margin-right:5px;width:16px" src="{% static 'yandex.svg' %}" >
+                                <img class="bp5-icon" style="margin-right:5px;width:16px" src="{% static 'images/services/yandex.svg' %}" >
                                 Получать оповещения в Telegram о негативных отзывах в Яндекс Карты
                             </div>
                         </label>
@@ -72,7 +72,7 @@
                             {{ form.can_notify_negative_gis }}
                             <span class="bp5-control-indicator"></span>
                             <div class="bp5-control-card-label">
-                                <img class="bp5-icon" style="margin-right:5px;width:16px" src="{% static 'gis.svg' %}" >
+                                <img class="bp5-icon" style="margin-right:5px;width:16px" src="{% static 'images/services/gis.svg' %}" >
                                 Получать оповещения в Telegram о негативных отзывах в 2Гис Карты
                             </div>
                         </label>
@@ -86,7 +86,7 @@
                             {{ form.can_notify_negative_google }}
                             <span class="bp5-control-indicator"></span>
                             <div class="bp5-control-card-label">
-                                <img class="bp5-icon" style="margin-right:5px;width:16px" src="{% static 'google.svg' %}" >
+                                <img class="bp5-icon" style="margin-right:5px;width:16px" src="{% static 'images/services/google.svg' %}" >
                                 Получать оповещения в Telegram о негативных отзывах в Google Maps
                             </div>
                         </label>
@@ -124,26 +124,6 @@
                     <div class="bp5-form-helper-text" style="color:#ac2f33">Время рассылки обязательно</div>
                     {% endif %}
                 </div>
-            </div>
-        </div>
-    </div>
-    <div class="bp5-card bp5-elevation-2 bp5-section">
-        <div class="bp5-section-header">
-            <div class="bp5-section-header-left">
-                <div>
-                    <h6 class="bp5-heading bp5-section-header-title">Аккаунт Telegram</h6>
-                    <div class="bp5-section-header-sub-title bp5-text-muted">Если вы корректно привязали свой Telegram то ваш ID должен быть заполнен</div>
-                </div>
-            </div>
-        </div>
-        <div class="bp5-padded bp5-section-card">
-            <div class="bp5-form-group">
-                <label class="bp5-label">Telegram ID</label>
-                <input class="bp5-input" type="text" value="{{ request.user.profile.telegram_id|default:'Telegram не привязан' }}" disabled/>
-            </div>
-            <div class="bp5-form-group">
-                <label class="bp5-label">Личный API Ключ</label>
-                <input class="bp5-input" type="password" value="{{ request.user.profile.api_secret }}" disabled/>
             </div>
         </div>
     </div>

@@ -15,10 +15,12 @@
                 </h6>
             </div>
             <div class="bp5-section-header-right">
+                <span class="bp5-text-muted bp5-text-small">
                 {% timezone user.profile.default_timezone %}
-                <span class="bp5-text-muted bp5-text-small">{{message.created_at}}</span>
+                {{message.created_at}}
                 {% endtimezone %}
-                <img style="width:16px;" src="{% static 'logo.png' %}" alt="Портрет">
+                </span>
+                <img style="width:16px;" src="{% static 'images/dashboard/logo.png' %}" alt="Портрет">
             </div>
         </div>
         <div class="bp5-section-card bp5-padded">

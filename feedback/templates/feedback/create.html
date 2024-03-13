@@ -5,10 +5,10 @@
 <div class="bp5-padded bp5-section-card">
     <div class="bp5-form-group">
         <h2 class="bp5-heading" style="text-align:center;">
-            {{ company.request_form_negative_head }}
+            Написать директору
         </h2>
         <p class="bp5-text-muted" style="text-align:center;">
-            {{ company.request_form_negative_text }}
+            Расскажите что вам не понравилось и что мы можем сделать лучше. Директор накажет виновных, свяжется с вами и предложит решение проблемы.
         </p>
     </div>
     <form action="" id="request-form" method="post" novalidate>
@@ -16,7 +16,7 @@
         <div class="bp5-form-group tag_widget">
             <label class="bp5-label">Что именно вам не понравилось?</label>
             <div style="display:flex;flex-wrap:wrap;gap:5px">
-                {% for tag in company.request_form_tags %}
+                {% for tag in company.form_tags %}
                 <label class="bp5-interactive bp5-minimal bp5-intent-success bp5-tag">
                     <input name="tag" type="checkbox" value="{{ tag }}" style="display:none"/>
                     {{ tag }}

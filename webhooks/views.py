@@ -44,9 +44,7 @@ def webhooks_telegram_update(request):
 # Хендлер команды /start Y1GNT1F5
 def webhooks_telegram_update_start(message):
     # Получение пользователя
-    profile = Profile.objects.filter(
-        api_secret=message.text.replace("/start ", "")
-    ).first()
+    profile = Profile.objects.filter(api_secret=message.text.replace("/start ", "")).first()
 
     # Сброс если нет такого пользователя
     if not profile:

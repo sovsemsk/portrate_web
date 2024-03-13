@@ -1,125 +1,47 @@
 {% extends 'dashboard/base.html' %}
 {% load static %}
-{% load tz %}
 {% block content %}
 {% include 'dashboard/_company_head.html' %}
 {% include 'dashboard/_company_tabs.html' %}
 {% if review_list %}
-<div class="bp5-form-group">
-    <div class="bp5-section bp5-card bp5-elevation-2">
-        <div class="bp5-section-header">
-            <div class="bp5-section-header-left">
-                <div>
-                    <h6 class="bp5-heading bp5-section-header-title">Отзывы</h6>
-                    <div class="bp5-section-header-sub-title bp5-text-muted">количество отзывов поисковых системах и классифаерах</div>
-                </div>
-            </div>
-        </div>
-        <div class="bp5-padded bp5-section-card">
-            <div style="display:flex;gap:5px;">
-                <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-elevation-1">
-                    <img class="bp5-icon" style="width:16px;" src="{% static 'yandex.svg' %}" >
-                    <h5 class="bp5-heading">
-                        <span style="color:#238551;">{{ company.yandex_positive_count|default:'0' }}</span> — <span style="color:#ac2f33;">{{ company.yandex_negative_count|default:'0' }}</span>
-                    </h5>
-                    Яндекс
-                    <div class="bp5-text-muted" style="font-size:10px;">
-                        {% timezone user.profile.default_timezone %}
-                        {{ company.yandex_reviews_last_parse_at|default:'Нет данных' }}
-                        {% endtimezone %}
-                    </div>
-                </div>
-                <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-elevation-1">
-                    <img class="bp5-icon" style="width:16px;" src="{% static 'gis.svg' %}" >
-                    <h5 class="bp5-heading">
-                        <span style="color:#238551;">{{ company.gis_positive_count|default:'0' }}</span> — <span style="color:#ac2f33;">{{ company.gis_negative_count|default:'0' }}</span>
-                    </h5>
-                    2Гис
-                    <div class="bp5-text-muted" style="font-size:10px;">
-                        {% timezone user.profile.default_timezone %}
-                        {{ company.gis_reviews_last_parse_at|default:'Нет данных' }}
-                        {% endtimezone %}
-                    </div>
-                </div>
-                <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-elevation-1">
-                    <img class="bp5-icon" style="width:16px;" src="{% static 'google.svg' %}" >
-                    <h5 class="bp5-heading">
-                        <span style="color:#238551;">{{ company.google_positive_count|default:'0' }}</span> — <span style="color:#ac2f33;">{{ company.google_negative_count|default:'0' }}</span>
-                    </h5>
-                    Google
-                    <div class="bp5-text-muted" style="font-size:10px;">
-                        {% timezone user.profile.default_timezone %}
-                        {{ company.google_rate_last_parse_at|default:'Нет данных' }}
-                        {% endtimezone %}
-                    </div>
-                </div>
-                <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-elevation-1">
-                    <img class="bp5-icon" style="width:16px;" src="{% static 'mapsme.svg' %}" >
-                    <h5 class="bp5-heading">
-                        <span style="color:#238551;">{{ company.mapsme_positive_count|default:'0' }}</span> — <span style="color:#ac2f33;">{{ company.mapsme_negative_count|default:'0' }}</span>
-                    </h5>
-                    Mapsme
-                    <div class="bp5-text-muted" style="font-size:10px;">
-                        {% timezone user.profile.default_timezone %}
-                        {{ company.mapsme_rate_last_parse_at|default:'Нет данных' }}
-                        {% endtimezone %}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 {% for review in review_list %}
 <div class="bp5-form-group">
     <div class="bp5-section bp5-card bp5-elevation-2">
         <div class="bp5-section-header">
             <div class="bp5-section-header-left">
                 <div>
-                    <h6 class="bp5-heading bp5-section-header-title">
+                    <h6 class="bp5-heading bp5-section-header-title {% if review.is_hidden %}bp5-text-muted{% endif %}">
                         {{review.name}}
                     </h6>
                     <div class="bp5-section-header-sub-title">
-                        {% with ''|center:review.rate as range %}
-                        {% for _ in range %}
-                        <span class="bp5-icon bp5-icon-star" style="color:#F0B726;font-size:10px;"></span>
-                        {% endfor %}
-                        {% endwith %}
-                        {% with ''|center:review.rate_rest as range %}
-                        {% for _ in range %}
-                        <span class="bp5-icon bp5-icon-star" style="color:#CCCCCC;font-size:10px;"></span>
-                        {% endfor %}
-                        {% endwith %}
+                        <img style="height:10px;width:70px;" src="{% static review.stars_svg %}" alt="*">
                     </div>
                 </div>
             </div>
             <div class="bp5-section-header-right">
-                {% timezone user.profile.default_timezone %}
                 <span class="bp5-text-muted bp5-text-small">{{review.created_at}}</span>
-                {% endtimezone %}
                 {% if review.service == 'YANDEX' %}
-                <img style="width:16px;" src="{% static 'yandex.svg' %}" alt="Яндекс">
+                <img style="width:16px;" src="{% static 'images/services/yandex.svg' %}" alt="Яндекс">
                 {% endif %}
                 {% if review.service == 'GIS' %}
-                <img style="width:16px;" src="{% static 'gis.svg' %}" alt="2Гис">
+                <img style="width:16px;" src="{% static 'images/services/gis.svg' %}" alt="2Гис">
                 {% endif %}
                 {% if review.service == 'GOOGLE' %}
-                <img style="width:16px;" src="{% static 'google.svg' %}" alt="Google">
+                <img style="width:16px;" src="{% static 'images/services/google.svg' %}" alt="Google">
                 {% endif %}
+                <form action="{% url 'review_update' company.id review.id %}" method="post">
+                {% csrf_token %}
+                    {% if review.is_hidden %}
+                    <button type="submit" class="bp5-button"><span class="bp5-icon bp5-icon-eye-open"></span></button>
+                    {% else %}
+                    <input name="is_hidden" type="hidden" value="true">
+                    <button class="bp5-button" type="submit"><span class="bp5-icon bp5-icon-eye-off"></span></button>
+                    {% endif %}
+                </form>
             </div>
         </div>
         <div class="bp5-padded bp5-section-card">
-            {{ review.text }}
-        </div>
-        <div class="bp5-padded bp5-section-card">
-            <form action="{% url 'review_update' company.id review.id %}" method="post">
-                {% csrf_token %}
-                {% if review.is_hidden %}
-                <button type="submit" class="bp5-button bp5-intent-warning">Показать в виджете</button>
-                {% else %}
-                <input name="is_hidden" type="hidden" value="true">
-                <button type="submit" class="bp5-button bp5-intent-warning">Скрыть из виджета</button>
-                {% endif %}
-            </form>
+            <span class="{% if review.is_hidden %}bp5-text-muted{% endif %}" style="white-space: pre-wrap;">{{ review.text }}</span>
         </div>
     </div>
 </div>

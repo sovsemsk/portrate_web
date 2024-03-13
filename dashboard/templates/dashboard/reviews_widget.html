@@ -12,13 +12,13 @@
     <div style="grid-column:span 9 / span 9;">
         <div class="bp5-form-group">
             <div class="bp5-card bp5-elevation-2 bp5-section" style="position:relative;">
-                <img style="width:95%;left:15px;position:absolute;top:80px;" {% if theme == 'l' %}src="{% static 'widget_reviews_light.svg' %}"{% else %}src="{% static 'widget_reviews_dark.svg' %}"{% endif %}>
-                <img style="width:100%" src="{% static 'frame.svg' %}">
+                <img style="width:95%;left:15px;position:absolute;top:80px;" {% if theme == 'l' %}src="{% static 'images/dashboard/widget_reviews_light.svg' %}"{% else %}src="{% static 'images/dashboard/widget_reviews_dark.svg' %}"{% endif %}>
+                <img style="width:100%" src="{% static 'images/dashboard/frame.svg' %}">
             </div>
         </div>
         <div class="bp5-form-group" style="margin-bottom:0;">
             <label class="bp5-label">Код виджета</label>
-            <textarea class="bp5-input bp5-fill" style="font-size:12px;resize:none;" id="CODE_INPUT" type="text"><script src="https://geo.portrate.io/widget/{{company.api_secret}}/reviews.js?theme={{theme}}&position={{position}}" id="PIO_REVIEWS_WIDGET_SCRIPT"></script></textarea>
+            <textarea class="bp5-input bp5-fill" style="font-size:12px;resize:none;" id="CODE_INPUT" type="text"><script src="https://geo.portrate.io/widget/{{company.api_secret}}/reviews.js?theme={{theme}}" id="PIO_REVIEWS_WIDGET_SCRIPT"></script></textarea>
         </div>
     </div>
     <div style="grid-column:span 3 / span 3;">

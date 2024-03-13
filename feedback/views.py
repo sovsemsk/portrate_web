@@ -2,8 +2,8 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.views.decorators.http import require_http_methods
 
-from feedback.forms import NegativeMessageForm
-from resources.models import Company, Notification
+from feedback.forms import MessageForm
+from resources.models import Company, Message
 
 
 @require_http_methods(["GET"])
@@ -17,22 +17,17 @@ def create(request, company_pk):
     company = get_object_or_404(Company, id=company_pk, is_active=True)
 
     if request.method == "POST":
-        form = NegativeMessageForm(request.POST)
+        form = MessageForm(request.POST)
         form.instance.company = company
 
         if form.is_valid():
-            negative_message = form.save()
-
-            Notification.objects.create(
-                company=negative_message.company,
-                negative_message=negative_message,
-                text=negative_message.text,
-            )
-
+            form.save()
+            company.messages_total_count = Message.objects.filter(company_id=company.id).count()
+            company.save()
             return redirect(reverse("feedback_success", kwargs={"company_pk": company.id}))
 
     else:
-        form = NegativeMessageForm()
+        form = MessageForm()
 
     return render(request, "feedback/create.html", {"company": company, "form": form})
 

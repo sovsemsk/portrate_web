@@ -1,510 +1,223 @@
-import math
-
 from django.contrib.auth.models import User
 from django.db import models
-from django.db.models.signals import post_save, post_init
+from django.db.models.signals import post_init, post_save
 from django.dispatch import receiver
 from django.utils.crypto import get_random_string
 
 
-# Компания
+class Service(models.TextChoices):
+    """ Сервис """
+
+    YANDEX = "YANDEX", "Яндекс"
+    GIS = "GIS", "2Гис"
+    GOOGLE = "GOOGLE", "Google"
+
+
 class Company(models.Model):
+    """ Компания """
+
     class Meta:
         db_table = "resources_company"
         verbose_name = "компания"
         verbose_name_plural = "компании"
 
-    # Настройки
-    is_active = models.BooleanField(default=False, verbose_name="Активно?")
-
+    """ Автогенерация """
     api_secret = models.CharField(verbose_name="API ключ", db_index=True)
 
-    yandex_parser_link = models.CharField(blank=True, null=True, verbose_name="Ссылка на страницу с отзывами Яндекс")
+    """ Настройки """
+    is_active = models.BooleanField(default=False, verbose_name="активно?")
+    is_first_parsing = models.BooleanField(default=True, verbose_name="первый парсинг?")
+    is_parse_yandex = models.BooleanField(default=False, verbose_name="парсить Яндекс?")
+    is_parse_gis = models.BooleanField(default=False, verbose_name="парсить 2Гис?")
+    is_parse_google = models.BooleanField(default=False, verbose_name="парсить Google?")
 
-    is_yandex_reviews_upload = models.BooleanField(default=False, verbose_name="Загружать отзывы в Яндекс?")
+    """ Ссылки для парсеров """
+    parser_link_yandex = models.CharField(blank=True, null=True, verbose_name="ссылка Яндекс")
+    parser_link_gis = models.CharField(blank=True, null=True, verbose_name="ссылка 2Гис")
+    parser_link_google = models.CharField(blank=True, null=True, verbose_name="ссылка Google")
 
-    is_yandex_reviews_download = models.BooleanField(default=False, verbose_name="Загружать отзывы с Яндекс?")
-
-    gis_parser_link = models.CharField(blank=True, null=True, verbose_name="Ссылка на страницу с отзывами 2Гис")
-
-    is_gis_reviews_upload = models.BooleanField(default=False, verbose_name="Загружать отзывы в 2Гис?")
-
-    is_gis_reviews_download = models.BooleanField(default=False, verbose_name="Загружать отзывы с 2Гис?")
-
-    google_parser_link = models.CharField(blank=True, null=True, verbose_name="Ссылка на страницу с отзывами Google")
-
-    is_google_reviews_upload = models.BooleanField(default=False, verbose_name="Загружать отзывы в Google?")
-
-    is_google_reviews_download = models.BooleanField(default=False, verbose_name="Загружать отзывы с Google?")
-
-    mapsme_parser_link = models.CharField(blank=True, null=True, verbose_name="Ссылка на страницу с отзывами Mapsme")
-
-    is_mapsme_reviews_upload = models.BooleanField(default=False, verbose_name="Загружать отзывы в Mapsme?")
-
-    is_mapsme_reviews_download = models.BooleanField(default=False, verbose_name="Загружать отзывы с Mapsme?")
-
-    dikidi_parser_link = models.CharField(blank=True, null=True, verbose_name="Ссылка на страницу с отзывами Dikidi")
-
-    is_dikidi_reviews_upload = models.BooleanField(default=False, verbose_name="Загружать отзывы в Dikidi?")
-
-    is_dikidi_reviews_download = models.BooleanField(default=False, verbose_name="Загружать отзывы с Dikidi?")
-
-    restoclub_parser_link = models.CharField(blank=True, null=True, verbose_name="Ссылка на страницу с отзывами Рестоклуб")
-
-    is_restoclub_reviews_upload = models.BooleanField(default=False, verbose_name="Загружать отзывы в Рестоклуб?")
-
-    is_restoclub_reviews_download = models.BooleanField(default=False, verbose_name="Загружать отзывы с Рестоклуб?")
-
-    tripadvisor_parser_link = models.CharField(blank=True, null=True, verbose_name="Ссылка на страницу с отзывами Tripadvisor")
-
-    is_tripadvisor_reviews_upload = models.BooleanField(default=False, verbose_name="Загружать отзывы в Tripadvisor?")
-
-    is_tripadvisor_reviews_download = models.BooleanField(default=False, verbose_name="Загружать отзывы с Tripadvisor?")
-
-    prodoctorov_parser_link = models.CharField(blank=True, null=True, verbose_name="Ссылка на страницу с отзывами Продокторов")
-
-    is_prodoctorov_reviews_upload = models.BooleanField(default=False, verbose_name="Загружать отзывы в Продокторов?")
-
-    is_prodoctorov_reviews_download = models.BooleanField(default=False, verbose_name="Загружать отзывы с Продокторов?")
-
-    flamp_parser_link = models.CharField(blank=True, null=True, verbose_name="ссылка Flamp")
-
-    is_flamp_reviews_upload = models.BooleanField(default=False, verbose_name="Загружать отзывы в Flamp?")
-
-    is_flamp_reviews_download = models.BooleanField(default=False, verbose_name="Загружать отзывы с Flamp?")
-
-    zoon_parser_link = models.CharField(blank=True, null=True, verbose_name="Ссылка на страницу с отзывами Zoon")
-
-    is_zoon_reviews_upload = models.BooleanField(default=False, verbose_name="Загружать отзывы в Zoon?")
-
-    is_zoon_reviews_download = models.BooleanField(default=False, verbose_name="Загружать отзывы с Zoon?")
-
-    otzovik_parser_link = models.CharField(blank=True, null=True, verbose_name="Ссылка на страницу с отзывами Отзовик")
-
-    is_otzovik_reviews_upload = models.BooleanField(default=False, verbose_name="Загружать отзывы в Отзовик?")
-
-    is_otzovik_reviews_download = models.BooleanField(default=False, verbose_name="Загружать отзывы с Отзовик?")
-
-    irecommend_parser_link = models.CharField(blank=True, null=True, verbose_name="Ссылка на страницу с отзывами Irecommend")
-
-    is_irecommend_reviews_upload = models.BooleanField(default=False, verbose_name="Загружать отзывы в Irecommend?")
-
-    is_irecommend_reviews_download = models.BooleanField(default=False, verbose_name="Загружать отзывы с Irecommend?")
-
-    # Контент
+    """ Контент """
+    address = models.CharField(verbose_name="адрес")
+    logo = models.ImageField(blank=True, null=True, upload_to="company_logo/%Y/%m/%d/", verbose_name="логотип")
     name = models.CharField(verbose_name="название")
 
-    address = models.CharField(verbose_name="адрес")
-
-    logo = models.ImageField(blank=True, null=True, upload_to="company_logo/%Y/%m/%d/", verbose_name="логотип")
-
-    request_form_home_head = models.TextField(default="Вам понравилось обслуживание?", verbose_name="Заголовок формы запроса отзыва (главная)",)
-
-    request_form_positive_head = models.TextField(default="Наградите нас отзывом", verbose_name="Заголовок формы запроса отзыва (позитив)")
-
-    request_form_negative_head = models.TextField(default="Написать директору", verbose_name="Заголовок формы запроса отзыва (негатив)")
-
-    request_form_negative_text = models.TextField(default="Расскажите что вам не понравилось и что мы можем сделать лучше. Директор накажет виновных, свяжется с вами и предложит решение проблемы.", verbose_name="Текст формы запроса отзыва (негатив)")
-
-    request_form_tags = models.JSONField(default=["Нагрубили", "Сделали не то", "Цена", "Плохое качество", "Долго"], verbose_name="Теги формы запроса отзыва")
-
-    request_form_success_head = models.TextField(default="Ваша претензия отправлена", verbose_name="Заголовок формы запроса отзыва (резулита отправки негатива)", )
-
-    request_form_success_text = models.TextField(default="В близжайшее время с вами свяжется администратор", verbose_name="Текст формы запроса отзыва (резулита отправки негатива)", )
-
-    yandex_link = models.CharField(blank=True, null=True, verbose_name="ссылка Яндекс")
-
-    gis_link = models.CharField(blank=True, null=True, verbose_name="ссылка 2Гис")
-
-    google_link = models.CharField(blank=True, null=True, verbose_name="ссылка Google")
-
-    mapsme_link = models.CharField(blank=True, null=True, verbose_name="ссылка Mapsme")
-
-    dikidi_link = models.CharField(blank=True, null=True, verbose_name="ссылка Dikidi")
-
-    restoclub_link = models.CharField(blank=True, null=True, verbose_name="ссылка Рестоклуб")
-
-    tripadvisor_link = models.CharField(blank=True, null=True, verbose_name="ссылка Tripadvisor")
-
-    prodoctorov_link = models.CharField(blank=True, null=True, verbose_name="ссылка Продокторов")
-
-    zoon_link = models.CharField(blank=True, null=True, verbose_name="ссылка Zoon")
-
-    otzovik_link = models.CharField(blank=True, null=True, verbose_name="ссылка Отзовик")
-
-    irecommend_link = models.CharField(blank=True, null=True, verbose_name="ссылка Irecommend")
-
-    # Агрегация
-
-    """ Портрет """
-    portrate_rate = models.DecimalField(blank=True, decimal_places=1, default=0.0, max_digits=10, null=True, verbose_name="рейтинг Портрет")
-
-    portrate_negative_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество негативных отзывов Портрет")
-
-    """ Яндекс """
-    yandex_rate = models.DecimalField(blank=True, decimal_places=1, default=0.0, max_digits=10, null=True, verbose_name="рейтинг Яндекс")
-
-    yandex_positive_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество позитивных отзывов Яндекс")
-
-    yandex_negative_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество негативных отзывов Яндекс")
-
-    yandex_rate_last_parse_at = models.DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки рейтинга Яндекс")
-
-    yandex_reviews_last_parse_at = models.DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки отзывов Яндекс")
-
-    """ 2Гис """
-    gis_rate = models.DecimalField(blank=True, decimal_places=1, default=0.0, max_digits=10, null=True, verbose_name="рейтинг 2Гис")
-
-    gis_positive_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество позитивных отзывов 2Гис")
-
-    gis_negative_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество негативных отзывов 2Гис")
-
-    gis_rate_last_parse_at = models.DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки рейтинга 2Гис")
-
-    gis_reviews_last_parse_at = models.DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки отзывов 2Гис")
-
-    """ Google """
-    google_rate = models.DecimalField(blank=True, decimal_places=1, default=0.0, max_digits=10, null=True, verbose_name="рейтинг Google")
-
-    google_positive_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество позитивных отзывов Google")
-
-    google_negative_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество негативных отзывов Google")
-
-    google_rate_last_parse_at = models.DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки рейтинга Google")
-
-    google_reviews_last_parse_at = models.DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки отзывов Google")
-
-    """ Mapsme """
-    mapsme_rate = models.DecimalField(blank=True, decimal_places=1, default=0.0, max_digits=10, null=True, verbose_name="рейтинг Mapsme")
-
-    mapsme_positive_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество позитивных отзывов Mapsme")
-
-    mapsme_negative_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество негативных отзывов Mapsme")
-
-    mapsme_rate_last_parse_at = models.DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки рейтинга Mapsme")
-
-    mapsme_reviews_last_parse_at = models.DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки отзывов Mapsme")
-
-    """ Dikidi """
-    dikidi_rate = models.DecimalField(blank=True, decimal_places=1, default=0.0, max_digits=10, null=True, verbose_name="рейтинг Dikidi")
-
-    dikidi_positive_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество позитивных отзывов Dikidi")
-
-    dikidi_negative_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество негативных отзывов Dikidi")
-
-    dikidi_rate_last_parse_at = models.DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки рейтинга Dikidi")
-
-    dikidi_reviews_last_parse_at = models.DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки отзывов Dikidi")
-
-    """ Рестоклуб """
-    restoclub_rate = models.DecimalField(blank=True, decimal_places=1, default=0.0, max_digits=10, null=True, verbose_name="рейтинг Рестоклуб")
-
-    restoclub_positive_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество позитивных отзывов Рестоклуб")
-
-    restoclub_negative_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество негативных отзывов Рестоклуб")
-
-    restoclub_rate_last_parse_at = models.DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки рейтинга Рестоклуб")
-
-    restoclub_reviews_last_parse_at = models.DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки отзывов Рестоклуб")
-
-    """ Tripadvisor """
-    tripadvisor_rate = models.DecimalField(blank=True, decimal_places=1, default=0.0, max_digits=10, null=True, verbose_name="рейтинг Tripadvisor")
-
-    tripadvisor_positive_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество позитивных отзывов Tripadvisor")
-
-    tripadvisor_negative_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество негативных отзывов Tripadvisor")
-
-    tripadvisor_rate_last_parse_at = models.DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки рейтинга Tripadvisor")
-
-    tripadvisor_reviews_last_parse_at = models.DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки отзывов Tripadvisor")
-
-    """ Продокторов """
-    prodoctorov_rate = models.DecimalField(blank=True, decimal_places=1, default=0.0, max_digits=10, null=True, verbose_name="рейтинг Продокторов")
-
-    prodoctorov_positive_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество позитивных отзывов Продокторов")
-
-    prodoctorov_negative_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество негативных отзывов Продокторов")
-
-    prodoctorov_rate_last_parse_at = models.DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки рейтинга Продокторов")
-
-    prodoctorov_reviews_last_parse_at = models.DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки отзывов Продокторов")
-
-    """ Flamp """
-    flamp_rate = models.DecimalField(blank=True, decimal_places=1, default=0.0, max_digits=10, null=True, verbose_name="рейтинг Flamp")
-
-    flamp_positive_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество позитивных отзывов Flamp")
-
-    flamp_negative_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество негативных отзывов Flamp")
-
-    flamp_rate_last_parse_at = models.DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки рейтинга Flamp")
-
-    flamp_reviews_last_parse_at = models.DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки отзывов Flamp")
-
-    """ Zoon """
-    zoon_rate = models.DecimalField(blank=True, decimal_places=1, default=0.0, max_digits=10, null=True, verbose_name="рейтинг Zoon")
-
-    zoon_positive_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество позитивных отзывов Zoon")
-
-    zoon_negative_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество негативных отзывов Zoon")
-
-    zoon_rate_last_parse_at = models.DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки рейтинга Zoon")
-
-    zoon_reviews_last_parse_at = models.DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки отзывов Zoon")
-
-    """ Отзовик """
-    otzovik_rate = models.DecimalField(blank=True, decimal_places=1, default=0.0, max_digits=10, null=True, verbose_name="рейтинг Отзовик")
-
-    otzovik_positive_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество позитивных отзывов Отзовик")
-
-    otzovik_negative_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество негативных отзывов Отзовик")
-
-    otzovik_rate_last_parse_at = models.DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки рейтинга Отзовик")
-
-    otzovik_reviews_last_parse_at = models.DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки отзывов Отзовик")
-
-    """ Irecommend """
-    irecommend_rate = models.DecimalField(blank=True, decimal_places=1, default=0.0, max_digits=10, null=True, verbose_name="рейтинг Irecommend")
-
-    irecommend_positive_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество позитивных отзывов Irecommend")
-
-    irecommend_negative_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество негативных отзывов Irecommend")
-
-    irecommend_rate_last_parse_at = models.DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки рейтинга Irecommend")
-
-    irecommend_reviews_last_parse_at = models.DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки отзывов Irecommend")
-
-    """ Общее """
-    total_positive_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество позитивных отзывов всего")
-
-    total_negative_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество негативных отзывов всего")
-
-    # Связи
+    """ Форма запроса отзыва """
+    form_link_yandex = models.CharField(blank=True, null=True, verbose_name="ссылка Яндекс")
+    form_link_gis = models.CharField(blank=True, null=True, verbose_name="ссылка 2Гис")
+    form_link_google = models.CharField(blank=True, null=True, verbose_name="ссылка Google")
+    form_link_mapsme = models.CharField(blank=True, null=True, verbose_name="ссылка Mapsme")
+    form_link_dikidi = models.CharField(blank=True, null=True, verbose_name="ссылка Dikidi")
+    form_link_restoclub = models.CharField(blank=True, null=True, verbose_name="ссылка Рестоклуб")
+    form_link_tripadvisor = models.CharField(blank=True, null=True, verbose_name="ссылка Tripadvisor")
+    form_link_prodoctorov = models.CharField(blank=True, null=True, verbose_name="ссылка Продокторов")
+    form_link_flamp = models.CharField(blank=True, null=True, verbose_name="ссылка Flamp")
+    form_link_zoon = models.CharField(blank=True, null=True, verbose_name="ссылка Zoon")
+    form_link_otzovik = models.CharField(blank=True, null=True, verbose_name="ссылка Отзовик")
+    form_link_irecommend = models.CharField(blank=True, null=True, verbose_name="ссылка Irecommend")
+
+    """ Связи """
     users = models.ManyToManyField(User, blank=True, verbose_name="пользователи")
 
-    @property
-    def total_reviews_count(self):
-        return self.total_positive_count + self.total_negative_count
+    """ Агрегация общее """
+    rating = models.DecimalField(blank=True, decimal_places=1, default=0.0, max_digits=10, null=True,verbose_name="Общий рейтинг")
+    reviews_positive_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество позитивных отзывов")
+    reviews_negative_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество негативных отзывов")
+    reviews_total_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество отзывов")
+    messages_total_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество сообщений")
+
+    """ Агрегация Яндекс """
+    rating_yandex = models.DecimalField(blank=True, decimal_places=1, default=0.0, max_digits=10, null=True,verbose_name="рейтинг Яндекс")
+    rating_yandex_last_parse_at = models.DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки рейтинга Яндекс")
+    reviews_yandex_positive_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество позитивных отзывов Яндекс")
+    reviews_yandex_negative_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество негативных отзывов Яндекс")
+    reviews_yandex_total_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество отзывов Яндекс")
+    reviews_yandex_last_parse_at = models.DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки отзывов Яндекс")
+
+    """ Агрегация 2Гис """
+    rating_gis = models.DecimalField(blank=True, decimal_places=1, default=0.0, max_digits=10, null=True,verbose_name="рейтинг 2Гис")
+    rating_gis_last_parse_at = models.DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки рейтинга 2Гис")
+    reviews_gis_positive_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество позитивных отзывов 2Гис")
+    reviews_gis_negative_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество негативных отзывов 2Гис")
+    reviews_gis_total_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество отзывов 2Гис")
+    reviews_gis_last_parse_at = models.DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки отзывов 2Гис")
+
+    """ Агрегация Google """
+    rating_google = models.DecimalField(blank=True, decimal_places=1, default=0.0, max_digits=10, null=True,verbose_name="рейтинг Google")
+    rating_google_last_parse_at = models.DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки рейтинга Google")
+    reviews_google_positive_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество позитивных отзывов Google")
+    reviews_google_negative_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество негативных отзывов Google")
+    reviews_google_total_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество отзывов Google")
+    reviews_google_last_parse_at = models.DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки отзывов Google")
 
     @property
-    def portrate_rate_ceil(self):
-        return int(math.modf(self.portrate_rate)[1])
-
-    @property
-    def portrate_rate_float(self):
-        return round(math.modf(self.portrate_rate)[0], 1)
-
-    @property
-    def portrate_rate_ceil_rest(self):
-        return 5 - self.portrate_rate_ceil
-
-    @property
-    def portrate_rate_ceil_sub_rest(self):
-        return 4 - self.portrate_rate_ceil
+    def form_tags(self):
+        return ["Нагрубили", "Сделали не то", "Цена", "Плохое качество", "Долго"]
 
     def __str__(self):
         return self.name
 
 
-# Негативное сообщение с Портрета
-class NegativeMessage(models.Model):
+@receiver(post_init, sender=Company)
+def company_post_init(sender, instance, **kwargs):
+    if not instance.api_secret:
+        instance.api_secret = get_random_string(length=8)
+
+
+class Rating(models.Model):
+    """ Рейтинг """
+
     class Meta:
-        db_table = "resources_negative_message"
-        verbose_name = "негативное сообщение"
-        verbose_name_plural = "негативные сообщения"
+        db_table = "resources_company_rate"
+        verbose_name = "Рейтинг компании"
+        verbose_name_plural = "Рейтинги компании"
 
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name="дата создания")
+    """ Автогенерация """
+    created_at = models.DateField(verbose_name="дата создания")
 
-    phone = models.CharField(verbose_name="контактный телефон")
-
-    text = models.TextField(blank=True, null=True, verbose_name="текст сообщения")
-
-    company = models.ForeignKey(Company, on_delete=models.CASCADE, verbose_name="компания")
-
-    def __str__(self):
-        return self.phone
+    """ Контент """
+    rating_yandex = models.IntegerField(blank=True, null=True, verbose_name="рейтинг Яндекс")
+    rating_gis = models.IntegerField(blank=True, null=True, verbose_name="рейтинг 2Гис")
+    rating_google = models.IntegerField(blank=True, null=True, verbose_name="рейтинг Google")
 
 
-# Отзыв
 class Review(models.Model):
+    """ Отзыв """
+
     class Meta:
         db_table = "resources_review"
         verbose_name = "отзыв"
         verbose_name_plural = "отзывы"
         unique_together = ("company", "remote_id")
 
-    class Service(models.TextChoices):
-        YANDEX = "YANDEX", "Яндекс"
-        GIS = "GIS", "2Гис"
-        GOOGLE = "GOOGLE", "Google"
-
-    service = models.CharField(choices=Service.choices, default=Service.YANDEX, verbose_name="сервис")
-
-    is_hidden = models.BooleanField(verbose_name="скрыто в виджете", default=False)
-
+    """ Автогенерация """
     created_at = models.DateField(verbose_name="дата создания")
 
+    """ Настройки """
+    is_hidden = models.BooleanField(verbose_name="скрыто в виджете", default=False)
     remote_id = models.CharField(blank=True, null=True, verbose_name="ID (агрегация)")
+    service = models.CharField(choices=Service.choices, default=Service.YANDEX, verbose_name="сервис")
+    stars = models.IntegerField(blank=True, null=True, verbose_name="количество звезд")
 
-    rate = models.IntegerField(blank=True, null=True, verbose_name="рейтинг")
-
+    """ Контент """
     name = models.CharField(blank=True, null=True, verbose_name="пользователь")
-
     text = models.TextField(blank=True, null=True, verbose_name="текст отзыва")
 
-    company = models.ForeignKey(Company, on_delete=models.CASCADE, verbose_name="сеть")
+    """ Связи """
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, verbose_name="компания")
 
     @property
-    def rate_rest(self):
-        return 5 - self.rate
+    def stars_svg(self):
+        return f"images/stars/{self.stars}.svg"
 
+    @property
+    def notification_template(self):
+        return f"""📍 Негативный отзыв в {self.get_service_display()}
+
+🏪 Компания:
+{self.company}
+
+📜 Текст:
+{self.text}"""
 
     def __str__(self):
         return f"{self.name}"
 
-
-# Оповещение
-class Notification(models.Model):
-    class Meta:
-        db_table = "resources_notification"
-        verbose_name = "оповещение"
-        verbose_name_plural = "оповещения"
-
-    class Initiator(models.TextChoices):
-        PORTRATE_NEGATIVE_MESSAGE = (
-            "PORTRATE_NEGATIVE_MESSAGE",
-            "Негативное сообщение Портрет",
-        )
-
-        YANDEX_NEGATIVE_REVIEW = "YANDEX_NEGATIVE_REVIEW", "Негативный отзыв Яндекс"
-        GIS_NEGATIVE_REVIEW = "GIS_NEGATIVE_REVIEW", "Негативный отзыв 2Гис"
-        GOOGLE_NEGATIVE_REVIEW = "GOOGLE_NEGATIVE_REVIEW", "Негативный отзыв Google"
-
-        YANDEX_POSITIVE_REVIEW = "YANDEX_POSITIVE_REVIEW", "Позитивный отзыв Яндекс"
-        GIS_REVIEW = "GIS_POSITIVE_REVIEW", "Позитивный отзыв 2Гис"
-        GOOGLE_POSITIVE_REVIEW = "GOOGLE_POSITIVE_REVIEW", "Позитивный отзыв Google"
-
-        YANDEX_PARSE_SUCCESS = "YANDEX_PARSE_SUCCESS", "Отзывы загружены Яндекс"
-        GIS_PARSE_SUCCESS = "GIS_PARSE_SUCCESS", "Отзывы загружены 2Гис"
-        GOOGLE_PARSE_SUCCESS = "GOOGLE_PARSE_SUCCESS", "Отзывы загружены Google"
-
-        YANDEX_PARSE_ERROR = "YANDEX_PARSE_ERROR", "Ошибка загрузки Яндекс"
-        GIS_PARSE_ERROR = "GIS_PARSE_ERROR", "Ошибка загрузки 2Гис"
-        GOOGLE_PARSE_ERROR = "GOOGLE_PARSE_ERROR", "Ошибка загрузки Google"
-
-    initiator = models.CharField(
-        choices=Initiator.choices,
-        default=Initiator.PORTRATE_NEGATIVE_MESSAGE,
-        verbose_name="инициатор",
-    )
-
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name="дата создания")
-
-    text = models.TextField(verbose_name="текст оповещения")
-
-    company = models.ForeignKey(Company, on_delete=models.CASCADE, verbose_name="сеть")
-
-    negative_message = models.OneToOneField(NegativeMessage, blank=True, null=True, on_delete=models.CASCADE, verbose_name="негативное сообщение")
-
-    review = models.OneToOneField(Review, blank=True, null=True, on_delete=models.CASCADE, verbose_name="отзыв")
-
-    def __str__(self):
-        return str(self.text)
-
-
-# Сигналы модели Company
-@receiver(post_init, sender=Company)
-def init_api_secret_signal(sender, instance, **kwargs):
-    if not instance.api_secret:
-        instance.api_secret = get_random_string(length=8)
-
-
-# Сигналы модели NegativeMessage
-@receiver(post_save, sender=NegativeMessage)
-def negativemessage_post_save_signal(sender, instance, created, **kwargs):
-    if created:
-        instance.company.portrate_negative_count = instance.company.negativemessage_set.count()
-        instance.company.save()
-
-
-# Сигналы модели Review
 @receiver(post_save, sender=Review)
-def review_post_save_signal(sender, instance, created, **kwargs):
-    if created:
-        instance.company.yandex_negative_count = instance.company.review_set.filter(service=Review.Service.YANDEX, rate__lt=4).count()
-        instance.company.yandex_positive_count = instance.company.review_set.filter(service=Review.Service.YANDEX, rate__gt=3).count()
-        instance.company.gis_negative_count = instance.company.review_set.filter(service=Review.Service.GIS, rate__lt=4).count()
-        instance.company.gis_positive_count = instance.company.review_set.filter(service=Review.Service.GIS, rate__gt=3).count()
-        instance.company.google_negative_count = instance.company.review_set.filter(service=Review.Service.GOOGLE, rate__lt=4).count()
-        instance.company.google_positive_count = instance.company.review_set.filter(service=Review.Service.GOOGLE, rate__gt=3).count()
-        instance.company.total_negative_count = instance.company.review_set.filter(rate__lt=4).count()
-        instance.company.total_positive_count = instance.company.review_set.filter(rate__gt=3).count()
-        instance.company.save()
-
-
-# Сигналы модели Notification
-@receiver(post_save, sender=Notification)
-def notification_post_save_signal(sender, instance, created, **kwargs):
+def review_post_save(sender, instance, created, **kwargs):
     from resources.tasks import send_telegram_text_task
 
-    # Негативное сообщение из формы запроса отзыва
-    if created and instance.initiator == Notification.Initiator.PORTRATE_NEGATIVE_MESSAGE:
-        # Шаблон
-        text = f"""📍 Негативное сообщение в Портрет.
+    if created and not instance.company.is_first_parsing and instance.stars < 4:
+        for user in instance.company.users.exclude(profile__telegram_id=None).all():
+            if instance.service == Service.YANDEX and user.profile.can_notify_negative_yandex:
+                send_telegram_text_task.delay(user.profile.telegram_id, instance.notification_template)
+
+            elif instance.service == Service.GIS and user.profile.can_notify_negative_gis:
+                send_telegram_text_task.delay(user.profile.telegram_id, instance.notification_template)
+
+            elif instance.service == Service.GOOGLE and user.profile.can_notify_negative_google:
+                send_telegram_text_task.delay(user.profile.telegram_id, instance.notification_template)
+
+
+class Message(models.Model):
+    """ Сообщение """
+
+    class Meta:
+        db_table = "resources_negative_message"
+        verbose_name = "сообщение"
+        verbose_name_plural = "сообщения"
+
+    """ Автогенерация """
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="дата создания")
+
+    """ Контент """
+    phone = models.CharField(verbose_name="контактный телефон")
+    text = models.TextField(blank=True, null=True, verbose_name="текст сообщения")
+
+    """ Связи """
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, verbose_name="компания")
+
+    @property
+    def notification_template(self):
+        return f"""📍 Негативный отзыв в Портрете
 
 🏪 Компания:
-{instance.negative_message.company}
+{self.company}
 
 📱 Телефон:
-{instance.negative_message.phone}
+{self.phone}
 
-📜 Комментарий:
-{instance.negative_message.text}"""
+📜 Текст:
+{self.text}"""
 
+    def __str__(self):
+        return self.phone
+
+
+@receiver(post_save, sender=Message)
+def message_post_save(sender, instance, created, **kwargs):
+    from resources.tasks import send_telegram_text_task
+
+    if created:
         for user in instance.company.users.exclude(profile__telegram_id=None).all():
             if user.profile.can_notify_negative_portrate:
-                send_telegram_text_task.delay(user.profile.telegram_id, text)
-
-    # Негативный отзыв из Яндекса
-    elif created and instance.initiator == Notification.Initiator.YANDEX_NEGATIVE_REVIEW:
-        # Шаблон
-        text = f"""📍 Негативный отзыв в Яндекс Карты.
-
-🏪 Компания:
-{instance.review.company}
-
-📜 Текст:
-{instance.review.text}"""
-
-        for user in instance.company.users.exclude(profile__telegram_id=None).all():
-            if user.profile.can_notify_negative_yandex:
-                send_telegram_text_task.delay(user.profile.telegram_id, text)
-
-    # Негативный отзыв из Яндекса
-    elif created and instance.initiator == Notification.Initiator.GIS_NEGATIVE_REVIEW:
-        # Шаблон
-        text = f"""📍 Негативный отзыв в 2Гис Карты.
-
-🏪 Компания:
-{instance.review.company}
-
-📜 Текст:
-{instance.review.text}"""
-
-        for user in instance.company.users.exclude(profile__telegram_id=None).all():
-            if user.profile.can_notify_negative_gis:
-                send_telegram_text_task.delay(user.profile.telegram_id, text)
-
-    # Негативный отзыв из Яндекса
-    elif created and instance.initiator == Notification.Initiator.GOOGLE_NEGATIVE_REVIEW:
-        # Шаблон
-        text = f"""📍 Негативный отзыв в Google Карты.
-
-🏪 Компания:
-{instance.review.company}
-
-📜 Текст:
-{instance.review.text}"""
-
-        for user in instance.company.users.exclude(profile__telegram_id=None).all():
-            if user.profile.can_notify_negative_google:
-                send_telegram_text_task.delay(user.profile.telegram_id, text)
+                send_telegram_text_task.delay(user.profile.telegram_id, instance.notification_template)
