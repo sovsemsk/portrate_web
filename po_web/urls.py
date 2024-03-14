@@ -3,7 +3,6 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 
-# path("@", include("website.urls")),
 urlpatterns = [
     path("@", include("feedback.urls")),
     path("webhooks/", include("webhooks.urls")),
@@ -15,8 +14,9 @@ urlpatterns = [
     # Автообновлние
     path("__reload__/", include("django_browser_reload.urls")),
     path("__debug__/", include("debug_toolbar.urls")),
-    # path(r"^i18n/", include("django.conf.urls.i18n"))
+    path("i18n/", include('django.conf.urls.i18n')),
 ]
+
 
 
 if settings.DEBUG:

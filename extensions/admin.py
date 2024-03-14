@@ -9,7 +9,7 @@ class ProfileInline(admin.StackedInline):
     model = Profile
     can_delete = False
     fk_name = "user"
-    fields = (
+    fields = [
         "api_secret",
         "telegram_id",
         "default_timezone",
@@ -19,13 +19,9 @@ class ProfileInline(admin.StackedInline):
         "can_notify_negative_yandex",
         "can_notify_negative_gis",
         "can_notify_negative_google"
-    )
+    ]
 
-    readonly_fields = (
-        "api_secret",
-        "telegram_id",
-    )
-
+    readonly_fields = ["api_secret", "telegram_id"]
     verbose_name_plural = "профиль"
 
 
@@ -35,3 +31,4 @@ class CustomUserAdmin(UserAdmin):
 
 admin.site.unregister(User)
 admin.site.register(User, CustomUserAdmin)
+

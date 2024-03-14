@@ -47,7 +47,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    # "django.middleware.locale.LocaleMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
     "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
@@ -101,6 +101,8 @@ WSGI_APPLICATION = "po_web.wsgi.application"
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 LANGUAGE_CODE = "ru-ru"
+LANGUAGES = [["ru", "Русский"]]
+LOCALE_PATHS = [os.path.join(BASE_DIR, "locale")]
 TIME_ZONE = "UTC"
 USE_I18N = True
 USE_TZ = True
@@ -133,3 +135,4 @@ CELERY_TASK_TIME_LIMIT = 36000
 CELERY_BROKER_URL = "redis://localhost:6379"
 CELERY_RESULT_BACKEND = "django-db"
 CELERY_RESULT_EXTENDED = True
+CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True

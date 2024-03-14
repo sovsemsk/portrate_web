@@ -1,6 +1,5 @@
 {% extends 'feedback/base.html' %}
 {% load static %}
-
 {% block content %}
 <div class="bp5-padded bp5-section-card">
     <div class="bp5-form-group">
@@ -41,7 +40,6 @@
     <button class="bp5-button bp5-fill bp5-intent-success bp5-large" form="request-form" type="submit">Отправить</button>
 </div>
 {% endblock %}
-
 {% block script %}
 <script>
     const textarea = $('textarea[name=text]');
