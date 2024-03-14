@@ -93,6 +93,10 @@ class Company(models.Model):
     def form_tags(self):
         return ["Нагрубили", "Сделали не то", "Цена", "Плохое качество", "Долго"]
 
+    @property
+    def stars_svg(self):
+        return f"images/stars/{self.rating}.svg"
+
     def __str__(self):
         return self.name
 

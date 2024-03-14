@@ -17,8 +17,9 @@ def rate(request, company_api_secret):
         {
             "rating": str(company.rating).replace(",", "."),
             "reviews_total_count": company.reviews_total_count,
-            "theme": theme,
-            "position": position
+            "position": position,
+            "stars_svg": company.stars_svg,
+            "theme": theme
         },
         content_type="application/javascript"
     )
@@ -37,6 +38,7 @@ def reviews(request, company_api_secret):
             "rating": str(company.rating).replace(",", "."),
             "reviews_total_count": company.reviews_total_count,
             "reviews": company_reviews,
+            "stars_svg": company.stars_svg,
             "theme": theme
         },
         content_type="application/javascript"
