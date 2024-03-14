@@ -21,7 +21,7 @@
                     <img style="height:10px;width:70px;" src="https://geo.portrate.io/static/{{stars_svg}}">
                 </div>
                 <div style="color:{% if theme == 'l' %}#696969{% else %}#adadad{% endif %};font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:12px;width:150px;">
-                    {{ company_reviews_count }} {{ company_reviews_count|rupluralize:"отзыв, отзыва, отзывов" }}
+                    {{ reviews_total_count }} {{ reviews_total_count|rupluralize:"отзыв, отзыва, отзывов" }}
                 </div>
                 <div style="color:{% if theme == 'l' %}#adadad{% else %}#696969{% endif %};font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:10px;width:150px;">
                     работает на <a target="_blank" style="color:#a77300;text-decoration:none" href="https://portrate.io">portrate.io</a>
