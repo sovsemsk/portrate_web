@@ -151,7 +151,7 @@ class Review(models.Model):
 
     @property
     def stars_svg(self):
-        return f"images/stars/{self.stars}.svg"
+        return f"images/stars/{float(self.stars)}.svg"
 
     @property
     def notification_template(self):
