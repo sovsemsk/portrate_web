@@ -15,62 +15,241 @@
         <div class="bp5-section-header">
             <div class="bp5-section-header-left">
                 <div>
-                    <h6 class="bp5-heading bp5-section-header-title">Рейтинг</h6>
-                    <div class="bp5-section-header-sub-title bp5-text-muted">показатели рейтинга в поисковых системах и классифаерах</div>
+                    <h6 class="bp5-heading bp5-section-header-title">Яндекс</h6>
+                    <div class="bp5-section-header-sub-title bp5-text-muted">рейтинг и отзывы</div>
+                </div>
+            </div>
+            <div class="bp5-section-header-left">
+                <img class="bp5-icon" style="width:16px" src="{% static 'images/services/yandex.svg' %}" >
+            </div>
+        </div>
+        <div class="bp5-padded bp5-section-card">
+            <div style="display:flex;gap:5px">
+                <div class="bp5-callout bp5-elevation-1" style="flex:1 calc(100% / 3)" >
+                    <div style="display:flex;flex-direction:column;">
+                        <div class="bp5-form-group">
+                            <h2 class="bp5-heading">
+                                {{ company.rating_yandex|default:'0,0' }}
+                            </h2>
+                        </div>
+                        <div style="margin-top:auto">
+                            Рейтинг
+                            <div class="bp5-text-muted bp5-text-small">
+                                {% timezone user.profile.default_timezone %}
+                                {{ company.rating_yandex_last_parse_at|default:'Нет данных' }}
+                                {% endtimezone %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bp5-callout bp5-elevation-1" style="min-height:125px;flex:2 calc(100% / 1.5 + 5px)">
+                    <canvas id="RATING_YANDEX_CHART" width="250" height="50" ></canvas>
                 </div>
             </div>
         </div>
         <div class="bp5-padded bp5-section-card">
             <div style="display:flex;gap:5px">
-                <div class="bp5-callout bp5-elevation-1" style="border-top:0;height:150px;flex:1;overflow:hidden;padding:0;">
-                    <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon" style="background:none">
-                        <img class="bp5-icon" style="width:16px" src="{% static 'images/services/yandex.svg' %}" >
-                        <h5 class="bp5-heading">
-                            {{ company.rating_yandex|default:'0,0' }}
-                        </h5>
-                        Яндекс
-                        <div class="bp5-text-muted bp5-text-small">
-                            {% timezone user.profile.default_timezone %}
-                            {{ company.rating_yandex_last_parse_at|default:'Нет данных' }}
-                            {% endtimezone %}
-                        </div>
+                <div class="bp5-callout bp5-elevation-1" style="flex:1 calc(100% / 3);">
+                    <div class="bp5-form-group">
+                        <h3 class="bp5-heading">
+                            {{ company.reviews_yandex_positive_count|default:'0' }}
+                        </h3>
                     </div>
-                    <canvas id="RATING_YANDEX_CHART" width="250" height="60" style="margin:1px -5px -5px -5px;"></canvas>
+                    Позитивных отзывов
+                    <div class="bp5-text-muted bp5-text-small">
+                        {% timezone user.profile.default_timezone %}
+                        {{ company.reviews_yandex_last_parse_at|default:'Нет данных' }}
+                        {% endtimezone %}
+                    </div>
                 </div>
-                <div class="bp5-callout bp5-elevation-1" style="border-top:0;flex:1;height:150px;overflow:hidden;padding:0;">
-                    <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon" style="background:none">
-                        <img class="bp5-icon" style="width:16px" src="{% static 'images/services/gis.svg' %}" >
-                        <h5 class="bp5-heading">
-                            {{ company.rating_gis|default:'0,0' }}
-                        </h5>
-                        2Гис
-                        <div class="bp5-text-muted bp5-text-small">
-                            {% timezone user.profile.default_timezone %}
-                            {{ company.rating_gis_last_parse_at|default:'Нет данных' }}
-                            {% endtimezone %}
-                        </div>
+                <div class="bp5-callout bp5-elevation-1" style="flex:1 calc(100% / 3);">
+                    <div class="bp5-form-group">
+                        <h3 class="bp5-heading">
+                            {{ company.reviews_yandex_negative_count|default:'0' }}
+                        </h3>
                     </div>
-                    <canvas id="RATING_GIS_CHART" width="250" height="60" style="margin:1px -5px -5px -5px;"></canvas>
+                    Негативных отзывов
+                    <div class="bp5-text-muted bp5-text-small">
+                        {% timezone user.profile.default_timezone %}
+                        {{ company.reviews_yandex_last_parse_at|default:'Нет данных' }}
+                        {% endtimezone %}
+                    </div>
                 </div>
-                <div class="bp5-callout bp5-elevation-1" style="border-top:0;flex:1;height:150px;overflow:hidden;padding:0;">
-                    <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon" style="background:none">
-                        <img class="bp5-icon" style="width:16px" src="{% static 'images/services/google.svg' %}" >
-                        <h5 class="bp5-heading">
-                            {{ company.rating_google|default:'0,0' }}
-                        </h5>
-                        Google
-                        <div class="bp5-text-muted bp5-text-small">
-                            {% timezone user.profile.default_timezone %}
-                            {{ company.rating_google_last_parse_at|default:'Нет данных' }}
-                            {% endtimezone %}
-                        </div>
+                <div class="bp5-callout bp5-elevation-1" style="flex:1 calc(100% / 3);">
+                    <div class="bp5-form-group">
+                        <h3 class="bp5-heading">
+                            {{ company.reviews_google_total_count|default:'0' }}
+                        </h3>
                     </div>
-                    <canvas id="RATING_GOOGLE_CHART" width="250" height="60" style="margin:1px -5px -5px -5px;"></canvas>
+                    Всего отзывов
+                    <div class="bp5-text-muted bp5-text-small">
+                        {% timezone user.profile.default_timezone %}
+                        {{ company.reviews_yandex_last_parse_at|default:'Нет данных' }}
+                        {% endtimezone %}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<div class="bp5-form-group">
+    <div class="bp5-card bp5-elevation-1 bp5-section">
+        <div class="bp5-section-header">
+            <div class="bp5-section-header-left">
+                <div>
+                    <h6 class="bp5-heading bp5-section-header-title">2Гис</h6>
+                    <div class="bp5-section-header-sub-title bp5-text-muted">рейтинг и динамика</div>
+                </div>
+            </div>
+            <div class="bp5-section-header-left">
+                <img class="bp5-icon" style="width:16px" src="{% static 'images/services/gis.svg' %}" >
+            </div>
+        </div>
+        <div class="bp5-padded bp5-section-card">
+            <div style="display:flex;gap:5px">
+                <div class="bp5-callout bp5-elevation-1" style="flex:1 calc(100% / 3);">
+                    <div class="bp5-form-group">
+                        <h2 class="bp5-heading">
+                            {{ company.rating_gis|default:'0,0' }}
+                        </h2>
+                    </div>
+                    Обновлено
+                    <div class="bp5-text-muted bp5-text-small">
+                        {% timezone user.profile.default_timezone %}
+                        {{ company.rating_gis_last_parse_at|default:'Нет данных' }}
+                        {% endtimezone %}
+                    </div>
+                </div>
+                <div class="bp5-callout bp5-elevation-1" style="min-height:125px;flex:2 calc(100% / 1.5 + 5px);">
+                    <canvas id="RATING_GIS_CHART" width="250" height="50" ></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="bp5-padded bp5-section-card">
+            <div style="display:flex;gap:5px">
+                <div class="bp5-callout bp5-elevation-1" style="flex:1 calc(100% / 3)" >
+                    <div class="bp5-form-group">
+                        <h3 class="bp5-heading">
+                            {{ company.reviews_gis_positive_count|default:'0' }}
+                        </h3>
+                    </div>
+                    Позитивных отзывов
+                    <div class="bp5-text-muted bp5-text-small">
+                        {% timezone user.profile.default_timezone %}
+                        {{ company.reviews_gis_last_parse_at|default:'Нет данных' }}
+                        {% endtimezone %}
+                    </div>
+                </div>
+                <div class="bp5-callout bp5-elevation-1" style="flex:1 calc(100% / 3)" >
+                    <div class="bp5-form-group">
+                        <h3 class="bp5-heading">
+                            {{ company.reviews_gis_negative_count|default:'0' }}
+                        </h3>
+                    </div>
+                    Негативных отзывов
+                    <div class="bp5-text-muted bp5-text-small">
+                        {% timezone user.profile.default_timezone %}
+                        {{ company.reviews_gis_last_parse_at|default:'Нет данных' }}
+                        {% endtimezone %}
+                    </div>
+                </div>
+                <div class="bp5-callout bp5-elevation-1" style="flex:1 calc(100% / 3)" >
+                    <div class="bp5-form-group">
+                        <h3 class="bp5-heading">
+                            {{ company.reviews_gis_total_count|default:'0' }}
+                        </h3>
+                    </div>
+                    Всего отзывов
+                    <div class="bp5-text-muted bp5-text-small">
+                        {% timezone user.profile.default_timezone %}
+                        {{ company.reviews_gis_last_parse_at|default:'Нет данных' }}
+                        {% endtimezone %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="bp5-form-group">
+    <div class="bp5-card bp5-elevation-1 bp5-section">
+        <div class="bp5-section-header">
+            <div class="bp5-section-header-left">
+                <div>
+                    <h6 class="bp5-heading bp5-section-header-title">Google</h6>
+                    <div class="bp5-section-header-sub-title bp5-text-muted">рейтинг и динамика</div>
+                </div>
+            </div>
+            <div class="bp5-section-header-left">
+                <img class="bp5-icon" style="width:16px" src="{% static 'images/services/google.svg' %}" >
+            </div>
+        </div>
+        <div class="bp5-padded bp5-section-card">
+            <div style="display:flex;gap:5px">
+                <div class="bp5-callout bp5-elevation-1" style="flex:1 calc(100% / 3);">
+                    <div class="bp5-form-group">
+                        <h2 class="bp5-heading">
+                            {{ company.rating_google|default:'0,0' }}
+                        </h2>
+                    </div>
+                    Обновлено
+                    <div class="bp5-text-muted bp5-text-small">
+                        {% timezone user.profile.default_timezone %}
+                        {{ company.rating_google_last_parse_at|default:'Нет данных' }}
+                        {% endtimezone %}
+                    </div>
+                </div>
+                <div class="bp5-callout bp5-elevation-1" style="min-height:125px;flex:2 calc(100% / 1.5 + 5px)">
+                    <canvas id="RATING_GOOGLE_CHART" width="250" height="50" ></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="bp5-padded bp5-section-card">
+            <div style="display:flex;gap:5px">
+                <div class="bp5-callout bp5-elevation-1" style="flex:1 calc(100% / 3);">
+                    <div class="bp5-form-group">
+                        <h3 class="bp5-heading">
+                            {{ company.reviews_google_positive_count|default:'0' }}
+                        </h3>
+                    </div>
+                    Позитивных отзывов
+                    <div class="bp5-text-muted bp5-text-small">
+                        {% timezone user.profile.default_timezone %}
+                        {{ company.reviews_google_last_parse_at|default:'Нет данных' }}
+                        {% endtimezone %}
+                    </div>
+                </div>
+                <div class="bp5-callout bp5-elevation-1" style="flex:1 calc(100% / 3);">
+                    <div class="bp5-form-group">
+                        <h3 class="bp5-heading">
+                            {{ company.reviews_google_negative_count|default:'0' }}
+                        </h3>
+                    </div>
+                    Негативных отзывов
+                    <div class="bp5-text-muted bp5-text-small">
+                        {% timezone user.profile.default_timezone %}
+                        {{ company.reviews_google_last_parse_at|default:'Нет данных' }}
+                        {% endtimezone %}
+                    </div>
+                </div>
+                <div class="bp5-callout bp5-elevation-1" style="flex:1 calc(100% / 3);">
+                    <div class="bp5-form-group">
+                        <h3 class="bp5-heading">
+                            {{ company.reviews_google_total_count|default:'0' }}
+                        </h3>
+                    </div>
+                    Всего отзывов
+                    <div class="bp5-text-muted bp5-text-small">
+                        {% timezone user.profile.default_timezone %}
+                        {{ company.reviews_google_last_parse_at|default:'Нет данных' }}
+                        {% endtimezone %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--
 <div class="bp5-section bp5-card bp5-elevation-1">
     <div class="bp5-section-header">
         <div class="bp5-section-header-left">
@@ -94,7 +273,7 @@
             <tbody>
                 <tr>
                     <td>
-                        <img class="bp5-icon" style="height:16px;margin-left:10px;margin-right:5px;width:16px;" src="{% static 'images/services/yandex.svg' %}">Яндекс
+                        <img class="bp5-icon" style="height:16px;margin-left:10px;margin-right:5px 16px;" src="{% static 'images/services/yandex.svg' %}">Яндекс
                     </td>
                     <td>
                         <span class="bp5-text-muted bp5-text-small">
@@ -109,7 +288,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <img class="bp5-icon" style="height:16px;margin-left:10px;margin-right:5px;width:16px;" src="{% static 'images/services/gis.svg' %}">2Гис
+                        <img class="bp5-icon" style="height:16px;margin-left:10px;margin-right:5px 16px;" src="{% static 'images/services/gis.svg' %}">2Гис
                     </td>
                     <td>
                         <span class="bp5-text-muted bp5-text-small">
@@ -124,7 +303,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <img class="bp5-icon" style="height:16px;margin-left:10px;margin-right:5px;width:16px;" src="{% static 'images/services/google.svg' %}">Google
+                        <img class="bp5-icon" style="height:16px;margin-left:10px;margin-right:5px 16px;" src="{% static 'images/services/google.svg' %}">Google
                     </td>
                     <td>
                         <span class="bp5-text-muted bp5-text-small">
@@ -147,6 +326,7 @@
         </table>
     </div>
 </div>
+-->
 {% endblock %}
 {% block script %}
 <script type="text/javascript">
@@ -157,7 +337,7 @@
                 display: false
             }
         },
-        responsive: true,
+
         scales: {
             x: {
                 display: false,

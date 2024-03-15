@@ -46,36 +46,36 @@
         <div class="bp5-padded bp5-section-card">
             <div class="bp5-form-group">
                 <div style="display:flex;gap:5px">
-                    <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-elevation-1">
+                    <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-elevation-1" style="flex:1 calc(100% / 3);">
                         <img class="bp5-icon" style="width:16px" src="{% static 'images/services/yandex.svg' %}" >
                         <h5 class="bp5-heading">
                             {{ company.rating_yandex|default:'0,0' }}
                         </h5>
-                        Рейтинг Яндекс
+                        Яндекс
                         <div class="bp5-text-muted bp5-text-small">
                             {% timezone user.profile.default_timezone %}
                             {{ company.rating_yandex_last_parse_at|default:'Нет данных' }}
                             {% endtimezone %}
                         </div>
                     </div>
-                    <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-elevation-1">
+                    <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-elevation-1" style="flex:1 calc(100% / 3);">
                         <img class="bp5-icon" style="width:16px" src="{% static 'images/services/gis.svg' %}" >
                         <h5 class="bp5-heading">
                             {{ company.rating_gis|default:'0,0' }}
                         </h5>
-                        Рейтинг 2Гис
+                        2Гис
                         <div class="bp5-text-muted bp5-text-small">
                             {% timezone user.profile.default_timezone %}
                             {{ company.rating_gis_last_parse_at|default:'Нет данных' }}
                             {% endtimezone %}
                         </div>
                     </div>
-                    <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-elevation-1">
+                    <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-elevation-1" style="flex:1 calc(100% / 3);">
                         <img class="bp5-icon" style="width:16px" src="{% static 'images/services/google.svg' %}" >
                         <h5 class="bp5-heading">
                             {{ company.rating_google|default:'0,0' }}
                         </h5>
-                        Рейтинг Google
+                        Google
                         <div class="bp5-text-muted bp5-text-small">
                             {% timezone user.profile.default_timezone %}
                             {{ company.rating_google_last_parse_at|default:'Нет данных' }}

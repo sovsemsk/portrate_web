@@ -132,11 +132,11 @@ class CompanyRateDynamic(BaseLineChartView):
     def get_dataset_options(self, index, color):
         default_opt = {
             "backgroundColor": "rgba(255, 95, 0, 0.2)",
-            "borderColor": "#ff5c02",
+            "borderColor": "#f47500",
             "pointBackgroundColor": "rgba(0, 0, 0, 0)",
             "pointBorderColor": "rgba(0, 0, 0, 0)",
             "cubicInterpolationMode": "monotone",
-            "fill": True,
+            "fill": False,
         }
         return default_opt
 

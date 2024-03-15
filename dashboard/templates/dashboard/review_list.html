@@ -22,7 +22,7 @@
         <div class="bp5-section-header">
             <div class="bp5-section-header-left">
                 <div>
-                    <h6 class="bp5-heading bp5-section-header-title {% if review.is_hidden %}bp5-text-muted{% endif %}">
+                    <h6 class="bp5-heading bp5-section-header-title">
                         {{review.name}}
                     </h6>
                     <div class="bp5-section-header-sub-title">
@@ -33,27 +33,36 @@
             <div class="bp5-section-header-right">
                 <span class="bp5-text-muted bp5-text-small">{{review.created_at}}</span>
                 {% if review.service == 'YANDEX' %}
-                <img style="width:16px;" src="{% static 'images/services/yandex.svg' %}" alt="Яндекс">
+                <img style="margin-right:15px;width:16px;" src="{% static 'images/services/yandex.svg' %}" alt="Яндекс">
                 {% endif %}
                 {% if review.service == 'GIS' %}
-                <img style="width:16px;" src="{% static 'images/services/gis.svg' %}" alt="2Гис">
+                <img style="margin-right:15px;width:16px;" src="{% static 'images/services/gis.svg' %}" alt="2Гис">
                 {% endif %}
                 {% if review.service == 'GOOGLE' %}
-                <img style="width:16px;" src="{% static 'images/services/google.svg' %}" alt="Google">
+                <img style="margin-right:15px;width:16px;" src="{% static 'images/services/google.svg' %}" alt="Google">
                 {% endif %}
+
                 <form action="{% url 'review_update' company.id review.id %}" method="post">
                 {% csrf_token %}
+                    <label class="bp5-control bp5-switch" style="padding-top:3px">
+                        <input type="checkbox" name="is_hidden" {% if review.is_hidden %}checked="true"{% endif %}/>
+                        <span class="bp5-control-indicator"></span>
+                        Скрыто
+                    </label>
+
+                    <!--
                     {% if review.is_hidden %}
                     <button type="submit" class="bp5-button"><span class="bp5-icon bp5-icon-eye-open"></span></button>
                     {% else %}
                     <input name="is_hidden" type="hidden" value="true">
                     <button class="bp5-button" type="submit"><span class="bp5-icon bp5-icon-eye-off"></span></button>
                     {% endif %}
+                    -->
                 </form>
             </div>
         </div>
         <div class="bp5-padded bp5-section-card">
-            <span class="{% if review.is_hidden %}bp5-text-muted{% endif %}" style="white-space: pre-wrap;">{{ review.text }}</span>
+            <span style="white-space: pre-wrap;">{{ review.text }}</span>
         </div>
     </div>
 </div>
@@ -76,4 +85,11 @@
     </div>
 </div>
 {% endif %}
+{% endblock %}
+{% block script %}
+<script type="text/javascript">
+    $("input[name=is_hidden]").change((event) => {
+        $(event.target).parent("label").parent("form").submit();
+    });
+</script>
 {% endblock %}
