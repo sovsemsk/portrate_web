@@ -7,10 +7,19 @@ from django.utils.crypto import get_random_string
 
 class Service(models.TextChoices):
     """ Сервис """
-
     YANDEX = "YANDEX", "Яндекс"
     GIS = "GIS", "2Гис"
     GOOGLE = "GOOGLE", "Google"
+
+
+class Stars(models.TextChoices):
+    """ Звезды """
+    _0 = "0", "0 звезд"
+    _1 = "1", "1 звезда"
+    _2 = "2", "2 звезды"
+    _3 = "3", "3 звезды"
+    _4 = "4", "4 звезды"
+    _5 = "5", "5 звезд"
 
 
 class Company(models.Model):
@@ -107,21 +116,25 @@ def company_post_init(sender, instance, **kwargs):
         instance.api_secret = get_random_string(length=8)
 
 
-class Rating(models.Model):
+class RatingStamp(models.Model):
     """ Рейтинг """
 
     class Meta:
-        db_table = "resources_company_rate"
+        db_table = "resources_company_rate_stamp"
         verbose_name = "Рейтинг компании"
         verbose_name_plural = "Рейтинги компании"
+        unique_together = ["company", "created_at"]
 
     """ Автогенерация """
-    created_at = models.DateField(verbose_name="дата создания")
+    created_at = models.DateField(auto_now_add=True, verbose_name="дата создания")
 
     """ Контент """
-    rating_yandex = models.IntegerField(blank=True, null=True, verbose_name="рейтинг Яндекс")
-    rating_gis = models.IntegerField(blank=True, null=True, verbose_name="рейтинг 2Гис")
-    rating_google = models.IntegerField(blank=True, null=True, verbose_name="рейтинг Google")
+    rating_yandex = models.DecimalField(blank=True, decimal_places=1, default=0.0, max_digits=10, null=True,verbose_name="рейтинг Яндекс")
+    rating_gis = models.DecimalField(blank=True, decimal_places=1, default=0.0, max_digits=10, null=True,verbose_name="рейтинг 2Гис")
+    rating_google = models.DecimalField(blank=True, decimal_places=1, default=0.0, max_digits=10, null=True,verbose_name="рейтинг Google")
+
+    """ Связи """
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, verbose_name="компания")
 
 
 class Review(models.Model):
@@ -131,13 +144,13 @@ class Review(models.Model):
         db_table = "resources_review"
         verbose_name = "отзыв"
         verbose_name_plural = "отзывы"
-        unique_together = ("company", "remote_id")
+        unique_together = ["company", "remote_id"]
 
     """ Автогенерация """
     created_at = models.DateField(verbose_name="дата создания")
 
     """ Настройки """
-    is_hidden = models.BooleanField(verbose_name="скрыто в виджете", default=False)
+    is_visible = models.BooleanField(verbose_name="отображается в виджете", default=True)
     remote_id = models.CharField(blank=True, null=True, verbose_name="ID (агрегация)")
     service = models.CharField(choices=Service.choices, default=Service.YANDEX, verbose_name="сервис")
     stars = models.IntegerField(blank=True, null=True, verbose_name="количество звезд")
@@ -165,6 +178,7 @@ class Review(models.Model):
 
     def __str__(self):
         return f"{self.name}"
+
 
 @receiver(post_save, sender=Review)
 def review_post_save(sender, instance, created, **kwargs):

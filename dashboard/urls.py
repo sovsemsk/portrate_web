@@ -16,5 +16,5 @@ urlpatterns = [
     path("company/<int:company_pk>/qr", views.qr, name="qr"),
     path("company/<int:company_pk>/widget_rating", views.widget_rating, name="widget_rating"),
     path("company/<int:company_pk>/widget_reviews", views.widget_reviews, name="widget_reviews"),
-    path("pref", views.pref, name="pref")
+    path("profile", views.profile, name="profile")
 ]

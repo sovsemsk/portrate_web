@@ -323,7 +323,7 @@ def widget_reviews(request, company_pk):
 
 @login_required
 @require_http_methods(["GET", "POST"])
-def pref(request):
+def profile(request):
     company_list = Company.objects.filter(users__in=(request.user,)).order_by("name").all()
 
     if request.method == "POST":
@@ -331,18 +331,18 @@ def pref(request):
 
         if form.is_valid():
             form.save()
-            messages.success(request, "Настройки успешно сохранены")
+            messages.success(request, "Настройки профиля успешно сохранены")
 
     else:
         form = ProfileForm(instance=request.user.profile)
 
     return render(
         request,
-        "dashboard/pref.html",
+        "dashboard/profile.html",
         {
             "company_list": company_list,
             "form": form,
-            "nav": "pref",
+            "nav": "profile",
             "sub_nav": "notification",
         },
     )

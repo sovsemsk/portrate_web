@@ -7,10 +7,10 @@ from django.shortcuts import render, redirect
 from django.views.decorators.http import require_http_methods
 
 from resources.tasks import send_telegram_text_task
-from .forms import LoginForm
+from .forms import LoginForm, UserForm
 
 
-@require_http_methods(("GET", "POST",))
+@require_http_methods(["GET", "POST"])
 def login(request):
     if request.method == "POST":
         form = LoginForm(request.POST)
@@ -53,17 +53,26 @@ def login(request):
         return render(request, "extensions/login.html", {"form": form})
 
 
-@require_http_methods(("GET", "POST",))
+@require_http_methods(["GET", "POST"])
 def logout(request):
     auth_logout(request)
     return redirect("extensions_login")
 
 
 @login_required
-@require_http_methods(("GET",))
-def profile(request):
-    return render(request, "extensions/profile.html", {
-        "nav": "profile"
+@require_http_methods(["GET", "POST"])
+def user(request):
+    if request.method == 'POST':
+        form = UserForm(data=request.POST, instance=request.user)
+        update = form.save(commit=False)
+        update.user = request.user
+        update.save()
+    else:
+        form = UserForm(instance=request.user)
+
+    return render(request, "extensions/user.html", {
+        "nav": "user",
+        "form": form
     })
 
 

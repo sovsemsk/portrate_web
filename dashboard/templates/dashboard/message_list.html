@@ -28,7 +28,7 @@
                 {{message.created_at}}
                 {% endtimezone %}
                 </span>
-                <img style="width:16px;" src="{% static 'images/dashboard/logo.png' %}" alt="Портрет">
+                <img alt="Портрет" height=16 src="{% static 'images/dashboard/logo.png' %}" width=16>
             </div>
         </div>
         <div class="bp5-section-card bp5-padded">
@@ -39,20 +39,8 @@
 {% endfor %}
 {% include 'dashboard/_pagination.html' %}
 {% else %}
-<div style="margin-top:100px;">
-    <div class="bp5-non-ideal-state">
-        <div class="bp5-non-ideal-state-visual" style="font-size: 48px; line-height: 48px;">
-            <span class="bp5-icon bp5-icon-muted bp5-icon-chat"></span>
-        </div>
-        <div class="bp5-non-ideal-state-text">
-            <h3 class="bp5-heading">
-                Сообщения
-            </h3>
-            <div>
-                Ни одного сообщения не найдено.
-            </div>
-        </div>
-    </div>
+<div class="bp5-card bp5-elevation-1">
+    <div class="bp5-text-muted">Ни одного сообщения не найдено</div>
 </div>
 {% endif %}
 {% endblock %}

@@ -9,7 +9,7 @@ from telegram import Bot
 from parsers.parser_gis import ParserGis
 from parsers.parser_google import ParserGoogle
 from parsers.parser_yandex import ParserYandex
-from resources.models import Company, Review, Service
+from resources.models import Company, Review, RatingStamp, Service
 
 
 @shared_task(name="send telegram")
@@ -21,6 +21,7 @@ def send_telegram_text_task(telegram_id, text):
 @shared_task(name="parse cards")
 def parse_cards(company_id):
     company = Company.objects.get(id=company_id, is_active=True)
+    rating_history = RatingStamp(company_id=company.id)
 
     """ Яндекс """
     if company.is_parse_yandex:
@@ -33,7 +34,6 @@ def parse_cards(company_id):
             rating_yandex = yandex_parser.parse_rating()
             company.rating_yandex = rating_yandex
             company.rating_yandex_last_parse_at = datetime.now(timezone.utc)
-
             """ Парсинг отзывов Яндекс """
             for review_yandex in yandex_parser.parse_reviews():
                 try:
@@ -136,6 +136,12 @@ def parse_cards(company_id):
     """ Подсчет агрегаций """
     company.reviews_total_count = Review.objects.filter(company_id=company_id).count()
     company.rating = max([company.rating_yandex, company.rating_gis, company.rating_google])
+
+    """ Фиксация истории для графика динамики """
+    rating_history.rating_yandex = company.rating_yandex
+    rating_history.rating_gis = company.rating_gis
+    rating_history.rating_google = company.rating_google
+    rating_history.save()
 
     """ Сохранение компании """
     company.is_first_parsing = False

@@ -27,7 +27,7 @@
                             {{ form.is_parse_yandex }}
                             <span class="bp5-control-indicator"></span>
                             <div class="bp5-control-card-label">
-                                <img class="bp5-icon" style="margin-right:5px;width:16px" src="{% static 'images/services/yandex.svg' %}" >
+                                <img alt="Яндекс" class="bp5-icon" height=16 src="{% static 'images/services/yandex.svg' %}" width=16>
                                 Загружать отзывы и данные из Яндекс Карты
                             </div>
                         </label>
@@ -41,7 +41,7 @@
                             {{ form.is_parse_gis }}
                             <span class="bp5-control-indicator"></span>
                             <div class="bp5-control-card-label">
-                                <img class="bp5-icon" style="margin-right:5px;width:16px" src="{% static 'images/services/gis.svg' %}" >
+                                <img alt="2Гис" class="bp5-icon" height=16 src="{% static 'images/services/gis.svg' %}" width=16>
                                 Загружать отзывы и данные из 2Гис Карты
                             </div>
                         </label>
@@ -55,7 +55,7 @@
                             {{ form.is_parse_google }}
                             <span class="bp5-control-indicator"></span>
                             <div class="bp5-control-card-label">
-                                <img class="bp5-icon" style="margin-right:5px;width:16px" src="{% static 'images/services/google.svg' %}" >
+                                <img alt="Google" class="bp5-icon" height=16 src="{% static 'images/services/google.svg' %}" width=16>
                                 Загружать отзывы и данные из Google Maps
                             </div>
                         </label>
@@ -79,6 +79,7 @@
                     <label class="bp5-label">Ссылка на страницу с отзывами в Яндекс Картах</label>
                     {{ form.parser_link_yandex }}
                     {% if form.errors.parser_link_yandex %}
+                    <!-- Исключение для css (цвет текста) -->
                     <div class="bp5-form-helper-text" style="color:#ac2f33;">Ссылка на страницу с отзывами в Яндекс Картах обязателена</div>
                     {% endif %}
                 </div>
@@ -86,6 +87,7 @@
                     <label class="bp5-label">Ссылка на страницу с отзывами в 2Гис Картах</label>
                     {{ form.parser_link_gis }}
                     {% if form.errors.parser_link_gis %}
+                    <!-- Исключение для css (цвет текста) -->
                     <div class="bp5-form-helper-text" style="color:#ac2f33;">Ссылка на страницу с отзывами в 2Гис Картах обязателена</div>
                     {% endif %}
                 </div>
@@ -93,6 +95,7 @@
                     <label class="bp5-label">Ссылка на страницу с отзывами в Google Картах</label>
                     {{ form.parser_link_google }}
                     {% if form.errors.parser_link_google %}
+                    <!-- Исключение для css (цвет текста) -->
                     <div class="bp5-form-helper-text" style="color:#ac2f33;">Ссылка на страницу с отзывами в Google Картах обязателена</div>
                     {% endif %}
                 </div>
@@ -173,13 +176,13 @@
         <div class="bp5-padded bp5-section-card">
             {% if company.logo %}
             <div class="bp5-form-group">
-                <img class="bp5-elevation-1" style="width:60px;" src="{{ company.logo.url }}" alt="{{ company.name }}">
+                <img alt="{{ company.name }}" class="bp5-elevation-1" height=60 src="{{ company.logo.url }}" width=60>
             </div>
             {% endif %}
             <div class="bp5-form-group">
                 <label class="bp5-label">Логотип</label>
                 <label class="bp5-file-input">
-                    {{ form.logo }}
+                    {{form.logo}}
                     <span class="bp5-file-upload-input">Выбрать файл...</span>
                 </label>
             </div>
@@ -189,6 +192,7 @@
                 <label class="bp5-label">Название</label>
                 {{ form.name }}
                 {% if form.errors.name %}
+                <!-- Исключение для css (цвет текста) -->
                 <div class="bp5-form-helper-text" style="color:#ac2f33;">Название обязателено</div>
                 {% endif %}
             </div>
@@ -196,6 +200,7 @@
                 <label class="bp5-label">Адрес</label>
                 {{ form.address }}
                 {% if form.errors.address %}
+                <!-- Исключение для css (цвет текста) -->
                 <div class="bp5-form-helper-text" style="color:#ac2f33;">Адрес обязателен</div>
                 {% endif %}
             </div>

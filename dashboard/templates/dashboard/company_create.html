@@ -15,7 +15,7 @@
         </div>
     </div>
 </div>
-<form action="" enctype="multipart/form-data" id="company-form" method="post" novalidate>
+<form action="." enctype="multipart/form-data" id="company-form" method="post" novalidate>
     {% csrf_token %}
     <div class="bp5-card bp5-elevation-1 bp5-section">
         <div class="bp5-section-header">
@@ -40,15 +40,17 @@
         <div class="bp5-section-card bp5-padded">
             <div class="bp5-form-group">
                 <label class="bp5-label">Название</label>
-                {{ form.name }}
+                {{form.name}}
                 {% if form.errors.name %}
+                <!-- Исключение для css (цвет текста) -->
                 <div class="bp5-form-helper-text" style="color:#ac2f33">Название обязателено</div>
                 {% endif %}
             </div>
             <div class="bp5-form-group">
                 <label class="bp5-label">Адрес</label>
-                {{ form.address }}
+                {{form.address}}
                 {% if form.errors.address %}
+                <!-- Исключение для css (цвет текста) -->
                 <div class="bp5-form-helper-text" style="color:#ac2f33">Адрес обязателен</div>
                 {% endif %}
             </div>
@@ -57,7 +59,7 @@
             <div class="bp5-form-group">
                 <label class="bp5-label">Логотип</label>
                 <label class="bp5-file-input">
-                    {{ form.logo }}
+                    {{form.logo}}
                     <span class="bp5-file-upload-input">Выбрать файл...</span>
                 </label>
             </div>

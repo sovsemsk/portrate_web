@@ -9,11 +9,9 @@
             <span class="bp5-icon bp5-icon-shop bp5-icon-large bp5-text-muted"></span>
         </div>
         <div class="bp5-entity-title-text">
-            <div class="bp5-entity-title-title-and-tags">
-                <h3 class="bp5-heading bp5-entity-title-title">
-                    Компании
-                </h3>
-            </div>
+            <h3 class="bp5-heading bp5-entity-title-title">
+                Компании
+            </h3>
         </div>
     </div>
 </div>
@@ -28,26 +26,19 @@
         <div class="bp5-section-header">
             <div class="bp5-section-header-left">
                 {% if company.logo %}
-                <img class="bp5-elevation-1" style="width:35px" src="{{ company.logo.url }}" alt="{{ company.name }}">
+                <img alt="{{ company.name }}" class="bp5-elevation-1" src="{{ company.logo.url }}" width=35>
                 {% endif %}
                 <div>
                     <h6 class="bp5-heading bp5-section-header-title">{{company.name}}</h6>
                     <div class="bp5-section-header-sub-title bp5-text-muted">{{company.address}}</div>
                 </div>
             </div>
-            <div class="bp5-section-header-right">
-                {% if company.is_active %}
-                <span class="bp5-intent-success bp5-minimal bp5-tag">Активно</span>
-                {% else %}
-                <span class="bp5-intent-danger bp5-minimal bp5-tag">Не активно</span>
-                {% endif %}
-            </div>
         </div>
         <div class="bp5-padded bp5-section-card">
             <div class="bp5-form-group">
                 <div style="display:flex;gap:5px">
                     <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-elevation-1" style="flex:1 calc(100% / 3);">
-                        <img class="bp5-icon" style="width:16px" src="{% static 'images/services/yandex.svg' %}" >
+                        <img alt="Яндекс" class="bp5-icon" src="{% static 'images/services/yandex.svg' %}" width=16>
                         <h5 class="bp5-heading">
                             {{ company.rating_yandex|default:'0,0' }}
                         </h5>
@@ -59,7 +50,7 @@
                         </div>
                     </div>
                     <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-elevation-1" style="flex:1 calc(100% / 3);">
-                        <img class="bp5-icon" style="width:16px" src="{% static 'images/services/gis.svg' %}" >
+                        <img alt="2Гис" class="bp5-icon" src="{% static 'images/services/gis.svg' %}" width=16>
                         <h5 class="bp5-heading">
                             {{ company.rating_gis|default:'0,0' }}
                         </h5>
@@ -71,7 +62,7 @@
                         </div>
                     </div>
                     <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-elevation-1" style="flex:1 calc(100% / 3);">
-                        <img class="bp5-icon" style="width:16px" src="{% static 'images/services/google.svg' %}" >
+                        <img alt="2Гис" class="bp5-icon" src="{% static 'images/services/google.svg' %}" width=16>
                         <h5 class="bp5-heading">
                             {{ company.rating_google|default:'0,0' }}
                         </h5>
@@ -95,21 +86,20 @@
 {% endfor %}
 {% include 'dashboard/_pagination.html' %}
 {% else %}
-<div style="margin-top:100px;">
-    <div class="bp5-non-ideal-state">
-        <div class="bp5-non-ideal-state-visual" style="font-size: 48px; line-height: 48px;">
-            <span class="bp5-icon bp5-icon-muted bp5-icon-shop"></span>
-        </div>
-        <div class="bp5-non-ideal-state-text">
-            <h3 class="bp5-heading">
-                Компании
-            </h3>
-            <div>
-                Ни одной компании не найдено.
-            </div>
-        </div>
-        <a class="bp5-button bp5-intent-success" href="{% url 'company_create' %}">Создать компанию</a>
+<div class="bp5-non-ideal-state">
+    <!-- Исключение для css (размер текста) -->
+    <div class="bp5-non-ideal-state-visual" style="font-size: 48px; line-height: 48px;">
+        <span class="bp5-icon bp5-icon-muted bp5-icon-shop"></span>
     </div>
+    <div class="bp5-non-ideal-state-text">
+        <h3 class="bp5-heading">
+            Компании
+        </h3>
+        <div>
+            Ни одной компании не найдено.
+        </div>
+    </div>
+    <a class="bp5-button bp5-intent-success" href="{% url 'company_create' %}">Создать компанию</a>
 </div>
 {% endif %}
 {% endblock %}

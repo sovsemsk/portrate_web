@@ -124,12 +124,12 @@ class CompanyAdmin(admin.ModelAdmin):
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
     date_hierarchy = "created_at"
-    list_display = ["created_at", "company", "name", "is_hidden", "stars"]
-    list_filter = ["company", "service", "is_hidden"]
+    list_display = ["created_at", "company", "name", "is_visible", "stars"]
+    list_filter = ["company", "service", "is_visible"]
     readonly_fields = ["created_at", "stars", "remote_id"]
     fieldsets = [
         ["КОНТЕНТ", {"fields": ["name", "text"]}],
-        ["НАСТРОЙКИ", {"classes": ["collapse"], "fields": ["company", "service", "is_hidden"]}],
+        ["НАСТРОЙКИ", {"classes": ["collapse"], "fields": ["company", "service", "is_visible"]}],
         ["ДАННЫЕ", {"classes": ["collapse"], "fields": ["created_at", "stars", "remote_id"]}],
     ]
 

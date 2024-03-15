@@ -9,7 +9,7 @@
         <div class="bp5-entity-title-text">
             <div class="bp5-entity-title-title-and-tags">
                 <h3 class="bp5-heading bp5-entity-title-title">
-                    Настройки
+                    Профиль
                 </h3>
             </div>
         </div>
@@ -25,7 +25,7 @@
         {% endif %}
     </div>
 </div>
-<form action="" id="pref-form" method="post" novalidate>
+<form id="pref-form" method="post" novalidate>
     {% csrf_token %}
     <div class="bp5-form-group">
         <div class="bp5-card bp5-elevation-1 bp5-section">
@@ -44,7 +44,7 @@
                             {{ form.can_notify_negative_portrate }}
                             <span class="bp5-control-indicator"></span>
                             <div class="bp5-control-card-label">
-                                <img class="bp5-icon" style="margin-right:5px;width:16px" src="{% static 'images/dashboard/logo.png' %}" >
+                                <img alt="Портрет" class="bp5-icon" height=16 src="{% static 'images/dashboard/logo.png' %}" width=16>
                                 Получать оповещения в Telegram о негативных сообщениях в Портрет
                             </div>
                         </label>
@@ -58,7 +58,7 @@
                             {{ form.can_notify_negative_yandex }}
                             <span class="bp5-control-indicator"></span>
                             <div class="bp5-control-card-label">
-                                <img class="bp5-icon" style="margin-right:5px;width:16px" src="{% static 'images/services/yandex.svg' %}" >
+                                <img alt="Яндекс" class="bp5-icon" height=16 src="{% static 'images/services/yandex.svg' %}" width=16>
                                 Получать оповещения в Telegram о негативных отзывах в Яндекс Карты
                             </div>
                         </label>
@@ -72,7 +72,7 @@
                             {{ form.can_notify_negative_gis }}
                             <span class="bp5-control-indicator"></span>
                             <div class="bp5-control-card-label">
-                                <img class="bp5-icon" style="margin-right:5px;width:16px" src="{% static 'images/services/gis.svg' %}" >
+                                <img alt="2Гис" class="bp5-icon" height=16 src="{% static 'images/services/gis.svg' %}" width=16>
                                 Получать оповещения в Telegram о негативных отзывах в 2Гис Карты
                             </div>
                         </label>
@@ -86,7 +86,7 @@
                             {{ form.can_notify_negative_google }}
                             <span class="bp5-control-indicator"></span>
                             <div class="bp5-control-card-label">
-                                <img class="bp5-icon" style="margin-right:5px;width:16px" src="{% static 'images/services/google.svg' %}" >
+                                <img alt="Google" class="bp5-icon" height=16 src="{% static 'images/services/google.svg' %}" width=16>
                                 Получать оповещения в Telegram о негативных отзывах в Google Maps
                             </div>
                         </label>
@@ -115,12 +115,14 @@
                 </div>
                 <div class="bp5-form-group">
                     <label class="bp5-label">Допустимое время оповещения</label>
-                    <div style="display:flex;gap:5px;">
-                        {{ form.can_notify_at_start }} <div style="display:flex;align-items:center;"> - </div> {{ form.can_notify_at_end }}
+                    <div style="align-items:center;display:flex;gap:5px;">
+                        {{ form.can_notify_at_start }} - {{ form.can_notify_at_end }}
                     </div>
                     {% if form.can_notify_at_start.errors %}
+                    <!-- Исключение для css (цвет текста) -->
                     <div class="bp5-form-helper-text" style="color:#ac2f33">Время рассылки обязательно</div>
                     {% elif form.can_notify_at_end.errors %}
+                    <!-- Исключение для css (цвет текста) -->
                     <div class="bp5-form-helper-text" style="color:#ac2f33">Время рассылки обязательно</div>
                     {% endif %}
                 </div>

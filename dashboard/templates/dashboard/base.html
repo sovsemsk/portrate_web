@@ -13,29 +13,34 @@
         <script src="{% static 'javascript/jquery.min.js' %}"></script>
         <script src="{% static 'javascript/chart.js' %}"></script>
         <script src="{% static 'javascript/javascript.js' %}"></script>
+        <!-- Глобальное исключение для css (flex контейнеры) -->
         <style>
             a{text-decoration:none !important;}
             .bp5-control.bp5-switch .bp5-control-indicator{transition:none !important;}
             .bp5-control.bp5-switch .bp5-control-indicator::before{transition:none !important;}
         </style>
     </head>
+    <!-- Исключение для css (фон и отступы) -->
     <body style="background:#ffffff;margin:0;">
         <nav class="bp5-navbar">
+            <!-- Исключение для css (ширина и отступы) -->
             <div style="margin:0 auto;width:800px;">
                 <div class="bp5-navbar-group bp5-align-left">
+                    <!-- Исключение для css (отступ) -->
                     <div class="bp5-navbar-heading" style="padding-top:5px;">
-                        <img src="{% static 'images/dashboard/logo.svg' %}" alt="portrate" style="width:50px;">
+                        <img alt="Портрет" src="{% static 'images/dashboard/logo.svg' %}" width=50>
                     </div>
                     <a class="bp5-button bp5-minimal {% if nav == 'company' %} bp5-active{% endif %}" href="{% url 'company_list' %}">Компании</a>
                     <a class="bp5-button bp5-minimal" href="https://portrate.io">Помощь</a>
                 </div>
                 <div class="bp5-align-right bp5-navbar-group">
-                    <a class="bp5-button bp5-icon-user bp5-minimal {% if nav == 'profile' %} bp5-active{% endif %}" href="{% url 'extensions_profile' %}"></a>
-                    <a class="bp5-button bp5-icon-cog bp5-minimal {% if nav == 'pref' %} bp5-active{% endif %}" href="{% url 'pref' %}"></a>
+                    <a class="bp5-button bp5-icon-user bp5-minimal {% if nav == 'user' %} bp5-active{% endif %}" href="{% url 'user' %}"></a>
+                    <a class="bp5-button bp5-icon-cog bp5-minimal {% if nav == 'profile' %} bp5-active{% endif %}" href="{% url 'profile' %}"></a>
                     <a class="bp5-button bp5-icon-log-out bp5-minimal" href="{% url 'extensions_logout' %}"></a>
                 </div>
             </div>
         </nav>
+        <!-- Исключение для css (ширина и отступы) -->
         <div style="margin:15px auto;width:800px">
             {% if messages %}
             <div class="bp5-form-group">

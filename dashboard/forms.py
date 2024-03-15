@@ -106,4 +106,4 @@ class ReviewForm(ModelForm):
 
     class Meta:
         model = Review
-        fields = ["is_hidden"]
+        fields = ["is_visible"]
