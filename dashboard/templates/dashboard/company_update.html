@@ -3,7 +3,7 @@
 {% block content %}
 {% include 'dashboard/_company_head.html' %}
 <div class="bp5-form-group">
-    <div>
+    <div style="display:flex;gap:5px;">
         <button class="bp5-button bp5-intent-warning" form="company-form" type="submit">Сохранить</button>
         <a class="bp5-button bp5-intent-warning" href="{% url 'company_detail' company.id %}">Закрыть</a>
     </div>
@@ -11,7 +11,7 @@
 <form action="" enctype="multipart/form-data" id="company-form" method="post" novalidate>
     {% csrf_token %}
     <div class="bp5-form-group">
-        <div class="bp5-card bp5-elevation-2 bp5-section">
+        <div class="bp5-card bp5-elevation-1 bp5-section">
             <div class="bp5-section-header">
                 <div class="bp5-section-header-left">
                     <div>
@@ -65,7 +65,7 @@
         </div>
     </div>
     <div class="bp5-form-group">
-        <div class="bp5-card bp5-elevation-2 bp5-section">
+        <div class="bp5-card bp5-elevation-1 bp5-section">
             <div class="bp5-section-header">
                 <div class="bp5-section-header-left">
                     <div>
@@ -100,7 +100,7 @@
         </div>
     </div>
     <div class="bp5-form-group">
-        <div class="bp5-card bp5-elevation-2 bp5-section">
+        <div class="bp5-card bp5-elevation-1 bp5-section">
             <div class="bp5-section-header">
                 <div class="bp5-section-header-left">
                     <div>
@@ -161,7 +161,7 @@
             </div>
         </div>
     </div>
-    <div class="bp5-card bp5-elevation-2 bp5-section">
+    <div class="bp5-card bp5-elevation-1 bp5-section">
         <div class="bp5-section-header">
             <div class="bp5-section-header-left">
                 <div>

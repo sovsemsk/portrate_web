@@ -1,15 +1,15 @@
-from django import forms
+from django.forms import ModelForm, Textarea, CharField
 
 from resources.models import Message
 
 
-class MessageForm(forms.ModelForm):
+class MessageForm(ModelForm):
     class Meta:
         model = Message
         fields = ["phone", "text"]
 
-    phone = forms.CharField(label=False, max_length=100)
-    text = forms.CharField(label=False, max_length=500, required=False, widget=forms.Textarea)
+    phone = CharField(label=False, max_length=100)
+    text = CharField(label=False, max_length=500, required=False, widget=Textarea)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

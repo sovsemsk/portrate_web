@@ -16,7 +16,7 @@
     </div>
 </div>
 <div class="bp5-form-group">
-    <div>
+    <div style="display:flex;gap:5px;">
         <button class="bp5-button bp5-intent-warning" form="pref-form" type="submit">Сохранить</button>
         {% if request.user.profile.telegram_id %}
         <a class="bp5-button bp5-intent-warning" href="{% url 'extensions_telegram_notify_unsubscribe' %}?next={{ request.path }}">Отписаться от оповещений</a>
@@ -28,7 +28,7 @@
 <form action="" id="pref-form" method="post" novalidate>
     {% csrf_token %}
     <div class="bp5-form-group">
-        <div class="bp5-card bp5-elevation-2 bp5-section">
+        <div class="bp5-card bp5-elevation-1 bp5-section">
             <div class="bp5-section-header">
                 <div class="bp5-section-header-left">
                     <div>
@@ -96,7 +96,7 @@
         </div>
     </div>
     <div class="bp5-form-group">
-        <div class="bp5-card bp5-elevation-2 bp5-section">
+        <div class="bp5-card bp5-elevation-1 bp5-section">
             <div class="bp5-section-header">
                 <div class="bp5-section-header-left">
                     <div>
@@ -116,7 +116,7 @@
                 <div class="bp5-form-group">
                     <label class="bp5-label">Допустимое время оповещения</label>
                     <div style="display:flex;gap:5px;">
-                        {{ form.can_notify_at_start }} <div style="display:flex;align-items:center;">—</div> {{ form.can_notify_at_end }}
+                        {{ form.can_notify_at_start }} <div style="display:flex;align-items:center;"> - </div> {{ form.can_notify_at_end }}
                     </div>
                     {% if form.can_notify_at_start.errors %}
                     <div class="bp5-form-helper-text" style="color:#ac2f33">Время рассылки обязательно</div>

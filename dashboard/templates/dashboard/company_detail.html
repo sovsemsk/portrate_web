@@ -5,13 +5,13 @@
 {% include 'dashboard/_company_head.html' %}
 {% include 'dashboard/_company_tabs.html' %}
 <div class="bp5-form-group">
-    <div>
+    <div style="display:flex;gap:5px;">
         <a class="bp5-button bp5-intent-warning" href="{% url 'company_update' company.id %}">Настройки</a>
         <a class="bp5-button bp5-intent-warning" href="{{company.host}}/@{{company.id}}" target="_blank">Форма запроса отзыва</a>
     </div>
 </div>
 <div class="bp5-form-group">
-    <div class="bp5-card bp5-elevation-2 bp5-section">
+    <div class="bp5-card bp5-elevation-1 bp5-section">
         <div class="bp5-section-header">
             <div class="bp5-section-header-left">
                 <div>
@@ -22,50 +22,56 @@
         </div>
         <div class="bp5-padded bp5-section-card">
             <div style="display:flex;gap:5px">
-                <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-elevation-1">
-                    <img class="bp5-icon" style="width:16px" src="{% static 'images/services/yandex.svg' %}" >
-                    <h5 class="bp5-heading">
-                        {{ company.rating_yandex|default:'0,0' }}
-                    </h5>
-                    Яндекс
-                    <div class="bp5-text-muted bp5-text-small">
-                        {% timezone user.profile.default_timezone %}
-                        {{ company.rating_yandex_last_parse_at|default:'Нет данных' }}
-                        {% endtimezone %}
+                <div class="bp5-callout bp5-elevation-1" style="border-top:0;height:150px;flex:1;overflow:hidden;padding:0;">
+                    <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon" style="background:none">
+                        <img class="bp5-icon" style="width:16px" src="{% static 'images/services/yandex.svg' %}" >
+                        <h5 class="bp5-heading">
+                            {{ company.rating_yandex|default:'0,0' }}
+                        </h5>
+                        Яндекс
+                        <div class="bp5-text-muted bp5-text-small">
+                            {% timezone user.profile.default_timezone %}
+                            {{ company.rating_yandex_last_parse_at|default:'Нет данных' }}
+                            {% endtimezone %}
+                        </div>
                     </div>
+                    <canvas id="RATING_YANDEX_CHART" width="250" height="60" style="margin:1px -5px -5px -5px;"></canvas>
                 </div>
-                <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-elevation-1">
-                    <img class="bp5-icon" style="width:16px" src="{% static 'images/services/gis.svg' %}" >
-                    <h5 class="bp5-heading">
-                        {{ company.rating_gis|default:'0,0' }}
-                    </h5>
-                    2Гис
-                    <div class="bp5-text-muted bp5-text-small">
-                        {% timezone user.profile.default_timezone %}
-                        {{ company.rating_gis_last_parse_at|default:'Нет данных' }}
-                        {% endtimezone %}
+                <div class="bp5-callout bp5-elevation-1" style="border-top:0;flex:1;height:150px;overflow:hidden;padding:0;">
+                    <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon" style="background:none">
+                        <img class="bp5-icon" style="width:16px" src="{% static 'images/services/gis.svg' %}" >
+                        <h5 class="bp5-heading">
+                            {{ company.rating_gis|default:'0,0' }}
+                        </h5>
+                        2Гис
+                        <div class="bp5-text-muted bp5-text-small">
+                            {% timezone user.profile.default_timezone %}
+                            {{ company.rating_gis_last_parse_at|default:'Нет данных' }}
+                            {% endtimezone %}
+                        </div>
                     </div>
+                    <canvas id="RATING_GIS_CHART" width="250" height="60" style="margin:1px -5px -5px -5px;"></canvas>
                 </div>
-                <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-elevation-1">
-                    <img class="bp5-icon" style="width:16px" src="{% static 'images/services/google.svg' %}" >
-                    <h5 class="bp5-heading">
-                        {{ company.rating_google|default:'0,0' }}
-                    </h5>
-                    Google
-                    <div class="bp5-text-muted bp5-text-small">
-                        {% timezone user.profile.default_timezone %}
-                        {{ company.rating_google_last_parse_at|default:'Нет данных' }}
-                        {% endtimezone %}
+                <div class="bp5-callout bp5-elevation-1" style="border-top:0;flex:1;height:150px;overflow:hidden;padding:0;">
+                    <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon" style="background:none">
+                        <img class="bp5-icon" style="width:16px" src="{% static 'images/services/google.svg' %}" >
+                        <h5 class="bp5-heading">
+                            {{ company.rating_google|default:'0,0' }}
+                        </h5>
+                        Google
+                        <div class="bp5-text-muted bp5-text-small">
+                            {% timezone user.profile.default_timezone %}
+                            {{ company.rating_google_last_parse_at|default:'Нет данных' }}
+                            {% endtimezone %}
+                        </div>
                     </div>
+                    <canvas id="RATING_GOOGLE_CHART" width="250" height="60" style="margin:1px -5px -5px -5px;"></canvas>
                 </div>
             </div>
         </div>
-        <!--div class="bp5-padded bp5-section-card">
-            <canvas id="RATE_DYNAMIC_CHART" width="500" height="160"></canvas>
-        </div-->
     </div>
 </div>
-<div class="bp5-section bp5-card bp5-elevation-2">
+<div class="bp5-section bp5-card bp5-elevation-1">
     <div class="bp5-section-header">
         <div class="bp5-section-header-left">
             <div>
@@ -144,11 +150,52 @@
 {% endblock %}
 {% block script %}
 <script type="text/javascript">
+    const options = {
+    animation: false,
+        plugins: {
+            legend: {
+                display: false
+            }
+        },
+        responsive: true,
+        scales: {
+            x: {
+                display: false,
+                grid: {
+                    display: false
+                }
+            },
+            y: {
+                display: false,
+                grid: {
+                    display: false
+                }
+            }
+        }
+    }
+
     $.get('{% url "company_rate_dynamic" company.id %}', function(data) {
-        var ctx = $("#RATE_DYNAMIC_CHART").get(0).getContext("2d");
+        var ctx = $("#RATING_YANDEX_CHART").get(0).getContext("2d");
         new Chart(ctx, {
             type: 'line',
-            data: data
+            data: data,
+            options: options
+        });
+    });
+    $.get('{% url "company_rate_dynamic" company.id %}', function(data) {
+        var ctx = $("#RATING_GIS_CHART").get(0).getContext("2d");
+        new Chart(ctx, {
+            type: 'line',
+            data: data,
+            options: options
+        });
+    });
+    $.get('{% url "company_rate_dynamic" company.id %}', function(data) {
+        var ctx = $("#RATING_GOOGLE_CHART").get(0).getContext("2d");
+        new Chart(ctx, {
+            type: 'line',
+            data: data,
+            options: options
         });
     });
 </script>

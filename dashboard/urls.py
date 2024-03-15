@@ -12,7 +12,7 @@ urlpatterns = [
     path("company/<int:company_pk>/review/<int:pk>/update", views.ReviewUpdateView.as_view(), name="review_update"),
     path("company/<int:company_pk>/message", views.MessageListView.as_view(), name="message_list"),
     path("company/<int:company_pk>/qr", views.qr, name="qr"),
-    path("company/<int:company_pk>/rate_widget", views.rate_widget, name="rate_widget"),
-    path("company/<int:company_pk>/reviews_widget", views.reviews_widget, name="reviews_widget"),
+    path("company/<int:company_pk>/widget_rating", views.widget_rating, name="widget_rating"),
+    path("company/<int:company_pk>/widget_reviews", views.widget_reviews, name="widget_reviews"),
     path("pref", views.pref, name="pref")
 ]

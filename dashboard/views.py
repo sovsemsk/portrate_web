@@ -1,4 +1,3 @@
-from chartjs.colors import next_color
 from chartjs.views.lines import BaseLineChartView
 from django.conf import settings
 from django.contrib import messages
@@ -9,7 +8,9 @@ from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.http import require_http_methods
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
+from django_filters.views import FilterView
 
+from dashboard.filters import MessageFilter, ReviewFilter
 from dashboard.forms import CompanyForm, ProfileForm, ReviewForm
 from resources.models import Company, Message, Review
 
@@ -125,19 +126,30 @@ class CompanyRateDynamic(BaseLineChartView):
         return ["January", "February", "March", "April", "May", "June", "July"]
 
     def get_providers(self):
-        return ["Яндекс", "2Гис", "Google"]
+        return ["Яндекс"]
 
-    def get_colors(self):
-        return next_color([(160, 5, 84)])
+
+    def get_dataset_options(self, index, color):
+        default_opt = {
+            "backgroundColor": "rgba(255, 95, 0, 0.2)",
+            "borderColor": "#ff5c02",
+            "pointBackgroundColor": "rgba(0, 0, 0, 0)",
+            "pointBorderColor": "rgba(0, 0, 0, 0)",
+            "cubicInterpolationMode": "monotone",
+            "fill": True,
+        }
+        return default_opt
+
 
     def get_data(self):
-        return [[4.1, 4.2, 4.3, 4.4, 4.4, 4.7, 4.8],
-                [4.7, 4.6, 4.5, 4.4, 4.3, 4.1, 4.2],
-                [4.9, 5.0, 5.0, 4.9, 4.8, 4.7, 4.6]]
+        return [[0.0, 4.1, 4.1, 4.1, 4.1, 4.1, 5.0],
+
+                ]
 
 
-class ReviewListView(ListView):
+class ReviewListView(FilterView):
     context_object_name = "review_list"
+    filterset_class = ReviewFilter
     paginate_by = 30
     model = Review
     template_name = "dashboard/review_list.html"
@@ -186,8 +198,9 @@ class ReviewUpdateView(SuccessMessageMixin, UpdateView):
         return reverse("review_list", kwargs={"company_pk": self.object.company.id})
 
 
-class MessageListView(ListView):
+class MessageListView(FilterView):
     context_object_name = "message_list"
+    filterset_class = MessageFilter
     model = Message
     paginate_by = 30
     template_name = "dashboard/message_list.html"
@@ -230,19 +243,19 @@ def qr(request, company_pk):
 
 @login_required
 @require_http_methods(["GET"])
-def rate_widget(request, company_pk):
+def widget_rating(request, company_pk):
     company = get_object_or_404(Company, pk=company_pk, users__in=[request.user])
     theme = request.GET.get("theme", "l")
     position = request.GET.get("position", "lb")
 
     return render(
         request,
-        "dashboard/rate_widget.html",
+        "dashboard/widget_rating.html",
         {
             "company": company,
             "nav": "company",
             "position": position,
-            "sub_nav": "rate_widget",
+            "sub_nav": "widget_rating",
             "theme": theme
         }
     )
@@ -250,17 +263,17 @@ def rate_widget(request, company_pk):
 
 @login_required
 @require_http_methods(["GET"])
-def reviews_widget(request, company_pk):
+def widget_reviews(request, company_pk):
     company = get_object_or_404(Company, pk=company_pk, users__in=[request.user])
     theme = request.GET.get("theme", "l")
 
     return render(
         request,
-        "dashboard/reviews_widget.html",
+        "dashboard/widget_reviews.html",
         {
             "company": company,
             "nav": "company",
-            "sub_nav": "reviews_widget",
+            "sub_nav": "widget_reviews",
             "theme": theme
         }
     )

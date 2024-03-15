@@ -1,6 +1,8 @@
+{% load extensions %}
+
 <div style="align-items:center;display:flex;justify-content:space-between;">
     {% if page_obj.has_previous %}
-    <a class="bp5-button bp5-minimal" href="?page={{page_obj.previous_page_number}}"><span class="bp5-icon bp5-icon-arrow-left"></span><span class="bp5-button-text">Назад</span></a>
+    <a class="bp5-button bp5-minimal" href="?{% param_replace page=page_obj.previous_page_number %}"><span class="bp5-icon bp5-icon-arrow-left"></span><span class="bp5-button-text">Назад</span></a>
     {% else %}
     <button class="bp5-button bp5-disabled">
         <span aria-hidden="true" class="bp5-icon bp5-icon-arrow-left"></span>
@@ -13,7 +15,7 @@
     <span>1 страница</span>
     {% endif %}
     {% if page_obj.has_next %}
-    <a class="bp5-button bp5-minimal" href="?page={{page_obj.next_page_number}}"><span class="bp5-button-text">Вперед</span><span class="bp5-icon bp5-icon-arrow-right"></span></a>
+    <a class="bp5-button bp5-minimal" href="?{% param_replace page=page_obj.next_page_number %}"><span class="bp5-button-text">Вперед</span><span class="bp5-icon bp5-icon-arrow-right"></span></a>
     {% else %}
     <button class="bp5-button bp5-disabled">
         <span class="bp5-button-text">Вперед</span>

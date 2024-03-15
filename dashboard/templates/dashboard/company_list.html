@@ -24,7 +24,7 @@
 </div>
 {% for company in company_list %}
 <div class="bp5-form-group">
-    <div class="bp5-card bp5-elevation-2 bp5-section">
+    <div class="bp5-card bp5-elevation-1 bp5-section">
         <div class="bp5-section-header">
             <div class="bp5-section-header-left">
                 {% if company.logo %}
@@ -84,9 +84,11 @@
                     </div>
                 </div>
             </div>
-            <a class="bp5-button bp5-intent-warning" href="{% url 'company_detail' company.id %}">Открыть</a>
-            <a class="bp5-button bp5-intent-warning" href="{% url 'company_update' company.id %}">Настройки</a>
-            <a class="bp5-button bp5-intent-warning" href="{{company.host}}/@{{company.id}}" target="_blank">Форма запроса отзыва</a>
+            <div style="display:flex;gap:5px;">
+                <a class="bp5-button bp5-intent-warning" href="{% url 'company_detail' company.id %}">Открыть</a>
+                <a class="bp5-button bp5-intent-warning" href="{% url 'company_update' company.id %}">Настройки</a>
+                <a class="bp5-button bp5-intent-warning" href="{{company.host}}/@{{company.id}}" target="_blank">Форма запроса отзыва</a>
+            </div>
         </div>
     </div>
 </div>

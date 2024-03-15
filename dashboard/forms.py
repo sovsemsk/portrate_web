@@ -1,21 +1,21 @@
-from django import forms
+from django.forms import DateInput, ModelForm, Select, TimeField, widgets, BooleanField, CharField, ImageField
 
 from extensions.models import Profile, Timezone
 from resources.models import Company, Review
 
 
-class DateInput(forms.DateInput):
+class DateInput(DateInput):
     input_type = "date"
 
 
-class ProfileForm(forms.ModelForm):
-    default_timezone = forms.Select(choices=Timezone.choices)
-    can_notify_at_start = forms.TimeField(widget=forms.widgets.TimeInput(attrs={"type": "time", "class": "bp5-input"}))
-    can_notify_at_end = forms.TimeField(widget=forms.widgets.TimeInput(attrs={"type": "time", "class": "bp5-input"}))
-    can_notify_negative_portrate = forms.BooleanField(required=False)
-    can_notify_negative_yandex = forms.BooleanField(required=False)
-    can_notify_negative_gis = forms.BooleanField(required=False)
-    can_notify_negative_google = forms.BooleanField(required=False)
+class ProfileForm(ModelForm):
+    default_timezone = Select(choices=Timezone.choices)
+    can_notify_at_start = TimeField(widget=widgets.TimeInput(attrs={"type": "time", "class": "bp5-input"}))
+    can_notify_at_end = TimeField(widget=widgets.TimeInput(attrs={"type": "time", "class": "bp5-input"}))
+    can_notify_negative_portrate = BooleanField(required=False)
+    can_notify_negative_yandex = BooleanField(required=False)
+    can_notify_negative_gis = BooleanField(required=False)
+    can_notify_negative_google = BooleanField(required=False)
 
     class Meta:
         model = Profile
@@ -33,31 +33,31 @@ class ProfileForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
 
-class CompanyForm(forms.ModelForm):
-    address = forms.CharField(widget=forms.widgets.TextInput(attrs={"class": "bp5-input"}))
-    logo = forms.ImageField(widget=forms.widgets.FileInput(), required=False)
-    name = forms.CharField(widget=forms.widgets.TextInput(attrs={"class": "bp5-input"}))
+class CompanyForm(ModelForm):
+    address = CharField(widget=widgets.TextInput(attrs={"class": "bp5-input"}))
+    logo = ImageField(widget=widgets.FileInput(), required=False)
+    name = CharField(widget=widgets.TextInput(attrs={"class": "bp5-input"}))
 
-    parser_link_yandex = forms.CharField(widget=forms.widgets.TextInput(attrs={"class": "bp5-input"}), required=False)
-    parser_link_gis = forms.CharField(widget=forms.widgets.TextInput(attrs={"class": "bp5-input"}), required=False)
-    parser_link_google = forms.CharField(widget=forms.widgets.TextInput(attrs={"class": "bp5-input"}), required=False)
+    parser_link_yandex = CharField(widget=widgets.TextInput(attrs={"class": "bp5-input"}), required=False)
+    parser_link_gis = CharField(widget=widgets.TextInput(attrs={"class": "bp5-input"}), required=False)
+    parser_link_google = CharField(widget=widgets.TextInput(attrs={"class": "bp5-input"}), required=False)
 
-    form_link_yandex = forms.CharField(widget=forms.widgets.TextInput(attrs={"class": "bp5-input"}), required=False)
-    form_link_gis = forms.CharField(widget=forms.widgets.TextInput(attrs={"class": "bp5-input"}), required=False)
-    form_link_google = forms.CharField(widget=forms.widgets.TextInput(attrs={"class": "bp5-input"}), required=False)
-    form_link_mapsme = forms.CharField(widget=forms.widgets.TextInput(attrs={"class": "bp5-input"}), required=False)
-    form_link_dikidi = forms.CharField(widget=forms.widgets.TextInput(attrs={"class": "bp5-input"}), required=False)
-    form_link_restoclub = forms.CharField(widget=forms.widgets.TextInput(attrs={"class": "bp5-input"}), required=False)
-    form_link_tripadvisor = forms.CharField(widget=forms.widgets.TextInput(attrs={"class": "bp5-input"}), required=False)
-    form_link_prodoctorov = forms.CharField(widget=forms.widgets.TextInput(attrs={"class": "bp5-input"}), required=False)
-    form_link_flamp = forms.CharField(widget=forms.widgets.TextInput(attrs={"class": "bp5-input"}), required=False)
-    form_link_zoon = forms.CharField(widget=forms.widgets.TextInput(attrs={"class": "bp5-input"}), required=False)
-    form_link_otzovik = forms.CharField(widget=forms.widgets.TextInput(attrs={"class": "bp5-input"}), required=False)
-    form_link_irecommend = forms.CharField(widget=forms.widgets.TextInput(attrs={"class": "bp5-input"}), required=False)
+    form_link_yandex = CharField(widget=widgets.TextInput(attrs={"class": "bp5-input"}), required=False)
+    form_link_gis = CharField(widget=widgets.TextInput(attrs={"class": "bp5-input"}), required=False)
+    form_link_google = CharField(widget=widgets.TextInput(attrs={"class": "bp5-input"}), required=False)
+    form_link_mapsme = CharField(widget=widgets.TextInput(attrs={"class": "bp5-input"}), required=False)
+    form_link_dikidi = CharField(widget=widgets.TextInput(attrs={"class": "bp5-input"}), required=False)
+    form_link_restoclub = CharField(widget=widgets.TextInput(attrs={"class": "bp5-input"}), required=False)
+    form_link_tripadvisor = CharField(widget=widgets.TextInput(attrs={"class": "bp5-input"}), required=False)
+    form_link_prodoctorov = CharField(widget=widgets.TextInput(attrs={"class": "bp5-input"}), required=False)
+    form_link_flamp = CharField(widget=widgets.TextInput(attrs={"class": "bp5-input"}), required=False)
+    form_link_zoon = CharField(widget=widgets.TextInput(attrs={"class": "bp5-input"}), required=False)
+    form_link_otzovik = CharField(widget=widgets.TextInput(attrs={"class": "bp5-input"}), required=False)
+    form_link_irecommend = CharField(widget=widgets.TextInput(attrs={"class": "bp5-input"}), required=False)
 
-    is_parse_yandex = forms.BooleanField(required=False)
-    is_parse_gis = forms.BooleanField(required=False)
-    is_parse_google = forms.BooleanField(required=False)
+    is_parse_yandex = BooleanField(required=False)
+    is_parse_gis = BooleanField(required=False)
+    is_parse_google = BooleanField(required=False)
 
     class Meta:
         model = Company
@@ -101,8 +101,8 @@ class CompanyForm(forms.ModelForm):
                 self.fields.get("parser_link_google").required = True
 
 
-class ReviewForm(forms.ModelForm):
-    is_hidden = forms.BooleanField(required=False)
+class ReviewForm(ModelForm):
+    is_hidden = BooleanField(required=False)
 
     class Meta:
         model = Review

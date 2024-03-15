@@ -3,10 +3,22 @@
 {% block content %}
 {% include 'dashboard/_company_head.html' %}
 {% include 'dashboard/_company_tabs.html' %}
+<div class="bp5-form-group">
+    <form>
+        <div style="align-items:center;display:flex;gap:5px;">
+            {{ filter.form.created_at }}
+            <div class="bp5-html-select ">
+                {{ filter.form.service }}
+                <span class="bp5-icon bp5-icon-double-caret-vertical"></span>
+            </div>
+            <button class="bp5-button bp5-intent-warning" type="submit">Найти</button>
+        </div>
+    </form>
+</div>
 {% if review_list %}
 {% for review in review_list %}
 <div class="bp5-form-group">
-    <div class="bp5-section bp5-card bp5-elevation-2">
+    <div class="bp5-section bp5-card bp5-elevation-1">
         <div class="bp5-section-header">
             <div class="bp5-section-header-left">
                 <div>

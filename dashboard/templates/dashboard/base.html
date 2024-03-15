@@ -4,7 +4,7 @@
     <head>
         <title>Портрет Geo</title>
         <meta charset="UTF-8">
-        <meta name="theme-color" content="#000000">
+        <meta name="theme-color" content="#f47500">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link href="{% static 'css/normalize.css' %}" rel="stylesheet" />
@@ -15,8 +15,8 @@
         <script src="{% static 'javascript/javascript.js' %}"></script>
         <style>a{text-decoration:none !important;}</style>
     </head>
-    <body style="background:#d3d8de;margin:0;">
-        <nav class="bp5-navbar bp5-dark" style="background:black;">
+    <body style="background:#ffffff;margin:0;">
+        <nav class="bp5-navbar">
             <div style="margin:0 auto;width:800px;">
                 <div class="bp5-navbar-group bp5-align-left">
                     <div class="bp5-navbar-heading" style="padding-top:5px;">
@@ -26,8 +26,6 @@
                     <a class="bp5-button bp5-minimal" href="https://portrate.io">Помощь</a>
                 </div>
                 <div class="bp5-align-right bp5-navbar-group">
-                    <!-- span class="bp5-tag bp5-intent-warning bp5-minimal">У вас осталось 7 тестовых дней</span>
-                    <span class="bp5-navbar-divider"></span -->
                     <a class="bp5-button bp5-icon-user bp5-minimal {% if nav == 'profile' %} bp5-active{% endif %}" href="{% url 'extensions_profile' %}"></a>
                     <a class="bp5-button bp5-icon-cog bp5-minimal {% if nav == 'pref' %} bp5-active{% endif %}" href="{% url 'pref' %}"></a>
                     <a class="bp5-button bp5-icon-log-out bp5-minimal" href="{% url 'extensions_logout' %}"></a>
@@ -38,7 +36,7 @@
             {% if messages %}
             <div class="bp5-form-group">
                 {% for message in messages %}
-                <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-elevation-1 bp5-intent-{% if message.tags %}{{ message.tags }}{% endif %}">
+                <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-intent-{% if message.tags %}{{ message.tags }}{% endif %}">
                     <span class="bp5-icon bp5-icon-issue"></span>
                     <h5 class="bp5-heading">
                         Оповещение системы

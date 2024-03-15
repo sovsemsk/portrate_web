@@ -9,8 +9,8 @@
                 Сообщения <span class="bp5-minimal bp5-tag bp5-tab-tag"><span class="bp5-text-overflow-ellipsis bp5-fill">{{ company.messages_total_count|default:'0' }}</span></span>
             </a>
             <a class="bp5-tab" {% if sub_nav == 'qr' %}aria-selected="true"{% endif %} href="{% url 'qr' company.id %}">QR код</a>
-            <a class="bp5-tab" {% if sub_nav == 'rate_widget' %}aria-selected="true"{% endif %} href="{% url 'rate_widget' company.id %}">Виджет рейтинга</a>
-            <a class="bp5-tab" {% if sub_nav == 'reviews_widget' %}aria-selected="true"{% endif %} href="{% url 'reviews_widget' company.id %}">Виджет отзывов</a>
+            <a class="bp5-tab" {% if sub_nav == 'widget_rating' %}aria-selected="true"{% endif %} href="{% url 'widget_rating' company.id %}">Виджет рейтинга</a>
+            <a class="bp5-tab" {% if sub_nav == 'widget_reviews' %}aria-selected="true"{% endif %} href="{% url 'widget_reviews' company.id %}">Виджет отзывов</a>
         </ul>
     </div>
 </div>

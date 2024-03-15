@@ -19,6 +19,7 @@ INSTALLED_APPS = [
     "colorfield",
     "django_browser_reload",
     "django_celery_results",
+    "django_filters",
     "debug_toolbar",
     "chartjs",
 
