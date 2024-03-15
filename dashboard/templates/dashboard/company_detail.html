@@ -26,24 +26,20 @@
         <div class="bp5-padded bp5-section-card">
             <div style="display:flex;gap:5px">
                 <div class="bp5-callout bp5-elevation-1" style="flex:1 calc(100% / 3)" >
-                    <div style="display:flex;flex-direction:column;">
                         <div class="bp5-form-group">
                             <h2 class="bp5-heading">
                                 {{ company.rating_yandex|default:'0,0' }}
                             </h2>
                         </div>
-                        <div style="margin-top:auto">
-                            Рейтинг
-                            <div class="bp5-text-muted bp5-text-small">
-                                {% timezone user.profile.default_timezone %}
-                                {{ company.rating_yandex_last_parse_at|default:'Нет данных' }}
-                                {% endtimezone %}
-                            </div>
+                        Рейтинг
+                        <div class="bp5-text-muted bp5-text-small">
+                            {% timezone user.profile.default_timezone %}
+                            {{ company.rating_yandex_last_parse_at|default:'Нет данных' }}
+                            {% endtimezone %}
                         </div>
-                    </div>
                 </div>
-                <div class="bp5-callout bp5-elevation-1" style="min-height:125px;flex:2 calc(100% / 1.5 + 5px)">
-                    <canvas id="RATING_YANDEX_CHART" width="250" height="50" ></canvas>
+                <div class="bp5-callout bp5-elevation-1" style="flex:2 calc(100% / 1.5 + 5px);padding-bottom:0;min-height:125px;">
+                    <canvas id="RATING_YANDEX_CHART" width="475" height="100" ></canvas>
                 </div>
             </div>
         </div>
@@ -120,8 +116,8 @@
                         {% endtimezone %}
                     </div>
                 </div>
-                <div class="bp5-callout bp5-elevation-1" style="min-height:125px;flex:2 calc(100% / 1.5 + 5px);">
-                    <canvas id="RATING_GIS_CHART" width="250" height="50" ></canvas>
+                <div class="bp5-callout bp5-elevation-1" style="flex:2 calc(100% / 1.5 + 5px);padding-bottom:0;min-height:125px;">
+                    <canvas id="RATING_GIS_CHART" width="475" height="100" ></canvas>
                 </div>
             </div>
         </div>
@@ -198,8 +194,8 @@
                         {% endtimezone %}
                     </div>
                 </div>
-                <div class="bp5-callout bp5-elevation-1" style="min-height:125px;flex:2 calc(100% / 1.5 + 5px)">
-                    <canvas id="RATING_GOOGLE_CHART" width="250" height="50" ></canvas>
+                <div class="bp5-callout bp5-elevation-1" style="flex:2 calc(100% / 1.5 + 5px);padding-bottom:0;min-height:125px;">
+                    <canvas id="RATING_GOOGLE_CHART" width="475" height="100" ></canvas>
                 </div>
             </div>
         </div>
@@ -340,7 +336,7 @@
 
         scales: {
             x: {
-                display: false,
+
                 grid: {
                     display: false
                 }
@@ -354,7 +350,7 @@
         }
     }
 
-    $.get('{% url "company_rate_dynamic" company.id %}', function(data) {
+    $.get('{% url "company_rating_yandex_dynamic" company.id %}', function(data) {
         var ctx = $("#RATING_YANDEX_CHART").get(0).getContext("2d");
         new Chart(ctx, {
             type: 'line',
@@ -362,7 +358,7 @@
             options: options
         });
     });
-    $.get('{% url "company_rate_dynamic" company.id %}', function(data) {
+    $.get('{% url "company_rating_gis_dynamic" company.id %}', function(data) {
         var ctx = $("#RATING_GIS_CHART").get(0).getContext("2d");
         new Chart(ctx, {
             type: 'line',
@@ -370,7 +366,7 @@
             options: options
         });
     });
-    $.get('{% url "company_rate_dynamic" company.id %}', function(data) {
+    $.get('{% url "company_rating_google_dynamic" company.id %}', function(data) {
         var ctx = $("#RATING_GOOGLE_CHART").get(0).getContext("2d");
         new Chart(ctx, {
             type: 'line',

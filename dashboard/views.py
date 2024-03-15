@@ -121,9 +121,30 @@ class CompanyUpdateView(SuccessMessageMixin, UpdateView):
         return reverse("company_update", kwargs={"pk": self.object.id})
 
 
-class CompanyRateDynamic(BaseLineChartView):
+class CompanyRatingYandexDynamic(BaseLineChartView):
     def get_labels(self):
-        return ["January", "February", "March", "April", "May", "June", "July"]
+        return ["Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"]
+
+    def get_providers(self):
+        return ["Яндекс"]
+
+    def get_dataset_options(self, index, color):
+        default_opt = {
+            "backgroundColor": "rgba(255, 95, 0, 0.2)",
+            "borderColor": "#f47500",
+            "pointBackgroundColor": "rgba(0, 0, 0, 0)",
+            "pointBorderColor": "rgba(0, 0, 0, 0)",
+            "cubicInterpolationMode": "monotone",
+            "fill": False,
+        }
+        return default_opt
+
+    def get_data(self):
+        return [[0.0, 4.1, 4.1, 4.1, 4.1, 4.1, 5.0]]
+
+class CompanyRatingGisDynamic(BaseLineChartView):
+    def get_labels(self):
+        return ["Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"]
 
     def get_providers(self):
         return ["Яндекс"]
@@ -142,9 +163,30 @@ class CompanyRateDynamic(BaseLineChartView):
 
 
     def get_data(self):
-        return [[0.0, 4.1, 4.1, 4.1, 4.1, 4.1, 5.0],
+        return [[0.0, 3.1, 2.1, 4.1, 4.8, 4.1, 5.0, 5.0, 5.0]]
 
-                ]
+class CompanyRatingGoogleDynamic(BaseLineChartView):
+    def get_labels(self):
+        return ["Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"]
+
+    def get_providers(self):
+        return ["Яндекс"]
+
+
+    def get_dataset_options(self, index, color):
+        default_opt = {
+            "backgroundColor": "rgba(255, 95, 0, 0.2)",
+            "borderColor": "#f47500",
+            "pointBackgroundColor": "rgba(0, 0, 0, 0)",
+            "pointBorderColor": "rgba(0, 0, 0, 0)",
+            "cubicInterpolationMode": "monotone",
+            "fill": False,
+        }
+        return default_opt
+
+
+    def get_data(self):
+        return [[0.0, 2.1, 3.6, 4.1, 3.1, 2.5, 5.0, 4.7]]
 
 
 class ReviewListView(FilterView):
