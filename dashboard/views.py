@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from chartjs.views.lines import BaseLineChartView
 from django.conf import settings
 from django.contrib import messages
@@ -12,7 +14,7 @@ from django.views.decorators.http import require_http_methods
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 from django_filters.views import FilterView
 
-from resources.models import Company, Message, Review
+from resources.models import Company, Message, Review, RatingStamp
 from resources.tasks import send_telegram_text_task
 from .filters import MessageFilter, ReviewFilter
 from .forms import CompanyForm, ProfileForm, ReviewForm, DashboardAuthenticationForm, DashboardUserChangeForm, \
@@ -125,41 +127,25 @@ class CompanyUpdateView(SuccessMessageMixin, UpdateView):
         return reverse("company_update", kwargs={"pk": self.object.id})
 
 
-class CompanyRatingYandexDynamic(BaseLineChartView):
-    def get_labels(self):
-        return ["Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"]
+class CompanyRatingDynamic(BaseLineChartView):
+    def __init__(self, **kwargs):
+        super().__init__()
+        self.rating_history = None
 
-    def get_providers(self):
-        return ["Яндекс"]
+    def get_labels(self):
+        company = get_object_or_404(Company, pk=self.kwargs["company_pk"], users__in=[self.request.user])
+        self.rating_history = RatingStamp.objects.filter(company_id=company.id).order_by("-created_at")[:10]
+
+        if self.rating_history:
+            return list(map(lambda x: x.created_at.strftime("%d.%m"), self.rating_history))[::-1]
+        else:
+            return [datetime.now().strftime("%d.%m")]
 
     def get_dataset_options(self, index, color):
         default_opt = {
             "backgroundColor": "rgba(255, 95, 0, 0.2)",
             "borderColor": "#f47500",
-            "pointBackgroundColor": "rgba(0, 0, 0, 0)",
-            "pointBorderColor": "rgba(0, 0, 0, 0)",
-            "cubicInterpolationMode": "monotone",
-            "fill": False,
-        }
-        return default_opt
-
-    def get_data(self):
-        return [[0.0, 4.1, 4.1, 4.1, 4.1, 4.1, 5.0]]
-
-
-class CompanyRatingGisDynamic(BaseLineChartView):
-    def get_labels(self):
-        return ["Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"]
-
-    def get_providers(self):
-        return ["Яндекс"]
-
-
-    def get_dataset_options(self, index, color):
-        default_opt = {
-            "backgroundColor": "rgba(255, 95, 0, 0.2)",
-            "borderColor": "#f47500",
-            "pointBackgroundColor": "rgba(0, 0, 0, 0)",
+            "pointBackgroundColor": "#f47500",
             "pointBorderColor": "rgba(0, 0, 0, 0)",
             "cubicInterpolationMode": "monotone",
             "fill": False,
@@ -167,32 +153,31 @@ class CompanyRatingGisDynamic(BaseLineChartView):
         return default_opt
 
 
-    def get_data(self):
-        return [[0.0, 3.1, 2.1, 4.1, 4.8, 4.1, 5.0, 5.0, 5.0]]
-
-
-class CompanyRatingGoogleDynamic(BaseLineChartView):
-    def get_labels(self):
-        return ["Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"]
+class CompanyRatingYandexDynamic(CompanyRatingDynamic):
 
     def get_providers(self):
         return ["Яндекс"]
 
+    def get_data(self):
+        return [list(map(lambda x: x.rating_yandex, self.rating_history))[::-1]]
 
-    def get_dataset_options(self, index, color):
-        default_opt = {
-            "backgroundColor": "rgba(255, 95, 0, 0.2)",
-            "borderColor": "#f47500",
-            "pointBackgroundColor": "rgba(0, 0, 0, 0)",
-            "pointBorderColor": "rgba(0, 0, 0, 0)",
-            "cubicInterpolationMode": "monotone",
-            "fill": False,
-        }
-        return default_opt
 
+class CompanyRatingGisDynamic(CompanyRatingDynamic):
+
+    def get_providers(self):
+        return ["2Гис"]
 
     def get_data(self):
-        return [[0.0, 2.1, 3.6, 4.1, 3.1, 2.5, 5.0, 4.7]]
+        return [list(map(lambda x: x.rating_gis, self.rating_history))[::-1]]
+
+
+class CompanyRatingGoogleDynamic(CompanyRatingDynamic):
+
+    def get_providers(self):
+        return ["Google"]
+
+    def get_data(self):
+        return [list(map(lambda x: x.rating_google, self.rating_history))]
 
 
 class ReviewListView(FilterView):

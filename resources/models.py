@@ -7,9 +7,25 @@ from django.dispatch import receiver
 from django.utils.crypto import get_random_string
 
 
+class Service(models.TextChoices):
+    """ Сервис """
+    YANDEX = "YANDEX", "Яндекс"
+    GIS = "GIS", "2Гис"
+    GOOGLE = "GOOGLE", "Google"
+
+
+class Stars(models.TextChoices):
+    """ Звезды """
+    _0 = "0", "0 звезд"
+    _1 = "1", "1 звезда"
+    _2 = "2", "2 звезды"
+    _3 = "3", "3 звезды"
+    _4 = "4", "4 звезды"
+    _5 = "5", "5 звезд"
+
+
 class Timezone(models.TextChoices):
     """ Часовой пояс """
-
     UTC = "UTC", "UTC"
     Europe_Moscow = "Europe/Moscow", "Москва"
     Asia_Yekaterinburg = "Asia/Yekaterinburg", "Екатеринбург"
@@ -17,7 +33,6 @@ class Timezone(models.TextChoices):
 
 class Profile(models.Model):
     """ Профиль """
-
     class Meta:
         db_table = "resources_profile"
         verbose_name = "профиль"
@@ -49,28 +64,8 @@ def profile_post_init(sender, instance, **kwargs):
         instance.api_secret = get_random_string(length=8)
 
 
-
-
-class Service(models.TextChoices):
-    """ Сервис """
-    YANDEX = "YANDEX", "Яндекс"
-    GIS = "GIS", "2Гис"
-    GOOGLE = "GOOGLE", "Google"
-
-
-class Stars(models.TextChoices):
-    """ Звезды """
-    _0 = "0", "0 звезд"
-    _1 = "1", "1 звезда"
-    _2 = "2", "2 звезды"
-    _3 = "3", "3 звезды"
-    _4 = "4", "4 звезды"
-    _5 = "5", "5 звезд"
-
-
 class Company(models.Model):
     """ Компания """
-
     class Meta:
         db_table = "resources_company"
         verbose_name = "компания"
@@ -164,7 +159,6 @@ def company_post_init(sender, instance, **kwargs):
 
 class RatingStamp(models.Model):
     """ Рейтинг """
-
     class Meta:
         db_table = "resources_company_rating_stamp"
         verbose_name = "Рейтинг компании"
@@ -185,7 +179,6 @@ class RatingStamp(models.Model):
 
 class Review(models.Model):
     """ Отзыв """
-
     class Meta:
         db_table = "resources_review"
         verbose_name = "отзыв"
@@ -244,7 +237,6 @@ def review_post_save(sender, instance, created, **kwargs):
 
 class Message(models.Model):
     """ Сообщение """
-
     class Meta:
         db_table = "resources_negative_message"
         verbose_name = "сообщение"
