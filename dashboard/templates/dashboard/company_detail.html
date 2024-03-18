@@ -265,6 +265,7 @@
         },
         scales: {
             x: {
+                display: false,
                 ticks: {
                     color: "#5f6b7c",
                     font: {
@@ -279,7 +280,7 @@
             y: {
                 display: false,
                 min: 0,
-                max: 5.5,
+                max: 5,
                 ticks: {
                     color: "#5f6b7c",
                     font: {
@@ -296,7 +297,7 @@
     }
 
     $.get("{% url 'company_rating_yandex_dynamic' company.id %}?{{request.META.QUERY_STRING|safe}}", (data) => {
-        var ctx = $("#RATING_YANDEX_CHART").get(0).getContext("2d");
+        const ctx = $("#RATING_YANDEX_CHART").get(0).getContext("2d");
         new Chart(ctx, {
             type: "line",
             data: data,
@@ -304,7 +305,7 @@
         });
     });
     $.get("{% url 'company_rating_gis_dynamic' company.id %}?{{request.META.QUERY_STRING|safe}}", (data) => {
-        var ctx = $("#RATING_GIS_CHART").get(0).getContext("2d");
+        const ctx = $("#RATING_GIS_CHART").get(0).getContext("2d");
         new Chart(ctx, {
             type: "line",
             data: data,
@@ -312,7 +313,7 @@
         });
     });
     $.get("{% url 'company_rating_google_dynamic' company.id %}?{{request.META.QUERY_STRING|safe}}", (data) => {
-        var ctx = $("#RATING_GOOGLE_CHART").get(0).getContext("2d");
+        const ctx = $("#RATING_GOOGLE_CHART").get(0).getContext("2d");
         new Chart(ctx, {
             type: "line",
             data: data,

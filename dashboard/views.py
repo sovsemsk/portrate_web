@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from chartjs.views.lines import BaseLineChartView
 from django.conf import settings
 from django.contrib import messages
@@ -163,9 +161,9 @@ class CompanyRatingDynamic(BaseLineChartView):
             queryset=RatingStamp.objects.filter(
                 company_id=self.kwargs["company_pk"]
             ).order_by("-created_at")
-        ).qs[:15]
+        ).qs[:50]
 
-        return list(map(lambda x: x.created_at.strftime("%d.%m"), self.rating_history))[::-1] or [datetime.now().strftime("%d.%m")]
+        return [""] * len(self.rating_history) or ["",""]
 
     def get_dataset_options(self, index, color):
         default_opt = {
@@ -174,7 +172,7 @@ class CompanyRatingDynamic(BaseLineChartView):
             "pointBackgroundColor": "rgba(0, 0, 0, 0)",
             "pointBorderColor": "rgba(0, 0, 0, 0)",
             "cubicInterpolationMode": "monotone",
-            "fill": False,
+            "fill": True,
         }
         return default_opt
 
@@ -184,7 +182,7 @@ class CompanyRatingYandexDynamic(CompanyRatingDynamic):
         return ["Яндекс"]
 
     def get_data(self):
-        return [list(map(lambda x: x.rating_yandex, self.rating_history))[::-1]]
+        return [list(map(lambda x: x.rating_yandex, self.rating_history))[::-1] or [1, 1]]
 
 
 class CompanyRatingGisDynamic(CompanyRatingDynamic):
@@ -192,7 +190,7 @@ class CompanyRatingGisDynamic(CompanyRatingDynamic):
         return ["2Гис"]
 
     def get_data(self):
-        return [list(map(lambda x: x.rating_gis, self.rating_history))[::-1]]
+        return [list(map(lambda x: x.rating_gis, self.rating_history))[::-1] or [1, 1]]
 
 
 class CompanyRatingGoogleDynamic(CompanyRatingDynamic):
@@ -200,7 +198,7 @@ class CompanyRatingGoogleDynamic(CompanyRatingDynamic):
         return ["Google"]
 
     def get_data(self):
-        return [list(map(lambda x: x.rating_google, self.rating_history))]
+        return [list(map(lambda x: x.rating_google, self.rating_history))[::-1] or [1, 1]]
 
 
 class ReviewListView(FilterView):
