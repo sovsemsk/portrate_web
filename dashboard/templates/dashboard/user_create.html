@@ -7,7 +7,7 @@
             <img style="width:24px;" src="{% static 'images/dashboard/logo.png' %}" alt="P">
             <div>
                 <h6 class="bp5-heading bp5-section-header-title">Портрет</h6>
-                <div class="bp5-section-header-sub-title bp5-text-muted">Вход</div>
+                <div class="bp5-section-header-sub-title bp5-text-muted">регистрация</div>
             </div>
         </div>
     </div>
@@ -33,21 +33,34 @@
             </div>
             {% endif %}
             <div class="bp5-form-group">
-                {{ form.username }}
+                <label class="bp5-label">Имя пользователя</label>
+                {{form.username}}
                 <!-- Исключение для css (цвет текста) -->
                 <div class="bp5-form-helper-text" style="color:#ac2f33">
                     {{ form.username.errors.as_text }}
                 </div>
             </div>
             <div class="bp5-form-group">
-                {{ form.password }}
+                <label class="bp5-label">Пароль</label>
+                {{form.password1}}
                 <!-- Исключение для css (цвет текста) -->
                 <div class="bp5-form-helper-text" style="color:#ac2f33">
-                    {{ form.password.errors.as_text }}
+                    {{form.password1.errors.as_text}}
                 </div>
             </div>
-            <button class="bp5-button bp5-fill" type="submit">Войти</button>
+            <div class="bp5-form-group">
+                <label class="bp5-label">Подтверждение пароля</label>
+                {{form.password2}}
+                <!-- Исключение для css (цвет текста) -->
+                <div class="bp5-form-helper-text" style="color:#ac2f33">
+                    {{form.password2.errors.as_text}}
+                </div>
+            </div>
+            <button class="bp5-button bp5-fill bp5-intent-success" type="submit">Зарегистрироваться</button>
         </form>
+    </div>
+    <div class="bp5-section-card bp5-padded">
+        <a class="bp5-button bp5-fill" href="{% url 'user_login' %}">Войти</a>
     </div>
 </div>
 {% endblock %}

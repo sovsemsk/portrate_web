@@ -1,0 +1,58 @@
+{% extends "dashboard/base_auth.html" %}
+{% load static %}
+{% block content %}
+<div class="bp5-card bp5-elevation-1 bp5-section">
+    <div class="bp5-section-header">
+        <div class="bp5-section-header-left">
+            <img style="width:24px;" src="{% static 'images/dashboard/logo.png' %}" alt="P">
+            <div>
+                <h6 class="bp5-heading bp5-section-header-title">Портрет</h6>
+                <div class="bp5-section-header-sub-title bp5-text-muted">вход</div>
+            </div>
+        </div>
+    </div>
+    <div class="bp5-section-card bp5-padded">
+        <form method="post" novalidate>
+            {% csrf_token %}
+            {% if form.non_field_errors %}
+            {% for error in form.non_field_errors %}
+            <div class="bp5-form-group">
+                <div class="bp5-callout bp5-callout-has-body-content bp5-intent-danger">
+                    {{ error }}
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% if messages %}
+            <div class="bp5-form-group">
+                {% for message in messages %}
+                <div class="bp5-callout bp5-callout-has-body-content bp5-intent-danger bp5-elevation-1">
+                    {{message}}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            <div class="bp5-form-group">
+                <label class="bp5-label">Имя пользователя</label>
+                {{form.username}}
+                <!-- Исключение для css (цвет текста) -->
+                <div class="bp5-form-helper-text" style="color:#ac2f33">
+                    {{form.username.errors.as_text}}
+                </div>
+            </div>
+            <div class="bp5-form-group">
+                <label class="bp5-label">Пароль</label>
+                {{form.password}}
+                <!-- Исключение для css (цвет текста) -->
+                <div class="bp5-form-helper-text" style="color:#ac2f33">
+                    {{form.password.errors.as_text}}
+                </div>
+            </div>
+            <button class="bp5-button bp5-fill bp5-intent-success" type="submit">Войти</button>
+        </form>
+    </div>
+    <div class="bp5-section-card bp5-padded">
+        <a class="bp5-button bp5-fill" href="{% url 'user_create' %}">Зарегистрироваться</a>
+    </div>
+</div>
+{% endblock %}

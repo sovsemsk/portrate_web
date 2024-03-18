@@ -1,4 +1,5 @@
-from django.contrib.auth.forms import UserChangeForm, AuthenticationForm, UsernameField, SetPasswordForm
+from django.contrib.auth.forms import UserChangeForm, AuthenticationForm, UsernameField, SetPasswordForm, \
+    UserCreationForm
 from django.contrib.auth.models import User
 from django.forms import BooleanField, ImageField, Select, TimeField
 from django.forms import CharField, PasswordInput, ModelForm, TextInput
@@ -105,9 +106,15 @@ class ReviewForm(ModelForm):
         fields = ["is_visible"]
 
 
+class DashboardUserCreationForm(UserCreationForm):
+    username = UsernameField(widget=TextInput(attrs={"class": "bp5-input"}))
+    password1 = CharField(widget=PasswordInput(attrs={"class": "bp5-input"}))
+    password2 = CharField(widget=PasswordInput(attrs={"class": "bp5-input"}))
+
+
 class DashboardAuthenticationForm(AuthenticationForm):
-    username = UsernameField(widget=TextInput(attrs={"class": "bp5-input", "placeholder": "Логин"}))
-    password = CharField(widget=PasswordInput(attrs={"class": "bp5-input", "placeholder": "Пароль"}))
+    username = UsernameField(widget=TextInput(attrs={"class": "bp5-input"}))
+    password = CharField(widget=PasswordInput(attrs={"class": "bp5-input"}))
 
     error_messages = {
         "invalid_login": "Пользователь не найден",

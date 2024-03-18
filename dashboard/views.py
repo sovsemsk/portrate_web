@@ -16,7 +16,7 @@ from resources.models import Company, Message, Review
 from resources.tasks import send_telegram_text_task
 from .filters import MessageFilter, ReviewFilter
 from .forms import CompanyForm, ProfileForm, ReviewForm, DashboardAuthenticationForm, DashboardUserChangeForm, \
-    DashboardSetPasswordForm
+    DashboardSetPasswordForm, DashboardUserCreationForm
 
 
 class CompanyListView(ListView):
@@ -392,6 +392,22 @@ def security(request):
 
 
 @require_http_methods(["GET", "POST"])
+def user_create(request):
+    if request.method == "POST":
+        form = DashboardUserCreationForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return redirect("user_login")
+        else:
+            return render(request, "dashboard/user_create.html", {"form": form})
+
+    else:
+        form = DashboardUserCreationForm()
+        return render(request, "dashboard/user_create.html", {"form": form})
+
+
+@require_http_methods(["GET", "POST"])
 def user_login(request):
     if request.method == "POST":
         form = DashboardAuthenticationForm(data=request.POST)
@@ -400,11 +416,11 @@ def user_login(request):
             login(request, form.user_cache)
             return redirect("company_list")
         else:
-            return render(request, "dashboard/login.html", {"form": form})
+            return render(request, "dashboard/user_login.html", {"form": form})
 
     else:
         form = DashboardAuthenticationForm(request)
-        return render(request, "dashboard/login.html", {"form": form})
+        return render(request, "dashboard/user_login.html", {"form": form})
 
 
 @require_http_methods(["GET", "POST"])
