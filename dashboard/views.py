@@ -153,13 +153,19 @@ class CompanyUpdateView(SuccessMessageMixin, UpdateView):
 class CompanyRatingDynamic(BaseLineChartView):
     def __init__(self, **kwargs):
         super().__init__()
+        self.company = None
         self.rating_history = None
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        self.company = get_object_or_404(Company, pk=self.kwargs["company_pk"], users__in=[self.request.user])
+        return super(CompanyRatingDynamic, self).dispatch(request, *args, **kwargs)
 
     def get_labels(self):
         self.rating_history = RatingStampFilter(
             self.request.GET,
             queryset=RatingStamp.objects.filter(
-                company_id=self.kwargs["company_pk"]
+                company_id=self.company.id
             ).order_by("-created_at")
         ).qs[:50]
 

@@ -304,6 +304,7 @@
             options: options
         });
     });
+
     $.get("{% url 'company_rating_gis_dynamic' company.id %}?{{request.META.QUERY_STRING|safe}}", (data) => {
         const ctx = $("#RATING_GIS_CHART").get(0).getContext("2d");
         new Chart(ctx, {
@@ -312,6 +313,7 @@
             options: options
         });
     });
+
     $.get("{% url 'company_rating_google_dynamic' company.id %}?{{request.META.QUERY_STRING|safe}}", (data) => {
         const ctx = $("#RATING_GOOGLE_CHART").get(0).getContext("2d");
         new Chart(ctx, {
