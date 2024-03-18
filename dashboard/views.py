@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from chartjs.views.lines import BaseLineChartView
 from django.conf import settings
 from django.contrib import messages
@@ -14,11 +12,18 @@ from django.views.decorators.http import require_http_methods
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 from django_filters.views import FilterView
 
-from resources.models import Company, Message, Review, RatingStamp
+from resources.models import Company, Message, Review, RatingStamp, Service
 from resources.tasks import send_telegram_text_task
-from .filters import MessageFilter, ReviewFilter
-from .forms import CompanyForm, ProfileForm, ReviewForm, DashboardAuthenticationForm, DashboardUserChangeForm, \
-    DashboardSetPasswordForm, DashboardUserCreationForm
+from .filters import MessageFilter, ReviewFilter, ReviewCountFilter, RatingStampFilter
+from .forms import (
+    CompanyForm,
+    ProfileForm,
+    ReviewForm,
+    DashboardAuthenticationForm,
+    DashboardUserChangeForm,
+    DashboardSetPasswordForm,
+    DashboardUserCreationForm
+)
 
 
 class CompanyListView(ListView):
@@ -54,8 +59,26 @@ class CompanyDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        review_count_filter = ReviewCountFilter(
+            self.request.GET,
+            queryset=Review.objects.filter(company_id=self.kwargs["pk"])
+        )
+
+        context["filter"] = review_count_filter
         context["host"] = settings.HOST
         context["nav"] = "company"
+
+        context["reviews_yandex_positive_count"] = review_count_filter.qs.filter(stars__gt=3, service=Service.YANDEX).count()
+        context["reviews_yandex_negative_count"] = review_count_filter.qs.filter(stars__lte=3, service=Service.YANDEX).count()
+        context["reviews_yandex_total_count"] = context["reviews_yandex_positive_count"] + context["reviews_yandex_negative_count"]
+        context["reviews_gis_positive_count"] = review_count_filter.qs.filter(stars__gt=3, service=Service.GIS).count()
+        context["reviews_gis_negative_count"] = review_count_filter.qs.filter(stars__lte=3, service=Service.GIS).count()
+        context["reviews_gis_total_count"] = context["reviews_gis_positive_count"] + context["reviews_gis_negative_count"]
+        context["reviews_google_positive_count"] = review_count_filter.qs.filter(stars__gt=3, service=Service.GOOGLE).count()
+        context["reviews_google_negative_count"] = review_count_filter.qs.filter(stars__lte=3, service=Service.GOOGLE).count()
+        context["reviews_google_total_count"] = context["reviews_google_positive_count"] + context["reviews_google_negative_count"]
+
         context["sub_nav"] = "detail"
         return context
 
@@ -133,19 +156,20 @@ class CompanyRatingDynamic(BaseLineChartView):
         self.rating_history = None
 
     def get_labels(self):
-        company = get_object_or_404(Company, pk=self.kwargs["company_pk"], users__in=[self.request.user])
-        self.rating_history = RatingStamp.objects.filter(company_id=company.id).order_by("-created_at")[:10]
+        self.rating_history = RatingStampFilter(
+            self.request.GET,
+            queryset=RatingStamp.objects.filter(
+                company_id=self.kwargs["company_pk"]
+            ).order_by("-created_at")
+        ).qs[:15]
 
-        if self.rating_history:
-            return list(map(lambda x: x.created_at.strftime("%d.%m"), self.rating_history))[::-1]
-        else:
-            return [datetime.now().strftime("%d.%m")]
+        return list(map(lambda x: x.created_at.strftime("%d.%m"), self.rating_history))[::-1]
 
     def get_dataset_options(self, index, color):
         default_opt = {
             "backgroundColor": "rgba(255, 95, 0, 0.2)",
             "borderColor": "#f47500",
-            "pointBackgroundColor": "#f47500",
+            "pointBackgroundColor": "rgba(0, 0, 0, 0)",
             "pointBorderColor": "rgba(0, 0, 0, 0)",
             "cubicInterpolationMode": "monotone",
             "fill": False,
@@ -154,7 +178,6 @@ class CompanyRatingDynamic(BaseLineChartView):
 
 
 class CompanyRatingYandexDynamic(CompanyRatingDynamic):
-
     def get_providers(self):
         return ["Яндекс"]
 
@@ -163,7 +186,6 @@ class CompanyRatingYandexDynamic(CompanyRatingDynamic):
 
 
 class CompanyRatingGisDynamic(CompanyRatingDynamic):
-
     def get_providers(self):
         return ["2Гис"]
 
@@ -172,7 +194,6 @@ class CompanyRatingGisDynamic(CompanyRatingDynamic):
 
 
 class CompanyRatingGoogleDynamic(CompanyRatingDynamic):
-
     def get_providers(self):
         return ["Google"]
 

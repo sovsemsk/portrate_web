@@ -129,8 +129,8 @@ def parse_cards(company_id):
         google_parser.close_page()
 
         """ Подсчет агрегаций Google """
-        company.reviews_google_negative_count = Review.objects.filter(company_id=company_id, service=Service.GOOGLE, stars__lte=3).count()
         company.reviews_google_positive_count = Review.objects.filter(company_id=company_id, service=Service.GOOGLE, stars__gt=3).count()
+        company.reviews_google_negative_count = Review.objects.filter(company_id=company_id, service=Service.GOOGLE, stars__lte=3).count()
         company.reviews_google_total_count = Review.objects.filter(company_id=company_id, service=Service.GOOGLE).count()
 
     """ Подсчет агрегаций """
