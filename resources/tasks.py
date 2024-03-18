@@ -141,7 +141,11 @@ def parse_cards(company_id):
     rating_history.rating_yandex = company.rating_yandex
     rating_history.rating_gis = company.rating_gis
     rating_history.rating_google = company.rating_google
-    rating_history.save()
+
+    try:
+        rating_history.save()
+    except:
+        pass
 
     """ Сохранение компании """
     company.is_first_parsing = False
