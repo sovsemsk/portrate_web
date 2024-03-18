@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from chartjs.views.lines import BaseLineChartView
 from django.conf import settings
 from django.contrib import messages
@@ -163,7 +165,7 @@ class CompanyRatingDynamic(BaseLineChartView):
             ).order_by("-created_at")
         ).qs[:15]
 
-        return list(map(lambda x: x.created_at.strftime("%d.%m"), self.rating_history))[::-1]
+        return list(map(lambda x: x.created_at.strftime("%d.%m"), self.rating_history))[::-1] or [datetime.now().strftime("%d.%m")]
 
     def get_dataset_options(self, index, color):
         default_opt = {
