@@ -178,7 +178,7 @@ class CompanyRatingDynamic(BaseLineChartView):
         default_opt = {
             "backgroundColor": "rgba(255, 95, 0, 0.2)",
             "borderColor": "#f47500",
-            "pointBackgroundColor": "rgba(0, 0, 0, 0)",
+            "pointBackgroundColor": "#f47500",
             "pointBorderColor": "rgba(0, 0, 0, 0)",
             "cubicInterpolationMode": "monotone",
             "fill": True,
