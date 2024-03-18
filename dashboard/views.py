@@ -163,7 +163,10 @@ class CompanyRatingDynamic(BaseLineChartView):
             ).order_by("-created_at")
         ).qs[:50]
 
-        return [""] * len(self.rating_history) or ["",""]
+        if len(self.rating_history) < 2:
+            return ["", ""]
+        else:
+            return [""] * len(self.rating_history)
 
     def get_dataset_options(self, index, color):
         default_opt = {
@@ -182,7 +185,11 @@ class CompanyRatingYandexDynamic(CompanyRatingDynamic):
         return ["Яндекс"]
 
     def get_data(self):
-        return [list(map(lambda x: x.rating_yandex, self.rating_history))[::-1] or [1, 1]]
+        data = list(map(lambda x: x.rating_yandex, self.rating_history))
+        if len(data) < 2:
+            return [[1, 1]]
+        else:
+            return [data[::-1]]
 
 
 class CompanyRatingGisDynamic(CompanyRatingDynamic):
@@ -190,7 +197,11 @@ class CompanyRatingGisDynamic(CompanyRatingDynamic):
         return ["2Гис"]
 
     def get_data(self):
-        return [list(map(lambda x: x.rating_gis, self.rating_history))[::-1] or [1, 1]]
+        data = list(map(lambda x: x.rating_gis, self.rating_history))
+        if len(data) < 2:
+            return [[1, 1]]
+        else:
+            return [data[::-1]]
 
 
 class CompanyRatingGoogleDynamic(CompanyRatingDynamic):
@@ -198,7 +209,11 @@ class CompanyRatingGoogleDynamic(CompanyRatingDynamic):
         return ["Google"]
 
     def get_data(self):
-        return [list(map(lambda x: x.rating_google, self.rating_history))[::-1] or [1, 1]]
+        data = list(map(lambda x: x.rating_google, self.rating_history))
+        if len(data) < 2:
+            return [[1, 1]]
+        else:
+            return [data[::-1]]
 
 
 class ReviewListView(FilterView):
