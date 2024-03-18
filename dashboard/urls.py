@@ -1,20 +1,45 @@
 from django.urls import path
 
-from . import views
+from .views import (
+    account,
+    CompanyListView,
+    CompanyCreateView,
+    CompanyDetailView,
+    CompanyUpdateView,
+    CompanyRatingYandexDynamic,
+    CompanyRatingGisDynamic,
+    CompanyRatingGoogleDynamic,
+    MessageListView,
+    profile,
+    qr,
+    ReviewListView,
+    ReviewUpdateView,
+    security,
+    telegram_notify_unsubscribe,
+    user_login,
+    user_logout,
+    widget_rating,
+    widget_reviews
+)
 
 urlpatterns = [
-    path("", views.CompanyListView.as_view(), name="company_list"),
-    path("company/create", views.CompanyCreateView.as_view(), name="company_create"),
-    path("company/<int:pk>", views.CompanyDetailView.as_view(), name="company_detail"),
-    path("company/<int:pk>/update", views.CompanyUpdateView.as_view(), name="company_update"),
-    path("company/<int:company_pk>/rating_yandex_dynamic", views.CompanyRatingYandexDynamic.as_view(), name="company_rating_yandex_dynamic"),
-    path("company/<int:company_pk>/rating_gis_dynamic", views.CompanyRatingGisDynamic.as_view(), name="company_rating_gis_dynamic"),
-    path("company/<int:company_pk>/rating_google_dynamic", views.CompanyRatingGoogleDynamic.as_view(), name="company_rating_google_dynamic"),
-    path("company/<int:company_pk>/review", views.ReviewListView.as_view(), name="review_list"),
-    path("company/<int:company_pk>/review/<int:pk>/update", views.ReviewUpdateView.as_view(), name="review_update"),
-    path("company/<int:company_pk>/message", views.MessageListView.as_view(), name="message_list"),
-    path("company/<int:company_pk>/qr", views.qr, name="qr"),
-    path("company/<int:company_pk>/widget_rating", views.widget_rating, name="widget_rating"),
-    path("company/<int:company_pk>/widget_reviews", views.widget_reviews, name="widget_reviews"),
-    path("profile", views.profile, name="profile")
+    path("", CompanyListView.as_view(), name="company_list"),
+    path("company/create", CompanyCreateView.as_view(), name="company_create"),
+    path("company/<int:pk>", CompanyDetailView.as_view(), name="company_detail"),
+    path("company/<int:pk>/update", CompanyUpdateView.as_view(), name="company_update"),
+    path("company/<int:company_pk>/rating_yandex_dynamic", CompanyRatingYandexDynamic.as_view(), name="company_rating_yandex_dynamic"),
+    path("company/<int:company_pk>/rating_gis_dynamic", CompanyRatingGisDynamic.as_view(), name="company_rating_gis_dynamic"),
+    path("company/<int:company_pk>/rating_google_dynamic", CompanyRatingGoogleDynamic.as_view(), name="company_rating_google_dynamic"),
+    path("company/<int:company_pk>/review", ReviewListView.as_view(), name="review_list"),
+    path("company/<int:company_pk>/review/<int:pk>/update", ReviewUpdateView.as_view(), name="review_update"),
+    path("company/<int:company_pk>/message", MessageListView.as_view(), name="message_list"),
+    path("company/<int:company_pk>/qr", qr, name="qr"),
+    path("company/<int:company_pk>/widget_rating", widget_rating, name="widget_rating"),
+    path("company/<int:company_pk>/widget_reviews", widget_reviews, name="widget_reviews"),
+    path("telegram_notify_unsubscribe", telegram_notify_unsubscribe, name="telegram_notify_unsubscribe"),
+    path("profile", profile, name="profile"),
+    path("account", account, name="account"),
+    path("security", security, name="security"),
+    path("login/", user_login, name="user_login"),
+    path("logout/", user_logout, name="user_logout")
 ]

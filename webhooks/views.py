@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from telegram import Bot, Update, MessageEntity
 
-from extensions.models import Profile
+from resources.models import Profile
 from resources.tasks import send_telegram_text_task
 
 

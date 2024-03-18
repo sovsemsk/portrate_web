@@ -1,6 +1,15 @@
-{% extends 'dashboard/base.html' %}
+{% extends "dashboard/base.html" %}
 {% load static %}
 {% block content %}
+<div class="bp5-form-group">
+    <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-intent-success">
+        <span class="bp5-icon bp5-icon-issue"></span>
+        <h5 class="bp5-heading">
+            Информация
+        </h5>
+        Соотношение сторон для логотипа следует выбрать 1 к 1. Полный список всех настроек компании будет доступен после ее создания, в настроках компании.
+    </div>
+</div>
 <div class="bp5-form-group">
     <div class="bp5-entity-title bp5-entity-title-heading-h3">
         <div class="bp5-entity-title-icon-container">
@@ -15,7 +24,7 @@
         </div>
     </div>
 </div>
-<form action="." enctype="multipart/form-data" id="company-form" method="post" novalidate>
+<form enctype="multipart/form-data" id="company-form" method="post" novalidate>
     {% csrf_token %}
     <div class="bp5-card bp5-elevation-1 bp5-section">
         <div class="bp5-section-header">
@@ -24,35 +33,26 @@
                     <h6 class="bp5-heading bp5-section-header-title">
                         Данные
                     </h6>
-                    <div class="bp5-section-header-sub-title bp5-text-muted">Название, адрес и логотип компании</div>
+                    <div class="bp5-section-header-sub-title bp5-text-muted">название, адрес и логотип компании</div>
                 </div>
-            </div>
-        </div>
-        <div class="bp5-section-card bp5-padded">
-            <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon bp5-elevation-1 bp5-intent-success">
-                <span class="bp5-icon bp5-icon-issue"></span>
-                <h5 class="bp5-heading">
-                    Информация
-                </h5>
-                Соотношение сторон для логотипа следует выбрать 1 к 1. Полный список всех настроек компании будет доступен после ее создания, в настроках компании.
             </div>
         </div>
         <div class="bp5-section-card bp5-padded">
             <div class="bp5-form-group">
                 <label class="bp5-label">Название</label>
                 {{form.name}}
-                {% if form.errors.name %}
                 <!-- Исключение для css (цвет текста) -->
-                <div class="bp5-form-helper-text" style="color:#ac2f33">Название обязателено</div>
-                {% endif %}
+                <div class="bp5-form-helper-text" style="color:#ac2f33">
+                    {{form.name.errors.as_text}}
+                </div>
             </div>
             <div class="bp5-form-group">
                 <label class="bp5-label">Адрес</label>
                 {{form.address}}
-                {% if form.errors.address %}
                 <!-- Исключение для css (цвет текста) -->
-                <div class="bp5-form-helper-text" style="color:#ac2f33">Адрес обязателен</div>
-                {% endif %}
+                <div class="bp5-form-helper-text" style="color:#ac2f33">
+                    {{form.address.errors.as_text}}
+                </div>
             </div>
         </div>
         <div class="bp5-section-card bp5-padded">
@@ -62,6 +62,10 @@
                     {{form.logo}}
                     <span class="bp5-file-upload-input">Выбрать файл...</span>
                 </label>
+                <!-- Исключение для css (цвет текста) -->
+                <div class="bp5-form-helper-text" style="color:#ac2f33">
+                    {{form.logo.errors.as_text}}
+                </div>
             </div>
         </div>
         <div class="bp5-section-card bp5-padded">

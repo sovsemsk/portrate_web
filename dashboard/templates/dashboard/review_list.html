@@ -1,18 +1,18 @@
-{% extends 'dashboard/base.html' %}
+{% extends "dashboard/base.html" %}
 {% load static %}
 {% block content %}
-{% include 'dashboard/_company_head.html' %}
-{% include 'dashboard/_company_tabs.html' %}
+{% include "dashboard/_company_head.html" %}
+{% include "dashboard/_company_tabs.html" %}
 <div class="bp5-form-group">
-    <form>
+    <form novalidate>
         <div style="align-items:center;display:flex;gap:5px;">
-            {{ filter.form.created_at }}
+            {{filter.form.created_at}}
             <div class="bp5-html-select ">
-                {{ filter.form.service }}
+                {{filter.form.service}}
                 <span class="bp5-icon bp5-icon-double-caret-vertical"></span>
             </div>
             <div class="bp5-html-select ">
-                {{ filter.form.stars }}
+                {{filter.form.stars}}
                 <span class="bp5-icon bp5-icon-double-caret-vertical"></span>
             </div>
             <button class="bp5-button bp5-intent-warning" type="submit">Найти</button>
@@ -37,17 +37,17 @@
             </div>
             <div class="bp5-section-header-right">
                 <span class="bp5-text-muted bp5-text-small">{{review.created_at}}</span>
-                {% if review.service == 'YANDEX' %}
+                {% if review.service == "YANDEX" %}
                 <img alt="Яндекс" height=16 src="{% static 'images/services/yandex.svg' %}" width=16>
                 {% endif %}
-                {% if review.service == 'GIS' %}
+                {% if review.service == "GIS" %}
                 <img alt="2Гис" height=16 src="{% static 'images/services/gis.svg' %}" width=16>
                 {% endif %}
-                {% if review.service == 'GOOGLE' %}
+                {% if review.service == "GOOGLE" %}
                 <img alt="Google" height=16 src="{% static 'images/services/google.svg' %}" width=16>
                 {% endif %}
                 <div class="bp5-divider" style="height:25px"></div>
-                <form action="{% url 'review_update' company.id review.id %}" method="post">
+                <form action="{% url 'review_update' company.id review.id %}?{{request.META.QUERY_STRING}}" method="post">
                     {% csrf_token %}
                     <!-- Исключение для css (отступ) -->
                     <label class="bp5-control bp5-switch bp5-align-right" style="padding-top:3px">
@@ -58,12 +58,12 @@
             </div>
         </div>
         <div class="bp5-padded bp5-section-card">
-            {{ review.text }}
+            {{review.text}}
         </div>
     </div>
 </div>
 {% endfor %}
-{% include 'dashboard/_pagination.html' %}
+{% include "dashboard/_pagination.html" %}
 {% else %}
 <div class="bp5-card bp5-elevation-1">
     <div class="bp5-text-muted">Ни одного отзыва не найдено</div>

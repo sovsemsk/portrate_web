@@ -1,4 +1,4 @@
-{% extends "extensions/base.html" %}
+{% extends "dashboard/base_auth.html" %}
 {% load static %}
 {% block content %}
 <div class="bp5-card bp5-elevation-1 bp5-section">
@@ -12,8 +12,17 @@
         </div>
     </div>
     <div class="bp5-section-card bp5-padded">
-        <form action="" method="post" novalidate>
+        <form method="post" novalidate>
             {% csrf_token %}
+            {% if form.non_field_errors %}
+            {% for error in form.non_field_errors %}
+            <div class="bp5-form-group">
+                <div class="bp5-callout bp5-callout-has-body-content bp5-intent-danger">
+                    {{ error }}
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
             {% if messages %}
             <div class="bp5-form-group">
                 {% for message in messages %}
@@ -25,9 +34,17 @@
             {% endif %}
             <div class="bp5-form-group">
                 {{ form.username }}
+                <!-- Исключение для css (цвет текста) -->
+                <div class="bp5-form-helper-text" style="color:#ac2f33">
+                    {{ form.username.errors.as_text }}
+                </div>
             </div>
             <div class="bp5-form-group">
                 {{ form.password }}
+                <!-- Исключение для css (цвет текста) -->
+                <div class="bp5-form-helper-text" style="color:#ac2f33">
+                    {{ form.password.errors.as_text }}
+                </div>
             </div>
             <button class="bp5-button bp5-fill" type="submit">Войти</button>
         </form>

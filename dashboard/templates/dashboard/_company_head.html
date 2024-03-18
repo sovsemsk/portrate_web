@@ -2,17 +2,17 @@
     <div class="bp5-entity-title bp5-entity-title-heading-h3">
         {% if company.logo %}
         <div class="bp5-entity-title-icon-container bp5-entity-title-has-subtitle">
-            <img alt="{{ company.name }}" class="bp5-elevation-1" height=60 src="{{ company.logo.url }}" width=60>
+            <img alt="{{company.name}}" class="bp5-elevation-1" height=60 src="{{company.logo.url}}" width=60>
         </div>
         {% endif %}
         <div class="bp5-entity-title-text">
             <div class="bp5-entity-title-title-and-tags">
                 <h3 class="bp5-heading bp5-entity-title-title bp5-text-overflow-ellipsis">
-                    {{ company.name }}
+                    {{company.name}}
                 </h3>
             </div>
             <div class="bp5-entity-title-subtitle bp5-text-muted">
-                {{ company.address }}
+                {{company.address}}
             </div>
         </div>
     </div>

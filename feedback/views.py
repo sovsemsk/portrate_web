@@ -24,7 +24,7 @@ def create(request, company_pk):
             form.save()
             company.messages_total_count = Message.objects.filter(company_id=company.id).count()
             company.save()
-            return redirect(reverse("feedback_success", kwargs={"company_pk": company.id}))
+            return redirect(reverse("success", kwargs={"company_pk": company.id}))
 
     else:
         form = MessageForm()

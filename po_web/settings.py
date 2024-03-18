@@ -2,6 +2,7 @@ import json
 import os
 from pathlib import Path
 
+from django.urls import reverse_lazy
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -93,6 +94,9 @@ DEBUG = json.loads(str(os.getenv("DEBUG")).lower())
 HOST = str(os.getenv("HOST"))
 ALLOWED_HOSTS = ["127.0.0.1", "geo.portrate.io"]
 INTERNAL_IPS = ["127.0.0.1"]
+
+# Auth paths
+LOGIN_URL = reverse_lazy("user_login")
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "$1_5!x!*_-vc&d7$usb94$pm)2h=q0+q))5wm96&#78l8#mn0"

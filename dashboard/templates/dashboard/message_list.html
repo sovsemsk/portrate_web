@@ -2,12 +2,12 @@
 {% load static %}
 {% load tz %}
 {% block content %}
-{% include 'dashboard/_company_head.html' %}
-{% include 'dashboard/_company_tabs.html' %}
+{% include "dashboard/_company_head.html" %}
+{% include "dashboard/_company_tabs.html" %}
 <div class="bp5-form-group">
-    <form>
+    <form novalidate>
         <div style="align-items:center;display:flex;gap:5px;">
-            {{ filter.form.created_at }}
+            {{filter.form.created_at}}
             <button class="bp5-button bp5-intent-warning" type="submit">Найти</button>
         </div>
     </form>
@@ -32,12 +32,12 @@
             </div>
         </div>
         <div class="bp5-section-card bp5-padded">
-            {{ message.text }}
+            {{message.text}}
         </div>
     </div>
 </div>
 {% endfor %}
-{% include 'dashboard/_pagination.html' %}
+{% include "dashboard/_pagination.html" %}
 {% else %}
 <div class="bp5-card bp5-elevation-1">
     <div class="bp5-text-muted">Ни одного сообщения не найдено</div>

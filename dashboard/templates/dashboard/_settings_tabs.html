@@ -1,0 +1,23 @@
+<div class="bp5-form-group">
+    <div class="bp5-entity-title bp5-entity-title-heading-h3">
+        <div class="bp5-entity-title-icon-container">
+            <span class="bp5-icon bp5-icon-settings bp5-icon-large bp5-text-muted"></span>
+        </div>
+        <div class="bp5-entity-title-text">
+            <div class="bp5-entity-title-title-and-tags">
+                <h3 class="bp5-heading bp5-entity-title-title">
+                    Настройки
+                </h3>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="bp5-form-group">
+    <div class="bp5-tabs">
+        <ul class="bp5-tab-list">
+            <a class="bp5-tab" {% if sub_nav == "profile" %}aria-selected="true"{% endif %} href="{% url 'profile' %}">Профиль</a>
+            <a class="bp5-tab" {% if sub_nav == "account" %}aria-selected="true"{% endif %} href="{% url 'account' %}">Акканут</a>
+            <a class="bp5-tab" {% if sub_nav == "security" %}aria-selected="true"{% endif %} href="{% url 'security' %}">Безопасность</a>
+        </ul>
+    </div>
+</div>

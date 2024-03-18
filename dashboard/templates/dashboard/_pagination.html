@@ -9,7 +9,7 @@
     </button>
     {% endif %}
     {% if is_paginated %}
-    <span>Страниц {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span>
+    <span>Страниц {{page_obj.number}} из {{page_obj.paginator.num_pages}}</span>
     {% else %}
     <span>1 страница</span>
     {% endif %}

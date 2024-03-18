@@ -1,10 +1,10 @@
 from django.urls import path
 
-from . import views
+from .views import rate, create, request, success
 
 urlpatterns = [
-    path("<int:company_pk>", views.rate, name="feedback_rate"),
-    path("<int:company_pk>/create", views.create, name="feedback_create"),
-    path("<int:company_pk>/request", views.request, name="feedback_request"),
-    path("<int:company_pk>/success", views.success, name="feedback_success")
+    path("<int:company_pk>", rate, name="rate"),
+    path("<int:company_pk>/create", create, name="create"),
+    path("<int:company_pk>/request", request, name="request"),
+    path("<int:company_pk>/success", success, name="success")
 ]
