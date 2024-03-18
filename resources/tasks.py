@@ -21,7 +21,6 @@ def send_telegram_text_task(telegram_id, text):
 @shared_task(name="parse cards")
 def parse_cards(company_id):
     company = Company.objects.get(id=company_id, is_active=True)
-    rating_history = RatingStamp(company_id=company.id)
 
     """ Яндекс """
     if company.is_parse_yandex:
@@ -138,12 +137,14 @@ def parse_cards(company_id):
     company.rating = max([company.rating_yandex, company.rating_gis, company.rating_google])
 
     """ Фиксация истории для графика динамики """
-    rating_history.rating_yandex = company.rating_yandex
-    rating_history.rating_gis = company.rating_gis
-    rating_history.rating_google = company.rating_google
-
     if datetime.now().isoweekday() == 1:
         try:
+            rating_history = RatingStamp(
+                company_id=company.id,
+                rating_yandex=company.rating_yandex,
+                rating_gis=company.rating_gis,
+                rating_google=company.rating_google
+            )
             rating_history.save()
         except:
             pass
