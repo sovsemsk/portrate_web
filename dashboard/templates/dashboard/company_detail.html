@@ -6,20 +6,59 @@
 {% include "dashboard/_company_head.html" %}
 {% include "dashboard/_company_tabs.html" %}
 <div class="bp5-form-group">
-    <form novalidate>
-        <div style="align-items:center;display:flex;gap:5px;">
-            {{filter.form.created_at}}
-            <button class="bp5-button bp5-intent-warning" type="submit">Найти</button>
-        </div>
-    </form>
+    <div style="display:flex;gap:5px;">
+        <a class="bp5-button {% if request.GET.range == 'week' or request.GET.range == None %}bp5-intent-warning{% else %}bp5-minimal{% endif %}" href="{% url 'company_detail' company.id %}">
+            <span class="bp5-button-text">Неделя</span>
+        </a>
+        <form>
+            <input class="bp5-input" name="range" type="hidden" value="month">
+            <input class="bp5-input" name="created_at_after" type="hidden" value="{{date_month_ago|date:'Y-m-d'}}">
+            <input class="bp5-input" name="created_at_before" type="hidden" value="{{date_now|date:'Y-m-d'}}">
+            <button class="bp5-button {% if request.GET.range == 'month' %}bp5-intent-warning{% else %}bp5-minimal{% endif %}" type="submit" >
+                <span class="bp5-button-text">Месяц</span>
+            </button>
+        </form>
+        <form>
+            <input class="bp5-input" name="range" type="hidden" value="quarter">
+            <input class="bp5-input" name="created_at_after" type="hidden" value="{{date_quarter_ago|date:'Y-m-d'}}">
+            <input class="bp5-input" name="created_at_before" type="hidden" value="{{date_now|date:'Y-m-d'}}">
+            <button class="bp5-button {% if request.GET.range == 'quarter' %}bp5-intent-warning{% else %}bp5-minimal{% endif %}" type="submit" >
+                <span class="bp5-button-text">Квартал</span>
+            </button>
+        </form>
+        <form>
+            <input class="bp5-input" name="range" type="hidden" value="year">
+            <input class="bp5-input" name="created_at_after" type="hidden" value="{{date_year_ago|date:'Y-m-d'}}">
+            <input class="bp5-input" name="created_at_before" type="hidden" value="{{date_now|date:'Y-m-d'}}">
+            <button class="bp5-button {% if request.GET.range == 'year' %}bp5-intent-warning{% else %}bp5-minimal{% endif %}" type="submit" >
+                <span class="bp5-button-text">Год</span>
+            </button>
+        </form>
+        <form>
+            <input class="bp5-input" name="range" type="hidden" value="all">
+            <button type="submit" class="bp5-button {% if request.GET.range == 'all' %}bp5-intent-warning{% else %}bp5-minimal{% endif %}">
+                <span class="bp5-button-text">Всего</span>
+            </button>
+        </form>
+    </div>
 </div>
 <div class="bp5-form-group">
     <div class="bp5-card bp5-elevation-1 bp5-section">
         <div class="bp5-section-header">
             <div class="bp5-section-header-left">
+                <!-- Исключение для css (отступы) -->
+                <h1 class="bp5-heading" style="margin:0;">
+                    {{company.rating_yandex|default:"0,0"}}
+                </h1>
                 <div>
-                    <h6 class="bp5-heading bp5-section-header-title">Яндекс</h6>
-                    <div class="bp5-section-header-sub-title bp5-text-muted">отзывы и рейтинг</div>
+                    <h6 class="bp5-heading bp5-section-header-title">
+                        Яндекс
+                    </h6>
+                    <div class="bp5-section-header-sub-title bp5-text-muted ">
+                        {% timezone user.profile.default_timezone %}
+                        {{company.rating_yandex_last_parse_at|default:"Нет данных"}}
+                        {% endtimezone %}
+                    </div>
                 </div>
             </div>
             <div class="bp5-section-header-left">
@@ -27,24 +66,9 @@
             </div>
         </div>
         <div class="bp5-padded bp5-section-card">
-            <div style="display:flex;gap:5px;">
-                <div class="bp5-callout bp5-elevation-1" style="flex:1 calc(100% / 3)" >
-                    <div class="bp5-form-group">
-                        <h2 class="bp5-heading">
-                            {{company.rating_yandex|default:"0,0"}}
-                        </h2>
-                    </div>
-                    <span class="bp5-text-large">Рейтинг</span>
-                    <div class="bp5-text-muted">
-                        {% timezone user.profile.default_timezone %}
-                        {{company.rating_yandex_last_parse_at|default:"Нет данных"}}
-                        {% endtimezone %}
-                    </div>
-                </div>
-                <!-- Исключение для css (высота) -->
-                <div class="bp5-callout bp5-elevation-1" style="flex:2 calc(100% / 1.5 + 5px);height:130px;">
-                    <canvas height=100 id="RATING_YANDEX_CHART" width=475></canvas>
-                </div>
+            <!-- Исключение для css (высота) -->
+            <div class="bp5-callout bp5-elevation-1" style="height:230px;">
+                <canvas height=200 id="RATING_YANDEX_CHART" width=730></canvas>
             </div>
         </div>
         <div class="bp5-padded bp5-section-card">
@@ -96,9 +120,17 @@
     <div class="bp5-card bp5-elevation-1 bp5-section">
         <div class="bp5-section-header">
             <div class="bp5-section-header-left">
+                <!-- Исключение для css (отступы) -->
+                <h1 class="bp5-heading" style="margin:0;">
+                    {{company.rating_gis|default:"0,0"}}
+                </h1>
                 <div>
                     <h6 class="bp5-heading bp5-section-header-title">2Гис</h6>
-                    <div class="bp5-section-header-sub-title bp5-text-muted">отзывы и рейтинг</div>
+                    <div class="bp5-section-header-sub-title bp5-text-muted">
+                        {% timezone user.profile.default_timezone %}
+                        {{company.rating_gis_last_parse_at|default:"Нет данных"}}
+                        {% endtimezone %}
+                    </div>
                 </div>
             </div>
             <div class="bp5-section-header-left">
@@ -106,24 +138,9 @@
             </div>
         </div>
         <div class="bp5-padded bp5-section-card">
-            <div style="display:flex;gap:5px;">
-                <div class="bp5-callout bp5-elevation-1" style="flex:1 calc(100% / 3);">
-                    <div class="bp5-form-group">
-                        <h2 class="bp5-heading">
-                            {{company.rating_gis|default:"0,0"}}
-                        </h2>
-                    </div>
-                    <span class="bp5-text-large">Рейтинг</span>
-                    <div class="bp5-text-muted">
-                        {% timezone user.profile.default_timezone %}
-                        {{company.rating_gis_last_parse_at|default:"Нет данных"}}
-                        {% endtimezone %}
-                    </div>
-                </div>
-                <!-- Исключение для css (высота) -->
-                <div class="bp5-callout bp5-elevation-1" style="flex:2 calc(100% / 1.5 + 5px);height:130px;">
-                    <canvas height=100 id="RATING_GIS_CHART" width=475></canvas>
-                </div>
+            <!-- Исключение для css (высота) -->
+            <div class="bp5-callout bp5-elevation-1" style="height:230px;">
+                <canvas height=200 id="RATING_GIS_CHART" width=730></canvas>
             </div>
         </div>
         <div class="bp5-padded bp5-section-card">
@@ -175,9 +192,19 @@
     <div class="bp5-card bp5-elevation-1 bp5-section">
         <div class="bp5-section-header">
             <div class="bp5-section-header-left">
+                <!-- Исключение для css (отступы) -->
+                <h1 class="bp5-heading" style="margin:0;">
+                    {{company.rating_google|default:"0,0"}}
+                </h1>
                 <div>
-                    <h6 class="bp5-heading bp5-section-header-title">Google</h6>
-                    <div class="bp5-section-header-sub-title bp5-text-muted">отзывы и рейтинг</div>
+                    <h6 class="bp5-heading bp5-section-header-title">
+                        Google
+                    </h6>
+                    <div class="bp5-section-header-sub-title bp5-text-muted">
+                        {% timezone user.profile.default_timezone %}
+                        {{company.rating_google_last_parse_at|default:"Нет данных"}}
+                        {% endtimezone %}
+                    </div>
                 </div>
             </div>
             <div class="bp5-section-header-left">
@@ -185,24 +212,8 @@
             </div>
         </div>
         <div class="bp5-padded bp5-section-card">
-            <div style="display:flex;gap:5px">
-                <div class="bp5-callout bp5-elevation-1" style="flex:1 calc(100% / 3);">
-                    <div class="bp5-form-group">
-                        <h2 class="bp5-heading">
-                            {{company.rating_google|default:"0,0"}}
-                        </h2>
-                    </div>
-                    <span class="bp5-text-large">Рейтинг</span>
-                    <div class="bp5-text-muted">
-                        {% timezone user.profile.default_timezone %}
-                        {{company.rating_google_last_parse_at|default:"Нет данных"}}
-                        {% endtimezone %}
-                    </div>
-                </div>
-                <!-- Исключение для css (высота) -->
-                <div class="bp5-callout bp5-elevation-1" style="flex:2 calc(100% / 1.5 + 5px);height:130px;">
-                    <canvas height=100 id="RATING_GOOGLE_CHART" width=475></canvas>
-                </div>
+            <div class="bp5-callout bp5-elevation-1" style="height:230px;">
+                <canvas height=200 id="RATING_GOOGLE_CHART" width=730></canvas>
             </div>
         </div>
         <div class="bp5-padded bp5-section-card">
@@ -255,7 +266,7 @@
 <script type="text/javascript">
     const options = {
         layout: {
-            padding: {bottom: -3}
+            padding: {top: 0}
         },
         animation: false,
         plugins: {
@@ -265,16 +276,15 @@
         },
         scales: {
             x: {
-                display: false,
                 ticks: {
                     color: "#5f6b7c",
                     font: {
                         family: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif",
-                        size: 10
+                        size: 12
                     }
                 },
                 grid: {
-                    display: false
+                    display: true
                 }
             },
             y: {

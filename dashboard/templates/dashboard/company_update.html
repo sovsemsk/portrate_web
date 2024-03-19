@@ -2,10 +2,11 @@
 {% load static %}
 {% block content %}
 {% include "dashboard/_company_head.html" %}
+{% include "dashboard/_company_tabs.html" %}
 <div class="bp5-form-group">
     <div style="display:flex;gap:5px;">
         <button class="bp5-button bp5-intent-warning" form="COMPANY_FORM" type="submit">Сохранить</button>
-        <a class="bp5-button bp5-intent-warning" href="{% url 'company_detail' company.id %}">Закрыть</a>
+        <a class="bp5-button bp5-intent-warning" href="{{company.host}}/@{{company.id}}" target="_blank">Форма запроса отзыва</a>
     </div>
 </div>
 <form enctype="multipart/form-data" id="COMPANY_FORM" method="post" novalidate>

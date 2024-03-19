@@ -8,13 +8,10 @@
             <a class="bp5-tab" {% if sub_nav == "message" %}aria-selected="true"{% endif %} href="{% url 'message_list' company.id %}">
                 Сообщения <span class="bp5-minimal bp5-tag bp5-tab-tag">{{company.messages_total_count|default:"0"}}</span>
             </a>
-            <!-- a class="bp5-tab" {% if sub_nav == 'qr' %}aria-selected="true"{% endif %} href="{% url 'qr' company.id %}">QR код</a -->
-            <span class="bp5-tab" {% if sub_nav == "qr" %}aria-selected="true"{% endif %}">
-                QR код
-                <span class="bp5-minimal bp5-tag bp5-tab-tag">Скоро</span>
-            </span>
             <a class="bp5-tab" {% if sub_nav == "widget_rating" %}aria-selected="true"{% endif %} href="{% url 'widget_rating' company.id %}">Виджет рейтинга</a>
             <a class="bp5-tab" {% if sub_nav == "widget_reviews" %}aria-selected="true"{% endif %} href="{% url 'widget_reviews' company.id %}">Виджет отзывов</a>
+            <a class="bp5-tab" {% if sub_nav == "qr" %}aria-selected="true"{% endif %} href="{% url 'qr' company.id %}">Qr</a>
+            <a class="bp5-tab" {% if sub_nav == "update" %}aria-selected="true"{% endif %} href="{% url 'company_update' company.id %}">Настройки</a>
         </ul>
     </div>
 </div>

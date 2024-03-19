@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 from chartjs.views.lines import BaseLineChartView
 from django.conf import settings
 from django.contrib import messages
@@ -59,26 +61,22 @@ class CompanyDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        review_count_filter = ReviewCountFilter(
-            self.request.GET,
-            queryset=Review.objects.filter(company_id=self.kwargs["pk"])
-        )
-
-        context["filter"] = review_count_filter
+        review_count_filter = ReviewCountFilter(self.request.GET, queryset=Review.objects.filter(company_id=self.kwargs["pk"])).qs
+        context["date_now"] = datetime.today()
+        context["date_month_ago"] = datetime.today() - timedelta(days=30)
+        context["date_quarter_ago"] = datetime.today() - timedelta(days=90)
+        context["date_year_ago"] = datetime.today() - timedelta(days=365)
         context["host"] = settings.HOST
         context["nav"] = "company"
-
-        context["reviews_yandex_positive_count"] = review_count_filter.qs.filter(stars__gt=3, service=Service.YANDEX).count()
-        context["reviews_yandex_negative_count"] = review_count_filter.qs.filter(stars__lte=3, service=Service.YANDEX).count()
+        context["reviews_yandex_positive_count"] = review_count_filter.filter(stars__gt=3, service=Service.YANDEX).count()
+        context["reviews_yandex_negative_count"] = review_count_filter.filter(stars__lte=3, service=Service.YANDEX).count()
         context["reviews_yandex_total_count"] = context["reviews_yandex_positive_count"] + context["reviews_yandex_negative_count"]
-        context["reviews_gis_positive_count"] = review_count_filter.qs.filter(stars__gt=3, service=Service.GIS).count()
-        context["reviews_gis_negative_count"] = review_count_filter.qs.filter(stars__lte=3, service=Service.GIS).count()
+        context["reviews_gis_positive_count"] = review_count_filter.filter(stars__gt=3, service=Service.GIS).count()
+        context["reviews_gis_negative_count"] = review_count_filter.filter(stars__lte=3, service=Service.GIS).count()
         context["reviews_gis_total_count"] = context["reviews_gis_positive_count"] + context["reviews_gis_negative_count"]
-        context["reviews_google_positive_count"] = review_count_filter.qs.filter(stars__gt=3, service=Service.GOOGLE).count()
-        context["reviews_google_negative_count"] = review_count_filter.qs.filter(stars__lte=3, service=Service.GOOGLE).count()
+        context["reviews_google_positive_count"] = review_count_filter.filter(stars__gt=3, service=Service.GOOGLE).count()
+        context["reviews_google_negative_count"] = review_count_filter.filter(stars__lte=3, service=Service.GOOGLE).count()
         context["reviews_google_total_count"] = context["reviews_google_positive_count"] + context["reviews_google_negative_count"]
-
         context["sub_nav"] = "detail"
         return context
 
@@ -139,6 +137,7 @@ class CompanyUpdateView(SuccessMessageMixin, UpdateView):
         context["company_list"] = companies
         context["host"] = settings.HOST
         context["nav"] = "company"
+        context["sub_nav"] = "update"
         return context
 
     def get_queryset(self, **kwargs):
@@ -159,27 +158,20 @@ class CompanyRatingDynamic(BaseLineChartView):
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         self.company = get_object_or_404(Company, pk=self.kwargs["company_pk"], users__in=[self.request.user])
+        self.rating_history = RatingStampFilter(self.request.GET, queryset=RatingStamp.objects.filter(company_id=self.company.id)).qs
         return super(CompanyRatingDynamic, self).dispatch(request, *args, **kwargs)
 
     def get_labels(self):
-        self.rating_history = RatingStampFilter(
-            self.request.GET,
-            queryset=RatingStamp.objects.filter(
-                company_id=self.company.id
-            ).order_by("-created_at")
-        ).qs[:50]
-
-        if len(self.rating_history) < 2:
-            return ["", ""]
-        else:
-            return [""] * len(self.rating_history)
+        range_param = self.request.GET.get("range", "week")
+        format_map = {"week": "%d.%m", "month": "%d.%m", "quarter": "%d.%m", "year": "%m.%y", "all": "%m.%y"}
+        return list(map(lambda x: x.created_at.strftime(format_map[range_param]), self.rating_history))
 
     def get_dataset_options(self, index, color):
         default_opt = {
             "backgroundColor": "rgba(255, 95, 0, 0.2)",
-            "borderColor": "#f47500",
-            "pointBackgroundColor": "#f47500",
-            "pointBorderColor": "rgba(0, 0, 0, 0)",
+            "borderColor": "rgba(0, 0, 0, 0)",
+            "pointBackgroundColor": "rgba(255, 95, 0, 1)",
+            "pointBorderColor": "rgba(238, 240, 242, 1)",
             "cubicInterpolationMode": "monotone",
             "fill": True,
         }
@@ -191,11 +183,7 @@ class CompanyRatingYandexDynamic(CompanyRatingDynamic):
         return ["Яндекс"]
 
     def get_data(self):
-        data = list(map(lambda x: x.rating_yandex, self.rating_history))
-        if len(data) < 2:
-            return [[1, 1]]
-        else:
-            return [data[::-1]]
+        return [list(map(lambda x: x.rating_yandex, self.rating_history))]
 
 
 class CompanyRatingGisDynamic(CompanyRatingDynamic):
@@ -203,11 +191,7 @@ class CompanyRatingGisDynamic(CompanyRatingDynamic):
         return ["2Гис"]
 
     def get_data(self):
-        data = list(map(lambda x: x.rating_gis, self.rating_history))
-        if len(data) < 2:
-            return [[1, 1]]
-        else:
-            return [data[::-1]]
+        return [list(map(lambda x: x.rating_gis, self.rating_history))]
 
 
 class CompanyRatingGoogleDynamic(CompanyRatingDynamic):
@@ -215,11 +199,7 @@ class CompanyRatingGoogleDynamic(CompanyRatingDynamic):
         return ["Google"]
 
     def get_data(self):
-        data = list(map(lambda x: x.rating_google, self.rating_history))
-        if len(data) < 2:
-            return [[1, 1]]
-        else:
-            return [data[::-1]]
+        return [list(map(lambda x: x.rating_google, self.rating_history))]
 
 
 class ReviewListView(FilterView):

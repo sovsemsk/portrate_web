@@ -137,17 +137,16 @@ def parse_cards(company_id):
     company.rating = max([company.rating_yandex, company.rating_gis, company.rating_google])
 
     """ Фиксация истории для графика динамики """
-    if datetime.now().isoweekday() == 1:
-        try:
-            rating_history = RatingStamp(
-                company_id=company.id,
-                rating_yandex=company.rating_yandex,
-                rating_gis=company.rating_gis,
-                rating_google=company.rating_google
-            )
-            rating_history.save()
-        except:
-            pass
+    try:
+        rating_history = RatingStamp(
+            company_id=company.id,
+            rating_yandex=company.rating_yandex,
+            rating_gis=company.rating_gis,
+            rating_google=company.rating_google
+        )
+        rating_history.save()
+    except:
+        pass
 
     """ Сохранение компании """
     company.is_first_parsing = False
