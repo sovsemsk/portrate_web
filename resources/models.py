@@ -109,7 +109,7 @@ class Company(models.Model):
     users = models.ManyToManyField(User, blank=True, verbose_name="пользователи")
 
     """ Агрегация общее """
-    rating = models.DecimalField(blank=True, decimal_places=1, default=0.0, max_digits=10, null=True,verbose_name="Общий рейтинг")
+    rating = models.DecimalField(blank=True, decimal_places=1, default=0.0, max_digits=10, null=True, verbose_name="Общий рейтинг")
     reviews_positive_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество позитивных отзывов")
     reviews_negative_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество негативных отзывов")
     reviews_total_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество отзывов")
@@ -118,25 +118,73 @@ class Company(models.Model):
     """ Агрегация Яндекс """
     rating_yandex = models.DecimalField(blank=True, decimal_places=1, default=0.0, max_digits=10, null=True,verbose_name="рейтинг Яндекс")
     rating_yandex_last_parse_at = models.DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки рейтинга Яндекс")
+    #
     reviews_yandex_positive_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество позитивных отзывов Яндекс")
+    reviews_yandex_positive_week_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество позитивных отзывов Яндекс за неделю")
+    reviews_yandex_positive_month_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество позитивных отзывов Яндекс за месяц")
+    reviews_yandex_positive_quarter_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество позитивных отзывов Яндекс за квартал")
+    reviews_yandex_positive_year_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество позитивных отзывов Яндекс за год")
+    #
     reviews_yandex_negative_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество негативных отзывов Яндекс")
+    reviews_yandex_negative_week_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество негативных отзывов Яндекс за неделю")
+    reviews_yandex_negative_month_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество негативных отзывов Яндекс за месяц")
+    reviews_yandex_negative_quarter_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество негативных отзывов Яндекс за квартал")
+    reviews_yandex_negative_year_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество негативных отзывов Яндекс за год")
+    #
     reviews_yandex_total_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество отзывов Яндекс")
+    reviews_yandex_total_week_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество отзывов Яндекс за неделю")
+    reviews_yandex_total_month_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество отзывов Яндекс за месяц")
+    reviews_yandex_total_quarter_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество отзывов Яндекс за квартал")
+    reviews_yandex_total_year_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество отзывов Яндекс за год")
+    #
     reviews_yandex_last_parse_at = models.DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки отзывов Яндекс")
 
     """ Агрегация 2Гис """
     rating_gis = models.DecimalField(blank=True, decimal_places=1, default=0.0, max_digits=10, null=True,verbose_name="рейтинг 2Гис")
     rating_gis_last_parse_at = models.DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки рейтинга 2Гис")
+    #
     reviews_gis_positive_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество позитивных отзывов 2Гис")
+    reviews_gis_positive_week_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество позитивных отзывов 2Гис за неделю")
+    reviews_gis_positive_month_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество позитивных отзывов 2Гис за месяц")
+    reviews_gis_positive_quarter_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество позитивных отзывов 2Гис за квартал")
+    reviews_gis_positive_year_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество позитивных отзывов 2Гис за год")
+    #
     reviews_gis_negative_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество негативных отзывов 2Гис")
+    reviews_gis_negative_week_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество негативных отзывов 2Гис за неделю")
+    reviews_gis_negative_month_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество негативных отзывов 2Гис за месяц")
+    reviews_gis_negative_quarter_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество негативных отзывов 2Гис за квартал")
+    reviews_gis_negative_year_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество негативных отзывов 2Гис за год")
+    #
     reviews_gis_total_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество отзывов 2Гис")
+    reviews_gis_total_week_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество отзывов 2Гис за неделю")
+    reviews_gis_total_month_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество отзывов 2Гис за месяц")
+    reviews_gis_total_quarter_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество отзывов 2Гис за квартал")
+    reviews_gis_total_year_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество отзывов 2Гис за год")
+    #
     reviews_gis_last_parse_at = models.DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки отзывов 2Гис")
 
     """ Агрегация Google """
     rating_google = models.DecimalField(blank=True, decimal_places=1, default=0.0, max_digits=10, null=True,verbose_name="рейтинг Google")
     rating_google_last_parse_at = models.DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки рейтинга Google")
+    #
     reviews_google_positive_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество позитивных отзывов Google")
+    reviews_google_positive_week_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество позитивных отзывов Google за неделю")
+    reviews_google_positive_month_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество позитивных отзывов Google за месяц")
+    reviews_google_positive_quarter_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество позитивных отзывов Google за квартал")
+    reviews_google_positive_year_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество позитивных отзывов Google за год")
+    #
     reviews_google_negative_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество негативных отзывов Google")
+    reviews_google_negative_week_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество негативных отзывов Google за неделю")
+    reviews_google_negative_month_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество негативных отзывов Google за месяц")
+    reviews_google_negative_quarter_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество негативных отзывов Google за квартал")
+    reviews_google_negative_year_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество негативных отзывов Google за год")
+    #
     reviews_google_total_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество отзывов Google")
+    reviews_google_total_week_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество отзывов Google за неделю")
+    reviews_google_total_month_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество отзывов Google за месяц")
+    reviews_google_total_quarter_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество отзывов Google за квартал")
+    reviews_google_total_year_count = models.IntegerField(blank=True, default=0, null=True, verbose_name="количество отзывов Google за год")
+    #
     reviews_google_last_parse_at = models.DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки отзывов Google")
 
     @property

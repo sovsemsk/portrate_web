@@ -10,36 +10,18 @@
         <a class="bp5-button {% if request.GET.range == 'week' or request.GET.range == None %}bp5-intent-warning{% else %}bp5-minimal{% endif %}" href="{% url 'company_detail' company.id %}">
             <span class="bp5-button-text">Неделя</span>
         </a>
-        <form>
-            <input class="bp5-input" name="range" type="hidden" value="month">
-            <input class="bp5-input" name="created_at_after" type="hidden" value="{{date_month_ago|date:'Y-m-d'}}">
-            <input class="bp5-input" name="created_at_before" type="hidden" value="{{date_now|date:'Y-m-d'}}">
-            <button class="bp5-button {% if request.GET.range == 'month' %}bp5-intent-warning{% else %}bp5-minimal{% endif %}" type="submit" >
-                <span class="bp5-button-text">Месяц</span>
-            </button>
-        </form>
-        <form>
-            <input class="bp5-input" name="range" type="hidden" value="quarter">
-            <input class="bp5-input" name="created_at_after" type="hidden" value="{{date_quarter_ago|date:'Y-m-d'}}">
-            <input class="bp5-input" name="created_at_before" type="hidden" value="{{date_now|date:'Y-m-d'}}">
-            <button class="bp5-button {% if request.GET.range == 'quarter' %}bp5-intent-warning{% else %}bp5-minimal{% endif %}" type="submit" >
-                <span class="bp5-button-text">Квартал</span>
-            </button>
-        </form>
-        <form>
-            <input class="bp5-input" name="range" type="hidden" value="year">
-            <input class="bp5-input" name="created_at_after" type="hidden" value="{{date_year_ago|date:'Y-m-d'}}">
-            <input class="bp5-input" name="created_at_before" type="hidden" value="{{date_now|date:'Y-m-d'}}">
-            <button class="bp5-button {% if request.GET.range == 'year' %}bp5-intent-warning{% else %}bp5-minimal{% endif %}" type="submit" >
-                <span class="bp5-button-text">Год</span>
-            </button>
-        </form>
-        <form>
-            <input class="bp5-input" name="range" type="hidden" value="all">
-            <button type="submit" class="bp5-button {% if request.GET.range == 'all' %}bp5-intent-warning{% else %}bp5-minimal{% endif %}">
-                <span class="bp5-button-text">Всего</span>
-            </button>
-        </form>
+        <a class="bp5-button {% if request.GET.range == 'month' %}bp5-intent-warning{% else %}bp5-minimal{% endif %}" href="{% url 'company_detail' company.id %}?range=month">
+            <span class="bp5-button-text">Месяц</span>
+        </a>
+        <a class="bp5-button {% if request.GET.range == 'quarter' %}bp5-intent-warning{% else %}bp5-minimal{% endif %}" href="{% url 'company_detail' company.id %}?range=quarter">
+            <span class="bp5-button-text">Квартал</span>
+        </a>
+        <a class="bp5-button {% if request.GET.range == 'year' %}bp5-intent-warning{% else %}bp5-minimal{% endif %}" href="{% url 'company_detail' company.id %}?range=year">
+            <span class="bp5-button-text">Год</span>
+        </a>
+        <a class="bp5-button {% if request.GET.range == 'total' %}bp5-intent-warning{% else %}bp5-minimal{% endif %}" href="{% url 'company_detail' company.id %}?range=total">
+            <span class="bp5-button-text">Всего</span>
+        </a>
     </div>
 </div>
 <div class="bp5-form-group">
@@ -54,7 +36,7 @@
                     <h6 class="bp5-heading bp5-section-header-title">
                         Яндекс
                     </h6>
-                    <div class="bp5-section-header-sub-title bp5-text-muted ">
+                    <div class="bp5-section-header-sub-title bp5-text-muted">
                         {% timezone user.profile.default_timezone %}
                         {{company.rating_yandex_last_parse_at|default:"Нет данных"}}
                         {% endtimezone %}
@@ -79,7 +61,7 @@
                             {{reviews_yandex_total_count|default:"0"}}
                         </h3>
                     </div>
-                    {{reviews_yandex_positive_count|rupluralize:"Отзыв, Отзыва, Отзывов"}}
+                    {{reviews_yandex_total_count|rupluralize:"Отзыв, Отзыва, Отзывов"}}
                     <div class="bp5-text-muted bp5-text-small">
                         {% timezone user.profile.default_timezone %}
                         {{company.reviews_yandex_last_parse_at|default:"Нет данных"}}

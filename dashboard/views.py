@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 
 from chartjs.views.lines import BaseLineChartView
 from django.conf import settings
@@ -14,9 +14,9 @@ from django.views.decorators.http import require_http_methods
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 from django_filters.views import FilterView
 
-from resources.models import Company, Message, Review, RatingStamp, Service
+from resources.models import Company, Message, Review, RatingStamp
 from resources.tasks import send_telegram_text_task
-from .filters import MessageFilter, ReviewFilter, ReviewCountFilter, RatingStampFilter
+from .filters import MessageFilter, ReviewFilter, RatingStampFilter
 from .forms import (
     CompanyForm,
     ProfileForm,
@@ -61,23 +61,25 @@ class CompanyDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        review_count_filter = ReviewCountFilter(self.request.GET, queryset=Review.objects.filter(company_id=self.kwargs["pk"])).qs
-        context["date_now"] = datetime.today()
-        context["date_month_ago"] = datetime.today() - timedelta(days=30)
-        context["date_quarter_ago"] = datetime.today() - timedelta(days=90)
-        context["date_year_ago"] = datetime.today() - timedelta(days=365)
+        company = self.object.__dict__
+        range_map = {"week": "_week_", "month": "_month_", "quarter": "_quarter_", "year": "_year_", "total": "_"}
+        range_param = self.request.GET.get("range", "week")
+
         context["host"] = settings.HOST
         context["nav"] = "company"
-        context["reviews_yandex_positive_count"] = review_count_filter.filter(stars__gt=3, service=Service.YANDEX).count()
-        context["reviews_yandex_negative_count"] = review_count_filter.filter(stars__lte=3, service=Service.YANDEX).count()
-        context["reviews_yandex_total_count"] = context["reviews_yandex_positive_count"] + context["reviews_yandex_negative_count"]
-        context["reviews_gis_positive_count"] = review_count_filter.filter(stars__gt=3, service=Service.GIS).count()
-        context["reviews_gis_negative_count"] = review_count_filter.filter(stars__lte=3, service=Service.GIS).count()
-        context["reviews_gis_total_count"] = context["reviews_gis_positive_count"] + context["reviews_gis_negative_count"]
-        context["reviews_google_positive_count"] = review_count_filter.filter(stars__gt=3, service=Service.GOOGLE).count()
-        context["reviews_google_negative_count"] = review_count_filter.filter(stars__lte=3, service=Service.GOOGLE).count()
-        context["reviews_google_total_count"] = context["reviews_google_positive_count"] + context["reviews_google_negative_count"]
         context["sub_nav"] = "detail"
+
+        if range_param in range_map:
+            context["reviews_yandex_positive_count"] = company[f"reviews_yandex_positive{range_map[range_param]}count"]
+            context["reviews_yandex_negative_count"] = company[f"reviews_yandex_negative{range_map[range_param]}count"]
+            context["reviews_yandex_total_count"] = company[f"reviews_yandex_total{range_map[range_param]}count"]
+            context["reviews_gis_positive_count"] = company[f"reviews_gis_positive{range_map[range_param]}count"]
+            context["reviews_gis_negative_count"] = company[f"reviews_gis_negative{range_map[range_param]}count"]
+            context["reviews_gis_total_count"] = company[f"reviews_gis_total{range_map[range_param]}count"]
+            context["reviews_google_positive_count"] = company[f"reviews_google_positive{range_map[range_param]}count"]
+            context["reviews_google_negative_count"] = company[f"reviews_google_negative{range_map[range_param]}count"]
+            context["reviews_google_total_count"] = company[f"reviews_google_total{range_map[range_param]}count"]
+
         return context
 
     def get_queryset(self, **kwargs):
@@ -158,12 +160,17 @@ class CompanyRatingDynamic(BaseLineChartView):
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         self.company = get_object_or_404(Company, pk=self.kwargs["company_pk"], users__in=[self.request.user])
-        self.rating_history = RatingStampFilter(self.request.GET, queryset=RatingStamp.objects.filter(company_id=self.company.id)).qs
+
+        self.rating_history = RatingStampFilter(
+            self.request.GET,
+            queryset=RatingStamp.objects.filter(company_id=self.company.id)
+        ).qs
+
         return super(CompanyRatingDynamic, self).dispatch(request, *args, **kwargs)
 
     def get_labels(self):
         range_param = self.request.GET.get("range", "week")
-        format_map = {"week": "%d.%m", "month": "%d.%m", "quarter": "%d.%m", "year": "%m.%y", "all": "%m.%y"}
+        format_map = {"week": "%d.%m", "month": "%d.%m", "quarter": "%d.%m", "year": "%m.%y", "total": "%m.%y"}
         return list(map(lambda x: x.created_at.strftime(format_map[range_param]), self.rating_history)) or [datetime.now().strftime("%d.%m")]
 
     def get_dataset_options(self, index, color):
@@ -183,7 +190,7 @@ class CompanyRatingYandexDynamic(CompanyRatingDynamic):
         return ["Яндекс"]
 
     def get_data(self):
-        return [list(map(lambda x: x.rating_yandex, self.rating_history)) or [0]]
+        return [list(map(lambda x: x.rating_yandex, self.rating_history)) or [self.company.rating_yandex]]
 
 
 class CompanyRatingGisDynamic(CompanyRatingDynamic):
@@ -191,7 +198,7 @@ class CompanyRatingGisDynamic(CompanyRatingDynamic):
         return ["2Гис"]
 
     def get_data(self):
-        return [list(map(lambda x: x.rating_gis, self.rating_history)) or [0]]
+        return [list(map(lambda x: x.rating_gis, self.rating_history)) or [self.company.rating_gis]]
 
 
 class CompanyRatingGoogleDynamic(CompanyRatingDynamic):
@@ -199,7 +206,7 @@ class CompanyRatingGoogleDynamic(CompanyRatingDynamic):
         return ["Google"]
 
     def get_data(self):
-        return [list(map(lambda x: x.rating_google, self.rating_history)) or [0]]
+        return [list(map(lambda x: x.rating_google, self.rating_history)) or [self.company.rating_google]]
 
 
 class ReviewListView(FilterView):
