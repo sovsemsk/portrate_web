@@ -36,7 +36,7 @@
                 </div>
             </div>
             <div class="bp5-section-header-right">
-                <span class="bp5-text-muted bp5-text-small">{{review.created_at}}</span>
+                <span class="bp5-text-muted">{{review.created_at}}</span>
                 {% if review.service == "YANDEX" %}
                 <img alt="Яндекс" height=16 src="{% static 'images/services/yandex.svg' %}" width=16>
                 {% endif %}
@@ -57,7 +57,7 @@
                 </form>
             </div>
         </div>
-        <div class="bp5-padded bp5-section-card">
+        <div class="bp5-padded bp5-running-text bp5-section-card bp5-text-large">
             {{review.text}}
         </div>
     </div>

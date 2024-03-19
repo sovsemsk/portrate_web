@@ -56,11 +56,11 @@
                     {{form.password2.errors.as_text}}
                 </div>
             </div>
-            <button class="bp5-button bp5-fill bp5-intent-success" type="submit">Зарегистрироваться</button>
+            <div style="display:flex;gap:5px;">
+                <button class="bp5-button bp5-intent-success" type="submit">Зарегистрироваться</button>
+                <a class="bp5-button bp5-minimal" href="{% url 'user_login' %}">Войти</a>
+            </div>
         </form>
-    </div>
-    <div class="bp5-section-card bp5-padded">
-        <a class="bp5-button bp5-fill" href="{% url 'user_login' %}">Войти</a>
     </div>
 </div>
 {% endblock %}

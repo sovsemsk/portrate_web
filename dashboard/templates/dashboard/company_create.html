@@ -7,7 +7,7 @@
         <h5 class="bp5-heading">
             Информация
         </h5>
-        Соотношение сторон для логотипа следует выбрать 1 к 1. Полный список всех настроек компании будет доступен после ее создания, в настроках компании.
+        Соотношение сторон для логотипа следует выбрать 1 к 1.
     </div>
 </div>
 <div class="bp5-form-group">
@@ -24,9 +24,14 @@
         </div>
     </div>
 </div>
-<form enctype="multipart/form-data" id="company-form" method="post" novalidate>
-    {% csrf_token %}
-    <div class="bp5-card bp5-elevation-1 bp5-section">
+<div class="bp5-form-group">
+    <div>
+        <button class="bp5-button bp5-intent-success" form="COMPANY_FORM" type="submit">Создать компанию</button>
+    </div>
+</div>
+<div class="bp5-card bp5-elevation-1 bp5-section">
+    <form enctype="multipart/form-data" id="COMPANY_FORM" method="post" novalidate>
+        {% csrf_token %}
         <div class="bp5-section-header">
             <div class="bp5-section-header-left">
                 <div>
@@ -34,6 +39,19 @@
                         Данные
                     </h6>
                     <div class="bp5-section-header-sub-title bp5-text-muted">название, адрес и логотип компании</div>
+                </div>
+            </div>
+        </div>
+        <div class="bp5-section-card bp5-padded">
+            <div class="bp5-form-group">
+                <label class="bp5-label">Логотип</label>
+                <label class="bp5-file-input">
+                    {{form.logo}}
+                    <span class="bp5-file-upload-input">Выбрать файл...</span>
+                </label>
+                <!-- Исключение для css (цвет текста) -->
+                <div class="bp5-form-helper-text" style="color:#ac2f33">
+                    {{form.logo.errors.as_text}}
                 </div>
             </div>
         </div>
@@ -55,22 +73,6 @@
                 </div>
             </div>
         </div>
-        <div class="bp5-section-card bp5-padded">
-            <div class="bp5-form-group">
-                <label class="bp5-label">Логотип</label>
-                <label class="bp5-file-input">
-                    {{form.logo}}
-                    <span class="bp5-file-upload-input">Выбрать файл...</span>
-                </label>
-                <!-- Исключение для css (цвет текста) -->
-                <div class="bp5-form-helper-text" style="color:#ac2f33">
-                    {{form.logo.errors.as_text}}
-                </div>
-            </div>
-        </div>
-        <div class="bp5-section-card bp5-padded">
-            <button class="bp5-button bp5-intent-success bp5-large" form="company-form" type="submit">Создать компанию</button>
-        </div>
-    </div>
-</form>
+    </form>
+</div>
 {% endblock %}

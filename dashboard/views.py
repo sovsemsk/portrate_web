@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.contrib.auth import logout as auth_logout, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
+from django.forms import model_to_dict
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -61,7 +62,7 @@ class CompanyDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        company = self.object.__dict__
+        company = model_to_dict(self.object)
         range_map = {"week": "_week_", "month": "_month_", "quarter": "_quarter_", "year": "_year_", "total": "_"}
         range_param = self.request.GET.get("range", "week")
 
