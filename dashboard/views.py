@@ -164,7 +164,7 @@ class CompanyRatingDynamic(BaseLineChartView):
     def get_labels(self):
         range_param = self.request.GET.get("range", "week")
         format_map = {"week": "%d.%m", "month": "%d.%m", "quarter": "%d.%m", "year": "%m.%y", "all": "%m.%y"}
-        return list(map(lambda x: x.created_at.strftime(format_map[range_param]), self.rating_history))
+        return list(map(lambda x: x.created_at.strftime(format_map[range_param]), self.rating_history)) or [datetime.now().strftime("%d.%m")]
 
     def get_dataset_options(self, index, color):
         default_opt = {
@@ -183,7 +183,7 @@ class CompanyRatingYandexDynamic(CompanyRatingDynamic):
         return ["Яндекс"]
 
     def get_data(self):
-        return [list(map(lambda x: x.rating_yandex, self.rating_history))]
+        return [list(map(lambda x: x.rating_yandex, self.rating_history)) or [0]]
 
 
 class CompanyRatingGisDynamic(CompanyRatingDynamic):
@@ -191,7 +191,7 @@ class CompanyRatingGisDynamic(CompanyRatingDynamic):
         return ["2Гис"]
 
     def get_data(self):
-        return [list(map(lambda x: x.rating_gis, self.rating_history))]
+        return [list(map(lambda x: x.rating_gis, self.rating_history)) or [0]]
 
 
 class CompanyRatingGoogleDynamic(CompanyRatingDynamic):
@@ -199,7 +199,7 @@ class CompanyRatingGoogleDynamic(CompanyRatingDynamic):
         return ["Google"]
 
     def get_data(self):
-        return [list(map(lambda x: x.rating_google, self.rating_history))]
+        return [list(map(lambda x: x.rating_google, self.rating_history)) or [0]]
 
 
 class ReviewListView(FilterView):
