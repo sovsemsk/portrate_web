@@ -5,7 +5,6 @@ import dateparser
 from bs4 import BeautifulSoup
 from lxml import etree
 from selenium import webdriver
-from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 
 
@@ -16,7 +15,7 @@ class ParserGis:
         options.set_capability("selenoid:options", {"enableVNC": True})
         self.driver = webdriver.Remote(command_executor=f"http://185.85.160.249:4444/wd/hub", options=options)
         self.driver.get(parser_link)
-        time.sleep(5)
+        time.sleep(1)
 
     def close_page(self):
         """ Закрытие страницы """
@@ -28,7 +27,7 @@ class ParserGis:
         try:
             self.driver.find_element(By.CLASS_NAME, "_tvxwjf")
             return True
-        except NoSuchElementException:
+        except:
             return False
 
     def parse_rating(self):
@@ -36,7 +35,7 @@ class ParserGis:
         try:
             node = self.driver.find_element(By.CLASS_NAME, "_y10azs")
             return float(node.text)
-        except NoSuchElementException:
+        except:
             return 0.0
 
     def parse_reviews(self):
@@ -45,7 +44,7 @@ class ParserGis:
 
         try:
             self.driver.find_element(By.CLASS_NAME, "_fs4sw2").click()
-        except NoSuchElementException:
+        except:
             pass
 
         # Сбор нод
@@ -66,6 +65,7 @@ class ParserGis:
         """ Скроллинг списка до последнего отзыва """
         self.driver.execute_script("arguments[0].scrollIntoView();", node)
         time.sleep(2)
+
         new_node = self.driver.find_elements(By.CLASS_NAME, "_11gvyqv")[-1]
 
         if node == new_node:

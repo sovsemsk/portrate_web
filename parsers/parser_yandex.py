@@ -6,7 +6,6 @@ import dateparser
 from bs4 import BeautifulSoup
 from lxml import etree
 from selenium import webdriver
-from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 
 
@@ -17,7 +16,7 @@ class ParserYandex:
         options.set_capability("selenoid:options", {"enableVNC": True})
         self.driver = webdriver.Remote(command_executor=f"http://185.85.160.249:4444/wd/hub", options=options)
         self.driver.get(parser_link)
-        time.sleep(5)
+        time.sleep(1)
 
     def close_page(self):
         """ Закрытие страницы """
@@ -29,7 +28,7 @@ class ParserYandex:
         try:
             self.driver.find_element(By.CLASS_NAME, "orgpage-header-view__header")
             return True
-        except NoSuchElementException:
+        except:
             return False
 
     def parse_rating(self):
@@ -37,7 +36,7 @@ class ParserYandex:
         try:
             node = self.driver.find_element(By.CLASS_NAME, "business-summary-rating-badge-view__rating")
             return float(".".join(re.findall(r'\d+', node.text)))
-        except NoSuchElementException:
+        except:
             return 0.0
 
     def parse_reviews(self):
@@ -45,7 +44,7 @@ class ParserYandex:
         result = []
 
         # Сортировка по дате
-        self.__sort_by_newest__()
+        # self.__sort_by_newest__()
 
         # Сбор нод
         nodes = self.driver.find_elements(By.CLASS_NAME, "business-reviews-card-view__review")
@@ -65,6 +64,7 @@ class ParserYandex:
         """ Скроллинг списка до последнего отзыва """
         self.driver.execute_script("arguments[0].scrollIntoView();", node)
         time.sleep(2)
+
         new_node = self.driver.find_elements(By.CLASS_NAME, "business-reviews-card-view__review")[-1]
 
         if node == new_node:
@@ -79,7 +79,7 @@ class ParserYandex:
         except:
             pass
         finally:
-            time.sleep(2)
+            time.sleep(1)
 
         try:
             button_node = self.driver.find_elements(By.CLASS_NAME, "rating-ranking-view__popup-line")[1]
@@ -87,7 +87,7 @@ class ParserYandex:
         except:
             pass
         finally:
-            time.sleep(5)
+            time.sleep(1)
 
     @staticmethod
     def __parse_review__(str_node):

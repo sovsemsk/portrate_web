@@ -37,6 +37,7 @@ def parse_cards(company_id):
             rating_yandex = yandex_parser.parse_rating()
             company.rating_yandex = rating_yandex
             company.rating_yandex_last_parse_at = datetime.now(timezone.utc)
+
             """ Парсинг отзывов Яндекс """
             for review_yandex in yandex_parser.parse_reviews():
                 if review_yandex["text"]:
