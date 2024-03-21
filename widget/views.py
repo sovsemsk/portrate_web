@@ -10,16 +10,16 @@ from resources.models import Company, Review
 
 
 @require_http_methods(["GET"])
-def rate(request, company_api_secret):
+def rating(request, company_api_secret):
     company = get_object_or_404(Company, api_secret=company_api_secret, is_active=True)
-
     theme = request.GET.get("theme", "l")
     position = request.GET.get("position", "lb")
 
     return render(
         request,
-        "widget/rate.js",
+        "widget/rating.js",
         {
+            "api_secret": company_api_secret,
             "rating": str(company.rating).replace(",", "."),
             "reviews_total_count": company.reviews_total_count,
             "position": position,

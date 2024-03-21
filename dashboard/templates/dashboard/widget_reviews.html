@@ -10,11 +10,11 @@
 </div>
 <div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:15px">
     <div style="grid-column:span 9 / span 9;">
-        <div class="bp5-form-group">
-            <div class="bp5-card bp5-elevation-1 bp5-section" style="position:relative;">
-                <img style="width:95%;left:15px;position:absolute;top:80px;" {% if theme == 'l' %}src="{% static 'images/dashboard/widget_reviews_light.svg' %}"{% else %}src="{% static 'images/dashboard/widget_reviews_dark.svg' %}"{% endif %}>
-                <img style="width:100%" src="{% static 'images/dashboard/frame.svg' %}">
-            </div>
+        <!-- Исключение для css -->
+        <div class="bp5-form-group" style="position:relative;">
+            <img height=358 style="border-radius:2px;" src="{% static 'images/dashboard/frame.svg' %}" width=596>
+            <!-- Исключение для css -->
+            <img style="left:15px;position:absolute;top:35px;" {% if theme == 'l' %}src="{% static 'images/dashboard/widget_reviews_slider_light.svg' %}"{% else %}src="{% static 'images/dashboard/widget_reviews_slider_dark.svg' %}"{% endif %} width=95%>
         </div>
         <div class="bp5-form-group" style="margin-bottom:0;">
             <label class="bp5-label">Код виджета</label>
@@ -24,14 +24,20 @@
     <div style="grid-column:span 3 / span 3;">
         <ul class="bp5-menu bp5-elevation-1">
             <li class="bp5-menu-header">
-                <h6 class="bp5-heading">Тема</h6>
+                <h6 class="bp5-heading">
+                    Тема
+                </h6>
             </li>
             <a class="bp5-menu-item {% if theme == 'l' %}bp5-active{% endif %}" href="{% url 'widget_reviews' company.id %}?theme=l&layout={{layout}}">
-                <div class="bp5-fill">Светлый</div>
+                <div class="bp5-fill">
+                    Светлая
+                </div>
                 <span class="bp5-icon bp5-icon-flash bp5-submenu-icon"></span>
             </a>
             <a class="bp5-menu-item {% if theme == 'd' %}bp5-active{% endif %}" href="{% url 'widget_reviews' company.id %}?theme=d&layout={{layout}}">
-                <div class="bp5-fill">Темный</div>
+                <div class="bp5-fill">
+                    Темная
+                </div>
                 <span class="bp5-icon bp5-icon-moon bp5-submenu-icon"></span>
             </a>
         </ul>

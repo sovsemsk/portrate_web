@@ -10,15 +10,13 @@
 </div>
 <div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:15px">
     <div style="grid-column: span 9 / span 9;">
-        <div class="bp5-form-group">
-            <div class="bp5-card bp5-elevation-1 bp5-section" style="position:relative;">
-                <img style="{% if position == 'lb' or position == 'lt' %}left:0px;{% elif position == 'rt' or position == 'rb' %}right:0px;{% endif %}position:absolute;{% if position == 'lb' or position == 'rb' %}bottom:0px;{% elif position == 'lt' or position == 'rt' %}top:25px;{% endif %}" {% if theme == 'l' %}src="{% static 'images/dashboard/widget_rating_light.svg' %}"{% else %}src="{% static 'images/dashboard/widget_rating_dark.svg' %}"{% endif %}>
-                <img style="width:100%" src="{% static 'images/dashboard/frame.svg' %}">
-            </div>
+        <div class="bp5-form-group" style="position:relative;">
+            <img height=358 style="border-radius:2px;" src="{% static 'images/dashboard/frame.svg' %}" width=596>
+            <img style="{% if position == 'lb' or position == 'lt' %}left:15px;{% elif position == 'rt' or position == 'rb' %}right:15px;{% endif %}position:absolute;{% if position == 'lb' or position == 'rb' %}bottom:15px;{% elif position == 'lt' or position == 'rt' %}top:40px;{% endif %}" {% if theme == 'l' %}src="{% static 'images/dashboard/widget_rating_light.svg' %}"{% else %}src="{% static 'images/dashboard/widget_rating_dark.svg' %}"{% endif %}>
         </div>
         <div class="bp5-form-group" style="margin-bottom:0;">
             <label class="bp5-label">Код виджета</label>
-            <textarea readonly class="bp5-input bp5-fill bp5-monospace-text" id="CODE_INPUT" type="text"><script src="https://geo.portrate.io/widget/{{company.api_secret}}/rate.js?theme={{theme}}&position={{position}}" id="PIO_WIDGET_RATING_SCRIPT"></script></textarea>
+            <textarea readonly class="bp5-input bp5-fill bp5-monospace-text" id="CODE_INPUT" type="text"><script src="https://geo.portrate.io/widget/rating/{{company.api_secret}}.js?theme={{theme}}&position={{position}}" data-{{company.api_secret}}></script></textarea>
         </div>
     </div>
     <div style="grid-column: span 3 / span 3;">
