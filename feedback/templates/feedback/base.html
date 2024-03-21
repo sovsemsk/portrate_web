@@ -16,23 +16,82 @@
         <style>a{ text-decoration:none !important}</style>
     </head>
     <body style="background:#d3d8de;margin:15px;">
-        <div style="margin:60px auto 30px auto;max-width:400px">
-            <a style="border-radius:2px;display:block;height:60px;margin:0 auto -5px auto;width:60px" href="{% url 'rate' company_pk=company.id %}">
+        <div style="margin:60px auto 30px auto;max-width:400px;">
+            <a style="border-radius:2px;display:block;height:60px;margin:0 auto -5px auto;width:60px;" href="{% url 'rate' company_pk=company.id %}">
                 {% if company.logo %}
-                <img class="bp5-elevation-3" style="border-radius:2px;height:60px;width:60px" src="{{ company.logo.url }}" alt="{{ company.name }}">
+                <img class="bp5-elevation-3" style="border-radius:2px;height:60px;width:60px;" src="{{company.logo.url}}" alt="{{company.name}}">
                 {% endif %}
             </a>
             <div class="bp5-section bp5-card bp5-elevation-3">
                 <div class="bp5-padded bp5-section-card">
-                    <h1 style="font-size:14px;font-weight:normal;margin:0;text-align:center">
-                        {{ company.name }}
+                    <h1 style="font-size:14px;margin:0 0 15px 0;text-align:center;">
+                        {{company.name}}
                     </h1>
+                    <div style="display:flex;flex-wrap:wrap;gap:5px;justify-content:center;">
+                        {% if company.phone %}
+                        <a class="bp5-tag bp5-interactive bp5-minimal" href="tel:{{company.phone}}">{{company.phone}}</a>
+                        {% endif %}
+                        {% if company.form_contact_website %}
+                        <a class="bp5-tag bp5-interactive bp5-minimal" href="{{company.form_contact_website}}" _target="blank">{{company.form_contact_website}}</a>
+                        {% endif %}
+                        <span class="bp5-tag bp5-minimal">{{company.address}}</span>
+                    </div>
+                    {% if company.has_contacts %}
+                    <div style="display:flex;flex-wrap:wrap;gap:5px;justify-content:center;padding-top:20px;">
+                        {% if company.form_contact_whatsapp %}
+                        <a _target="blank" href="{{company.form_contact_whatsapp}}" style="align-items:center;background:#41bf50;border-radius:3px;display:flex;height:24px;justify-content:center;width:24px;">
+                            <img height=16 src="{% static 'images/services/whatsapp.svg' %}" width=16>
+                        </a>
+                        {% endif %}
+                        {% if company.form_contact_telegram %}
+                        <a _target="blank" href="{{company.form_contact_telegram}}" style="align-items:center;background:#2ba0d9;border-radius:3px;display:flex;height:24px;justify-content:center;width:24px;">
+                            <img height=16 src="{% static 'images/services/telegram.svg' %}" width=16>
+                        </a>
+                        {% endif %}
+                        {% if company.form_contact_viber %}
+                        <a _target="blank" href="{{company.form_contact_viber}}" style="align-items:center;background:#71488d;border-radius:3px;display:flex;height:24px;justify-content:center;width:24px;">
+                            <img height=16 src="{% static 'images/services/viber.svg' %}" width=16>
+                        </a>
+                        {% endif %}
+                        {% if company.form_contact_vk %}
+                        <a _target="blank" href="{{company.form_contact_vk}}" style="align-items:center;background:#1b73f7;border-radius:3px;display:flex;height:24px;justify-content:center;width:24px;">
+                            <img height=16 src="{% static 'images/services/vk.svg' %}" width=16>
+                        </a>
+                        {% endif %}
+                        {% if company.form_contact_ok %}
+                        <a _target="blank" href="{{company.form_contact_ok}}" style="align-items:center;background:#f77302;border-radius:3px;display:flex;height:24px;justify-content:center;width:24px;">
+                            <img height=16 src="{% static 'images/services/ok.svg' %}" width=16>
+                        </a>
+                        {% endif %}
+                        {% if company.form_contact_facebook %}
+                        <a _target="blank" href="{{company.form_contact_facebook}}" style="align-items:center;background:#3a5696;border-radius:3px;display:flex;height:24px;justify-content:center;width:24px;">
+                            <img height=16 src="{% static 'images/services/facebook.svg' %}" width=16>
+                        </a>
+                        {% endif %}
+                        {% if company.form_contact_instagram %}
+                        <a _target="blank" href="{{company.form_contact_instagram}}" style="align-items:center;background:#c73e83;border-radius:3px;display:flex;height:24px;justify-content:center;width:24px;">
+                            <img height=16 src="{% static 'images/services/instagram.svg' %}" width=16>
+                        </a>
+                        {% endif %}
+                        {% if company.form_contact_youtube %}
+                        <a _target="blank" href="{{company.form_contact_youtube}}" style="align-items:center;background:#f60e1C;border-radius:3px;display:flex;height:24px;justify-content:center;width:24px;">
+                            <img height=16 src="{% static 'images/services/youtube.svg' %}" width=16>
+                        </a>
+                        {% endif %}
+                        {% if company.form_contact_x %}
+                        <a _target="blank" href="{{company.form_contact_x}}" style="align-items:center;background:#000000;border-radius:3px;display:flex;height:24px;justify-content:center;width:24px;">
+                            <img height=16 src="{% static 'images/services/x.svg' %}" width=16>
+                        </a>
+                        {% endif %}
+                    </div>
+                    {% endif %}
                 </div>
                 {% block content %}
                 {% endblock %}
             </div>
-            <div style="font-size:10px;margin-top:15px;text-align:center;">
-                <span class="bp5-text-muted">работает на</span> <a style="" href="https://portrate.io">portrate.io</a>
+            <div style="align-items:center;display:flex;gap:5px;justify-content:center;margin-top:15px;">
+                <span class="bp5-text-muted bp5-text-small">работает на</span>
+                <a style="padding-top:6px" href="https://portrate.io"><img alt="Портрет" src="{% static 'images/dashboard/logo.svg' %}" width=50></a>
             </div>
         </div>
         {% block script %}

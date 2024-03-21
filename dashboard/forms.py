@@ -40,6 +40,7 @@ class CompanyForm(ModelForm):
             "address",
             "logo",
             "name",
+            "phone",
             "parser_link_yandex",
             "parser_link_gis",
             "parser_link_google",
@@ -55,6 +56,16 @@ class CompanyForm(ModelForm):
             "form_link_zoon",
             "form_link_otzovik",
             "form_link_irecommend",
+            "form_contact_whatsapp",
+            "form_contact_telegram",
+            "form_contact_viber",
+            "form_contact_website",
+            "form_contact_vk",
+            "form_contact_ok",
+            "form_contact_facebook",
+            "form_contact_instagram",
+            "form_contact_youtube",
+            "form_contact_x",
             "is_parse_yandex",
             "is_parse_gis",
             "is_parse_google"
@@ -75,6 +86,7 @@ class CompanyForm(ModelForm):
     address = CharField(widget=TextInput(attrs={"class": "bp5-input"}))
     logo = ImageField(widget=FileInput(), required=False)
     name = CharField(widget=TextInput(attrs={"class": "bp5-input"}))
+    phone = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
 
     parser_link_yandex = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
     parser_link_gis = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
@@ -92,6 +104,17 @@ class CompanyForm(ModelForm):
     form_link_zoon = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
     form_link_otzovik = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
     form_link_irecommend = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
+
+    form_contact_whatsapp = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
+    form_contact_telegram = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
+    form_contact_viber = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
+    form_contact_website = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
+    form_contact_vk = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
+    form_contact_ok = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
+    form_contact_facebook = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
+    form_contact_instagram = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
+    form_contact_youtube = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
+    form_contact_x = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
 
     is_parse_yandex = BooleanField(required=False)
     is_parse_gis = BooleanField(required=False)

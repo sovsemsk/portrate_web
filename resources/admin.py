@@ -38,7 +38,7 @@ class CompanyAdmin(admin.ModelAdmin):
         [
             "КОНТЕНТ",
             {
-                "fields": ["name", "address", "logo"]
+                "fields": ["name", "address", "logo", "phone"]
             }
         ],
         [
@@ -68,7 +68,7 @@ class CompanyAdmin(admin.ModelAdmin):
             },
         ],
         [
-            "ФОРМА ЗАПРОСА ОТЗЫВА",
+            "ФОРМА ЗАПРОСА ОТЗЫВА (СЕРВИСЫ)",
             {
                 "classes": ["collapse"],
                 "fields": [
@@ -84,6 +84,24 @@ class CompanyAdmin(admin.ModelAdmin):
                     "form_link_zoon",
                     "form_link_otzovik",
                     "form_link_irecommend"
+                ]
+            }
+        ],
+        [
+            "ФОРМА ЗАПРОСА ОТЗЫВА (КОНТАКТЫ)",
+            {
+                "classes": ["collapse"],
+                "fields": [
+                    "form_contact_whatsapp",
+                    "form_contact_telegram",
+                    "form_contact_viber",
+                    "form_contact_website",
+                    "form_contact_vk",
+                    "form_contact_ok",
+                    "form_contact_facebook",
+                    "form_contact_instagram",
+                    "form_contact_youtube",
+                    "form_contact_x"
                 ],
             },
         ],

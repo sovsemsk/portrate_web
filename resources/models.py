@@ -90,6 +90,7 @@ class Company(models.Model):
     address = models.CharField(verbose_name="адрес")
     logo = models.ImageField(blank=True, null=True, upload_to="company_logo/%Y/%m/%d/", verbose_name="логотип")
     name = models.CharField(verbose_name="название")
+    phone = models.CharField(blank=True, null=True, verbose_name="телефон")
 
     """ Форма запроса отзыва """
     form_link_yandex = models.CharField(blank=True, null=True, verbose_name="ссылка Яндекс")
@@ -104,6 +105,18 @@ class Company(models.Model):
     form_link_zoon = models.CharField(blank=True, null=True, verbose_name="ссылка Zoon")
     form_link_otzovik = models.CharField(blank=True, null=True, verbose_name="ссылка Отзовик")
     form_link_irecommend = models.CharField(blank=True, null=True, verbose_name="ссылка Irecommend")
+
+    """ Контакты """
+    form_contact_whatsapp = models.CharField(blank=True, null=True, verbose_name="ссылка Whatsapp")
+    form_contact_telegram = models.CharField(blank=True, null=True, verbose_name="ссылка Telegram")
+    form_contact_viber = models.CharField(blank=True, null=True, verbose_name="ссылка Viber")
+    form_contact_website = models.CharField(blank=True, null=True, verbose_name="ссылка Вебсайт")
+    form_contact_vk = models.CharField(blank=True, null=True, verbose_name="ссылка VK")
+    form_contact_ok = models.CharField(blank=True, null=True, verbose_name="ссылка Одноклассники")
+    form_contact_facebook = models.CharField(blank=True, null=True, verbose_name="ссылка Facebook")
+    form_contact_instagram = models.CharField(blank=True, null=True, verbose_name="ссылка Instagram")
+    form_contact_youtube = models.CharField(blank=True, null=True, verbose_name="ссылка Youtube")
+    form_contact_x = models.CharField(blank=True, null=True, verbose_name="ссылка X")
 
     """ Связи """
     users = models.ManyToManyField(User, blank=True, verbose_name="пользователи")
@@ -194,6 +207,25 @@ class Company(models.Model):
     @property
     def stars_svg(self):
         return f"images/stars/{self.rating}.svg"
+
+    @property
+    def has_contacts(self):
+        if (
+                self.form_contact_whatsapp or
+                self.form_contact_telegram or
+                self.form_contact_viber or
+                self.form_contact_website or
+                self.form_contact_vk or
+                self.form_contact_ok or
+                self.form_contact_facebook or
+                self.form_contact_instagram or
+                self.form_contact_youtube or
+                self.form_contact_x
+
+        ):
+            return True
+        else:
+            return False
 
     def __str__(self):
         return self.name
