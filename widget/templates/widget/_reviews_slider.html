@@ -1,0 +1,57 @@
+{% load extensions %}
+<div class="__500fc3f4__">
+    <style type="text/css">
+        .__500fc3f4__{background-color:{%if theme == 'l'%}white{%else%}#1F1F1F{%endif%};border-radius:10px;color:{%if theme == 'l'%}black{%else%}white{%endif%};font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;padding-bottom:25px;}
+        .__4cdc181d__{border-bottom:1px solid {%if theme == 'l'%}rgba(0,0,0,0.1){%else%}rgba(255,255,255,0.1){%endif%};display:flex;padding-bottom:15px;padding-left:25px;padding-right:15px;padding-top:15px;margin-bottom:20px;}
+        .__bee6d052__{display:flex;align-items:center;}
+        .__9d882786__{font-size:40px;padding-right:10px;}
+        .__8a11c70c__{color:{%if theme == 'l'%}rgba(0,0,0,0.5){%else%}rgba(255,255,255,0.5){%endif%};font-size:small;}
+        .__6a6348f9__{align-items:start;color:{%if theme == 'l'%}rgba(0,0,0,0.5){%else%}rgba(255,255,255,0.5){%endif%};display:flex;font-size:x-small;margin-left:auto;}
+        .__79aae8ed__{margin-left:5px;padding-top:1.5px;text-decoration:none;}
+        .__2981c708__{container:scroll / inline-size;display:flex;margin-left:25px;margin-right:25px;overflow-x:scroll;padding-bottom:20px;scroll-snap-type:x mandatory;}
+        .__2981c708__::-webkit-scrollbar{background-color:{%if theme == 'l'%}rgba(0,0,0,0.1){%else%}rgba(255,255,255,0.3){%endif%};border-radius:5px;height:5px;}
+        .__2981c708__::-webkit-scrollbar-thumb{background-color:{%if theme == 'l'%}rgba(0,0,0,0.1){%else%}rgba(255,255,255,0.3){%endif%};background-clip:content-box;border-radius:5px;}
+        .__6b948e6f__{flex:1 0;scroll-snap-align:start;}
+        .__3c488807__{align-items:center;display:flex;font-size:small;font-weight:bold;}
+        .__ccaab7aa__{margin-left:5px;}
+        .__d384a050__{color:{%if theme == 'l'%}rgba(0,0,0,0.5){%else%}rgba(255,255,255,0.5){%endif%};font-size:small;padding-bottom:15px;}
+        .__c35ad222__{line-height:1.3;padding-right:30px;}
+        @container scroll (max-width: 480px) {.__6b948e6f__{flex-basis:100%;}}
+        @container scroll (min-width: 480px) and (max-width: 768px) {.__6b948e6f__{flex-basis:calc(100%/2);}}
+        @container scroll (min-width: 769px) and (max-width: 1200px) {.__6b948e6f__{flex-basis:calc(100%/3);}}
+        @container scroll (min-width: 1201px) and (max-width: 1400px) {.__6b948e6f__{flex-basis:calc(100%/4);}}
+        @container scroll (min-width: 1400px) {.__6b948e6f__{flex-basis:calc(100%/5);}}
+    </style>
+    <div class="__4cdc181d__">
+        <div class="__bee6d052__">
+            <div class="__9d882786__">
+                {{rating}}
+            </div>
+            <div>
+                <img height=10 src="https://geo.portrate.io/static/{{stars_svg}}" width=70>
+                <div class="__8a11c70c__">
+                    {{reviews_total_count}} {{reviews_total_count|rupluralize:"отзыв, отзыва, отзывов"}}
+                </div>
+            </div>
+        </div>
+        <div class="__6a6348f9__">
+            виджет от <a href="https://__6a6348f9__.io" class="__79aae8ed__"><img src="https://geo.portrate.io/static/images/dashboard/logo.svg" width=40></a>
+        </div>
+    </div>
+    <div class="__2981c708__">
+        {% for review in reviews %}
+        <div class="__6b948e6f__">
+            <div class="__3c488807__">
+                {{review.name}} <img class="__ccaab7aa__" height="14" src="https://geo.portrate.io/static/images/services/{{review.service|lower}}.svg" width="14">
+            </div>
+            <img height="10" src="https://geo.portrate.io/static/{{review.stars_svg}}" width="70">
+            <div class="__d384a050__">
+                {{review.created_at}}
+            </div>
+            <div class="__c35ad222__">
+                {{review.text|truncatechars:100}}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>

@@ -328,6 +328,7 @@ def widget_rating(request, company_pk):
 @require_http_methods(["GET"])
 def widget_reviews(request, company_pk):
     company = get_object_or_404(Company, pk=company_pk, users__in=[request.user])
+    layout = request.GET.get("layout", "s")
     theme = request.GET.get("theme", "l")
 
     return render(
@@ -335,6 +336,7 @@ def widget_reviews(request, company_pk):
         "dashboard/widget_reviews.html",
         {
             "company": company,
+            "layout": layout,
             "nav": "company",
             "sub_nav": "widget_reviews",
             "theme": theme
