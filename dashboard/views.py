@@ -290,16 +290,19 @@ class MessageListView(FilterView):
 @login_required
 @require_http_methods(["GET"])
 def qr(request, company_pk):
-    dark = bool(request.GET.get("dark", False))
+    company = get_object_or_404(Company, pk=company_pk, users__in=[request.user])
+    orientation = request.GET.get("orientation", "v")
+    theme = request.GET.get("theme", "l")
 
     return render(
         request,
         "dashboard/qr.html",
         {
-            "company": get_object_or_404(Company, pk=company_pk),
+            "company": company,
             "nav": "company",
             "sub_nav": "qr",
-            "dark": dark
+            "orientation": orientation,
+            "theme": theme
         }
     )
 

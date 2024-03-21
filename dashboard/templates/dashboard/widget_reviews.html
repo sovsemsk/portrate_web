@@ -4,7 +4,7 @@
 {% include 'dashboard/_company_head.html' %}
 {% include 'dashboard/_company_tabs.html' %}
 <div class="bp5-form-group">
-    <div class="bp5-button-group">
+    <div style="display:flex;gap:5px;">
         <button id="COPY_CODE_BUTTON" type="button" class="bp5-button bp5-intent-warning">Скопировать код виджета</button>
     </div>
 </div>
@@ -12,9 +12,9 @@
     <div style="grid-column:span 9 / span 9;">
         <!-- Исключение для css -->
         <div class="bp5-form-group" style="position:relative;">
-            <img height=358 style="border-radius:2px;" src="{% static 'images/dashboard/frame.svg' %}" width=596>
+            <img class="bp5-elevation-1" height=358 style="border-radius:2px;" src="{% static 'images/dashboard/frame.svg' %}" width=596>
             <!-- Исключение для css -->
-            <img style="left:15px;position:absolute;top:35px;" {% if theme == 'l' %}src="{% static 'images/dashboard/widget_reviews_slider_light.svg' %}"{% else %}src="{% static 'images/dashboard/widget_reviews_slider_dark.svg' %}"{% endif %} width=95%>
+            <img class="bp5-elevation-3" style="border-radius:10px;left:15px;position:absolute;top:35px;" {% if theme == 'l' %}src="{% static 'images/dashboard/widget_reviews_slider_light.svg' %}"{% else %}src="{% static 'images/dashboard/widget_reviews_slider_dark.svg' %}"{% endif %} width=95%>
         </div>
         <div class="bp5-form-group" style="margin-bottom:0;">
             <label class="bp5-label">Код виджета</label>

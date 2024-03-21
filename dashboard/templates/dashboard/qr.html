@@ -3,4 +3,54 @@
 {% block content %}
 {% include 'dashboard/_company_head.html' %}
 {% include 'dashboard/_company_tabs.html' %}
+<div class="bp5-form-group">
+    <div style="display:flex;gap:5px;">
+        <button id="DOWNLOAD_BUTTON" type="button" class="bp5-button bp5-intent-warning">Скачать макет</button>
+    </div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:15px">
+    <div style="grid-column: span 9 / span 9;">
+    <div class="bp5-form-group">
+        <div class="bp5-card bp5-elevation-1 bp5-section">
+            <div class="bp5-padded bp5-section-card">
+                
+            </div>
+        </div>
+    </div>
+    </div>
+    <div style="grid-column: span 3 / span 3;">
+        <ul class="bp5-menu bp5-elevation-1">
+            <li class="bp5-menu-header">
+                <h6 class="bp5-heading">Тема</h6>
+            </li>
+            <a class="bp5-menu-item {% if theme == 'l' %}bp5-active{% endif %}" href="{% url 'qr' company.id %}?theme=l&orientation={{orientation}}">
+                <div class="bp5-fill">Светлая</div>
+                <span class="bp5-icon bp5-icon-flash bp5-submenu-icon"></span>
+            </a>
+            <a class="bp5-menu-item {% if theme == 'd' %}bp5-active{% endif %}" href="{% url 'qr' company.id %}?theme=d&orientation={{orientation}}">
+                <div class="bp5-fill">Темная</div>
+                <span class="bp5-icon bp5-icon-moon bp5-submenu-icon"></span>
+            </a>
+            <li class="bp5-menu-header">
+                <h6 class="bp5-heading">Ориентация</h6>
+            </li>
+            <a class="bp5-menu-item {% if orientation == 'v' %}bp5-active{% endif %}" href="{% url 'qr' company.id %}?theme={{theme}}&orientation=v">
+                <div class="bp5-fill">Вертикальная</div>
+                <span class="bp5-icon bp5-icon-vertical-distribution bp5-submenu-icon"></span>
+            </a>
+            <a class="bp5-menu-item {% if orientation == 'h' %}bp5-active{% endif %}" href="{% url 'qr' company.id %}?theme={{theme}}&orientation=h">
+                <div class="bp5-fill">Горизонтальная</div>
+                <span class="bp5-icon bp5-icon-horizontal-distribution bp5-submenu-icon"></span>
+            </a>
+        </ul>
+    </div>
+</div>
+{% endblock %}
+{% block script %}
+<script>
+function demoFromHTML() {
+    var element = document.getElementById('TEST');
+    var worker = html2pdf().from(element).save();
+}
+</script>
 {% endblock %}
