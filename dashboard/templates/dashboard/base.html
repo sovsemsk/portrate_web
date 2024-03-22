@@ -34,7 +34,7 @@
                     </div>
                     <a class="bp5-button bp5-minimal {% if nav == 'company' %} bp5-active{% endif %}" href="{% url 'company_list' %}">Компании</a>
                     <a class="bp5-button bp5-minimal {% if nav == 'settings' %} bp5-active{% endif %}" href="{% url 'profile' %}">Настройки</a>
-                    <a class="bp5-button bp5-minimal" href="">Тарифы</a>
+                    <a class="bp5-button bp5-minimal {% if nav == 'finance' %} bp5-active{% endif %}" href="{% url 'billing' %}">Финансы</a>
                 </div>
                 <div class="bp5-align-right bp5-navbar-group">
                     <a class="bp5-button bp5-icon-log-out bp5-minimal" href="{% url 'user_logout' %}"></a>

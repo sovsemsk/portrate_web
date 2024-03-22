@@ -1,0 +1,22 @@
+<div class="bp5-form-group">
+    <div class="bp5-entity-title bp5-entity-title-heading-h3">
+        <div class="bp5-entity-title-icon-container">
+            <span class="bp5-icon bp5-icon-dollar bp5-icon-large bp5-text-muted"></span>
+        </div>
+        <div class="bp5-entity-title-text">
+            <div class="bp5-entity-title-title-and-tags">
+                <h3 class="bp5-heading bp5-entity-title-title">
+                    Финансы
+                </h3>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="bp5-form-group">
+    <div class="bp5-tabs">
+        <ul class="bp5-tab-list">
+            <a class="bp5-tab" {% if sub_nav == "billing" %}aria-selected="true"{% endif %} href="{% url 'billing' %}">Счет</a>
+            <a class="bp5-tab" {% if sub_nav == "rate" %}aria-selected="true"{% endif %} href="{% url 'rate' %}">Тариф</a>
+        </ul>
+    </div>
+</div>

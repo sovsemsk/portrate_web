@@ -2,6 +2,7 @@ from django.urls import path
 
 from .views import (
     account,
+    billing,
     CompanyListView,
     CompanyCreateView,
     CompanyDetailView,
@@ -12,6 +13,7 @@ from .views import (
     MessageListView,
     profile,
     qr,
+    rate,
     ReviewListView,
     ReviewUpdateView,
     security,
@@ -20,7 +22,7 @@ from .views import (
     user_login,
     user_logout,
     widget_rating,
-    widget_reviews
+    widget_reviews,
 )
 
 urlpatterns = [
@@ -39,6 +41,8 @@ urlpatterns = [
     path("company/<int:company_pk>/widget_reviews/", widget_reviews, name="widget_reviews"),
     path("telegram_notify_unsubscribe/", telegram_notify_unsubscribe, name="telegram_notify_unsubscribe"),
     path("profile/", profile, name="profile"),
+    path("rate/", rate, name="rate"),
+    path("billing/", billing, name="billing"),
     path("account/", account, name="account"),
     path("security/", security, name="security"),
     path("create/", user_create, name="user_create"),

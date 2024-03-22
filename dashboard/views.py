@@ -373,6 +373,32 @@ def profile(request):
 
 @login_required
 @require_http_methods(["GET", "POST"])
+def rate(request):
+    return render(
+        request,
+        "dashboard/rate.html",
+        {
+            "nav": "finance",
+            "sub_nav": "rate",
+        }
+    )
+
+
+@login_required
+@require_http_methods(["GET", "POST"])
+def billing(request):
+    return render(
+        request,
+        "dashboard/billing.html",
+        {
+            "nav": "finance",
+            "sub_nav": "billing",
+        }
+    )
+
+
+@login_required
+@require_http_methods(["GET", "POST"])
 def account(request):
     if request.method == "POST":
         form = DashboardUserChangeForm(request.POST, instance=request.user)
