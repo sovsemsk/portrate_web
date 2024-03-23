@@ -124,7 +124,7 @@ class CompanyCreateView(SuccessMessageMixin, CreateView):
         return response
 
     def get_success_url(self):
-        return reverse("company_update", kwargs={"pk": self.object.id})
+        return reverse("company_parser_update", kwargs={"pk": self.object.id})
 
 
 class CompanyParserUpdateView(SuccessMessageMixin, UpdateView):
