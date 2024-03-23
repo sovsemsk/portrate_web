@@ -1,0 +1,138 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+{% block content %}
+{% include "dashboard/_company_head.html" %}
+{% include "dashboard/_company_tabs.html" %}
+<div class="bp5-form-group">
+    <div class="bp5-control-group">
+        <button class="bp5-button bp5-intent-warning" form="COMPANY_FORM" type="submit">Сохранить</button>
+        <a class="bp5-button bp5-intent-warning" href="{{company.host}}/@{{company.id}}" target="_blank">Форма запроса отзыва</a>
+    </div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:15px">
+    <div style="grid-column: span 9 / span 9;">
+        <form enctype="multipart/form-data" id="COMPANY_FORM" method="post" novalidate>
+            {% csrf_token %}
+            <div class="bp5-form-group">
+                <div class="bp5-card bp5-elevation-1 bp5-section">
+                    <div class="bp5-section-header">
+                        <div class="bp5-section-header-left">
+                            <h6 class="bp5-heading bp5-section-header-title">
+                                Яндекс
+                            </h6>
+                        </div>
+                        <div class="bp5-section-header-right">
+                            <img alt="Яндекс" class="bp5-icon" height=16 src="{% static 'images/services/yandex.svg' %}" width=16>
+                        </div>
+                    </div>
+                    <div class="bp5-padded bp5-section-card">
+                        <div class="bp5-form-group">
+                            <label class="bp5-label">
+                                Ссылка должна строго соответствовать формату
+                                <div class="bp5-form-helper-text bp5-form-group">
+                                    https://yandex.ru/maps/org/portrate/104318468315/reviews
+                                </div>
+                            </label>
+                            {{form.parser_link_yandex}}
+                            {% if form.parser_link_yandex.errors %}
+                            <!-- Исключение для css (цвет текста) -->
+                            <div class="bp5-form-helper-text" style="color:#ac2f33">
+                                {{form.parser_link_yandex.errors.as_text}}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <!-- Исключение для css (отступы) -->
+                        <label class="bp5-control bp5-switch" style="margin-bottom:0;">
+                            {{form.is_parse_yandex}}
+                            <span class="bp5-control-indicator"></span>
+                            Загружать рейтинг и отзывы
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="bp5-form-group">
+                <div class="bp5-card bp5-elevation-1 bp5-section">
+                    <div class="bp5-section-header">
+                        <div class="bp5-section-header-left">
+                            <h6 class="bp5-heading bp5-section-header-title">
+                                2Гис
+                            </h6>
+                        </div>
+                        <div class="bp5-section-header-right">
+                            <img alt="2Гис" class="bp5-icon" height=16 src="{% static 'images/services/gis.svg' %}" width=16>
+                        </div>
+                    </div>
+                    <div class="bp5-padded bp5-section-card">
+                        <div class="bp5-form-group">
+                            <label class="bp5-label">
+                                Ссылка должна строго соответствовать формату
+                                <div class="bp5-form-helper-text bp5-form-group">
+                                    https://2gis.ru/orsk/19985359036976742/firm/70000001061507390/tab/reviews
+                                </div>
+                            </label>
+                            {{form.parser_link_gis}}
+                            {% if form.parser_link_gis.errors %}
+                            <!-- Исключение для css (цвет текста) -->
+                            <div class="bp5-form-helper-text" style="color:#ac2f33">
+                                {{form.parser_link_gis.errors.as_text}}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <!-- Исключение для css (отступы) -->
+                        <label class="bp5-control bp5-switch" style="margin-bottom:0;">
+                            {{form.is_parse_gis}}
+                            <span class="bp5-control-indicator"></span>
+                            Загружать рейтинг и отзывы
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="bp5-form-group">
+                <div class="bp5-card bp5-elevation-1 bp5-section">
+                    <div class="bp5-section-header">
+                        <div class="bp5-section-header-left">
+                            <h6 class="bp5-heading bp5-section-header-title">
+                                Google
+                            </h6>
+                        </div>
+                        <div class="bp5-section-header-right">
+                            <img alt="Google" class="bp5-icon" height=16 src="{% static 'images/services/google.svg' %}" width=16>
+                        </div>
+                    </div>
+                    <div class="bp5-padded bp5-section-card">
+                        <div class="bp5-form-group">
+                            <label class="bp5-label">
+                                Ссылка должна строго соответствовать формату
+                                <div class="bp5-form-helper-text bp5-form-group">
+                                    https://www.google.com/maps/place/Portrate/@51.229089,58.4858305,18z/data=!4m17...
+                                </div>
+                            </label>
+                            {{form.parser_link_google}}
+                            {% if form.parser_link_google.errors %}
+                            <!-- Исключение для css (цвет текста) -->
+                            <div class="bp5-form-helper-text" style="color:#ac2f33">
+                                {{form.parser_link_google.errors.as_text}}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <!-- Исключение для css (отступы) -->
+                        <label class="bp5-control bp5-switch" style="margin-bottom:0;">
+                            {{form.is_parse_google}}
+                            <span class="bp5-control-indicator"></span>
+                            Загружать рейтинг и отзывы
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div style="grid-column: span 3 / span 3;">
+        {% include "dashboard/_company_update_menu.html" %}
+    </div>
+</div>
+{% endblock %}
+{% block script %}
+<script>
+    IMask(document.getElementById('id_phone'), {mask: '+7 000 000-00-00'});
+</script>
+{% endblock %}

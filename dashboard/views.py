@@ -20,12 +20,16 @@ from resources.tasks import send_telegram_text_task
 from .filters import MessageFilter, ReviewFilter, RatingStampFilter
 from .forms import (
     CompanyForm,
-    ProfileForm,
-    ReviewForm,
+    CompanyContactForm,
+    CompanyDataForm,
+    CompanyLinkForm,
+    CompanyParserForm,
     DashboardAuthenticationForm,
     DashboardUserChangeForm,
     DashboardSetPasswordForm,
-    DashboardUserCreationForm
+    DashboardUserCreationForm,
+    ProfileForm,
+    ReviewForm,
 )
 
 
@@ -68,7 +72,7 @@ class CompanyDetailView(DetailView):
 
         context["host"] = settings.HOST
         context["nav"] = "company"
-        context["sub_nav"] = "detail"
+        context["tab_nav"] = "detail"
 
         if range_param in range_map:
             context["reviews_yandex_positive_count"] = company[f"reviews_yandex_positive{range_map[range_param]}count"]
@@ -123,24 +127,25 @@ class CompanyCreateView(SuccessMessageMixin, CreateView):
         return reverse("company_update", kwargs={"pk": self.object.id})
 
 
-class CompanyUpdateView(SuccessMessageMixin, UpdateView):
+class CompanyParserUpdateView(SuccessMessageMixin, UpdateView):
     context_object_name = "company"
-    form_class = CompanyForm
+    form_class = CompanyParserForm
     model = Company
+    template_name = "dashboard/company_parser_update.html"
     success_message = "Настройки компании успешно сохранены"
-    template_name = "dashboard/company_update.html"
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
-        return super(CompanyUpdateView, self).dispatch(request, *args, **kwargs)
+        return super(CompanyParserUpdateView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         companies = Company.objects.filter(users__in=[self.request.user]).order_by("name").all()
         context["company_list"] = companies
         context["host"] = settings.HOST
+        context["menu_nav"] = "parser"
         context["nav"] = "company"
-        context["sub_nav"] = "update"
+        context["tab_nav"] = "update"
         return context
 
     def get_queryset(self, **kwargs):
@@ -149,7 +154,97 @@ class CompanyUpdateView(SuccessMessageMixin, UpdateView):
         return queryset
 
     def get_success_url(self):
-        return reverse("company_update", kwargs={"pk": self.object.id})
+        return reverse("company_parser_update", kwargs={"pk": self.object.id})
+
+
+class CompanyDataUpdateView(SuccessMessageMixin, UpdateView):
+    context_object_name = "company"
+    form_class = CompanyDataForm
+    model = Company
+    template_name = "dashboard/company_data_update.html"
+    success_message = "Настройки компании успешно сохранены"
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(CompanyDataUpdateView, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        companies = Company.objects.filter(users__in=[self.request.user]).order_by("name").all()
+        context["company_list"] = companies
+        context["host"] = settings.HOST
+        context["menu_nav"] = "data"
+        context["nav"] = "company"
+        context["tab_nav"] = "update"
+        return context
+
+    def get_queryset(self, **kwargs):
+        queryset = super().get_queryset(**kwargs)
+        queryset = queryset.filter(users__in=[self.request.user])
+        return queryset
+
+    def get_success_url(self):
+        return reverse("company_data_update", kwargs={"pk": self.object.id})
+
+
+class CompanyLinkUpdateView(SuccessMessageMixin, UpdateView):
+    context_object_name = "company"
+    form_class = CompanyLinkForm
+    model = Company
+    template_name = "dashboard/company_link_update.html"
+    success_message = "Настройки компании успешно сохранены"
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(CompanyLinkUpdateView, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        companies = Company.objects.filter(users__in=[self.request.user]).order_by("name").all()
+        context["company_list"] = companies
+        context["host"] = settings.HOST
+        context["menu_nav"] = "link"
+        context["nav"] = "company"
+        context["tab_nav"] = "update"
+        return context
+
+    def get_queryset(self, **kwargs):
+        queryset = super().get_queryset(**kwargs)
+        queryset = queryset.filter(users__in=[self.request.user])
+        return queryset
+
+    def get_success_url(self):
+        return reverse("company_data_update", kwargs={"pk": self.object.id})
+
+
+class CompanyContactUpdateView(SuccessMessageMixin, UpdateView):
+    context_object_name = "company"
+    form_class = CompanyContactForm
+    model = Company
+    template_name = "dashboard/company_contact_update.html"
+    success_message = "Настройки компании успешно сохранены"
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(CompanyContactUpdateView, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        companies = Company.objects.filter(users__in=[self.request.user]).order_by("name").all()
+        context["company_list"] = companies
+        context["host"] = settings.HOST
+        context["menu_nav"] = "contact"
+        context["nav"] = "company"
+        context["tab_nav"] = "update"
+        return context
+
+    def get_queryset(self, **kwargs):
+        queryset = super().get_queryset(**kwargs)
+        queryset = queryset.filter(users__in=[self.request.user])
+        return queryset
+
+    def get_success_url(self):
+        return reverse("company_contact_update", kwargs={"pk": self.object.id})
 
 
 class CompanyRatingDynamic(BaseLineChartView):
@@ -225,7 +320,7 @@ class ReviewListView(FilterView):
         context = super().get_context_data(**kwargs)
         context["company"] = get_object_or_404(Company, pk=self.kwargs["company_pk"], users__in=[self.request.user])
         context["nav"] = "company"
-        context["sub_nav"] = "review"
+        context["tab_nav"] = "review"
         return context
 
     def get_queryset(self, **kwargs):
@@ -250,7 +345,7 @@ class ReviewUpdateView(SuccessMessageMixin, UpdateView):
         context = super().get_context_data(**kwargs)
         context["company"] = get_object_or_404(Company, pk=self.kwargs["company_pk"], users__in=[self.request.user])
         context["nav"] = "company"
-        context["sub_nav"] = "review"
+        context["tab_nav"] = "review"
         return context
 
     def get_queryset(self, **kwargs):
@@ -276,7 +371,7 @@ class MessageListView(FilterView):
         context = super().get_context_data(**kwargs)
         context["company"] = get_object_or_404(Company, pk=self.kwargs["company_pk"], users__in=[self.request.user])
         context["nav"] = "company"
-        context["sub_nav"] = "message"
+        context["tab_nav"] = "message"
         return context
 
     def get_queryset(self, **kwargs):
@@ -300,7 +395,7 @@ def qr(request, company_pk):
         {
             "company": company,
             "nav": "company",
-            "sub_nav": "qr",
+            "tab_nav": "qr",
             "orientation": orientation,
             "theme": theme
         }
@@ -321,7 +416,7 @@ def widget_rating(request, company_pk):
             "company": company,
             "nav": "company",
             "position": position,
-            "sub_nav": "widget_rating",
+            "tab_nav": "widget_rating",
             "theme": theme
         }
     )
@@ -341,7 +436,7 @@ def widget_reviews(request, company_pk):
             "company": company,
             "layout": layout,
             "nav": "company",
-            "sub_nav": "widget_reviews",
+            "tab_nav": "widget_reviews",
             "theme": theme
         }
     )
@@ -366,7 +461,7 @@ def profile(request):
         {
             "form": form,
             "nav": "settings",
-            "sub_nav": "profile",
+            "tab_nav": "profile",
         },
     )
 
@@ -379,7 +474,7 @@ def rate(request):
         "dashboard/rate.html",
         {
             "nav": "finance",
-            "sub_nav": "rate",
+            "tab_nav": "rate",
         }
     )
 
@@ -392,7 +487,7 @@ def billing(request):
         "dashboard/billing.html",
         {
             "nav": "finance",
-            "sub_nav": "billing",
+            "tab_nav": "billing",
         }
     )
 
@@ -412,7 +507,7 @@ def account(request):
 
     return render(request, "dashboard/account.html", {
         "nav": "settings",
-        "sub_nav": "account",
+        "tab_nav": "account",
         "form": form
     })
 
@@ -432,7 +527,7 @@ def security(request):
 
     return render(request, "dashboard/security.html", {
         "nav": "settings",
-        "sub_nav": "security",
+        "tab_nav": "security",
         "form": form
     })
 

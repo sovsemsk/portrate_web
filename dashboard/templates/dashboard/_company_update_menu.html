@@ -1,0 +1,20 @@
+        <ul class="bp5-menu bp5-elevation-1">
+            <li class="bp5-menu-header">
+                <h6 class="bp5-heading">Основное</h6>
+            </li>
+            <a class="bp5-menu-item {% if menu_nav == 'parser' %}bp5-active{% endif %}" href="{% url 'company_parser_update' company.id %}">
+                Сбор отзывов
+            </a>
+            <a class="bp5-menu-item {% if menu_nav == 'data' %}bp5-active{% endif %}" href="{% url 'company_data_update' company.id %}">
+                Данные компании
+            </a>
+            <li class="bp5-menu-header">
+                <h6 class="bp5-heading">Дополнительно</h6>
+            </li>
+            <a class="bp5-menu-item {% if menu_nav == 'link' %}bp5-active{% endif %}" href="{% url 'company_link_update' company.id %}">
+                Запрос отзывов
+            </a>
+            <a class="bp5-menu-item {% if menu_nav == 'contact' %}bp5-active{% endif %}" href="{% url 'company_contact_update' company.id %}">
+                Контактные данные
+            </a>
+        </ul>

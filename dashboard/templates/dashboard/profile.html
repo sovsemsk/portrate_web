@@ -3,7 +3,7 @@
 {% block content %}
 {% include "dashboard/_settings_tabs.html" %}
 <div class="bp5-form-group">
-    <div style="display:flex;gap:5px;">
+    <div class="bp5-control-group">
         <button class="bp5-button bp5-intent-warning" form="PROFILE_FORM" type="submit">Сохранить</button>
         {% if request.user.profile.telegram_id %}
         <a class="bp5-button bp5-intent-warning" href="{% url 'telegram_notify_unsubscribe' %}?next={{request.path}}">Отписаться от оповещений</a>

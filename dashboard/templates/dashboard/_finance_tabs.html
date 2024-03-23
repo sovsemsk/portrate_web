@@ -15,8 +15,8 @@
 <div class="bp5-form-group">
     <div class="bp5-tabs">
         <ul class="bp5-tab-list">
-            <a class="bp5-tab" {% if sub_nav == "billing" %}aria-selected="true"{% endif %} href="{% url 'billing' %}">Счет</a>
-            <a class="bp5-tab" {% if sub_nav == "rate" %}aria-selected="true"{% endif %} href="{% url 'rate' %}">Тариф</a>
+            <a class="bp5-tab" {% if tab_nav == "billing" %}aria-selected="true"{% endif %} href="{% url 'billing' %}">Счет</a>
+            <a class="bp5-tab" {% if tab_nav == "rate" %}aria-selected="true"{% endif %} href="{% url 'rate' %}">Тариф</a>
         </ul>
     </div>
 </div>

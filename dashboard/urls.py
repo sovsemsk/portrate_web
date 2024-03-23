@@ -3,10 +3,13 @@ from django.urls import path
 from .views import (
     account,
     billing,
-    CompanyListView,
     CompanyCreateView,
+    CompanyContactUpdateView,
+    CompanyDataUpdateView,
     CompanyDetailView,
-    CompanyUpdateView,
+    CompanyListView,
+    CompanyLinkUpdateView,
+    CompanyParserUpdateView,
     CompanyRatingYandexDynamic,
     CompanyRatingGisDynamic,
     CompanyRatingGoogleDynamic,
@@ -22,14 +25,17 @@ from .views import (
     user_login,
     user_logout,
     widget_rating,
-    widget_reviews,
+    widget_reviews
 )
 
 urlpatterns = [
     path("", CompanyListView.as_view(), name="company_list"),
     path("company/create/", CompanyCreateView.as_view(), name="company_create"),
     path("company/<int:pk>/", CompanyDetailView.as_view(), name="company_detail"),
-    path("company/<int:pk>/update/", CompanyUpdateView.as_view(), name="company_update"),
+    path("company/<int:pk>/parser_update/", CompanyParserUpdateView.as_view(), name="company_parser_update"),
+    path("company/<int:pk>/data_update/", CompanyDataUpdateView.as_view(), name="company_data_update"),
+    path("company/<int:pk>/link_update/", CompanyLinkUpdateView.as_view(), name="company_link_update"),
+    path("company/<int:pk>/contact_update/", CompanyContactUpdateView.as_view(), name="company_contact_update"),
     path("company/<int:company_pk>/rating_yandex_dynamic/", CompanyRatingYandexDynamic.as_view(), name="company_rating_yandex_dynamic"),
     path("company/<int:company_pk>/rating_gis_dynamic/", CompanyRatingGisDynamic.as_view(), name="company_rating_gis_dynamic"),
     path("company/<int:company_pk>/rating_google_dynamic/", CompanyRatingGoogleDynamic.as_view(), name="company_rating_google_dynamic"),

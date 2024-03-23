@@ -29,8 +29,12 @@
                 <img alt="{{ company.name }}" class="bp5-elevation-1" src="{{company.logo.url}}" width=35>
                 {% endif %}
                 <div>
-                    <h6 class="bp5-heading bp5-section-header-title">{{company.name}}</h6>
-                    <div class="bp5-section-header-sub-title bp5-text-muted">{{company.address}}</div>
+                    <h6 class="bp5-heading bp5-section-header-title">
+                        {{company.name}}
+                    </h6>
+                    <div class="bp5-section-header-sub-title bp5-text-muted">
+                        {{company.address}}
+                    </div>
                 </div>
             </div>
         </div>
@@ -81,9 +85,9 @@
                     </div>
                 </div>
             </div>
-            <div style="display:flex;gap:5px;">
+            <div class="bp5-control-group">
                 <a class="bp5-button bp5-intent-warning" href="{% url 'company_detail' company.id %}">Открыть</a>
-                <a class="bp5-button bp5-intent-warning" href="{% url 'company_update' company.id %}">Настройки</a>
+                <a class="bp5-button bp5-intent-warning" href="{% url 'company_parser_update' company.id %}">Настройки</a>
                 <a class="bp5-button bp5-intent-warning" href="{{company.host}}/@{{company.id}}" target="_blank">Форма запроса отзыва</a>
             </div>
         </div>

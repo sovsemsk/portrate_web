@@ -15,9 +15,9 @@
 <div class="bp5-form-group">
     <div class="bp5-tabs">
         <ul class="bp5-tab-list">
-            <a class="bp5-tab" {% if sub_nav == "profile" %}aria-selected="true"{% endif %} href="{% url 'profile' %}">Профиль</a>
-            <a class="bp5-tab" {% if sub_nav == "account" %}aria-selected="true"{% endif %} href="{% url 'account' %}">Акканут</a>
-            <a class="bp5-tab" {% if sub_nav == "security" %}aria-selected="true"{% endif %} href="{% url 'security' %}">Безопасность</a>
+            <a class="bp5-tab" {% if tab_nav == "profile" %}aria-selected="true"{% endif %} href="{% url 'profile' %}">Профиль</a>
+            <a class="bp5-tab" {% if tab_nav == "account" %}aria-selected="true"{% endif %} href="{% url 'account' %}">Акканут</a>
+            <a class="bp5-tab" {% if tab_nav == "security" %}aria-selected="true"{% endif %} href="{% url 'security' %}">Безопасность</a>
         </ul>
     </div>
 </div>

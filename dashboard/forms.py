@@ -38,36 +38,26 @@ class CompanyForm(ModelForm):
         model = Company
         fields = [
             "address",
-            "logo",
-            "name",
             "phone",
+            "logo",
+            "name"
+        ]
+
+    address = CharField(widget=TextInput(attrs={"class": "bp5-input"}))
+    phone = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
+    logo = ImageField(widget=FileInput(), required=False)
+    name = CharField(widget=TextInput(attrs={"class": "bp5-input"}))
+
+
+class CompanyParserForm(ModelForm):
+    class Meta:
+        model = Company
+        fields = [
             "parser_link_yandex",
-            "parser_link_gis",
-            "parser_link_google",
-            "form_link_yandex",
-            "form_link_gis",
-            "form_link_google",
-            "form_link_mapsme",
-            "form_link_dikidi",
-            "form_link_restoclub",
-            "form_link_tripadvisor",
-            "form_link_prodoctorov",
-            "form_link_flamp",
-            "form_link_zoon",
-            "form_link_otzovik",
-            "form_link_irecommend",
-            "form_contact_whatsapp",
-            "form_contact_telegram",
-            "form_contact_viber",
-            "form_contact_website",
-            "form_contact_vk",
-            "form_contact_ok",
-            "form_contact_facebook",
-            "form_contact_instagram",
-            "form_contact_youtube",
-            "form_contact_x",
             "is_parse_yandex",
+            "parser_link_gis",
             "is_parse_gis",
+            "parser_link_google",
             "is_parse_google"
         ]
 
@@ -83,19 +73,50 @@ class CompanyForm(ModelForm):
         if self.data and self.data.get("is_parse_google"):
                 self.fields.get("parser_link_google").required = True
 
+    parser_link_yandex = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
+    is_parse_yandex = BooleanField(required=False)
+    parser_link_gis = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
+    is_parse_gis = BooleanField(required=False)
+    parser_link_google = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
+    is_parse_google = BooleanField(required=False)
+
+
+class CompanyDataForm(ModelForm):
+    class Meta:
+        model = Company
+        fields = [
+            "address",
+            "phone",
+            "logo",
+            "name"
+        ]
+
     address = CharField(widget=TextInput(attrs={"class": "bp5-input"}))
+    phone = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
     logo = ImageField(widget=FileInput(), required=False)
     name = CharField(widget=TextInput(attrs={"class": "bp5-input"}))
-    phone = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
 
-    parser_link_yandex = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
-    parser_link_gis = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
-    parser_link_google = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
+
+class CompanyLinkForm(ModelForm):
+    class Meta:
+        model = Company
+        fields = [
+            "form_link_yandex",
+            "form_link_gis",
+            "form_link_google",
+            "form_link_dikidi",
+            "form_link_restoclub",
+            "form_link_tripadvisor",
+            "form_link_prodoctorov",
+            "form_link_flamp",
+            "form_link_zoon",
+            "form_link_otzovik",
+            "form_link_irecommend"
+        ]
 
     form_link_yandex = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
     form_link_gis = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
     form_link_google = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
-    form_link_mapsme = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
     form_link_dikidi = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
     form_link_restoclub = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
     form_link_tripadvisor = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
@@ -104,6 +125,23 @@ class CompanyForm(ModelForm):
     form_link_zoon = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
     form_link_otzovik = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
     form_link_irecommend = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
+
+
+class CompanyContactForm(ModelForm):
+    class Meta:
+        model = Company
+        fields = [
+            "form_contact_whatsapp",
+            "form_contact_telegram",
+            "form_contact_viber",
+            "form_contact_website",
+            "form_contact_vk",
+            "form_contact_ok",
+            "form_contact_facebook",
+            "form_contact_instagram",
+            "form_contact_youtube",
+            "form_contact_x",
+        ]
 
     form_contact_whatsapp = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
     form_contact_telegram = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
@@ -115,10 +153,6 @@ class CompanyForm(ModelForm):
     form_contact_instagram = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
     form_contact_youtube = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
     form_contact_x = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
-
-    is_parse_yandex = BooleanField(required=False)
-    is_parse_gis = BooleanField(required=False)
-    is_parse_google = BooleanField(required=False)
 
 
 class ReviewForm(ModelForm):

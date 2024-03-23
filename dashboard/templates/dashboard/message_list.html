@@ -6,8 +6,10 @@
 {% include "dashboard/_company_tabs.html" %}
 <div class="bp5-form-group">
     <form novalidate>
-        <div style="align-items:center;display:flex;gap:5px;">
-            {{filter.form.created_at}}
+        <div class="bp5-control-group">
+            <div style="align-items:center;display:flex;gap:10px;">
+                {{filter.form.created_at}}
+            </div>
             <button class="bp5-button bp5-intent-warning" type="submit">Найти</button>
         </div>
     </form>

@@ -96,7 +96,6 @@ class Company(models.Model):
     form_link_yandex = models.CharField(blank=True, null=True, verbose_name="ссылка Яндекс")
     form_link_gis = models.CharField(blank=True, null=True, verbose_name="ссылка 2Гис")
     form_link_google = models.CharField(blank=True, null=True, verbose_name="ссылка Google")
-    form_link_mapsme = models.CharField(blank=True, null=True, verbose_name="ссылка Mapsme")
     form_link_dikidi = models.CharField(blank=True, null=True, verbose_name="ссылка Dikidi")
     form_link_restoclub = models.CharField(blank=True, null=True, verbose_name="ссылка Рестоклуб")
     form_link_tripadvisor = models.CharField(blank=True, null=True, verbose_name="ссылка Tripadvisor")

@@ -75,7 +75,6 @@ class CompanyAdmin(admin.ModelAdmin):
                     "form_link_yandex",
                     "form_link_gis",
                     "form_link_google",
-                    "form_link_mapsme",
                     "form_link_dikidi",
                     "form_link_restoclub",
                     "form_link_tripadvisor",
