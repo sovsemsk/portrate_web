@@ -2,84 +2,82 @@
 {% load static %}
 {% block content %}
 <div class="bp5-padded bp5-section-card">
-    <div class="bp5-form-group">
-        <h2 class="bp5-heading" style="text-align:center;">
-            Наградите нас отзывом
-        </h2>
-    </div>
+    <h5 class="bp5-heading pio-heading">
+        Наградите нас отзывом
+    </h5>
     <div class="bp5-card bp5-card-list bp5-card-list-bordered bp5-compact">
         {% if company.form_link_yandex %}
-        <a class="bp5-card bp5-elevation-0 bp5-interactive" style="color:black;" href="{{ company.form_link_yandex }}" target="_blank">
+        <a class="bp5-card bp5-elevation-0 bp5-interactive" href="{{ company.form_link_yandex }}" target="_blank">
             <img style="margin-right:10px;width:16px;" src="{% static 'images/services/yandex.svg' %}" alt="{{ company.name }}">
             <span>Оценить на Яндекс</span>
             <span class="bp5-icon bp5-icon-share" style="margin-left:auto;"></span>
         </a>
         {% endif %}
         {% if company.form_link_gis %}
-        <a class="bp5-card bp5-elevation-0 bp5-interactive" style="color:black;" href="{{ company.form_link_gis }}" target="_blank">
+        <a class="bp5-card bp5-elevation-0 bp5-interactive" href="{{ company.form_link_gis }}" target="_blank">
             <img style="margin-right:10px;width:16px;" src="{% static 'images/services/gis.svg' %}" alt="{{ company.name }}">
             <span>Оценить на 2Гис</span>
             <span class="bp5-icon bp5-icon-share" style="margin-left:auto;"></span>
         </a>
         {% endif %}
         {% if company.form_link_google %}
-        <a class="bp5-card bp5-elevation-0 bp5-interactive" style="color:black;" href="{{ company.form_link_google }}" target="_blank">
+        <a class="bp5-card bp5-elevation-0 bp5-interactive" href="{{ company.form_link_google }}" target="_blank">
             <img style="margin-right:10px;width:16px;" src="{% static 'images/services/google.svg' %}" alt="{{ company.name }}">
             <span>Оценить на Google</span>
             <span class="bp5-icon bp5-icon-share" style="margin-left:auto;"></span>
         </a>
         {% endif %}
         {% if company.form_link_dikidi %}
-        <a class="bp5-card bp5-elevation-0 bp5-interactive" style="color:black;" href="{{ company.form_link_dikidi }}" target="_blank">
+        <a class="bp5-card bp5-elevation-0 bp5-interactive" href="{{ company.form_link_dikidi }}" target="_blank">
             <img style="margin-right:10px;width:16px;" src="{% static 'images/services/dikidi.png' %}" alt="{{ company.name }}">
             <span>Оценить на Dikidi</span>
             <span class="bp5-icon bp5-icon-share" style="margin-left:auto;"></span>
         </a>
         {% endif %}
         {% if company.form_link_restoclub %}
-        <a class="bp5-card bp5-elevation-0 bp5-interactive" style="color:black;" href="{{ company.form_link_restoclub }}" target="_blank">
+        <a class="bp5-card bp5-elevation-0 bp5-interactive" href="{{ company.form_link_restoclub }}" target="_blank">
             <img style="margin-right:10px;width:16px;" src="{% static 'images/services/restoclub.svg' %}" alt="{{ company.name }}">
             <span>Оценить на Рестоклуб</span>
             <span class="bp5-icon bp5-icon-share" style="margin-left:auto;"></span>
         </a>
         {% endif %}
         {% if company.form_link_tripadvisor %}
-        <a class="bp5-card bp5-elevation-0 bp5-interactive" style="color:black;" href="{{ company.form_link_tripadvisor }}" target="_blank">
+        <a class="bp5-card bp5-elevation-0 bp5-interactive" href="{{ company.form_link_tripadvisor }}" target="_blank">
             <img style="margin-right:10px;width:16px;" src="{% static 'images/services/tripadvisor.svg' %}" alt="{{ company.name }}">
             <span>Оценить на Tripadvisor</span>
             <span class="bp5-icon bp5-icon-share" style="margin-left:auto;"></span>
         </a>
         {% endif %}
         {% if company.form_link_prodoctorov %}
-        <a class="bp5-card bp5-elevation-0 bp5-interactive" style="color:black;" href="{{ company.form_link_prodoctorov }}" target="_blank">
+        <a class="bp5-card bp5-elevation-0 bp5-interactive" href="{{ company.form_link_prodoctorov }}" target="_blank">
             <img style="margin-right:10px;width:16px;" src="{% static 'images/services/prodoctorov.png' %}" alt="{{ company.name }}">
             <span>Оценить на Продокторов</span>
             <span class="bp5-icon bp5-icon-share" style="margin-left:auto;"></span>
         </a>
         {% endif %}
         {% if company.form_link_flamp %}
-        <a class="bp5-card bp5-elevation-0 bp5-interactive" style="color:black;" href="{{ company.form_link_flamp }}" target="_blank">
+        <a class="bp5-card bp5-elevation-0 bp5-interactive" href="{{ company.form_link_flamp }}" target="_blank">
             <img style="margin-right:10px;width:16px;" src="{% static 'images/services/flamp.png' %}" alt="{{ company.name }}">
             <span>Оценить на Flamp</span>
             <span class="bp5-icon bp5-icon-share" style="margin-left:auto;"></span>
         </a>
         {% endif %}
         {% if company.form_link_zoon %}
-        <a class="bp5-card bp5-elevation-0 bp5-interactive" style="color:black;" href="{{ company.form_link_zoon }}" target="_blank">
+        <a class="bp5-card bp5-elevation-0 bp5-interactive" href="{{ company.form_link_zoon }}" target="_blank">
             <img style="margin-right:10px;width:16px;" src="{% static 'images/services/zoon.svg' %}" alt="{{ company.name }}">
             <span>Оценить на Zoon</span>
             <span class="bp5-icon bp5-icon-share" style="margin-left:auto;"></span>
         </a>
         {% endif %}
         {% if company.form_link_otzovik %}
-        <a class="bp5-card bp5-elevation-0 bp5-interactive" style="color:black;" href="{{ company.form_link_otzovik }}" target="_blank">
+        <a class="bp5-card bp5-elevation-0 bp5-interactive" href="{{ company.form_link_otzovik }}" target="_blank">
             <img style="margin-right:10px;width:16px;" src="{% static 'images/services/otzovik.svg' %}" alt="{{ company.name }}">
             <span>Оценить на Отзовик</span>
             <span class="bp5-icon bp5-icon-share" style="margin-left:auto;"></span>
         </a>
         {% endif %}
         {% if company.form_link_irecommend %}
-        <a class="bp5-card bp5-elevation-0 bp5-interactive" style="color:black;" href="{{ company.form_link_irecommend }}" target="_blank">
+        <a class="bp5-card bp5-elevation-0 bp5-interactive" href="{{ company.form_link_irecommend }}" target="_blank">
             <img style="margin-right:10px;width:16px;" src="{% static 'images/services/irecommend.png' %}" alt="{{ company.name }}">
             <span>Оценить на Irecommend</span>
             <span class="bp5-icon bp5-icon-share" style="margin-left:auto;"></span>

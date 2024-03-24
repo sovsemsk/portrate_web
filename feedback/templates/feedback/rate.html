@@ -2,12 +2,12 @@
 {% load static %}
 {% block content %}
 <div class="bp5-padded bp5-section-card">
-    <div class="bp5-form-group">
-        <h2 class="bp5-heading" style="text-align:center;">
-            Вам понравилось обслуживание?
-        </h2>
+    <h5 class="bp5-heading pio-heading">
+        Вам понравилось обслуживание?
+    </h5>
+    <div class="bp5-control-group bp5-fill bp5-vertical">
+        <a class="bp5-button bp5-intent-success bp5-large pio-button"  href="{% url 'request' company_pk=company.id %}">Все отлично</a>
+        <a class="bp5-button pio-button" href="{% url 'create' company_pk=company.id %}">Есть претензия</a>
     </div>
-    <a class="bp5-button bp5-fill bp5-large bp5-intent-success" style="margin-bottom:5px;" href="{% url 'request' company_pk=company.id %}">Все отлично</a>
-    <a class="bp5-button bp5-fill" href="{% url 'create' company_pk=company.id %}">Есть претензия</a>
 </div>
 {% endblock %}

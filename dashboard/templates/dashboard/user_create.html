@@ -42,6 +42,10 @@
                 <div class="bp5-form-helper-text" style="color:#ac2f33">
                     {{form.username.errors.as_text}}
                 </div>
+                {% else %}
+                <div class="bp5-form-helper-text">
+                    Буквы, цифры и символы @/./+/-/_.
+                </div>
                 {% endif %}
             </div>
             <div class="bp5-control-group bp5-fill">
