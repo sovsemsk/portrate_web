@@ -87,41 +87,39 @@
                     </div>
                 </div>
             </div>
-            <div class="bp5-form-group">
-                <div class="bp5-card bp5-elevation-1 bp5-section">
-                    <div class="bp5-section-header">
-                        <div class="bp5-section-header-left">
-                            <h6 class="bp5-heading bp5-section-header-title">
-                                Google
-                            </h6>
-                        </div>
-                        <div class="bp5-section-header-right">
-                            <img alt="Google" class="bp5-icon" height=16 src="{% static 'images/services/google.svg' %}" width=16>
-                        </div>
+            <div class="bp5-card bp5-elevation-1 bp5-section">
+                <div class="bp5-section-header">
+                    <div class="bp5-section-header-left">
+                        <h6 class="bp5-heading bp5-section-header-title">
+                            Google
+                        </h6>
                     </div>
-                    <div class="bp5-padded bp5-section-card">
-                        <div class="bp5-form-group">
-                            <label class="bp5-label">
-                                Ссылка должна строго соответствовать формату
-                                <div class="bp5-form-helper-text bp5-form-group">
-                                    https://www.google.com/maps/place/Portrate/@51.229089,58.4858305,18z/data=!4m17...
-                                </div>
-                            </label>
-                            {{form.parser_link_google}}
-                            {% if form.parser_link_google.errors %}
-                            <!-- Исключение для css (цвет текста) -->
-                            <div class="bp5-form-helper-text" style="color:#ac2f33">
-                                {{form.parser_link_google.errors.as_text}}
+                    <div class="bp5-section-header-right">
+                        <img alt="Google" class="bp5-icon" height=16 src="{% static 'images/services/google.svg' %}" width=16>
+                    </div>
+                </div>
+                <div class="bp5-padded bp5-section-card">
+                    <div class="bp5-form-group">
+                        <label class="bp5-label">
+                            Ссылка должна строго соответствовать формату
+                            <div class="bp5-form-helper-text bp5-form-group">
+                                https://www.google.com/maps/place/Portrate/@51.229089,58.4858305,18z/data=!4m17...
                             </div>
-                            {% endif %}
-                        </div>
-                        <!-- Исключение для css (отступы) -->
-                        <label class="bp5-control bp5-switch" style="margin-bottom:0;">
-                            {{form.is_parse_google}}
-                            <span class="bp5-control-indicator"></span>
-                            Загружать рейтинг и отзывы
                         </label>
+                        {{form.parser_link_google}}
+                        {% if form.parser_link_google.errors %}
+                        <!-- Исключение для css (цвет текста) -->
+                        <div class="bp5-form-helper-text" style="color:#ac2f33">
+                            {{form.parser_link_google.errors.as_text}}
+                        </div>
+                        {% endif %}
                     </div>
+                    <!-- Исключение для css (отступы) -->
+                    <label class="bp5-control bp5-switch" style="margin-bottom:0;">
+                        {{form.is_parse_google}}
+                        <span class="bp5-control-indicator"></span>
+                        Загружать рейтинг и отзывы
+                    </label>
                 </div>
             </div>
         </form>

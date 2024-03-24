@@ -7,57 +7,91 @@
         <button class="bp5-button bp5-intent-warning" form="PROFILE_FORM" type="submit">Сохранить</button>
     </div>
 </div>
-<form id="PROFILE_FORM" method="post" novalidate>
-    {% csrf_token %}
-    <div class="bp5-form-group">
-        <div class="bp5-card bp5-elevation-1 bp5-section">
-            <div class="bp5-section-header">
-                <div class="bp5-section-header-left">
-                    <div>
-                        <h6 class="bp5-heading bp5-section-header-title">Аккаунт</h6>
-                        <div class="bp5-section-header-sub-title bp5-text-muted">
-                            настройки имени пользователя и почты
+<div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:15px">
+    <div style="grid-column: span 9 / span 9;">
+        <form id="PROFILE_FORM" method="post" novalidate>
+            {% csrf_token %}
+            <div class="bp5-form-group">
+                <div class="bp5-card bp5-elevation-1 bp5-section">
+                    <div class="bp5-section-header">
+                        <div class="bp5-section-header-left">
+                            <h6 class="bp5-heading bp5-section-header-title">
+                                Вход
+                            </h6>
+                        </div>
+                        <div class="bp5-section-header-right">
+                            <span class="bp5-icon bp5-icon-lock bp5-text-muted"></span>
+                        </div>
+                    </div>
+                    <div class="bp5-padded bp5-section-card">
+                        <div class="bp5-control-group bp5-fill">
+                            <div class="bp5-form-group" style="flex: 1 0 50%">
+                                <label class="bp5-label">Имя пользователя</label>
+                                {{form.username}}
+                                {% if form.username.errors %}
+                                <!-- Исключение для css (цвет текста) -->
+                                <div class="bp5-form-helper-text" style="color:#ac2f33">
+                                    {{form.username.errors.as_text}}
+                                </div>
+                                {% else %}
+                                <div class="bp5-form-helper-text">
+                                    Буквы, цифры и символы @/./+/-/_.
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="bp5-form-group" style="flex: 1 0 50%">
+                                <label class="bp5-label">Электронная почта</label>
+                                {{form.email}}
+                                {% if form.email.errors %}
+                                <!-- Исключение для css (цвет текста) -->
+                                <div class="bp5-form-helper-text" style="color:#ac2f33">
+                                    {{form.email.errors.as_text}}
+                                </div>
+                                {% else %}
+                                <div class="bp5-form-helper-text">
+                                    Следует указать реальную почту
+                                </div>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="bp5-padded bp5-section-card">
-                <div class="bp5-form-group">
-                    <label class="bp5-label">Имя пользователя</label>
-                    {{form.username}}
-                    <!-- Исключение для css (цвет текста) -->
-                    <div class="bp5-form-helper-text" style="color:#ac2f33">
-                        {{form.username.errors.as_text}}
+            <div class="bp5-card bp5-elevation-1 bp5-section">
+                <div class="bp5-section-header">
+                    <div class="bp5-section-header-left">
+                        <h6 class="bp5-heading bp5-section-header-title">
+                            Данные
+                        </h6>
+                    </div>
+                    <div class="bp5-section-header-right">
+                        <span class="bp5-icon bp5-icon-id-number bp5-text-muted"></span>
                     </div>
                 </div>
-                <div class="bp5-form-group">
-                    <label class="bp5-label">Электронная почта</label>
-                    {{form.email}}
-                    <!-- Исключение для css (цвет текста) -->
-                    <div class="bp5-form-helper-text" style="color:#ac2f33">
-                        {{form.email.errors.as_text}}
-                    </div>
-                </div>
-                <div class="bp5-form-group">
-                    <label class="bp5-label">Имя</label>
-                    {{form.first_name}}
-                    <!-- Исключение для css (цвет текста) -->
-                    <div class="bp5-form-helper-text" style="color:#ac2f33">
-                        {{form.first_name.errors.as_text}}
-                    </div>
-                </div>
-                <div class="bp5-form-group">
-                    <label class="bp5-label">Фамилия</label>
-                    {{form.last_name}}
-                    <!-- Исключение для css (цвет текста) -->
-                    <div class="bp5-form-helper-text" style="color:#ac2f33">
-                        {{form.last_name.errors.as_text}}
+                <div class="bp5-padded bp5-section-card">
+                    <div class="bp5-control-group bp5-fill">
+                        <div class="bp5-form-group" style="flex: 1 0 50%">
+                            <label class="bp5-label">Имя</label>
+                            {{form.first_name}}
+                            <!-- Исключение для css (цвет текста) -->
+                            <div class="bp5-form-helper-text" style="color:#ac2f33">
+                                {{form.first_name.errors.as_text}}
+                            </div>
+                        </div>
+                        <div class="bp5-form-group" style="flex: 1 0 50%">
+                            <label class="bp5-label">Фамилия</label>
+                            {{form.last_name}}
+                            <!-- Исключение для css (цвет текста) -->
+                            <div class="bp5-form-helper-text" style="color:#ac2f33">
+                                {{form.last_name.errors.as_text}}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-</form>
+        </form>
+    </div>
+</div>
 {% endblock %}
 {% block right %}
 {% endblock %}

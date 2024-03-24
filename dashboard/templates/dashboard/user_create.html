@@ -4,11 +4,13 @@
 <div class="bp5-card bp5-elevation-1 bp5-section">
     <div class="bp5-section-header">
         <div class="bp5-section-header-left">
-            <img style="width:24px;" src="{% static 'images/dashboard/logo.png' %}" alt="P">
             <div>
                 <h6 class="bp5-heading bp5-section-header-title">Портрет</h6>
                 <div class="bp5-section-header-sub-title bp5-text-muted">регистрация</div>
             </div>
+        </div>
+        <div class="bp5-section-header-left">
+            <img style="width:24px;" src="{% static 'images/dashboard/logo.png' %}" alt="P">
         </div>
     </div>
     <div class="bp5-section-card bp5-padded">
@@ -35,28 +37,40 @@
             <div class="bp5-form-group">
                 <label class="bp5-label">Имя пользователя</label>
                 {{form.username}}
+                {% if form.username.errors.as_text %}
                 <!-- Исключение для css (цвет текста) -->
                 <div class="bp5-form-helper-text" style="color:#ac2f33">
-                    {{ form.username.errors.as_text }}
+                    {{form.username.errors.as_text}}
+                </div>
+                {% endif %}
+            </div>
+            <div class="bp5-control-group bp5-fill">
+                <div class="bp5-form-group">
+                    <label class="bp5-label">Пароль</label>
+                    {{form.password1}}
+                    {% if form.password1.errors %}
+                    <!-- Исключение для css (цвет текста) -->
+                    <div class="bp5-form-helper-text" style="color:#ac2f33">
+                        {{form.password1.errors.as_text}}
+                    </div>
+                    {% else %}
+                    <div class="bp5-form-helper-text">
+                        Минимум 8 символов
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="bp5-form-group">
+                    <label class="bp5-label">Подтверждение пароля</label>
+                    {{form.password2}}
+                    {% if form.password2.errors %}
+                    <!-- Исключение для css (цвет текста) -->
+                    <div class="bp5-form-helper-text" style="color:#ac2f33">
+                        {{form.password2.errors.as_text}}
+                    </div>
+                    {% endif %}
                 </div>
             </div>
-            <div class="bp5-form-group">
-                <label class="bp5-label">Пароль</label>
-                {{form.password1}}
-                <!-- Исключение для css (цвет текста) -->
-                <div class="bp5-form-helper-text" style="color:#ac2f33">
-                    {{form.password1.errors.as_text}}
-                </div>
-            </div>
-            <div class="bp5-form-group">
-                <label class="bp5-label">Подтверждение пароля</label>
-                {{form.password2}}
-                <!-- Исключение для css (цвет текста) -->
-                <div class="bp5-form-helper-text" style="color:#ac2f33">
-                    {{form.password2.errors.as_text}}
-                </div>
-            </div>
-            <div style="display:flex;gap:5px;">
+            <div class="bp5-control-group">
                 <button class="bp5-button bp5-intent-success" type="submit">Зарегистрироваться</button>
                 <a class="bp5-button bp5-minimal" href="{% url 'user_login' %}">Войти</a>
             </div>

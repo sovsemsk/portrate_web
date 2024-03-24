@@ -21,7 +21,7 @@
                                 Мессенджеры
                             </h6>
                         </div>
-                        <div class="bp5-section-header-left">
+                        <div class="bp5-section-header-right">
                             <span class="bp5-icon bp5-icon-comment bp5-text-muted"></span>
                         </div>
                     </div>
@@ -36,14 +36,14 @@
                             </div>
                         </div>
                         <div class="bp5-control-group bp5-fill">
-                            <div class="bp5-form-group">
+                            <div class="bp5-form-group" style="flex: 1 0 50%">
                                 <label class="bp5-label">Whatsapp</label>
                                 {{form.form_contact_whatsapp}}
                                 <div class="bp5-form-helper-text">
                                     whatsapp://send?abid=+79878732200
                                 </div>
                             </div>
-                            <div class="bp5-form-group">
+                            <div class="bp5-form-group" style="flex: 1 0 50%">
                                 <label class="bp5-label">Viber</label>
                                 {{form.form_contact_viber}}
                                 <div class="bp5-form-helper-text">
@@ -54,72 +54,70 @@
                     </div>
                 </div>
             </div>
-            <div class="bp5-form-group">
-                <div class="bp5-card bp5-elevation-1 bp5-section">
-                    <div class="bp5-section-header">
-                        <div class="bp5-section-header-left">
-                            <h6 class="bp5-heading bp5-section-header-title">
-                                Интернет
-                            </h6>
-                        </div>
-                        <div class="bp5-section-header-left">
-                            <span class="bp5-icon bp5-icon-at bp5-text-muted"></span>
+            <div class="bp5-card bp5-elevation-1 bp5-section">
+                <div class="bp5-section-header">
+                    <div class="bp5-section-header-left">
+                        <h6 class="bp5-heading bp5-section-header-title">
+                            Интернет
+                        </h6>
+                    </div>
+                    <div class="bp5-section-header-right">
+                        <span class="bp5-icon bp5-icon-at bp5-text-muted"></span>
+                    </div>
+                </div>
+                <div class="bp5-padded bp5-section-card">
+                    <div class="bp5-form-group">
+                        <label class="bp5-label">Вебсайт</label>
+                        {{form.form_contact_website}}
+                        <div class="bp5-form-helper-text">
+                            https://portrate.io
                         </div>
                     </div>
-                    <div class="bp5-padded bp5-section-card">
-                        <div class="bp5-form-group">
-                            <label class="bp5-label">Вебсайт</label>
-                            {{form.form_contact_website}}
+                    <div class="bp5-control-group bp5-fill">
+                        <div class="bp5-form-group" style="flex: 1 0 50%">
+                            <label class="bp5-label">VK</label>
+                            {{form.form_contact_vk}}
                             <div class="bp5-form-helper-text">
-                                https://portrate.io
+                                https://vk.com/portrate_io
                             </div>
                         </div>
-                        <div class="bp5-control-group bp5-fill">
-                            <div class="bp5-form-group">
-                                <label class="bp5-label">VK</label>
-                                {{form.form_contact_vk}}
-                                <div class="bp5-form-helper-text">
-                                    https://vk.com/portrate_io
-                                </div>
-                            </div>
-                            <div class="bp5-form-group">
-                                <label class="bp5-label">Одноклассники</label>
-                                {{form.form_contact_ok}}
-                                <div class="bp5-form-helper-text">
-                                    https://vk.com/portrate_io
-                                </div>
+                        <div class="bp5-form-group" style="flex: 1 0 50%">
+                            <label class="bp5-label">Одноклассники</label>
+                            {{form.form_contact_ok}}
+                            <div class="bp5-form-helper-text">
+                                https://vk.com/portrate_io
                             </div>
                         </div>
-                        <div class="bp5-control-group bp5-fill">
-                            <div class="bp5-form-group">
-                                <label class="bp5-label">Facebook</label>
-                                {{form.form_contact_facebook}}
-                                <div class="bp5-form-helper-text">
-                                    https://facebook.com/portrate_io
-                                </div>
-                            </div>
-                            <div class="bp5-form-group">
-                                <label class="bp5-label">Instagram</label>
-                                {{form.form_contact_instagram}}
-                                <div class="bp5-form-helper-text">
-                                    https://instagram.com/portrate_io
-                                </div>
+                    </div>
+                    <div class="bp5-control-group bp5-fill">
+                        <div class="bp5-form-group" style="flex: 1 0 50%">
+                            <label class="bp5-label">Facebook</label>
+                            {{form.form_contact_facebook}}
+                            <div class="bp5-form-helper-text">
+                                https://facebook.com/portrate_io
                             </div>
                         </div>
-                        <div class="bp5-control-group bp5-fill">
-                            <div class="bp5-form-group">
-                                <label class="bp5-label">Youtube</label>
-                                {{form.form_contact_youtube}}
-                                <div class="bp5-form-helper-text">
-                                    https://youtube.com/portrate_io
-                                </div>
+                        <div class="bp5-form-group" style="flex: 1 0 50%">
+                            <label class="bp5-label">Instagram</label>
+                            {{form.form_contact_instagram}}
+                            <div class="bp5-form-helper-text">
+                                https://instagram.com/portrate_io
                             </div>
-                            <div class="bp5-form-group">
-                                <label class="bp5-label">X</label>
-                                {{form.form_contact_x}}
-                                <div class="bp5-form-helper-text">
-                                    https://x.com/portrate_io
-                                </div>
+                        </div>
+                    </div>
+                    <div class="bp5-control-group bp5-fill">
+                        <div class="bp5-form-group" style="flex: 1 0 50%">
+                            <label class="bp5-label">Youtube</label>
+                            {{form.form_contact_youtube}}
+                            <div class="bp5-form-helper-text">
+                                https://youtube.com/portrate_io
+                            </div>
+                        </div>
+                        <div class="bp5-form-group" style="flex: 1 0 50%">
+                            <label class="bp5-label">X</label>
+                            {{form.form_contact_x}}
+                            <div class="bp5-form-helper-text">
+                                https://x.com/portrate_io
                             </div>
                         </div>
                     </div>
