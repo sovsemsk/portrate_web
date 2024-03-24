@@ -7,7 +7,7 @@
     <form novalidate>
         <div class="bp5-control-group">
             <!-- @TODO: inline style -->
-            <div style="align-items:center;display:flex;gap:10px;">
+            <div style="align-items:center;display:flex;gap:5px;">
                 {{filter.form.created_at}}
             </div>
             <div class="bp5-html-select ">
@@ -25,7 +25,7 @@
 {% if review_list %}
 {% for review in review_list %}
 <div class="bp5-form-group">
-    <div class="bp5-section bp5-card bp5-elevation-1">
+    <div class="bp5-section bp5-card">
         <div class="bp5-section-header">
             <div class="bp5-section-header-left">
                 <div>
@@ -68,7 +68,7 @@
 {% endfor %}
 {% include "dashboard/_pagination.html" %}
 {% else %}
-<div class="bp5-card bp5-elevation-1">
+<div class="bp5-card">
     <div class="bp5-text-muted">Ни одного отзыва не найдено</div>
 </div>
 {% endif %}

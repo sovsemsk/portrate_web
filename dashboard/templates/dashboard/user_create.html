@@ -1,7 +1,7 @@
 {% extends "dashboard/base_auth.html" %}
 {% load static %}
 {% block content %}
-<div class="bp5-card bp5-elevation-1 bp5-section">
+<div class="bp5-card bp5-section">
     <div class="bp5-section-header">
         <div class="bp5-section-header-left">
             <div>
@@ -28,7 +28,7 @@
             {% if messages %}
             <div class="bp5-form-group">
                 {% for message in messages %}
-                <div class="bp5-callout bp5-callout-has-body-content bp5-intent-danger bp5-elevation-1">
+                <div class="bp5-callout bp5-callout-has-body-content bp5-intent-danger">
                     {{message}}
                 </div>
                 {% endfor %}

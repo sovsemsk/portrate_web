@@ -1,0 +1,11 @@
+body{background-color:#eff0f2 !important;}
+a{text-decoration:none !important;}
+.bp5-button,.bp5-file-upload-input::after{border-radius:5px !important;box-shadow:none !important;}
+.bp5-card{border-radius:10px !important;box-shadow:none !important;}
+.bp5-callout{border-radius:5px !important;}
+.bp5-control.bp5-switch .bp5-control-indicator{transition:none !important;}
+.bp5-control.bp5-switch .bp5-control-indicator::before{transition:none !important;}
+.bp5-control-group:not(.bp5-vertical)>:not(:last-child){margin-right:5px !important;}
+.bp5-file-upload-input::after{content:"Обзор" !important;}
+.bp5-html-select>select,.bp5-input:not(:focus),textarea:not(:focus),.bp5-file-upload-input{background-color:white;box-shadow:inset 0 0 0 1px rgba(17, 20, 24, 0.2) !important;}
+.bp5-menu{border-radius:5px !important;}

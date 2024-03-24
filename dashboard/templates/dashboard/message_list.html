@@ -8,7 +8,7 @@
     <form novalidate>
         <div class="bp5-control-group">
             <!-- @TODO: inline style -->
-            <div style="align-items:center;display:flex;gap:10px;">
+            <div style="align-items:center;display:flex;gap:5px;">
                 {{filter.form.created_at}}
             </div>
             <button class="bp5-button bp5-intent-warning" type="submit">Найти</button>
@@ -18,7 +18,7 @@
 {% if message_list %}
 {% for message in message_list %}
 <div class="bp5-form-group">
-    <div class="bp5-card bp5-elevation-1 bp5-section">
+    <div class="bp5-card bp5-section">
         <div class="bp5-section-header">
             <div class="bp5-section-header-left">
                 <h6 class="bp5-heading bp5-section-header-title">
@@ -42,7 +42,7 @@
 {% endfor %}
 {% include "dashboard/_pagination.html" %}
 {% else %}
-<div class="bp5-card bp5-elevation-1">
+<div class="bp5-card">
     <div class="bp5-text-muted">Ни одного сообщения не найдено</div>
 </div>
 {% endif %}

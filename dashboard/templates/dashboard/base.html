@@ -4,28 +4,22 @@
     <head>
         <title>Портрет Geo</title>
         <meta charset="UTF-8">
-        <meta name="theme-color" content="#f47500">
+        <meta name="theme-color" content="#000000">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link href="{% static 'css/normalize.css' %}" rel="stylesheet" />
         <link href="{% static 'css/blueprint.css' %}" rel="stylesheet" />
         <link href="{% static 'css/blueprint-icons.css' %}" rel="stylesheet" />
+        <link href="{% static 'css/dashboard.css' %}" rel="stylesheet" />
         <script src="{% static 'javascript/jquery.min.js' %}"></script>
         <script src="{% static 'javascript/chart.js' %}"></script>
         <script src="{% static 'javascript/javascript.js' %}"></script>
         <script src="{% static 'javascript/imask.min.js' %}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-        <!-- bp5 overrides -->
-        <style>
-            a{text-decoration:none !important;}
-            .bp5-control.bp5-switch .bp5-control-indicator{transition:none !important;}
-            .bp5-control.bp5-switch .bp5-control-indicator::before{transition:none !important;}
-            .bp5-file-upload-input::after{content:"Обзор" !important;}
-        </style>
     </head>
     <!-- @TODO: inline style -->
     <body style="background-color:#ffffff;margin:0;">
-        <nav class="bp5-navbar">
+        <nav class="bp5-navbar bp5-dark" style="background-color:black;box-shadow:none;">
             <!-- @TODO: inline style -->
             <div style="margin:0 auto;width:800px;">
                 <div class="bp5-navbar-group bp5-align-left">
@@ -33,8 +27,10 @@
                     <div class="bp5-navbar-heading" style="padding-top:5px;">
                         <img alt="Портрет" src="{% static 'images/dashboard/logo.svg' %}" width=50>
                     </div>
-                    <a class="bp5-button bp5-minimal {% if nav == 'company' %} bp5-active{% endif %}" href="{% url 'company_list' %}">Компании</a>
-                    <a class="bp5-button bp5-minimal {% if nav == 'settings' %} bp5-active{% endif %}" href="{% url 'profile' %}">Настройки</a>
+                    <div class="bp5-control-group">
+                        <a class="bp5-button bp5-minimal {% if nav == 'company' %} bp5-active{% endif %}" href="{% url 'company_list' %}">Компании</a>
+                        <a class="bp5-button bp5-minimal {% if nav == 'settings' %} bp5-active{% endif %}" href="{% url 'profile' %}">Настройки</a>
+                    </div>
                     <!--a class="bp5-button bp5-minimal {% if nav == 'finance' %} bp5-active{% endif %}" href="{% url 'billing' %}">Финансы</a-->
                 </div>
                 <div class="bp5-align-right bp5-navbar-group">
