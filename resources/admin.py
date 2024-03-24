@@ -8,6 +8,7 @@ class CompanyAdmin(admin.ModelAdmin):
     search_fields = ["name"]
     list_display = ["name", "is_active", "is_parse_yandex", "is_parse_gis", "is_parse_google"]
     list_filter = ["is_active", "is_parse_yandex", "is_parse_gis", "is_parse_google"]
+    autocomplete_fields = ["users"]
     readonly_fields = [
         "api_secret",
         "rating",

@@ -9,8 +9,10 @@
         <a class="bp5-button bp5-intent-warning" href="{{company.host}}/@{{company.id}}" target="_blank">Форма запроса отзыва</a>
     </div>
 </div>
+<!-- @TODO: inline style -->
 <div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:15px">
-    <div style="grid-column: span 9 / span 9;">
+    <!-- @TODO: inline style -->
+    <div style="grid-column:span 9 / span 9;">
         <form enctype="multipart/form-data" id="COMPANY_FORM" method="post" novalidate>
             {% csrf_token %}
             <div class="bp5-form-group">
@@ -36,14 +38,16 @@
                             </div>
                         </div>
                         <div class="bp5-control-group bp5-fill">
-                            <div class="bp5-form-group" style="flex: 1 0 50%">
+                            <!-- @TODO: inline style -->
+                            <div class="bp5-form-group" style="flex:1 0 50%">
                                 <label class="bp5-label">Whatsapp</label>
                                 {{form.form_contact_whatsapp}}
                                 <div class="bp5-form-helper-text">
                                     whatsapp://send?abid=+79878732200
                                 </div>
                             </div>
-                            <div class="bp5-form-group" style="flex: 1 0 50%">
+                            <!-- @TODO: inline style -->
+                            <div class="bp5-form-group" style="flex:1 0 50%">
                                 <label class="bp5-label">Viber</label>
                                 {{form.form_contact_viber}}
                                 <div class="bp5-form-helper-text">
@@ -74,14 +78,16 @@
                         </div>
                     </div>
                     <div class="bp5-control-group bp5-fill">
-                        <div class="bp5-form-group" style="flex: 1 0 50%">
+                        <!-- @TODO: inline style -->
+                        <div class="bp5-form-group" style="flex:1 0 50%">
                             <label class="bp5-label">VK</label>
                             {{form.form_contact_vk}}
                             <div class="bp5-form-helper-text">
                                 https://vk.com/portrate_io
                             </div>
                         </div>
-                        <div class="bp5-form-group" style="flex: 1 0 50%">
+                        <!-- @TODO: inline style -->
+                        <div class="bp5-form-group" style="flex:1 0 50%">
                             <label class="bp5-label">Одноклассники</label>
                             {{form.form_contact_ok}}
                             <div class="bp5-form-helper-text">
@@ -90,14 +96,16 @@
                         </div>
                     </div>
                     <div class="bp5-control-group bp5-fill">
-                        <div class="bp5-form-group" style="flex: 1 0 50%">
+                        <!-- @TODO: inline style -->
+                        <div class="bp5-form-group" style="flex:1 0 50%">
                             <label class="bp5-label">Facebook</label>
                             {{form.form_contact_facebook}}
                             <div class="bp5-form-helper-text">
                                 https://facebook.com/portrate_io
                             </div>
                         </div>
-                        <div class="bp5-form-group" style="flex: 1 0 50%">
+                        <!-- @TODO: inline style -->
+                        <div class="bp5-form-group" style="flex:1 0 50%">
                             <label class="bp5-label">Instagram</label>
                             {{form.form_contact_instagram}}
                             <div class="bp5-form-helper-text">
@@ -106,14 +114,16 @@
                         </div>
                     </div>
                     <div class="bp5-control-group bp5-fill">
-                        <div class="bp5-form-group" style="flex: 1 0 50%">
+                        <!-- @TODO: inline style -->
+                        <div class="bp5-form-group" style="flex:1 0 50%">
                             <label class="bp5-label">Youtube</label>
                             {{form.form_contact_youtube}}
                             <div class="bp5-form-helper-text">
                                 https://youtube.com/portrate_io
                             </div>
                         </div>
-                        <div class="bp5-form-group" style="flex: 1 0 50%">
+                        <!-- @TODO: inline style -->
+                        <div class="bp5-form-group" style="flex:1 0 50%">
                             <label class="bp5-label">X</label>
                             {{form.form_contact_x}}
                             <div class="bp5-form-helper-text">
@@ -125,7 +135,8 @@
             </div>
         </form>
     </div>
-    <div style="grid-column: span 3 / span 3;">
+    <!-- @TODO: inline style -->
+    <div style="grid-column:span 3 / span 3;">
         {% include "dashboard/_company_update_menu.html" %}
     </div>
 </div>

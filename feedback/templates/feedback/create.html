@@ -2,19 +2,21 @@
 {% load static %}
 {% block content %}
 <div class="bp5-padded bp5-section-card">
-    <div class="bp5-form-group">
-        <h2 class="bp5-heading" style="text-align:center;">
+    <div class="bp5-control-group">
+        <h5 class="bp5-heading">
             Написать директору
-        </h2>
-        <p class="bp5-text-muted" style="text-align:center;">
-            Расскажите что вам не понравилось и что мы можем сделать лучше. Директор накажет виновных, свяжется с вами и предложит решение проблемы.
-        </p>
+        </h5>
     </div>
-    <form id="request-form" method="post" novalidate>
+    <p class="bp5-form-group bp5-running-text bp5-text-muted">
+        Расскажите что вам не понравилось и что мы можем сделать лучше. Директор накажет виновных, свяжется с вами и предложит решение проблемы.
+    </p>
+    <form id="REQUEST_FORM" method="post" novalidate>
         {% csrf_token %}
-        <div class="bp5-form-group tag_widget">
-            <label class="bp5-label">Что именно вам не понравилось?</label>
-            <div style="display:flex;flex-wrap:wrap;gap:5px">
+        <div class="bp5-form-group">
+            {{form.text}}
+        </div>
+        <div class="bp5-form-group ">
+            <div class="bp5-control-group">
                 {% for tag in company.form_tags %}
                 <label class="bp5-interactive bp5-minimal bp5-intent-success bp5-tag">
                     <input name="tag" type="checkbox" value="{{ tag }}" style="display:none"/>
@@ -24,20 +26,18 @@
             </div>
         </div>
         <div class="bp5-form-group">
-            {{form.text}}
-        </div>
-        <div class="bp5-form-group">
-            <!-- Контактный телефон -->
+            <div class="bp5-control-group">
             <label class="bp5-label">Оставьте ваш контакт</label>
+            </div>
             {{form.phone}}
             {% if form.phone.errors %}
-            <div class="bp5-form-helper-text" style="color:#ac2f33">Необходимо заполнить контактный телефон</div>
+            <div class="bp5-control-group">
+                <div class="bp5-form-helper-text" style="color:#ac2f33">Необходимо заполнить контактный телефон</div>
+            </div>
             {% endif %}
         </div>
     </form>
-</div>
-<div class="bp5-padded bp5-section-card">
-    <button class="bp5-button bp5-fill bp5-intent-success bp5-large" form="request-form" type="submit">Отправить</button>
+    <button class="bp5-button bp5-fill bp5-intent-success bp5-large" form="REQUEST_FORM" type="submit">Отправить</button>
 </div>
 {% endblock %}
 {% block script %}

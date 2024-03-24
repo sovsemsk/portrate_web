@@ -7,8 +7,10 @@
         <button class="bp5-button bp5-intent-warning" form="PROFILE_FORM" type="submit">Сохранить</button>
     </div>
 </div>
+<!-- @TODO: inline style -->
 <div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:15px">
-    <div style="grid-column: span 9 / span 9;">
+    <!-- @TODO: inline style -->
+    <div style="grid-column:span 9 / span 9;">
         <form id="PROFILE_FORM" method="post" novalidate>
             {% csrf_token %}
             <div class="bp5-form-group">
@@ -25,11 +27,12 @@
                     </div>
                     <div class="bp5-padded bp5-section-card">
                         <div class="bp5-control-group bp5-fill">
+                            <!-- @TODO: inline style -->
                             <div class="bp5-form-group" style="flex: 1 0 50%">
                                 <label class="bp5-label">Имя пользователя</label>
                                 {{form.username}}
                                 {% if form.username.errors %}
-                                <!-- Исключение для css (цвет текста) -->
+                                <!-- @TODO: inline style -->
                                 <div class="bp5-form-helper-text" style="color:#ac2f33">
                                     {{form.username.errors.as_text}}
                                 </div>
@@ -39,11 +42,12 @@
                                 </div>
                                 {% endif %}
                             </div>
+                            <!-- @TODO: inline style -->
                             <div class="bp5-form-group" style="flex: 1 0 50%">
                                 <label class="bp5-label">Электронная почта</label>
                                 {{form.email}}
                                 {% if form.email.errors %}
-                                <!-- Исключение для css (цвет текста) -->
+                                <!-- @TODO: inline style -->
                                 <div class="bp5-form-helper-text" style="color:#ac2f33">
                                     {{form.email.errors.as_text}}
                                 </div>
@@ -70,18 +74,20 @@
                 </div>
                 <div class="bp5-padded bp5-section-card">
                     <div class="bp5-control-group bp5-fill">
+                        <!-- @TODO: inline style -->
                         <div class="bp5-form-group" style="flex: 1 0 50%">
                             <label class="bp5-label">Имя</label>
                             {{form.first_name}}
-                            <!-- Исключение для css (цвет текста) -->
+                            <!-- @TODO: inline style -->
                             <div class="bp5-form-helper-text" style="color:#ac2f33">
                                 {{form.first_name.errors.as_text}}
                             </div>
                         </div>
+                        <!-- @TODO: inline style -->
                         <div class="bp5-form-group" style="flex: 1 0 50%">
                             <label class="bp5-label">Фамилия</label>
                             {{form.last_name}}
-                            <!-- Исключение для css (цвет текста) -->
+                            <!-- @TODO: inline style -->
                             <div class="bp5-form-helper-text" style="color:#ac2f33">
                                 {{form.last_name.errors.as_text}}
                             </div>

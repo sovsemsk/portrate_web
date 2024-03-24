@@ -10,7 +10,7 @@
             </div>
         </div>
         <div class="bp5-section-header-left">
-            <img style="width:24px;" src="{% static 'images/dashboard/logo.png' %}" alt="P">
+            <img height=24 src="{% static 'images/dashboard/logo.png' %}" alt="P" width=24>
         </div>
     </div>
     <div class="bp5-section-card bp5-padded">
@@ -38,7 +38,7 @@
                 <label class="bp5-label">Имя пользователя</label>
                 {{form.username}}
                 {% if form.username.errors.as_text %}
-                <!-- Исключение для css (цвет текста) -->
+                <!-- @TODO: inline style -->
                 <div class="bp5-form-helper-text" style="color:#ac2f33">
                     {{form.username.errors.as_text}}
                 </div>
@@ -53,7 +53,7 @@
                     <label class="bp5-label">Пароль</label>
                     {{form.password1}}
                     {% if form.password1.errors %}
-                    <!-- Исключение для css (цвет текста) -->
+                    <!-- @TODO: inline style -->
                     <div class="bp5-form-helper-text" style="color:#ac2f33">
                         {{form.password1.errors.as_text}}
                     </div>
@@ -67,7 +67,7 @@
                     <label class="bp5-label">Подтверждение пароля</label>
                     {{form.password2}}
                     {% if form.password2.errors %}
-                    <!-- Исключение для css (цвет текста) -->
+                    <!-- @TODO: inline style -->
                     <div class="bp5-form-helper-text" style="color:#ac2f33">
                         {{form.password2.errors.as_text}}
                     </div>

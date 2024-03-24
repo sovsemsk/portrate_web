@@ -1,13 +1,67 @@
 {% extends 'feedback/base.html' %}
 {% load static %}
 {% block content %}
+{% if company.has_contacts %}
 <div class="bp5-padded bp5-section-card">
-    <h5 class="bp5-heading pio-heading">
-        Вам понравилось обслуживание?
-    </h5>
-    <div class="bp5-control-group bp5-fill bp5-vertical">
-        <a class="bp5-button bp5-intent-success bp5-large pio-button"  href="{% url 'request' company_pk=company.id %}">Все отлично</a>
-        <a class="bp5-button pio-button" href="{% url 'create' company_pk=company.id %}">Есть претензия</a>
+    <div class="bp5-control-group bp5-large">
+        {% if company.form_contact_whatsapp %}
+        <a class="bp5-button" href="{{company.form_contact_whatsapp}}" style="background:#41bf50;" _target="blank">
+            <img height=16 src="{% static 'images/services/whatsapp.svg' %}" width=16>
+        </a>
+        {% endif %}
+        {% if company.form_contact_telegram %}
+        <a class="bp5-button" href="{{company.form_contact_telegram}}" style="background:#2ba0d9;" _target="blank">
+            <img height=16 src="{% static 'images/services/telegram.svg' %}" width=16>
+        </a>
+        {% endif %}
+        {% if company.form_contact_viber %}
+        <a class="bp5-button" href="{{company.form_contact_viber}}" style="background:#71488d;" _target="blank">
+            <img height=16 src="{% static 'images/services/viber.svg' %}" width=16>
+        </a>
+        {% endif %}
+        {% if company.form_contact_vk %}
+        <a class="bp5-button" href="{{company.form_contact_vk}}" style="background:#1b73f7;" _target="blank">
+            <img height=16 src="{% static 'images/services/vk.svg' %}" width=16>
+        </a>
+        {% endif %}
+        {% if company.form_contact_ok %}
+        <a class="bp5-button" href="{{company.form_contact_ok}}" style="background:#f77302;" _target="blank">
+            <img height=16 src="{% static 'images/services/ok.svg' %}" width=16>
+        </a>
+        {% endif %}
+        {% if company.form_contact_facebook %}
+        <a class="bp5-button" href="{{company.form_contact_facebook}}" style="background:#3a5696;" _target="blank">
+            <img height=16 src="{% static 'images/services/facebook.svg' %}" width=16>
+        </a>
+        {% endif %}
+        {% if company.form_contact_instagram %}
+        <a class="bp5-button" href="{{company.form_contact_instagram}}" style="background:#c73e83;" _target="blank">
+            <img height=16 src="{% static 'images/services/instagram.svg' %}" width=16>
+        </a>
+        {% endif %}
+        {% if company.form_contact_youtube %}
+        <a class="bp5-button" href="{{company.form_contact_youtube}}" style="background:#f60e1C;" _target="blank">
+            <img height=16 src="{% static 'images/services/youtube.svg' %}" width=16>
+        </a>
+        {% endif %}
+        {% if company.form_contact_x %}
+        <a class="bp5-button" href="{{company.form_contact_x}}" style="background:#000000" _target="blank">
+            <img height=16 src="{% static 'images/services/x.svg' %}" width=16>
+        </a>
+        {% endif %}
+    </div>
+</div>
+{% endif %}
+
+<div class="bp5-padded bp5-section-card">
+    <div class="bp5-control-group">
+        <h5 class="bp5-heading">
+            Вам понравилось обслуживание?
+        </h5>
+    </div>
+    <div class="bp5-control-group bp5-fill bp5-large bp5-vertical">
+        <a class="bp5-button bp5-intent-success"  href="{% url 'request' company_pk=company.id %}">Все отлично</a>
+        <a class="bp5-button" href="{% url 'create' company_pk=company.id %}">Есть претензия</a>
     </div>
 </div>
 {% endblock %}

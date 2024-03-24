@@ -9,8 +9,10 @@
         <a class="bp5-button bp5-intent-warning" href="{{company.host}}/@{{company.id}}" target="_blank">Форма запроса отзыва</a>
     </div>
 </div>
+<!-- @TODO: inline style -->
 <div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:15px">
-    <div style="grid-column: span 9 / span 9;">
+    <!-- @TODO: inline style -->
+    <div style="grid-column:span 9 / span 9;">
         <form enctype="multipart/form-data" id="COMPANY_FORM" method="post" novalidate>
         {% csrf_token %}
             <div class="bp5-form-group">
@@ -27,22 +29,22 @@
                     </div>
                     <div class="bp5-padded bp5-section-card">
                         <div class="bp5-control-group bp5-fill">
-                        <div class="bp5-form-group">
-                            <label class="bp5-label">Размер файла не должен превышать 500кб</label>
-                            <label class="bp5-file-input">
-                                {{form.logo}}
-                                <span class="bp5-file-upload-input" data-logo>Выбрать файл...</span>
-                            </label>
-                            {% if form.logo.errors %}
-                            <!-- Исключение для css (цвет текста) -->
-                            <div class="bp5-form-helper-text" style="color:#ac2f33">
-                                {{form.logo.errors.as_text}}
+                            <div class="bp5-form-group">
+                                <label class="bp5-label">Размер файла не должен превышать 500кб</label>
+                                <label class="bp5-file-input">
+                                    {{form.logo}}
+                                    <span class="bp5-file-upload-input" data-logo>Выбрать файл...</span>
+                                </label>
+                                {% if form.logo.errors %}
+                                <!-- @TODO: inline style -->
+                                <div class="bp5-form-helper-text" style="color:#ac2f33">
+                                    {{form.logo.errors.as_text}}
+                                </div>
+                                {% endif %}
+                                <div class="bp5-form-helper-text">
+                                    Рекомендуется использовать квадраный размер и белый фон
+                                </div>
                             </div>
-                            {% endif %}
-                            <div class="bp5-form-helper-text">
-                                Рекомендуется использовать квадраный размер и белый фон
-                            </div>
-                        </div>
                         </div>
                     </div>
                 </div>
@@ -60,11 +62,12 @@
                 </div>
                 <div class="bp5-padded bp5-section-card">
                     <div class="bp5-control-group bp5-fill">
-                        <div class="bp5-form-group" style="flex: 1 0 50%">
+                        <!-- @TODO: inline style -->
+                        <div class="bp5-form-group" style="flex:1 0 50%">
                             <label class="bp5-label">Название</label>
                             {{form.name}}
                             {% if form.name.errors %}
-                            <!-- Исключение для css (цвет текста) -->
+                            <!-- @TODO: inline style -->
                             <div class="bp5-form-helper-text" style="color:#ac2f33">
                                 {{form.name.errors.as_text}}
                             </div>
@@ -74,7 +77,8 @@
                             </div>
                             {% endif %}
                         </div>
-                        <div class="bp5-form-group" style="flex: 1 0 50%">
+                        <!-- @TODO: inline style -->
+                        <div class="bp5-form-group" style="flex:1 0 50%">
                             <label class="bp5-label">Телефон</label>
                             {{form.phone}}
                             <div class="bp5-form-helper-text">
@@ -86,7 +90,7 @@
                         <label class="bp5-label">Адрес</label>
                         {{form.address}}
                         {% if form.address.errors %}
-                        <!-- Исключение для css (цвет текста) -->
+                        <!-- @TODO: inline style -->
                         <div class="bp5-form-helper-text" style="color:#ac2f33">
                             {{form.address.errors.as_text}}
                         </div>
@@ -100,7 +104,8 @@
             </div>
         </form>
     </div>
-    <div style="grid-column: span 3 / span 3;">
+    <!-- @TODO: inline style -->
+    <div style="grid-column:span 3 / span 3;">
         {% include "dashboard/_company_update_menu.html" %}
     </div>
 </div>

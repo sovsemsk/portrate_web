@@ -8,19 +8,25 @@
         <button id="COPY_CODE_BUTTON" type="button" class="bp5-button bp5-intent-warning">Скопировать код виджета</button>
     </div>
 </div>
+<!-- @TODO: inline style -->
 <div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:15px">
+    <!-- @TODO: inline style -->
     <div style="grid-column: span 9 / span 9;">
+        <!-- @TODO: inline style -->
         <div class="bp5-form-group" style="position:relative;">
+            <!-- @TODO: inline style -->
             <img class="bp5-elevation-1" height=358 style="border-radius:2px;" src="{% static 'images/dashboard/frame.svg' %}" width=596>
-            <!-- Исключение для css -->
+            <!-- @TODO: inline style -->
             <img class="bp5-elevation-2" style="border-radius:10px;{% if position == 'lb' or position == 'lt' %}left:15px;{% elif position == 'rt' or position == 'rb' %}right:15px;{% endif %}position:absolute;{% if position == 'lb' or position == 'rb' %}bottom:15px;{% elif position == 'lt' or position == 'rt' %}top:40px;{% endif %}" {% if theme == 'l' %}src="{% static 'images/dashboard/widget_rating_light.svg' %}"{% else %}src="{% static 'images/dashboard/widget_rating_dark.svg' %}"{% endif %}>
         </div>
+        <!-- @TODO: inline style -->
         <div class="bp5-form-group" style="margin-bottom:0;">
             <label class="bp5-label">Код виджета</label>
             <textarea readonly class="bp5-input bp5-fill bp5-monospace-text" id="CODE_INPUT" type="text"><script src="https://geo.portrate.io/widget/rating/{{company.api_secret}}.js?theme={{theme}}&position={{position}}" data-{{company.api_secret}}></script></textarea>
         </div>
     </div>
-    <div style="grid-column: span 3 / span 3;">
+    <!-- @TODO: inline style -->
+    <div style="grid-column:span 3 / span 3;">
         <ul class="bp5-menu bp5-elevation-1">
             <li class="bp5-menu-header">
                 <h6 class="bp5-heading">Тема</h6>

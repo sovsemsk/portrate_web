@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="ru">
     <head>
-        <title>{{ company.name }}</title>
+        <title>{{company.name}}</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">        
@@ -10,102 +10,41 @@
         <link href="{% static 'css/normalize.css' %}" rel="stylesheet" />
         <link href="{% static 'css/blueprint.css' %}" rel="stylesheet" />
         <link href="{% static 'css/blueprint-icons.css' %}" rel="stylesheet" />
+        <link href="{% static 'css/feedback.css' %}" rel="stylesheet" />
         <script src="{% static 'javascript/jquery.min.js' %}"></script>
         <script src="{% static 'javascript/javascript.js' %}"></script>
         <script src="{% static 'javascript/imask.min.js' %}"></script>
-        <style>
-            a{text-decoration:none !important}
-            body{background:white;margin:15px;}
-            .pio-container{margin-bottom:30px;margin-left:auto;margin-right:auto;margin-top:30px;max-width:400px;}
-            .pio-card{border-radius:15px;}
-            .pio-logo{display:flex;justify-content:center;padding-top:25px;}
-            .pio-heading{text-align:center;}
-            .pio-tags{display:flex;flex-wrap:wrap;gap:2px;justify-content:center;}
-            .pio-tags:last-child{margin-top:15px;}
-            .pio-icon{align-items:center;border-radius:3px;display:flex;height:34px;justify-content:center;width:34px;}
-            .pio-made-in{align-items:center;display:flex;gap:5px;justify-content:center;margin-top:15px;}
-            .pio-made-in > a{padding-top:6px;}
-            .pio-button{border-radius:5px;box-shadow:none !important;}
-        </style>
     </head>
     <body>
-        <div class="pio-container">
-            <div class="bp5-section bp5-card pio-card">
+        <div class="bp5-section bp5-card">
+            <div class="bp5-padded bp5-section-card">
                 {% if company.logo %}
-                <div class="pio-logo">
-                    <img height=60 src="{{company.logo.url}}" alt="{{company.name}}" width=60>
+                <div class="bp5-control-group">
+                    <div class="bp5-form-group">
+                        <img height=60 src="{{company.logo.url}}" alt="{{company.name}}" width=60>
+                    </div>
                 </div>
                 {% endif %}
-                <div class="bp5-padded bp5-section-card">
-                    <h3 class="bp5-heading pio-heading">
+                <div class="bp5-control-group">
+                    <h3 class="bp5-heading">
                         {{company.name}}
                     </h3>
-                    <div class="pio-tags">
-                        {% if company.phone %}
-                        <a class="bp5-tag bp5-interactive bp5-minimal" href="tel:{{company.phone}}">{{company.phone}}</a>
-                        {% endif %}
-                        {% if company.form_contact_website %}
-                        <a class="bp5-tag bp5-interactive bp5-minimal" href="{{company.form_contact_website}}" _target="blank">{{company.form_contact_website}}</a>
-                        {% endif %}
-                        <span class="bp5-tag bp5-minimal">{{company.address}}</span>
-                    </div>
-                    {% if company.has_contacts %}
-                    <div class="pio-tags">
-                        {% if company.form_contact_whatsapp %}
-                        <a class="pio-icon" href="{{company.form_contact_whatsapp}}" style="background:#41bf50;" _target="blank">
-                            <img height=16 src="{% static 'images/services/whatsapp.svg' %}" width=16>
-                        </a>
-                        {% endif %}
-                        {% if company.form_contact_telegram %}
-                        <a class="pio-icon" href="{{company.form_contact_telegram}}" style="background:#2ba0d9;" _target="blank">
-                            <img height=16 src="{% static 'images/services/telegram.svg' %}" width=16>
-                        </a>
-                        {% endif %}
-                        {% if company.form_contact_viber %}
-                        <a class="pio-icon" href="{{company.form_contact_viber}}" style="background:#71488d;" _target="blank">
-                            <img height=16 src="{% static 'images/services/viber.svg' %}" width=16>
-                        </a>
-                        {% endif %}
-                        {% if company.form_contact_vk %}
-                        <a class="pio-icon" href="{{company.form_contact_vk}}" style="background:#1b73f7;" _target="blank">
-                            <img height=16 src="{% static 'images/services/vk.svg' %}" width=16>
-                        </a>
-                        {% endif %}
-                        {% if company.form_contact_ok %}
-                        <a class="pio-icon" href="{{company.form_contact_ok}}" style="background:#f77302;" _target="blank">
-                            <img height=16 src="{% static 'images/services/ok.svg' %}" width=16>
-                        </a>
-                        {% endif %}
-                        {% if company.form_contact_facebook %}
-                        <a class="pio-icon" href="{{company.form_contact_facebook}}" style="background:#3a5696;" _target="blank">
-                            <img height=16 src="{% static 'images/services/facebook.svg' %}" width=16>
-                        </a>
-                        {% endif %}
-                        {% if company.form_contact_instagram %}
-                        <a class="pio-icon" href="{{company.form_contact_instagram}}" style="background:#c73e83;" _target="blank">
-                            <img height=16 src="{% static 'images/services/instagram.svg' %}" width=16>
-                        </a>
-                        {% endif %}
-                        {% if company.form_contact_youtube %}
-                        <a class="pio-icon" href="{{company.form_contact_youtube}}" style="background:#f60e1C;" _target="blank">
-                            <img height=16 src="{% static 'images/services/youtube.svg' %}" width=16>
-                        </a>
-                        {% endif %}
-                        {% if company.form_contact_x %}
-                        <a class="pio-icon" href="{{company.form_contact_x}}" style="background:#000000" _target="blank">
-                            <img height=16 src="{% static 'images/services/x.svg' %}" width=16>
-                        </a>
-                        {% endif %}
-                    </div>
+                </div>
+                <div class="bp5-control-group">
+                    {% if company.phone %}
+                        <a class="bp5-tag bp5-minimal  bp5-round bp5-interactive" href="tel:{{company.phone}}">{{company.phone}}</a>
+                    {% endif %}
+                    <span class="bp5-tag bp5-minimal  bp5-round">{{company.address}}</span>
+                    {% if company.form_contact_website %}
+                    <a class="bp5-tag bp5-minimal  bp5-round bp5-interactive" href="{{company.form_contact_website}}" _target="blank">{{company.form_contact_website}}</a>
                     {% endif %}
                 </div>
-                {% block content %}
-                {% endblock %}
             </div>
-            <div class="pio-made-in">
-                <span class="bp5-text-muted bp5-text-small">работает на</span>
-                <a href="https://portrate.io"><img alt="Портрет" src="{% static 'images/dashboard/logo.svg' %}" width=50></a>
-            </div>
+            {% block content %}
+            {% endblock %}
+        </div>
+        <div class="pio-made-in">
+            <span class="bp5-text-muted bp5-text-small">работает на</span> <a href="https://portrate.io"><img alt="Портрет" src="{% static 'images/dashboard/logo.svg' %}" width=50></a>
         </div>
         {% block script %}
         {% endblock %}

@@ -7,8 +7,10 @@
         <button class="bp5-button bp5-intent-warning" form="SECURITY_FORM" type="submit">Сохранить</button>
     </div>
 </div>
+<!-- @TODO: inline style -->
 <div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:15px">
-    <div style="grid-column: span 9 / span 9;">
+    <!-- @TODO: inline style -->
+    <div style="grid-column:span 9 / span 9;">
         <form id="SECURITY_FORM" method="post" novalidate>
             {% csrf_token %}
             <div class="bp5-card bp5-elevation-1 bp5-section">
@@ -24,11 +26,12 @@
                 </div>
                 <div class="bp5-padded bp5-section-card">
                     <div class="bp5-control-group bp5-fill">
-                        <div class="bp5-form-group" style="flex: 1 0 50%">
+                        <!-- @TODO: inline style -->
+                        <div class="bp5-form-group" style="flex:1 0 50%">
                             <label class="bp5-label">Новый пароль</label>
                             {{form.new_password1}}
                             {% if form.new_password1.errors %}
-                            <!-- Исключение для css (цвет текста) -->
+                            <!-- @TODO: inline style -->
                             <div class="bp5-form-helper-text" style="color:#ac2f33">
                                 {{form.new_password1.errors.as_text}}
                             </div>
@@ -38,11 +41,12 @@
                             </div>
                             {% endif %}
                         </div>
+                        <!-- @TODO: inline style -->
                         <div class="bp5-form-group" style="flex: 1 0 50%">
                             <label class="bp5-label">Подтверждение нового пароля</label>
                             {{form.new_password2}}
                             {% if form.new_password2.errors %}
-                            <!-- Исключение для css (цвет текста) -->
+                            <!-- @TODO: inline style -->
                             <div class="bp5-form-helper-text" style="color:#ac2f33">
                                 {{form.new_password2.errors.as_text}}
                             </div>
@@ -54,6 +58,4 @@
         </form>
     </div>
 </div>
-{% endblock %}
-{% block right %}
 {% endblock %}

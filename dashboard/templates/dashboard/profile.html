@@ -12,7 +12,9 @@
         {% endif %}
     </div>
 </div>
+<!-- @TODO: inline style -->
 <div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:15px">
+    <!-- @TODO: inline style -->
     <div style="grid-column: span 9 / span 9;">
         <form id="PROFILE_FORM" method="post" novalidate>
             {% csrf_token %}
@@ -111,14 +113,15 @@
                     </div>
                     <div class="bp5-form-group">
                         <label class="bp5-label">Допустимое время оповещения</label>
+                        <!-- @TODO: inline style -->
                         <div style="align-items:center;display:flex;gap:5px;">
                             {{form.can_notify_at_start}} - {{form.can_notify_at_end}}
                         </div>
                         {% if form.can_notify_at_start.errors %}
-                        <!-- Исключение для css (цвет текста) -->
+                        <!-- @TODO: inline style -->
                         <div class="bp5-form-helper-text" style="color:#ac2f33">Время рассылки обязательно</div>
                         {% elif form.can_notify_at_end.errors %}
-                        <!-- Исключение для css (цвет текста) -->
+                        <!-- @TODO: inline style -->
                         <div class="bp5-form-helper-text" style="color:#ac2f33">Время рассылки обязательно</div>
                         {% endif %}
                     </div>
@@ -127,5 +130,4 @@
         </form>
     </div>
 </div>
-
 {% endblock %}

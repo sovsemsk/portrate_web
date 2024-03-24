@@ -9,8 +9,10 @@
         <a class="bp5-button bp5-intent-warning" href="{{company.host}}/@{{company.id}}" target="_blank">Форма запроса отзыва</a>
     </div>
 </div>
+<!-- @TODO: inline style -->
 <div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:15px">
-    <div style="grid-column: span 9 / span 9;">
+    <!-- @TODO: inline style -->
+    <div style="grid-column:span 9 / span 9;">
         <form enctype="multipart/form-data" id="COMPANY_FORM" method="post" novalidate>
             {% csrf_token %}
             <div class="bp5-form-group">
@@ -35,13 +37,13 @@
                             </label>
                             {{form.parser_link_yandex}}
                             {% if form.parser_link_yandex.errors %}
-                            <!-- Исключение для css (цвет текста) -->
+                            <!-- @TODO: inline style -->
                             <div class="bp5-form-helper-text" style="color:#ac2f33">
                                 {{form.parser_link_yandex.errors.as_text}}
                             </div>
                             {% endif %}
                         </div>
-                        <!-- Исключение для css (отступы) -->
+                        <!-- @TODO: inline style -->
                         <label class="bp5-control bp5-switch" style="margin-bottom:0;">
                             {{form.is_parse_yandex}}
                             <span class="bp5-control-indicator"></span>
@@ -72,13 +74,13 @@
                             </label>
                             {{form.parser_link_gis}}
                             {% if form.parser_link_gis.errors %}
-                            <!-- Исключение для css (цвет текста) -->
+                            <!-- @TODO: inline style -->
                             <div class="bp5-form-helper-text" style="color:#ac2f33">
                                 {{form.parser_link_gis.errors.as_text}}
                             </div>
                             {% endif %}
                         </div>
-                        <!-- Исключение для css (отступы) -->
+                        <!-- @TODO: inline style -->
                         <label class="bp5-control bp5-switch" style="margin-bottom:0;">
                             {{form.is_parse_gis}}
                             <span class="bp5-control-indicator"></span>
@@ -108,13 +110,13 @@
                         </label>
                         {{form.parser_link_google}}
                         {% if form.parser_link_google.errors %}
-                        <!-- Исключение для css (цвет текста) -->
+                        <!-- @TODO: inline style -->
                         <div class="bp5-form-helper-text" style="color:#ac2f33">
                             {{form.parser_link_google.errors.as_text}}
                         </div>
                         {% endif %}
                     </div>
-                    <!-- Исключение для css (отступы) -->
+                    <!-- @TODO: inline style -->
                     <label class="bp5-control bp5-switch" style="margin-bottom:0;">
                         {{form.is_parse_google}}
                         <span class="bp5-control-indicator"></span>
@@ -124,7 +126,8 @@
             </div>
         </form>
     </div>
-    <div style="grid-column: span 3 / span 3;">
+    <!-- @TODO: inline style -->
+    <div style="grid-column:span 3 / span 3;">
         {% include "dashboard/_company_update_menu.html" %}
     </div>
 </div>
