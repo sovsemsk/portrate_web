@@ -52,13 +52,10 @@
     </div>
 </div>
 {% endif %}
-
 <div class="bp5-padded bp5-section-card">
-    <div class="bp5-control-group">
-        <h5 class="bp5-heading">
-            Вам понравилось обслуживание?
-        </h5>
-    </div>
+    <h5 class="bp5-heading">
+        Вам понравилось обслуживание?
+    </h5>
     <div class="bp5-control-group bp5-fill bp5-large bp5-vertical">
         <a class="bp5-button bp5-intent-success"  href="{% url 'request' company_pk=company.id %}">Все отлично</a>
         <a class="bp5-button" href="{% url 'create' company_pk=company.id %}">Есть претензия</a>

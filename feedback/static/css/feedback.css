@@ -1,4 +1,4 @@
-body{background-color:white;margin:10px;}
+body{background-color:white;margin:10px;text-align:center !important;}
 a{text-decoration:none !important;}
 .bp5-button{border-radius:5px !important;box-shadow:none !important;}
 .bp5-card{border-radius:10px !important;margin-left:auto !important;margin-right:auto !important;max-width:480px !important;}
@@ -7,6 +7,5 @@ a{text-decoration:none !important;}
 .bp5-control-group.bp5-vertical > :not(:last-child) {margin-bottom:5px !important;}
 .bp5-callout{border-radius:5px !important;}
 .bp5-input{border-radius:5px !important;box-shadow: 0 0 0 1px rgba(17, 20, 24, 0.15); !important;}
-.bp5-running-text{text-align:center !important;}
 .pio-made-in{align-items:center !important;display:flex !important;gap:5px !important;justify-content:center !important;margin-top:10px !important;}
 .pio-made-in > a{padding-top:6px !important;}

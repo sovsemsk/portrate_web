@@ -2,11 +2,9 @@
 {% load static %}
 {% block content %}
 <div class="bp5-padded bp5-section-card">
-    <div class="bp5-control-group">
-        <h5 class="bp5-heading">
-            Написать директору
-        </h5>
-    </div>
+    <h5 class="bp5-heading">
+        Написать директору
+    </h5>
     <p class="bp5-form-group bp5-running-text bp5-text-muted">
         Расскажите что вам не понравилось и что мы можем сделать лучше. Директор накажет виновных, свяжется с вами и предложит решение проблемы.
     </p>
@@ -26,13 +24,11 @@
             </div>
         </div>
         <div class="bp5-form-group">
-            <div class="bp5-control-group">
             <label class="bp5-label">Оставьте ваш контакт</label>
-            </div>
             {{form.phone}}
             {% if form.phone.errors %}
-            <div class="bp5-control-group">
-                <div class="bp5-form-helper-text" style="color:#ac2f33">Необходимо заполнить контактный телефон</div>
+            <div class="bp5-form-helper-text" style="color:#ac2f33">
+                Необходимо заполнить контактный телефон
             </div>
             {% endif %}
         </div>
