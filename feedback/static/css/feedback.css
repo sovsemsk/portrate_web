@@ -14,3 +14,8 @@ a{text-decoration:none !important;}
 .pio-container{max-width:480px;min-width:320px;}
 .pio-made-in{align-items:center;display:flex;gap:5px;justify-content:center;margin-bottom:10px;margin-top:10px;}
 .pio-made-in>a{padding-top:6px;}
+
+@media only screen and (max-width: 480px) {
+  body{margin:0;}
+  .bp5-card{box-shadow:none !important;}
+}
