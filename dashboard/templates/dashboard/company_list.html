@@ -16,8 +16,11 @@
     </div>
 </div>
 <div class="bp5-form-group">
-    <div class="bp5-button-group">
+    <div class="bp5-control-group">
         <a class="bp5-button bp5-intent-success" href="{% url 'company_create' %}">Создать компанию</a>
+        {% if not request.user.profile.telegram_id %}
+        <a class="bp5-button bp5-intent-success" href="http://t.me/portrate_notify_bot?start={{user.profile.api_secret}}" target="_blank">Подписаться на оповещения</a>
+        {% endif %}
     </div>
 </div>
 {% for company in company_list %}

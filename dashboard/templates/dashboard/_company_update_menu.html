@@ -8,6 +8,9 @@
     <a class="bp5-menu-item {% if menu_nav == 'data' %}bp5-active{% endif %}" href="{% url 'company_data_update' company.id %}">
         Данные компании
     </a>
+    <a class="bp5-menu-item {% if menu_nav == 'membership' %}bp5-active{% endif %}" href="{% url 'company_membership_update' company.id %}">
+        Оповещения
+    </a>
     <li class="bp5-menu-header">
         <h6 class="bp5-heading">Дополнительно</h6>
     </li>

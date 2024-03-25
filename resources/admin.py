@@ -1,18 +1,11 @@
 from django.contrib.admin import ModelAdmin, register, TabularInline
 
-from .models import Company, Message, Review, Membership
+from .models import Company, Membership
 
 
 class MembershipInlineAdmin(TabularInline):
     autocomplete_fields = ["user"]
-    fieldsets = [
-        [
-            "КОНТЕНТ",
-            {
-                "fields": ["user"]
-            }
-        ]
-    ]
+    fields = ["user"]
     model = Membership
 
 
@@ -23,25 +16,13 @@ class CompanyAdmin(ModelAdmin):
     list_filter = ["is_active", "is_parse_yandex", "is_parse_gis", "is_parse_google"]
     fieldsets = [
         [
-            "КОНТЕНТ",
+            "Данные компании",
             {
-                "fields": ["name", "address", "logo", "phone"]
-            }
-        ],
-        [
-            "НАСТРОЙКИ",
-            {
-                "classes": ["collapse"],
-                "fields": [
-                    "is_active",
-                    "is_first_parsing",
-                    "api_secret",
-                    # "users"
-                ],
+                "fields": ["is_active", "logo", "name", "address", "phone"]
             },
         ],
         [
-            "ПАРСЕР",
+            "Парсер",
             {
                 "classes": ["collapse"],
                 "fields": [
@@ -55,7 +36,7 @@ class CompanyAdmin(ModelAdmin):
             },
         ],
         [
-            "ФОРМА ЗАПРОСА ОТЗЫВА (СЕРВИСЫ)",
+            "Запрос отзыва",
             {
                 "classes": ["collapse"],
                 "fields": [
@@ -74,7 +55,7 @@ class CompanyAdmin(ModelAdmin):
             }
         ],
         [
-            "ФОРМА ЗАПРОСА ОТЗЫВА (КОНТАКТЫ)",
+            "Контактные данные",
             {
                 "classes": ["collapse"],
                 "fields": [
@@ -90,92 +71,7 @@ class CompanyAdmin(ModelAdmin):
                     "form_contact_x"
                 ],
             },
-        ],
-        [
-            "ПОКАЗАТЕЛИ",
-            {
-                "classes": ["collapse"],
-                "fields": [
-                    "rating",
-                    "reviews_positive_count",
-                    "reviews_negative_count",
-                    "reviews_total_count",
-                    "messages_total_count",
-                    "rating_yandex",
-                    "rating_yandex_last_parse_at",
-                    "reviews_yandex_positive_count",
-                    "reviews_yandex_negative_count",
-                    "reviews_yandex_total_count",
-                    "reviews_yandex_last_parse_at",
-                    "rating_gis",
-                    "rating_gis_last_parse_at",
-                    "reviews_gis_positive_count",
-                    "reviews_gis_negative_count",
-                    "reviews_gis_total_count",
-                    "reviews_gis_last_parse_at",
-                    "rating_google",
-                    "rating_google_last_parse_at",
-                    "reviews_google_positive_count",
-                    "reviews_google_negative_count",
-                    "reviews_google_total_count",
-                    "reviews_google_last_parse_at"
-                ],
-            },
         ]
     ]
-    readonly_fields = [
-        "api_secret",
-        "is_first_parsing",
-        "rating",
-        "reviews_positive_count",
-        "reviews_negative_count",
-        "reviews_total_count",
-        "messages_total_count",
-        "rating_yandex",
-        "rating_yandex_last_parse_at",
-        "reviews_yandex_positive_count",
-        "reviews_yandex_negative_count",
-        "reviews_yandex_total_count",
-        "reviews_yandex_last_parse_at",
-        "rating_gis",
-        "rating_gis_last_parse_at",
-        "reviews_gis_positive_count",
-        "reviews_gis_negative_count",
-        "reviews_gis_total_count",
-        "reviews_gis_last_parse_at",
-        "rating_google",
-        "rating_google_last_parse_at",
-        "reviews_google_positive_count",
-        "reviews_google_negative_count",
-        "reviews_google_total_count",
-        "reviews_google_last_parse_at"
-    ]
+    readonly_fields = ["api_secret"]
     search_fields = ["name"]
-
-
-@register(Review)
-class ReviewAdmin(ModelAdmin):
-    autocomplete_fields = ["company"]
-    date_hierarchy = "created_at"
-    fieldsets = [
-        ["КОНТЕНТ", {"fields": ["name", "text"]}],
-        ["НАСТРОЙКИ", {"classes": ["collapse"], "fields": ["company", "service", "is_visible"]}],
-        ["ДАННЫЕ", {"classes": ["collapse"], "fields": ["created_at", "stars", "remote_id"]}],
-    ]
-    list_display = ["created_at", "company", "name", "is_visible", "stars"]
-    list_filter = ["company", "service", "is_visible"]
-    readonly_fields = ["created_at", "stars", "remote_id"]
-
-
-@register(Message)
-class MessageAdmin(ModelAdmin):
-    autocomplete_fields = ["company"]
-    date_hierarchy = "created_at"
-    fieldsets = [
-        ["КОНТЕНТ", {"fields": ["text"]}],
-        ["ДАННЫЕ", {"classes": ["collapse"], "fields": ["created_at", "phone"]}],
-        ["НАСТРОЙКИ", {"classes": ["collapse"], "fields": ["company"]}],
-    ]
-    list_display = ["created_at", "company", "phone"]
-    list_filter = ["company"]
-    readonly_fields = ["created_at"]

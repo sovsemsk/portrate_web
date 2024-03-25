@@ -1,6 +1,5 @@
 import datetime
 
-from django.contrib.auth.models import User
 from django.db.models import (
     BooleanField,
     CASCADE,
@@ -218,7 +217,7 @@ class Company(Model):
     reviews_google_last_parse_at = DateTimeField(blank=True, null=True, verbose_name="дата последней загрузки отзывов Google")
 
     """ Связи """
-    users = ManyToManyField(User, blank=True, verbose_name="пользователи", through="resources.Membership")
+    users = ManyToManyField("auth.User", blank=True, verbose_name="пользователи", through="resources.Membership")
 
     @property
     def form_tags(self):
@@ -263,10 +262,10 @@ def company_m2m_changed(sender, **kwargs):
     pk_set = kwargs.get('pk_set', None)
 
     if action == "post_add":
-        print(pk_set)
+        pass
 
     if action == "pre_remove":
-        print(pk_set)
+        pass
 
 
 class Membership(Model):
@@ -312,6 +311,9 @@ class RatingStamp(Model):
     """ Связи """
     company = ForeignKey("resources.Company", on_delete=CASCADE, verbose_name="компания")
 
+    def __str__(self):
+        return f"{self.company}-{self.created_at}"
+
 
 class Review(Model):
     """ Отзыв """
@@ -352,7 +354,7 @@ class Review(Model):
 {self.text}"""
 
     def __str__(self):
-        return f"{self.name}"
+        return self.name
 
 
 @receiver(post_save, sender=Review)

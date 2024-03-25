@@ -1,7 +1,7 @@
 from django.urls import path
 
-from . import views
+from .views import telegram_update
 
 urlpatterns = [
-    path("telegram_update", views.webhooks_telegram_update, name="webhooks_telegram_update")
+    path("telegram_update", telegram_update, name="telegram_update")
 ]

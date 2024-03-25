@@ -5,6 +5,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import logout as auth_logout, login
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.forms import model_to_dict
 from django.shortcuts import get_object_or_404
@@ -16,13 +17,13 @@ from django.views.generic import CreateView, DetailView, ListView, UpdateView
 from django_filters.views import FilterView
 
 from resources.models import Company, Message, Review, RatingStamp
-from resources.tasks import send_telegram_text_task
 from .filters import MessageFilter, ReviewFilter, RatingStampFilter
 from .forms import (
     CompanyForm,
     CompanyContactForm,
     CompanyDataForm,
     CompanyLinkForm,
+    CompanyMembershipFormSet,
     CompanyParserForm,
     DashboardAuthenticationForm,
     DashboardUserChangeForm,
@@ -33,15 +34,11 @@ from .forms import (
 )
 
 
-class CompanyListView(ListView):
+class CompanyListView(LoginRequiredMixin, ListView):
     context_object_name = "company_list"
     model = Company
     paginate_by = 30
     template_name = "dashboard/company_list.html"
-
-    @method_decorator(login_required)
-    def dispatch(self, request, *args, **kwargs):
-        return super(CompanyListView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -50,19 +47,14 @@ class CompanyListView(ListView):
         return context
 
     def get_queryset(self, **kwargs):
-        queryset = super().get_queryset(**kwargs)
-        queryset = queryset.filter(users__in=[self.request.user]).order_by("name")
-        return queryset
+        queryset = super().get_queryset()
+        return queryset.filter(users__in=[self.request.user]).order_by("name")
 
 
-class CompanyDetailView(DetailView):
+class CompanyDetailView(LoginRequiredMixin, DetailView):
     context_object_name = "company"
     model = Company
     template_name = "dashboard/company_detail.html"
-
-    @method_decorator(login_required)
-    def dispatch(self, request, *args, **kwargs):
-        return super(CompanyDetailView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -88,38 +80,30 @@ class CompanyDetailView(DetailView):
         return context
 
     def get_queryset(self, **kwargs):
-        queryset = super().get_queryset(**kwargs)
-        queryset = queryset.filter(users__in=[self.request.user])
-        return queryset
+        queryset = super().get_queryset()
+        return queryset.filter(users__in=[self.request.user])
 
 
-class CompanyCreateView(SuccessMessageMixin, CreateView):
+class CompanyCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     context_object_name = "company"
     form_class = CompanyForm
     model = Company
     success_message = "Компания успешно создана"
     template_name = "dashboard/company_create.html"
 
-    @method_decorator(login_required)
-    def dispatch(self, request, *args, **kwargs):
-        return super(CompanyCreateView, self).dispatch(request, *args, **kwargs)
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        companies = Company.objects.filter(users__in=[self.request.user]).order_by("name").all()
-        context["company_list"] = companies
         context["host"] = settings.HOST
         context["nav"] = "company"
         return context
 
     def get_queryset(self, **kwargs):
-        queryset = super().get_queryset(**kwargs)
+        queryset = super().get_queryset()
         queryset = queryset.filter(users__in=[self.request.user])
         return queryset
 
     def form_valid(self, form, **kwargs):
-        response = super(CompanyCreateView, self).form_valid(form, **kwargs)
-        self.object.is_active = True
+        response = super(CompanyCreateView, self).form_valid(**kwargs)
         self.object.users.add(self.request.user)
         return response
 
@@ -127,21 +111,15 @@ class CompanyCreateView(SuccessMessageMixin, CreateView):
         return reverse("company_parser_update", kwargs={"pk": self.object.id})
 
 
-class CompanyParserUpdateView(SuccessMessageMixin, UpdateView):
+class CompanyParserUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     context_object_name = "company"
     form_class = CompanyParserForm
     model = Company
     template_name = "dashboard/company_parser_update.html"
     success_message = "Настройки компании успешно сохранены"
 
-    @method_decorator(login_required)
-    def dispatch(self, request, *args, **kwargs):
-        return super(CompanyParserUpdateView, self).dispatch(request, *args, **kwargs)
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        companies = Company.objects.filter(users__in=[self.request.user]).order_by("name").all()
-        context["company_list"] = companies
         context["host"] = settings.HOST
         context["menu_nav"] = "parser"
         context["nav"] = "company"
@@ -149,29 +127,22 @@ class CompanyParserUpdateView(SuccessMessageMixin, UpdateView):
         return context
 
     def get_queryset(self, **kwargs):
-        queryset = super().get_queryset(**kwargs)
-        queryset = queryset.filter(users__in=[self.request.user])
-        return queryset
+        queryset = super().get_queryset()
+        return queryset.filter(users__in=[self.request.user])
 
     def get_success_url(self):
-        return reverse("company_parser_update", kwargs={"pk": self.object.id})
+        return reverse("company_parser_update", kwargs={"pk": self.kwargs["pk"]})
 
 
-class CompanyDataUpdateView(SuccessMessageMixin, UpdateView):
+class CompanyDataUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     context_object_name = "company"
     form_class = CompanyDataForm
     model = Company
     template_name = "dashboard/company_data_update.html"
     success_message = "Настройки компании успешно сохранены"
 
-    @method_decorator(login_required)
-    def dispatch(self, request, *args, **kwargs):
-        return super(CompanyDataUpdateView, self).dispatch(request, *args, **kwargs)
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        companies = Company.objects.filter(users__in=[self.request.user]).order_by("name").all()
-        context["company_list"] = companies
         context["host"] = settings.HOST
         context["menu_nav"] = "data"
         context["nav"] = "company"
@@ -179,29 +150,22 @@ class CompanyDataUpdateView(SuccessMessageMixin, UpdateView):
         return context
 
     def get_queryset(self, **kwargs):
-        queryset = super().get_queryset(**kwargs)
-        queryset = queryset.filter(users__in=[self.request.user])
-        return queryset
+        queryset = super().get_queryset()
+        return queryset.filter(users__in=[self.request.user])
 
     def get_success_url(self):
-        return reverse("company_data_update", kwargs={"pk": self.object.id})
+        return reverse("company_data_update", kwargs={"pk": self.kwargs["pk"]})
 
 
-class CompanyLinkUpdateView(SuccessMessageMixin, UpdateView):
+class CompanyLinkUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     context_object_name = "company"
     form_class = CompanyLinkForm
     model = Company
     template_name = "dashboard/company_link_update.html"
     success_message = "Настройки компании успешно сохранены"
 
-    @method_decorator(login_required)
-    def dispatch(self, request, *args, **kwargs):
-        return super(CompanyLinkUpdateView, self).dispatch(request, *args, **kwargs)
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        companies = Company.objects.filter(users__in=[self.request.user]).order_by("name").all()
-        context["company_list"] = companies
         context["host"] = settings.HOST
         context["menu_nav"] = "link"
         context["nav"] = "company"
@@ -209,29 +173,22 @@ class CompanyLinkUpdateView(SuccessMessageMixin, UpdateView):
         return context
 
     def get_queryset(self, **kwargs):
-        queryset = super().get_queryset(**kwargs)
-        queryset = queryset.filter(users__in=[self.request.user])
-        return queryset
+        queryset = super().get_queryset()
+        return queryset.filter(users__in=[self.request.user])
 
     def get_success_url(self):
-        return reverse("company_link_update", kwargs={"pk": self.object.id})
+        return reverse("company_link_update", kwargs={"pk": self.kwargs["pk"]})
 
 
-class CompanyContactUpdateView(SuccessMessageMixin, UpdateView):
+class CompanyContactUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     context_object_name = "company"
     form_class = CompanyContactForm
     model = Company
     template_name = "dashboard/company_contact_update.html"
     success_message = "Настройки компании успешно сохранены"
 
-    @method_decorator(login_required)
-    def dispatch(self, request, *args, **kwargs):
-        return super(CompanyContactUpdateView, self).dispatch(request, *args, **kwargs)
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        companies = Company.objects.filter(users__in=[self.request.user]).order_by("name").all()
-        context["company_list"] = companies
         context["host"] = settings.HOST
         context["menu_nav"] = "contact"
         context["nav"] = "company"
@@ -239,15 +196,42 @@ class CompanyContactUpdateView(SuccessMessageMixin, UpdateView):
         return context
 
     def get_queryset(self, **kwargs):
-        queryset = super().get_queryset(**kwargs)
-        queryset = queryset.filter(users__in=[self.request.user])
-        return queryset
+        queryset = super().get_queryset()
+        return queryset.filter(users__in=[self.request.user])
 
     def get_success_url(self):
-        return reverse("company_contact_update", kwargs={"pk": self.object.id})
+        return reverse("company_contact_update", kwargs={"pk": self.kwargs["pk"]})
 
 
-class CompanyRatingDynamic(BaseLineChartView):
+class CompanyMembershipUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    context_object_name = "company"
+    form_class = CompanyMembershipFormSet
+    model = Company
+    template_name = "dashboard/company_membership_update.html"
+    success_message = "Настройки компании успешно сохранены"
+
+    def get_form(self, form_class=None):
+        form = super().get_form(self.form_class)
+        form.queryset = form.queryset.filter(user=self.request.user)
+        return form
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["host"] = settings.HOST
+        context["menu_nav"] = "membership"
+        context["nav"] = "company"
+        context["tab_nav"] = "update"
+        return context
+
+    def get_queryset(self, **kwargs):
+        queryset = super().get_queryset()
+        return queryset.filter(users__in=[self.request.user])
+
+    def get_success_url(self):
+        return reverse("company_membership_update", kwargs={"pk": self.kwargs["pk"]})
+
+
+class CompanyRatingDynamic(LoginRequiredMixin, BaseLineChartView):
     def __init__(self, **kwargs):
         super().__init__()
         self.company = None
@@ -259,7 +243,7 @@ class CompanyRatingDynamic(BaseLineChartView):
 
         self.rating_history = RatingStampFilter(
             self.request.GET,
-            queryset=RatingStamp.objects.filter(company_id=self.company.id)
+            queryset=RatingStamp.objects.filter(company=self.company)
         ).qs
 
         return super(CompanyRatingDynamic, self).dispatch(request, *args, **kwargs)
@@ -324,22 +308,19 @@ class ReviewListView(FilterView):
         return context
 
     def get_queryset(self, **kwargs):
-        queryset = super().get_queryset(**kwargs)
+        queryset = super().get_queryset()
+
         return queryset.filter(
             company__in=[self.kwargs["company_pk"]],
             company__users__in=[self.request.user]
-        ).select_related("company").order_by("-created_at")
+        ).order_by("-created_at")
 
 
-class ReviewUpdateView(SuccessMessageMixin, UpdateView):
+class ReviewUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     context_object_name = "review"
     form_class = ReviewForm
     model = Review
     success_message = "Настройки отзыва успешно сохранены"
-
-    @method_decorator(login_required)
-    def dispatch(self, request, *args, **kwargs):
-        return super(ReviewUpdateView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -349,23 +330,19 @@ class ReviewUpdateView(SuccessMessageMixin, UpdateView):
         return context
 
     def get_queryset(self, **kwargs):
-        queryset = super().get_queryset(**kwargs)
+        queryset = super().get_queryset()
         return queryset.filter(company__in=[self.kwargs["company_pk"]], company__users__in=[self.request.user])
 
     def get_success_url(self):
-        return f"{reverse('review_list', kwargs={'company_pk': self.object.company.id})}?{self.request.GET.urlencode()}"
+        return f"{reverse('review_list', kwargs={'company_pk': self.kwargs['company_pk']})}?{self.request.GET.urlencode()}"
 
 
-class MessageListView(FilterView):
+class MessageListView(LoginRequiredMixin, FilterView):
     context_object_name = "message_list"
     filterset_class = MessageFilter
     model = Message
     paginate_by = 30
     template_name = "dashboard/message_list.html"
-
-    @method_decorator(login_required)
-    def dispatch(self, request, *args, **kwargs):
-        return super(MessageListView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -375,7 +352,7 @@ class MessageListView(FilterView):
         return context
 
     def get_queryset(self, **kwargs):
-        queryset = super().get_queryset(**kwargs)
+        queryset = super().get_queryset()
         return queryset.filter(
             company__in=[self.kwargs["company_pk"]],
             company__users__in=[self.request.user]
@@ -568,13 +545,3 @@ def user_login(request):
 def user_logout(request):
     auth_logout(request)
     return redirect("user_login")
-
-
-@login_required
-@require_http_methods(("GET",))
-def telegram_notify_unsubscribe(request):
-    send_telegram_text_task(request.user.profile.telegram_id, "👋🏼 Вы отписаны от уведомлений telegram")
-    request.user.profile.telegram_id = None
-    request.user.profile.save()
-
-    return redirect(request.GET.get("next"))
