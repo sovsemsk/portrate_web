@@ -1,9 +1,14 @@
-from django.contrib.auth.forms import UserChangeForm, AuthenticationForm, UsernameField, SetPasswordForm, \
+from django.contrib.auth.forms import (
+    AuthenticationForm,
+    SetPasswordForm,
+    UserChangeForm,
+    UsernameField,
     UserCreationForm
+)
 from django.contrib.auth.models import User
-from django.forms import BooleanField, ImageField, Select, TimeField
+from django.forms import BooleanField, ImageField, Select
 from django.forms import CharField, PasswordInput, ModelForm, TextInput
-from django.forms.widgets import TimeInput, FileInput
+from django.forms.widgets import FileInput
 
 from resources.models import Company, Profile, Review, Timezone
 
@@ -11,37 +16,24 @@ from resources.models import Company, Profile, Review, Timezone
 class ProfileForm(ModelForm):
     class Meta:
         model = Profile
-        fields = [
-            "default_timezone",
-            "can_notify_at_start",
-            "can_notify_at_end",
-            "can_notify_negative_portrate",
-            "can_notify_negative_yandex",
-            "can_notify_negative_gis",
-            "can_notify_negative_google"
-        ]
+        fields = ["default_timezone"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
     default_timezone = Select(choices=Timezone.choices)
-    can_notify_at_start = TimeField(widget=TimeInput(attrs={"type": "time", "class": "bp5-input"}))
-    can_notify_at_end = TimeField(widget=TimeInput(attrs={"type": "time", "class": "bp5-input"}))
-    can_notify_negative_portrate = BooleanField(required=False)
-    can_notify_negative_yandex = BooleanField(required=False)
-    can_notify_negative_gis = BooleanField(required=False)
-    can_notify_negative_google = BooleanField(required=False)
+    # can_notify_at_start = TimeField(widget=TimeInput(attrs={"type": "time", "class": "bp5-input"}))
+    # can_notify_at_end = TimeField(widget=TimeInput(attrs={"type": "time", "class": "bp5-input"}))
+    # can_notify_negative_portrate = BooleanField(required=False)
+    # can_notify_negative_yandex = BooleanField(required=False)
+    # can_notify_negative_gis = BooleanField(required=False)
+    # can_notify_negative_google = BooleanField(required=False)
 
 
 class CompanyForm(ModelForm):
     class Meta:
         model = Company
-        fields = [
-            "address",
-            "phone",
-            "logo",
-            "name"
-        ]
+        fields = ["address", "phone", "logo", "name"]
 
     address = CharField(widget=TextInput(attrs={"class": "bp5-input"}))
     phone = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
