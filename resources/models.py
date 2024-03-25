@@ -21,6 +21,7 @@ from django.db.models import (
 from django.db.models.signals import m2m_changed, post_init, post_save
 from django.dispatch import receiver
 from django.utils.crypto import get_random_string
+from djmoney.models.fields import MoneyField
 
 
 class Service(TextChoices):
@@ -47,6 +48,13 @@ class Timezone(TextChoices):
     Asia_Yekaterinburg = "Asia/Yekaterinburg", "Екатеринбург"
 
 
+class Rate(TextChoices):
+    """ Часовой пояс """
+    START = "STARTS", "Старт"
+    REGULAR = "REGULAR", "Стандарт"
+    BUSINESS = "BUSINESS", "Бизнес"
+
+
 class Profile(Model):
     """ Профиль """
     class Meta:
@@ -56,14 +64,10 @@ class Profile(Model):
 
     """ Автогенерация """
     api_secret = CharField(verbose_name="API ключ", db_index=True)
+    balance = MoneyField(default=0, default_currency='RUB', decimal_places=2,  max_digits=14)
+    is_billing = BooleanField(default=False, verbose_name="списывать оплату?")
 
     """ Настройки """
-    can_notify_at_start = TimeField(blank=True, default=datetime.time(9, 00), null=True, verbose_name="можно оповещать с")
-    can_notify_at_end = TimeField(blank=True, default=datetime.time(17, 00), null=True, verbose_name="можно оповещать до")
-    can_notify_negative_portrate = BooleanField(default=True, verbose_name="получать оповещения в Telegram о сообщениях в Портрет")
-    can_notify_negative_yandex = BooleanField(default=True, verbose_name="получать оповещения в Telegram о негативных отзывах в Яндекс Карты")
-    can_notify_negative_gis = BooleanField(default=True, verbose_name="получать оповещения в Telegram о негативных отзывах в 2Гис Карты")
-    can_notify_negative_google = BooleanField(default=True, verbose_name="получать оповещения в Telegram о негативных отзывах в Google Maps")
     default_timezone = CharField(blank=False, null=False, choices=Timezone.choices, default=Timezone.UTC, verbose_name="Временная зона по умолчанию")
     telegram_id = CharField(blank=True, null=True, verbose_name="telegram ID")
 
