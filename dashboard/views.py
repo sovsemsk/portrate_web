@@ -47,7 +47,7 @@ class CompanyListView(LoginRequiredMixin, ListView):
         return context
 
     def get_queryset(self, **kwargs):
-        queryset = super().get_queryset()
+        queryset = super().get_queryset(**kwargs)
         return queryset.filter(users__in=[self.request.user]).order_by("name")
 
 
@@ -80,7 +80,7 @@ class CompanyDetailView(LoginRequiredMixin, DetailView):
         return context
 
     def get_queryset(self, **kwargs):
-        queryset = super().get_queryset()
+        queryset = super().get_queryset(**kwargs)
         return queryset.filter(users__in=[self.request.user])
 
 
@@ -91,6 +91,11 @@ class CompanyCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     success_message = "Компания успешно создана"
     template_name = "dashboard/company_create.html"
 
+    def form_valid(self, form, **kwargs):
+        response = super(CompanyCreateView, self).form_valid(form, **kwargs)
+        self.object.users.add(self.request.user)
+        return response
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["host"] = settings.HOST
@@ -98,14 +103,9 @@ class CompanyCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         return context
 
     def get_queryset(self, **kwargs):
-        queryset = super().get_queryset()
+        queryset = super().get_queryset(**kwargs)
         queryset = queryset.filter(users__in=[self.request.user])
         return queryset
-
-    def form_valid(self, form, **kwargs):
-        response = super(CompanyCreateView, self).form_valid(**kwargs)
-        self.object.users.add(self.request.user)
-        return response
 
     def get_success_url(self):
         return reverse("company_parser_update", kwargs={"pk": self.object.id})
@@ -127,7 +127,7 @@ class CompanyParserUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateVie
         return context
 
     def get_queryset(self, **kwargs):
-        queryset = super().get_queryset()
+        queryset = super().get_queryset(**kwargs)
         return queryset.filter(users__in=[self.request.user])
 
     def get_success_url(self):
@@ -150,7 +150,7 @@ class CompanyDataUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView)
         return context
 
     def get_queryset(self, **kwargs):
-        queryset = super().get_queryset()
+        queryset = super().get_queryset(**kwargs)
         return queryset.filter(users__in=[self.request.user])
 
     def get_success_url(self):
@@ -173,7 +173,7 @@ class CompanyLinkUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView)
         return context
 
     def get_queryset(self, **kwargs):
-        queryset = super().get_queryset()
+        queryset = super().get_queryset(**kwargs)
         return queryset.filter(users__in=[self.request.user])
 
     def get_success_url(self):
@@ -196,7 +196,7 @@ class CompanyContactUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateVi
         return context
 
     def get_queryset(self, **kwargs):
-        queryset = super().get_queryset()
+        queryset = super().get_queryset(**kwargs)
         return queryset.filter(users__in=[self.request.user])
 
     def get_success_url(self):
@@ -224,7 +224,7 @@ class CompanyMembershipUpdateView(LoginRequiredMixin, SuccessMessageMixin, Updat
         return context
 
     def get_queryset(self, **kwargs):
-        queryset = super().get_queryset()
+        queryset = super().get_queryset(**kwargs)
         return queryset.filter(users__in=[self.request.user])
 
     def get_success_url(self):
@@ -308,7 +308,7 @@ class ReviewListView(FilterView):
         return context
 
     def get_queryset(self, **kwargs):
-        queryset = super().get_queryset()
+        queryset = super().get_queryset(**kwargs)
 
         return queryset.filter(
             company__in=[self.kwargs["company_pk"]],
@@ -330,7 +330,7 @@ class ReviewUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         return context
 
     def get_queryset(self, **kwargs):
-        queryset = super().get_queryset()
+        queryset = super().get_queryset(**kwargs)
         return queryset.filter(company__in=[self.kwargs["company_pk"]], company__users__in=[self.request.user])
 
     def get_success_url(self):
@@ -352,7 +352,7 @@ class MessageListView(LoginRequiredMixin, FilterView):
         return context
 
     def get_queryset(self, **kwargs):
-        queryset = super().get_queryset()
+        queryset = super().get_queryset(**kwargs)
         return queryset.filter(
             company__in=[self.kwargs["company_pk"]],
             company__users__in=[self.request.user]
