@@ -16,37 +16,39 @@
         <script src="{% static 'javascript/imask.min.js' %}"></script>
     </head>
     <body>
-    <div class="pio-container">
         <div class="bp5-section bp5-card">
             <div class="bp5-padded bp5-section-card">
-                {% if company.logo %}
-                <div class="bp5-control-group">
-                    <div class="bp5-form-group">
-                        <img class="pio-logo" height=120 src="{{company.logo.url}}" alt="{{company.name}}" width=120>
+                <div class="pio-container">
+                    {% if company.logo %}
+                    <div class="bp5-control-group">
+                        <div class="bp5-form-group">
+                            <img class="pio-logo" height=120 src="{{company.logo.url}}" alt="{{company.name}}" width=120>
+                        </div>
                     </div>
-                </div>
-                {% endif %}
-                <h3 class="bp5-heading">
-                    {{company.name}}
-                </h3>
-                <div class="bp5-control-group">
-                    {% if company.phone %}
-                        <a class="bp5-tag bp5-minimal  bp5-round bp5-interactive" href="tel:{{company.phone}}">{{company.phone}}</a>
                     {% endif %}
-                    <span class="bp5-tag bp5-minimal  bp5-round">{{company.address}}</span>
-                    {% if company.form_contact_website %}
-                    <a class="bp5-tag bp5-minimal  bp5-round bp5-interactive" href="{{company.form_contact_website}}" _target="blank">{{company.form_contact_website}}</a>
-                    {% endif %}
+                    <h3 class="bp5-heading">
+                        {{company.name}}
+                    </h3>
+                    <div class="bp5-control-group">
+                        {% if company.phone %}
+                            <a class="bp5-tag bp5-minimal  bp5-round bp5-interactive" href="tel:{{company.phone}}">{{company.phone}}</a>
+                        {% endif %}
+                        <span class="bp5-tag bp5-minimal  bp5-round">{{company.address}}</span>
+                        {% if company.form_contact_website %}
+                        <a class="bp5-tag bp5-minimal  bp5-round bp5-interactive" href="{{company.form_contact_website}}" _target="blank">{{company.form_contact_website}}</a>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
             {% block content %}
             {% endblock %}
-        </div>
-        <div class="pio-made-in">
-            <span class="bp5-text-muted bp5-text-small">работает на</span> <a href="https://portrate.io"><img alt="Портрет" src="{% static 'images/dashboard/logo.svg' %}" width=50></a>
+            <div class="bp5-padded bp5-section-card">
+                <div class="pio-made-in">
+                    <span class="bp5-text-muted bp5-text-small">работает на</span> <a href="https://portrate.io"><img alt="Портрет" src="{% static 'images/dashboard/logo.svg' %}" width=50></a>
+                </div>
+            </div>
         </div>
         {% block script %}
         {% endblock %}
-    </div>
     </body>
 </html>
