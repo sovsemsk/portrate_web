@@ -16,6 +16,7 @@
         <script src="{% static 'javascript/imask.min.js' %}"></script>
     </head>
     <body>
+    <div class="pio-container">
         <div class="bp5-section bp5-card">
             <div class="bp5-padded bp5-section-card">
                 {% if company.logo %}
@@ -46,5 +47,6 @@
         </div>
         {% block script %}
         {% endblock %}
+    </div>
     </body>
 </html>
