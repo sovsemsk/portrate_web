@@ -214,7 +214,7 @@ class CompanyLinkUpdateView(SuccessMessageMixin, UpdateView):
         return queryset
 
     def get_success_url(self):
-        return reverse("company_data_update", kwargs={"pk": self.object.id})
+        return reverse("company_link_update", kwargs={"pk": self.object.id})
 
 
 class CompanyContactUpdateView(SuccessMessageMixin, UpdateView):
