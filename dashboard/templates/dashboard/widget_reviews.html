@@ -1,8 +1,8 @@
-{% extends 'dashboard/base.html' %}
+{% extends "dashboard/app.html" %}
 {% load static %}
 {% block content %}
-{% include 'dashboard/_company_head.html' %}
-{% include 'dashboard/_company_tabs.html' %}
+{% include "dashboard/_company_head.html" %}
+{% include "dashboard/_company_tabs.html" %}
 <div class="bp5-form-group">
     <div class="bp5-control-group">
         <button id="COPY_CODE_BUTTON" type="button" class="bp5-button bp5-intent-warning">Скопировать код виджета</button>
@@ -16,7 +16,7 @@
         <div class="bp5-form-group" style="position:relative;">
             <img height=358 src="{% static 'images/dashboard/frame.svg' %}" width=596>
             <!-- @TODO: inline style -->
-            <img class="bp5-elevation-0" style="border-radius:10px;height:275px;left:48px;position:absolute;top:60px;" {% if theme == 'l' %}src="{% static 'images/dashboard/widget_reviews_slider_light.svg' %}"{% else %}src="{% static 'images/dashboard/widget_reviews_slider_dark.svg' %}"{% endif %} >
+            <img class="bp5-elevation-0" style="border-radius:10px;height:275px;left:48px;position:absolute;top:60px;" {% if theme == "l" %}src="{% static 'images/dashboard/widget_reviews_slider_light.svg' %}"{% else %}src="{% static 'images/dashboard/widget_reviews_slider_dark.svg' %}"{% endif %} >
         </div>
         <!-- @TODO: inline style -->
         <div class="bp5-form-group" style="margin-bottom:0;">
