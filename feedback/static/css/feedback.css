@@ -1,4 +1,4 @@
-html{min-height:100%;}
+html{height:100vh;}
 body{align-items:center;background-color:white;display:flex;justify-content:center;margin:10px;text-align:center !important;min-height:100%;}
 a{text-decoration:none !important;}
 .bp5-card{border-radius:10px;margin-left:auto;margin-right:auto;max-width:480px;}
@@ -10,6 +10,7 @@ a{text-decoration:none !important;}
 .bp5-button-group.bp5-vertical:not(.bp5-minimal)>.bp5-popover-target:last-child .bp5-button{border-radius:0 0 5px 5px;}
 .bp5-callout{border-radius:5px;}
 .bp5-input{border-radius:5px;box-shadow: 0 0 0 1px rgba(17, 20, 24, 0.15);}
+.pio-logo{border-radius:10px;}
 .pio-container{max-width:480px;min-width:320px;}
-.pio-made-in{align-items:center;display:flex;gap:5px;justify-content:center;margin-top:10px;}
+.pio-made-in{align-items:center;display:flex;gap:5px;justify-content:center;margin-bottom:10px;margin-top:10px;}
 .pio-made-in>a{padding-top:6px;}
