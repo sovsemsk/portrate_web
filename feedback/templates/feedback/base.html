@@ -22,7 +22,7 @@
                     {% if company.logo %}
                     <div class="bp5-control-group">
                         <div class="bp5-form-group">
-                            <img class="pio-logo" height=120 src="{{company.logo.url}}" alt="{{company.name}}" width=120>
+                            <img class="bp5-elevation-0 pio-logo" height=120 src="{{company.logo.url}}" alt="{{company.name}}" width=120>
                         </div>
                     </div>
                     {% endif %}
@@ -44,7 +44,7 @@
             {% endblock %}
             <div class="bp5-padded bp5-section-card">
                 <div class="pio-made-in">
-                    <span class="bp5-text-muted bp5-text-small">работает на</span> <a href="https://portrate.io"><img alt="Портрет" src="{% static 'images/dashboard/logo.svg' %}" width=50></a>
+                    <span class="bp5-text-muted bp5-text-small">работает на</span> <a href="https://portrate.io"><img alt="Портрет" src="{% static 'images/dashboard/logo.svg' %}" target="_blank" width=50></a>
                 </div>
             </div>
         </div>
