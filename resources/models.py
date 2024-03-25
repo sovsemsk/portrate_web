@@ -70,6 +70,7 @@ class Profile(Model):
     """ Настройки """
     default_timezone = CharField(blank=False, null=False, choices=Timezone.choices, default=Timezone.UTC, verbose_name="Временная зона по умолчанию")
     telegram_id = CharField(blank=True, null=True, verbose_name="telegram ID")
+    rate = CharField(blank=False, null=False, choices=Rate.choices, default=Rate.START, verbose_name="Тариф")
 
     """ Связи """
     user = OneToOneField("auth.User", on_delete=CASCADE)
