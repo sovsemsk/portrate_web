@@ -1,5 +1,5 @@
-html{min-height:100vh;}
-body{align-items:center;background-color:white;display:flex;justify-content:center;margin:10px;text-align:center !important;min-height:100vh;}
+html{min-height:100%;}
+body{align-items:center;background-color:white;display:flex;justify-content:center;margin:10px;text-align:center !important;min-height:100%;}
 a{text-decoration:none !important;}
 .bp5-card{border-radius:10px;margin-left:auto;margin-right:auto;max-width:480px;}
 .bp5-control-group:not(.bp5-vertical){flex-wrap:wrap;justify-content:center;gap:5px;}
