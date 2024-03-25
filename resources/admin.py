@@ -11,6 +11,7 @@ class CompanyAdmin(admin.ModelAdmin):
     autocomplete_fields = ["users"]
     readonly_fields = [
         "api_secret",
+        "is_first_parsing",
         "rating",
         "reviews_positive_count",
         "reviews_negative_count",

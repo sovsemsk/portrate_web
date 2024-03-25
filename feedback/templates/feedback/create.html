@@ -5,12 +5,10 @@
     <h5 class="bp5-heading">
         Написать директору
     </h5>
-    <p class="bp5-form-group bp5-running-text bp5-text-muted">
-        Расскажите что вам не понравилось и что мы можем сделать лучше. Директор накажет виновных, свяжется с вами и предложит решение проблемы.
-    </p>
     <form id="REQUEST_FORM" method="post" novalidate>
         {% csrf_token %}
         <div class="bp5-form-group">
+            <label class="bp5-label">Расскажите что вам не понравилось</label>
             {{form.text}}
         </div>
         <div class="bp5-form-group ">
