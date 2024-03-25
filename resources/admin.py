@@ -1,24 +1,24 @@
-from django.contrib.admin import ModelAdmin, register
+from django.contrib.admin import ModelAdmin, register, TabularInline
 
-from .models import Company, Message, Review
+from .models import Company, Message, Review, Membership
 
 
-# class MembershipInlineAdmin(TabularInline):
-#     autocomplete_fields = ["user"]
-#     fieldsets = [
-#         [
-#             "КОНТЕНТ",
-#             {
-#                 "fields": ["user"]
-#             }
-#         ]
-#     ]
-#     model = Membership
+class MembershipInlineAdmin(TabularInline):
+    autocomplete_fields = ["user"]
+    fieldsets = [
+        [
+            "КОНТЕНТ",
+            {
+                "fields": ["user"]
+            }
+        ]
+    ]
+    model = Membership
 
 
 @register(Company)
 class CompanyAdmin(ModelAdmin):
-    # inlines = [MembershipInlineAdmin]
+    inlines = [MembershipInlineAdmin]
     list_display = ["name", "is_active", "is_parse_yandex", "is_parse_gis", "is_parse_google"]
     list_filter = ["is_active", "is_parse_yandex", "is_parse_gis", "is_parse_google"]
     fieldsets = [
