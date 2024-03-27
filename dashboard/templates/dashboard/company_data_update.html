@@ -3,112 +3,109 @@
 {% block content %}
 {% include "dashboard/_company_head.html" %}
 {% include "dashboard/_company_tabs.html" %}
-<div class="bp5-form-group">
-    <div class="bp5-control-group">
-        <button class="bp5-button bp5-intent-warning" form="COMPANY_FORM" type="submit">Сохранить</button>
-        <a class="bp5-button bp5-intent-warning" href="{{company.host}}/@{{company.id}}" target="_blank">Форма запроса отзыва</a>
-    </div>
-</div>
 <!-- @TODO: inline style -->
 <div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:15px">
     <!-- @TODO: inline style -->
     <div style="grid-column:span 9 / span 9;">
-        <form enctype="multipart/form-data" id="COMPANY_FORM" method="post" novalidate>
-        {% csrf_token %}
-            <div class="bp5-form-group">
+        <div class="bp5-form-group">
+            <form enctype="multipart/form-data" id="COMPANY_FORM" method="post" novalidate>
+            {% csrf_token %}
+                <div class="bp5-form-group">
+                    <div class="bp5-card bp5-section">
+                        <div class="bp5-section-header">
+                            <div class="bp5-section-header-left">
+                                <h6 class="bp5-heading bp5-section-header-title">
+                                    Логотип
+                                </h6>
+                            </div>
+                            <div class="bp5-section-header-right">
+                                <span class="bp5-icon bp5-icon-media bp5-text-muted"></span>
+                            </div>
+                        </div>
+                        <div class="bp5-padded bp5-section-card">
+                            <div class="bp5-control-group bp5-fill">
+                                <div class="bp5-form-group">
+                                    <label class="bp5-label">Размер файла не должен превышать 500кб</label>
+                                    <label class="bp5-file-input">
+                                        {{form.logo}}
+                                        <span class="bp5-file-upload-input" data-logo>Выбрать файл...</span>
+                                    </label>
+                                    {% if form.logo.errors %}
+                                    <!-- @TODO: inline style -->
+                                    <div class="bp5-form-helper-text" style="color:#ac2f33">
+                                        {{form.logo.errors.as_text}}
+                                    </div>
+                                    {% endif %}
+                                    <div class="bp5-form-helper-text">
+                                        Рекомендуется использовать квадраный размер и белый фон
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="bp5-card bp5-section">
                     <div class="bp5-section-header">
                         <div class="bp5-section-header-left">
                             <h6 class="bp5-heading bp5-section-header-title">
-                                Логотип
+                                Данные
                             </h6>
                         </div>
                         <div class="bp5-section-header-right">
-                            <span class="bp5-icon bp5-icon-media bp5-text-muted"></span>
+                            <span class="bp5-icon bp5-icon-shop bp5-text-muted"></span>
                         </div>
                     </div>
                     <div class="bp5-padded bp5-section-card">
                         <div class="bp5-control-group bp5-fill">
-                            <div class="bp5-form-group">
-                                <label class="bp5-label">Размер файла не должен превышать 500кб</label>
-                                <label class="bp5-file-input">
-                                    {{form.logo}}
-                                    <span class="bp5-file-upload-input" data-logo>Выбрать файл...</span>
-                                </label>
-                                {% if form.logo.errors %}
+                            <!-- @TODO: inline style -->
+                            <div class="bp5-form-group" style="flex:1 0 50%">
+                                <label class="bp5-label">Название</label>
+                                {{form.name}}
+                                {% if form.name.errors %}
                                 <!-- @TODO: inline style -->
                                 <div class="bp5-form-helper-text" style="color:#ac2f33">
-                                    {{form.logo.errors.as_text}}
+                                    {{form.name.errors.as_text}}
+                                </div>
+                                {% else %}
+                                <div class="bp5-form-helper-text">
+                                    Без списка услуг
                                 </div>
                                 {% endif %}
+                            </div>
+                            <!-- @TODO: inline style -->
+                            <div class="bp5-form-group" style="flex:1 0 50%">
+                                <label class="bp5-label">Телефон</label>
+                                {{form.phone}}
                                 <div class="bp5-form-helper-text">
-                                    Рекомендуется использовать квадраный размер и белый фон
+                                    В формате +7 987 873-22-00
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="bp5-card bp5-section">
-                <div class="bp5-section-header">
-                    <div class="bp5-section-header-left">
-                        <h6 class="bp5-heading bp5-section-header-title">
-                            Данные
-                        </h6>
-                    </div>
-                    <div class="bp5-section-header-right">
-                        <span class="bp5-icon bp5-icon-shop bp5-text-muted"></span>
-                    </div>
-                </div>
-                <div class="bp5-padded bp5-section-card">
-                    <div class="bp5-control-group bp5-fill">
-                        <!-- @TODO: inline style -->
-                        <div class="bp5-form-group" style="flex:1 0 50%">
-                            <label class="bp5-label">Название</label>
-                            {{form.name}}
-                            {% if form.name.errors %}
+                        <div class="bp5-form-group">
+                            <label class="bp5-label">Адрес</label>
+                            {{form.address}}
+                            {% if form.address.errors %}
                             <!-- @TODO: inline style -->
                             <div class="bp5-form-helper-text" style="color:#ac2f33">
-                                {{form.name.errors.as_text}}
+                                {{form.address.errors.as_text}}
                             </div>
                             {% else %}
                             <div class="bp5-form-helper-text">
-                                Без списка услуг
+                                В формате г. Орск, ул. Ленинского-Комсомола 4б
                             </div>
                             {% endif %}
                         </div>
-                        <!-- @TODO: inline style -->
-                        <div class="bp5-form-group" style="flex:1 0 50%">
-                            <label class="bp5-label">Телефон</label>
-                            {{form.phone}}
-                            <div class="bp5-form-helper-text">
-                                В формате +7 987 873-22-00
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bp5-form-group">
-                        <label class="bp5-label">Адрес</label>
-                        {{form.address}}
-                        {% if form.address.errors %}
-                        <!-- @TODO: inline style -->
-                        <div class="bp5-form-helper-text" style="color:#ac2f33">
-                            {{form.address.errors.as_text}}
-                        </div>
-                        {% else %}
-                        <div class="bp5-form-helper-text">
-                            В формате г. Орск, ул. Ленинского-Комсомола 4б
-                        </div>
-                        {% endif %}
                     </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
     <!-- @TODO: inline style -->
     <div style="grid-column:span 3 / span 3;">
         {% include "dashboard/_company_update_menu.html" %}
     </div>
 </div>
+<button class="bp5-button bp5-intent-warning" form="COMPANY_FORM" type="submit">Сохранить</button>
 {% endblock %}
 {% block script %}
 <script>

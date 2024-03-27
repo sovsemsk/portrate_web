@@ -2,60 +2,58 @@
 {% load static %}
 {% block content %}
 {% include "dashboard/_settings_tabs.html" %}
-<div class="bp5-form-group">
-    <div class="bp5-control-group">
-        <button class="bp5-button bp5-intent-warning" form="SECURITY_FORM" type="submit">Сохранить</button>
-    </div>
-</div>
 <!-- @TODO: inline style -->
 <div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:15px">
     <!-- @TODO: inline style -->
     <div style="grid-column:span 9 / span 9;">
-        <form id="SECURITY_FORM" method="post" novalidate>
-            {% csrf_token %}
-            <div class="bp5-card bp5-section">
-                <div class="bp5-section-header">
-                    <div class="bp5-section-header-left">
-                        <h6 class="bp5-heading bp5-section-header-title">
-                            Пароль
-                        </h6>
-                    </div>
-                    <div class="bp5-section-header-right">
-                        <span class="bp5-icon bp5-icon-lock bp5-text-muted"></span>
-                    </div>
-                </div>
-                <div class="bp5-padded bp5-section-card">
-                    <div class="bp5-control-group bp5-fill">
-                        <!-- @TODO: inline style -->
-                        <div class="bp5-form-group" style="flex:1 0 50%">
-                            <label class="bp5-label">Новый пароль</label>
-                            {{form.new_password1}}
-                            {% if form.new_password1.errors %}
-                            <!-- @TODO: inline style -->
-                            <div class="bp5-form-helper-text" style="color:#ac2f33">
-                                {{form.new_password1.errors.as_text}}
-                            </div>
-                            {% else %}
-                            <div class="bp5-form-helper-text">
-                                Минимум 8 символов
-                            </div>
-                            {% endif %}
+        <div class="bp5-form-group">
+            <form id="SECURITY_FORM" method="post" novalidate>
+                {% csrf_token %}
+                <div class="bp5-card bp5-section">
+                    <div class="bp5-section-header">
+                        <div class="bp5-section-header-left">
+                            <h6 class="bp5-heading bp5-section-header-title">
+                                Пароль
+                            </h6>
                         </div>
-                        <!-- @TODO: inline style -->
-                        <div class="bp5-form-group" style="flex: 1 0 50%">
-                            <label class="bp5-label">Подтверждение нового пароля</label>
-                            {{form.new_password2}}
-                            {% if form.new_password2.errors %}
-                            <!-- @TODO: inline style -->
-                            <div class="bp5-form-helper-text" style="color:#ac2f33">
-                                {{form.new_password2.errors.as_text}}
-                            </div>
-                            {% endif %}
+                        <div class="bp5-section-header-right">
+                            <span class="bp5-icon bp5-icon-lock bp5-text-muted"></span>
                         </div>
                     </div>
+                    <div class="bp5-padded bp5-section-card">
+                        <div class="bp5-control-group bp5-fill">
+                            <!-- @TODO: inline style -->
+                            <div class="bp5-form-group" style="flex:1 0 50%">
+                                <label class="bp5-label">Новый пароль</label>
+                                {{form.new_password1}}
+                                {% if form.new_password1.errors %}
+                                <!-- @TODO: inline style -->
+                                <div class="bp5-form-helper-text" style="color:#ac2f33">
+                                    {{form.new_password1.errors.as_text}}
+                                </div>
+                                {% else %}
+                                <div class="bp5-form-helper-text">
+                                    Минимум 8 символов
+                                </div>
+                                {% endif %}
+                            </div>
+                            <!-- @TODO: inline style -->
+                            <div class="bp5-form-group" style="flex: 1 0 50%">
+                                <label class="bp5-label">Подтверждение нового пароля</label>
+                                {{form.new_password2}}
+                                {% if form.new_password2.errors %}
+                                <!-- @TODO: inline style -->
+                                <div class="bp5-form-helper-text" style="color:#ac2f33">
+                                    {{form.new_password2.errors.as_text}}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
+<button class="bp5-button bp5-intent-warning" form="SECURITY_FORM" type="submit">Сохранить</button>
 {% endblock %}

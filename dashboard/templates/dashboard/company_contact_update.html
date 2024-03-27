@@ -3,143 +3,140 @@
 {% block content %}
 {% include "dashboard/_company_head.html" %}
 {% include "dashboard/_company_tabs.html" %}
-<div class="bp5-form-group">
-    <div class="bp5-control-group">
-        <button class="bp5-button bp5-intent-warning" form="COMPANY_FORM" type="submit">Сохранить</button>
-        <a class="bp5-button bp5-intent-warning" href="{{company.host}}/@{{company.id}}" target="_blank">Форма запроса отзыва</a>
-    </div>
-</div>
 <!-- @TODO: inline style -->
 <div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:15px">
     <!-- @TODO: inline style -->
     <div style="grid-column:span 9 / span 9;">
-        <form enctype="multipart/form-data" id="COMPANY_FORM" method="post" novalidate>
-            {% csrf_token %}
-            <div class="bp5-form-group">
+        <div class="bp5-form-group">
+            <form enctype="multipart/form-data" id="COMPANY_FORM" method="post" novalidate>
+                {% csrf_token %}
+                <div class="bp5-form-group">
+                    <div class="bp5-card bp5-section">
+                        <div class="bp5-section-header">
+                            <div class="bp5-section-header-left">
+                                <h6 class="bp5-heading bp5-section-header-title">
+                                    Мессенджеры
+                                </h6>
+                            </div>
+                            <div class="bp5-section-header-right">
+                                <span class="bp5-icon bp5-icon-comment bp5-text-muted"></span>
+                            </div>
+                        </div>
+                        <div class="bp5-padded bp5-section-card">
+                            <div class="bp5-control-group bp5-fill">
+                                <div class="bp5-form-group">
+                                    <label class="bp5-label">Telegram</label>
+                                    {{form.form_contact_telegram}}
+                                    <div class="bp5-form-helper-text">
+                                        tg://resolve?domain=+79999999999
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bp5-control-group bp5-fill">
+                                <!-- @TODO: inline style -->
+                                <div class="bp5-form-group" style="flex:1 0 50%">
+                                    <label class="bp5-label">Whatsapp</label>
+                                    {{form.form_contact_whatsapp}}
+                                    <div class="bp5-form-helper-text">
+                                        whatsapp://send?phone=+79999999999
+                                    </div>
+                                </div>
+                                <!-- @TODO: inline style -->
+                                <div class="bp5-form-group" style="flex:1 0 50%">
+                                    <label class="bp5-label">Viber</label>
+                                    {{form.form_contact_viber}}
+                                    <div class="bp5-form-helper-text">
+                                        viber://chat?number=+79999999999
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="bp5-card bp5-section">
                     <div class="bp5-section-header">
                         <div class="bp5-section-header-left">
                             <h6 class="bp5-heading bp5-section-header-title">
-                                Мессенджеры
+                                Интернет
                             </h6>
                         </div>
                         <div class="bp5-section-header-right">
-                            <span class="bp5-icon bp5-icon-comment bp5-text-muted"></span>
+                            <span class="bp5-icon bp5-icon-at bp5-text-muted"></span>
                         </div>
                     </div>
                     <div class="bp5-padded bp5-section-card">
+                        <div class="bp5-form-group">
+                            <label class="bp5-label">Вебсайт</label>
+                            {{form.form_contact_website}}
+                            <div class="bp5-form-helper-text">
+                                https://portrate.io
+                            </div>
+                        </div>
                         <div class="bp5-control-group bp5-fill">
-                            <div class="bp5-form-group">
-                                <label class="bp5-label">Telegram</label>
-                                {{form.form_contact_telegram}}
+                            <!-- @TODO: inline style -->
+                            <div class="bp5-form-group" style="flex:1 0 50%">
+                                <label class="bp5-label">VK</label>
+                                {{form.form_contact_vk}}
                                 <div class="bp5-form-helper-text">
-                                    tg://resolve?domain=+79999999999
+                                    https://vk.com/portrate_io
+                                </div>
+                            </div>
+                            <!-- @TODO: inline style -->
+                            <div class="bp5-form-group" style="flex:1 0 50%">
+                                <label class="bp5-label">Одноклассники</label>
+                                {{form.form_contact_ok}}
+                                <div class="bp5-form-helper-text">
+                                    https://ok.com/portrate_io
                                 </div>
                             </div>
                         </div>
                         <div class="bp5-control-group bp5-fill">
                             <!-- @TODO: inline style -->
                             <div class="bp5-form-group" style="flex:1 0 50%">
-                                <label class="bp5-label">Whatsapp</label>
-                                {{form.form_contact_whatsapp}}
+                                <label class="bp5-label">Facebook</label>
+                                {{form.form_contact_facebook}}
                                 <div class="bp5-form-helper-text">
-                                    whatsapp://send?phone=+79999999999
+                                    https://facebook.com/portrate_io
                                 </div>
                             </div>
                             <!-- @TODO: inline style -->
                             <div class="bp5-form-group" style="flex:1 0 50%">
-                                <label class="bp5-label">Viber</label>
-                                {{form.form_contact_viber}}
+                                <label class="bp5-label">Instagram</label>
+                                {{form.form_contact_instagram}}
                                 <div class="bp5-form-helper-text">
-                                    viber://chat?number=+79999999999
+                                    https://instagram.com/portrate_io
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bp5-control-group bp5-fill">
+                            <!-- @TODO: inline style -->
+                            <div class="bp5-form-group" style="flex:1 0 50%">
+                                <label class="bp5-label">Youtube</label>
+                                {{form.form_contact_youtube}}
+                                <div class="bp5-form-helper-text">
+                                    https://youtube.com/portrate_io
+                                </div>
+                            </div>
+                            <!-- @TODO: inline style -->
+                            <div class="bp5-form-group" style="flex:1 0 50%">
+                                <label class="bp5-label">X</label>
+                                {{form.form_contact_x}}
+                                <div class="bp5-form-helper-text">
+                                    https://x.com/portrate_io
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="bp5-card bp5-section">
-                <div class="bp5-section-header">
-                    <div class="bp5-section-header-left">
-                        <h6 class="bp5-heading bp5-section-header-title">
-                            Интернет
-                        </h6>
-                    </div>
-                    <div class="bp5-section-header-right">
-                        <span class="bp5-icon bp5-icon-at bp5-text-muted"></span>
-                    </div>
-                </div>
-                <div class="bp5-padded bp5-section-card">
-                    <div class="bp5-form-group">
-                        <label class="bp5-label">Вебсайт</label>
-                        {{form.form_contact_website}}
-                        <div class="bp5-form-helper-text">
-                            https://portrate.io
-                        </div>
-                    </div>
-                    <div class="bp5-control-group bp5-fill">
-                        <!-- @TODO: inline style -->
-                        <div class="bp5-form-group" style="flex:1 0 50%">
-                            <label class="bp5-label">VK</label>
-                            {{form.form_contact_vk}}
-                            <div class="bp5-form-helper-text">
-                                https://vk.com/portrate_io
-                            </div>
-                        </div>
-                        <!-- @TODO: inline style -->
-                        <div class="bp5-form-group" style="flex:1 0 50%">
-                            <label class="bp5-label">Одноклассники</label>
-                            {{form.form_contact_ok}}
-                            <div class="bp5-form-helper-text">
-                                https://ok.com/portrate_io
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bp5-control-group bp5-fill">
-                        <!-- @TODO: inline style -->
-                        <div class="bp5-form-group" style="flex:1 0 50%">
-                            <label class="bp5-label">Facebook</label>
-                            {{form.form_contact_facebook}}
-                            <div class="bp5-form-helper-text">
-                                https://facebook.com/portrate_io
-                            </div>
-                        </div>
-                        <!-- @TODO: inline style -->
-                        <div class="bp5-form-group" style="flex:1 0 50%">
-                            <label class="bp5-label">Instagram</label>
-                            {{form.form_contact_instagram}}
-                            <div class="bp5-form-helper-text">
-                                https://instagram.com/portrate_io
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bp5-control-group bp5-fill">
-                        <!-- @TODO: inline style -->
-                        <div class="bp5-form-group" style="flex:1 0 50%">
-                            <label class="bp5-label">Youtube</label>
-                            {{form.form_contact_youtube}}
-                            <div class="bp5-form-helper-text">
-                                https://youtube.com/portrate_io
-                            </div>
-                        </div>
-                        <!-- @TODO: inline style -->
-                        <div class="bp5-form-group" style="flex:1 0 50%">
-                            <label class="bp5-label">X</label>
-                            {{form.form_contact_x}}
-                            <div class="bp5-form-helper-text">
-                                https://x.com/portrate_io
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
     <!-- @TODO: inline style -->
     <div style="grid-column:span 3 / span 3;">
         {% include "dashboard/_company_update_menu.html" %}
     </div>
 </div>
+<button class="bp5-button bp5-intent-warning" form="COMPANY_FORM" type="submit">Сохранить</button>
 {% endblock %}
 {% block script %}
 <script>

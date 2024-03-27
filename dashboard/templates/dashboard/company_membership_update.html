@@ -3,100 +3,97 @@
 {% block content %}
 {% include "dashboard/_company_head.html" %}
 {% include "dashboard/_company_tabs.html" %}
-<div class="bp5-form-group">
-    <div class="bp5-control-group">
-        <button class="bp5-button bp5-intent-warning" form="COMPANY_FORM" type="submit">Сохранить</button>
-        <a class="bp5-button bp5-intent-warning" href="{{company.host}}/@{{company.id}}" target="_blank">Форма запроса отзыва</a>
-    </div>
-</div>
 <!-- @TODO: inline style -->
 <div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:15px">
     <!-- @TODO: inline style -->
     <div style="grid-column:span 9 / span 9;">
-        <form enctype="multipart/form-data" id="COMPANY_FORM" method="post" novalidate>
-            {% csrf_token %}
-            {{ form.management_form }}
-            {{ form.0.id }}
-            {{ form.0.company }}
-            <div class="bp5-card bp5-section">
-                <div class="bp5-section-header">
-                    <div class="bp5-section-header-left">
-                        <h6 class="bp5-heading bp5-section-header-title">
-                            Оповещения
-                        </h6>
+        <div class="bp5-form-group">
+            <form enctype="multipart/form-data" id="COMPANY_FORM" method="post" novalidate>
+                {% csrf_token %}
+                {{ form.management_form }}
+                {{ form.0.id }}
+                {{ form.0.company }}
+                <div class="bp5-card bp5-section">
+                    <div class="bp5-section-header">
+                        <div class="bp5-section-header-left">
+                            <h6 class="bp5-heading bp5-section-header-title">
+                                Оповещения
+                            </h6>
+                        </div>
+                        <div class="bp5-section-header-right">
+                            <span class="bp5-icon bp5-icon-issue bp5-text-muted"></span>
+                        </div>
                     </div>
-                    <div class="bp5-section-header-right">
-                        <span class="bp5-icon bp5-icon-issue bp5-text-muted"></span>
+                    <div class="bp5-section-card">
+                        <div class="bp5-card-list bp5-card">
+                            <div class="bp5-card bp5-control-card bp5-interactive bp5-switch-control-card">
+                                <label class="bp5-align-right bp5-control bp5-inline bp5-switch">
+                                    {{form.0.can_notify_negative_portrate}}
+                                    <span class="bp5-control-indicator"></span>
+                                    <div class="bp5-control-card-label">
+                                        <!-- @TODO: inline style -->
+                                        <img alt="Портрет" class="bp5-icon" height=16 src="{% static 'images/dashboard/logo.png' %}" style="margin-right:5px;" width=16>
+                                        Оповещения о негативных сообщениях в Портрет
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="bp5-section-card">
-                    <div class="bp5-card-list bp5-card">
-                        <div class="bp5-card bp5-control-card bp5-interactive bp5-switch-control-card">
-                            <label class="bp5-align-right bp5-control bp5-inline bp5-switch">
-                                {{form.0.can_notify_negative_portrate}}
-                                <span class="bp5-control-indicator"></span>
-                                <div class="bp5-control-card-label">
-                                    <!-- @TODO: inline style -->
-                                    <img alt="Портрет" class="bp5-icon" height=16 src="{% static 'images/dashboard/logo.png' %}" style="margin-right:5px;" width=16>
-                                    Оповещения о негативных сообщениях в Портрет
-                                </div>
-                            </label>
+                    <div class="bp5-section-card">
+                        <div class="bp5-card-list bp5-card">
+                            <div class="bp5-card bp5-control-card bp5-interactive bp5-switch-control-card">
+                                <label class="bp5-align-right bp5-control bp5-inline bp5-switch">
+                                    {{form.0.can_notify_negative_yandex}}
+                                    <span class="bp5-control-indicator"></span>
+                                    <div class="bp5-control-card-label">
+                                        <!-- @TODO: inline style -->
+                                        <img alt="Яндекс" class="bp5-icon" height=16 src="{% static 'images/services/yandex.svg' %}" style="margin-right:5px;" width=16>
+                                        Оповещения о негативных отзывах в Яндекс
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bp5-section-card">
+                        <div class="bp5-card-list bp5-card">
+                            <div class="bp5-card bp5-control-card bp5-interactive bp5-switch-control-card">
+                                <label class="bp5-align-right bp5-control bp5-inline bp5-switch">
+                                    {{form.0.can_notify_negative_gis}}
+                                    <span class="bp5-control-indicator"></span>
+                                    <div class="bp5-control-card-label">
+                                        <!-- @TODO: inline style -->
+                                        <img alt="2Гис" class="bp5-icon" height=16 src="{% static 'images/services/gis.svg' %}" style="margin-right:5px;" width=16>
+                                        Оповещения о негативных отзывах в 2Гис
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bp5-section-card">
+                        <div class="bp5-card-list bp5-card">
+                            <div class="bp5-card bp5-control-card bp5-interactive bp5-switch-control-card">
+                                <label class="bp5-align-right bp5-control bp5-inline bp5-switch">
+                                    {{form.0.can_notify_negative_google}}
+                                    <span class="bp5-control-indicator"></span>
+                                    <div class="bp5-control-card-label">
+                                        <!-- @TODO: inline style -->
+                                        <img alt="Google" class="bp5-icon" height=16 src="{% static 'images/services/google.svg' %}" style="margin-right:5px;" width=16>
+                                        Оповещения о негативных отзывах в Google
+                                    </div>
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="bp5-section-card">
-                    <div class="bp5-card-list bp5-card">
-                        <div class="bp5-card bp5-control-card bp5-interactive bp5-switch-control-card">
-                            <label class="bp5-align-right bp5-control bp5-inline bp5-switch">
-                                {{form.0.can_notify_negative_yandex}}
-                                <span class="bp5-control-indicator"></span>
-                                <div class="bp5-control-card-label">
-                                    <!-- @TODO: inline style -->
-                                    <img alt="Яндекс" class="bp5-icon" height=16 src="{% static 'images/services/yandex.svg' %}" style="margin-right:5px;" width=16>
-                                    Оповещения о негативных отзывах в Яндекс
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="bp5-section-card">
-                    <div class="bp5-card-list bp5-card">
-                        <div class="bp5-card bp5-control-card bp5-interactive bp5-switch-control-card">
-                            <label class="bp5-align-right bp5-control bp5-inline bp5-switch">
-                                {{form.0.can_notify_negative_gis}}
-                                <span class="bp5-control-indicator"></span>
-                                <div class="bp5-control-card-label">
-                                    <!-- @TODO: inline style -->
-                                    <img alt="2Гис" class="bp5-icon" height=16 src="{% static 'images/services/gis.svg' %}" style="margin-right:5px;" width=16>
-                                    Оповещения о негативных отзывах в 2Гис
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="bp5-section-card">
-                    <div class="bp5-card-list bp5-card">
-                        <div class="bp5-card bp5-control-card bp5-interactive bp5-switch-control-card">
-                            <label class="bp5-align-right bp5-control bp5-inline bp5-switch">
-                                {{form.0.can_notify_negative_google}}
-                                <span class="bp5-control-indicator"></span>
-                                <div class="bp5-control-card-label">
-                                    <!-- @TODO: inline style -->
-                                    <img alt="Google" class="bp5-icon" height=16 src="{% static 'images/services/google.svg' %}" style="margin-right:5px;" width=16>
-                                    Оповещения о негативных отзывах в Google
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
     <!-- @TODO: inline style -->
     <div style="grid-column:span 3 / span 3;">
         {% include "dashboard/_company_update_menu.html" %}
     </div>
 </div>
+<button class="bp5-button bp5-intent-warning" form="COMPANY_FORM" type="submit">Сохранить</button>
 {% endblock %}
 {% block script %}
 <script>
