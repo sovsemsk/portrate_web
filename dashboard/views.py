@@ -237,10 +237,8 @@ class CompanyRatingDynamic(LoginRequiredMixin, BaseLineChartView):
         self.company = None
         self.rating_history = None
 
-    @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         self.company = get_object_or_404(Company, pk=self.kwargs["company_pk"], users__in=[self.request.user])
-
         self.rating_history = RatingStampFilter(
             self.request.GET,
             queryset=RatingStamp.objects.filter(company=self.company)
@@ -353,10 +351,7 @@ class MessageListView(LoginRequiredMixin, FilterView):
 
     def get_queryset(self, **kwargs):
         queryset = super().get_queryset(**kwargs)
-        return queryset.filter(
-            company__in=[self.kwargs["company_pk"]],
-            company__users__in=[self.request.user]
-        ).select_related("company").order_by("-created_at")
+        return queryset.filter(company__in=[self.kwargs["company_pk"]], company__users__in=[self.request.user]).select_related("company").order_by("-created_at")
 
 
 @login_required

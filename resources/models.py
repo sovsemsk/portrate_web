@@ -361,25 +361,9 @@ class Review(Model):
 def review_post_save(sender, instance, created, **kwargs):
     from resources.tasks import send_telegram_text_task
 
-    if created and not instance.company.is_first_parsing and instance.stars < 4:
-        for user in instance.company.users.exclude(profile__telegram_id=None).all():
-            if instance.service == Service.YANDEX:
-                send_telegram_text_task.delay(user.profile.telegram_id, instance.notification_template)
-
-            elif instance.service == Service.GIS:
-                send_telegram_text_task.delay(user.profile.telegram_id, instance.notification_template)
-
-            elif instance.service == Service.GOOGLE:
-                send_telegram_text_task.delay(user.profile.telegram_id, instance.notification_template)
-
-            # if instance.service == Service.YANDEX and user.profile.can_notify_negative_yandex:
-            #     send_telegram_text_task.delay(user.profile.telegram_id, instance.notification_template)
-            #
-            # elif instance.service == Service.GIS and user.profile.can_notify_negative_gis:
-            #     send_telegram_text_task.delay(user.profile.telegram_id, instance.notification_template)
-            #
-            # elif instance.service == Service.GOOGLE and user.profile.can_notify_negative_google:
-            #     send_telegram_text_task.delay(user.profile.telegram_id, instance.notification_template)
+    if created and not instance.company.is_first_parsing:
+        for user in instance.company.users.filter(**{f"membership__can_notify_negative_{instance.service.lower()}": True}).exclude(profile__telegram_id=None).all():
+            send_telegram_text_task.delay(user.profile.telegram_id, instance.notification_template)
 
 
 class Message(Model):
@@ -421,9 +405,5 @@ def message_post_save(sender, instance, created, **kwargs):
     from resources.tasks import send_telegram_text_task
 
     if created:
-        for user in instance.company.users.exclude(profile__telegram_id=None).all():
+        for user in instance.company.users.filter(membership__can_notify_negative_portrate=True).exclude(profile__telegram_id=None).all():
             send_telegram_text_task.delay(user.profile.telegram_id, instance.notification_template)
-
-    # if created:
-    #     for user in instance.company.users.filter(profile__can_notify_negative_portrate=True).exclude(profile__telegram_id=None).all():
-    #         send_telegram_text_task.delay(user.profile.telegram_id, instance.notification_template)

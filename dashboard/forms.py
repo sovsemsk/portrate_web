@@ -154,7 +154,6 @@ class CompanyMembershipForm(ModelForm):
         can_notify_negative_gis = BooleanField(required=False)
         can_notify_negative_google = BooleanField(required=False)
 
-
 CompanyMembershipFormSet = inlineformset_factory(
     Company,
     Membership,
