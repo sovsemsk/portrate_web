@@ -12,7 +12,7 @@
         .__2981c708__::-webkit-scrollbar{background-color:{%if theme == 'l'%}rgba(0,0,0,0.1){%else%}rgba(255,255,255,0.3){%endif%};border-radius:5px;height:5px;}
         .__2981c708__::-webkit-scrollbar-thumb{background-color:{%if theme == 'l'%}rgba(0,0,0,0.1){%else%}rgba(255,255,255,0.3){%endif%};background-clip:content-box;border-radius:5px;}
         .__6b948e6f__{flex:1 0;scroll-snap-align:start;}
-        .__3c488807__{align-items:center;display:flex;font-size:small;font-weight:bold;}
+        .__3c488807__{align-items:center;display:flex;font-weight:bold;}
         .__ccaab7aa__{margin-left:5px;}
         .__d384a050__{color:{%if theme == 'l'%}rgba(0,0,0,0.5){%else%}rgba(255,255,255,0.5){%endif%};font-size:small;padding-bottom:15px;}
         .__c35ad222__{line-height:1.3;padding-right:30px;}
@@ -49,7 +49,7 @@
                 {{review.created_at}}
             </div>
             <div class="__c35ad222__">
-                {{review.text|truncatechars:100}}
+                {{review.text|truncatechars:180}}
             </div>
         </div>
         {% endfor %}
