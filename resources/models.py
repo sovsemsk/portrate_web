@@ -345,7 +345,7 @@ class Review(Model):
 
     @property
     def notification_template(self):
-        return f"""📍 Негативный отзыв в {self.get_service_display()}
+        return f"""📍 Новый отзыв в {self.get_service_display()}
 
 🏪 Филиал:
 {self.company}
