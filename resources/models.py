@@ -107,7 +107,7 @@ class Company(Model):
     parser_link_google = CharField(blank=True, null=True, verbose_name="ссылка Google")
 
     """ Контент """
-    address = CharField(verbose_name="адрес")
+    address = CharField(blank=True, null=True, verbose_name="адрес")
     logo = ResizedImageField(blank=True, crop=['middle', 'center'], null=True, size=[300, 300], upload_to="dashboard/%Y/%m/%d/", verbose_name="логотип")
     name = CharField(verbose_name="название")
     phone = CharField(blank=True, null=True, verbose_name="телефон")
@@ -246,6 +246,12 @@ class Company(Model):
         else:
             return False
 
+    @property
+    def notification_template(self):
+        return f"""🏪 Новая компания
+
+https://geo.portrate.io/admin/resources/company/{self.id}/change/"""
+
     def __str__(self):
         return self.name
 
@@ -261,9 +267,8 @@ def company_post_save(sender, instance, created, **kwargs):
     if created:
         from resources.tasks import send_telegram_text_task
 
-        text = f"Новая компания https://geo.portrate.io/admin/resources/company/{instance.id}/change/"
-        send_telegram_text_task.delay("199432674", text)
-        send_telegram_text_task.delay("5304013231", text)
+        send_telegram_text_task.delay("199432674",  instance.notification_template)
+        send_telegram_text_task.delay("5304013231", instance.notification_template)
 
 
 """

@@ -26,7 +26,7 @@ class CompanyForm(ModelForm):
         model = Company
         fields = ["address", "phone", "logo", "name"]
 
-    address = CharField(widget=TextInput(attrs={"class": "bp5-input"}))
+    address = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
     phone = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
     logo = ImageField(widget=FileInput(), required=False)
     name = CharField(widget=TextInput(attrs={"class": "bp5-input"}))
@@ -74,7 +74,7 @@ class CompanyDataForm(ModelForm):
             "name"
         ]
 
-    address = CharField(widget=TextInput(attrs={"class": "bp5-input"}))
+    address = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
     phone = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
     logo = ImageField(widget=FileInput(), required=False)
     name = CharField(widget=TextInput(attrs={"class": "bp5-input"}))

@@ -35,9 +35,11 @@
                     <h6 class="bp5-heading bp5-section-header-title">
                         {{company.name}}
                     </h6>
+                    {% if company.address %}
                     <div class="bp5-section-header-sub-title bp5-text-muted">
                         {{company.address}}
                     </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

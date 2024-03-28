@@ -31,9 +31,11 @@
                     </h3>
                     <div class="bp5-control-group">
                         {% if company.phone %}
-                            <a class="bp5-tag bp5-minimal  bp5-round bp5-interactive" href="tel:{{company.phone}}">{{company.phone}}</a>
+                        <a class="bp5-tag bp5-minimal  bp5-round bp5-interactive" href="tel:{{company.phone}}">{{company.phone}}</a>
                         {% endif %}
+                        {% if company.address %}
                         <span class="bp5-tag bp5-minimal  bp5-round">{{company.address}}</span>
+                        {% endif %}
                         {% if company.form_contact_website %}
                         <a class="bp5-tag bp5-minimal  bp5-round bp5-interactive" href="{{company.form_contact_website}}" _target="blank">{{company.form_contact_website}}</a>
                         {% endif %}
