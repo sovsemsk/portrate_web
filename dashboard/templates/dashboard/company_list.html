@@ -43,6 +43,9 @@
                 </div>
             </div>
             <div class="bp5-section-header-right">
+                {% if company.is_now_parse %}
+                <span class="bp5-icon bp5-icon-bring-data bp5-text-muted"></span>
+                {% endif %}
                 {% if company.is_active %}
                 <span class="bp5-icon bp5-icon-endorsed bp5-intent-success"></span>
                 {% endif %}

@@ -44,6 +44,9 @@
                 </div>
             </div>
             <div class="bp5-section-header-left">
+                {% if company.is_now_parse %}
+                <span class="bp5-icon bp5-icon-bring-data bp5-text-muted"></span>
+                {% endif %}
                 <img alt="Яндекс" class="bp5-icon" height=16 src="{% static 'images/services/yandex.svg' %}" width=16>
             </div>
         </div>
@@ -121,6 +124,9 @@
                 </div>
             </div>
             <div class="bp5-section-header-left">
+                {% if company.is_now_parse %}
+                <span class="bp5-icon bp5-icon-bring-data bp5-text-muted"></span>
+                {% endif %}
                 <img alt="2Гис" class="bp5-icon" height=16 src="{% static 'images/services/gis.svg' %}" width=16>
             </div>
         </div>
@@ -198,6 +204,9 @@
                 </div>
             </div>
             <div class="bp5-section-header-left">
+                {% if company.is_now_parse %}
+                <span class="bp5-icon bp5-icon-bring-data bp5-text-muted"></span>
+                {% endif %}
                 <img alt="Google" class="bp5-icon" height=16 src="{% static 'images/services/google.svg' %}" width=16>
             </div>
         </div>

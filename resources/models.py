@@ -97,6 +97,7 @@ class Company(Model):
     """ Настройки """
     is_active = BooleanField(default=False, verbose_name="активно?")
     is_first_parsing = BooleanField(default=True, verbose_name="первый парсинг?")
+    is_now_parse = BooleanField(default=False, verbose_name="парсится сейчас?")
     is_parse_yandex = BooleanField(default=False, verbose_name="парсить Яндекс?")
     is_parse_gis = BooleanField(default=False, verbose_name="парсить 2Гис?")
     is_parse_google = BooleanField(default=False, verbose_name="парсить Google?")
