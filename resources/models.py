@@ -258,7 +258,12 @@ def company_post_init(sender, instance, **kwargs):
 
 @receiver(post_save, sender=Company)
 def company_post_save(sender, instance, created, **kwargs):
-    pass
+    if created:
+        from resources.tasks import send_telegram_text_task
+
+        text = f"Новая компания https://geo.portrate.io/admin/resources/company/{instance.id}/change/"
+        send_telegram_text_task.delay("199432674", text)
+        send_telegram_text_task.delay("5304013231", text)
 
 
 """
@@ -366,11 +371,12 @@ class Review(Model):
 
 @receiver(post_save, sender=Review)
 def review_post_save(sender, instance, created, **kwargs):
-    from resources.tasks import send_telegram_text_task
+    if created:
+        from resources.tasks import send_telegram_text_task
 
-    if created and not instance.company.is_first_parsing:
-        for user in instance.company.users.filter(**{f"membership__can_notify_negative_{instance.service.lower()}": True}).exclude(profile__telegram_id=None).all():
-            send_telegram_text_task.delay(user.profile.telegram_id, instance.notification_template)
+        if not instance.company.is_first_parsing:
+            for user in instance.company.users.filter(**{f"membership__can_notify_negative_{instance.service.lower()}": True}).exclude(profile__telegram_id=None).all():
+                send_telegram_text_task.delay(user.profile.telegram_id, instance.notification_template)
 
 
 class Message(Model):
@@ -409,8 +415,8 @@ class Message(Model):
 
 @receiver(post_save, sender=Message)
 def message_post_save(sender, instance, created, **kwargs):
-    from resources.tasks import send_telegram_text_task
-
     if created:
+        from resources.tasks import send_telegram_text_task
+
         for user in instance.company.users.filter(membership__can_notify_negative_portrate=True).exclude(profile__telegram_id=None).all():
             send_telegram_text_task.delay(user.profile.telegram_id, instance.notification_template)
