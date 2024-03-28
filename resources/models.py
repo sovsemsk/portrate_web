@@ -270,6 +270,11 @@ def company_post_save(sender, instance, created, **kwargs):
         send_telegram_text_task.delay("199432674",  instance.notification_template)
         send_telegram_text_task.delay("5304013231", instance.notification_template)
 
+    if not created and instance.is_active and instance.is_first_parsing:
+        from resources.tasks import parse_cards
+
+        parse_cards.delay(instance.id)
+
 
 """
 @receiver(m2m_changed, sender=Company.users.through)
