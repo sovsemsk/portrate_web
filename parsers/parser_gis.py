@@ -25,7 +25,7 @@ class ParserGis:
     def check_page(self):
         """ Проверка страницы """
         try:
-            self.driver.find_element(By.CLASS_NAME, "_tvxwjf")
+            self.driver.find_element(By.CLASS_NAME, "_y10azs")
             return True
         except:
             return False

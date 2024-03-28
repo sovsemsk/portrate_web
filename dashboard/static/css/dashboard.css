@@ -3,7 +3,7 @@ a{text-decoration:none !important;}
 .bp5-button,.bp5-file-upload-input::after{border-radius:5px;box-shadow:none !important;}
 .bp5-button-group.bp5-vertical:not(.bp5-minimal) > .bp5-popover-target:first-child .bp5-button{border-radius:5px 5px 0 0;}
 .bp5-button-group.bp5-vertical:not(.bp5-minimal) > .bp5-popover-target:last-child .bp5-button{border-radius:0 0 5px 5px;}
-.bp5-card{border-radius:10px;box-shadow:none;}
+.bp5-card{border-radius:10px;box-shadow:none !important;}
 .bp5-card-list>.bp5-card{border-radius:0;}
 .bp5-callout{border-radius:5px;}
 .bp5-control.bp5-switch .bp5-control-indicator, .bp5-control.bp5-switch .bp5-control-indicator::before{transition:none;}

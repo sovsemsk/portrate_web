@@ -11,7 +11,6 @@ from django.db.models import (
     ManyToManyField,
     Model,
     OneToOneField,
-    ImageField,
     IntegerField,
     TextChoices,
     TextField,
@@ -20,6 +19,7 @@ from django.db.models import (
 from django.db.models.signals import m2m_changed, post_init, post_save
 from django.dispatch import receiver
 from django.utils.crypto import get_random_string
+from django_resized import ResizedImageField
 from djmoney.models.fields import MoneyField
 
 
@@ -108,7 +108,7 @@ class Company(Model):
 
     """ Контент """
     address = CharField(verbose_name="адрес")
-    logo = ImageField(blank=True, null=True, upload_to="company_logo/%Y/%m/%d/", verbose_name="логотип")
+    logo = ResizedImageField(blank=True, crop=['middle', 'center'], null=True, size=[300, 300], upload_to="dashboard/%Y/%m/%d/", verbose_name="логотип")
     name = CharField(verbose_name="название")
     phone = CharField(blank=True, null=True, verbose_name="телефон")
 
