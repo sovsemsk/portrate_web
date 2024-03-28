@@ -4,7 +4,7 @@
 {% include "dashboard/_company_head.html" %}
 {% include "dashboard/_company_tabs.html" %}
 <div class="bp5-form-group">
-    <form novalidate>
+    <form novalidate data-review-form>
         <div class="bp5-control-group">
             <!-- @TODO: inline style -->
             <div style="align-items:center;display:flex;gap:5px;">
@@ -75,8 +75,10 @@
 {% endblock %}
 {% block script %}
 <script type="text/javascript">
+$(document).ready(event => {
     $("input[name=is_visible]").change((event) => {
         $(event.target).parent("label").parent("form").submit();
     });
+});
 </script>
 {% endblock %}

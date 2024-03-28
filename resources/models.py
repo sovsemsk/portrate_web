@@ -16,7 +16,7 @@ from django.db.models import (
     TextField,
     TimeField
 )
-from django.db.models.signals import m2m_changed, post_init, post_save
+from django.db.models.signals import post_init, post_save
 from django.dispatch import receiver
 from django.utils.crypto import get_random_string
 from django_resized import ResizedImageField
@@ -256,6 +256,12 @@ def company_post_init(sender, instance, **kwargs):
         instance.api_secret = get_random_string(length=8)
 
 
+@receiver(post_save, sender=Company)
+def company_post_save(sender, instance, created, **kwargs):
+    pass
+
+
+"""
 @receiver(m2m_changed, sender=Company.users.through)
 def company_m2m_changed(sender, **kwargs):
     action = kwargs.get('action', None)
@@ -266,6 +272,7 @@ def company_m2m_changed(sender, **kwargs):
 
     if action == "pre_remove":
         pass
+"""
 
 
 class Membership(Model):

@@ -50,7 +50,7 @@
         <div class="bp5-padded bp5-section-card">
             <!-- @TODO: inline style -->
             <div class="bp5-callout" style="height:230px;">
-                <canvas height=200 id="RATING_YANDEX_CHART" width=730></canvas>
+                <canvas data-rating-yandex-chart height=200 width=730></canvas>
             </div>
         </div>
         <div class="bp5-padded bp5-section-card">
@@ -127,7 +127,7 @@
         <div class="bp5-padded bp5-section-card">
             <!-- @TODO: inline style -->
             <div class="bp5-callout" style="height:230px;">
-                <canvas height=200 id="RATING_GIS_CHART" width=730></canvas>
+                <canvas data-rating-gis-chart height=200 width=730></canvas>
             </div>
         </div>
         <div class="bp5-padded bp5-section-card">
@@ -204,7 +204,7 @@
         <div class="bp5-padded bp5-section-card">
             <!-- @TODO: inline style -->
             <div class="bp5-callout" style="height:230px;">
-                <canvas height=200 id="RATING_GOOGLE_CHART" width=730></canvas>
+                <canvas data-rating-google-chart height=200 width=730></canvas>
             </div>
         </div>
         <div class="bp5-padded bp5-section-card">
@@ -258,6 +258,7 @@
 {% endblock %}
 {% block script %}
 <script type="text/javascript">
+$(document).ready(event => {
     const options = {
         clip: false,
         layout: {
@@ -302,7 +303,7 @@
     }
 
     $.get("{% url 'company_rating_yandex_dynamic' company.id %}?{{request.META.QUERY_STRING|safe}}", (data) => {
-        const ctx = $("#RATING_YANDEX_CHART").get(0).getContext("2d");
+        const ctx = $("canvas[data-rating-yandex-chart]").get(0).getContext("2d");
         new Chart(ctx, {
             type: "line",
             data: data,
@@ -311,7 +312,7 @@
     });
 
     $.get("{% url 'company_rating_gis_dynamic' company.id %}?{{request.META.QUERY_STRING|safe}}", (data) => {
-        const ctx = $("#RATING_GIS_CHART").get(0).getContext("2d");
+        const ctx = $("canvas[data-rating-gis-chart]").get(0).getContext("2d");
         new Chart(ctx, {
             type: "line",
             data: data,
@@ -320,12 +321,13 @@
     });
 
     $.get("{% url 'company_rating_google_dynamic' company.id %}?{{request.META.QUERY_STRING|safe}}", (data) => {
-        const ctx = $("#RATING_GOOGLE_CHART").get(0).getContext("2d");
+        const ctx = $("canvas[data-rating-google-chart]").get(0).getContext("2d");
         new Chart(ctx, {
             type: "line",
             data: data,
             options: options
         });
     });
+});
 </script>
 {% endblock %}

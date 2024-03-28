@@ -138,12 +138,3 @@
 </div>
 <button class="bp5-button bp5-intent-warning" form="COMPANY_FORM" type="submit">Сохранить</button>
 {% endblock %}
-{% block script %}
-<script>
-    IMask($("input[name=phone]")[0], {mask: "+7 000 000-00-00"});
-    $("input[name=logo]").on("change", event => {
-        const filename = $(event.target).val().replace(/.*(\/|\\)/, "");
-        $("span[data-logo]").text(filename);
-    });
-</script>
-{% endblock %}
