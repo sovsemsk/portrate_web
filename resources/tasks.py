@@ -21,6 +21,8 @@ def send_telegram_text_task(telegram_id, text):
 @shared_task(name="parse cards")
 def parse_cards(company_id):
     company = Company.objects.get(id=company_id, is_active=True)
+    company.is_now_parse = True
+    company.save()
 
     date_week_ago = datetime.today() - timedelta(days=7)
     date_month_ago = datetime.today() - timedelta(days=30)
@@ -207,6 +209,7 @@ def parse_cards(company_id):
 
     """ Сохранение компании """
     company.is_first_parsing = False
+    company.is_now_parse = True
     company.save()
     return f"Done for Company #{company_id}"
 
