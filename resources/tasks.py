@@ -209,7 +209,7 @@ def parse_cards(company_id):
 
     """ Сохранение компании """
     company.is_first_parsing = False
-    company.is_now_parse = True
+    company.is_now_parse = False
     company.save()
     return f"Done for Company #{company_id}"
 
