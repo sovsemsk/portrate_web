@@ -22,7 +22,7 @@ def send_telegram_text_task(telegram_id, text):
 def parse_cards(company_id):
     company = Company.objects.get(id=company_id, is_active=True)
     company.is_now_parse = True
-    company.save()
+    # company.save()
 
     date_week_ago = datetime.today() - timedelta(days=7)
     date_month_ago = datetime.today() - timedelta(days=30)
