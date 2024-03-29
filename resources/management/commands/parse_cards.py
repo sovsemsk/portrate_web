@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 
 from resources.models import Company
-from resources.tasks import parse_cards
+from resources.tasks import parse_cards_task
 
 
 class Command(BaseCommand):
@@ -11,4 +11,4 @@ class Command(BaseCommand):
         companies = Company.objects.filter(is_active=True).values("id").all()
 
         for company in companies:
-            parse_cards.delay(company["id"])
+            parse_cards_task.delay(company["id"])

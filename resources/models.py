@@ -272,9 +272,9 @@ def company_post_save(sender, instance, created, **kwargs):
         send_telegram_text_task.delay("5304013231", instance.notification_template)
 
     if not created and instance.is_active and instance.is_first_parsing:
-        from resources.tasks import parse_cards
+        from resources.tasks import parse_cards_task
 
-        parse_cards.delay(instance.id)
+        parse_cards_task.delay(instance.id)
 
 
 """

@@ -1,8 +1,10 @@
 import asyncio
 from datetime import datetime, timezone, timedelta
+from hashlib import md5
 
 from celery import shared_task
 from django.conf import settings
+from django.core.cache import cache
 from django.db import IntegrityError
 from telegram import Bot
 
@@ -12,14 +14,29 @@ from parsers.parser_yandex import ParserYandex
 from resources.models import Company, Review, RatingStamp, Service
 
 
-@shared_task(name="send telegram")
-def send_telegram_text_task(telegram_id, text):
+@shared_task(bind=True, name="send_telegram_text_task")
+def send_telegram_text_task(self, telegram_id, text):
+    lock_id = f"_{self.name}_lock_{md5(str(telegram_id).encode('utf-8')).hexdigest()}"
+    lock_object = cache.get(lock_id)
+
+    if lock_object:
+        return f"Already run for {telegram_id}"
+
+    cache.set(lock_id, telegram_id)
     asyncio.run(Bot(settings.TELEGRAM_BOT_API_SECRET).send_message(telegram_id, text))
+    cache.delete(lock_id)
     return f"Done send to {telegram_id}"
 
 
-@shared_task(name="parse cards")
-def parse_cards(company_id):
+@shared_task(bind=True, name="parse_cards_task")
+def parse_cards_task(self, company_id):
+    lock_id = f"_{self.name}_lock_{md5(str(company_id).encode('utf-8')).hexdigest()}"
+    lock_object = cache.get(lock_id)
+
+    if lock_object:
+        return f"Already run for {company_id}"
+
+    cache.set(lock_id, company_id)
     company = Company.objects.get(id=company_id, is_active=True)
     company.is_now_parse = True
     company.save()
@@ -211,5 +228,6 @@ def parse_cards(company_id):
     company.is_first_parsing = False
     company.is_now_parse = False
     company.save()
+    cache.delete(lock_id)
     return f"Done for Company #{company_id}"
 
