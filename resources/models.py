@@ -249,7 +249,7 @@ class Company(Model):
 
     @property
     def notification_template(self):
-        return f"""🏪 Новая компания
+        return f"""🏪 Новая компания «{self.name}»
 
 https://geo.portrate.io/admin/resources/company/{self.id}/change/"""
 
