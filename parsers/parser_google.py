@@ -14,7 +14,7 @@ class ParserGoogle:
         options.set_capability("selenoid:options", {"enableVNC": True})
         self.driver = webdriver.Remote(command_executor=f"http://185.85.160.249:4444/wd/hub", options=options)
         self.driver.get(parser_link)
-        time.sleep(1)
+        time.sleep(5)
 
     def close_page(self):
         """ Закрытие страницы """
@@ -64,7 +64,7 @@ class ParserGoogle:
     def __scroll_reviews_to_bottom__(self, node):
         """ Скроллинг списка до последнего отзыва """
         self.driver.execute_script("arguments[0].scrollIntoView();", node)
-        time.sleep(2)
+        time.sleep(5)
 
         new_node = self.driver.find_elements(By.CLASS_NAME, "jftiEf")[-1]
 
@@ -81,7 +81,7 @@ class ParserGoogle:
         except:
             pass
         finally:
-            time.sleep(1)
+            time.sleep(5)
 
         try:
             button_node = self.driver.find_elements(By.CLASS_NAME, "fxNQSd")[1]
