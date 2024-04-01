@@ -39,7 +39,7 @@ def reviews(request, company_api_secret):
     layout_map = {"s": "slider", "g": "grid"}
 
     theme = request.GET.get("theme", "l")
-    theme_map = {"l": "", "d": "dark"}
+    theme_map = {"l": "light", "d": "dark"}
 
     return render(
         request,
