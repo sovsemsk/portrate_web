@@ -89,7 +89,7 @@ class ParserGoogle:
         except:
             pass
         finally:
-            time.sleep(1)
+            time.sleep(5)
 
     def __expand_reviews__(self):
         """ Раскрытие комментариев """

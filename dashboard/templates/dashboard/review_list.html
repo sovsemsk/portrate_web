@@ -50,7 +50,7 @@
                 {% endif %}
                 <!-- @TODO: inline style -->
                 <div class="bp5-divider" style="height:25px"></div>
-                <form action="{% url 'review_update' company.id review.id %}?{{request.META.QUERY_STRING}}" method="post">
+                <form action="{% url 'review_update' company.id review.id %}?{{request.META.QUERY_STRING}}" data-review-form method="post">
                     {% csrf_token %}
                     <!-- @TODO: inline style -->
                     <label class="bp5-control bp5-switch bp5-align-right" style="padding-top:3px">

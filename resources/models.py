@@ -225,6 +225,17 @@ class Company(Model):
         return ["Нагрубили", "Сделали не то", "Цена", "Плохое качество", "Долго"]
 
     @property
+    def stars_svg_yandex(self):
+        return f"images/stars/{self.rating_yandex}.svg"
+
+    @property
+    def stars_svg_gis(self):
+        return f"images/stars/{self.rating_gis}.svg"
+
+    def stars_svg_google(self):
+        return f"images/stars/{self.rating_google}.svg"
+
+    @property
     def stars_svg(self):
         return f"images/stars/{self.rating}.svg"
 
@@ -365,6 +376,10 @@ class Review(Model):
     @property
     def stars_svg(self):
         return f"images/stars/{float(self.stars)}.svg"
+
+    @property
+    def text_length(self):
+        return len(self.text)
 
     @property
     def notification_template(self):

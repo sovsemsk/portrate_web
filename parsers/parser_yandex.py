@@ -87,7 +87,7 @@ class ParserYandex:
         except:
             pass
         finally:
-            time.sleep(1)
+            time.sleep(5)
 
     @staticmethod
     def __parse_review__(str_node):
