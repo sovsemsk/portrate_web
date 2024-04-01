@@ -20,7 +20,7 @@
                 <img class="__6a2b11f7__" height="24" src="https://geo.portrate.io/static/images/services/{{review.service|lower}}.svg" width="24">
             </div>
             <div class="__c35ad222__">
-                {{review.text}}
+                {{review.text|truncatechars:200}}
             </div>
             {% if review.text_length > 200 %}
             <a class="__e828da28__" href="#">
