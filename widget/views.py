@@ -34,10 +34,12 @@ def rating(request, company_api_secret):
 def reviews(request, company_api_secret):
     company = get_object_or_404(Company, api_secret=company_api_secret, is_active=True)
     company_reviews = Review.objects.filter(company_id=company.id, is_visible=True).order_by("-created_at")[:15]
+
     layout = request.GET.get("layout", "s")
     layout_map = {"s": "slider", "g": "grid"}
+
     theme = request.GET.get("theme", "l")
-    theme_map = {"l": "light", "g": "gray", "d": "dark"}
+    theme_map = {"l": "light", "d": "dark"}
 
     return render(
         request,
