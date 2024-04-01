@@ -126,6 +126,7 @@
 /* Link */
 .__40b76d95__{
     align-items:center !important;
+    background-color:#292929 !important;
     border-radius:0.5rem !important;
     color:white !important;
     display:flex !important;;
@@ -138,7 +139,7 @@
 }
 
 .__40b76d95__:hover{
-    background-color:#292929 !important;
+    background-color:#363636 !important;
 }
 
 /* Link rating */

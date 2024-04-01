@@ -124,6 +124,7 @@
 /* Link */
 .__40b76d95__{
     align-items:center !important;
+    background-color:#ededed !important;
     border-radius:0.5rem !important;
     color:black !important;
     display:flex !important;;
@@ -136,7 +137,7 @@
 }
 
 .__40b76d95__:hover{
-    background-color:#ededed !important;
+    background-color:#dbdbdb !important;
 }
 
 /* Link rating */
