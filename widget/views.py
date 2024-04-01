@@ -39,11 +39,11 @@ def reviews(request, company_api_secret):
     layout_map = {"s": "slider", "g": "grid"}
 
     theme = request.GET.get("theme", "l")
-    theme_map = {"l": "light", "d": "dark"}
+    theme_map = {"l": "", "d": "dark"}
 
     return render(
         request,
-        f"widget/reviews_{layout_map.get(layout, 's')}_{theme_map.get(theme, 'l')}.js",
+        f"widget/reviews_{layout_map.get(layout, 'slider')}_{theme_map.get(theme, 'light')}.js",
         {
             "api_secret": company_api_secret,
             "rating_yandex": str(company.rating_yandex).replace(",", "."),
