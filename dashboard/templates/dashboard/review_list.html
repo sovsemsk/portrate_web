@@ -33,21 +33,13 @@
                         {{review.name}}
                     </h6>
                     <div class="bp5-section-header-sub-title">
-                        <img alt="*" height=10 src="{% static review.stars_svg %}" width=70>
+                        <img height=10 src="{% static review.stars_svg %}" width=70>
                     </div>
                 </div>
             </div>
             <div class="bp5-section-header-right">
                 <span class="bp5-text-muted">{{review.created_at}}</span>
-                {% if review.service == "YANDEX" %}
-                <img alt="Яндекс" height=16 src="{% static 'images/services/yandex.svg' %}" width=16>
-                {% endif %}
-                {% if review.service == "GIS" %}
-                <img alt="2Гис" height=16 src="{% static 'images/services/gis.svg' %}" width=16>
-                {% endif %}
-                {% if review.service == "GOOGLE" %}
-                <img alt="Google" height=16 src="{% static 'images/services/google.svg' %}" width=16>
-                {% endif %}
+                <img height=16 src="{% static review.parser_png %}" width=16>
                 <!-- @TODO: inline style -->
                 <div class="bp5-divider" style="height:25px"></div>
                 <form action="{% url 'review_update' company.id review.id %}?{{request.META.QUERY_STRING}}" data-review-form method="post">

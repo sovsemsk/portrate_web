@@ -374,6 +374,10 @@ class Review(Model):
     company = ForeignKey("resources.Company", on_delete=CASCADE, verbose_name="компания")
 
     @property
+    def parser_png(self):
+        return f"images/parsers/{self.service.lower()}.png"
+
+    @property
     def stars_svg(self):
         return f"images/stars/{float(self.stars)}.svg"
 

@@ -29,7 +29,7 @@
         <div class="bp5-section-header">
             <div class="bp5-section-header-left">
                 {% if company.logo %}
-                <img alt="{{ company.name }}" height=35 src="{{company.logo.url}}" style="border-radius:5px;" width=35>
+                <img height=35 src="{{company.logo.url}}" style="border-radius:5px;" width=35>
                 {% endif %}
                 <div>
                     <h6 class="bp5-heading bp5-section-header-title">
@@ -56,7 +56,7 @@
                 <div class="bp5-control-group bp5-fill">
                     <!-- @TODO: inline style -->
                     <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon" style="flex:1 calc(100% / 3);">
-                        <img alt="Яндекс" class="bp5-icon" src="{% static 'images/services/yandex.svg' %}" width=16>
+                        <img class="bp5-icon" src="{% static 'images/parsers/yandex.png' %}" width=16>
                         <div class="bp5-form-group">
                             <h3 class="bp5-heading">
                                 {{company.rating_yandex|default:"0,0"}}
@@ -71,7 +71,7 @@
                     </div>
                     <!-- @TODO: inline style -->
                     <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon" style="flex:1 calc(100% / 3);">
-                        <img alt="2Гис" class="bp5-icon" src="{% static 'images/services/gis.svg' %}" width=16>
+                        <img class="bp5-icon" src="{% static 'images/parsers/gis.png' %}" width=16>
                         <div class="bp5-form-group">
                             <h3 class="bp5-heading">
                                 {{ company.rating_gis|default:"0,0" }}
@@ -86,7 +86,7 @@
                     </div>
                     <!-- @TODO: inline style -->
                     <div class="bp5-callout bp5-callout-has-body-content bp5-callout-icon" style="flex:1 calc(100% / 3);">
-                        <img alt="2Гис" class="bp5-icon" src="{% static 'images/services/google.svg' %}" width=16>
+                        <img class="bp5-icon" src="{% static 'images/parsers/google.png' %}" width=16>
                         <div class="bp5-form-group">
                             <h3 class="bp5-heading">
                                 {{company.rating_google|default:"0,0"}}
