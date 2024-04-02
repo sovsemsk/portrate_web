@@ -3,15 +3,25 @@ __d91262__=document.querySelector("script[data-{{api_secret}}]");
 __5dbd30__=new DOMParser().parseFromString(`{% include "widget/_reviews_slider_light.html" %}`,"text/html").body.firstElementChild;
 __519f87__(__d91262__,__5dbd30__);
 
-__2981c7__=document.querySelector("div[data-2981c7]");
-__6b948e__=document.querySelector("div[data-6b948e]");
+// Reviews
+__4913fc__=document.querySelector("div[data-4913fc]");
 
-const __459b69__ = () => {
-    __2981c7__.scrollLeft += 500;
+// Review
+__fd94a8__=document.querySelector("div[data-fd94a8]");
+
+
+// Left button
+__32a461__=document.querySelector("button[data-32a461]");
+
+// Right button
+__cd7b94__=document.querySelector("button[data-cd7b94]");
+
+// Left button click
+__18e6c1__=() => {
+    __4913fc__.scrollLeft -= __fd94a8__.clientWidth;
 }
 
-const __18e6c1__ = () => {
-    __2981c7__.scrollLeft -= 500;
+// Right button click
+__459b69__=(e) => {
+    __4913fc__.scrollLeft += __fd94a8__.clientWidth;
 }
-
-

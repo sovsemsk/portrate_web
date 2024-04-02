@@ -1,8 +1,47 @@
 /* Container */
 .__3151ca39__{
     background-color:white !important;
-    border-radius:1rem  !important;
+    border-radius:1rem !important;
     font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif  !important;
+    position:relative !important;
+}
+
+/* Reviews button */
+.__442d9ae4__,
+.__317ec92c__{
+    align-items:center !important;
+    background-color:rgba(15,15,15,0.25) !important;
+    border:none !important;
+    border-radius:0.5rem !important;
+    cursor:pointer !important;
+    display:flex !important;
+    height:2rem !important;
+    justify-content:center !important;
+    position:absolute !important;
+    width:2rem !important;
+    top: calc(50% - 2.5rem);
+}
+
+.__442d9ae4__:hover,
+.__317ec92c__:hover{
+    background-color:rgba(15,15,15,0.35) !important;
+}
+
+.__49b33320__,
+.__533daea2__{
+    height:1rem !important;
+    filter: invert(1) !important;
+    width:1rem !important;
+}
+
+/* Reviews button left */
+.__442d9ae4__{
+    left:1.5rem;
+}
+
+/* Reviews button right */
+.__317ec92c__{
+    right:1.5rem;
 }
 
 /* Reviews */
@@ -26,7 +65,7 @@
 
 /* Review */
 .__6b948e6f__{
-    background-color:rgba(0,0,0,0.1) !important;
+    background-color:rgba(15,15,15,0.05) !important;
     border-radius:0.5rem !important;
     flex-grow:1 !important;
     flex-shrink:0 !important;
@@ -99,9 +138,9 @@
     display:flex !important;
     gap:0.5rem !important;
     padding-top:1rem !important;
-    padding-right:1rem !important;
+    margin-right:1rem !important;
     padding-bottom:1rem !important;
-    padding-left:1rem !important;
+    margin-left:1rem !important;
     overflow-x:scroll;
 }
 
@@ -110,11 +149,10 @@
     display:none !important;
 }
 
-
 /* Link */
 .__40b76d95__{
     align-items:center !important;
-    background-color:rgba(0,0,0,0.1) !important;
+    background-color:rgba(15,15,15,0.05) !important;
     border-radius:0.5rem !important;
     color:black !important;
     display:flex !important;;
@@ -127,7 +165,7 @@
 }
 
 .__40b76d95__:hover{
-    background-color:rgba(0,0,0,0.2) !important;
+    background-color:rgba(15,15,15,0.1) !important;
 }
 
 /* Link rating */
