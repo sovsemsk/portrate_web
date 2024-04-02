@@ -55,9 +55,9 @@ def reviews(request, company_api_secret):
             "stars_svg_yandex": str(company.stars_svg_yandex).replace(",", "."),
             "stars_svg_gis": str(company.stars_svg_gis).replace(",", "."),
             "stars_svg_google": str(company.stars_svg_google).replace(",", "."),
-            "form_link_yandex": company.form_link_yandex,
-            "form_link_gis": company.form_link_gis,
-            "form_link_google": company.form_link_google,
+            "parser_link_yandex": company.parser_link_yandex,
+            "parser_link_gis": company.parser_link_gis,
+            "parser_link_google": company.parser_link_google,
             "reviews": company_reviews,
         },
         content_type="application/javascript"

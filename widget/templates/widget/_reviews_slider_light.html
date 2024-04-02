@@ -1,12 +1,18 @@
 {% load extensions %}
 <div class="__3151ca39__">
+
     <style type="text/css">
         {% include "widget/_reviews_slider_light.css" %}
     </style>
 
-    <div class="__2981c708__">
+    <!--button onclick="__18e6c1__()">
+        <img  class="__1314449f__" height="14" src="https://geo.portrate.io/static/images/dashboard/chevron-left.svg" width="14">
+    </button>
+    <button onclick="__459b69__()"> > </button-->
+
+    <div class="__2981c708__" data-2981c7>
         {% for review in reviews %}
-        <div class="__6b948e6f__">
+        <div class="__6b948e6f__" data-6b948e>
             <div class="__3c488807__">
                 <div>
                     <div class="__e5cfa931__">
@@ -20,31 +26,28 @@
                 <img class="__6a2b11f7__" height="24" src="https://geo.portrate.io/static/images/services/{{review.service|lower}}.svg" width="24">
             </div>
             <div class="__c35ad222__">
-                {{review.text|truncatechars:200}}
+                {{review.text|truncatechars:180}}
+                {% if review.text_length > 180 %}
+                <a class="__e828da28__" href="#">Раскрыть</a>
+                {% endif %}
             </div>
-            {% if review.text_length > 200 %}
-            <a class="__e828da28__" href="#">
-                <img class="__c86bfb83__" src="https://geo.portrate.io/static/images/dashboard/chevron-down.svg">
-            </a>
-            {% endif %}
         </div>
         {% endfor %}
     </div>
-
     <div class="__20965ede__">
-        <a href="{{form_link_yandex}}" class="__40b76d95__" target="_blank">
+        <a href="{{parser_link_yandex}}" class="__40b76d95__" target="_blank">
             <img class="__ccaab7aa__" height="18" src="https://geo.portrate.io/static/images/services/yandex.svg" width="18">
             Яндекс
             <span class="__cab09265__">{{rating_yandex}}</span>
             <img  class="__1314449f__" height="14" src="https://geo.portrate.io/static/images/dashboard/share.svg" width="14">
         </a>
-        <a href="{{form_link_gis}}" class="__40b76d95__" target="_blank">
+        <a href="{{parser_link_gis}}" class="__40b76d95__" target="_blank">
             <img class="__ccaab7aa__" height="18" src="https://geo.portrate.io/static/images/services/gis.svg" width="18">
             2Гис
             <span class="__cab09265__">{{rating_gis}}</span>
             <img  class="__1314449f__" height="14" src="https://geo.portrate.io/static/images/dashboard/share.svg" width="14">
         </a>
-        <a href="{{form_link_google}}" class="__40b76d95__" target="_blank">
+        <a href="{{parser_link_google}}" class="__40b76d95__" target="_blank">
             <img class="__ccaab7aa__" height="18" src="https://geo.portrate.io/static/images/services/google.svg" width="18">
             Google
             <span class="__cab09265__">{{rating_google}}</span>
