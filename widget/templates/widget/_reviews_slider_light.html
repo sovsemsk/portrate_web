@@ -21,11 +21,9 @@
                 <img class="__6a2b11f7__" height=16 src="https://geo.portrate.io/static/{{review.parser_png}}" width=16>
             </div>
             <div class="__c35ad222__">
-                {{review.text|truncatechars:180}}
-                {% if review.text_length > 180 %}
-                <a class="__e828da28__" href="#">Раскрыть</a>
-                {% endif %}
+                {{review.text}}
             </div>
+            <div class="__b4777536__"></div>
         </div>
         {% endfor %}
     </div>
@@ -46,6 +44,11 @@
             <img class="__ccaab7aa__" height="16" src="https://geo.portrate.io/static/images/parsers/google.png" width="16">
             Google
             <span class="__cab09265__">{{rating_google}}</span>
+            <img class="__1314449f__" height="14" src="https://geo.portrate.io/static/images/dashboard/share.svg" width="14">
+        </a>
+        <a href="{{parser_link_google}}" class="__2affd980__" target="_blank">
+            <img class="__ccaab7aa__" height="16" src="https://geo.portrate.io/static/images/dashboard/logo.png" width="16">
+            <span>Виджет&nbsp;от&nbsp;portrate.io</span>
             <img class="__1314449f__" height="14" src="https://geo.portrate.io/static/images/dashboard/share.svg" width="14">
         </a>
     </div>
