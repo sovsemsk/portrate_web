@@ -3,7 +3,7 @@
 .__c7edcdff__{color:{% if theme == 'l' %}black{% else %}white{% endif %};font-size:42px;text-align:center;padding-left:5px;width:100%;font-weight:bold}
 .__49d00207__{display:flex;height:80px;place-items:center;width:150px;}
 .__552a3473__{width:150px;}
-.__d18c5315__{padding-bottom:2.5px;}
+.__d18c5315__{padding-bottom:3.5px;}
 .__fcf081f6__{color:{% if theme == 'l' %}rgba(0,0,0,0.5){% else %}rgba(255,255,255,0.5){% endif %};font-size:14px;width:150px;padding-bottom:5px;}
 .__3f72df2d__{align-items:start;color:{%if theme == 'l'%}rgba(0,0,0,0.5){%else%}rgba(255,255,255,0.5){%endif%};display:flex;font-size:x-small;}
 .__3abeac1f__{margin-left:5px;padding-top:1.5px;text-decoration:none;}
