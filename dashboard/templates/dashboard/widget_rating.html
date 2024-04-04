@@ -11,7 +11,7 @@
         <div class="bp5-form-group" style="position:relative;">
             <img height=358 src="{% static 'images/dashboard/frame.svg' %}" width=596>
             <!-- @TODO: inline style -->
-            <img class="bp5-elevation-0" style="border-radius:10px;{% if position == 'lb' or position == 'lt' %}left:15px;{% elif position == 'rt' or position == 'rb' %}right:15px;{% endif %}position:absolute;{% if position == 'lb' or position == 'rb' %}bottom:15px;{% elif position == 'lt' or position == 'rt' %}top:40px;{% endif %}" {% if theme == "l" %}src="{% static 'images/dashboard/widget_rating_light.svg' %}"{% else %}src="{% static 'images/dashboard/widget_rating_dark.svg' %}"{% endif %}>
+            <img style="{% if position == 'lb' or position == 'lt' %}left:8px;{% elif position == 'rt' or position == 'rb' %}right:8px;{% endif %}position:absolute;{% if position == 'lb' or position == 'rb' %}bottom:8px;{% elif position == 'lt' or position == 'rt' %}top:40px;{% endif %};width:180px;" {% if theme == "l" %}src="{% static 'images/dashboard/widget_rating_light.jpg' %}"{% else %}src="{% static 'images/dashboard/widget_rating_dark.jpg' %}"{% endif %}>
         </div>
         <div class="bp5-form-group">
             <!-- @TODO: inline style -->
