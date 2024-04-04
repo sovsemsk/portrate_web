@@ -36,29 +36,28 @@ def reviews(request, company_api_secret):
     company_reviews = Review.objects.filter(company_id=company.id, is_visible=True).order_by("-created_at")[:15]
 
     layout = request.GET.get("layout", "s")
-    layout_map = {"s": "slider", "g": "grid"}
-
     theme = request.GET.get("theme", "l")
-    theme_map = {"l": "light", "d": "dark"}
 
     return render(
         request,
-        f"widget/reviews_{layout_map.get(layout, 'slider')}_{theme_map.get(theme, 'light')}.js",
+        f"widget/reviews_{'slider' if layout=='s' else 'grid'}.js",
         {
             "api_secret": company_api_secret,
+            "layout": layout,
             "rating_yandex": str(company.rating_yandex).replace(",", "."),
             "rating_gis": str(company.rating_gis).replace(",", "."),
             "rating_google": str(company.rating_google).replace(",", "."),
             "reviews_yandex_total_count": str(company.reviews_yandex_total_count),
             "reviews_gis_total_count": str(company.reviews_gis_total_count),
             "reviews_google_total_count": str(company.reviews_google_total_count),
-            "stars_svg_yandex": str(company.stars_svg_yandex).replace(",", "."),
-            "stars_svg_gis": str(company.stars_svg_gis).replace(",", "."),
-            "stars_svg_google": str(company.stars_svg_google).replace(",", "."),
             "parser_link_yandex": company.parser_link_yandex,
             "parser_link_gis": company.parser_link_gis,
             "parser_link_google": company.parser_link_google,
             "reviews": company_reviews,
+            "stars_svg_yandex": str(company.stars_svg_yandex).replace(",", "."),
+            "stars_svg_gis": str(company.stars_svg_gis).replace(",", "."),
+            "stars_svg_google": str(company.stars_svg_google).replace(",", "."),
+            "theme": theme
         },
         content_type="application/javascript"
     )

@@ -1,15 +1,7 @@
 {% load extensions %}
 <div class="__bcaed682__">
     <style type="text/css">
-        .__bcaed682__{border:1px solid {%if theme == 'l'%}rgba(0,0,0,0.1){%else%}rgba(255,255,255,0.1){%endif%};background-color:{% if theme == 'l' %}white{% else %}#2b2b2b{% endif %};{% if position == 'lb' or position == 'rb' %}bottom:15px;{% elif position == 'lt' or position == 'rt' %}top:15px;{% endif %};border-radius:10px;display:flex;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;height:80px;{% if position == 'lb' or position == 'lt' %}left:15px;{% elif position == 'rb' or position == 'rt' %}right:15px;{% endif %};position:fixed;width:240px;z-index:999999;}
-        .__a96f6dd4__{display:flex;height:80px;place-items:center;width:90px;}
-        .__c7edcdff__{color:{% if theme == 'l' %}black{% else %}white{% endif %};font-size:42px;text-align:center;padding-left:5px;width:100%;}
-        .__49d00207__{display:flex;height:80px;place-items:center;width:150px;}
-        .__552a3473__{width:150px;}
-        .__fcf081f6__{color:{% if theme == 'l' %}rgba(0,0,0,0.5){% else %}rgba(255,255,255,0.5){% endif %};font-size:14px;padding-bottom:5px;width:150px;}
-        .__3f72df2d__{align-items:start;color:{%if theme == 'l'%}rgba(0,0,0,0.5){%else%}rgba(255,255,255,0.5){%endif%};display:flex;font-size:x-small;}
-        .__3abeac1f__{margin-left:5px;padding-top:1.5px;text-decoration:none;}
-        @media only screen and (max-width: 480px){.__bcaed682__{left:-350px !important;}}
+        {% include "widget/_rating.css" %}
     </style>
     <div class="__a96f6dd4__">
         <div class="__c7edcdff__">
@@ -18,7 +10,7 @@
     </div>
     <div class="__49d00207__">
         <div class="__552a3473__">
-            <img height=10 src="https://geo.portrate.io/static/{{stars_svg}}" width=70>
+            <img class="__d18c5315__" height=10 src="https://geo.portrate.io/static/{{stars_svg}}" width=70>
             <div class="__fcf081f6__">
                 {{reviews_total_count}} {{reviews_total_count|rupluralize:"отзыв, отзыва, отзывов"}}
             </div>

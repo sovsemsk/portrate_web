@@ -11,7 +11,7 @@
     background-color:rgba(0,0,0,0.25) !important;
     border:none !important;
     border-radius:5px !important;
-    bottom: 65px !important;
+    bottom:65px !important;
     cursor:pointer !important;
     display:flex !important;
     height:40px !important;
@@ -67,7 +67,7 @@
 
 /* Review */
 .__6b948e6f__{
-    background-color:#323232 !important;
+    background-color:{% if theme == 'l' %}#F1F1F1{% else %}#323232{% endif %} !important;
     border-radius:10px !important;
     flex-grow:1 !important;
     flex-shrink:0 !important;
@@ -83,7 +83,6 @@
 /* Review header */
 .__3c488807__{
     display:flex !important;
-    gap: 20px !important;
     padding-top:25px !important;
     padding-right:25px !important;
     padding-bottom:25px !important;
@@ -92,7 +91,7 @@
 
 /* Review header title */
 .__e5cfa931__{
-    color:white !important;
+    color:{% if theme == 'l' %}black{% else %}white{% endif %} !important;
     font-size:large !important;
     font-weight:bold !important;
     padding-bottom:10px !important;
@@ -105,7 +104,7 @@
 
 /* Review header date */
 .__d384a050__{
-    color:rgba(255,255,255,0.5) !important;
+    color:{% if theme == 'l' %}rgba(0,0,0,0.5){% else %}rgba(255,255,255,0.5){% endif %} !important;
     font-size:small !important;
 }
 
@@ -124,7 +123,7 @@
 
 /* Review text */
 .__c35ad222__{
-    color:white !important;
+    color:{% if theme == 'l' %}black{% else %}white{% endif %} !important;
     font-size:large !important;
     line-height:1.4 !important;
     min-height:150px !important;
@@ -139,7 +138,7 @@
 
 /* Review text top fade */
 .__341e4199__{
-    background:linear-gradient(0deg, rgba(50,50,50,0) 0%, rgba(50,50,50,1) 100%) !important;
+    background:{% if theme == 'l' %}linear-gradient(0deg, rgba(241,241,241,0) 0%, rgba(241,241,241,1) 100%){% else %}linear-gradient(0deg, rgba(50,50,50,0) 0%, rgba(50,50,50,1) 100%){% endif %} !important;
     display:none; /* Except */
     height:55px !important;
     left:-1px !important;
@@ -150,7 +149,7 @@
 
 /* Review text bottom fade */
 .__b4777536__{
-    background:linear-gradient(0deg, rgba(50,50,50,1) 25%, rgba(50,50,50,0) 100%) !important;
+    background:{% if theme == 'l' %}linear-gradient(0deg, rgba(241,241,241,1) 25%, rgba(241,241,241,0) 100%){% else %}linear-gradient(0deg, rgba(50,50,50,1) 25%, rgba(50,50,50,0) 100%){% endif %} !important;
     bottom:-1px !important;
     display:none; /* Except */
     height:55px !important;
@@ -176,11 +175,11 @@
 .__40b76d95__,
 .__2affd980__{
     align-items:center !important;
-    border-color:#323232 !important;
+    border-color:{% if theme == 'l' %}#F1F1F1{% else %}#323232{% endif %} !important;
     border-radius: 5px !important;
     border-style:solid !important;
     border-width:1px !important;
-    color:white !important;
+    color:{% if theme == 'l' %}black{% else %}white{% endif %} !important;
     display:flex !important;;
     gap:10px !important;
     height:35px !important;
@@ -190,7 +189,7 @@
 }
 
 .__40b76d95__:hover{
-    background-color:#323232 !important;
+    background-color:{% if theme == 'l' %}#F1F1F1{% else %}#323232{% endif %} !important;
 }
 
 /* Link rating */
@@ -200,18 +199,18 @@
 
 /* Link share icon */
 .__1314449f__{
-    filter: invert(1) !important;
+    filter:{% if theme == 'l' %}invert(0){% else %}invert(1){% endif %} !important;
     opacity:0.5 !important;
 }
 
 /* Made in */
 .__2affd980__{
     align-items:center !important;
-    border-color:#323232 !important;
+    border-color:{% if theme == 'l' %}#F1F1F1{% else %}#323232{% endif %} !important;
     border-radius: 5px !important;
     border-style:solid !important;
     border-width:1px !important;
-    color:rgba(255,255,255,0.5) !important;
+    color:{% if theme == 'l' %}rgba(0,0,0,0.5){% else %}rgba(255,255,255,0.5){% endif %} !important;
     font-size:small !important;
     display:flex !important;;
     gap:5px !important;
@@ -223,7 +222,7 @@
 }
 
 .__2affd980__:hover{
-    background-color:#323232 !important;
+    background-color:{% if theme == 'l' %}#F1F1F1{% else %}#323232{% endif %} !important;
 }
 
 .__465c2f34__{
