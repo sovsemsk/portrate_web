@@ -69,6 +69,8 @@
     border-radius:10px !important;
     flex-grow:1 !important;
     flex-shrink:0 !important;
+    overflow:hidden !important;
+    position:relative !important;
     scroll-snap-align:start !important;
 }
 
@@ -84,7 +86,7 @@
     gap: 20px !important;
     padding-top:25px !important;
     padding-right:25px !important;
-    padding-bottom:25px !important;
+    padding-bottom:15px !important;
     padding-left:25px !important;
 }
 
@@ -93,7 +95,7 @@
     color:black !important;
     font-size:large !important;
     font-weight:bold !important;
-    padding-bottom:10px !important;
+    margin-bottom:10px !important;
 }
 
 /* Review header stars */
@@ -112,22 +114,17 @@
     margin-left:auto !important;
 }
 
-/* Review container */
-.__4080b9b1__{
-    margin-right:25px !important;
-    margin-bottom:25px !important;
-    margin-left:25px !important;
-    position: relative;
-}
-
 /* Review text */
 .__c35ad222__{
     color:black !important;
     font-size:large !important;
     line-height:1.4 !important;
-    min-height:150px !important;
-    max-height:250px !important;
+    padding-right:25px !important;
+    padding-bottom:20px !important;
+    padding-left:25px !important;
     overflow-y:scroll !important;
+    min-height:200px !important;
+    max-height:300px !important;
 }
 
 .__c35ad222__::-webkit-scrollbar,
@@ -135,26 +132,13 @@
     display:none !important;
 }
 
-/* Review text top fade */
-.__341e4199__{
-    background:linear-gradient(0deg, rgba(241,241,241,0) 0%, rgba(241,241,241,1) 100%) !important;
-    display:none; /* Except */
-    height:55px !important;
-    left:-1px !important;
-    top:-1px !important;
-    position:absolute !important;
-    width:calc(100% + 2px) !important;
-}
-
-/* Review text bottom fade */
 .__b4777536__{
     background:linear-gradient(0deg, rgba(241,241,241,1) 25%, rgba(241,241,241,0) 100%) !important;
-    bottom:-1px !important;
-    display:none; /* Except */
-    height:55px !important;
-    left:-1px !important;
+    bottom:0 !important;
+    height:75px !important;
+    left:0 !important;
     position:absolute !important;
-    width:calc(100% + 2px) !important;
+    width:100% !important;
 }
 
 /* Links */
@@ -171,8 +155,7 @@
 }
 
 /* Link */
-.__40b76d95__,
-.__2affd980__{
+.__40b76d95__{
     align-items:center !important;
     border-color:#F1F1F1 !important;
     border-radius: 5px !important;
@@ -198,7 +181,7 @@
 
 /* Link share icon */
 .__1314449f__{
-    filter: invert(0) !important;
+    filter:invert(0) !important;
     opacity:0.5 !important;
 }
 
