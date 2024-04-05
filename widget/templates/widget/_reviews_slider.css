@@ -113,15 +113,15 @@
     margin-left:auto !important;
 }
 
-/* Review container */
+/* Review text */
 .__4080b9b1__{
     margin-right:25px !important;
-    margin-bottom:25px !important;
+    margin-bottom:60px !important;
     margin-left:25px !important;
-    position: relative;
+    position: relative !important;
 }
 
-/* Review text */
+/* Review text scroll */
 .__c35ad222__{
     color:{% if theme == 'l' %}black{% else %}white{% endif %} !important;
     font-size:large !important;
