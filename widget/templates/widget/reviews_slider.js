@@ -19,6 +19,6 @@ __18e6c1__= () => {__4913fc__.scrollLeft -= __fd94a8__.clientWidth;}
 // Right button click
 __459b69__= () => {__4913fc__.scrollLeft += __fd94a8__.clientWidth;}
 // Text scroll
-__a4738e__= (__a5c5c7__) => {__a5c5c7__.scrollTop > 5 ? __a5c5c7__.previousElementSibling.style.display = "block" : __a5c5c7__.previousElementSibling.style.display = "none"; (__a5c5c7__.scrollTop + 255) > (__a5c5c7__.scrollHeight - 5) ? __a5c5c7__.nextElementSibling.style.display = "none" : __a5c5c7__.nextElementSibling.style.display = "block";};
+__a4738e__= (__a5c5c7__) => {__a5c5c7__.scrollTop > 5 ? __a5c5c7__.previousElementSibling.style.display = "block" : __a5c5c7__.previousElementSibling.style.display = "none";(__a5c5c7__.scrollTop + 305) > (__a5c5c7__.scrollHeight - 5) ? __a5c5c7__.nextElementSibling.style.display = "none" : __a5c5c7__.nextElementSibling.style.display = "block";};
 // Show bottom text fade if need
 __b93be1__.forEach(__a068fe__ => {if(__a068fe__.scrollHeight > 250){__a068fe__.style.paddingBottom = "55px";__a068fe__.nextElementSibling.style.display = "block";}});
