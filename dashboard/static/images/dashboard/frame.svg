@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="650px" height="390px" viewBox="0 0 650 390" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>Frame</title>
-    <g id="Frame" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <rect fill="#FFFFFF" x="0" y="0" width="650" height="390"></rect>
-        <rect id="Rectangle" fill="#E8E8E8" x="175" y="11" width="300" height="16" rx="2"></rect>
-        <circle id="Oval" fill="#FF0000" cx="20.5" cy="18.5" r="4.5"></circle>
-        <circle id="Oval" fill="#FFB000" cx="32.5" cy="18.5" r="4.5"></circle>
-        <circle id="Oval" fill="#2AB142" cx="44.5" cy="18.5" r="4.5"></circle>
-    </g>
+<svg width="650px" height="390px" viewBox="0 0 650 390" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <rect fill="#FFFFFF" x="0" y="0" width="650" height="390"></rect>
+    <rect fill="#E8E8E8" x="175" y="11" width="300" height="16" rx="2"></rect>
+    <circle fill="#FF0000" cx="20.5" cy="18.5" r="4.5"></circle>
+    <circle fill="#FFB000" cx="32.5" cy="18.5" r="4.5"></circle>
+    <circle fill="#2AB142" cx="44.5" cy="18.5" r="4.5"></circle>
 </svg>

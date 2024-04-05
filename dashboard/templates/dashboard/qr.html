@@ -3,17 +3,20 @@
 {% block content %}
 {% include "dashboard/_company_head.html" %}
 {% include "dashboard/_company_tabs.html" %}
+<!-- @TODO: inline style -->
 <div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:15px">
+    <!-- @TODO: inline style -->
     <div style="grid-column: span 9 / span 9;">
         <div class="bp5-form-group">
             <div class="bp5-card bp5-section">
                 <div class="bp5-padded bp5-section-card">
-
+                    QR
                 </div>
             </div>
         </div>
     </div>
-    <div style="grid-column: span 3 / span 3;">
+    <!-- @TODO: inline style -->
+    <div style="grid-column:span 3 / span 3;">
         <ul class="bp5-menu">
             <li class="bp5-menu-header">
                 <h6 class="bp5-heading">Тема</h6>
@@ -40,15 +43,5 @@
         </ul>
     </div>
 </div>
-<!--div class="bp5-control-group">
-    <button id="DOWNLOAD_BUTTON" type="button" class="bp5-button bp5-intent-warning">Скачать макет</button>
-</div-->
-{% endblock %}
-{% block script %}
-<script>
-function demoFromHTML() {
-    var element = document.getElementById('TEST');
-    var worker = html2pdf().from(element).save();
-}
-</script>
+<button class="bp5-button bp5-intent-warning" data-code-button type="button">Скопировать код виджета</button>
 {% endblock %}
