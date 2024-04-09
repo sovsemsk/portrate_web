@@ -9,9 +9,14 @@
     <div style="grid-column: span 9 / span 9;">
         <div class="bp5-form-group">
             <div class="bp5-card bp5-section">
-                <div class="bp5-section-card">
+                <div class="bp5-padded bp5-section-card">
+                    {% if theme == 'l' and template == 's' and company.stick_light.url %}
                     <!-- @TODO: inline style -->
-                    <img style="display:block;height:352px;margin:30px auto 0 auto;width:250px;" src="{% if theme == 'l' and template == 's'%}{% static 'images/dashboard/qr_pdf_stick_light.jpg' %}{% elif theme == 'd' and template == 's'%}{% static 'images/dashboard/qr_pdf_stick_dark.jpg' %}{% endif %}">
+                    <img class="bp5-elevation-0"  src="{% static 'images/dashboard/qr_pdf_stick_light.jpg' %}" style="display:block;height:352px;margin-left:auto;margin-right:auto;width:250px;">
+                    {% elif theme == 'd' and template == 's' and company.stick_dark.url %}
+                    <!-- @TODO: inline style -->
+                    <img src="{% static 'images/dashboard/qr_pdf_stick_dark.jpg' %}" style="display:block;height:352px;margin-left:auto;margin-right:auto;width:250px;">
+                    {% endif %}
                 </div>
             </div>
         </div>

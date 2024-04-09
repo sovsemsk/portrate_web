@@ -14,8 +14,6 @@ class Command(BaseCommand):
         for company in companies:
             company.stick_light = File(generate_stick(company.id, "light"))
             company.stick_light.name = "stick_light.pdf"
-
             company.stick_dark = File(generate_stick(company.id, "dark"))
             company.stick_dark.name = "stick_dark.pdf"
-
             company.save()
