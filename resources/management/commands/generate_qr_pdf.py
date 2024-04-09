@@ -12,13 +12,10 @@ class Command(BaseCommand):
         companies = Company.objects.all()
 
         for company in companies:
-            if not company.stick_light:
-                company.stick_light = File(generate_stick(company.id, "light"))
-                company.stick_light.name = "stick_light.pdf"
-                company.save()
+            company.stick_light = File(generate_stick(company.id, "light"))
+            company.stick_light.name = "stick_light.pdf"
 
-            if not company.stick_dark:
-                company.stick_dark = File(generate_stick(company.id, "dark"))
-                company.stick_dark.name = "stick_dark.pdf"
-                company.save()
+            company.stick_dark = File(generate_stick(company.id, "dark"))
+            company.stick_dark.name = "stick_dark.pdf"
 
+            company.save()

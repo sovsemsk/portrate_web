@@ -2,6 +2,7 @@ import io
 
 import fitz
 import qrcode
+from django.conf import settings
 
 fitz.TOOLS.set_aa_level(0)
 
@@ -23,7 +24,7 @@ def make_qrcode(company_id, theme):
 
 def generate_stick(company_id, theme):
     png_stream = make_qrcode(company_id, theme)
-    template = fitz.open(f"pdf/qr_pdf_stick_{theme}.pdf")
+    template = fitz.open(f"{settings.BASE_DIR}/pdf/qr_pdf_stick_{theme}.pdf")
 
     for page in template:
         rect = fitz.Rect(79, 199, 219, 339)
