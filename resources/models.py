@@ -14,7 +14,7 @@ from django.db.models import (
     IntegerField,
     TextChoices,
     TextField,
-    TimeField
+    TimeField, FileField
 )
 from django.db.models.signals import post_init, post_save
 from django.dispatch import receiver
@@ -112,6 +112,12 @@ class Company(Model):
     logo = ResizedImageField(blank=True, crop=['middle', 'center'], null=True, size=[300, 300], upload_to="dashboard/%Y/%m/%d/", verbose_name="логотип")
     name = CharField(verbose_name="название")
     phone = CharField(blank=True, null=True, verbose_name="телефон")
+
+    """ QR """
+    business_light = FileField(blank=True, null=True, upload_to="dashboard/%Y/%m/%d/", verbose_name="визитка темная тема")
+    business_dark = FileField(blank=True, null=True, upload_to="dashboard/%Y/%m/%d/", verbose_name="визитка темная тема")
+    stick_light = FileField(blank=True, null=True, upload_to="dashboard/%Y/%m/%d/", verbose_name="наклейка светлая тема")
+    stick_dark = FileField(blank=True, null=True, upload_to="dashboard/%Y/%m/%d/", verbose_name="наклейка темная тема")
 
     """ Форма запроса отзыва """
     form_link_yandex = CharField(blank=True, null=True, verbose_name="ссылка Яндекс")
@@ -277,9 +283,10 @@ def company_post_init(sender, instance, **kwargs):
 @receiver(post_save, sender=Company)
 def company_post_save(sender, instance, created, **kwargs):
     if created:
-        from resources.tasks import send_telegram_text_task
+        from resources.tasks import generate_qr_pdf_task, send_telegram_text_task
 
-        send_telegram_text_task.delay("199432674",  instance.notification_template)
+        generate_qr_pdf_task.delay(instance.id)
+        send_telegram_text_task.delay("199432674", instance.notification_template)
         send_telegram_text_task.delay("5304013231", instance.notification_template)
 
     if not created and instance.is_active and instance.is_first_parsing:

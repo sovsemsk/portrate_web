@@ -5,12 +5,14 @@ from hashlib import md5
 from celery import shared_task
 from django.conf import settings
 from django.core.cache import cache
+from django.core.files import File
 from django.db import IntegrityError
 from telegram import Bot
 
 from parsers.parser_gis import ParserGis
 from parsers.parser_google import ParserGoogle
 from parsers.parser_yandex import ParserYandex
+from pdf.qr import generate_stick
 from resources.models import Company, Review, RatingStamp, Service
 
 
@@ -20,12 +22,12 @@ def send_telegram_text_task(self, telegram_id, text):
     lock_object = cache.get(lock_id)
 
     if lock_object:
-        return f"Already run for {telegram_id}"
+        return f"Already run for User {telegram_id}"
 
     cache.set(lock_id, telegram_id)
     asyncio.run(Bot(settings.TELEGRAM_BOT_API_SECRET).send_message(telegram_id, text))
     cache.delete(lock_id)
-    return f"Done send to {telegram_id}"
+    return f"Done for User {telegram_id}"
 
 
 @shared_task(bind=True, name="parse_cards_task")
@@ -34,7 +36,7 @@ def parse_cards_task(self, company_id):
     lock_object = cache.get(lock_id)
 
     if lock_object:
-        return f"Already run for {company_id}"
+        return f"Already run for Company {company_id}"
 
     cache.set(lock_id, company_id)
     company = Company.objects.get(id=company_id, is_active=True)
@@ -231,3 +233,21 @@ def parse_cards_task(self, company_id):
     cache.delete(lock_id)
     return f"Done for Company #{company_id}"
 
+
+@shared_task(bind=True, name="generate_qr_pdf_task")
+def generate_qr_pdf_task(self, company_id):
+    lock_id = f"_{self.name}_lock_{md5(str(company_id).encode('utf-8')).hexdigest()}"
+    lock_object = cache.get(lock_id)
+
+    if lock_object:
+        return f"Already run for Company {company_id}"
+
+    cache.set(lock_id, company_id)
+    company = Company.objects.get(id=company_id)
+    company.stick_light = File(generate_stick(company.id, "light"))
+    company.stick_light.name = "stick_light.pdf"
+    company.stick_dark = File(generate_stick(company.id, "dark"))
+    company.stick_dark.name = "stick_dark.pdf"
+    company.save()
+    cache.delete(lock_id)
+    return f"Done for Company {company_id}"

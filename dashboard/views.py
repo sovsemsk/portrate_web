@@ -358,7 +358,7 @@ class MessageListView(LoginRequiredMixin, FilterView):
 @require_http_methods(["GET"])
 def qr(request, company_pk):
     company = get_object_or_404(Company, pk=company_pk, users__in=[request.user])
-    orientation = request.GET.get("orientation", "v")
+    template = request.GET.get("template", "s")
     theme = request.GET.get("theme", "l")
 
     return render(
@@ -368,7 +368,7 @@ def qr(request, company_pk):
             "company": company,
             "nav": "company",
             "tab_nav": "qr",
-            "orientation": orientation,
+            "template": template,
             "theme": theme
         }
     )
