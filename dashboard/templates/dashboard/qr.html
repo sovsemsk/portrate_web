@@ -63,13 +63,13 @@
 </div>
 
 {% if theme == 'l' and template == 's' and company.stick_light.url%}
-<a class="bp5-button bp5-intent-warning" href="{{company.stick_light.url}}" target="_blank">Загрузить макет</a>
+<a class="bp5-button bp5-intent-warning" href="{{company.stick_light.url}}" target="_blank">Скачать макет</a>
 {% elif theme == 'd' and template == 's' and company.stick_dark.url %}
-<a class="bp5-button bp5-intent-warning" href="{{company.stick_dark.url}}" target="_blank">Загрузить макет</a>
+<a class="bp5-button bp5-intent-warning" href="{{company.stick_dark.url}}" target="_blank">Скачать макет</a>
 {% elif theme == 'l' and template == 'b' %}
-<a class="bp5-button bp5-disabled bp5-intent-warning" href="" target="_blank">Загрузить макет</a>
+<a class="bp5-button bp5-disabled bp5-intent-warning" href="" target="_blank">Скачать макет</a>
 {% elif theme == 'd' and template == 'b' %}
-<a class="bp5-button bp5-disabled bp5-intent-warning" href="" target="_blank">Загрузить макет</a>
+<a class="bp5-button bp5-disabled bp5-intent-warning" href="" target="_blank">Скачать макет</a>
 {% endif %}
 
 {% endblock %}
