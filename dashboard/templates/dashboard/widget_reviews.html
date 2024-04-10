@@ -41,6 +41,25 @@
                 </div>
                 <span class="bp5-icon bp5-icon-moon bp5-submenu-icon"></span>
             </a>
+            <li class="bp5-menu-header">
+                <h6 class="bp5-heading">
+                    Размещение
+                </h6>
+            </li>
+            <a class="bp5-menu-item {% if layout == 's' %}bp5-active{% endif %}" href="{% url 'widget_reviews' company.id %}?theme={{theme}}&layout=s">
+                <div class="bp5-fill">
+                    Слайдер
+                </div>
+                <span class="bp5-icon bp5-icon-arrows-horizontal bp5-submenu-icon"></span>
+            </a>
+
+            <a class="bp5-menu-item bp5-disabled" aria-disabled="true">
+                <div class="bp5-fill">
+                    Сетка <span class="bp5-tag bp5-minimal">Скоро</span>
+                </div>
+                <span class="bp5-icon bp5-icon-layout-grid bp5-submenu-icon"></span>
+            </a>
+
         </ul>
     </div>
 </div>

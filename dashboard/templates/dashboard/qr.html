@@ -12,10 +12,10 @@
                 <div class="bp5-padded bp5-section-card">
                     {% if theme == 'l' and template == 's' and company.stick_light.url %}
                     <!-- @TODO: inline style -->
-                    <img class="bp5-elevation-0"  src="{% static 'images/dashboard/qr_pdf_stick_light.jpg' %}" style="display:block;height:352px;margin-left:auto;margin-right:auto;width:250px;">
+                    <img class="bp5-elevation-0"  src="{% static 'images/dashboard/qr_pdf_stick_light.jpg' %}" style="border-radius:5px;display:block;height:352px;margin-left:auto;margin-right:auto;width:250px;">
                     {% elif theme == 'd' and template == 's' and company.stick_dark.url %}
                     <!-- @TODO: inline style -->
-                    <img src="{% static 'images/dashboard/qr_pdf_stick_dark.jpg' %}" style="display:block;height:352px;margin-left:auto;margin-right:auto;width:250px;">
+                    <img src="{% static 'images/dashboard/qr_pdf_stick_dark.jpg' %}" style="border-radius:5px;display:block;height:352px;margin-left:auto;margin-right:auto;width:250px;">
                     {% endif %}
                 </div>
             </div>
@@ -25,29 +25,37 @@
     <div style="grid-column:span 3 / span 3;">
         <ul class="bp5-menu">
             <li class="bp5-menu-header">
-                <h6 class="bp5-heading">Тема</h6>
+                <h6 class="bp5-heading">
+                    Тема
+                </h6>
             </li>
             <a class="bp5-menu-item {% if theme == 'l' %}bp5-active{% endif %}" href="{% url 'qr' company.id %}?theme=l&template={{template}}">
-                <div class="bp5-fill">Светлая</div>
+                <div class="bp5-fill">
+                    Светлая
+                </div>
                 <span class="bp5-icon bp5-icon-flash bp5-submenu-icon"></span>
             </a>
             <a class="bp5-menu-item {% if theme == 'd' %}bp5-active{% endif %}" href="{% url 'qr' company.id %}?theme=d&template={{template}}">
-                <div class="bp5-fill">Темная</div>
+                <div class="bp5-fill">
+                    Темная
+                </div>
                 <span class="bp5-icon bp5-icon-moon bp5-submenu-icon"></span>
             </a>
             <li class="bp5-menu-header">
-                <h6 class="bp5-heading">Шаблон</h6>
+                <h6 class="bp5-heading">
+                    Шаблон
+                </h6>
             </li>
             <a class="bp5-menu-item {% if template == 's' %}bp5-active{% endif %}" href="{% url 'qr' company.id %}?theme={{theme}}&template=s">
-                <div class="bp5-fill">Наклейка</div>
+                <div class="bp5-fill">
+                    Наклейка
+                </div>
                 <span class="bp5-icon bp5-icon-bookmark bp5-submenu-icon"></span>
             </a>
-            <!--a class="bp5-menu-item bp5-disabled {% if template == 'b' %}bp5-active{% endif %}" aria-disabled="true" href="{% url 'qr' company.id %}?theme={{theme}}&template=b">
-                <div class="bp5-fill">Визитка</div>
-                <span class="bp5-icon bp5-icon-horizontal-distribution bp5-submenu-icon"></span>
-            </a-->
             <a class="bp5-menu-item bp5-disabled" aria-disabled="true">
-                <div class="bp5-fill">Визитка</div>
+                <div class="bp5-fill">
+                    Визитка <span class="bp5-tag bp5-minimal">Скоро</span>
+                </div>
                 <span class="bp5-icon bp5-icon-id-number bp5-submenu-icon"></span>
             </a>
         </ul>
