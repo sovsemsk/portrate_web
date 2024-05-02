@@ -1,253 +1,225 @@
-import asyncio
 from datetime import datetime, timezone, timedelta
 from hashlib import md5
 
 from celery import shared_task
-from django.conf import settings
 from django.core.cache import cache
-from django.core.files import File
-from django.db import IntegrityError
-from telegram import Bot
 
 from parsers.parser_gis import ParserGis
 from parsers.parser_google import ParserGoogle
 from parsers.parser_yandex import ParserYandex
-from pdf.qr import generate_stick
 from resources.models import Company, Review, RatingStamp, Service
 
 
-@shared_task(bind=True, name="send_telegram_text_task")
-def send_telegram_text_task(self, telegram_id, text):
-    lock_id = f"_{self.name}_lock_{md5(str(telegram_id).encode('utf-8')).hexdigest()}"
-    lock_object = cache.get(lock_id)
+def locked_task(func):
+    def wrapper(*args, **kwargs):
+        lock_id = f"_{args[0].name}_lock_{md5(str(args).encode('utf-8')).hexdigest()}_{md5(str(kwargs).encode('utf-8')).hexdigest()}_"
 
-    if lock_object:
-        return f"Already run for User {telegram_id}"
+        if cache.get(lock_id):
+            return "Already run"
 
-    cache.set(lock_id, telegram_id)
-    asyncio.run(Bot(settings.TELEGRAM_BOT_API_SECRET).send_message(telegram_id, text))
-    cache.delete(lock_id)
-    return f"Done for User {telegram_id}"
+        cache.set(lock_id, lock_id)
+        func(*args, **kwargs)
+        cache.delete(lock_id)
+
+    return wrapper
 
 
-@shared_task(bind=True, name="parse_cards_task")
-def parse_cards_task(self, company_id):
-    lock_id = f"_{self.name}_lock_{md5(str(company_id).encode('utf-8')).hexdigest()}"
-    lock_object = cache.get(lock_id)
+@shared_task(bind=True, name="update_yandex_task")
+@locked_task
+def update_yandex_task(self, *args, **kwargs):
+    company = Company.objects.get(pk=kwargs.get("company_id"))
+    parser_yandex = ParserYandex(company.parser_link_yandex)
 
-    if lock_object:
-        return f"Already run for Company {company_id}"
+    if parser_yandex.check_page():
+        company.rating_yandex = parser_yandex.parse_rating()
 
-    cache.set(lock_id, company_id)
-    company = Company.objects.get(id=company_id, is_active=True)
-    company.is_now_parse = True
-    company.save()
+        for r in parser_yandex.parse_reviews():
+            try:
+                Review.objects.create(company_id=company.id, service=Service.YANDEX, **r)
+            except:
+                ...
+
+        company.rating_yandex_last_parse_at = datetime.now(timezone.utc)
+        company.reviews_yandex_last_parse_at = datetime.now(timezone.utc)
+
+    company.save(update_fields=["rating_yandex", "rating_yandex_last_parse_at", "reviews_yandex_last_parse_at"])
+    parser_yandex.close_page()
+    return f"Done for {company}"
+
+
+@shared_task(bind=True, name="update_gis_task")
+@locked_task
+def update_gis_task(self, *args, **kwargs):
+    company = Company.objects.get(pk=kwargs.get("company_id"))
+    parser_gis = ParserGis(company.parser_link_gis)
+
+    if parser_gis.check_page():
+        company.rating_gis = parser_gis.parse_rating()
+
+        for r in parser_gis.parse_reviews():
+            try:
+                Review.objects.create(company_id=company.id, service=Service.GIS, **r)
+            except:
+                ...
+
+        company.rating_gis_last_parse_at = datetime.now(timezone.utc)
+        company.reviews_gis_last_parse_at = datetime.now(timezone.utc)
+
+    company.save(update_fields=["rating_gis", "rating_gis_last_parse_at", "reviews_gis_last_parse_at"])
+    parser_gis.close_page()
+    return f"Done for {company}"
+
+
+@shared_task(bind=True, name="update_google_task")
+@locked_task
+def update_google_task(self, *args, **kwargs):
+    company = Company.objects.get(pk=kwargs.get("company_id"))
+    parser_google = ParserGoogle(company.parser_link_google)
+
+    if parser_google.check_page():
+        company.rating_google = parser_google.parse_rating()
+
+        for r in parser_google.parse_reviews():
+            try:
+                Review.objects.create(company_id=company.id, service=Service.GOOGLE, **r)
+            except:
+                ...
+
+        company.rating_google_last_parse_at = datetime.now(timezone.utc)
+        company.reviews_google_last_parse_at = datetime.now(timezone.utc)
+
+    company.save(update_fields=["rating_google", "rating_google_last_parse_at", "reviews_google_last_parse_at"])
+    parser_google.close_page()
+    return f"Done for {company}"
+
+
+@shared_task(bind=True, name="update_counters_task")
+@locked_task
+def update_counters_task(self, *args, **kwargs):
+    company = Company.objects.get(pk=kwargs.get("company_id"))
+
+    reviews_yandex = company.review_set.filter(service=Service.YANDEX)
+    reviews_gis = company.review_set.filter(service=Service.GIS)
+    reviews_google = company.review_set.filter(service=Service.GOOGLE)
 
     date_week_ago = datetime.today() - timedelta(days=7)
     date_month_ago = datetime.today() - timedelta(days=30)
     date_quarter_ago = datetime.today() - timedelta(days=90)
     date_year_ago = datetime.today() - timedelta(days=365)
 
-    """ Яндекс """
-    if company.is_parse_yandex:
-        yandex_parser = ParserYandex(company.parser_link_yandex)
+    company.reviews_yandex_negative_count = reviews_yandex.filter(stars__lte=3).count()
+    company.reviews_yandex_negative_week_count = reviews_yandex.filter(stars__lte=3, created_at__gt=date_week_ago, created_at__lte=datetime.today()).count()
+    company.reviews_yandex_negative_month_count = reviews_yandex.filter(stars__lte=3, created_at__gt=date_month_ago, created_at__lte=datetime.today()).count()
+    company.reviews_yandex_negative_quarter_count = reviews_yandex.filter(stars__lte=3, created_at__gt=date_quarter_ago, created_at__lte=datetime.today()).count()
+    company.reviews_yandex_negative_year_count = reviews_yandex.filter(stars__lte=3, created_at__gt=date_year_ago, created_at__lte=datetime.today()).count()
 
-        """ Проверка страницы Яндекс """
-        if yandex_parser.check_page():
+    company.reviews_yandex_positive_count = reviews_yandex.filter(stars__gt=3).count()
+    company.reviews_yandex_positive_week_count = reviews_yandex.filter(stars__gt=3, created_at__gt=date_week_ago, created_at__lte=datetime.today()).count()
+    company.reviews_yandex_positive_month_count = reviews_yandex.filter(stars__gt=3, created_at__gt=date_month_ago, created_at__lte=datetime.today()).count()
+    company.reviews_yandex_positive_quarter_count = reviews_yandex.filter(stars__gt=3, created_at__gt=date_quarter_ago, created_at__lte=datetime.today()).count()
+    company.reviews_yandex_positive_year_count = reviews_yandex.filter(stars__gt=3, created_at__gt=date_year_ago, created_at__lte=datetime.today()).count()
 
-            """ Парсинг рейтинга Яндекс """
-            rating_yandex = yandex_parser.parse_rating()
-            company.rating_yandex = rating_yandex
-            company.rating_yandex_last_parse_at = datetime.now(timezone.utc)
+    company.reviews_yandex_total_count = reviews_yandex.count()
+    company.reviews_yandex_total_week_count = reviews_yandex.filter(created_at__gt=date_week_ago, created_at__lte=datetime.today()).count()
+    company.reviews_yandex_total_month_count = reviews_yandex.filter(created_at__gt=date_month_ago, created_at__lte=datetime.today()).count()
+    company.reviews_yandex_total_quarter_count = reviews_yandex.filter(created_at__gt=date_quarter_ago, created_at__lte=datetime.today()).count()
+    company.reviews_yandex_total_year_count = reviews_yandex.filter(created_at__gt=date_year_ago, created_at__lte=datetime.today()).count()
 
-            """ Парсинг отзывов Яндекс """
-            for review_yandex in yandex_parser.parse_reviews():
-                if review_yandex["text"]:
-                    try:
-                        Review.objects.create(
-                            company=company,
-                            created_at=review_yandex["created_at"],
-                            name=review_yandex["name"],
-                            remote_id=review_yandex["remote_id"],
-                            service=Service.YANDEX,
-                            stars=review_yandex["stars"],
-                            text=review_yandex["text"]
-                        )
-                    except IntegrityError:
-                        pass
+    company.reviews_gis_negative_count = reviews_gis.filter(stars__lte=3).count()
+    company.reviews_gis_negative_week_count = reviews_gis.filter(stars__lte=3, created_at__gt=date_week_ago, created_at__lte=datetime.today()).count()
+    company.reviews_gis_negative_month_count = reviews_gis.filter(stars__lte=3, created_at__gt=date_month_ago, created_at__lte=datetime.today()).count()
+    company.reviews_gis_negative_quarter_count = reviews_gis.filter(stars__lte=3, created_at__gt=date_quarter_ago, created_at__lte=datetime.today()).count()
+    company.reviews_gis_negative_year_count = reviews_gis.filter(stars__lte=3, created_at__gt=date_year_ago, created_at__lte=datetime.today()).count()
 
-            company.reviews_yandex_last_parse_at = datetime.now(timezone.utc)
+    company.reviews_gis_positive_count = reviews_gis.filter(stars__gt=3).count()
+    company.reviews_gis_positive_week_count = reviews_gis.filter(stars__gt=3, created_at__gt=date_week_ago, created_at__lte=datetime.today()).count()
+    company.reviews_gis_positive_month_count = reviews_gis.filter(stars__gt=3, created_at__gt=date_month_ago, created_at__lte=datetime.today()).count()
+    company.reviews_gis_positive_quarter_count = reviews_gis.filter(stars__gt=3, created_at__gt=date_quarter_ago, created_at__lte=datetime.today()).count()
+    company.reviews_gis_positive_year_count = reviews_gis.filter(stars__gt=3, created_at__gt=date_year_ago, created_at__lte=datetime.today()).count()
 
-        """ Закрытие страницы Яндекс """
-        yandex_parser.close_page()
+    company.reviews_gis_total_count = reviews_gis.count()
+    company.reviews_gis_total_week_count = reviews_gis.filter(created_at__gt=date_week_ago, created_at__lte=datetime.today()).count()
+    company.reviews_gis_total_month_count = reviews_gis.filter(created_at__gt=date_month_ago, created_at__lte=datetime.today()).count()
+    company.reviews_gis_total_quarter_count = reviews_gis.filter(created_at__gt=date_quarter_ago, created_at__lte=datetime.today()).count()
+    company.reviews_gis_total_year_count = reviews_gis.filter(created_at__gt=date_year_ago, created_at__lte=datetime.today()).count()
 
-        """ Подсчет агрегаций Яндекс """
-        reviews_yandex = Review.objects.filter(company_id=company_id, service=Service.YANDEX)
-        #
-        company.reviews_yandex_negative_count = reviews_yandex.filter(stars__lte=3).count()
-        company.reviews_yandex_negative_week_count = reviews_yandex.filter(stars__lte=3, created_at__gt=date_week_ago, created_at__lte=datetime.today()).count()
-        company.reviews_yandex_negative_month_count = reviews_yandex.filter(stars__lte=3, created_at__gt=date_month_ago, created_at__lte=datetime.today()).count()
-        company.reviews_yandex_negative_quarter_count = reviews_yandex.filter(stars__lte=3, created_at__gt=date_quarter_ago, created_at__lte=datetime.today()).count()
-        company.reviews_yandex_negative_year_count = reviews_yandex.filter(stars__lte=3, created_at__gt=date_year_ago, created_at__lte=datetime.today()).count()
-        #
-        company.reviews_yandex_positive_count = reviews_yandex.filter(stars__gt=3).count()
-        company.reviews_yandex_positive_week_count = reviews_yandex.filter(stars__gt=3, created_at__gt=date_week_ago, created_at__lte=datetime.today()).count()
-        company.reviews_yandex_positive_month_count = reviews_yandex.filter(stars__gt=3, created_at__gt=date_month_ago, created_at__lte=datetime.today()).count()
-        company.reviews_yandex_positive_quarter_count = reviews_yandex.filter(stars__gt=3, created_at__gt=date_quarter_ago, created_at__lte=datetime.today()).count()
-        company.reviews_yandex_positive_year_count = reviews_yandex.filter(stars__gt=3, created_at__gt=date_year_ago, created_at__lte=datetime.today()).count()
-        #
-        company.reviews_yandex_total_count = reviews_yandex.count()
-        company.reviews_yandex_total_week_count = reviews_yandex.filter(created_at__gt=date_week_ago, created_at__lte=datetime.today()).count()
-        company.reviews_yandex_total_month_count = reviews_yandex.filter(created_at__gt=date_month_ago, created_at__lte=datetime.today()).count()
-        company.reviews_yandex_total_quarter_count = reviews_yandex.filter(created_at__gt=date_quarter_ago, created_at__lte=datetime.today()).count()
-        company.reviews_yandex_total_year_count = reviews_yandex.filter(created_at__gt=date_year_ago, created_at__lte=datetime.today()).count()
+    company.reviews_google_negative_count = reviews_google.filter(stars__lte=3).count()
+    company.reviews_google_negative_week_count = reviews_google.filter(stars__lte=3, created_at__gt=date_week_ago, created_at__lte=datetime.today()).count()
+    company.reviews_google_negative_month_count = reviews_google.filter(stars__lte=3, created_at__gt=date_month_ago, created_at__lte=datetime.today()).count()
+    company.reviews_google_negative_quarter_count = reviews_google.filter(stars__lte=3, created_at__gt=date_quarter_ago, created_at__lte=datetime.today()).count()
+    company.reviews_google_negative_year_count = reviews_google.filter(stars__lte=3, created_at__gt=date_year_ago, created_at__lte=datetime.today()).count()
 
-    """ 2Гис """
-    if company.is_parse_gis:
-        gis_parser = ParserGis(company.parser_link_gis)
+    company.reviews_google_positive_count = reviews_google.filter(stars__gt=3).count()
+    company.reviews_google_positive_week_count = reviews_google.filter(stars__gt=3, created_at__gt=date_week_ago, created_at__lte=datetime.today()).count()
+    company.reviews_google_positive_month_count = reviews_google.filter(stars__gt=3, created_at__gt=date_month_ago, created_at__lte=datetime.today()).count()
+    company.reviews_google_positive_quarter_count = reviews_google.filter(stars__gt=3, created_at__gt=date_quarter_ago, created_at__lte=datetime.today()).count()
+    company.reviews_google_positive_year_count = reviews_google.filter(stars__gt=3, created_at__gt=date_year_ago, created_at__lte=datetime.today()).count()
 
-        """ Проверка страницы 2Гис """
-        if gis_parser.check_page():
+    company.reviews_google_total_count = reviews_google.count()
+    company.reviews_google_total_week_count = reviews_google.filter(created_at__gt=date_week_ago, created_at__lte=datetime.today()).count()
+    company.reviews_google_total_month_count = reviews_google.filter(created_at__gt=date_month_ago, created_at__lte=datetime.today()).count()
+    company.reviews_google_total_quarter_count = reviews_google.filter(created_at__gt=date_quarter_ago, created_at__lte=datetime.today()).count()
+    company.reviews_google_total_year_count = reviews_google.filter(created_at__gt=date_year_ago, created_at__lte=datetime.today()).count()
 
-            """ Парсинг рейтинга 2Гис """
-            rating_gis = gis_parser.parse_rating()
-            company.rating_gis = rating_gis
-            company.rating_gis_last_parse_at = datetime.now(timezone.utc)
-
-            """ Парсинг отзывов 2Гис """
-            for review_gis in gis_parser.parse_reviews():
-                if review_gis["text"]:
-                    try:
-                        Review.objects.create(
-                            company=company,
-                            created_at=review_gis["created_at"],
-                            name=review_gis["name"],
-                            remote_id=review_gis["remote_id"],
-                            service=Service.GIS,
-                            stars=review_gis["stars"],
-                            text=review_gis["text"]
-                        )
-                    except IntegrityError:
-                        pass
-
-            company.reviews_gis_last_parse_at = datetime.now(timezone.utc)
-
-        """ Закрытие страницы 2Гис """
-        gis_parser.close_page()
-
-        """ Подсчет агрегаций 2Гис """
-        reviews_gis = Review.objects.filter(company_id=company_id, service=Service.GIS)
-        #
-        company.reviews_gis_negative_count = reviews_gis.filter(stars__lte=3).count()
-        company.reviews_gis_negative_week_count = reviews_gis.filter(stars__lte=3, created_at__gt=date_week_ago, created_at__lte=datetime.today()).count()
-        company.reviews_gis_negative_month_count = reviews_gis.filter(stars__lte=3, created_at__gt=date_month_ago, created_at__lte=datetime.today()).count()
-        company.reviews_gis_negative_quarter_count = reviews_gis.filter(stars__lte=3, created_at__gt=date_quarter_ago, created_at__lte=datetime.today()).count()
-        company.reviews_gis_negative_year_count = reviews_gis.filter(stars__lte=3, created_at__gt=date_year_ago, created_at__lte=datetime.today()).count()
-        #
-        company.reviews_gis_positive_count = reviews_gis.filter(stars__gt=3).count()
-        company.reviews_gis_positive_week_count = reviews_gis.filter(stars__gt=3, created_at__gt=date_week_ago, created_at__lte=datetime.today()).count()
-        company.reviews_gis_positive_month_count = reviews_gis.filter(stars__gt=3, created_at__gt=date_month_ago, created_at__lte=datetime.today()).count()
-        company.reviews_gis_positive_quarter_count = reviews_gis.filter(stars__gt=3, created_at__gt=date_quarter_ago, created_at__lte=datetime.today()).count()
-        company.reviews_gis_positive_year_count = reviews_gis.filter(stars__gt=3, created_at__gt=date_year_ago, created_at__lte=datetime.today()).count()
-        #
-        company.reviews_gis_total_count = reviews_gis.count()
-        company.reviews_gis_total_week_count = reviews_gis.filter(created_at__gt=date_week_ago, created_at__lte=datetime.today()).count()
-        company.reviews_gis_total_month_count = reviews_gis.filter(created_at__gt=date_month_ago, created_at__lte=datetime.today()).count()
-        company.reviews_gis_total_quarter_count = reviews_gis.filter(created_at__gt=date_quarter_ago, created_at__lte=datetime.today()).count()
-        company.reviews_gis_total_year_count = reviews_gis.filter(created_at__gt=date_year_ago, created_at__lte=datetime.today()).count()
-
-    """ Google """
-    if company.is_parse_google:
-        google_parser = ParserGoogle(company.parser_link_google)
-
-        """ Проверка страницы Google """
-        if google_parser.check_page():
-
-            """ Парсинг рейтинга Google """
-            rating_google = google_parser.parse_rating()
-            company.rating_google = rating_google
-            company.rating_google_last_parse_at = datetime.now(timezone.utc)
-
-            """ Парсинг отзывов Google """
-            for review_google in google_parser.parse_reviews():
-                if review_google["text"]:
-                    try:
-                        Review.objects.create(
-                            company=company,
-                            created_at=review_google["created_at"],
-                            name=review_google["name"],
-                            remote_id=review_google["remote_id"],
-                            service=Service.GOOGLE,
-                            stars=review_google["stars"],
-                            text=review_google["text"]
-                        )
-                    except IntegrityError:
-                        pass
-
-            company.reviews_google_last_parse_at = datetime.now(timezone.utc)
-
-        """ Закрытие страницы Google """
-        google_parser.close_page()
-
-        """ Подсчет агрегаций Google """
-        reviews_google = Review.objects.filter(company_id=company_id, service=Service.GOOGLE)
-        #
-        company.reviews_google_negative_count = reviews_google.filter(stars__lte=3).count()
-        company.reviews_google_negative_week_count = reviews_google.filter(stars__lte=3, created_at__gt=date_week_ago, created_at__lte=datetime.today()).count()
-        company.reviews_google_negative_month_count = reviews_google.filter(stars__lte=3, created_at__gt=date_month_ago, created_at__lte=datetime.today()).count()
-        company.reviews_google_negative_quarter_count = reviews_google.filter(stars__lte=3, created_at__gt=date_quarter_ago, created_at__lte=datetime.today()).count()
-        company.reviews_google_negative_year_count = reviews_google.filter(stars__lte=3, created_at__gt=date_year_ago, created_at__lte=datetime.today()).count()
-        #
-        company.reviews_google_positive_count = reviews_google.filter(stars__gt=3).count()
-        company.reviews_google_positive_week_count = reviews_google.filter(stars__gt=3, created_at__gt=date_week_ago, created_at__lte=datetime.today()).count()
-        company.reviews_google_positive_month_count = reviews_google.filter(stars__gt=3, created_at__gt=date_month_ago, created_at__lte=datetime.today()).count()
-        company.reviews_google_positive_quarter_count = reviews_google.filter(stars__gt=3, created_at__gt=date_quarter_ago, created_at__lte=datetime.today()).count()
-        company.reviews_google_positive_year_count = reviews_google.filter(stars__gt=3, created_at__gt=date_year_ago, created_at__lte=datetime.today()).count()
-        #
-        company.reviews_google_total_count = reviews_google.count()
-        company.reviews_google_total_week_count = reviews_google.filter(created_at__gt=date_week_ago, created_at__lte=datetime.today()).count()
-        company.reviews_google_total_month_count = reviews_google.filter(created_at__gt=date_month_ago, created_at__lte=datetime.today()).count()
-        company.reviews_google_total_quarter_count = reviews_google.filter(created_at__gt=date_quarter_ago, created_at__lte=datetime.today()).count()
-        company.reviews_google_total_year_count = reviews_google.filter(created_at__gt=date_year_ago, created_at__lte=datetime.today()).count()
-
-    """ Подсчет агрегаций """
-    company.reviews_total_count = Review.objects.filter(company_id=company_id).count()
+    company.reviews_total_count = Review.objects.filter(company_id=company.id).count()
     company.rating = max([company.rating_yandex, company.rating_gis, company.rating_google])
-
-    """ Фиксация истории для графика динамики """
-    try:
-        rating_history = RatingStamp(
-            company_id=company.id,
-            rating_yandex=company.rating_yandex,
-            rating_gis=company.rating_gis,
-            rating_google=company.rating_google
-        )
-        rating_history.save()
-    except:
-        pass
-
-    """ Сохранение компании """
     company.is_first_parsing = False
-    company.is_now_parse = False
-    company.save()
-    cache.delete(lock_id)
-    return f"Done for Company #{company_id}"
 
+    company.save(update_fields=[
+        "reviews_yandex_negative_count",
+        "reviews_yandex_negative_week_count",
+        "reviews_yandex_negative_month_count",
+        "reviews_yandex_negative_quarter_count",
+        "reviews_yandex_negative_year_count",
+        "reviews_yandex_positive_count",
+        "reviews_yandex_positive_week_count",
+        "reviews_yandex_positive_month_count",
+        "reviews_yandex_positive_quarter_count",
+        "reviews_yandex_positive_year_count",
+        "reviews_yandex_total_count",
+        "reviews_yandex_total_week_count",
+        "reviews_yandex_total_month_count",
+        "reviews_yandex_total_quarter_count",
+        "reviews_yandex_total_year_count",
+        "reviews_gis_negative_count",
+        "reviews_gis_negative_week_count",
+        "reviews_gis_negative_month_count",
+        "reviews_gis_negative_quarter_count",
+        "reviews_gis_negative_year_count",
+        "reviews_gis_positive_count",
+        "reviews_gis_positive_week_count",
+        "reviews_gis_positive_month_count",
+        "reviews_gis_positive_quarter_count",
+        "reviews_gis_positive_year_count",
+        "reviews_gis_total_count",
+        "reviews_gis_total_week_count",
+        "reviews_gis_total_month_count",
+        "reviews_gis_total_quarter_count",
+        "reviews_gis_total_year_count",
+        "reviews_google_negative_count",
+        "reviews_google_negative_week_count",
+        "reviews_google_negative_month_count",
+        "reviews_google_negative_quarter_count",
+        "reviews_google_negative_year_count",
+        "reviews_google_positive_count",
+        "reviews_google_positive_week_count",
+        "reviews_google_positive_month_count",
+        "reviews_google_positive_quarter_count",
+        "reviews_google_positive_year_count",
+        "reviews_google_total_count",
+        "reviews_google_total_week_count",
+        "reviews_google_total_month_count",
+        "reviews_google_total_quarter_count",
+        "reviews_google_total_year_count",
+        "reviews_total_count",
+        "rating",
+        "is_first_parsing"
+    ])
 
-@shared_task(bind=True, name="generate_qr_pdf_task")
-def generate_qr_pdf_task(self, company_id):
-    lock_id = f"_{self.name}_lock_{md5(str(company_id).encode('utf-8')).hexdigest()}"
-    lock_object = cache.get(lock_id)
+    try:
+        RatingStamp.objects.create(company_id=company.id, rating_yandex=company.rating_yandex, rating_gis=company.rating_gis, rating_google=company.rating_google)
+    except:
+        ...
 
-    if lock_object:
-        return f"Already run for Company {company_id}"
+    return f"Done for {company}"
 
-    cache.set(lock_id, company_id)
-    company = Company.objects.get(id=company_id)
-    company.stick_light = File(generate_stick(company.id, "light"))
-    company.stick_light.name = "stick_light.pdf"
-    company.stick_dark = File(generate_stick(company.id, "dark"))
-    company.stick_dark.name = "stick_dark.pdf"
-    company.save()
-    cache.delete(lock_id)
-    return f"Done for Company {company_id}"

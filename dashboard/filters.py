@@ -17,8 +17,8 @@ class MessageFilter(FilterSet):
 
 class ReviewFilter(FilterSet):
     created_at = DateFromToRangeFilter(widget=DateRangeWidget(attrs={"class": "bp5-input", "type": "date"}))
-    service = ChoiceFilter(choices=Service, empty_label="Все источники", widget=Select())
-    stars = ChoiceFilter(choices=Stars, empty_label="Все звезды", widget=Select())
+    service = ChoiceFilter(choices=Service, empty_label="Источник", widget=Select())
+    stars = ChoiceFilter(choices=Stars, empty_label="Оценка", widget=Select())
 
     class Meta:
         model = Review

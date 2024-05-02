@@ -1,3 +1,4 @@
+import asyncio
 import json
 import re
 
@@ -8,7 +9,6 @@ from django.views.decorators.http import require_http_methods
 from telegram import Bot, Update, MessageEntity
 
 from resources.models import Profile
-from resources.tasks import send_telegram_text_task
 
 
 @csrf_exempt
@@ -45,7 +45,7 @@ def telegram_update_start(message):
     try:
         profile.telegram_id = message.from_user.id
         profile.save()
-        send_telegram_text_task.delay(message.from_user.id, "🍾 Вы подписаны на уведомления telegram")
+        asyncio.run(Bot(settings.TELEGRAM_BOT_API_SECRET).send_message(message.from_user.id, "🍾 Вы подписаны на уведомления telegram"))
 
     finally:
         return

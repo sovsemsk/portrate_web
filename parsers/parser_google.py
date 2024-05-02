@@ -64,7 +64,7 @@ class ParserGoogle:
     def __scroll_reviews_to_bottom__(self, node):
         """ Скроллинг списка до последнего отзыва """
         self.driver.execute_script("arguments[0].scrollIntoView();", node)
-        time.sleep(5)
+        time.sleep(2.5)
 
         new_node = self.driver.find_elements(By.CLASS_NAME, "jftiEf")[-1]
 
@@ -79,7 +79,7 @@ class ParserGoogle:
             menu_node = self.driver.find_element(By.CLASS_NAME, "HQzyZ")
             menu_node.click()
         except:
-            pass
+            ...
         finally:
             time.sleep(5)
 
@@ -87,7 +87,7 @@ class ParserGoogle:
             button_node = self.driver.find_elements(By.CLASS_NAME, "fxNQSd")[1]
             button_node.click()
         except:
-            pass
+            ...
         finally:
             time.sleep(5)
 
@@ -99,7 +99,7 @@ class ParserGoogle:
             for link in links:
                 link.click()
         except:
-            pass
+            ...
 
     @staticmethod
     def __parse_review__(str_node):

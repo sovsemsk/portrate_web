@@ -22,7 +22,7 @@ def make_qrcode(company_id, theme):
     return stream
 
 
-def generate_stick(company_id, theme):
+def make_stick(company_id, theme):
     png_stream = make_qrcode(company_id, theme)
     template = fitz.open(f"{settings.BASE_DIR}/pdf/qr_pdf_stick_{theme}.pdf")
 
@@ -35,5 +35,5 @@ def generate_stick(company_id, theme):
     return pdf_stream
 
 
-def generate_business_card(company_id):
-    pass
+def make_card(company_id):
+    ...

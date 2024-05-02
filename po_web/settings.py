@@ -19,6 +19,7 @@ INSTALLED_APPS = [
     "admin_interface",
     "colorfield",
     "django_browser_reload",
+    "django_celery_beat",
     "django_celery_results",
     "django_filters",
     "debug_toolbar",
@@ -141,10 +142,12 @@ TELEGRAM_BOT_API_SECRET = str(os.getenv("TELEGRAM_BOT_API_SECRET"))
 SELENIUM_BOT_API_SECRET = str(os.getenv("SELENIUM_BOT_API_SECRET"))
 
 # Celery
+CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
+CELERY_BROKER_URL = "redis://localhost:6379"
+CELERY_CACHE_BACKEND = "default"
 CELERY_TIMEZONE = "UTC"
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 36000
-CELERY_BROKER_URL = "redis://localhost:6379"
 CELERY_RESULT_BACKEND = "django-db"
 CELERY_RESULT_EXTENDED = True
 CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True

@@ -92,9 +92,9 @@ class CompanyCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = "dashboard/company_create.html"
 
     def form_valid(self, form, **kwargs):
-        response = super(CompanyCreateView, self).form_valid(form, **kwargs)
+        form_valid = super(CompanyCreateView, self).form_valid(form, **kwargs)
         self.object.users.add(self.request.user)
-        return response
+        return form_valid
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -360,6 +360,9 @@ def qr(request, company_pk):
     company = get_object_or_404(Company, pk=company_pk, users__in=[request.user])
     template = request.GET.get("template", "s")
     theme = request.GET.get("theme", "l")
+
+    print("!!!")
+    print(company)
 
     return render(
         request,

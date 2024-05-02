@@ -63,7 +63,7 @@ class ParserYandex:
     def __scroll_reviews_to_bottom__(self, node):
         """ Скроллинг списка до последнего отзыва """
         self.driver.execute_script("arguments[0].scrollIntoView();", node)
-        time.sleep(5)
+        time.sleep(2.5)
 
         new_node = self.driver.find_elements(By.CLASS_NAME, "business-reviews-card-view__review")[-1]
 
@@ -77,7 +77,7 @@ class ParserYandex:
             menu_node = self.driver.find_element(By.CLASS_NAME, "rating-ranking-view")
             menu_node.click()
         except:
-            pass
+            ...
         finally:
             time.sleep(5)
 
@@ -85,7 +85,7 @@ class ParserYandex:
             button_node = self.driver.find_elements(By.CLASS_NAME, "rating-ranking-view__popup-line")[1]
             button_node.click()
         except:
-            pass
+            ...
         finally:
             time.sleep(5)
 

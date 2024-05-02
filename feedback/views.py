@@ -8,13 +8,13 @@ from resources.models import Company, Message
 
 @require_http_methods(["GET"])
 def rate(request, company_pk):
-    company = get_object_or_404(Company, id=company_pk, is_active=True)
+    company = get_object_or_404(Company, id=company_pk)
     return render(request, "feedback/rate.html", {"company": company})
 
 
 @require_http_methods(["GET", "POST"])
 def create(request, company_pk):
-    company = get_object_or_404(Company, id=company_pk, is_active=True)
+    company = get_object_or_404(Company, id=company_pk)
 
     if request.method == "POST":
         form = MessageForm(request.POST)
@@ -34,11 +34,11 @@ def create(request, company_pk):
 
 @require_http_methods(["GET"])
 def request(request, company_pk):
-    company = get_object_or_404(Company, id=company_pk, is_active=True)
+    company = get_object_or_404(Company, id=company_pk)
     return render(request, "feedback/request.html", {"company": company})
 
 
 @require_http_methods(["GET"])
 def success(request, company_pk):
-    company = get_object_or_404(Company, id=company_pk, is_active=True)
+    company = get_object_or_404(Company, id=company_pk)
     return render(request, "feedback/success.html", {"company": company})

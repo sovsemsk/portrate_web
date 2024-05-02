@@ -1,9 +1,14 @@
-import datetime
+import asyncio
+from datetime import time
 
+from celery import chain
+from django.conf import settings
+from django.core.files import File
 from django.db.models import (
     BooleanField,
     CASCADE,
     CharField,
+    FileField,
     ForeignKey,
     DecimalField,
     DateTimeField,
@@ -14,13 +19,18 @@ from django.db.models import (
     IntegerField,
     TextChoices,
     TextField,
-    TimeField, FileField
+    TimeField,
 )
-from django.db.models.signals import post_init, post_save
+from django.db.models.signals import post_init
+from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.crypto import get_random_string
+from django.utils.formats import localize
 from django_resized import ResizedImageField
 from djmoney.models.fields import MoneyField
+from telegram import Bot
+
+from pdf.utils import make_stick
 
 
 class Service(TextChoices):
@@ -32,12 +42,12 @@ class Service(TextChoices):
 
 class Stars(TextChoices):
     """ Звезды """
-    _0 = "0", "0 звезд"
-    _1 = "1", "1 звезда"
-    _2 = "2", "2 звезды"
-    _3 = "3", "3 звезды"
-    _4 = "4", "4 звезды"
-    _5 = "5", "5 звезд"
+    _0 = "0", "Без оценки"
+    _1 = "1", "★"
+    _2 = "2", "★ ★"
+    _3 = "3", "★ ★ ★"
+    _4 = "4", "★ ★ ★ ★"
+    _5 = "5", "★ ★ ★ ★ ★"
 
 
 class Timezone(TextChoices):
@@ -95,9 +105,7 @@ class Company(Model):
     api_secret = CharField(verbose_name="API ключ", db_index=True)
 
     """ Настройки """
-    is_active = BooleanField(default=False, verbose_name="активно?")
-    is_first_parsing = BooleanField(default=True, verbose_name="первый парсинг?")
-    is_now_parse = BooleanField(default=False, verbose_name="парсится сейчас?")
+    is_first_parsing = BooleanField(default=False, verbose_name="первый парсинг?")
     is_parse_yandex = BooleanField(default=False, verbose_name="парсить Яндекс?")
     is_parse_gis = BooleanField(default=False, verbose_name="парсить 2Гис?")
     is_parse_google = BooleanField(default=False, verbose_name="парсить Google?")
@@ -226,6 +234,12 @@ class Company(Model):
     """ Связи """
     users = ManyToManyField("auth.User", blank=True, verbose_name="пользователи", through="resources.Membership")
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.cached_parser_link_yandex = self.parser_link_yandex
+        self.cached_parser_link_gis = self.parser_link_gis
+        self.cached_parser_link_google = self.parser_link_google
+
     @property
     def form_tags(self):
         return ["Нагрубили", "Сделали не то", "Цена", "Плохое качество", "Долго"]
@@ -264,12 +278,6 @@ class Company(Model):
         else:
             return False
 
-    @property
-    def notification_template(self):
-        return f"""🏪 Новая компания «{self.name}»
-
-https://geo.portrate.io/admin/resources/company/{self.id}/change/"""
-
     def __str__(self):
         return self.name
 
@@ -283,30 +291,29 @@ def company_post_init(sender, instance, **kwargs):
 @receiver(post_save, sender=Company)
 def company_post_save(sender, instance, created, **kwargs):
     if created:
-        from resources.tasks import generate_qr_pdf_task, send_telegram_text_task
+        instance.stick_light.save("stick_light.pdf", File(make_stick(instance.id, "light")), save=False)
+        instance.stick_dark.save("stick_dark.pdf", File(make_stick(instance.id, "dark")), save=False)
 
-        generate_qr_pdf_task.delay(instance.id)
-        send_telegram_text_task.delay("199432674", instance.notification_template)
-        send_telegram_text_task.delay("5304013231", instance.notification_template)
+    if not created:
+        from resources.tasks import update_yandex_task, update_gis_task, update_google_task, update_counters_task
+        parsers_runs = False
+        parsers_chain = []
 
-    if not created and instance.is_active and instance.is_first_parsing:
-        from resources.tasks import parse_cards_task
+        if instance.is_parse_yandex and instance.cached_parser_link_yandex != instance.parser_link_yandex:
+            parsers_runs = True
+            parsers_chain.append(update_yandex_task.s(company_id=instance.id))
 
-        parse_cards_task.delay(instance.id)
+        if instance.is_parse_gis and instance.cached_parser_link_gis != instance.parser_link_gis:
+            parsers_runs = True
+            parsers_chain.append(update_gis_task.s(company_id=instance.id))
 
+        if instance.is_parse_google and instance.cached_parser_link_google != instance.parser_link_google:
+            parsers_runs = True
+            parsers_chain.append(update_google_task.s(company_id=instance.id))
 
-"""
-@receiver(m2m_changed, sender=Company.users.through)
-def company_m2m_changed(sender, **kwargs):
-    action = kwargs.get('action', None)
-    pk_set = kwargs.get('pk_set', None)
-
-    if action == "post_add":
-        pass
-
-    if action == "pre_remove":
-        pass
-"""
+        if parsers_runs:
+            parsers_chain.append(update_counters_task.s(company_id=instance.id))
+            chain(parsers_chain).apply_async()
 
 
 class Membership(Model):
@@ -321,8 +328,8 @@ class Membership(Model):
     can_notify_negative_yandex = BooleanField(default=True, verbose_name="оповещения Яндекс")
     can_notify_negative_gis = BooleanField(default=True, verbose_name="оповещения 2Гис")
     can_notify_negative_google = BooleanField(default=True, verbose_name="оповещения Google")
-    can_notify_at_start = TimeField(blank=True, default=datetime.time(9, 00), null=True, verbose_name="можно оповещать с")
-    can_notify_at_end = TimeField(blank=True, default=datetime.time(17, 00), null=True, verbose_name="можно оповещать до")
+    can_notify_at_start = TimeField(blank=True, default=time(9, 00), null=True, verbose_name="можно оповещать с")
+    can_notify_at_end = TimeField(blank=True, default=time(17, 00), null=True, verbose_name="можно оповещать до")
     can_notify_at_from_stars = IntegerField(blank=True, default=3, null=True, verbose_name="количество звезд для оповещений")
 
     """ Связи """
@@ -369,13 +376,13 @@ class Review(Model):
 
     """ Настройки """
     is_visible = BooleanField(verbose_name="отображается в виджете", default=True)
-    remote_id = CharField(blank=True, null=True, verbose_name="ID (агрегация)")
+    remote_id = CharField(verbose_name="ID (агрегация)")
     service = CharField(choices=Service.choices, default=Service.YANDEX, verbose_name="сервис")
-    stars = IntegerField(blank=True, null=True, verbose_name="количество звезд")
+    stars = IntegerField(default=0, verbose_name="количество звезд")
 
     """ Контент """
-    name = CharField(blank=True, null=True, verbose_name="пользователь")
-    text = TextField(blank=True, null=True, verbose_name="текст отзыва")
+    name = CharField(verbose_name="пользователь")
+    text = TextField(verbose_name="текст отзыва")
 
     """ Связи """
     company = ForeignKey("resources.Company", on_delete=CASCADE, verbose_name="компания")
@@ -389,17 +396,27 @@ class Review(Model):
         return f"images/stars/{float(self.stars)}.svg"
 
     @property
+    def stars_text(self):
+        return self.stars * '★ '
+
+    @property
     def text_length(self):
         return len(self.text)
 
     @property
     def notification_template(self):
-        return f"""📍 Новый отзыв в {self.get_service_display()}
+        return f"""Новый отзыв в {self.get_service_display()}
 
-🏪 Филиал:
+📍 Филиал:
 {self.company}
 
-📜 Текст:
+📅 Дата публикации:
+{localize(self.created_at)}
+
+📊 Оценка:
+{self.stars_text}
+
+💬 Текст:
 {self.text}"""
 
     def __str__(self):
@@ -408,12 +425,9 @@ class Review(Model):
 
 @receiver(post_save, sender=Review)
 def review_post_save(sender, instance, created, **kwargs):
-    if created:
-        from resources.tasks import send_telegram_text_task
-
-        if not instance.company.is_first_parsing:
-            for user in instance.company.users.filter(**{f"membership__can_notify_negative_{instance.service.lower()}": True}).exclude(profile__telegram_id=None).all():
-                send_telegram_text_task.delay(user.profile.telegram_id, instance.notification_template)
+    if created and not instance.company.is_first_parsing:
+        for user in instance.company.users.filter(**{f"membership__can_notify_negative_{instance.service.lower()}": True}).exclude(profile__telegram_id=None).all():
+            asyncio.run(Bot(settings.TELEGRAM_BOT_API_SECRET).send_message(user.profile.telegram_id, instance.notification_template))
 
 
 class Message(Model):
@@ -435,16 +449,19 @@ class Message(Model):
 
     @property
     def notification_template(self):
-        return f"""📍 Негативный отзыв в Портрете
+        return f"""Негативный отзыв в Портрете
 
-🏪 Филиал:
+📍 Филиал:
 {self.company}
 
-📱 Телефон:
-{self.phone}
+📅 Дата публикации:
+{localize(self.created_at)}
 
-📜 Текст:
-{self.text}"""
+💬 Текст:
+{self.text}
+
+📱 Телефон:
+{self.phone}"""
 
     def __str__(self):
         return self.phone
@@ -453,7 +470,5 @@ class Message(Model):
 @receiver(post_save, sender=Message)
 def message_post_save(sender, instance, created, **kwargs):
     if created:
-        from resources.tasks import send_telegram_text_task
-
         for user in instance.company.users.filter(membership__can_notify_negative_portrate=True).exclude(profile__telegram_id=None).all():
-            send_telegram_text_task.delay(user.profile.telegram_id, instance.notification_template)
+            asyncio.run(Bot(settings.TELEGRAM_BOT_API_SECRET).send_message(user.profile.telegram_id, instance.notification_template))
