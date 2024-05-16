@@ -290,24 +290,41 @@ def company_post_init(sender, instance, **kwargs):
 
 @receiver(post_save, sender=Company)
 def company_post_save(sender, instance, created, **kwargs):
+    from resources.tasks import update_yandex_task, update_gis_task, update_google_task, update_counters_task
+    parsers_runs = False
+    parsers_chain = []
+
     if created:
         instance.stick_light.save("stick_light.pdf", File(make_stick(instance.id, "light")), save=False)
         instance.stick_dark.save("stick_dark.pdf", File(make_stick(instance.id, "dark")), save=False)
 
-    if not created:
-        from resources.tasks import update_yandex_task, update_gis_task, update_google_task, update_counters_task
-        parsers_runs = False
-        parsers_chain = []
-
-        if instance.is_parse_yandex and instance.cached_parser_link_yandex != instance.parser_link_yandex:
+        if instance.is_parse_yandex and instance.parser_link_yandex:
             parsers_runs = True
             parsers_chain.append(update_yandex_task.s(company_id=instance.id))
 
-        if instance.is_parse_gis and instance.cached_parser_link_gis != instance.parser_link_gis:
+        if instance.is_parse_gis and instance.parser_link_gis:
             parsers_runs = True
             parsers_chain.append(update_gis_task.s(company_id=instance.id))
 
-        if instance.is_parse_google and instance.cached_parser_link_google != instance.parser_link_google:
+        if instance.is_parse_google and instance.parser_link_google:
+            parsers_runs = True
+            parsers_chain.append(update_google_task.s(company_id=instance.id))
+
+        if parsers_runs:
+            parsers_chain.append(update_counters_task.s(company_id=instance.id))
+            chain(parsers_chain).apply_async()
+
+    if not created:
+        # @TODO сделать очистку существующих отзывов если ссылку поменяли
+        if instance.is_parse_yandex and instance.parser_link_yandex and instance.cached_parser_link_yandex != instance.parser_link_yandex:
+            parsers_runs = True
+            parsers_chain.append(update_yandex_task.s(company_id=instance.id))
+
+        if instance.is_parse_gis and instance.parser_link_gis and instance.cached_parser_link_gis != instance.parser_link_gis:
+            parsers_runs = True
+            parsers_chain.append(update_gis_task.s(company_id=instance.id))
+
+        if instance.is_parse_google and instance.parser_link_google and instance.cached_parser_link_google != instance.parser_link_google:
             parsers_runs = True
             parsers_chain.append(update_google_task.s(company_id=instance.id))
 

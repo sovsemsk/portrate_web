@@ -12,9 +12,31 @@
                     Создание компании
                 </h3>
             </div>
+            <div class="bp5-text-muted bp5-entity-title-subtitle">
+                Поиск в картах и каталогах
+            </div>
         </div>
     </div>
 </div>
+
+<div class="bp5-form-group">
+    <div style="align-items:center;display:flex;gap:5px;">
+        <span class="bp5-tag bp5-minimal bp5-round">
+            <img class="bp5-icon" height=10 src="{% static 'images/parsers/yandex.png' %}" width=10>&nbsp;Яндекс
+        </span>
+        <span class="bp5-icon bp5-icon-arrow-right bp5-text-muted"></span>
+        <span class="bp5-tag bp5-minimal bp5-round">
+            <img class="bp5-icon" height=10 src="{% static 'images/parsers/gis.png' %}" width=10>&nbsp;2Гис
+        </span>
+        <span class="bp5-icon bp5-icon-arrow-right bp5-text-muted"></span>
+        <span class="bp5-tag bp5-minimal bp5-round">
+            <img class="bp5-icon" height=10 src="{% static 'images/parsers/google.png' %}" width=10>&nbsp;Google
+        </span>
+        <span class="bp5-icon bp5-icon-arrow-right bp5-text-muted"></span>
+        <span class="bp5-tag bp5-round">Данные компании</span>
+    </div>
+</div>
+
 <!-- @TODO: inline style -->
 <div style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:15px">
     <!-- @TODO: inline style -->
@@ -114,7 +136,10 @@
         </form>
     </div>
 </div>
-<button class="bp5-button bp5-intent-warning" form="COMPANY_FORM" type="submit">Сохранить</button>
+
+
+<a class="bp5-button bp5-intent-warning" href="{% url 'company_master_google' %}">Назад</a>
+<button class="bp5-button bp5-intent-warning" form="COMPANY_FORM" type="submit">Завершить</button>
 {% endblock %}
 {% block script %}
 <script>

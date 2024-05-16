@@ -6,7 +6,8 @@ from django.contrib.auth.forms import (
     UserCreationForm
 )
 from django.contrib.auth.models import User
-from django.forms import BooleanField, ImageField, Select, inlineformset_factory
+from django.core.exceptions import ValidationError
+from django.forms import BooleanField, ImageField, Select, inlineformset_factory, Form
 from django.forms import CharField, PasswordInput, ModelForm, TextInput
 from django.forms.widgets import FileInput
 
@@ -19,6 +20,10 @@ class ProfileForm(ModelForm):
         fields = ["default_timezone"]
 
     default_timezone = Select(choices=Timezone.choices)
+
+
+class CompanyMasterSearchForm(Form):
+    query = CharField(widget=TextInput(attrs={"class": "bp5-input bp5-fill"}))
 
 
 class CompanyForm(ModelForm):
@@ -44,6 +49,13 @@ class CompanyParserForm(ModelForm):
             "is_parse_google"
         ]
 
+    parser_link_yandex = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
+    is_parse_yandex = BooleanField(required=False)
+    parser_link_gis = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
+    is_parse_gis = BooleanField(required=False)
+    parser_link_google = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
+    is_parse_google = BooleanField(required=False)
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -56,12 +68,15 @@ class CompanyParserForm(ModelForm):
         if self.data and self.data.get("is_parse_google"):
                 self.fields.get("parser_link_google").required = True
 
-    parser_link_yandex = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
-    is_parse_yandex = BooleanField(required=False)
-    parser_link_gis = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
-    is_parse_gis = BooleanField(required=False)
-    parser_link_google = CharField(widget=TextInput(attrs={"class": "bp5-input"}), required=False)
-    is_parse_google = BooleanField(required=False)
+    def clean(self):
+        clean = super(CompanyParserForm, self).clean()
+        return clean
+
+        # raise ValidationError({
+        #     "parser_link_yandex": "Yandex",
+        #     "parser_link_gis": "Gis",
+        #     "parser_link_google": "Google"
+        # })
 
 
 class CompanyDataForm(ModelForm):
@@ -154,6 +169,7 @@ class CompanyMembershipForm(ModelForm):
         can_notify_negative_gis = BooleanField(required=False)
         can_notify_negative_google = BooleanField(required=False)
 
+
 CompanyMembershipFormSet = inlineformset_factory(
     Company,
     Membership,
@@ -164,11 +180,11 @@ CompanyMembershipFormSet = inlineformset_factory(
 
 
 class ReviewForm(ModelForm):
-    is_hidden = BooleanField(required=False)
-
     class Meta:
         model = Review
         fields = ["is_visible"]
+
+    is_hidden = BooleanField(required=False)
 
 
 class DashboardUserCreationForm(UserCreationForm):

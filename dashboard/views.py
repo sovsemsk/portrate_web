@@ -1,4 +1,5 @@
 from datetime import datetime
+from urllib.parse import unquote
 
 from chartjs.views.lines import BaseLineChartView
 from django.conf import settings
@@ -17,8 +18,10 @@ from django.views.generic import CreateView, DetailView, ListView, UpdateView
 from django_filters.views import FilterView
 
 from resources.models import Company, Message, Review, RatingStamp
+from services.search import SearchYandex, SearchGis, SearchGoogle
 from .filters import MessageFilter, ReviewFilter, RatingStampFilter
 from .forms import (
+    CompanyMasterSearchForm,
     CompanyForm,
     CompanyContactForm,
     CompanyDataForm,
@@ -32,6 +35,114 @@ from .forms import (
     ProfileForm,
     ReviewForm,
 )
+
+
+@login_required
+@require_http_methods(["GET", "POST"])
+def company_master_yandex(request):
+    card_list = []
+
+    if request.method == "POST":
+        form = CompanyMasterSearchForm(request.POST)
+
+        if form.is_valid():
+            card_list = SearchYandex.search(form.cleaned_data.get("query"))
+    else:
+        form = CompanyMasterSearchForm()
+
+    return render(request, "dashboard/company_master_yandex.html", {
+        "nav": "company",
+        "form": form,
+        "card_list": card_list
+    })
+
+
+@login_required
+@require_http_methods(["GET", "POST"])
+def company_master_gis(request):
+    card_list = []
+
+    if request.method == "POST":
+        form = CompanyMasterSearchForm(request.POST)
+
+        if form.is_valid():
+            card_list = SearchGis.search(form.cleaned_data.get("query"))
+    else:
+        form = CompanyMasterSearchForm()
+
+    return render(request, "dashboard/company_master_gis.html", {
+        "nav": "company",
+        "form": form,
+        "card_list": card_list
+    })
+
+
+@login_required
+@require_http_methods(["GET", "POST"])
+def company_master_google(request):
+    card_list = []
+
+    if request.method == "POST":
+        form = CompanyMasterSearchForm(request.POST)
+
+        if form.is_valid():
+            card_list = SearchGoogle.search(form.cleaned_data.get("query"))
+    else:
+        form = CompanyMasterSearchForm()
+
+    return render(request, "dashboard/company_master_google.html", {
+        "nav": "company",
+        "form": form,
+        "card_list": card_list
+    })
+
+
+@login_required
+@require_http_methods(["GET", "POST"])
+def company_master_data(request):
+    id_yandex = request.COOKIES.get("id_yandex", None)
+    name_yandex = request.COOKIES.get("name_yandex", None)
+    address_yandex = request.COOKIES.get("address_yandex", None)
+    phone_yandex = request.COOKIES.get("phone_yandex", None)
+    id_gis = request.COOKIES.get("id_gis", None)
+    id_google = request.COOKIES.get("id_google", None)
+
+    if request.method == "POST":
+        form = CompanyForm(request.POST)
+
+        if form.is_valid():
+            if id_yandex:
+                form.instance.parser_link_yandex = unquote(f"https://yandex.ru/maps/org/{name_yandex}/{id_yandex}/reviews")
+                form.instance.form_link_yandex = unquote(f"https://yandex.ru/maps/org/{name_yandex}/{id_yandex}/reviews?add-review=true")
+                form.instance.is_parse_yandex = True
+
+            if id_gis:
+                form.instance.parser_link_gis = unquote(f"https://2gis.ru/orenburg/firm/{id_gis}/tab/reviews")
+                form.instance.form_link_gis = unquote(f"https://2gis.ru/orenburg/firm/{id_gis}/tab/reviews/addreview")
+                form.instance.is_parse_gis = True
+
+            if id_google:
+                form.instance.parser_link_google = unquote(f"https://www.google.com/maps/search/?api=1&query=~&query_place_id={id_google}")
+                form.instance.form_link_google = unquote(f"https://search.google.com/local/writereview?placeid={id_google}")
+                form.instance.is_parse_google = True
+
+            form.save()
+            form.instance.users.add(request.user)
+
+            messages.success(request, "Компания успешно создана")
+            return redirect(reverse("company_detail", kwargs={"pk": form.instance.id}))
+
+    else:
+        form = CompanyForm(initial={
+            "name": unquote(name_yandex),
+            "address": unquote(address_yandex),
+            "phone": unquote(phone_yandex)
+        })
+
+    return render(request, "dashboard/company_master_data.html", {
+        "nav": "company",
+        "form": form
+    })
 
 
 class CompanyListView(LoginRequiredMixin, ListView):
@@ -101,11 +212,6 @@ class CompanyCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         context["host"] = settings.HOST
         context["nav"] = "company"
         return context
-
-    def get_queryset(self, **kwargs):
-        queryset = super().get_queryset(**kwargs)
-        queryset = queryset.filter(users__in=[self.request.user])
-        return queryset
 
     def get_success_url(self):
         return reverse("company_parser_update", kwargs={"pk": self.object.id})
@@ -249,7 +355,8 @@ class CompanyRatingDynamic(LoginRequiredMixin, BaseLineChartView):
     def get_labels(self):
         range_param = self.request.GET.get("range", "week")
         format_map = {"week": "%d.%m", "month": "%d.%m", "quarter": "%d.%m", "year": "%m.%y", "total": "%m.%y"}
-        return list(map(lambda x: x.created_at.strftime(format_map[range_param]), self.rating_history)) or [datetime.now().strftime("%d.%m")]
+        return list(map(lambda x: x.created_at.strftime(format_map[range_param]), self.rating_history)) or [
+            datetime.now().strftime("%d.%m")]
 
     def get_dataset_options(self, index, color):
         default_opt = {
@@ -351,7 +458,8 @@ class MessageListView(LoginRequiredMixin, FilterView):
 
     def get_queryset(self, **kwargs):
         queryset = super().get_queryset(**kwargs)
-        return queryset.filter(company__in=[self.kwargs["company_pk"]], company__users__in=[self.request.user]).select_related("company").order_by("-created_at")
+        return queryset.filter(company__in=[self.kwargs["company_pk"]],
+                               company__users__in=[self.request.user]).select_related("company").order_by("-created_at")
 
 
 @login_required
@@ -360,9 +468,6 @@ def qr(request, company_pk):
     company = get_object_or_404(Company, pk=company_pk, users__in=[request.user])
     template = request.GET.get("template", "s")
     theme = request.GET.get("theme", "l")
-
-    print("!!!")
-    print(company)
 
     return render(
         request,
@@ -515,12 +620,11 @@ def user_create(request):
         if form.is_valid():
             form.save()
             return redirect("user_login")
-        else:
-            return render(request, "dashboard/user_create.html", {"form": form})
 
     else:
         form = DashboardUserCreationForm()
-        return render(request, "dashboard/user_create.html", {"form": form})
+
+    return render(request, "dashboard/user_create.html", {"form": form})
 
 
 @require_http_methods(["GET", "POST"])
@@ -531,12 +635,11 @@ def user_login(request):
         if form.is_valid():
             login(request, form.user_cache)
             return redirect("company_list")
-        else:
-            return render(request, "dashboard/user_login.html", {"form": form})
 
     else:
         form = DashboardAuthenticationForm(request)
-        return render(request, "dashboard/user_login.html", {"form": form})
+
+    return render(request, "dashboard/user_login.html", {"form": form})
 
 
 @require_http_methods(["GET", "POST"])
