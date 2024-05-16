@@ -1,6 +1,7 @@
 from datetime import datetime
 from urllib.parse import unquote
 
+from celery import chain
 from chartjs.views.lines import BaseLineChartView
 from django.conf import settings
 from django.contrib import messages
@@ -18,6 +19,7 @@ from django.views.generic import CreateView, DetailView, ListView, UpdateView
 from django_filters.views import FilterView
 
 from resources.models import Company, Message, Review, RatingStamp
+from resources.tasks import update_yandex_task, update_gis_task, update_google_task, update_counters_task
 from services.search import SearchYandex, SearchGis, SearchGoogle
 from .filters import MessageFilter, ReviewFilter, RatingStampFilter
 from .forms import (
@@ -100,10 +102,10 @@ def company_master_google(request):
 @login_required
 @require_http_methods(["GET", "POST"])
 def company_master_data(request):
+    address_yandex = request.COOKIES.get("address_yandex", "")
+    name_yandex = request.COOKIES.get("name_yandex", "")
+    phone_yandex = request.COOKIES.get("phone_yandex", "")
     id_yandex = request.COOKIES.get("id_yandex", None)
-    name_yandex = request.COOKIES.get("name_yandex", None)
-    address_yandex = request.COOKIES.get("address_yandex", None)
-    phone_yandex = request.COOKIES.get("phone_yandex", None)
     id_gis = request.COOKIES.get("id_gis", None)
     id_google = request.COOKIES.get("id_google", None)
 
@@ -111,6 +113,10 @@ def company_master_data(request):
         form = CompanyForm(request.POST)
 
         if form.is_valid():
+            parsers_runs = False
+            parsers_chain = []
+
+            # Заполнение полей для паресра и запроса отзывов
             if id_yandex:
                 form.instance.parser_link_yandex = unquote(f"https://yandex.ru/maps/org/{name_yandex}/{id_yandex}/reviews")
                 form.instance.form_link_yandex = unquote(f"https://yandex.ru/maps/org/{name_yandex}/{id_yandex}/reviews?add-review=true")
@@ -129,6 +135,24 @@ def company_master_data(request):
             form.save()
             form.instance.users.add(request.user)
 
+            # Первый запуск парсеров
+            if form.instance.parser_link_yandex:
+                parsers_runs = True
+                parsers_chain.append(update_yandex_task.s(company_id=form.instance.id))
+
+            if form.instance.is_parse_gis:
+                parsers_runs = True
+                parsers_chain.append(update_gis_task.s(company_id=form.instance.id))
+
+            if form.instance.is_parse_google:
+                parsers_runs = True
+                parsers_chain.append(update_google_task.s(company_id=form.instance.id))
+
+            if parsers_runs:
+                parsers_chain.append(update_counters_task.s(company_id=form.instance.id))
+                chain(parsers_chain).apply_async()
+
+            # Сообщение и редирект
             messages.success(request, "Компания успешно создана")
             return redirect(reverse("company_detail", kwargs={"pk": form.instance.id}))
 
@@ -193,28 +217,6 @@ class CompanyDetailView(LoginRequiredMixin, DetailView):
     def get_queryset(self, **kwargs):
         queryset = super().get_queryset(**kwargs)
         return queryset.filter(users__in=[self.request.user])
-
-
-class CompanyCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
-    context_object_name = "company"
-    form_class = CompanyForm
-    model = Company
-    success_message = "Компания успешно создана"
-    template_name = "dashboard/company_create.html"
-
-    def form_valid(self, form, **kwargs):
-        form_valid = super(CompanyCreateView, self).form_valid(form, **kwargs)
-        self.object.users.add(self.request.user)
-        return form_valid
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["host"] = settings.HOST
-        context["nav"] = "company"
-        return context
-
-    def get_success_url(self):
-        return reverse("company_parser_update", kwargs={"pk": self.object.id})
 
 
 class CompanyParserUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):

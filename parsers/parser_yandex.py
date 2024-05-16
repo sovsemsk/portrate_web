@@ -26,7 +26,7 @@ class ParserYandex:
     def check_page(self):
         """ Проверка страницы """
         try:
-            self.driver.find_element(By.CLASS_NAME, "business-summary-rating-badge-view__rating")
+            self.driver.find_elements(By.CLASS_NAME, "business-reviews-card-view__review")
             return True
         except:
             return False

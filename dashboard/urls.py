@@ -7,7 +7,6 @@ from .views import (
     company_master_gis,
     company_master_google,
     company_master_data,
-    CompanyCreateView,
     CompanyContactUpdateView,
     CompanyDataUpdateView,
     CompanyDetailView,
@@ -34,13 +33,10 @@ from .views import (
 
 urlpatterns = [
     path("", CompanyListView.as_view(), name="company_list"),
-
     path("company/master/yandex", company_master_yandex, name="company_master_yandex"),
     path("company/master/gis", company_master_gis, name="company_master_gis"),
     path("company/master/google", company_master_google, name="company_master_google"),
     path("company/master/data", company_master_data, name="company_master_data"),
-
-    path("company/create/", CompanyCreateView.as_view(), name="company_create"),
     path("company/<int:pk>/", CompanyDetailView.as_view(), name="company_detail"),
     path("company/<int:pk>/parser_update/", CompanyParserUpdateView.as_view(), name="company_parser_update"),
     path("company/<int:pk>/data_update/", CompanyDataUpdateView.as_view(), name="company_data_update"),

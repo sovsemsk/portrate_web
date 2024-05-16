@@ -24,7 +24,7 @@ class ParserGoogle:
     def check_page(self):
         """ Проверка страницы """
         try:
-            self.driver.find_element(By.XPATH, ".//div[@class='jANrlb ']/div[@class='fontDisplayLarge']")
+            self.driver.find_elements(By.CLASS_NAME, "jftiEf")
             return True
         except:
             return False
