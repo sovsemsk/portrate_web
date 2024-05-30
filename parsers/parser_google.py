@@ -128,7 +128,7 @@ class ParserGoogle:
             text = None
 
         try:
-            stars = lxml_node.xpath(".//span[@class='hCCjke vzX5Ic google-symbols NhBTye']")
+            stars = lxml_node.xpath(".//span[@class='hCCjke google-symbols NhBTye elGi1d']")
         except:
             stars = []
 
