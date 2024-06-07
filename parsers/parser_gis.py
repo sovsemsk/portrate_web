@@ -13,7 +13,7 @@ class ParserGis:
         """ Парсер 2Гис """
         options = webdriver.ChromeOptions()
         options.set_capability("selenoid:options", {"enableVNC": True})
-        self.driver = webdriver.Remote(command_executor=f"http://185.85.160.249:4444/wd/hub", options=options)
+        self.driver = webdriver.Remote(command_executor=f"http://docker.portrate.io/wd/hub", options=options)
         self.driver.get(parser_link)
         time.sleep(5)
 

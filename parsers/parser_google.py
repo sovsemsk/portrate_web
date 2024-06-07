@@ -12,7 +12,7 @@ class ParserGoogle:
         """ Парсер Google """
         options = webdriver.ChromeOptions()
         options.set_capability("selenoid:options", {"enableVNC": True})
-        self.driver = webdriver.Remote(command_executor=f"http://185.85.160.249:4444/wd/hub", options=options)
+        self.driver = webdriver.Remote(command_executor=f"http://docker.portrate.io/wd/hub", options=options)
         self.driver.get(parser_link)
         time.sleep(5)
 
@@ -31,6 +31,10 @@ class ParserGoogle:
 
     def parse_rating(self):
         """ Парсинг рейтинга организации """
+
+        # Переход на страницу отзывов
+        self.__open_reviews_tab__()
+
         try:
             node = self.driver.find_element(By.XPATH, ".//div[@class='jANrlb ']/div[@class='fontDisplayLarge']")
             return float(node.text.replace(",", "."))
@@ -40,6 +44,9 @@ class ParserGoogle:
     def parse_reviews(self):
         """ Парсинг отзывов """
         result = []
+
+        # Переход на страницу отзывов
+        self.__open_reviews_tab__()
 
         # Сортировка по дате
         # self.__sort_by_newest__()
@@ -98,6 +105,14 @@ class ParserGoogle:
 
             for link in links:
                 link.click()
+        except:
+            ...
+
+    def __open_reviews_tab__(self):
+        """ Переход на страницу отзывов """
+        try:
+            tab_node = self.driver.find_elements(By.CLASS_NAME, "hh2c6")[1]
+            tab_node.click()
         except:
             ...
 
