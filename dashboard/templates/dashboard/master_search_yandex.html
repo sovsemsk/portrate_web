@@ -1,0 +1,65 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+{% block navbar %}
+<a class="bp5-active bp5-button bp5-intent-success bp5-minimal" href="{% url 'master_search_yandex' %}">Добавить филиал</a>
+{% endblock %}
+{% block content %}
+<h2 class="bp5-heading">Добавление филиала</h2>
+{% include "dashboard/_master_tabs.html" %}
+<div class="row">
+    <div class="xs-9">
+        {% include "dashboard/_master_search_form.html" %}
+        {% if card_list %}
+        <div class="bp5-radio-group">
+            {% for card in card_list %}
+            <div class="bp5-form-group">
+                <div class="bp5-form-content">
+                    <div class="bp5-card bp5-control-card bp5-compact bp5-radio-control-card">
+                        <label class="bp5-align-right_ bp5-control bp5-inline bp5-radio">
+                            <input data-id="{{ card.properties.CompanyMetaData.id }}"
+                                   data-address="{{ card.properties.CompanyMetaData.address|default:'' }}"
+                                   data-name="{{ card.properties.CompanyMetaData.name|default:'' }}"
+                                   data-phone="{{ card.properties.CompanyMetaData.Phones.0.formatted|default:'' }}"
+                                   data-radio
+                                   name="id"
+                                   type="radio"
+                            >
+                            <span class="bp5-control-indicator"></span>
+                            <img class="bp5-icon" height=16 src="{% static 'dashboard/images/services/yandex.png' %}" width=16>
+                            <div class="bp5-control-card-label">
+                                <div class="bp5-text-large">{{ card.properties.CompanyMetaData.name|default:"Название не найдено" }}</div>
+                                <div class="bp5-text-muted">{{ card.properties.CompanyMetaData.address|default:"Адрес не найден" }}</div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <div class="bp5-form-group">
+            <div class="bp5-form-content">
+                <a class="bp5-button bp5-large" href="{% if request.GET.query %}{% url 'master_search_gis' %}?query={{ request.GET.query }}{% else %}{% url 'master_search_gis' %}{% endif %}">Пропустить</a>
+                {% if card_list %}
+                <button class="bp5-button bp5-large" data-next>Далее</button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block script %}
+<script>
+$(document).ready(event => {
+    $("*[data-radio]").first().click();
+    $("*[data-next]").click(event => {
+        const radio = $("*[data-radio]:checked");
+        Cookies.set("address_yandex", radio.data("address"));
+        Cookies.set("id_yandex", radio.data("id"));
+        Cookies.set("name_yandex", radio.data("name"));
+        Cookies.set("phone_yandex", radio.data("phone"));
+        window.location.replace("{% url 'master_search_gis' %}?query={{ request.GET.query }}");
+    });
+});
+</script>
+{% endblock %}

@@ -1,78 +1,132 @@
 {% extends 'feedback/base.html' %}
 {% load static %}
 {% block content %}
-<div class="bp5-padded bp5-section-card">
-    <div class="pio-container">
-        <h5 class="bp5-heading">
-            Наградите нас отзывом
-        </h5>
-        <div class="bp5-control-group bp5-fill bp5-vertical">
-            {% if company.form_link_yandex %}
-            <a class="bp5-button bp5-large bp5-align-left" href="{{ company.form_link_yandex }}" target="_blank">
-                <span class="bp5-button-text">Оценить на Яндекс</span>
-                <img height=16  src="{% static 'images/parsers/yandex.png' %}" width=16>
-            </a>
+{% include 'feedback/_company_heading.html' %}
+{% include 'feedback/_company_contact.html' %}
+<h5 class="bp5-heading">Наградите нас отзывом</h5>
+<div class="bp5-form-group">
+    <div class="bp5-form-content">
+        <div class="bp5-control-group bp5-fill bp5-large bp5-vertical">
+            {% if company.feedback_link_yandex %}
+            <form method="post" novalidate>
+                {% csrf_token %}
+                <input name="service" value="YANDEX" type="hidden">
+                <button class="bp5-button bp5-fill bp5-large bp5-align-left" type="submit">
+                    <img height="16" src="{% static 'dashboard/images/services/yandex.png' %}" width="16">
+                    <span class="bp5-button-text">Яндекс</span>
+                </button>
+            </form>
             {% endif %}
-            {% if company.form_link_gis %}
-            <a class="bp5-button bp5-large bp5-align-left" href="{{ company.form_link_gis }}" target="_blank">
-                <span class="bp5-button-text">Оценить на 2Гис</span>
-                <img height=16  src="{% static 'images/parsers/gis.png' %}" width=16>
-            </a>
+            {% if company.feedback_link_gis %}
+            <form method="post" novalidate>
+                {% csrf_token %}
+                <input name="service" value="GIS" type="hidden">
+                <button class="bp5-button bp5-fill bp5-large bp5-align-left" type="submit">
+                    <img height="16" src="{% static 'dashboard/images/services/gis.png' %}" width="16">
+                    <span class="bp5-button-text">2Гис</span>
+                </button>
+            </form>
             {% endif %}
-            {% if company.form_link_google %}
-            <a class="bp5-button bp5-large bp5-align-left" href="{{ company.form_link_google }}" target="_blank">
-                <span class="bp5-button-text">Оценить на Google</span>
-                <img height=16  src="{% static 'images/parsers/google.png' %}" width=16>
-            </a>
+            {% if company.feedback_link_google %}
+            <form method="post" novalidate >
+                {% csrf_token %}
+                <input name="service" value="GOOGLE" type="hidden">
+                <button class="bp5-button bp5-fill bp5-large bp5-align-left" type="submit">
+                    <img height="16" src="{% static 'dashboard/images/services/google.png' %}" width="16">
+                    <span class="bp5-button-text">Google</span>
+                </button>
+            </form>
             {% endif %}
-            {% if company.form_link_dikidi %}
-            <a class="bp5-button bp5-large bp5-align-left" href="{{ company.form_link_dikidi }}" target="_blank">
-                <span class="bp5-button-text">Оценить на Dikidi</span>
-                <img height=16  src="{% static 'images/parsers/dikidi.png' %}" width=16>
-            </a>
+            {% if company.feedback_link_avito %}
+            <form method="post" novalidate>
+                {% csrf_token %}
+                <input name="service" value="AVITO" type="hidden">
+                <button class="bp5-button bp5-fill bp5-large bp5-align-left" type="submit">
+                    <img height="16" src="{% static 'dashboard/images/services/avito.png' %}" width="16">
+                    <span class="bp5-button-text">Авито</span>
+                </button>
+            </form>
             {% endif %}
-            {% if company.form_link_restoclub %}
-            <a class="bp5-button bp5-large bp5-align-left" href="{{ company.form_link_restoclub }}" target="_blank">
-                <span class="bp5-button-text">Оценить на Рестоклуб</span>
-                <img height=16  src="{% static 'images/parsers/restoclub.png' %}" width=16>
-            </a>
+            {% if company.feedback_link_zoon %}
+            <form method="post" novalidate>
+                {% csrf_token %}
+                <input name="service" value="ZOON" type="hidden">
+                <button class="bp5-button bp5-fill bp5-large bp5-align-left" type="submit">
+                    <img height="16" src="{% static 'dashboard/images/services/zoon.png' %}" width="16">
+                    <span class="bp5-button-text">Zoon</span>
+                </button>
+            </form>
             {% endif %}
-            {% if company.form_link_tripadvisor %}
-            <a class="bp5-button bp5-large bp5-align-left" href="{{ company.form_link_tripadvisor }}" target="_blank">
-                <span class="bp5-button-text">Оценить на Tripadvisor</span>
-                <img height=16  src="{% static 'images/parsers/tripadvisor.png' %}" width=16>
-            </a>
+            {% if company.feedback_link_flamp %}
+            <form method="post" novalidate>
+                {% csrf_token %}
+                <input name="service" value="FLAMP" type="hidden">
+                <button class="bp5-button bp5-fill bp5-large bp5-align-left" type="submit">
+                    <img height="16" src="{% static 'dashboard/images/services/flamp.png' %}" width="16">
+                    <span class="bp5-button-text">Flamp</span>
+                </button>
+            </form>
             {% endif %}
-            {% if company.form_link_prodoctorov %}
-            <a class="bp5-button bp5-large bp5-align-left" href="{{ company.form_link_prodoctorov }}" target="_blank">
-                <span class="bp5-button-text">Оценить на Продокторов</span>
-                <img height=16  src="{% static 'images/parsers/prodoctorov.png' %}" width=16>
-            </a>
+            {% if company.feedback_link_yell %}
+            <form method="post" novalidate>
+                {% csrf_token %}
+                <input name="service" value="YELL" type="hidden">
+                <button class="bp5-button bp5-fill bp5-large bp5-align-left" type="submit">
+                    <img height="16" src="{% static 'dashboard/images/services/yell.png' %}" width="16">
+                    <span class="bp5-button-text">Yell</span>
+                </button>
+            </form>
             {% endif %}
-            {% if company.form_link_flamp %}
-            <a class="bp5-button bp5-large bp5-align-left" href="{{ company.form_link_flamp }}" target="_blank">
-                <span class="bp5-button-text">Оценить на Flamp</span>
-                <img height=16  src="{% static 'images/parsers/flamp.png' %}" width=16>
-            </a>
+            {% if company.feedback_link_prodoctorov %}
+            <form method="post" novalidate>
+                {% csrf_token %}
+                <input name="service" value="PRODOCTOROV" type="hidden">
+                <button class="bp5-button bp5-fill bp5-large bp5-align-left" type="submit">
+                    <img height="16" src="{% static 'dashboard/images/services/prodoctorov.png' %}" width="16">
+                    <span class="bp5-button-text">Продокторов</span>
+                </button>
+            </form>
             {% endif %}
-            {% if company.form_link_zoon %}
-            <a class="bp5-button bp5-large bp5-align-left" href="{{ company.form_link_zoon }}" target="_blank">
-                <span class="bp5-button-text">Оценить на Zoon</span>
-                <img height=16  src="{% static 'images/parsers/zoon.png' %}" width=16>
-            </a>
+            {% if company.feedback_link_yandex_services %}
+            <form method="post" novalidate>
+                {% csrf_token %}
+                <input name="service" value="YANDEX_SERVICES" type="hidden">
+                <button class="bp5-button bp5-fill bp5-large bp5-align-left" type="submit">
+                    <img height="16" src="{% static 'dashboard/images/services/yandex_services.png' %}" width="16">
+                    <span class="bp5-button-text">Яндекс услуги</span>
+                </button>
+            </form>
             {% endif %}
-            {% if company.form_link_otzovik %}
-            <a class="bp5-button bp5-large bp5-align-left" href="{{ company.form_link_otzovik }}" target="_blank">
-                <span class="bp5-button-text">Оценить на Отзовик</span>
-                <img height=16  src="{% static 'images/parsers/otzovik.png' %}" width=16>
-            </a>
+            {% if company.feedback_link_otzovik %}
+            <form method="post" novalidate>
+                {% csrf_token %}
+                <input name="service" value="OTZOVIK" type="hidden">
+                <button class="bp5-button bp5-fill bp5-large bp5-align-left" type="submit">
+                    <img height="16" src="{% static 'dashboard/images/services/otzovik.png' %}" width="16">
+                    <span class="bp5-button-text">Otzovik</span>
+                </button>
+            </form>
             {% endif %}
-            {% if company.form_link_irecommend %}
-            <a class="bp5-button bp5-large bp5-align-left" href="{{ company.form_link_irecommend }}" target="_blank">
-                <span class="bp5-button-text">Оценить на Irecommend</span>
-                <img height=16  src="{% static 'images/parsers/irecommend.png' %}" width=16>
-            </a>
+            {% if company.feedback_link_irecommend %}
+            <form method="post" novalidate>
+                {% csrf_token %}
+                <input name="service" value="IRECOMMEND" type="hidden">
+                <button class="bp5-button bp5-fill bp5-large bp5-align-left" type="submit">
+                    <img height="16" src="{% static 'dashboard/images/services/irecommend.png' %}" width="16">
+                    <span class="bp5-button-text">Irecommend</span>
+                </button>
+            </form>
             {% endif %}
+            {% if company.feedback_link_tripadvisor %}
+            <form method="post" novalidate>
+                {% csrf_token %}
+                <input name="service" value="TRIPADVISOR" type="hidden">
+                <button class="bp5-button bp5-fill bp5-large bp5-align-left" type="submit">
+                    <img height="16" src="{% static 'dashboard/images/services/tripadvisor.png' %}" width="16">
+                    <span class="bp5-button-text">Tripadvisor</span>
+                </button>
+            </form>
+        {% endif %}
         </div>
     </div>
 </div>

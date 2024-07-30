@@ -1,71 +1,44 @@
-{% extends "dashboard/auth.html" %}
+{% extends "dashboard/base.html" %}
 {% load static %}
 {% block content %}
-<div class="bp5-card bp5-section">
-    <div class="bp5-section-header">
-        <div class="bp5-section-header-left">
-            <div>
-                <h6 class="bp5-heading bp5-section-header-title">
-                    Портрет
-                </h6>
-                <div class="bp5-section-header-sub-title bp5-text-muted">
-                    вход
-                </div>
-            </div>
-        </div>
-        <div class="bp5-section-header-left">
-            <!-- @TODO: inline style -->
-            <img height=24 src="{% static 'images/dashboard/logo.png' %}" width=24>
-        </div>
-    </div>
-    <div class="bp5-section-card bp5-padded">
-        <form method="post" novalidate>
+<h2 class="bp5-heading">Вход</h2>
+<form method="post" novalidate>
+    <div class="row">
+        <div class="xs-6">
             {% csrf_token %}
-            {% if form.non_field_errors %}
-            {% for error in form.non_field_errors %}
-            <div class="bp5-form-group">
-                <div class="bp5-callout bp5-callout-has-body-content bp5-intent-danger">
-                    {{ error }}
-                </div>
-            </div>
-            {% endfor %}
-            {% endif %}
-            {% if messages %}
-            <div class="bp5-form-group">
-                {% for message in messages %}
-                <div class="bp5-callout bp5-callout-has-body-content bp5-intent-danger">
-                    {{message}}
-                </div>
-                {% endfor %}
-            </div>
-            {% endif %}
-            <div class="bp5-control-group bp5-fill">
-                <div class="bp5-form-group">
-                    <label class="bp5-label">Имя пользователя</label>
-                    {{form.username}}
+            <div class="bp5-form-group {% if form.username.errors %}bp5-intent-danger{% endif %}">
+                <div class="bp5-form-content">
+                    <label class="bp5-label" for="id_username">Имя пользователя *</label>
+                    <div class="bp5-input-group {% if form.username.errors %}bp5-intent-danger{% endif %}">
+                        {{ form.username }}
+                    </div>
                     {% if form.username.errors %}
-                    <!-- @TODO: inline style -->
-                    <div class="bp5-form-helper-text" style="color:#ac2f33">
-                        {{form.username.errors.as_text}}
+                    <div class="bp5-form-helper-text">
+                        {{ form.username.errors.as_text }}
                     </div>
                     {% endif %}
                 </div>
-                <div class="bp5-form-group">
-                    <label class="bp5-label">Пароль</label>
-                    {{form.password}}
+            </div>
+            <div class="bp5-form-group {% if form.password.errors %}bp5-intent-danger{% endif %}">
+                <div class="bp5-form-content">
+                    <label class="bp5-label" for="id_password">Пароль *</label>
+                    <div class="bp5-input-group {% if form.password.errors %}bp5-intent-danger{% endif %}">
+                        {{ form.password }}
+                    </div>
                     {% if form.password.errors %}
-                    <!-- @TODO: inline style -->
-                    <div class="bp5-form-helper-text" style="color:#ac2f33">
-                        {{form.password.errors.as_text}}
+                    <div class="bp5-form-helper-text">
+                        {{ form.password.errors.as_text }}
                     </div>
                     {% endif %}
                 </div>
             </div>
-            <div class="bp5-control-group">
-                <button class="bp5-button bp5-intent-success" type="submit">Войти</button>
-                <a class="bp5-button bp5-minimal" href="{% url 'user_create' %}">Зарегистрироваться</a>
+            <div class="bp5-form-group">
+                <div class="bp5-form-content">
+                    <button class="bp5-button bp5-large" type="submit">Войти</button>
+                    <a class="bp5-button bp5-large bp5-minimal" href="{% url 'user_create' %}">Зарегистрироваться</a>
+                </div>
             </div>
-        </form>
+        </div>
     </div>
-</div>
+</form>
 {% endblock %}

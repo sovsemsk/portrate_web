@@ -1,0 +1,35 @@
+{% if company.logo %}
+<div class="bp5-form-group">
+    <div class="bp5-form-content">
+        <img height=80 src="{{ company.logo.url }}" style="border-radius:5px;" width=80>
+    </div>
+</div>
+{% endif %}
+<div class="bp5-form-group">
+    <div class="bp5-form-content">
+        <div class="bp5-entity-title">
+            <div class="bp5-entity-title-text">
+                <h3 class="bp5-entity-title-title bp5-heading">
+                    {{ company.name }}
+                </h3>
+                {% if company.address %}
+                <div class="bp5-entity-title-subtitle bp5-text-muted">
+                    {{ company.address }}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% if company.phone or company.form_contact_website %}
+<div class="bp5-form-group">
+    <div class="bp5-form-content">
+        {% if company.phone %}
+        <a class="bp5-interactive bp5-minimal bp5-round bp5-tag" href="tel:{{ company.phone }}">{{ company.phone }}</a>
+        {% endif %}
+        {% if company.feedback_contact_website %}
+        <a class="bp5-interactive bp5-minimal bp5-round bp5-tag" href="{{ company.form_contact_website }}" _target="blank">Сайт</a>
+        {% endif %}
+    </div>
+</div>
+{% endif %}

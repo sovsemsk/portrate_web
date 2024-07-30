@@ -1,0 +1,36 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+{% block navbar %}
+{% include "dashboard/_company_navbar.html" %}
+{% endblock %}
+{% block content %}
+<h2 class="bp5-heading">Ссылка на филиал</h2>
+<div class="row">
+    <div class="xs-9">
+        <form method="post" novalidate>
+            {% csrf_token %}
+            <div class="bp5-form-group {% if form.parser_link_gis.errors %}bp5-intent-danger{% endif %}">
+                <label class="bp5-label" for="id_parser_link_gis">
+                    <div class="bp5-entity-title">
+                        <img height=16 src="{% static 'dashboard/images/services/gis.png' %}" width=16>
+                        2Гис
+                    </div>
+                </label>
+                <div class="bp5-form-content">
+                    <div class="bp5-input-group {% if form.parser_link_gis.errors %}bp5-intent-danger{% endif %}">
+                        {{ form.parser_link_gis }}
+                    </div>
+                    <div class="bp5-form-helper-text">
+                        {% if form.parser_link_gis.errors %}{{ form.parser_link_gis.errors.as_text }}{% else %}Например «https://2gis.ru/firm/{ID}/tab/reviews»{% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="bp5-form-group">
+                <div class="bp5-form-content">
+                    <button class="bp5-button bp5-large" type="submit">Сохранить</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,59 +1,70 @@
 {% extends 'feedback/base.html' %}
 {% load static %}
 {% block content %}
-<div class="bp5-padded bp5-section-card">
-    <div class="pio-container">
-        <h5 class="bp5-heading">
-            Написать директору
-        </h5>
-        <form id="REQUEST_FORM" method="post" novalidate>
-            {% csrf_token %}
-            <div class="bp5-form-group">
-                <label class="bp5-label">Расскажите что вам не понравилось</label>
+{% include 'feedback/_company_heading.html' %}
+{% include 'feedback/_company_contact.html' %}
+<h5 class="bp5-heading">Написать директору</h5>
+<form method="post" novalidate>
+    {% csrf_token %}
+    <div class="bp5-form-group {% if form.text.errors %}bp5-intent-danger{% endif%}">
+        <label class="bp5-label">Расскажите что вам не понравилось</label>
+        <div class="bp5-form-content">
+            <div class="bp5-input-group {% if form.text.errors %}bp5-intent-danger{% endif %}">
                 {{form.text}}
             </div>
-            <div class="bp5-form-group ">
-                <div class="bp5-control-group">
-                    {% for tag in company.form_tags %}
-                    <label class="bp5-interactive bp5-minimal bp5-intent-success bp5-tag">
-                        <input name="tag" type="checkbox" value="{{ tag }}" style="display:none"/>
-                        {{ tag }}
-                    </label>
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="bp5-form-group">
-                <label class="bp5-label">Оставьте ваш контакт</label>
-                {{form.phone}}
-                {% if form.phone.errors %}
-                <div class="bp5-form-helper-text" style="color:#ac2f33">
-                    Необходимо заполнить контактный телефон
-                </div>
-                {% endif %}
-            </div>
-        </form>
-        <button class="bp5-button bp5-fill bp5-intent-success bp5-large" form="REQUEST_FORM" type="submit">Отправить</button>
+        </div>
     </div>
-</div>
+    <div class="bp5-form-group">
+        <div class="bp5-form-content">
+            <div class="bp5-control-group" style="row-gap:2px;flex-wrap:wrap">
+                {% for tag in company.feedback_form_tags %}
+                <label class="bp5-interactive bp5-minimal bp5-intent-success bp5-tag">
+                    <input data-checkbox name="tag" style="display:none;" type="checkbox" value="{{ tag }}"/>
+                    {{ tag }}
+                </label>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="bp5-form-group {% if form.phone.errors %}bp5-intent-danger{% endif%}">
+        <label class="bp5-label">Оставьте ваш контакт</label>
+        <div class="bp5-form-content">
+            <div class="bp5-input-group {% if form.phone.errors %}bp5-intent-danger{% endif %}">
+                {{form.phone}}
+            </div>
+        </div>
+        {% if form.phone.errors %}
+        <div class="bp5-form-helper-text">
+            Необходимо заполнить контактный телефон
+        </div>
+        {% endif %}
+    </div>
+    <div class="bp5-form-group">
+        <div class="bp5-form-content">
+            <button class="bp5-button bp5-fill bp5-intent-success bp5-large" type="submit">Отправить</button>
+        </div>
+    </div>
+</form>
 {% endblock %}
 {% block script %}
 <script>
-    const textarea = $('textarea[name=text]');
+    const textarea = $("*[data-textarea]");
 
-    $('input[type=checkbox]').each((index, element) => {
+    $("*[data-checkbox]").each((index, element) => {
         const checkbox = $(element);
 
         if(textarea.val().includes(checkbox.val())){
-            checkbox.checked = true;
-            checkbox.parent().addClass('bp5-active');
+            checkbox.prop("checked", true).parent().addClass("bp5-active");
         }
 
-        checkbox.click((event) => {
-            $(event.target).parent().toggleClass('bp5-active');
-            textarea.val([...$('input[name=tag]:checked')].map(e => e.value).join(', '));
+        checkbox.click(event => {
+            $(event.currentTarget).parent().toggleClass("bp5-active");
+            textarea.val([...$("*[data-checkbox]:checked")].map(e => e.value).join(", "));
         });
     });
 
-    IMask(document.getElementById('id_phone'), {mask: '+7 000 000-00-00'});
+    if($("*[data-phone]").length){
+        IMask($("*[data-phone]")[0], {mask: "+7 000 000-00-00"});
+    };
 </script>
 {% endblock %}

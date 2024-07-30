@@ -1,0 +1,243 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+{% block navbar %}
+{% include "dashboard/_company_navbar.html" %}
+{% endblock %}
+{% block content %}
+<h2 class="bp5-heading">Визитка</h2>
+{% include "dashboard/_feedback_tabs.html" %}
+<div class="row">
+    <div class="xs-9">
+        <form method="post" novalidate>
+            {% csrf_token %}
+            <!-- Яндекс -->
+            <div class="bp5-form-group {% if form.feedback_link_yandex.errors %}bp5-intent-danger{% endif %}">
+                <label class="bp5-label" for="id_feedback_link_yandex">
+                    <div class="bp5-entity-title">
+                        <img height=16 src="{% static 'dashboard/images/services/yandex.png' %}" width=16>
+                        Яндекс
+                    </div>
+                </label>
+                <div class="bp5-form-content">
+                    <div class="bp5-input-group {% if form.feedback_link_yandex.errors %}bp5-intent-danger{% endif %}">
+                        {{ form.feedback_link_yandex }}
+                    </div>
+                    <div class="bp5-form-helper-text">{% if form.feedback_link_yandex.errors %}{{ form.feedback_link_yandex.errors.as_text }}{% else %}Например «https://yandex.ru/maps/org/{NAME}/{ID}/reviews?add-review=true»{% endif %}</div>
+                </div>
+            </div>
+            <!-- 2Гис -->
+            <div class="bp5-form-group {% if form.feedback_link_gis.errors %}bp5-intent-danger{% endif %}">
+                <label class="bp5-label" for="id_feedback_link_gis">
+                    <div class="bp5-entity-title">
+                        <img height=16 src="{% static 'dashboard/images/services/gis.png' %}" width=16>
+                        2Гис
+                    </div>
+                </label>
+                <div class="bp5-form-content">
+                    <div class="bp5-input-group {% if form.feedback_link_gis.errors %}bp5-intent-danger{% endif %}">
+                        {{ form.feedback_link_gis }}
+                    </div>
+                    <div class="bp5-form-helper-text">{% if form.feedback_link_gis.errors %}{{ form.feedback_link_gis.errors.as_text }}{% else %}Например «https://2gis.ru/firm/{ID}/tab/reviews/addreview»{% endif %}</div>
+                </div>
+            </div>
+            <!-- Google -->
+            <div class="bp5-form-group {% if form.feedback_link_google.errors %}bp5-intent-danger{% endif %}">
+                <label class="bp5-label" for="id_feedback_link_google">
+                    <div class="bp5-entity-title">
+                        <img height=16 src="{% static 'dashboard/images/services/google.png' %}" width=16>
+                        Google
+                    </div>
+                </label>
+                <div class="bp5-form-content">
+                    <div class="bp5-input-group {% if form.feedback_link_google.errors %}bp5-intent-danger{% endif %}">
+                        {{ form.feedback_link_google }}
+                    </div>
+                    <div class="bp5-form-helper-text">{% if form.feedback_link_google.errors %}{{ form.feedback_link_google.errors.as_text }}{% else %}Например «https://search.google.com/local/writereview?placeid={ID}»{% endif %}</div>
+                </div>
+            </div>
+            <h6 class="bp5-heading">Классифаеры</h6>
+            <div class="row">
+                <div class="xs-6">
+                    <div class="bp5-form-group {% if form.feedback_link_avito.errors %}bp5-intent-danger{% endif %}">
+                        <label class="bp5-label" for="id_feedback_link_avito">
+                            <div class="bp5-entity-title">
+                                <img height=16 src="{% static 'dashboard/images/services/avito.png' %}" width=16>
+                                Авито
+                            </div>
+                        </label>
+                        <div class="bp5-form-content">
+                            <div class="bp5-input-group {% if form.feedback_link_avito.errors %}bp5-intent-danger{% endif %}">
+                                {{ form.feedback_link_avito }}
+                            </div>
+                            {% if form.feedback_link_avito.errors %}
+                            <div class="bp5-form-helper-text">{{ form.feedback_link_avito.errors.as_text }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="xs-6">
+                    <div class="bp5-form-group {% if form.feedback_link_zoon.errors %}bp5-intent-danger{% endif %}">
+                        <label class="bp5-label" for="id_feedback_link_zoon">
+                            <div class="bp5-entity-title">
+                                <img height=16 src="{% static 'dashboard/images/services/zoon.png' %}" width=16>
+                                Zoon
+                            </div>
+                        </label>
+                        <div class="bp5-form-content">
+                            <div class="bp5-input-group {% if form.feedback_link_zoon.errors %}bp5-intent-danger{% endif %}">
+                                {{ form.feedback_link_zoon }}
+                            </div>
+                            {% if form.feedback_link_zoon.errors %}
+                            <div class="bp5-form-helper-text">{{ form.feedback_link_zoon.errors.as_text }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="xs-6">
+                    <div class="bp5-form-group {% if form.feedback_link_flamp.errors %}bp5-intent-danger{% endif %}">
+                        <label class="bp5-label" for="id_feedback_link_flamp">
+                            <div class="bp5-entity-title">
+                                <img height=16 src="{% static 'dashboard/images/services/flamp.png' %}" width=16>
+                                Flamp
+                            </div>
+                        </label>
+                        <div class="bp5-form-content">
+                            <div class="bp5-input-group {% if form.feedback_link_flamp.errors %}bp5-intent-danger{% endif %}">
+                                {{ form.feedback_link_flamp }}
+                            </div>
+                            {% if form.feedback_link_flamp.errors %}
+                            <div class="bp5-form-helper-text">{{ form.feedback_link_flamp.errors.as_text }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="xs-6">
+                    <div class="bp5-form-group {% if form.feedback_link_yell.errors %}bp5-intent-danger{% endif %}">
+                        <label class="bp5-label" for="id_feedback_link_yell">
+                            <div class="bp5-entity-title">
+                                <img height=16 src="{% static 'dashboard/images/services/yell.png' %}" width=16>
+                                Yell
+                            </div>
+                        </label>
+                        <div class="bp5-form-content">
+                            <div class="bp5-input-group {% if form.feedback_link_yell.errors %}bp5-intent-danger{% endif %}">
+                                {{ form.feedback_link_yell }}
+                            </div>
+                            {% if form.feedback_link_yell.errors %}
+                            <div class="bp5-form-helper-text">{{ form.feedback_link_yell.errors.as_text }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="xs-6">
+                    <div class="bp5-form-group {% if form.feedback_link_prodoctorov.errors %}bp5-intent-danger{% endif %}">
+                        <label class="bp5-label" for="id_feedback_link_prodoctorov">
+                            <div class="bp5-entity-title">
+                                <img height=16 src="{% static 'dashboard/images/services/prodoctorov.png' %}" width=16>
+                                Продокторов
+                            </div>
+                        </label>
+                        <div class="bp5-form-content">
+                            <div class="bp5-input-group {% if form.feedback_link_prodoctorov.errors %}bp5-intent-danger{% endif %}">
+                                {{ form.feedback_link_prodoctorov }}
+                            </div>
+                            {% if form.feedback_link_prodoctorov.errors %}
+                            <div class="bp5-form-helper-text">{{ form.feedback_link_prodoctorov.errors.as_text }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="xs-6">
+                    <div class="bp5-form-group {% if form.feedback_link_yandex_services.errors %}bp5-intent-danger{% endif %}">
+                        <label class="bp5-label" for="id_feedback_link_yandex_services">
+                            <div class="bp5-entity-title">
+                                <img height=16 src="{% static 'dashboard/images/services/yandex_services.png' %}" width=16>
+                                Яндекс Услуги
+                            </div>
+                        </label>
+                        <div class="bp5-form-content">
+                            <div class="bp5-input-group {% if form.feedback_link_yandex_services.errors %}bp5-intent-danger{% endif %}">
+                                {{ form.feedback_link_yandex_services }}
+                            </div>
+                            {% if form.feedback_link_yandex_services.errors %}
+                            <div class="bp5-form-helper-text">{{ form.feedback_link_yandex_services.errors.as_text }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h6 class="bp5-heading">Отзовики</h6>
+            <div class="row">
+                <div class="xs-6">
+                    <div class="bp5-form-group {% if form.feedback_link_otzovik.errors %}bp5-intent-danger{% endif %}">
+                        <label class="bp5-label" for="id_feedback_link_otzovik">
+                            <div class="bp5-entity-title">
+                                <img height=16 src="{% static 'dashboard/images/services/otzovik.png' %}" width=16>
+                                Отзовик
+                            </div>
+                        </label>
+                        <div class="bp5-form-content">
+                            <div class="bp5-input-group {% if form.feedback_link_otzovik.errors %}bp5-intent-danger{% endif %}">
+                                {{ form.feedback_link_otzovik }}
+                            </div>
+                            {% if form.feedback_link_otzovik.errors %}
+                            <div class="bp5-form-helper-text">{{ form.feedback_link_otzovik.errors.as_text }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="xs-6">
+                    <div class="bp5-form-group {% if form.feedback_link_irecommend.errors %}bp5-intent-danger{% endif %}">
+                        <label class="bp5-label" for="id_feedback_link_irecommend">
+                            <div class="bp5-entity-title">
+                                <img height=16 src="{% static 'dashboard/images/services/irecommend.png' %}" width=16>
+                                Irecommend
+                            </div>
+                        </label>
+                        <div class="bp5-form-content">
+                            <div class="bp5-input-group {% if form.feedback_link_irecommend.errors %}bp5-intent-danger{% endif %}">
+                                {{ form.feedback_link_irecommend }}
+                            </div>
+                            {% if form.feedback_link_irecommend.errors %}
+                            <div class="bp5-form-helper-text">{{ form.feedback_link_irecommend.errors.as_text }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="xs-6">
+                    <div class="bp5-form-group {% if form.feedback_link_tripadvisor.errors %}bp5-intent-danger{% endif %}">
+                        <label class="bp5-label" for="id_feedback_link_tripadvisor">
+                            <div class="bp5-entity-title">
+                                <img height=16 src="{% static 'dashboard/images/services/tripadvisor.png' %}" width=16>
+                                Tripadvisor
+                            </div>
+                        </label>
+                        <div class="bp5-form-content">
+                            <div class="bp5-input-group {% if form.feedback_link_tripadvisor.errors %}bp5-intent-danger{% endif %}">
+                                {{ form.feedback_link_tripadvisor }}
+                            </div>
+                            {% if form.feedback_link_tripadvisor.errors %}
+                            <div class="bp5-form-helper-text">{{ form.feedback_link_tripadvisor.errors.as_text }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bp5-form-group">
+                <div class="bp5-form-content">
+                    <button class="bp5-button bp5-large" type="submit">Сохранить</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="xs-3">
+        {% include "dashboard/_feedback_preview.html" %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% load static %}
+{% if widget.wrap_label %}
+<label class="bp5-control bp5-switch"{% if widget.attrs.id %} for="{{ widget.attrs.id }}"{% endif %}>
+{% endif %}
+    {% include "django/forms/widgets/input.html" %}
+    <span class="bp5-control-indicator"></span> {% if widget.wrap_label %}<img height=10 src="{% static 'dashboard/images/stars/'|add:widget.label|add:'.svg' %}" width=70>{% endif %}
+{% if widget.wrap_label %}
+</label>
+{% endif %}

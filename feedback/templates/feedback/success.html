@@ -1,15 +1,12 @@
-{% extends 'feedback/base.html' %}
+{% extends "feedback/base.html" %}
 {% load static %}
-
 {% block content %}
-<div class="bp5-padded bp5-section-card">
-    <div class="pio-container">
-        <div class="bp5-callout bp5-intent-success">
-            <h5 class="bp5-heading">
-                Ваша претензия отправлена
-            </h5>
-            С вами свяжется администратор
-        </div>
+{% include "feedback/_company_heading.html" %}
+{% include "feedback/_company_contact.html" %}
+<h5 class="bp5-heading">Ваше сообщение отправлено</h5>
+<div class="bp5-form-group">
+    <div class="bp5-form-content">
+        <p class="bp5-running-text">Спасибо за обращение, в близжайшее время с вами свяжется наш администратор по указанному вам телефону.</p>
     </div>
 </div>
 {% endblock %}

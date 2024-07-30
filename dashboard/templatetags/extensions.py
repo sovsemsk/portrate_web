@@ -2,15 +2,6 @@ from django import template
 
 register = template.Library() 
 
-@register.filter
-def sum(a,b):
-    """
-    Суммирует 2 числа
-
-    {{someval|sum:someval}}
-    """
-    return a + b
-
 
 @register.filter(is_safe=False)
 def rupluralize(value, forms):

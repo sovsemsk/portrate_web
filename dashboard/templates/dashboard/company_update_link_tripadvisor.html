@@ -1,0 +1,36 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+{% block navbar %}
+{% include "dashboard/_company_navbar.html" %}
+{% endblock %}
+{% block content %}
+<h2 class="bp5-heading">Ссылка на филиал</h2>
+<div class="row">
+    <div class="xs-9">
+        <form method="post" novalidate>
+            {% csrf_token %}
+            <div class="bp5-form-group {% if form.parser_link_tripadvisor.errors %}bp5-intent-danger{% endif %}">
+                <label class="bp5-label" for="id_parser_link_tripadvisor">
+                    <div class="bp5-entity-title">
+                        <img height=16 src="{% static 'dashboard/images/services/tripadvisor.png' %}" width=16>
+                        Tripadvisor
+                    </div>
+                </label>
+                <div class="bp5-form-content">
+                    <div class="bp5-input-group {% if form.parser_link_tripadvisor.errors %}bp5-intent-danger{% endif %}">
+                        {{ form.parser_link_tripadvisor }}
+                    </div>
+                    {% if form.parser_link_tripadvisor.errors %}
+                    <div class="bp5-form-helper-text">{{ form.parser_link_tripadvisor.errors.as_text }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="bp5-form-group">
+                <div class="bp5-form-content">
+                    <button class="bp5-button bp5-large" type="submit">Сохранить</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

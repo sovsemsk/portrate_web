@@ -1,189 +1,70 @@
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
+from functools import reduce
 from urllib.parse import unquote
 
 from celery import chain
-from chartjs.views.lines import BaseLineChartView
-from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth import logout as auth_logout, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import PasswordChangeView, LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
-from django.forms import model_to_dict
+from django.db.models import Count, Q, F
+from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from django.utils.decorators import method_decorator
+from django.views import View
 from django.views.decorators.http import require_http_methods
-from django.views.generic import CreateView, DetailView, ListView, UpdateView
+from django.views.generic import CreateView, DetailView, FormView, ListView, UpdateView
 from django_filters.views import FilterView
 
-from resources.models import Company, Message, Review, RatingStamp
-from resources.tasks import update_yandex_task, update_gis_task, update_google_task, update_counters_task
-from services.search import SearchYandex, SearchGis, SearchGoogle
-from .filters import MessageFilter, ReviewFilter, RatingStampFilter
+from resources.models import Company, Message, Review, Service
+from resources.tasks import parse_yandex_task, parse_gis_task, parse_google_task
+from services.search import SearchGis, SearchGoogle, SearchYandex
+from .filters import MessageFilter, ReviewFilter
 from .forms import (
-    CompanyMasterSearchForm,
-    CompanyForm,
-    CompanyContactForm,
-    CompanyDataForm,
-    CompanyLinkForm,
-    CompanyMembershipFormSet,
-    CompanyParserForm,
     DashboardAuthenticationForm,
+    DashboardCompanyChangeYandexForm,
+    DashboardCompanyChangeGisForm,
+    DashboardCompanyChangeGoogleForm,
+    DashboardCompanyChangeAvitoForm,
+    DashboardCompanyChangeZoonForm,
+    DashboardCompanyChangeFlampForm,
+    DashboardCompanyChangeYellForm,
+    DashboardCompanyChangeProdoctorovForm,
+    DashboardCompanyChangeYandexServicesForm,
+    DashboardCompanyChangeOtzovikForm,
+    DashboardCompanyChangeIrecommendForm,
+    DashboardCompanyChangeTripadvisorForm,
+    DashboardCompanyChangeDataForm,
+    DashboardCompanyChangeContactForm,
+    DashboardCompanyChangeServiceForm,
+    DashboardCompanyChangeVisibleForm,
+    DashboardCompanyCreationDataForm,
+    DashboardMembershipChangeFormSet,
+    DashboardPasswordChangeForm,
+    DashboardProfileChangeForm,
+    DashboardReviewChangeForm,
+    DashboardSearchForm,
     DashboardUserChangeForm,
-    DashboardSetPasswordForm,
     DashboardUserCreationForm,
-    ProfileForm,
-    ReviewForm,
 )
 
 
-@login_required
-@require_http_methods(["GET", "POST"])
-def company_master_yandex(request):
-    card_list = []
+class NoCompanyError(Exception):
+    def __init__(self, *args):
+        ...
 
-    if request.method == "POST":
-        form = CompanyMasterSearchForm(request.POST)
-
-        if form.is_valid():
-            card_list = SearchYandex.search(form.cleaned_data.get("query"))
-    else:
-        form = CompanyMasterSearchForm()
-
-    return render(request, "dashboard/company_master_yandex.html", {
-        "nav": "company",
-        "form": form,
-        "card_list": card_list
-    })
+    def __str__(self):
+        return "NoCompanyError"
 
 
-@login_required
-@require_http_methods(["GET", "POST"])
-def company_master_gis(request):
-    card_list = []
+class OneCompanyError(Exception):
+    def __init__(self, *args):
+        ...
 
-    if request.method == "POST":
-        form = CompanyMasterSearchForm(request.POST)
-
-        if form.is_valid():
-            card_list = SearchGis.search(form.cleaned_data.get("query"))
-    else:
-        form = CompanyMasterSearchForm()
-
-    return render(request, "dashboard/company_master_gis.html", {
-        "nav": "company",
-        "form": form,
-        "card_list": card_list
-    })
-
-
-@login_required
-@require_http_methods(["GET", "POST"])
-def company_master_google(request):
-    card_list = []
-
-    if request.method == "POST":
-        form = CompanyMasterSearchForm(request.POST)
-
-        if form.is_valid():
-            card_list = SearchGoogle.search(form.cleaned_data.get("query"))
-    else:
-        form = CompanyMasterSearchForm()
-
-    return render(request, "dashboard/company_master_google.html", {
-        "nav": "company",
-        "form": form,
-        "card_list": card_list
-    })
-
-
-@login_required
-@require_http_methods(["GET", "POST"])
-def company_master_data(request):
-    address_yandex = request.COOKIES.get("address_yandex", "")
-    name_yandex = request.COOKIES.get("name_yandex", "")
-    phone_yandex = request.COOKIES.get("phone_yandex", "")
-    id_yandex = request.COOKIES.get("id_yandex", None)
-    id_gis = request.COOKIES.get("id_gis", None)
-    id_google = request.COOKIES.get("id_google", None)
-
-    if request.method == "POST":
-        form = CompanyForm(request.POST)
-
-        if form.is_valid():
-            parsers_runs = False
-            parsers_chain = []
-
-            # Заполнение полей для паресра и запроса отзывов
-            if id_yandex:
-                form.instance.parser_link_yandex = unquote(f"https://yandex.ru/maps/org/{name_yandex}/{id_yandex}/reviews")
-                form.instance.form_link_yandex = unquote(f"https://yandex.ru/maps/org/{name_yandex}/{id_yandex}/reviews?add-review=true")
-                form.instance.is_parse_yandex = True
-
-            if id_gis:
-                form.instance.parser_link_gis = unquote(f"https://2gis.ru/orenburg/firm/{id_gis}/tab/reviews")
-                form.instance.form_link_gis = unquote(f"https://2gis.ru/orenburg/firm/{id_gis}/tab/reviews/addreview")
-                form.instance.is_parse_gis = True
-
-            if id_google:
-                form.instance.parser_link_google = unquote(f"https://www.google.com/maps/search/?api=1&query=~&query_place_id={id_google}")
-                form.instance.form_link_google = unquote(f"https://search.google.com/local/writereview?placeid={id_google}")
-                form.instance.is_parse_google = True
-
-            form.save()
-            form.instance.users.add(request.user)
-
-            # Первый запуск парсеров
-            if form.instance.parser_link_yandex:
-                parsers_runs = True
-                parsers_chain.append(update_yandex_task.s(company_id=form.instance.id))
-
-            if form.instance.is_parse_gis:
-                parsers_runs = True
-                parsers_chain.append(update_gis_task.s(company_id=form.instance.id))
-
-            if form.instance.is_parse_google:
-                parsers_runs = True
-                parsers_chain.append(update_google_task.s(company_id=form.instance.id))
-
-            if parsers_runs:
-                parsers_chain.append(update_counters_task.s(company_id=form.instance.id))
-                chain(parsers_chain).apply_async()
-
-            # Сообщение и редирект
-            messages.success(request, "Компания успешно создана")
-            return redirect(reverse("company_detail", kwargs={"pk": form.instance.id}))
-
-    else:
-        form = CompanyForm(initial={
-            "name": unquote(name_yandex),
-            "address": unquote(address_yandex),
-            "phone": unquote(phone_yandex)
-        })
-
-    return render(request, "dashboard/company_master_data.html", {
-        "nav": "company",
-        "form": form
-    })
-
-
-class CompanyListView(LoginRequiredMixin, ListView):
-    context_object_name = "company_list"
-    model = Company
-    paginate_by = 30
-    template_name = "dashboard/company_list.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["host"] = settings.HOST
-        context["nav"] = "company"
-        return context
-
-    def get_queryset(self, **kwargs):
-        queryset = super().get_queryset(**kwargs)
-        return queryset.filter(users__in=[self.request.user]).order_by("name")
+    def __str__(self):
+        return "OneCompanyError"
 
 
 class CompanyDetailView(LoginRequiredMixin, DetailView):
@@ -191,132 +72,610 @@ class CompanyDetailView(LoginRequiredMixin, DetailView):
     model = Company
     template_name = "dashboard/company_detail.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        company = model_to_dict(self.object)
-        range_map = {"week": "_week_", "month": "_month_", "quarter": "_quarter_", "year": "_year_", "total": "_"}
-        range_param = self.request.GET.get("range", "week")
+    def get_context_data(self, ** kwargs):
+        context = super().get_context_data(** kwargs)
+        days_ago_param = self.request.GET.get("days_ago", "total")
+        days_ago_filter = {}
 
-        context["host"] = settings.HOST
-        context["nav"] = "company"
-        context["tab_nav"] = "detail"
+        if days_ago_param != "total":
+            days_ago_filter["created_at__lte"] = datetime.today()
+            days_ago_filter["created_at__gte"] = datetime.today() - timedelta(days=int(days_ago_param))
 
-        if range_param in range_map:
-            context["reviews_yandex_positive_count"] = company[f"reviews_yandex_positive{range_map[range_param]}count"]
-            context["reviews_yandex_negative_count"] = company[f"reviews_yandex_negative{range_map[range_param]}count"]
-            context["reviews_yandex_total_count"] = company[f"reviews_yandex_total{range_map[range_param]}count"]
-            context["reviews_gis_positive_count"] = company[f"reviews_gis_positive{range_map[range_param]}count"]
-            context["reviews_gis_negative_count"] = company[f"reviews_gis_negative{range_map[range_param]}count"]
-            context["reviews_gis_total_count"] = company[f"reviews_gis_total{range_map[range_param]}count"]
-            context["reviews_google_positive_count"] = company[f"reviews_google_positive{range_map[range_param]}count"]
-            context["reviews_google_negative_count"] = company[f"reviews_google_negative{range_map[range_param]}count"]
-            context["reviews_google_total_count"] = company[f"reviews_google_total{range_map[range_param]}count"]
+        visit_stamp_count = self.object.visitstamp_set.filter(
+            **days_ago_filter
+        ).values(
+            "utm_source"
+        ).annotate(
+            count=Count("utm_source")
+        ).order_by(
+            "utm_source"
+        )
 
+        click_stamp_count = self.object.clickstamp_set.filter(
+            **days_ago_filter
+        ).values(
+            "service"
+        ).annotate(
+            utm_source=F("visit_stamp__utm_source")
+        ).annotate(
+            count=Count("service")
+        ).order_by(
+            "utm_source",
+            "service"
+        )
+
+        context["visit_stamp_list"] = list(
+            map(
+                lambda visit_stamp: {
+                    "visit_stamp_label": visit_stamp["utm_source"],
+                    "visit_stamp_count": visit_stamp["count"],
+                    "click_stamp_count": reduce(
+                        lambda a, b: {"count": a["count"] + b["count"]},
+                        list(
+                            filter(
+                                lambda click_stamp: click_stamp["utm_source"] == visit_stamp["utm_source"],
+                                click_stamp_count
+                            )
+                        ) or [{"count": 0}]
+                    )["count"],
+                    "click_stamp_list": list(
+                        map(
+                            lambda click_stamp: {
+                                "click_stamp_label": Service[click_stamp["service"]].label,
+                                "click_stamp_value": click_stamp["service"],
+                                "click_stamp_count": click_stamp["count"]
+                            },
+                            list(
+                                filter(
+                                    lambda click_stamp: click_stamp["utm_source"] == visit_stamp["utm_source"],
+                                    click_stamp_count
+                                )
+                            )
+                        )
+                    )
+                },
+                visit_stamp_count
+            )
+        )
+
+        context["visit_stamp_list"].append({
+            "visit_stamp_count_total": reduce(
+                lambda a, b: {
+                    "count": a["count"] + b["count"]
+                },
+                visit_stamp_count or [{"count": 0}])["count"],
+            "click_stamp_count_total": reduce(
+                lambda a, b: {
+                    "count": a["count"] + b["count"]
+                },
+                click_stamp_count or [{"count": 0}])["count"]
+        })
+
+        context["days_ago_param"] = days_ago_param
+        context["nav"] = "statistic"
         return context
 
-    def get_queryset(self, **kwargs):
-        queryset = super().get_queryset(**kwargs)
-        return queryset.filter(users__in=[self.request.user])
+    def get_queryset(self):
+        days_ago_param = self.request.GET.get("days_ago", "total")
+        days_ago_filter = {}
+
+        if days_ago_param != "total":
+            days_ago_filter["review__created_at__lte"] = datetime.today()
+            days_ago_filter["review__created_at__gte"] = datetime.today() - timedelta(days=int(days_ago_param))
+
+        return super().get_queryset().filter(
+            users__in=[self.request.user]
+        ).annotate(
+            reviews_count_positive_yandex=Count(
+                "review", filter=Q(review__service=Service.YANDEX, review__stars__gt=3, **days_ago_filter)
+            )
+        ).annotate(
+            reviews_count_negative_yandex=Count(
+                "review", filter=Q(review__service=Service.YANDEX, review__stars__lte=3, **days_ago_filter)
+            )
+        ).annotate(
+            reviews_count_total_yandex=Count(
+                "review", filter=Q(review__service=Service.YANDEX, **days_ago_filter)
+            )
+        ).annotate(
+            reviews_count_positive_gis=Count(
+                "review", filter=Q(review__service=Service.GIS, review__stars__gt=3, **days_ago_filter)
+            )
+        ).annotate(
+            reviews_count_negative_gis=Count(
+                "review", filter=Q(review__service=Service.GIS, review__stars__lte=3, **days_ago_filter)
+            )
+        ).annotate(
+            reviews_count_total_gis=Count(
+                "review", filter=Q(review__service=Service.GIS, **days_ago_filter)
+            )
+        ).annotate(
+            reviews_count_positive_google=Count(
+                "review", filter=Q(review__service=Service.GOOGLE, review__stars__gt=3, **days_ago_filter)
+            )
+        ).annotate(
+            reviews_count_negative_google=Count(
+                "review", filter=Q(review__service=Service.GOOGLE, review__stars__lte=3, **days_ago_filter)
+            )
+        ).annotate(
+            reviews_count_total_google=Count(
+                "review", filter=Q(review__service=Service.GOOGLE, **days_ago_filter)
+            )
+        ).annotate(
+            reviews_count_positive_avito=Count(
+                "review", filter=Q(review__service=Service.AVITO, review__stars__gt=3, **days_ago_filter)
+            )
+        ).annotate(
+            reviews_count_negative_avito=Count(
+                "review", filter=Q(review__service=Service.AVITO, review__stars__lte=3, **days_ago_filter)
+            )
+        ).annotate(
+            reviews_count_total_avito=Count(
+                "review", filter=Q(review__service=Service.AVITO, **days_ago_filter)
+            )
+        ).annotate(
+            reviews_count_positive_zoon=Count(
+                "review", filter=Q(review__service=Service.ZOON, review__stars__gt=3, **days_ago_filter)
+            )
+        ).annotate(
+            reviews_count_negative_zoon=Count(
+                "review", filter=Q(review__service=Service.ZOON, review__stars__lte=3, **days_ago_filter)
+            )
+        ).annotate(
+            reviews_count_total_zoon=Count(
+                "review", filter=Q(review__service=Service.ZOON, **days_ago_filter)
+            )
+        ).annotate(
+            reviews_count_positive_flamp=Count(
+                "review", filter=Q(review__service=Service.FLAMP, review__stars__gt=3, **days_ago_filter)
+            )
+        ).annotate(
+            reviews_count_negative_flamp=Count(
+                "review", filter=Q(review__service=Service.FLAMP, review__stars__lte=3, **days_ago_filter)
+            )
+        ).annotate(
+            reviews_count_total_flamp=Count(
+                "review", filter=Q(review__service=Service.FLAMP, **days_ago_filter)
+            )
+        ).annotate(
+            reviews_count_positive_yell=Count(
+                "review", filter=Q(review__service=Service.YELL, review__stars__gt=3, **days_ago_filter)
+            )
+        ).annotate(
+            reviews_count_negative_yell=Count(
+                "review", filter=Q(review__service=Service.YELL, review__stars__lte=3, **days_ago_filter)
+            )
+        ).annotate(
+            reviews_count_total_yell=Count(
+                "review", filter=Q(review__service=Service.YELL, **days_ago_filter)
+            )
+        ).annotate(
+            reviews_count_positive_prodoctorov=Count(
+                "review", filter=Q(review__service=Service.PRODOCTOROV, review__stars__gt=3, **days_ago_filter)
+            )
+        ).annotate(
+            reviews_count_negative_prodoctorov=Count(
+                "review", filter=Q(review__service=Service.PRODOCTOROV, review__stars__lte=3, **days_ago_filter)
+            )
+        ).annotate(
+            reviews_count_total_prodoctorov=Count(
+                "review", filter=Q(review__service=Service.PRODOCTOROV, **days_ago_filter)
+            )
+        ).annotate(
+            reviews_count_positive_yandex_services=Count(
+                "review", filter=Q(review__service=Service.YANDEX_SERVICES, review__stars__gt=3, **days_ago_filter)
+            )
+        ).annotate(
+            reviews_count_negative_yandex_services=Count(
+                "review", filter=Q(review__service=Service.YANDEX_SERVICES, review__stars__lte=3, **days_ago_filter)
+            )
+        ).annotate(
+            reviews_count_total_yandex_services=Count(
+                "review", filter=Q(review__service=Service.YANDEX_SERVICES, **days_ago_filter)
+            )
+        ).annotate(
+            reviews_count_positive_otzovik=Count(
+                "review", filter=Q(review__service=Service.OTZOVIK, review__stars__gt=3, **days_ago_filter)
+            )
+        ).annotate(
+            reviews_count_negative_otzovik=Count(
+                "review", filter=Q(review__service=Service.OTZOVIK, review__stars__lte=3, **days_ago_filter)
+            )
+        ).annotate(
+            reviews_count_total_otzovik=Count(
+                "review", filter=Q(review__service=Service.OTZOVIK, **days_ago_filter)
+            )
+        ).annotate(
+            reviews_count_positive_irecommend=Count(
+                "review", filter=Q(review__service=Service.IRECOMMEND, review__stars__gt=3, **days_ago_filter)
+            )
+        ).annotate(
+            reviews_count_negative_irecommend=Count(
+                "review", filter=Q(review__service=Service.IRECOMMEND, review__stars__lte=3, **days_ago_filter)
+            )
+        ).annotate(
+            reviews_count_total_irecommend=Count(
+                "review", filter=Q(review__service=Service.IRECOMMEND, **days_ago_filter)
+            )
+        ).annotate(
+            reviews_count_positive_tripadvisor=Count(
+                "review", filter=Q(review__service=Service.TRIPADVISOR, review__stars__gt=3, **days_ago_filter)
+            )
+        ).annotate(
+            reviews_count_negative_tripadvisor=Count(
+                "review", filter=Q(review__service=Service.TRIPADVISOR, review__stars__lte=3, **days_ago_filter)
+            )
+        ).annotate(
+            reviews_count_total_tripadvisor=Count(
+                "review", filter=Q(review__service=Service.TRIPADVISOR, **days_ago_filter)
+            )
+        ).annotate(
+            reviews_count_positive=Count(
+                "review", filter=Q(review__stars__gt=3, **days_ago_filter)
+            )
+        ).annotate(
+            reviews_count_negative=Count(
+                "review", filter=Q(review__stars__lte=3, **days_ago_filter)
+            )
+        ).annotate(
+            reviews_count_total=Count(
+                "review", filter=Q(**days_ago_filter)
+            )
+        )
 
 
-class CompanyParserUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
-    context_object_name = "company"
-    form_class = CompanyParserForm
+class CompanyListView(LoginRequiredMixin, ListView):
+    allow_empty = False
+    context_object_name = "company_list"
     model = Company
-    template_name = "dashboard/company_parser_update.html"
-    success_message = "Настройки компании успешно сохранены"
+    paginate_by = 30
+    template_name = "dashboard/company_list.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["host"] = settings.HOST
-        context["menu_nav"] = "parser"
-        context["nav"] = "company"
-        context["tab_nav"] = "update"
+    def dispatch(self, *args, **kwargs):
+        try:
+            return super().dispatch(*args, **kwargs)
+        except Http404:
+            return redirect("master_search_yandex")
+
+    def get_ordering(self):
+        return "name"
+
+    def get_queryset(self):
+        return super().get_queryset().filter(
+            users__in=[self.request.user]
+        ).annotate(
+            reviews_count_total_yandex=Count("review", filter=Q(review__service=Service.YANDEX))
+        ).annotate(
+            reviews_count_total_gis=Count("review", filter=Q(review__service=Service.GIS))
+        ).annotate(
+            reviews_count_total_google=Count("review", filter=Q(review__service=Service.GOOGLE))
+        )
+
+
+class CompanyUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    context_object_name = "company"
+    model = Company
+    success_message = "Филиал успешно обновлен"
+
+    def get_context_data(self, ** kwargs):
+        context = super().get_context_data(** kwargs)
+
+        if self.object.is_parser_link_yandex_disabled and self.form_class == DashboardCompanyChangeYandexForm:
+            messages.error(self.request, "Ссылка на филиал в Яндекс сегодня уже обновлялась")
+
+        if self.object.is_parser_link_gis_disabled and self.form_class == DashboardCompanyChangeGisForm:
+            messages.error(self.request, "Ссылка на филиал в 2Гис сегодня уже обновлялась")
+
+        if self.object.is_parser_link_google_disabled and self.form_class == DashboardCompanyChangeGoogleForm:
+            messages.error(self.request, "Ссылка на филиал в Google сегодня уже обновлялась")
+
+        if self.object.is_parser_link_avito_disabled and self.form_class == DashboardCompanyChangeAvitoForm:
+            messages.error(self.request, "Ссылка на филиал в Авито сегодня уже обновлялась")
+
+        if self.object.is_parser_link_zoon_disabled and self.form_class == DashboardCompanyChangeZoonForm:
+            messages.error(self.request, "Ссылка на филиал в Zoon сегодня уже обновлялась")
+
+        if self.object.is_parser_link_flamp_disabled and self.form_class == DashboardCompanyChangeFlampForm:
+            messages.error(self.request, "Ссылка на филиал в Flamp сегодня уже обновлялась")
+
+        if self.object.is_parser_link_yell_disabled and self.form_class == DashboardCompanyChangeYellForm:
+            messages.error(self.request, "Ссылка на филиал в Yell сегодня уже обновлялась")
+
+        if self.object.is_parser_link_prodoctorov_disabled and self.form_class == DashboardCompanyChangeProdoctorovForm:
+            messages.error(self.request, "Ссылка на филиал в Продокторов сегодня уже обновлялась")
+
+        if self.object.is_parser_link_yandex_services_disabled and self.form_class == DashboardCompanyChangeYandexServicesForm:
+            messages.error(self.request, "Ссылка на филиал в Яндекс Услуги сегодня уже обновлялась")
+
+        if self.object.is_parser_link_otzovik_disabled and self.form_class == DashboardCompanyChangeOtzovikForm:
+            messages.error(self.request, "Ссылка на филиал в Otzovik сегодня уже обновлялась")
+
+        if self.object.is_parser_link_irecommend_disabled and self.form_class == DashboardCompanyChangeIrecommendForm:
+            messages.error(self.request, "Ссылка на филиал в Irecommend сегодня уже обновлялась")
+
+        if self.object.is_parser_link_tripadvisor_disabled and self.form_class == DashboardCompanyChangeTripadvisorForm:
+            messages.error(self.request, "Ссылка на филиал в Tripadvisor сегодня уже обновлялась")
+
+        context["nav"] = "statistic"
         return context
 
-    def get_queryset(self, **kwargs):
-        queryset = super().get_queryset(**kwargs)
-        return queryset.filter(users__in=[self.request.user])
+    def get_queryset(self):
+        return super().get_queryset().filter(users__in=[self.request.user])
 
     def get_success_url(self):
-        return reverse("company_parser_update", kwargs={"pk": self.kwargs["pk"]})
+        return reverse("company_detail", kwargs={"pk": self.kwargs["pk"]})
 
 
-class CompanyDataUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class CompanyUpdateLinkYandexView(CompanyUpdateView):
+    form_class = DashboardCompanyChangeYandexForm
+    template_name = "dashboard/company_update_link_yandex.html"
+
+
+class CompanyUpdateLinkGisView(CompanyUpdateView):
+    form_class = DashboardCompanyChangeGisForm
+    template_name = "dashboard/company_update_link_gis.html"
+
+
+class CompanyUpdateLinkGoogleView(CompanyUpdateView):
+    form_class = DashboardCompanyChangeGoogleForm
+    template_name = "dashboard/company_update_link_google.html"
+
+
+class CompanyUpdateLinkAvitoView(CompanyUpdateView):
+    form_class = DashboardCompanyChangeAvitoForm
+    template_name = "dashboard/company_update_link_avito.html"
+
+
+class CompanyUpdateLinkZoonView(CompanyUpdateView):
+    form_class = DashboardCompanyChangeZoonForm
+    template_name = "dashboard/company_update_link_zoon.html"
+
+
+class CompanyUpdateLinkFlampView(CompanyUpdateView):
+    form_class = DashboardCompanyChangeFlampForm
+    template_name = "dashboard/company_update_link_flamp.html"
+
+
+class CompanyUpdateLinkYellView(CompanyUpdateView):
+    form_class = DashboardCompanyChangeYellForm
+    template_name = "dashboard/company_update_link_yell.html"
+
+
+class CompanyUpdateLinkProdoctorovView(CompanyUpdateView):
+    form_class = DashboardCompanyChangeProdoctorovForm
+    template_name = "dashboard/company_update_link_prodoctorov.html"
+
+
+class CompanyUpdateLinkYandexServicesView(CompanyUpdateView):
+    form_class = DashboardCompanyChangeYandexServicesForm
+    template_name = "dashboard/company_update_link_yandex_services.html"
+
+
+class CompanyUpdateLinkOtzovikView(CompanyUpdateView):
+    form_class = DashboardCompanyChangeOtzovikForm
+    template_name = "dashboard/company_update_link_otzovik.html"
+
+
+class CompanyUpdateLinkIrecommendView(CompanyUpdateView):
+    form_class = DashboardCompanyChangeIrecommendForm
+    template_name = "dashboard/company_update_link_irecommend.html"
+
+
+class CompanyUpdateLinkTripadvisorView(CompanyUpdateView):
+    form_class = DashboardCompanyChangeTripadvisorForm
+    template_name = "dashboard/company_update_link_tripadvisor.html"
+
+
+class CompanyUpdateFeedbackDataView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     context_object_name = "company"
-    form_class = CompanyDataForm
+    form_class = DashboardCompanyChangeDataForm
     model = Company
-    template_name = "dashboard/company_data_update.html"
-    success_message = "Настройки компании успешно сохранены"
+    success_message = "Филиал успешно обновлен"
+    template_name = "dashboard/company_update_feedback_data.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["host"] = settings.HOST
-        context["menu_nav"] = "data"
-        context["nav"] = "company"
-        context["tab_nav"] = "update"
+    def get_context_data(self, ** kwargs):
+        context = super().get_context_data(** kwargs)
+        context["nav"] = "feedback"
+        context["sub_nav"] = "main"
         return context
 
-    def get_queryset(self, **kwargs):
-        queryset = super().get_queryset(**kwargs)
-        return queryset.filter(users__in=[self.request.user])
+    def get_queryset(self):
+        return super().get_queryset().filter(users__in=[self.request.user])
 
     def get_success_url(self):
-        return reverse("company_data_update", kwargs={"pk": self.kwargs["pk"]})
+        return reverse("company_update_feedback_data", kwargs={"pk": self.kwargs["pk"]})
 
 
-class CompanyLinkUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class CompanyUpdateFeedbackContactView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     context_object_name = "company"
-    form_class = CompanyLinkForm
+    form_class = DashboardCompanyChangeContactForm
     model = Company
-    template_name = "dashboard/company_link_update.html"
-    success_message = "Настройки компании успешно сохранены"
+    success_message = "Филиал успешно обновлен"
+    template_name = "dashboard/company_update_feedback_contact.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["host"] = settings.HOST
-        context["menu_nav"] = "link"
-        context["nav"] = "company"
-        context["tab_nav"] = "update"
+    def get_context_data(self, ** kwargs):
+        context = super().get_context_data(** kwargs)
+        context["nav"] = "feedback"
+        context["sub_nav"] = "contact"
         return context
 
-    def get_queryset(self, **kwargs):
-        queryset = super().get_queryset(**kwargs)
-        return queryset.filter(users__in=[self.request.user])
+    def get_queryset(self):
+        return super().get_queryset().filter(users__in=[self.request.user])
 
     def get_success_url(self):
-        return reverse("company_link_update", kwargs={"pk": self.kwargs["pk"]})
+        return reverse("company_update_feedback_contact", kwargs={"pk": self.kwargs["pk"]})
 
 
-class CompanyContactUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class CompanyUpdateFeedbackServiceView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     context_object_name = "company"
-    form_class = CompanyContactForm
+    form_class = DashboardCompanyChangeServiceForm
     model = Company
-    template_name = "dashboard/company_contact_update.html"
-    success_message = "Настройки компании успешно сохранены"
+    success_message = "Филиал успешно обновлен"
+    template_name = "dashboard/company_update_feedback_service.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["host"] = settings.HOST
-        context["menu_nav"] = "contact"
-        context["nav"] = "company"
-        context["tab_nav"] = "update"
+    def get_context_data(self, ** kwargs):
+        context = super().get_context_data(** kwargs)
+        context["nav"] = "feedback"
+        context["sub_nav"] = "service"
         return context
 
-    def get_queryset(self, **kwargs):
-        queryset = super().get_queryset(**kwargs)
-        return queryset.filter(users__in=[self.request.user])
+    def get_queryset(self):
+        return super().get_queryset().filter(users__in=[self.request.user])
 
     def get_success_url(self):
-        return reverse("company_contact_update", kwargs={"pk": self.kwargs["pk"]})
+        return reverse("company_update_feedback_service", kwargs={"pk": self.kwargs["pk"]})
 
 
-class CompanyMembershipUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
-    context_object_name = "company"
-    form_class = CompanyMembershipFormSet
+class MasterCompanyCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    form_class = DashboardCompanyCreationDataForm
     model = Company
-    template_name = "dashboard/company_membership_update.html"
-    success_message = "Настройки компании успешно сохранены"
+    template_name = "dashboard/master_company_create.html"
+    success_message = "Филиал успешно добавлен"
+
+    def form_valid(self, form):
+        parsers_chain = []
+
+        if self.request.COOKIES.get("id_yandex", False):
+            form.instance.parser_link_yandex = unquote(f"https://yandex.ru/maps/org/{self.request.COOKIES["name_yandex"]}/{self.request.COOKIES["id_yandex"]}/reviews")
+            form.instance.parser_last_change_at_yandex = datetime.now(timezone.utc)
+            form.instance.feedback_link_yandex = unquote(f"https://yandex.ru/maps/org/{self.request.COOKIES["name_yandex"]}/{self.request.COOKIES["id_yandex"]}/reviews?add-review=true")
+
+        if self.request.COOKIES.get("id_gis", False):
+            form.instance.parser_link_gis = unquote(f"https://2gis.ru/firm/{self.request.COOKIES["id_gis"]}/tab/reviews")
+            form.instance.parser_last_change_at_gis = datetime.now(timezone.utc)
+            form.instance.feedback_link_gis = unquote(f"https://2gis.ru/firm/{self.request.COOKIES["id_gis"]}/tab/reviews/addreview")
+
+        if self.request.COOKIES.get("id_google", False):
+            form.instance.parser_link_google = unquote(f"https://www.google.com/maps/search/?api=1&query=~&query_place_id={self.request.COOKIES["id_google"]}")
+            form.instance.parser_last_change_at_google = datetime.now(timezone.utc)
+            form.instance.feedback_link_google = unquote(f"https://search.google.com/local/writereview?placeid={self.request.COOKIES["id_google"]}")
+
+        form_valid = super().form_valid(form)
+        form.instance.users.add(self.request.user)
+
+        if form.instance.parser_link_yandex:
+            parsers_chain.append(parse_yandex_task.s(company_id=form.instance.id))
+
+        if form.instance.parser_link_gis:
+            parsers_chain.append(parse_gis_task.s(company_id=form.instance.id))
+
+        if form.instance.parser_link_google:
+            parsers_chain.append(parse_google_task.s(company_id=form.instance.id))
+
+        chain(* parsers_chain).apply_async()
+        return form_valid
+
+    def get_context_data(self, ** kwargs):
+        context = super().get_context_data(** kwargs)
+        context["card_list"] = []
+
+        if self.request.COOKIES.get("id_yandex", None):
+            context["card_list"].append({
+                "address": unquote(self.request.COOKIES.get("address_yandex", "")),
+                "phone": unquote(self.request.COOKIES.get("phone_yandex", "")),
+                "name": unquote(self.request.COOKIES.get("name_yandex", "")),
+                "service": Service.YANDEX
+            })
+
+        if self.request.COOKIES.get("id_gis", None):
+            context["card_list"].append({
+                "address": unquote(self.request.COOKIES.get("address_gis", "")),
+                "name": unquote(self.request.COOKIES.get("name_gis", "")),
+                "service": Service.GIS
+            })
+
+        if self.request.COOKIES.get("id_google", None):
+            context["card_list"].append({
+                "address": unquote(self.request.COOKIES.get("address_google", "")),
+                "name": unquote(self.request.COOKIES.get("name_google", "")),
+                "service": Service.GOOGLE
+            })
+
+        context["nav"] = "master"
+        context["sub_nav"] = "data"
+        return context
+
+    def get_success_url(self):
+        return reverse("company_detail", kwargs={"pk": self.object.id})
+
+
+class MasterSearchGisView(LoginRequiredMixin, View):
+    def get(self, request):
+        card_list = []
+
+        if "query" in request.GET:
+            form = DashboardSearchForm(request.GET)
+
+            if form.is_valid():
+                card_list = SearchGis.search(form.cleaned_data.get("query"))
+        else:
+            form = DashboardSearchForm()
+
+        return render(
+            request,
+            "dashboard/master_search_gis.html", {
+                "card_list": card_list,
+                "form": form,
+                "nav": "master",
+                "sub_nav": "gis",
+            }
+        )
+
+
+class MasterSearchGoogleView(LoginRequiredMixin, View):
+    def get(self, request):
+        card_list = []
+
+        if "query" in request.GET:
+            form = DashboardSearchForm(request.GET)
+
+            if form.is_valid():
+                card_list = SearchGoogle.search(form.cleaned_data.get("query"))
+
+        else:
+            form = DashboardSearchForm()
+
+        return render(
+            request,
+            "dashboard/master_search_google.html", {
+                "card_list": card_list,
+                "form": form,
+                "nav": "master",
+                "sub_nav": "google"
+            }
+        )
+
+
+class MasterSearchYandexView(LoginRequiredMixin, View):
+    def get(self, request):
+        card_list = []
+
+        if "query" in request.GET:
+            form = DashboardSearchForm(request.GET)
+
+            if form.is_valid():
+                card_list = SearchYandex.search(form.cleaned_data.get("query"))
+        else:
+            form = DashboardSearchForm()
+
+        return render(
+            request,
+            "dashboard/master_search_yandex.html",
+            {
+                "card_list": card_list,
+                "form": form,
+                "nav": "master",
+                "sub_nav": "yandex"
+            }
+        )
+
+
+class MembershipUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    context_object_name = "company"
+    form_class = DashboardMembershipChangeFormSet
+    model = Company
+    template_name = "dashboard/membership_update.html"
+    success_message = "Настройки успешно обновлены"
 
     def get_form(self, form_class=None):
         form = super().get_form(self.form_class)
@@ -325,123 +684,14 @@ class CompanyMembershipUpdateView(LoginRequiredMixin, SuccessMessageMixin, Updat
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["host"] = settings.HOST
-        context["menu_nav"] = "membership"
-        context["nav"] = "company"
-        context["tab_nav"] = "update"
+        context["nav"] = "notifications"
         return context
 
-    def get_queryset(self, **kwargs):
-        queryset = super().get_queryset(**kwargs)
-        return queryset.filter(users__in=[self.request.user])
+    def get_queryset(self):
+        return super().get_queryset().filter(users__in=[self.request.user])
 
     def get_success_url(self):
-        return reverse("company_membership_update", kwargs={"pk": self.kwargs["pk"]})
-
-
-class CompanyRatingDynamic(LoginRequiredMixin, BaseLineChartView):
-    def __init__(self, **kwargs):
-        super().__init__()
-        self.company = None
-        self.rating_history = None
-
-    def dispatch(self, request, *args, **kwargs):
-        self.company = get_object_or_404(Company, pk=self.kwargs["company_pk"], users__in=[self.request.user])
-        self.rating_history = RatingStampFilter(
-            self.request.GET,
-            queryset=RatingStamp.objects.filter(company=self.company)
-        ).qs
-
-        return super(CompanyRatingDynamic, self).dispatch(request, *args, **kwargs)
-
-    def get_labels(self):
-        range_param = self.request.GET.get("range", "week")
-        format_map = {"week": "%d.%m", "month": "%d.%m", "quarter": "%d.%m", "year": "%m.%y", "total": "%m.%y"}
-        return list(map(lambda x: x.created_at.strftime(format_map[range_param]), self.rating_history)) or [
-            datetime.now().strftime("%d.%m")]
-
-    def get_dataset_options(self, index, color):
-        default_opt = {
-            "backgroundColor": "rgba(255, 95, 0, 0.2)",
-            "borderColor": "rgba(0, 0, 0, 0)",
-            "pointBackgroundColor": "rgba(255, 95, 0, 1)",
-            "pointBorderColor": "rgba(238, 240, 242, 1)",
-            "cubicInterpolationMode": "monotone",
-            "fill": True,
-        }
-        return default_opt
-
-
-class CompanyRatingYandexDynamic(CompanyRatingDynamic):
-    def get_providers(self):
-        return ["Яндекс"]
-
-    def get_data(self):
-        return [list(map(lambda x: x.rating_yandex, self.rating_history)) or [self.company.rating_yandex]]
-
-
-class CompanyRatingGisDynamic(CompanyRatingDynamic):
-    def get_providers(self):
-        return ["2Гис"]
-
-    def get_data(self):
-        return [list(map(lambda x: x.rating_gis, self.rating_history)) or [self.company.rating_gis]]
-
-
-class CompanyRatingGoogleDynamic(CompanyRatingDynamic):
-    def get_providers(self):
-        return ["Google"]
-
-    def get_data(self):
-        return [list(map(lambda x: x.rating_google, self.rating_history)) or [self.company.rating_google]]
-
-
-class ReviewListView(FilterView):
-    context_object_name = "review_list"
-    filterset_class = ReviewFilter
-    paginate_by = 30
-    model = Review
-    template_name = "dashboard/review_list.html"
-
-    @method_decorator(login_required)
-    def dispatch(self, request, *args, **kwargs):
-        return super(ReviewListView, self).dispatch(request, *args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["company"] = get_object_or_404(Company, pk=self.kwargs["company_pk"], users__in=[self.request.user])
-        context["nav"] = "company"
-        context["tab_nav"] = "review"
-        return context
-
-    def get_queryset(self, **kwargs):
-        queryset = super().get_queryset(**kwargs)
-
-        return queryset.filter(
-            company__in=[self.kwargs["company_pk"]],
-            company__users__in=[self.request.user]
-        ).order_by("-created_at")
-
-
-class ReviewUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
-    context_object_name = "review"
-    form_class = ReviewForm
-    model = Review
-    success_message = "Настройки отзыва успешно сохранены"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["company"] = get_object_or_404(Company, pk=self.kwargs["company_pk"], users__in=[self.request.user])
-        context["nav"] = "company"
-        context["tab_nav"] = "review"
-        return context
-
-    def get_queryset(self, **kwargs):
-        queryset = super().get_queryset(**kwargs)
-        return queryset.filter(company__in=[self.kwargs["company_pk"]], company__users__in=[self.request.user])
-
-    def get_success_url(self):
-        return f"{reverse('review_list', kwargs={'company_pk': self.kwargs['company_pk']})}?{self.request.GET.urlencode()}"
+        return reverse("membership_update", kwargs={"pk": self.kwargs["pk"]})
 
 
 class MessageListView(LoginRequiredMixin, FilterView):
@@ -451,200 +701,175 @@ class MessageListView(LoginRequiredMixin, FilterView):
     paginate_by = 30
     template_name = "dashboard/message_list.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+    def get_context_data(self, ** kwargs):
+        context = super().get_context_data(** kwargs)
         context["company"] = get_object_or_404(Company, pk=self.kwargs["company_pk"], users__in=[self.request.user])
-        context["nav"] = "company"
-        context["tab_nav"] = "message"
+        context["nav"] = "messages"
         return context
 
-    def get_queryset(self, **kwargs):
-        queryset = super().get_queryset(**kwargs)
-        return queryset.filter(company__in=[self.kwargs["company_pk"]],
-                               company__users__in=[self.request.user]).select_related("company").order_by("-created_at")
+    def get_ordering(self):
+        return "-created_at"
+
+    def get_queryset(self):
+        return super().get_queryset().filter(
+            company__in=[self.kwargs["company_pk"]],
+            company__users__in=[self.request.user]
+        ).select_related("visit_stamp")
+
+
+class PasswordUpdateView(LoginRequiredMixin, SuccessMessageMixin, PasswordChangeView):
+    form_class = DashboardPasswordChangeForm
+    template_name = "dashboard/password_update.html"
+    success_message = "Профиль успешно обновлен"
+
+    def get_context_data(self, ** kwargs):
+        context = super().get_context_data(** kwargs)
+        context["nav"] = "user"
+        context["sub_nav"] = "security"
+        return context
+
+    def get_success_url(self):
+        return reverse("password_update")
+
+
+class ProfileUpdateView(LoginRequiredMixin, View):
+    template_name = "dashboard/profile_update.html"
+    context = {"nav": "user", "sub_nav": "settings"}
+
+    def get(self, request):
+        form = DashboardProfileChangeForm(instance=request.user.profile)
+        return render(request, self.template_name, {"form": form, **self.context})
+
+    def post(self, request):
+        form = DashboardProfileChangeForm(request.POST, instance=request.user.profile)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Профиль успешно обновлен")
+
+        return render(request, self.template_name, {"form": form, **self.context})
 
 
 @login_required
 @require_http_methods(["GET"])
 def qr(request, company_pk):
     company = get_object_or_404(Company, pk=company_pk, users__in=[request.user])
-    template = request.GET.get("template", "s")
-    theme = request.GET.get("theme", "l")
-
-    return render(
-        request,
-        "dashboard/qr.html",
-        {
-            "company": company,
-            "nav": "company",
-            "tab_nav": "qr",
-            "template": template,
-            "theme": theme
-        }
-    )
+    return render(request,"dashboard/qr.html", {"company": company, "nav": "company", "nav": "qr"})
 
 
-@login_required
-@require_http_methods(["GET"])
-def widget_rating(request, company_pk):
-    company = get_object_or_404(Company, pk=company_pk, users__in=[request.user])
-    theme = request.GET.get("theme", "l")
-    position = request.GET.get("position", "lb")
+class ReviewListView(LoginRequiredMixin, FilterView):
+    context_object_name = "review_list"
+    filterset_class = ReviewFilter
+    paginate_by = 30
+    model = Review
+    template_name = "dashboard/review_list.html"
 
-    return render(
-        request,
-        "dashboard/widget_rating.html",
-        {
-            "company": company,
-            "nav": "company",
-            "position": position,
-            "tab_nav": "widget_rating",
-            "theme": theme
-        }
-    )
+    def get_context_data(self, ** kwargs):
+        context = super().get_context_data(** kwargs)
+        context["company"] = get_object_or_404(Company, pk=self.kwargs["company_pk"], users__in=[self.request.user])
+        context["nav"] = "reviews"
+        return context
+
+    def get_ordering(self):
+        return ["-created_at", "service", "stars"]
+
+    def get_queryset(self):
+        return super().get_queryset().filter(
+            company__in=[self.kwargs.get("company_pk")],
+            company__users__in=[self.request.user]
+        )
 
 
-@login_required
-@require_http_methods(["GET"])
-def widget_reviews(request, company_pk):
-    company = get_object_or_404(Company, pk=company_pk, users__in=[request.user])
-    layout = request.GET.get("layout", "s")
-    theme = request.GET.get("theme", "l")
+class ReviewUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    context_object_name = "review"
+    form_class = DashboardReviewChangeForm
+    model = Review
+    success_message = "Отзыв успешно обновлен"
 
-    return render(
-        request,
-        "dashboard/widget_reviews.html",
-        {
-            "company": company,
-            "layout": layout,
-            "nav": "company",
-            "tab_nav": "widget_reviews",
-            "theme": theme
-        }
-    )
+    def get_context_data(self, ** kwargs):
+        context = super().get_context_data(** kwargs)
+        context["company"] = get_object_or_404(Company, pk=self.kwargs["company_pk"], users__in=[self.request.user])
+        return context
+
+    def get_queryset(self):
+        return super().get_queryset().filter(company__in=[self.kwargs["company_pk"]], company__users__in=[self.request.user])
+
+    def get_success_url(self):
+        return f"{reverse('review_list', kwargs={'company_pk': self.kwargs['company_pk']})}?{self.request.GET.urlencode()}"
 
 
 @login_required
 @require_http_methods(["GET", "POST"])
-def profile(request):
-    if request.method == "POST":
-        form = ProfileForm(request.POST, instance=request.user.profile)
-
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Настройки профиля успешно сохранены")
-
-    else:
-        form = ProfileForm(instance=request.user.profile)
-
-    return render(
-        request,
-        "dashboard/profile.html",
-        {
-            "form": form,
-            "nav": "settings",
-            "tab_nav": "profile",
-        },
-    )
+def subscription(request):
+    return render(request, "dashboard/subscription.html", {"nav": "user", "sub_nav": "subscription"})
 
 
-@login_required
-@require_http_methods(["GET", "POST"])
-def rate(request):
-    return render(
-        request,
-        "dashboard/rate.html",
-        {
-            "nav": "finance",
-            "tab_nav": "rate",
-        }
-    )
+class UserCreateView(FormView):
+    form_class = DashboardUserCreationForm
+    template_name = "dashboard/user_create.html"
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
+
+    def get_context_data(self, ** kwargs):
+        context = super().get_context_data(** kwargs)
+        context["nav"] = "registration"
+        return context
+
+    def get_success_url(self):
+        return reverse("company_list")
 
 
-@login_required
-@require_http_methods(["GET", "POST"])
-def billing(request):
-    return render(
-        request,
-        "dashboard/billing.html",
-        {
-            "nav": "finance",
-            "tab_nav": "billing",
-        }
-    )
+class UserLoginView(LoginView):
+    form_class = DashboardAuthenticationForm
+    template_name = "dashboard/user_login.html"
+
+    def get_context_data(self, ** kwargs):
+        context = super().get_context_data(** kwargs)
+        context["nav"] = "login"
+        return context
 
 
-@login_required
-@require_http_methods(["GET", "POST"])
-def account(request):
-    if request.method == "POST":
+class UserLogoutView(LoginRequiredMixin, LogoutView):
+    ...
+
+
+class UserUpdateView(LoginRequiredMixin, View):
+    template_name = "dashboard/user_update.html"
+    context = {"nav": "user", "sub_nav": "account"}
+
+    def get(self, request):
+        form = DashboardUserChangeForm(instance=request.user)
+        return render(request, self.template_name, {"form": form, **self.context})
+
+    def post(self, request):
         form = DashboardUserChangeForm(request.POST, instance=request.user)
 
         if form.is_valid():
             form.save()
-            messages.success(request, "Настройки аккаунта успешно сохранены")
+            messages.success(request, "Профиль успешно обновлен")
 
-    else:
-        form = DashboardUserChangeForm(instance=request.user)
-
-    return render(request, "dashboard/account.html", {
-        "nav": "settings",
-        "tab_nav": "account",
-        "form": form
-    })
+        return render(request, self.template_name, {"form": form, **self.context})
 
 
-@login_required
-@require_http_methods(["GET", "POST"])
-def security(request):
-    if request.method == "POST":
-        form = DashboardSetPasswordForm(request.user, data=request.POST)
+class WidgetView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    context_object_name = "company"
+    form_class = DashboardCompanyChangeVisibleForm
+    model = Company
+    success_message = "Виджет успешно обновлен"
+    template_name = "dashboard/widget.html"
 
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Настройки безопасности успешно сохранены")
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["reviews"] = Review.objects.filter(company_id=self.kwargs["pk"], is_visible=True).order_by("-created_at")[:15]
+        context["layout"] = self.request.GET.get("layout", "s"),
+        context["nav"] = "widget"
+        context["theme"] = self.request.GET.get("theme", "l")
+        return context
 
-    else:
-        form = DashboardSetPasswordForm(request.user)
+    def get_queryset(self):
+        return super().get_queryset().filter(users__in=[self.request.user])
 
-    return render(request, "dashboard/security.html", {
-        "nav": "settings",
-        "tab_nav": "security",
-        "form": form
-    })
-
-
-@require_http_methods(["GET", "POST"])
-def user_create(request):
-    if request.method == "POST":
-        form = DashboardUserCreationForm(request.POST)
-
-        if form.is_valid():
-            form.save()
-            return redirect("user_login")
-
-    else:
-        form = DashboardUserCreationForm()
-
-    return render(request, "dashboard/user_create.html", {"form": form})
-
-
-@require_http_methods(["GET", "POST"])
-def user_login(request):
-    if request.method == "POST":
-        form = DashboardAuthenticationForm(data=request.POST)
-
-        if form.is_valid():
-            login(request, form.user_cache)
-            return redirect("company_list")
-
-    else:
-        form = DashboardAuthenticationForm(request)
-
-    return render(request, "dashboard/user_login.html", {"form": form})
-
-
-@require_http_methods(["GET", "POST"])
-def user_logout(request):
-    auth_logout(request)
-    return redirect("user_login")
+    def get_success_url(self):
+        return reverse("widget", kwargs={"pk": self.kwargs["pk"]})

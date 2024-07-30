@@ -2,55 +2,26 @@
 <!DOCTYPE html>
 <html lang="ru">
     <head>
-        <title>{{company.name}}</title>
+        <title>{{ company.name }}</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">        
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
-        <link href="{% static 'css/normalize.css' %}" rel="stylesheet" />
-        <link href="{% static 'css/blueprint.css' %}" rel="stylesheet" />
-        <link href="{% static 'css/blueprint-icons.css' %}" rel="stylesheet" />
-        <link href="{% static 'css/feedback.css' %}" rel="stylesheet" />
-        <script src="{% static 'javascript/jquery.min.js' %}"></script>
-        <script src="{% static 'javascript/javascript.js' %}"></script>
-        <script src="{% static 'javascript/imask.min.js' %}"></script>
+        <link href="{% static 'dashboard/images/services/portrate.png' %}" rel="icon" type="image/png"/>
+        <link href="{% static 'dashboard/css/normalize.css' %}" rel="stylesheet" />
+        <link href="{% static 'dashboard/css/blueprint.css' %}" rel="stylesheet" />
+        <link href="{% static 'dashboard/css/blueprint-icons.css' %}" rel="stylesheet" />
+        <link href="{% static 'dashboard/css/flexgrid-utils.css' %}" rel="stylesheet" />
+        <script src="{% static 'dashboard/javascript/jquery.min.js' %}"></script>
+        <script src="{% static 'dashboard/javascript/javascript.js' %}"></script>
+        <script src="{% static 'dashboard/javascript/imask.min.js' %}"></script>
     </head>
     <body>
-        <div class="bp5-section bp5-card">
-            <div class="bp5-padded bp5-section-card">
-                <div class="pio-container">
-                    {% if company.logo %}
-                    <div class="bp5-control-group">
-                        <div class="bp5-form-group">
-                            <img class="bp5-elevation-0 pio-logo" height=120 src="{{company.logo.url}}" width=120>
-                        </div>
-                    </div>
-                    {% endif %}
-                    <h3 class="bp5-heading">
-                        {{company.name}}
-                    </h3>
-                    <div class="bp5-control-group">
-                        {% if company.phone %}
-                        <a class="bp5-tag bp5-minimal  bp5-round bp5-interactive" href="tel:{{company.phone}}">{{company.phone}}</a>
-                        {% endif %}
-                        {% if company.address %}
-                        <span class="bp5-tag bp5-minimal  bp5-round">{{company.address}}</span>
-                        {% endif %}
-                        {% if company.form_contact_website %}
-                        <a class="bp5-tag bp5-minimal  bp5-round bp5-interactive" href="{{company.form_contact_website}}" _target="blank">{{company.form_contact_website}}</a>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-            {% block content %}
-            {% endblock %}
-            <div class="bp5-padded bp5-section-card">
-                <div class="pio-made-in">
-                    <span class="bp5-text-muted bp5-text-small">работает на</span> <a href="https://portrate.io"><img src="{% static 'images/dashboard/logo.svg' %}" target="_blank" width=50></a>
-                </div>
-            </div>
-        </div>
-        {% block script %}
+    <div class="container" style="padding-top:15px;">
+        {% block content %}
         {% endblock %}
+    </div>
+    {% block script %}
+    {% endblock %}
     </body>
 </html>

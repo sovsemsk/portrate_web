@@ -1,0 +1,172 @@
+{% load static %}
+<div class="bp5-form-group">
+    <label class="bp5-label">Предпросмотр</label>
+    <div class="bp5-form-content">
+        <div class="bp5-card" style="min-height:320px;">
+            {% if company.logo %}
+            <div class="bp5-form-group">
+                <div class="bp5-form-content">
+                    <img height=80 src="{{ company.logo.url }}" style="border-radius:5px;" width=80>
+                </div>
+            </div>
+            {% endif %}
+            <div class="bp5-form-group">
+                <div class="bp5-form-content">
+                    <div class="bp5-entity-title">
+                        <div class="bp5-entity-title-text">
+                            <h3 class="bp5-entity-title-title bp5-heading">
+                                {{ company.name }}
+                            </h3>
+                            {% if company.address %}
+                            <div class="bp5-entity-title-subtitle bp5-text-muted">
+                                {{ company.address }}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% if company.phone or company.form_contact_website %}
+            <div class="bp5-form-group">
+                <div class="bp5-form-content">
+                    {% if company.phone %}
+                    <a class="bp5-interactive bp5-minimal bp5-round bp5-tag">{{ company.phone }}</a>
+                    {% endif %}
+                    {% if company.feedback_contact_website %}
+                    <a class="bp5-interactive bp5-minimal bp5-round bp5-tag">Сайт</a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+
+            {% if company.has_contacts %}
+            <div class="bp5-form-group">
+                <div class="bp5-form-content">
+                    <div style="gap:2px;display:flex;flex-wrap:wrap;">
+                        {% if company.feedback_contact_whatsapp %}
+                        <a class="bp5-button" style="background:#41bf50;">
+                            <img height=16 src="{% static 'dashboard/images/contacts/whatsapp.svg' %}" width=16>
+                        </a>
+                        {% endif %}
+                        {% if company.feedback_contact_telegram %}
+                        <a class="bp5-button" style="background:#2ba0d9;">
+                            <img height=16 src="{% static 'dashboard/images/contacts/telegram.svg' %}" width=16>
+                        </a>
+                        {% endif %}
+                        {% if company.feedback_contact_viber %}
+                        <a class="bp5-button" style="background:#71488d;">
+                            <img height=16 src="{% static 'dashboard/images/contacts/viber.svg' %}" width=16>
+                        </a>
+                        {% endif %}
+                        {% if company.feedback_contact_vk %}
+                        <a class="bp5-button" style="background:#1b73f7;">
+                            <img height=16 src="{% static 'dashboard/images/contacts/vk.svg' %}" width=16>
+                        </a>
+                        {% endif %}
+                        {% if company.feedback_contact_ok %}
+                        <a class="bp5-button" style="background:#f77302;">
+                            <img height=16 src="{% static 'dashboard/images/contacts/ok.svg' %}" width=16>
+                        </a>
+                        {% endif %}
+                        {% if company.feedback_contact_facebook %}
+                        <a class="bp5-button" style="background:#3a5696;">
+                            <img height=16 src="{% static 'dashboard/images/contacts/facebook.svg' %}" width=16>
+                        </a>
+                        {% endif %}
+                        {% if company.feedback_contact_instagram %}
+                        <a class="bp5-button" style="background:#c73e83;">
+                            <img height=16 src="{% static 'dashboard/images/contacts/instagram.svg' %}" width=16>
+                        </a>
+                        {% endif %}
+                        {% if company.feedback_contact_youtube %}
+                        <a class="bp5-button" style="background:#f60e1C;">
+                            <img height=16 src="{% static 'dashboard/images/contacts/youtube.svg' %}" width=16>
+                        </a>
+                        {% endif %}
+                        {% if company.feedback_contact_x %}
+                        <a class="bp5-button" style="background:#000000">
+                            <img height=16 src="{% static 'dashboard/images/contacts/x.svg' %}" width=16>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            <h5 class="bp5-heading">Наградите нас отзывом</h5>
+            <div class="bp5-control-group bp5-fill bp5-large bp5-vertical">
+                {% if company.feedback_link_yandex %}
+                <button class="bp5-button bp5-fill bp5-large bp5-align-left">
+                    <img height="16" src="{% static 'dashboard/images/services/yandex.png' %}" width="16">
+                    <span class="bp5-button-text">Яндекс</span>
+                </button>
+                {% endif %}
+                {% if company.feedback_link_gis %}
+                <button class="bp5-button bp5-fill bp5-large bp5-align-left">
+                    <img height="16" src="{% static 'dashboard/images/services/gis.png' %}" width="16">
+                    <span class="bp5-button-text">2Гис</span>
+                </button>
+                {% endif %}
+                {% if company.feedback_link_google %}
+                <button class="bp5-button bp5-fill bp5-large bp5-align-left">
+                    <img height="16" src="{% static 'dashboard/images/services/google.png' %}" width="16">
+                    <span class="bp5-button-text">Google</span>
+                </button>
+                {% endif %}
+                {% if company.feedback_link_avito %}
+                    <img height="16" src="{% static 'dashboard/images/services/avito.png' %}" width="16">
+                <button class="bp5-button bp5-fill bp5-large bp5-align-left">
+                    <span class="bp5-button-text">Авито</span>
+                </button>
+                {% endif %}
+                {% if company.feedback_link_zoon %}
+                <button class="bp5-button bp5-fill bp5-large bp5-align-left">
+                    <img height="16" src="{% static 'dashboard/images/services/zoon.png' %}" width="16">
+                    <span class="bp5-button-text">Zoon</span>
+                </button>
+                {% endif %}
+                {% if company.feedback_link_flamp %}
+                <button class="bp5-button bp5-fill bp5-large bp5-align-left">
+                    <img height="16" src="{% static 'dashboard/images/services/flamp.png' %}" width="16">
+                    <span class="bp5-button-text">Flamp</span>
+                </button>
+                {% endif %}
+                {% if company.feedback_link_yell %}
+                <button class="bp5-button bp5-fill bp5-large bp5-align-left">
+                    <img height="16" src="{% static 'dashboard/images/services/yell.png' %}" width="16">
+                    <span class="bp5-button-text">Yell</span>
+                </button>
+                {% endif %}
+                {% if company.feedback_link_prodoctorov %}
+                <button class="bp5-button bp5-fill bp5-large bp5-align-left">
+                    <img height="16" src="{% static 'dashboard/images/services/prodoctorov.png' %}" width="16">
+                    <span class="bp5-button-text">Продокторов</span>
+                </button>
+                {% endif %}
+                {% if company.feedback_link_yandex_services %}
+                <button class="bp5-button bp5-fill bp5-large bp5-align-left">
+                    <img height="16" src="{% static 'dashboard/images/services/yandex_services.png' %}" width="16">
+                    <span class="bp5-button-text">Яндекс услуги</span>
+                </button>
+                {% endif %}
+                {% if company.feedback_link_otzovik %}
+                <button class="bp5-button bp5-fill bp5-large bp5-align-left">
+                    <img height="16" src="{% static 'dashboard/images/services/otzovik.png' %}" width="16">
+                    <span class="bp5-button-text">Otzovik</span>
+                </button>
+                {% endif %}
+                {% if company.feedback_link_irecommend %}
+                <button class="bp5-button bp5-fill bp5-large bp5-align-left">
+                    <img height="16" src="{% static 'dashboard/images/services/irecommend.png' %}" width="16">
+                    <span class="bp5-button-text">Irecommend</span>
+                </button>
+                {% endif %}
+                {% if company.feedback_link_tripadvisor %}
+                <button class="bp5-button bp5-fill bp5-large bp5-align-left">
+                    <img height="16" src="{% static 'dashboard/images/services/tripadvisor.png' %}" width="16">
+                    <span class="bp5-button-text">Tripadvisor</span>
+                </button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

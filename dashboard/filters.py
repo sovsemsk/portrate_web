@@ -1,72 +1,115 @@
-from datetime import datetime, timedelta
-
-from django.forms import Select
-from django_filters import FilterSet, DateFromToRangeFilter, ChoiceFilter
+from django.db.models import Count
+from django.forms import CheckboxSelectMultiple
+from django_filters import FilterSet, DateFromToRangeFilter, MultipleChoiceFilter
 from django_filters.widgets import DateRangeWidget
 
-from resources.models import Message, Review, Service, Stars, RatingStamp
+from resources.models import Message, Review, Service, Stars
+
+
+class SwitchSelectMultiple(CheckboxSelectMultiple):
+    option_template_name = "forms/widgets/switch_option.html"
+
+
+class StarSelectMultiple(CheckboxSelectMultiple):
+    option_template_name = "forms/widgets/star_option.html"
 
 
 class MessageFilter(FilterSet):
-    created_at = DateFromToRangeFilter(widget=DateRangeWidget(attrs={"class": "bp5-input", "type": "date"}))
-
     class Meta:
         model = Message
-        fields = ["created_at"]
+        fields = ["created_at", "visit_stamp__utm_source"]
+
+    created_at = DateFromToRangeFilter(
+        widget=DateRangeWidget(
+            attrs={
+                "class": "bp5-input",
+                "form": "FILTER",
+                "type": "date"
+            }
+        )
+    )
+
+    visit_stamp__utm_source = MultipleChoiceFilter(
+        widget=SwitchSelectMultiple(
+            attrs={
+                "data-input": ""
+            }
+        )
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(MessageFilter, self).__init__(*args, **kwargs)
+
+        self.filters["visit_stamp__utm_source"].extra["choices"] = list(
+            map(
+                lambda visit_stamp: [visit_stamp["visit_stamp__utm_source"], visit_stamp["visit_stamp__utm_source"]],
+                self.queryset.values(
+                    "visit_stamp__utm_source"
+                ).annotate(
+                    count=Count("visit_stamp__utm_source")
+                ).order_by("visit_stamp__utm_source")
+            )
+        )
 
 
 class ReviewFilter(FilterSet):
-    created_at = DateFromToRangeFilter(widget=DateRangeWidget(attrs={"class": "bp5-input", "type": "date"}))
-    service = ChoiceFilter(choices=Service, empty_label="Источник", widget=Select())
-    stars = ChoiceFilter(choices=Stars, empty_label="Оценка", widget=Select())
-
     class Meta:
-        model = Review
         fields = ["created_at", "service", "stars"]
+        model = Review
 
+    created_at = DateFromToRangeFilter(
+        widget=DateRangeWidget(
+            attrs={
+                "class": "bp5-input",
+                "form": "FILTER",
+                "type": "date"
+            }
+        )
+    )
 
-class RatingStampFilter(FilterSet):
+    service = MultipleChoiceFilter(
+        widget=SwitchSelectMultiple(
+            attrs={
+                "data-input": ""
+            }
+        )
+    )
 
-    class Meta:
-        model = RatingStamp
-        fields = []
+    stars = MultipleChoiceFilter(
+        widget=StarSelectMultiple(
+            attrs={
+                "data-input": ""
+            }
+        )
+    )
 
-    @property
-    def qs(self):
-        parent_qs = super().qs
-        range_param = self.data.get("range", "week")
+    def __init__(self, *args, **kwargs):
+        super(ReviewFilter, self).__init__(*args, **kwargs)
 
-        if range_param == "week":
-            parent_qs = parent_qs.filter(
-                created_at__gt=datetime.today() - timedelta(days=7),
-                created_at__lte=datetime.today()
+        self.filters["service"].extra["choices"] = list(
+            map(
+                lambda review: [
+                    review["service"],
+                    Service[review["service"]].label
+                ],
+                Review.objects.values("service").filter(
+                    company_id=kwargs["request"].resolver_match.kwargs["company_pk"]
+                ).annotate(
+                    count=Count("service")
+                ).order_by("service")
             )
+        )
 
-        elif range_param == "month":
-            parent_qs = parent_qs.filter(
-                created_at__gt=datetime.today() - timedelta(days=30),
-                created_at__lte=datetime.today(),
-                created_at__iso_week_day__in=[1, 3, 7]
+        self.filters['stars'].extra['choices'] = list(
+            map(
+                lambda review: [
+                    review["stars"],
+                    Stars[f"_{review["stars"]}"].label
+                ],
+                Review.objects.values("stars").filter(
+                    company_id=kwargs["request"].resolver_match.kwargs["company_pk"]
+                ).annotate(
+                    count=Count("stars")
+                ).order_by("stars")
             )
-
-        elif range_param == "quarter":
-            parent_qs = parent_qs.filter(
-                created_at__gt=datetime.today() - timedelta(days=90),
-                created_at__lte=datetime.today(),
-                created_at__iso_week_day=1
-            )
-
-        elif range_param == "year":
-            parent_qs = parent_qs.filter(
-                created_at__gt=datetime.today() - timedelta(days=365),
-                created_at__lte=datetime.today(),
-                created_at__day=1
-            )
-
-        elif range_param == "total":
-            parent_qs = parent_qs.filter(
-                created_at__day=1,
-                created_at__month__in=[1, 5, 9]
-            )
-
-        return parent_qs.order_by("created_at")
+        )

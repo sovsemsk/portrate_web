@@ -1,0 +1,100 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+{% block navbar %}
+{% include "dashboard/_company_navbar.html" %}
+{% endblock %}
+{% block content %}
+<h2 class="bp5-heading">Визитка</h2>
+{% include "dashboard/_feedback_tabs.html" %}
+<div class="row">
+    <div class="xs-9">
+        <form enctype="multipart/form-data" method="post" novalidate>
+            {% csrf_token %}
+            <div class="bp5-form-group">
+                <label class="bp5-label" for="id_address">Адрес</label>
+                <div class="bp5-form-content">
+                    <div class="bp5-input-group">
+                        {{form.address}}
+                    </div>
+                    <div class="bp5-form-helper-text">Например «Орск, улица Ленинского-комсомола 4б, Портрет»</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="xs-6">
+                    <div class="bp5-form-group {% if form.name.errors %}bp5-intent-danger{% endif %}">
+                        <label class="bp5-label" for="id_name">Название *</label>
+                        <div class="bp5-form-content">
+                            <div class="bp5-input-group {% if form.name.errors %}bp5-intent-danger{% endif %}">
+                                {{form.name}}
+                            </div>
+                            <div class="bp5-form-helper-text">{% if form.name.errors %}{{form.name.errors.as_text}}{% else %}Без списка услуг{% endif %}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="xs-6">
+                    <div class="bp5-form-group {% if form.phone.errors %}bp5-intent-danger{% endif %}">
+                        <label class="bp5-label" for="id_phone">Телефон</label>
+                        <div class="bp5-form-content">
+                            <div class="bp5-input-group {% if form.phone.errors %}bp5-intent-danger{% endif %}">
+                                {{form.phone}}
+                            </div>
+                            <div class="bp5-form-helper-text">{% if form.name.errors %}{{form.name.errors.as_text}}{% else %}В формате +7 999 999-99-99{% endif %}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="xs-6">
+                    <div class="bp5-form-group {% if form.logo.errors %}bp5-intent-danger{% endif %}">
+                        <label class="bp5-label" for="id_logo">Логотип</label>
+                        <div class="bp5-form-content">
+                            <label class="bp5-file-input bp5-fill bp5-large {% if form.logo.errors %}bp5-intent-danger{% endif %}">
+                                {{form.logo}}
+                                <span class="bp5-file-upload-input">Выбрать файл...</span>
+                            </label>
+                            <div class="bp5-form-helper-text">{% if form.logo.errors %}{{form.logo.errors.as_text}}{% else %} Размер файла не должен превышать 500кб{% endif %}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bp5-form-group">
+                <label class="bp5-label" for="id_logo">Ссылка</label>
+                <div class="bp5-form-content">
+                    <div class="bp5-entity-title">
+                        <span class="bp5-icon bp5-icon-link"></span>
+                        <a class="bp5-entity-title bp5-text-large" data-link href="https://geo.portrate.io/@{{ company.id }}" target="_blank">https://geo.portrate.io/@{{ company.id }}</a>
+                    </div>
+                    <div class="bp5-form-helper-text">
+                        Для добавления метки источника допишите после ссылки парамаетр <strong>«?utm_source=Instagram»</strong> или выберете из заготовленных вариантов указанных ниже. В наклейке уже встроен источник «QR» по умолчанию.
+                    </div>
+                </div>
+            </div>
+            <div class="bp5-form-group">
+                <div class="bp5-form-content">
+                    {% for tag in company.feedback_utm_source_tags %}
+                    <span class="bp5-interactive bp5-minimal bp5-tag" data-tag="{{ tag }}">{{ tag }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="bp5-form-group">
+                <div class="bp5-form-content">
+                    <button class="bp5-button bp5-large" type="submit">Сохранить</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="xs-3">
+        {% include "dashboard/_feedback_preview.html" %}
+    </div>
+</div>
+{% endblock %}
+{% block script %}
+<script>
+$(document).ready(event => {
+    $("*[data-tag]").click(event => {
+        const link = `https://geo.portrate.io/@{{ company.id }}?utm_source=${$(event.currentTarget).data("tag")}`;
+        $("*[data-link]").attr("href", link).text(link);
+    })
+});
+</script>
+{% endblock %}

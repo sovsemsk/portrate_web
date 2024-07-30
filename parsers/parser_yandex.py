@@ -3,7 +3,6 @@ import re
 import time
 
 import dateparser
-from bs4 import BeautifulSoup
 from lxml import etree
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -13,8 +12,12 @@ class ParserYandex:
     def __init__(self, parser_link):
         """ Парсер Яндекс """
         options = webdriver.ChromeOptions()
-        options.set_capability("selenoid:options", {"enableVNC": True})
-        self.driver = webdriver.Remote(command_executor=f"http://docker.portrate.io/wd/hub", options=options)
+        options.set_capability("selenoid:options", {
+            "enableVNC": True,
+            "screenResolution": "1280x1024x24",
+            "env": ["LANG=ru_RU.UTF-8", "LANGUAGE=ru", "LC_ALL=ru_RU.UTF-8"]
+        })
+        self.driver = webdriver.Remote(command_executor=f"http://9bea7b5c.portrate.io/wd/hub", options=options)
         self.driver.get(parser_link)
         time.sleep(5)
 
@@ -23,49 +26,35 @@ class ParserYandex:
         self.driver.close()
         self.driver.quit()
 
-    def check_page(self):
-        """ Проверка страницы """
-        time.sleep(15)
-        try:
-            self.driver.find_elements(By.CLASS_NAME, "business-reviews-card-view__review")
-            return True
-        except:
-            return False
-
     def parse_rating(self):
         """ Парсинг рейтинга организации """
-        try:
-            node = self.driver.find_element(By.CLASS_NAME, "business-summary-rating-badge-view__rating")
-            return float(".".join(re.findall(r'\d+', node.text)))
-        except:
-            return 0.0
+        node = self.driver.find_element(By.CLASS_NAME, "business-summary-rating-badge-view__rating")
+        return float(".".join(re.findall(r'\d+', node.text)))
 
     def parse_reviews(self):
         """ Парсинг отзывов """
-        result = []
-
-        # Сортировка по дате
-        # self.__sort_by_newest__()
-
-        # Сбор нод
+        reviews = []
         nodes = self.driver.find_elements(By.CLASS_NAME, "business-reviews-card-view__review")
 
-        if len(nodes) > 1:
+        if len(nodes) > 0:
             self.__scroll_reviews_to_bottom__(nodes[-1])
+            container_node = nodes[0].find_element(By.XPATH, "./..")
+            lxml_container_node = etree.HTML(container_node.get_attribute("innerHTML"))
+            lxml_reviews_nodes = lxml_container_node.xpath(".//div[contains(@class, 'business-reviews-card-view__review')]")
 
-        nodes = self.driver.find_elements(By.CLASS_NAME, "business-reviews-card-view__review")
+            for lxml_review_node in lxml_reviews_nodes:
+                review = self.__parse_review__(lxml_review_node)
 
-        # Парсинг нод
-        for node in nodes:
-            result.append(self.__parse_review__(node.get_attribute("innerHTML")))
+                if review["text"]:
+                    reviews.append(review)
 
-        return result
+        return reviews
 
     def __scroll_reviews_to_bottom__(self, node):
         """ Скроллинг списка до последнего отзыва """
         self.driver.execute_script("arguments[0].scrollIntoView();", node)
-        time.sleep(2.5)
 
+        time.sleep(5)
         new_node = self.driver.find_elements(By.CLASS_NAME, "business-reviews-card-view__review")[-1]
 
         if node == new_node:
@@ -80,7 +69,7 @@ class ParserYandex:
         except:
             ...
         finally:
-            time.sleep(5)
+            time.sleep(1)
 
         try:
             button_node = self.driver.find_elements(By.CLASS_NAME, "rating-ranking-view__popup-line")[1]
@@ -88,14 +77,10 @@ class ParserYandex:
         except:
             ...
         finally:
-            time.sleep(5)
+            time.sleep(1)
 
-    @staticmethod
-    def __parse_review__(str_node):
+    def __parse_review__(self, lxml_node):
         """ Парсинг отзыва """
-        bs_node = BeautifulSoup(str_node, "html.parser")
-        lxml_node = etree.HTML(str(bs_node))
-
         try:
             date = lxml_node.xpath(".//meta[@itemprop='datePublished']")[0].get("content")
         except:
@@ -107,12 +92,12 @@ class ParserYandex:
             name = None
 
         try:
-            text = lxml_node.xpath(".//span[@class='business-review-view__body-text']")[0].text
+            text = lxml_node.xpath(".//span[contains(@class, 'business-review-view__body-text')]")[0].text
         except:
             text = None
 
         try:
-            stars = lxml_node.xpath(".//div[@class='business-rating-badge-view__stars']/span")
+            stars = lxml_node.xpath(".//span[contains(@class, '_full')]")
         except:
             stars = []
 
@@ -120,23 +105,6 @@ class ParserYandex:
             "created_at": dateparser.parse(date, languages=["ru", "en"]),
             "name": name,
             "remote_id": hashlib.md5(f"{name}{date}".encode()).hexdigest(),
-            "stars": ParserYandex.__calc_review_stars_count__(stars),
+            "stars": len(stars),
             "text": text
         }
-
-    @staticmethod
-    def __calc_review_stars_count__(review_stars):
-        """ Подсчет рейтинга по звездам """
-        star_count = 0
-
-        for review_star in review_stars:
-            if "_empty" in review_star.get("class"):
-                continue
-
-            if "_half" in review_star.get("class"):
-                star_count = star_count + 0.5
-                continue
-
-            star_count = star_count + 1
-
-        return star_count

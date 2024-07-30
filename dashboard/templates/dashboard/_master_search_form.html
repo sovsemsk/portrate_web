@@ -1,0 +1,14 @@
+<form method="get" novalidate>
+    <div class="bp5-form-group {% if form.query.errors %}bp5-intent-danger{% endif %}">
+        <div class="bp5-form-content">
+            <label class="bp5-label" for="id_query">Поиск филиала</label>
+            <div class="bp5-control-group bp5-large">
+                <div class="bp5-input-group bp5-fill {% if form.query.errors %}bp5-intent-danger{% endif %}">
+                    {{ form.query }}
+                </div>
+                <button class="bp5-button bp5-intent-warning">Найти</button>
+            </div>
+            <div class="bp5-form-helper-text">{% if form.query.errors %}{{form.query.errors.as_text}}{% else %}Например «Орск, улица Ленинского-комсомола 4б, Портрет»{% endif %}</div>
+        </div>
+    </div>
+</form>

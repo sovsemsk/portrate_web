@@ -1,0 +1,173 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+{% block navbar %}
+{% include "dashboard/_company_navbar.html" %}
+{% endblock %}
+{% block content %}
+<h2 class="bp5-heading">Виджет</h2>
+<div class="bp5-form-group">
+    <div class="bp5-form-content">
+        <div class="bp5-control-group">
+            <div class="bp5-button-group bp5-minimal">
+                <a class="bp5-button bp5-icon-flash {% if theme == 'l' %}bp5-active{% endif %}" href="{% url 'widget' company.id %}">Светлый</a>
+                <a class="bp5-button bp5-icon-moon {% if theme == 'd' %}bp5-active{% endif %}" href="?theme=d">Темный</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="bp5-form-group">
+    <div class="bp5-form-content">
+        <label class="bp5-label">Предпросмотр</label>
+        <div class="bp5-card" style="background-color:{% if theme == 'l' %}rgba(143, 153, 168, 0.05){% else %}black{% endif %}">
+            {% include "widget/_reviews_slider.html" %}
+        </div>
+    </div>
+</div>
+<div class="bp5-form-group">
+    <div class="bp5-form-content">
+        <label class="bp5-label" for="id_code">Код</label>
+        <textarea class="bp5-input bp5-fill bp5-monospace-text" data-code-textarea id="id_code" readonly type="text"><script src="https://geo.portrate.io/widget/reviews/{{company.api_secret}}.js?theme={{ theme }}&layout=s" data-{{company.api_secret}}></script></textarea>
+        <div class="bp5-form-helper-text">Скопируйте код виджета и вставьте его в то место на вашем сайте, где вы хотите расположить виджет.</div>
+    </div>
+</div>
+<form method="post" novalidate>
+    {% csrf_token %}
+    <div class="bp5-form-group">
+        <label class="bp5-label">Сервисы</label>
+        <div class="bp5-form-content">
+            <div class="row">
+                <div class="xs-3">
+                    <label class="bp5-control bp5-switch">
+                        {{form.is_visible_portrate}}
+                        <span class="bp5-control-indicator"></span>
+                        Портрет
+                    </label>
+                    <label class="bp5-control bp5-switch">
+                        {{form.is_visible_yandex}}
+                        <span class="bp5-control-indicator"></span>
+                        Яндекс
+                    </label>
+                    <label class="bp5-control bp5-switch">
+                        {{form.is_visible_gis}}
+                        <span class="bp5-control-indicator"></span>
+                        2Гис
+                    </label>
+                    <label class="bp5-control bp5-switch">
+                        {{form.is_visible_google}}
+                        <span class="bp5-control-indicator"></span>
+                        Google
+                    </label>
+                </div>
+                <div class="xs-3">
+                    <label class="bp5-control bp5-switch">
+                        {{form.is_visible_avito}}
+                        <span class="bp5-control-indicator"></span>
+                        Авито
+                    </label>
+                    <label class="bp5-control bp5-switch">
+                        {{form.is_visible_zoon}}
+                        <span class="bp5-control-indicator"></span>
+                        Zoon
+                    </label>
+                    <label class="bp5-control bp5-switch">
+                        {{form.is_visible_flamp}}
+                        <span class="bp5-control-indicator"></span>
+                        Flamp
+                    </label>
+                </div>
+                <div class="xs-3">
+                    <label class="bp5-control bp5-switch">
+                        {{form.is_visible_yell}}
+                        <span class="bp5-control-indicator"></span>
+                        Yell
+                    </label>
+                    <label class="bp5-control bp5-switch">
+                        {{form.is_visible_otzovik}}
+                        <span class="bp5-control-indicator"></span>
+                        Отзовик
+                    </label>
+                    <label class="bp5-control bp5-switch">
+                        {{form.is_visible_irecommend}}
+                        <span class="bp5-control-indicator"></span>
+                        Irecommend
+                    </label>
+                </div>
+                <div class="xs-3">
+                    <label class="bp5-control bp5-switch">
+                        {{form.is_visible_prodoctorov}}
+                        <span class="bp5-control-indicator"></span>
+                        Продокторов
+                    </label>
+                    <label class="bp5-control bp5-switch">
+                        {{form.is_visible_yandex_services}}
+                        <span class="bp5-control-indicator"></span>
+                        Яндекс Услуги
+                    </label>
+                    <label class="bp5-control bp5-switch">
+                        {{form.is_visible_tripadvisor}}
+                        <span class="bp5-control-indicator"></span>
+                        Tripadvisor
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bp5-form-group">
+        <label class="bp5-label">Оценка</label>
+        <div class="bp5-form-content">
+            <div class="row">
+                <div class="xs-3">
+                    <label class="bp5-control bp5-switch">
+                        {{form.is_visible_0}}
+                        <span class="bp5-control-indicator"></span> <img height=10 src="{% static 'dashboard/images/stars/0.0.svg' %}" width=70>
+                    </label>
+                    <label class="bp5-control bp5-switch">
+                        {{form.is_visible_1}}
+                        <span class="bp5-control-indicator"></span> <img height=10 src="{% static 'dashboard/images/stars/1.0.svg' %}" width=70>
+                    </label>
+                    <label class="bp5-control bp5-switch">
+                        {{form.is_visible_2}}
+                        <span class="bp5-control-indicator"></span> <img height=10 src="{% static 'dashboard/images/stars/2.0.svg' %}" width=70>
+                    </label>
+                </div>
+                <div class="xs-3">
+                    <label class="bp5-control bp5-switch">
+                        {{form.is_visible_3}}
+                        <span class="bp5-control-indicator"></span> <img height=10 src="{% static 'dashboard/images/stars/3.0.svg' %}" width=70>
+                    </label>
+                    <label class="bp5-control bp5-switch">
+                        {{form.is_visible_4}}
+                        <span class="bp5-control-indicator"></span> <img height=10 src="{% static 'dashboard/images/stars/4.0.svg' %}" width=70>
+                    </label>
+                    <label class="bp5-control bp5-switch">
+                        {{form.is_visible_5}}
+                        <span class="bp5-control-indicator"></span> <img height=10 src="{% static 'dashboard/images/stars/5.0.svg' %}" width=70>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}
+{% block script %}
+<script>
+// Reviews
+__4913fc__=document.querySelector("div[data-4913fc]");
+// Review first
+__fd94a8__=document.querySelector("div[data-fd94a8]");
+// Reviews texts
+__b93be1__=document.querySelectorAll("div[data-20d8b7]");
+// Left button
+__32a461__=document.querySelector("button[data-32a461]");
+// Right button
+__cd7b94__=document.querySelector("button[data-cd7b94]");
+// Left button click
+__18e6c1__= () => {__4913fc__.scrollLeft -= __fd94a8__.clientWidth;}
+// Right button click
+__459b69__= () => {__4913fc__.scrollLeft += __fd94a8__.clientWidth;}
+// Text scroll
+__a4738e__= (__a5c5c7__) => {__a5c5c7__.scrollTop > 5 ? __a5c5c7__.previousElementSibling.style.display = "block" : __a5c5c7__.previousElementSibling.style.display = "none";(__a5c5c7__.scrollTop + 250) > (__a5c5c7__.scrollHeight - 5) ? __a5c5c7__.nextElementSibling.style.display = "none" : __a5c5c7__.nextElementSibling.style.display = "block";};
+// Show bottom text fade if need
+__b93be1__.forEach(__a068fe__ => {if(__a068fe__.scrollHeight > 250){__a068fe__.nextElementSibling.style.display = "block";}});
+</script>
+{% endblock %}

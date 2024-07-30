@@ -1,0 +1,118 @@
+{% extends "dashboard/base.html" %}
+{% load extensions %}
+{% load static %}
+{% block navbar %}
+<a class="bp5-active bp5-button bp5-intent-success bp5-minimal" href="{% url 'master_search_yandex' %}">Добавить филиал</a>
+{% endblock %}
+{% block content %}
+<h2 class="bp5-heading">Добавление филиала</h2>
+{% include "dashboard/_master_tabs.html" %}
+        {% if card_list %}
+        <div class="row">
+            <div class="xs-9">
+                <h5 class="bp5-heading">Найдено {{ card_list|length }} {{ card_list|length|rupluralize:"карточка, карточки, карточек" }} вашего филиала</h5>
+                <div class="bp5-radio-group">
+                    {% for card in card_list %}
+                    <div class="bp5-form-group">
+                        <div class="bp5-form-content">
+                            <div class="bp5-card bp5-control-card bp5-compact bp5-radio-control-card">
+                                <label class="bp5-control bp5-inline bp5-radio">
+                                    <input data-id="{{ card.id }}"
+                                           data-address="{{ card.address|default:'' }}"
+                                           data-name="{{ card.name|default:'' }}"
+                                           data-phone="{{ card.phone|default:'' }}"
+                                           data-radio
+                                           name="id"
+                                           type="radio"
+                                    >
+                                    <span class="bp5-control-indicator"></span>
+                                    <img class="bp5-icon" height=16 src="{% static 'dashboard/images/services/'|add:card.service|lower|add:'.png' %}"/>
+                                    <div class="bp5-control-card-label">
+                                        <div class="bp5-text-large">{{ card.name|default:"Название не найдено" }}</div>
+                                        <div class="bp5-text-muted">{{ card.address|default:"Адрес не найден" }}</div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        <div class="row">
+            <div class="xs-9">
+                <form enctype="multipart/form-data" method="post" novalidate>
+                    {% csrf_token %}
+                    <div class="bp5-form-group">
+                        <label class="bp5-label" for="id_address">Адрес</label>
+                        <div class="bp5-form-content">
+                            <div class="bp5-input-group">
+                                {{form.address}}
+                            </div>
+                            <div class="bp5-form-helper-text">Например «Орск, улица Ленинского-комсомола 4б»</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="xs-6">
+                            <div class="bp5-form-group {% if form.name.errors %}bp5-intent-danger{% endif %}">
+                                <label class="bp5-label" for="id_name">Название *</label>
+                                <div class="bp5-form-content">
+                                    <div class="bp5-input-group {% if form.name.errors %}bp5-intent-danger{% endif %}">
+                                        {{form.name}}
+                                    </div>
+                                    <div class="bp5-form-helper-text">{% if form.name.errors %}{{form.name.errors.as_text}} {% else %}Без списка услуг{% endif %}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="xs-6">
+                            <div class="bp5-form-group">
+                                <label class="bp5-label" for="id_phone">Телефон</label>
+                                <div class="bp5-form-content">
+                                    <div class="bp5-input-group">
+                                        {{form.phone}}
+                                    </div>
+                                    <div class="bp5-form-helper-text">В формате +7 999 999-99-99</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="xs-6">
+                            <div class="bp5-form-group {% if form.logo.errors %}bp5-intent-danger{% endif %}">
+                                <label class="bp5-label" for="id_logo">Логотип</label>
+                                <div class="bp5-form-content">
+                                    <label class="bp5-file-input bp5-fill bp5-large {% if form.logo.errors %}bp5-intent-danger{% endif %}">
+                                        {{form.logo}}
+                                        <span class="bp5-file-upload-input">Выбрать файл...</span>
+                                    </label>
+                                    <div class="bp5-form-helper-text">
+                                        {% if form.logo.errors %}{{form.logo.errors.as_text}}{% else %} Размер файла не должен превышать 500кб{% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bp5-form-group">
+                        <div class="bp5-form-content">
+                            <button class="bp5-button bp5-large" type="submit">Сохранить</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+{% endblock %}
+{% block script %}
+<script>
+$(document).ready(event => {
+    IMask($("input[name=phone]")[0], {mask: "+7 000 000-00-00"});
+    $("*[data-radio]").change(event => {
+        const radio = $("*[data-radio]:checked");
+        $("*[data-address]").val(radio.data("address"));
+        $("*[data-name]").val(radio.data("name"));
+        $("*[data-phone]").val(radio.data("phone").replace("(", "").replace(")", ""));
+    });
+    $("*[data-radio]").first().click();
+});
+</script>
+{% endblock %}

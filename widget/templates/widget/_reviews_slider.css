@@ -55,6 +55,7 @@
     container:scroll / inline-size !important;
     display:flex !important;
     gap:1% !important;
+    min-height:150px !important;
     overflow-x:scroll !important;
     scroll-snap-type:x mandatory !important;
     scroll-behavior:smooth !important;
@@ -223,8 +224,4 @@
 
 .__2affd980__:hover{
     background-color:{% if theme == 'l' %}#F1F1F1{% else %}#323232{% endif %} !important;
-}
-
-.__465c2f34__{
-    padding-top:3px;
 }

@@ -1,0 +1,200 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+{% block navbar %}
+{% include "dashboard/_company_navbar.html" %}
+{% endblock %}
+{% block content %}
+<h2 class="bp5-heading">Визитка</h2>
+{% include "dashboard/_feedback_tabs.html" %}
+<div class="row">
+    <div class="xs-9">
+        <form method="post" novalidate>
+            {% csrf_token %}
+            <div class="row">
+                <div class="xs-6">
+                    <div class="bp5-form-group {% if form.feedback_contact_telegram.errors %}bp5-intent-danger{% endif %}">
+                        <label class="bp5-label" for="id_feedback_contact_telegram">Telegram</label>
+                        <div class="bp5-form-content">
+                            <div class="bp5-input-group {% if form.feedback_contact_telegram.errors %}bp5-intent-danger{% endif %}">
+                                {{ form.feedback_contact_telegram }}
+                            </div>
+                            <div class="bp5-form-helper-text">{% if form.feedback_contact_telegram.errors %}{{ form.feedback_contact_telegram.errors.as_text }}{% else %}tg://resolve?domain=+79999999999{% endif %}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="xs-6">
+                    <div class="bp5-form-group {% if form.feedback_contact_whatsapp.errors %}bp5-intent-danger{% endif %}">
+                        <label class="bp5-label" for="id_feedback_contact_whatsapp">Whatsapp</label>
+                        <div class="bp5-form-content">
+                            <div class="bp5-input-group {% if form.feedback_contact_whatsapp.errors %}bp5-intent-danger{% endif %}">
+                                {{ form.feedback_contact_whatsapp }}
+                            </div>
+                            <div class="bp5-form-helper-text">{% if form.feedback_contact_whatsapp.errors %}{{ form.feedback_contact_whatsapp.errors.as_text }}{% else %}whatsapp://send?phone=+79999999999{% endif %}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="xs-6">
+                    <div class="bp5-form-group {% if form.feedback_contact_viber.errors %}bp5-intent-danger{% endif %}">
+                        <label class="bp5-label" for="id_feedback_contact_viber">Viber</label>
+                        <div class="bp5-form-content">
+                            <div class="bp5-input-group {% if form.feedback_contact_viber.errors %}bp5-intent-danger{% endif %}">
+                                {{ form.feedback_contact_viber }}
+                            </div>
+                            <div class="bp5-form-helper-text">{% if form.feedback_contact_viber.errors %}{{ form.feedback_contact_viber.errors.as_text }}{% else %}viber://chat?number=+79999999999{% endif %}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="xs-6">
+                    <div class="bp5-form-group {% if form.feedback_contact_website.errors %}bp5-intent-danger{% endif %}">
+                        <label class="bp5-label" for="id_feedback_contact_website">Вебсайт</label>
+                        <div class="bp5-form-content">
+                            <div class="bp5-input-group {% if form.feedback_contact_website.errors %}bp5-intent-danger{% endif %}">
+                                {{ form.feedback_contact_website }}
+                            </div>
+                            {% if form.feedback_contact_website.errors %}
+                            <div class="bp5-form-helper-text">{{ form.feedback_contact_website.errors.as_text }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h6 class="bp5-heading">Соцсети</h6>
+            <div class="row">
+                <div class="xs-6">
+                    <div class="bp5-form-group {% if form.feedback_contact_vk.errors %}bp5-intent-danger{% endif %}">
+                        <label class="bp5-label" for="id_feedback_contact_vk">VK</label>
+                        <div class="bp5-form-content">
+                            <div class="bp5-input-group {% if form.feedback_contact_vk.errors %}bp5-intent-danger{% endif %}">
+                                {{ form.feedback_contact_vk }}
+                            </div>
+                            {% if form.feedback_contact_vk.errors %}
+                            <div class="bp5-form-helper-text">{{ form.feedback_contact_vk.errors.as_text }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="xs-6">
+                    <div class="bp5-form-group {% if form.feedback_contact_ok.errors %}bp5-intent-danger{% endif %}">
+                        <label class="bp5-label" for="id_feedback_contact_ok">Одноклассники</label>
+                        <div class="bp5-form-content">
+                            <div class="bp5-input-group {% if form.feedback_contact_ok.errors %}bp5-intent-danger{% endif %}">
+                                {{ form.feedback_contact_ok }}
+                            </div>
+                            {% if form.feedback_contact_ok.errors %}
+                            <div class="bp5-form-helper-text">{{ form.feedback_contact_ok.errors.as_text }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="xs-6">
+                    <div class="bp5-form-group {% if form.feedback_contact_facebook.errors %}bp5-intent-danger{% endif %}">
+                        <label class="bp5-label" for="id_feedback_contact_facebook">Facebook</label>
+                        <div class="bp5-form-content">
+                            <div class="bp5-input-group {% if form.feedback_contact_facebook.errors %}bp5-intent-danger{% endif %}">
+                                {{ form.feedback_contact_facebook }}
+                            </div>
+                            {% if form.feedback_contact_facebook.errors %}
+                            <div class="bp5-form-helper-text">{{ form.feedback_contact_facebook.errors.as_text }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="xs-6">
+                    <div class="bp5-form-group {% if form.feedback_contact_instagram.errors %}bp5-intent-danger{% endif %}">
+                        <label class="bp5-label" for="id_feedback_contact_instagram">Instagram</label>
+                        <div class="bp5-form-content">
+                            <div class="bp5-input-group {% if form.feedback_contact_instagram.errors %}bp5-intent-danger{% endif %}">
+                                {{ form.feedback_contact_instagram }}
+                            </div>
+                            {% if form.feedback_contact_instagram.errors %}
+                            <div class="bp5-form-helper-text">{{ form.feedback_contact_instagram.errors.as_text }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="xs-6">
+                    <div class="bp5-form-group {% if form.feedback_contact_x.errors %}bp5-intent-danger{% endif %}">
+                        <label class="bp5-label" for="id_feedback_contact_x">X</label>
+                        <div class="bp5-form-content">
+                            <div class="bp5-input-group {% if form.feedback_contact_x.errors %}bp5-intent-danger{% endif %}">
+                                {{ form.feedback_contact_x }}
+                            </div>
+                            {% if form.feedback_contact_x.errors %}
+                            <div class="bp5-form-helper-text">{{ form.feedback_contact_x.errors.as_text }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h6 class="bp5-heading">Видеохостинг</h6>
+            <div class="row">
+                <div class="xs-6">
+                    <div class="bp5-form-group {% if form.feedback_contact_youtube.errors %}bp5-intent-danger{% endif %}">
+                        <label class="bp5-label" for="id_feedback_contact_youtube">Youtube</label>
+                        <div class="bp5-form-content">
+                            <div class="bp5-input-group {% if form.feedback_contact_youtube.errors %}bp5-intent-danger{% endif %}">
+                                {{ form.feedback_contact_youtube }}
+                            </div>
+                            {% if form.feedback_contact_youtube.errors %}
+                            <div class="bp5-form-helper-text">{{ form.feedback_contact_youtube.errors.as_text }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="xs-6">
+                    <div class="bp5-form-group {% if form.feedback_contact_rutube.errors %}bp5-intent-danger{% endif %}">
+                        <label class="bp5-label" for="id_feedback_contact_rutube">Rutube</label>
+                        <div class="bp5-form-content">
+                            <div class="bp5-input-group {% if form.feedback_contact_rutube.errors %}bp5-intent-danger{% endif %}">
+                                {{ form.feedback_contact_rutube }}
+                            </div>
+                            {% if form.feedback_contact_rutube.errors %}
+                            <div class="bp5-form-helper-text">{{ form.feedback_contact_rutube.errors.as_text }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="xs-6">
+                    <div class="bp5-form-group {% if form.feedback_contact_vimeo.errors %}bp5-intent-danger{% endif %}">
+                        <label class="bp5-label" for="id_feedback_contact_vimeo">Vimeo</label>
+                        <div class="bp5-form-content">
+                            <div class="bp5-input-group {% if form.feedback_contact_vimeo.errors %}bp5-intent-danger{% endif %}">
+                                {{ form.feedback_contact_vimeo }}
+                            </div>
+                            {% if form.feedback_contact_vimeo.errors %}
+                            <div class="bp5-form-helper-text">{{ form.feedback_contact_vimeo.errors.as_text }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bp5-form-group">
+                <div class="bp5-form-content">
+                    <button class="bp5-button bp5-large" type="submit">Сохранить</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="xs-3">
+        {% include "dashboard/_feedback_preview.html" %}
+    </div>
+</div>
+{% endblock %}
+{% block script %}
+<script>
+$(document).ready(event => {
+    $("*[data-tag]").click(event => {
+        const link = `https://geo.portrate.io/@{{ company.id }}?utm_source=${$(event.currentTarget).data("tag")}`;
+        $("*[data-link]").attr("href", link).text(link);
+    })
+});
+</script>
+{% endblock %}

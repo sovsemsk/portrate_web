@@ -1,14 +1,10 @@
-beautifulsoup4==4.12.3
 celery==5.3.6
 dateparser==1.2.0
 Django==5.0.4
 django-admin-interface==0.28.5
-django-browser-reload==1.12.1
 django-celery-beat==2.6.0
 django-celery-results==2.5.1
-django-chartjs==2.3.0
 django-colorfield==0.11.0
-django-debug-toolbar==4.3.0
 django-filter==24.1
 django-money==3.4.1
 django-resized==1.0.2

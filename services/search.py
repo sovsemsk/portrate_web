@@ -14,7 +14,7 @@ class SearchYandex:
         }
 
         result = requests.get("https://search-maps.yandex.ru/v1", params=payload)
-        print(result.json().get("features", []))
+
         try:
             return result.json().get("features", [])
         except:

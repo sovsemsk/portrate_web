@@ -13,7 +13,10 @@ class ParserAvito:
     def __init__(self, parser_link):
         """ Парсер Авито """
         options = webdriver.ChromeOptions()
-        options.set_capability("selenoid:options", {"enableVNC": True})
+        options.set_capability("selenoid:options", {
+            "enableVNC": True,
+            "screenResolution": "1280x1024x24"
+        })
         self.driver = webdriver.Remote(command_executor=f"http://185.85.160.249:4444/wd/hub", options=options)
         self.driver.get(parser_link)
         time.sleep(1)

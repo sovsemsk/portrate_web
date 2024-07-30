@@ -1,0 +1,9 @@
+<div class="bp5-form-group">
+    <div class="bp5-form-content">
+        <div class="bp5-tab-list" role="tablist">
+            <a href="{% url 'company_update_feedback_data' company.id %}" class="bp5-tab" {% if sub_nav == "main" %}aria-selected="true"{% endif %}>Основное</a>
+            <a href="{% url 'company_update_feedback_service' company.id %}" class="bp5-tab" {% if sub_nav == "service" %}aria-selected="true"{% endif %}>Сервисы</a>
+            <a href="{% url 'company_update_feedback_contact' company.id %}" class="bp5-tab" {% if sub_nav == "contact" %}aria-selected="true"{% endif %}>Контакты</a>
+        </div>
+    </div>
+</div>
