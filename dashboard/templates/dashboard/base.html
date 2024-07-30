@@ -24,7 +24,7 @@
         {% if user.is_authenticated and not user.profile.telegram_id %}
         <div class="bp5-callout bp5-compact bp5-intent-warning" style="border-radius:0;padding-left:0;padding-right:0;">
             <div class="container">
-                Передите по этой <a href="http://t.me/portrate_is_notify_bot?start={{ user.profile.api_secret }}">ссылке</a> для активации уведомлений в Telegram.
+                Передите по этой <a href="http://t.me/portrate_notify_bot?start={{ user.profile.api_secret }}">ссылке</a> для активации уведомлений в Telegram.
             </div>
         </div>
         {% endif %}
