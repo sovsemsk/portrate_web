@@ -104,7 +104,7 @@ class ReviewFilter(FilterSet):
             map(
                 lambda review: [
                     review["stars"],
-                    Stars[f"_{review["stars"]}"].label
+                    Stars[f"_{review['stars']}"].label
                 ],
                 Review.objects.values("stars").filter(
                     company_id=kwargs["request"].resolver_match.kwargs["company_pk"]
