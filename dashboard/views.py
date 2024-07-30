@@ -536,19 +536,19 @@ class MasterCompanyCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateVie
         parsers_chain = []
 
         if self.request.COOKIES.get("id_yandex", False):
-            form.instance.parser_link_yandex = unquote(f"https://yandex.ru/maps/org/{self.request.COOKIES["name_yandex"]}/{self.request.COOKIES["id_yandex"]}/reviews")
+            form.instance.parser_link_yandex = unquote(f"https://yandex.ru/maps/org/{self.request.COOKIES['name_yandex']}/{self.request.COOKIES['id_yandex']}/reviews")
             form.instance.parser_last_change_at_yandex = datetime.now(timezone.utc)
-            form.instance.feedback_link_yandex = unquote(f"https://yandex.ru/maps/org/{self.request.COOKIES["name_yandex"]}/{self.request.COOKIES["id_yandex"]}/reviews?add-review=true")
+            form.instance.feedback_link_yandex = unquote(f"https://yandex.ru/maps/org/{self.request.COOKIES['name_yandex']}/{self.request.COOKIES['id_yandex']}/reviews?add-review=true")
 
         if self.request.COOKIES.get("id_gis", False):
-            form.instance.parser_link_gis = unquote(f"https://2gis.ru/firm/{self.request.COOKIES["id_gis"]}/tab/reviews")
+            form.instance.parser_link_gis = unquote(f"https://2gis.ru/firm/{self.request.COOKIES['id_gis']}/tab/reviews")
             form.instance.parser_last_change_at_gis = datetime.now(timezone.utc)
-            form.instance.feedback_link_gis = unquote(f"https://2gis.ru/firm/{self.request.COOKIES["id_gis"]}/tab/reviews/addreview")
+            form.instance.feedback_link_gis = unquote(f"https://2gis.ru/firm/{self.request.COOKIES['id_gis']}/tab/reviews/addreview")
 
         if self.request.COOKIES.get("id_google", False):
-            form.instance.parser_link_google = unquote(f"https://www.google.com/maps/search/?api=1&query=~&query_place_id={self.request.COOKIES["id_google"]}")
+            form.instance.parser_link_google = unquote(f"https://www.google.com/maps/search/?api=1&query=~&query_place_id={self.request.COOKIES['id_google']}")
             form.instance.parser_last_change_at_google = datetime.now(timezone.utc)
-            form.instance.feedback_link_google = unquote(f"https://search.google.com/local/writereview?placeid={self.request.COOKIES["id_google"]}")
+            form.instance.feedback_link_google = unquote(f"https://search.google.com/local/writereview?placeid={self.request.COOKIES['id_google']}")
 
         form_valid = super().form_valid(form)
         form.instance.users.add(self.request.user)
