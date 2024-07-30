@@ -827,6 +827,10 @@ class UserLoginView(LoginView):
 
     def get_context_data(self, ** kwargs):
         context = super().get_context_data(** kwargs)
+        from django.conf import settings
+
+        context["env"] = settings.DEBUG
+
         context["nav"] = "login"
         return context
 
