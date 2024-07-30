@@ -3,8 +3,8 @@
         {% include "widget/_reviews_slider.css" %}
     </style>
     {% if review %}
-    <button class="__442d9ae4__" onclick="__18e6c1__()" data-32a461><img class="__49b33320__" height="20" src="http://127.0.0.1:8000/static/dashboard/images/ui/chevron-left.svg" width="20"></button>
-    <button class="__317ec92c__" onclick="__459b69__()" data-cd7b94><img class="__533daea2__" height="20" src="http://127.0.0.1:8000/static/dashboard/images/ui/chevron-right.svg" width="20"></button>
+    <button class="__442d9ae4__" onclick="__18e6c1__()" data-32a461><img class="__49b33320__" height="20" src="https://geo.portrate.io/static/dashboard/images/ui/chevron-left.svg" width="20"></button>
+    <button class="__317ec92c__" onclick="__459b69__()" data-cd7b94><img class="__533daea2__" height="20" src="https://geo.portrate.io/static/dashboard/images/ui/chevron-right.svg" width="20"></button>
     {% endif %}
     <div class="__2981c708__" data-4913fc>
         {% for review in reviews %}
@@ -12,10 +12,10 @@
             <div class="__3c488807__">
                 <div>
                     <div class="__e5cfa931__">{{ review.name }}</div>
-                    <img class="__440ca2c6__" height="10" src="http://127.0.0.1:8000/static/dashboard/images/stars/{{ review.stars_str }}.svg" width="70">
+                    <img class="__440ca2c6__" height="10" src="https://geo.portrate.io/static/dashboard/images/stars/{{ review.stars_str }}.svg" width="70">
                     <div class="__d384a050__">{{ review.created_at }}</div>
                 </div>
-                <img class="__6a2b11f7__" height=16 src="http://127.0.0.1:8000/static/dashboard/images/services/{{ review.service|lower }}.png" width=16>
+                <img class="__6a2b11f7__" height=16 src="https://geo.portrate.io/static/dashboard/images/services/{{ review.service|lower }}.png" width=16>
             </div>
             <div class="__4080b9b1__">
                 <div class="__341e4199__"></div>
@@ -28,30 +28,30 @@
     <div class="__20965ede__">
         {% if company.parser_link_yandex and company.rating_yandex != 0.0 %}
         <a href="{{ parser_link_yandex }}" class="__40b76d95__" target="_blank">
-            <img class="__ccaab7aa__" height="16" src="http://127.0.0.1:8000/static/dashboard/images/services/yandex.png" width="16">
+            <img class="__ccaab7aa__" height="16" src="https://geo.portrate.io/static/dashboard/images/services/yandex.png" width="16">
             Яндекс
             <span class="__cab09265__">{{ company.rating_yandex }}</span>
-            <img class="__1314449f__" height="14" src="http://127.0.0.1:8000/static/dashboard/images/ui/share.svg" width="14">
+            <img class="__1314449f__" height="14" src="https://geo.portrate.io/static/dashboard/images/ui/share.svg" width="14">
         </a>
         {% endif %}
         {% if company.parser_link_gis and company.parser_link_gis != 0.0 %}
         <a href="{{ parser_link_gis }}" class="__40b76d95__" target="_blank">
-            <img class="__ccaab7aa__" height="16" src="http://127.0.0.1:8000/static/dashboard/images/services/gis.png" width="16">
+            <img class="__ccaab7aa__" height="16" src="https://geo.portrate.io/static/dashboard/images/services/gis.png" width="16">
             2Гис
             <span class="__cab09265__">{{ company.rating_gis }}</span>
-            <img class="__1314449f__" height="14" src="http://127.0.0.1:8000/static/dashboard/images/ui/share.svg" width="14">
+            <img class="__1314449f__" height="14" src="https://geo.portrate.io/static/dashboard/images/ui/share.svg" width="14">
         </a>
         {% endif %}
         {% if company.parser_link_google and company.parser_link_google != 0.0 %}
         <a href="{{ parser_link_google }}" class="__40b76d95__" target="_blank">
-            <img class="__ccaab7aa__" height="16" src="http://127.0.0.1:8000/static/dashboard/images/services/google.png" width="16">
+            <img class="__ccaab7aa__" height="16" src="https://geo.portrate.io/static/dashboard/images/services/google.png" width="16">
             Google
             <span class="__cab09265__">{{ company.rating_google }}</span>
-            <img class="__1314449f__" height="14" src="http://127.0.0.1:8000/static/dashboard/images/ui/share.svg" width="14">
+            <img class="__1314449f__" height="14" src="https://geo.portrate.io/static/dashboard/images/ui/share.svg" width="14">
         </a>
         {% endif %}
         <a href="https://portrate.io" class="__2affd980__" target="_blank">
-            <span>виджет от</span><img class="__465c2f34__"  src="http://127.0.0.1:8000/static/dashboard/images/ui/logo.png" width="16">
+            <span>виджет от</span><img class="__465c2f34__"  src="https://geo.portrate.io/static/dashboard/images/ui/logo.png" width="16">
         </a>
     </div>
 </div>

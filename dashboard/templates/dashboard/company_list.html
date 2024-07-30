@@ -36,10 +36,8 @@
                         {% for company in company_list %}
                         <tr data-href="{% url 'company_detail' company.id %}">
                                 <td>
-                                    <div class="bp5-text-large">{{company.name}}</div>
-                                    {% if company.address %}
-                                    <div class="bp5-text-muted bp5-text-small">{{company.address}}</div>
-                                    {% endif %}
+                                    <div class="bp5-text-large">{{ company.name }}</div>
+                                    <div class="bp5-text-muted bp5-text-small">{{ company.address|default:"Нет адреса" }}</div>
                                 </td>
                                 <td>
                                     <div class="bp5-entity-title">
