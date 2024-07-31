@@ -5,6 +5,7 @@ import time
 import dateparser
 from lxml import etree
 from selenium import webdriver
+from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 
 
@@ -19,17 +20,18 @@ class ParserYandex:
         })
         self.driver = webdriver.Remote(command_executor=f"http://9bea7b5c.portrate.io/wd/hub", options=options)
         self.driver.get(parser_link)
-        time.sleep(5)
+        self.driver.implicitly_wait(5)
 
     def close_page(self):
-        """ Закрытие страницы """
         self.driver.close()
         self.driver.quit()
 
     def parse_rating(self):
-        """ Парсинг рейтинга организации """
-        node = self.driver.find_element(By.CLASS_NAME, "business-summary-rating-badge-view__rating")
-        return float(".".join(re.findall(r'\d+', node.text)))
+        try:
+            node = self.driver.find_element(By.CLASS_NAME, "business-summary-rating-badge-view__rating")
+            return float(".".join(re.findall(r'\d+', node.text)))
+        except NoSuchElementException:
+            return False
 
     def parse_reviews(self):
         """ Парсинг отзывов """
@@ -53,8 +55,6 @@ class ParserYandex:
     def __scroll_reviews_to_bottom__(self, node):
         """ Скроллинг списка до последнего отзыва """
         self.driver.execute_script("arguments[0].scrollIntoView();", node)
-
-        time.sleep(5)
         new_node = self.driver.find_elements(By.CLASS_NAME, "business-reviews-card-view__review")[-1]
 
         if node == new_node:
@@ -62,49 +62,26 @@ class ParserYandex:
 
         self.__scroll_reviews_to_bottom__(new_node)
 
-    def __sort_by_newest__(self):
-        try:
-            menu_node = self.driver.find_element(By.CLASS_NAME, "rating-ranking-view")
-            menu_node.click()
-        except:
-            ...
-        finally:
-            time.sleep(1)
-
-        try:
-            button_node = self.driver.find_elements(By.CLASS_NAME, "rating-ranking-view__popup-line")[1]
-            button_node.click()
-        except:
-            ...
-        finally:
-            time.sleep(1)
-
     def __parse_review__(self, lxml_node):
-        """ Парсинг отзыва """
         try:
             date = lxml_node.xpath(".//meta[@itemprop='datePublished']")[0].get("content")
-        except:
+        except IndexError:
             date = None
 
         try:
             name = lxml_node.xpath(".//span[@itemprop='name']")[0].text
-        except:
+        except IndexError:
             name = None
 
         try:
             text = lxml_node.xpath(".//span[contains(@class, 'business-review-view__body-text')]")[0].text
-        except:
+        except IndexError:
             text = None
-
-        try:
-            stars = lxml_node.xpath(".//span[contains(@class, '_full')]")
-        except:
-            stars = []
 
         return {
             "created_at": dateparser.parse(date, languages=["ru", "en"]),
             "name": name,
             "remote_id": hashlib.md5(f"{name}{date}".encode()).hexdigest(),
-            "stars": len(stars),
+            "stars": len(lxml_node.xpath(".//span[contains(@class, '_full')]")),
             "text": text
         }

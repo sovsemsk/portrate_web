@@ -657,7 +657,8 @@ def review_post_save(sender, instance, created, ** kwargs):
                 f"membership__is_notify_{instance.stars}": True
             }
         ).exclude(profile__telegram_id=None).all():
-            asyncio.run(Bot(settings.TELEGRAM_BOT_API_SECRET).send_message(user.profile.telegram_id, instance.notification_template))
+            ...
+            # asyncio.run(Bot(settings.TELEGRAM_BOT_API_SECRET).send_message(user.profile.telegram_id, instance.notification_template))
 
 
 class VisitStamp(Model):

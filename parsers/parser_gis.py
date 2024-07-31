@@ -4,6 +4,7 @@ import time
 import dateparser
 from lxml import etree
 from selenium import webdriver
+from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 
 
@@ -18,21 +19,20 @@ class ParserGis:
         })
         self.driver = webdriver.Remote(command_executor=f"http://9bea7b5c.portrate.io/wd/hub", options=options)
         self.driver.get(parser_link)
-        self.__close_agreement__()
-        time.sleep(5)
+        self.driver.implicitly_wait(5)
 
     def close_page(self):
-        """ Закрытие страницы """
         self.driver.close()
         self.driver.quit()
 
     def parse_rating(self):
-        """ Парсинг рейтинга организации """
-        node = self.driver.find_element(By.CLASS_NAME, "_y10azs")
-        return float(node.text)
+        try:
+            node = self.driver.find_element(By.CLASS_NAME, "_y10azs")
+            return float(node.text)
+        except NoSuchElementException:
+            return False
 
     def parse_reviews(self):
-        """ Парсинг отзывов """
         reviews = []
         nodes = self.driver.find_elements(By.CLASS_NAME, "_11gvyqv")
 
@@ -50,22 +50,8 @@ class ParserGis:
 
         return reviews
 
-    def __close_agreement__(self):
-        try:
-            self.driver.find_element(By.CLASS_NAME, "_fs4sw2").click()
-        except:
-            ...
-
-        try:
-            self.driver.find_element(By.CLASS_NAME, "_euwdl0").click()
-        except:
-            ...
-
     def __scroll_reviews_to_bottom__(self, node):
-        """ Скроллинг списка до последнего отзыва """
         self.driver.execute_script("arguments[0].scrollIntoView();", node)
-
-        time.sleep(5)
         new_node = self.driver.find_elements(By.CLASS_NAME, "_11gvyqv")[-1]
 
         if node == new_node:
@@ -75,34 +61,28 @@ class ParserGis:
 
     @staticmethod
     def __parse_review__(lxml_node):
-        """ Парсинг отзыва """
         try:
             date = lxml_node.xpath(".//div[contains(@class, '_4mwq3d')]")[0].text
-        except:
+        except IndexError:
             date = None
 
         try:
             name = lxml_node.xpath(".//span[contains(@class, '_16s5yj36')]")[0].text
-        except:
+        except IndexError:
             name = None
 
         try:
             try:
                 text = lxml_node.xpath(".//a[contains(@class, '_1it5ivp')]")[0].text
-            except:
+            except IndexError:
                 text = lxml_node.xpath(".//a[contains(@class, '_ayej9u3')]")[0].text
-        except:
+        except IndexError:
             text = None
 
-        try:
-            stars = lxml_node.xpath(".//div[contains(@class, '_1fkin5c')]/span")
-        except:
-            stars = []
-
         return {
-            "created_at": dateparser.parse(date, languages=["ru", "en"]),
+            "created_at": dateparser.parse(date.replace(", отредактирован", ""), languages=["ru", "en"]),
             "name": name,
             "remote_id": hashlib.md5(f"{name}{date}".encode()).hexdigest(),
-            "stars": float(len(stars)),
+            "stars": len(lxml_node.xpath(".//div[contains(@class, '_1fkin5c')]/span")),
             "text": text
         }

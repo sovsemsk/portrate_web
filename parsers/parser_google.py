@@ -1,8 +1,7 @@
-import time
-
 import dateparser
 from lxml import etree
 from selenium import webdriver
+from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 
 
@@ -17,21 +16,27 @@ class ParserGoogle:
         })
         self.driver = webdriver.Remote(command_executor=f"http://9bea7b5c.portrate.io/wd/hub", options=options)
         self.driver.get(parser_link)
-        self.__open_reviews_tab__()
-        time.sleep(5)
+        self.driver.implicitly_wait(5)
 
     def close_page(self):
-        """ Закрытие страницы """
         self.driver.close()
         self.driver.quit()
 
+    def open_reviews_tab(self):
+        try:
+            self.driver.find_elements(By.CLASS_NAME, "hh2c6")[1].click()
+            return True
+        except (NoSuchElementException, IndexError):
+            return False
+
     def parse_rating(self):
-        """ Парсинг рейтинга организации """
-        node = self.driver.find_element(By.CLASS_NAME, "fontDisplayLarge")
-        return float(node.text.replace(",", "."))
+        try:
+            node = self.driver.find_element(By.CLASS_NAME, "fontDisplayLarge")
+            return float(node.text.replace(",", "."))
+        except NoSuchElementException:
+            return False
 
     def parse_reviews(self):
-        """ Парсинг отзывов """
         reviews = []
         nodes = self.driver.find_elements(By.CLASS_NAME, "jftiEf")
 
@@ -50,17 +55,8 @@ class ParserGoogle:
 
         return reviews
 
-    def __open_reviews_tab__(self):
-        """ Переход на страницу отзывов """
-        tab_node = self.driver.find_elements(By.CLASS_NAME, "hh2c6")[1]
-        tab_node.click()
-        time.sleep(5)
-
     def __scroll_reviews_to_bottom__(self, node):
-        """ Скроллинг списка до последнего отзыва """
         self.driver.execute_script("arguments[0].scrollIntoView();", node)
-
-        time.sleep(5)
         new_node = self.driver.find_elements(By.CLASS_NAME, "jftiEf")[-1]
 
         if node == new_node:
@@ -69,61 +65,31 @@ class ParserGoogle:
         self.__scroll_reviews_to_bottom__(new_node)
 
     def __expand_reviews__(self):
-        """ Раскрытие комментариев """
         links = self.driver.find_elements(By.CLASS_NAME, 'w8nwRe')
 
         for link in links:
             link.click()
 
-    def __sort_by_newest__(self):
-        """ Сортировка по дате создания """
-        try:
-            menu_node = self.driver.find_element(By.CLASS_NAME, "HQzyZ")
-            menu_node.click()
-        except:
-            ...
-        finally:
-            time.sleep(1)
-
-        try:
-            button_node = self.driver.find_elements(By.CLASS_NAME, "fxNQSd")[1]
-            button_node.click()
-        except:
-            ...
-        finally:
-            time.sleep(1)
-
     def __parse_review__(self, lxml_node):
-        """ Парсинг отзыва """
         try:
             date = lxml_node.xpath(".//span[contains(@class, 'rsqaWe')]")[0].text
-        except:
+        except IndexError:
             date = None
 
         try:
-            remote_id = lxml_node.get("data-review-id")
-        except:
-            remote_id = None
-
-        try:
             name = lxml_node.xpath(".//div[contains(@class, 'd4r55')]")[0].text
-        except:
+        except IndexError:
             name = None
 
         try:
             text = lxml_node.xpath(".//span[contains(@class, 'wiI7pd')]")[0].text
-        except:
+        except IndexError:
             text = None
-
-        try:
-            stars = lxml_node.xpath(".//span[contains(@class, 'elGi1d')]")
-        except:
-            stars = []
 
         return {
             "created_at": dateparser.parse(date, languages=["ru", "en"]),
             "name": name,
-            "remote_id": remote_id,
-            "stars": len(stars),
+            "remote_id": lxml_node.get("data-review-id"),
+            "stars": len(lxml_node.xpath(".//span[contains(@class, 'elGi1d')]")),
             "text": text
         }

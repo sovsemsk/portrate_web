@@ -27,6 +27,7 @@ def rupluralize(value, forms):
     except (ValueError, TypeError):
         return ""
 
+
 @register.simple_tag(takes_context=True)
 def param_replace(context, **kwargs):
     """

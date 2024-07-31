@@ -3,6 +3,7 @@ from hashlib import md5
 
 from celery import shared_task
 from django.core.cache import cache
+from django.db import IntegrityError
 
 from parsers.parser_gis import ParserGis
 from parsers.parser_google import ParserGoogle
@@ -26,22 +27,16 @@ def parse_yandex_task(previous_result=None, company_id=None):
     company.is_parser_run_yandex = True
     company.save(update_fields=["is_parser_run_yandex"])
 
-    try:
-        parser = ParserYandex(company.parser_link_yandex)
-    except:
-        parser = None
+    parser = ParserYandex(company.parser_link_yandex)
 
-    try:
+    if parser.parse_rating():
         rating = parser.parse_rating()
         reviews = parser.parse_reviews()
-    except:
+    else:
         rating = 0.0
         reviews = []
 
-    try:
-        parser.close_page()
-    except:
-        ...
+    parser.close_page()
 
     company.is_first_parsing_yandex = False
     company.parser_last_parse_at_yandex = datetime.now(timezone.utc)
@@ -52,7 +47,7 @@ def parse_yandex_task(previous_result=None, company_id=None):
     for review in reviews:
         try:
             Review.objects.create(company_id=company.id, service=Service.YANDEX, **review)
-        except:
+        except IntegrityError:
             ...
 
     """ Разблокировка для выполнения """
@@ -76,22 +71,16 @@ def parse_gis_task(previous_result=None, company_id=None):
     company.is_parser_run_gis = True
     company.save(update_fields=["is_parser_run_gis"])
 
-    try:
-        parser = ParserGis(company.parser_link_gis)
-    except:
-        parser = None
+    parser = ParserGis(company.parser_link_gis)
 
-    try:
+    if parser.parse_rating():
         rating = parser.parse_rating()
         reviews = parser.parse_reviews()
-    except:
+    else:
         rating = 0.0
         reviews = []
 
-    try:
-        parser.close_page()
-    except:
-        ...
+    parser.close_page()
 
     company.is_first_parsing_gis = False
     company.parser_last_parse_at_gis = datetime.now(timezone.utc)
@@ -102,7 +91,7 @@ def parse_gis_task(previous_result=None, company_id=None):
     for review in reviews:
         try:
             Review.objects.create(company_id=company.id, service=Service.GIS, **review)
-        except:
+        except IntegrityError:
             ...
 
     """ Разблокировка для выполнения """
@@ -126,22 +115,16 @@ def parse_google_task(previous_result=None, company_id=None):
     company.is_parser_run_google = True
     company.save(update_fields=["is_parser_run_google"])
 
-    try:
-        parser = ParserGoogle(company.parser_link_google)
-    except:
-        parser = None
+    parser = ParserGoogle(company.parser_link_google)
 
-    try:
+    if parser.open_reviews_tab() and parser.parse_rating():
         rating = parser.parse_rating()
         reviews = parser.parse_reviews()
-    except:
+    else:
         rating = 0.0
         reviews = []
 
-    try:
-        parser.close_page()
-    except:
-        ...
+    parser.close_page()
 
     company.is_first_parsing_google = False
     company.parser_last_parse_at_google = datetime.now(timezone.utc)
@@ -152,7 +135,7 @@ def parse_google_task(previous_result=None, company_id=None):
     for review in reviews:
         try:
             Review.objects.create(company_id=company.id, service=Service.GOOGLE, **review)
-        except:
+        except IntegrityError:
             ...
 
     """ Разблокировка для выполнения """
