@@ -1,7 +1,9 @@
+import time
+
 import dateparser
 from lxml import etree
 from selenium import webdriver
-from selenium.common import NoSuchElementException
+from selenium.common import NoSuchElementException, StaleElementReferenceException
 from selenium.webdriver.common.by import By
 
 
@@ -16,6 +18,7 @@ class ParserGoogle:
         })
         self.driver = webdriver.Remote(command_executor=f"http://9bea7b5c.portrate.io/wd/hub", options=options)
         self.driver.get(parser_link)
+        time.sleep(5)
         self.driver.implicitly_wait(5)
 
     def close_page(self):
@@ -33,7 +36,7 @@ class ParserGoogle:
         try:
             node = self.driver.find_element(By.CLASS_NAME, "fontDisplayLarge")
             return float(node.text.replace(",", "."))
-        except NoSuchElementException:
+        except (NoSuchElementException, StaleElementReferenceException):
             return False
 
     def parse_reviews(self):
@@ -57,6 +60,8 @@ class ParserGoogle:
 
     def __scroll_reviews_to_bottom__(self, node):
         self.driver.execute_script("arguments[0].scrollIntoView();", node)
+
+        time.sleep(5)
         new_node = self.driver.find_elements(By.CLASS_NAME, "jftiEf")[-1]
 
         if node == new_node:

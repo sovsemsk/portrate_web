@@ -48,16 +48,19 @@
                                     </a>
                                 </div>
                             </td>
-                            <td>
+                            <td style="position:relative;">
+                                <div style="background:rgba(0, 0, 0, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_total_yandex company.reviews_count_total 100 %}%;z-index:0;"></div>
                                 <div class="bp5-text-large">{{ company.reviews_count_total_yandex|default:"0" }}</div>
                                 <!--div class="bp5-progress-bar bp5-no-animation bp5-no-stripes">
                                     <div class="bp5-progress-meter" style="width:{% widthratio company.reviews_count_total_yandex company.reviews_count_total 100 %}%"></div>
                                 </div-->
                             </td>
-                            <td>
+                            <td style="position:relative;">
+                                <div style="background:rgba(28, 110, 66, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_positive_yandex company.reviews_count_total 100 %}%;z-index:0;"></div>
                                 <div class="bp5-text-large">{{ company.reviews_count_positive_yandex|default:"0" }}</div>
                             </td>
-                            <td>
+                            <td style="position:relative;">
+                                <div style="background:rgba(172, 47, 51, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_negative_yandex company.reviews_count_total 100 %}%;z-index:0;"></div>
                                 <div class="bp5-text-large">{{ company.reviews_count_negative_yandex|default:"0" }}</div>
                             </td>
                             <td>
@@ -80,13 +83,16 @@
                                     </a>
                                 </div>
                             </td>
-                            <td>
+                            <td style="position:relative;">
+                                <div style="background:rgba(0, 0, 0, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_total_gis company.reviews_count_total 100 %}%;z-index:0;"></div>
                                 <div class="bp5-text-large">{{ company.reviews_count_total_gis|default:"0" }}</div>
                             </td>
-                            <td>
+                            <td style="position:relative;">
+                                <div style="background:rgba(28, 110, 66, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_positive_gis company.reviews_count_total 100 %}%;z-index:0;"></div>
                                 <div class="bp5-text-large">{{ company.reviews_count_positive_gis|default:"0" }}</div>
                             </td>
-                            <td>
+                            <td style="position:relative;">
+                                <div style="background:rgba(172, 47, 51, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_negative_gis company.reviews_count_total 100 %}%;z-index:0;"></div>
                                 <div class="bp5-text-large">{{ company.reviews_count_negative_gis|default:"0" }}</div>
                             </td>
                             <td>
@@ -109,13 +115,16 @@
                                     </a>
                                 </div>
                             </td>
-                            <td>
+                            <td style="position:relative;">
+                                <div style="background:rgba(0, 0, 0, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_total_google company.reviews_count_total 100 %}%;z-index:0;"></div>
                                 <div class="bp5-text-large">{{ company.reviews_count_total_google|default:"0" }}</div>
                             </td>
-                            <td>
+                            <td style="position:relative;">
+                                <div style="background:rgba(28, 110, 66, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_positive_google company.reviews_count_total 100 %}%;z-index:0;"></div>
                                 <div class="bp5-text-large">{{ company.reviews_count_positive_google|default:"0" }}</div>
                             </td>
-                            <td>
+                            <td style="position:relative;">
+                                <div style="background:rgba(172, 47, 51, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_negative_google company.reviews_count_total 100 %}%;z-index:0;"></div>
                                 <div class="bp5-text-large">{{ company.reviews_count_negative_google|default:"0" }}</div>
                             </td>
                             <td>
