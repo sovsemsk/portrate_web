@@ -8,7 +8,7 @@
 <a class="bp5-button bp5-minimal {% if nav == 'statistic' %}bp5-active{% endif %}" href="{% url 'company_detail' company.id %}">Статистика</a>
 <a class="bp5-button bp5-minimal {% if nav == 'reviews' %}bp5-active{% endif %}" href="{% url 'review_list' company.id %}">Отзывы</a>
 <a class="bp5-button bp5-minimal {% if nav == 'messages' %}bp5-active{% endif %}" href="{% url 'message_list' company.id %}">Сообщения</a>
-<a class="bp5-button bp5-minimal {% if nav == 'widget' %}bp5-active{% endif %}" href="{% url 'widget' company.id %}">Виджет</a>
+<a class="bp5-button bp5-minimal {% if nav == 'widget' %}bp5-active{% endif %}" href="{% url 'company_update_widget' company.id %}">Виджет</a>
 <a class="bp5-button bp5-minimal {% if nav == 'feedback' %}bp5-active{% endif %}" href="{% url 'company_update_feedback_data' company.id %}">Визитка</a>
 <a class="bp5-button bp5-minimal {% if nav == 'qr' %}bp5-active{% endif %}" href="{% url 'qr' company.id %}">Наклейка</a>
 <a class="bp5-button bp5-minimal {% if nav == 'notifications' %}bp5-active{% endif %}" href="{% url 'membership_update' company.id %}">Уведомления</a>

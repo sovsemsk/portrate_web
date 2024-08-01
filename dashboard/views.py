@@ -853,12 +853,12 @@ class UserUpdateView(LoginRequiredMixin, View):
         return render(request, self.template_name, {"form": form, **self.context})
 
 
-class WidgetView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class CompanyUpdateWidgetView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     context_object_name = "company"
     form_class = DashboardCompanyChangeVisibleForm
     model = Company
     success_message = "Виджет успешно обновлен"
-    template_name = "dashboard/widget.html"
+    template_name = "dashboard/company_update_widget.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -872,4 +872,4 @@ class WidgetView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         return super().get_queryset().filter(users__in=[self.request.user])
 
     def get_success_url(self):
-        return reverse("widget", kwargs={"pk": self.kwargs["pk"]})
+        return reverse("company_update_widget", kwargs={"pk": self.kwargs["pk"]})

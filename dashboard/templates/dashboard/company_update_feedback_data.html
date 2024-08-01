@@ -71,9 +71,11 @@
             </div>
             <div class="bp5-form-group">
                 <div class="bp5-form-content">
-                    {% for tag in company.feedback_utm_source_tags %}
-                    <span class="bp5-interactive bp5-minimal bp5-tag" data-tag="{{ tag }}">{{ tag }}</span>
-                    {% endfor %}
+                    <div class="bp5-control-group">
+                        {% for tag in company.feedback_utm_source_tags %}
+                        <span class="bp5-interactive bp5-minimal bp5-tag" data-tag="{{ tag }}">{{ tag }}</span>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
             <div class="bp5-form-group">

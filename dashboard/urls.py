@@ -18,6 +18,7 @@ from .views import (
     CompanyUpdateFeedbackDataView,
     CompanyUpdateFeedbackContactView,
     CompanyUpdateFeedbackServiceView,
+    CompanyUpdateWidgetView,
     MasterCompanyCreateView,
     MasterSearchGisView,
     MasterSearchGoogleView,
@@ -34,7 +35,6 @@ from .views import (
     UserLoginView,
     UserLogoutView,
     UserUpdateView,
-    WidgetView
 )
 
 urlpatterns = [
@@ -77,5 +77,5 @@ urlpatterns = [
     path("user/update/", UserUpdateView.as_view(), name="user_update"),
     path("login/", UserLoginView.as_view(), name="user_login"),
     path("logout/", UserLogoutView.as_view(), name="user_logout"),
-    path("company/<int:pk>/widget/", WidgetView.as_view(), name="widget")
+    path("company/<int:pk>/update_widget/", CompanyUpdateWidgetView.as_view(), name="company_update_widget")
 ]

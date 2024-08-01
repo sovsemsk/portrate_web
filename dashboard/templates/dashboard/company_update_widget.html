@@ -9,8 +9,8 @@
     <div class="bp5-form-content">
         <div class="bp5-control-group">
             <div class="bp5-button-group bp5-minimal">
-                <a class="bp5-button bp5-icon-flash {% if theme == 'l' %}bp5-active{% endif %}" href="{% url 'widget' company.id %}">Светлый</a>
-                <a class="bp5-button bp5-icon-moon {% if theme == 'd' %}bp5-active{% endif %}" href="?theme=d">Темный</a>
+                <a class="bp5-button bp5-icon-flash {% if theme == 'l' %}bp5-active{% endif %}" href="{% url 'company_update_widget' company.id %}">Светлый</a>
+                <a class="bp5-button bp5-icon-moon_ {% if theme == 'd' %}bp5-active{% endif %}" href="?theme=d">Темный</a>
             </div>
         </div>
     </div>
@@ -18,7 +18,7 @@
 <div class="bp5-form-group">
     <div class="bp5-form-content">
         <label class="bp5-label">Предпросмотр</label>
-        <div class="bp5-card" style="background-color:{% if theme == 'l' %}rgba(143, 153, 168, 0.05){% else %}black{% endif %}">
+        <div style="background-color:{% if theme == 'l' %}rgba(143, 153, 168, 0.05){% else %}black{% endif %}; padding: 15px;">
             {% include "widget/_reviews_slider.html" %}
         </div>
     </div>

@@ -3,8 +3,8 @@ from datetime import datetime, timezone
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm, UserChangeForm, UsernameField, UserCreationForm
 from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
-from django.forms import Form, inlineformset_factory, Select, ImageField, FileInput, BooleanField, CheckboxInput
 from django.forms import CharField, ModelForm, PasswordInput, TextInput
+from django.forms import Form, inlineformset_factory, Select, ImageField, FileInput, BooleanField, CheckboxInput
 
 from resources.models import Company, Membership, Profile, Review, Timezone, Service
 from resources.tasks import (
