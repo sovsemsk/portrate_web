@@ -2672,10 +2672,10 @@ span.bp5-icon:empty.bp5-icon-large {
 }
 
 a {
-  color: #0f6894;
+  color: #215db0;
 }
 a:hover {
-  color: #0f6894;
+  color: #215db0;
 }
 a .bp5-icon, a .bp5-icon-standard, a .bp5-icon-large {
   color: inherit;
@@ -2692,7 +2692,7 @@ a code {
 }
 a > .bp5-code,
 a > .bp5-running-text code {
-  color: #147eb3;
+  color: #2d72d2;
 }
 
 .bp5-code-block,
@@ -2723,16 +2723,16 @@ a > .bp5-running-text code {
 }
 
 .bp5-icon.bp5-intent-primary, .bp5-icon-standard.bp5-intent-primary, .bp5-icon-large.bp5-intent-primary {
-  color: #147eb3;
+  color: #2d72d2;
 }
 .bp5-icon.bp5-intent-success, .bp5-icon-standard.bp5-intent-success, .bp5-icon-large.bp5-intent-success {
-  color: #8eb125;
+  color: #238551;
 }
 .bp5-icon.bp5-intent-warning, .bp5-icon-standard.bp5-intent-warning, .bp5-icon-large.bp5-intent-warning {
-  color: #d1980b;
+  color: #c87619;
 }
 .bp5-icon.bp5-intent-danger, .bp5-icon-standard.bp5-intent-danger, .bp5-icon-large.bp5-intent-danger {
-  color: #d33d17;
+  color: #cd4246;
 }
 
 /*
@@ -3165,10 +3165,10 @@ Dark theme
   border-color: rgba(255, 255, 255, 0.2);
 }
 .bp5-dark a {
-  color: #68c1ee;
+  color: #8abbff;
 }
 .bp5-dark a:hover {
-  color: #68c1ee;
+  color: #8abbff;
 }
 .bp5-dark a .bp5-icon, .bp5-dark a .bp5-icon-standard, .bp5-dark a .bp5-icon-large {
   color: inherit;
@@ -3205,25 +3205,25 @@ a > .bp5-dark .bp5-running-text code {
   color: #abb3bf;
 }
 .bp5-dark .bp5-icon.bp5-intent-primary, .bp5-dark .bp5-icon-standard.bp5-intent-primary, .bp5-dark .bp5-icon-large.bp5-intent-primary {
-  color: #68c1ee;
+  color: #8abbff;
 }
 .bp5-dark .bp5-icon.bp5-intent-success, .bp5-dark .bp5-icon-standard.bp5-intent-success, .bp5-dark .bp5-icon-large.bp5-intent-success {
-  color: #d4f17e;
+  color: #72ca9b;
 }
 .bp5-dark .bp5-icon.bp5-intent-warning, .bp5-dark .bp5-icon-standard.bp5-intent-warning, .bp5-dark .bp5-icon-large.bp5-intent-warning {
-  color: #fbd065;
+  color: #fbb360;
 }
 .bp5-dark .bp5-icon.bp5-intent-danger, .bp5-dark .bp5-icon-standard.bp5-intent-danger, .bp5-dark .bp5-icon-large.bp5-intent-danger {
-  color: #ff9980;
+  color: #fa999c;
 }
 
 :focus {
-  outline: rgba(15, 104, 148, 0.752) solid 2px;
+  outline: rgba(33, 93, 176, 0.752) solid 2px;
   outline-offset: 2px;
   -moz-outline-radius: 6px;
 }
 .bp5-dark :focus {
-  outline-color: rgba(104, 193, 238, 0.752);
+  outline-color: rgba(138, 187, 255, 0.752);
 }
 
 .bp5-focus-disabled :focus:not(.bp5-focus-style-manager-ignore *) {
@@ -3524,7 +3524,7 @@ Styleguide button
   }
 }
 .bp5-button.bp5-intent-primary {
-  background-color: #147eb3;
+  background-color: #2d72d2;
   box-shadow: inset 0 0 0 0px rgba(17, 20, 24, 0.2);
   color: #ffffff;
 }
@@ -3532,15 +3532,15 @@ Styleguide button
   color: #ffffff;
 }
 .bp5-button.bp5-intent-primary:hover {
-  background-color: #0f6894;
+  background-color: #215db0;
   box-shadow: inset 0 0 0 0px rgba(17, 20, 24, 0.2);
 }
 .bp5-button.bp5-intent-primary:active, .bp5-button.bp5-intent-primary.bp5-active {
-  background-color: #0c5174;
+  background-color: #184a90;
   box-shadow: inset 0 0 0 0px rgba(17, 20, 24, 0.2);
 }
 .bp5-button.bp5-intent-primary:disabled, .bp5-button.bp5-intent-primary.bp5-disabled {
-  background-color: rgba(20, 126, 179, 0.5);
+  background-color: rgba(45, 114, 210, 0.5);
   border-color: transparent;
   box-shadow: none;
   color: rgba(255, 255, 255, 0.6);
@@ -3558,7 +3558,7 @@ Styleguide button
   }
 }
 .bp5-button.bp5-intent-success {
-  background-color: #8eb125;
+  background-color: #238551;
   box-shadow: inset 0 0 0 0px rgba(17, 20, 24, 0.2);
   color: #ffffff;
 }
@@ -3566,15 +3566,15 @@ Styleguide button
   color: #ffffff;
 }
 .bp5-button.bp5-intent-success:hover {
-  background-color: #5a701a;
+  background-color: #1c6e42;
   box-shadow: inset 0 0 0 0px rgba(17, 20, 24, 0.2);
 }
 .bp5-button.bp5-intent-success:active, .bp5-button.bp5-intent-success.bp5-active {
-  background-color: #43501b;
+  background-color: #165a36;
   box-shadow: inset 0 0 0 0px rgba(17, 20, 24, 0.2);
 }
 .bp5-button.bp5-intent-success:disabled, .bp5-button.bp5-intent-success.bp5-disabled {
-  background-color: rgba(142, 177, 37, 0.5);
+  background-color: rgba(35, 133, 81, 0.5);
   border-color: transparent;
   box-shadow: none;
   color: rgba(255, 255, 255, 0.6);
@@ -3592,7 +3592,7 @@ Styleguide button
   }
 }
 .bp5-button.bp5-intent-warning {
-  background-color: #d1980b;
+  background-color: #c87619;
   box-shadow: inset 0 0 0 0px rgba(17, 20, 24, 0.2);
   color: #ffffff;
 }
@@ -3600,15 +3600,15 @@ Styleguide button
   color: #ffffff;
 }
 .bp5-button.bp5-intent-warning:hover {
-  background-color: #866103;
+  background-color: #935610;
   box-shadow: inset 0 0 0 0px rgba(17, 20, 24, 0.2);
 }
 .bp5-button.bp5-intent-warning:active, .bp5-button.bp5-intent-warning.bp5-active {
-  background-color: #5c4405;
+  background-color: #77450d;
   box-shadow: inset 0 0 0 0px rgba(17, 20, 24, 0.2);
 }
 .bp5-button.bp5-intent-warning:disabled, .bp5-button.bp5-intent-warning.bp5-disabled {
-  background-color: rgba(209, 152, 11, 0.5);
+  background-color: rgba(200, 118, 25, 0.5);
   border-color: transparent;
   box-shadow: none;
   color: rgba(255, 255, 255, 0.6);
@@ -3626,7 +3626,7 @@ Styleguide button
   }
 }
 .bp5-button.bp5-intent-danger {
-  background-color: #d33d17;
+  background-color: #cd4246;
   box-shadow: inset 0 0 0 0px rgba(17, 20, 24, 0.2);
   color: #ffffff;
 }
@@ -3634,15 +3634,15 @@ Styleguide button
   color: #ffffff;
 }
 .bp5-button.bp5-intent-danger:hover {
-  background-color: #b83211;
+  background-color: #ac2f33;
   box-shadow: inset 0 0 0 0px rgba(17, 20, 24, 0.2);
 }
 .bp5-button.bp5-intent-danger:active, .bp5-button.bp5-intent-danger.bp5-active {
-  background-color: #96290d;
+  background-color: #8e292c;
   box-shadow: inset 0 0 0 0px rgba(17, 20, 24, 0.2);
 }
 .bp5-button.bp5-intent-danger:disabled, .bp5-button.bp5-intent-danger.bp5-disabled {
-  background-color: rgba(211, 61, 23, 0.5);
+  background-color: rgba(205, 66, 70, 0.5);
   border-color: transparent;
   box-shadow: none;
   color: rgba(255, 255, 255, 0.6);
@@ -3824,180 +3824,180 @@ Styleguide button
   background: rgba(143, 153, 168, 0.3);
 }
 .bp5-button.bp5-minimal.bp5-intent-primary {
-  color: #0f6894;
+  color: #215db0;
 }
 .bp5-button.bp5-minimal.bp5-intent-primary:hover, .bp5-button.bp5-minimal.bp5-intent-primary:active, .bp5-button.bp5-minimal.bp5-intent-primary.bp5-active {
   background: none;
   box-shadow: none;
-  color: #0f6894;
+  color: #215db0;
 }
 .bp5-button.bp5-minimal.bp5-intent-primary:hover {
-  background: rgba(20, 126, 179, 0.15);
-  color: #0f6894;
+  background: rgba(45, 114, 210, 0.15);
+  color: #215db0;
 }
 .bp5-button.bp5-minimal.bp5-intent-primary:active, .bp5-button.bp5-minimal.bp5-intent-primary.bp5-active {
-  background: rgba(20, 126, 179, 0.3);
-  color: #0c5174;
+  background: rgba(45, 114, 210, 0.3);
+  color: #184a90;
 }
 .bp5-button.bp5-minimal.bp5-intent-primary:disabled, .bp5-button.bp5-minimal.bp5-intent-primary.bp5-disabled {
   background: none;
-  color: rgba(15, 104, 148, 0.5);
+  color: rgba(33, 93, 176, 0.5);
 }
 .bp5-button.bp5-minimal.bp5-intent-primary:disabled.bp5-active, .bp5-button.bp5-minimal.bp5-intent-primary.bp5-disabled.bp5-active {
-  background: rgba(20, 126, 179, 0.3);
+  background: rgba(45, 114, 210, 0.3);
 }
 .bp5-button.bp5-minimal.bp5-intent-primary .bp5-button-spinner .bp5-spinner-head {
-  stroke: #0f6894;
+  stroke: #215db0;
 }
 .bp5-dark .bp5-button.bp5-minimal.bp5-intent-primary {
-  color: #68c1ee;
+  color: #8abbff;
 }
 .bp5-dark .bp5-button.bp5-minimal.bp5-intent-primary:hover {
-  background: rgba(20, 126, 179, 0.2);
-  color: #68c1ee;
+  background: rgba(45, 114, 210, 0.2);
+  color: #8abbff;
 }
 .bp5-dark .bp5-button.bp5-minimal.bp5-intent-primary:active, .bp5-dark .bp5-button.bp5-minimal.bp5-intent-primary.bp5-active {
-  background: rgba(20, 126, 179, 0.3);
+  background: rgba(45, 114, 210, 0.3);
   color: #99c4ff;
 }
 .bp5-dark .bp5-button.bp5-minimal.bp5-intent-primary:disabled, .bp5-dark .bp5-button.bp5-minimal.bp5-intent-primary.bp5-disabled {
   background: none;
-  color: rgba(104, 193, 238, 0.5);
+  color: rgba(138, 187, 255, 0.5);
 }
 .bp5-dark .bp5-button.bp5-minimal.bp5-intent-primary:disabled.bp5-active, .bp5-dark .bp5-button.bp5-minimal.bp5-intent-primary.bp5-disabled.bp5-active {
-  background: rgba(20, 126, 179, 0.3);
+  background: rgba(45, 114, 210, 0.3);
 }
 .bp5-button.bp5-minimal.bp5-intent-success {
-  color: #5a701a;
+  color: #1c6e42;
 }
 .bp5-button.bp5-minimal.bp5-intent-success:hover, .bp5-button.bp5-minimal.bp5-intent-success:active, .bp5-button.bp5-minimal.bp5-intent-success.bp5-active {
   background: none;
   box-shadow: none;
-  color: #5a701a;
+  color: #1c6e42;
 }
 .bp5-button.bp5-minimal.bp5-intent-success:hover {
-  background: rgba(142, 177, 37, 0.15);
-  color: #5a701a;
+  background: rgba(35, 133, 81, 0.15);
+  color: #1c6e42;
 }
 .bp5-button.bp5-minimal.bp5-intent-success:active, .bp5-button.bp5-minimal.bp5-intent-success.bp5-active {
-  background: rgba(142, 177, 37, 0.3);
-  color: #43501b;
+  background: rgba(35, 133, 81, 0.3);
+  color: #165a36;
 }
 .bp5-button.bp5-minimal.bp5-intent-success:disabled, .bp5-button.bp5-minimal.bp5-intent-success.bp5-disabled {
   background: none;
-  color: rgba(90, 112, 26, 0.5);
+  color: rgba(28, 110, 66, 0.5);
 }
 .bp5-button.bp5-minimal.bp5-intent-success:disabled.bp5-active, .bp5-button.bp5-minimal.bp5-intent-success.bp5-disabled.bp5-active {
-  background: rgba(142, 177, 37, 0.3);
+  background: rgba(35, 133, 81, 0.3);
 }
 .bp5-button.bp5-minimal.bp5-intent-success .bp5-button-spinner .bp5-spinner-head {
-  stroke: #5a701a;
+  stroke: #1c6e42;
 }
 .bp5-dark .bp5-button.bp5-minimal.bp5-intent-success {
-  color: #d4f17e;
+  color: #72ca9b;
 }
 .bp5-dark .bp5-button.bp5-minimal.bp5-intent-success:hover {
-  background: rgba(142, 177, 37, 0.2);
-  color: #d4f17e;
+  background: rgba(35, 133, 81, 0.2);
+  color: #72ca9b;
 }
 .bp5-dark .bp5-button.bp5-minimal.bp5-intent-success:active, .bp5-dark .bp5-button.bp5-minimal.bp5-intent-success.bp5-active {
-  background: rgba(142, 177, 37, 0.3);
+  background: rgba(35, 133, 81, 0.3);
   color: #7cd7a2;
 }
 .bp5-dark .bp5-button.bp5-minimal.bp5-intent-success:disabled, .bp5-dark .bp5-button.bp5-minimal.bp5-intent-success.bp5-disabled {
   background: none;
-  color: rgba(212, 241, 126, 0.5);
+  color: rgba(114, 202, 155, 0.5);
 }
 .bp5-dark .bp5-button.bp5-minimal.bp5-intent-success:disabled.bp5-active, .bp5-dark .bp5-button.bp5-minimal.bp5-intent-success.bp5-disabled.bp5-active {
-  background: rgba(142, 177, 37, 0.3);
+  background: rgba(35, 133, 81, 0.3);
 }
 .bp5-button.bp5-minimal.bp5-intent-warning {
-  color: #866103;
+  color: #935610;
 }
 .bp5-button.bp5-minimal.bp5-intent-warning:hover, .bp5-button.bp5-minimal.bp5-intent-warning:active, .bp5-button.bp5-minimal.bp5-intent-warning.bp5-active {
   background: none;
   box-shadow: none;
-  color: #866103;
+  color: #935610;
 }
 .bp5-button.bp5-minimal.bp5-intent-warning:hover {
-  background: rgba(209, 152, 11, 0.15);
-  color: #866103;
+  background: rgba(200, 118, 25, 0.15);
+  color: #935610;
 }
 .bp5-button.bp5-minimal.bp5-intent-warning:active, .bp5-button.bp5-minimal.bp5-intent-warning.bp5-active {
-  background: rgba(209, 152, 11, 0.3);
-  color: #5c4405;
+  background: rgba(200, 118, 25, 0.3);
+  color: #77450d;
 }
 .bp5-button.bp5-minimal.bp5-intent-warning:disabled, .bp5-button.bp5-minimal.bp5-intent-warning.bp5-disabled {
   background: none;
-  color: rgba(134, 97, 3, 0.5);
+  color: rgba(147, 86, 16, 0.5);
 }
 .bp5-button.bp5-minimal.bp5-intent-warning:disabled.bp5-active, .bp5-button.bp5-minimal.bp5-intent-warning.bp5-disabled.bp5-active {
-  background: rgba(209, 152, 11, 0.3);
+  background: rgba(200, 118, 25, 0.3);
 }
 .bp5-button.bp5-minimal.bp5-intent-warning .bp5-button-spinner .bp5-spinner-head {
-  stroke: #866103;
+  stroke: #935610;
 }
 .bp5-dark .bp5-button.bp5-minimal.bp5-intent-warning {
-  color: #fbd065;
+  color: #fbb360;
 }
 .bp5-dark .bp5-button.bp5-minimal.bp5-intent-warning:hover {
-  background: rgba(209, 152, 11, 0.2);
-  color: #fbd065;
+  background: rgba(200, 118, 25, 0.2);
+  color: #fbb360;
 }
 .bp5-dark .bp5-button.bp5-minimal.bp5-intent-warning:active, .bp5-dark .bp5-button.bp5-minimal.bp5-intent-warning.bp5-active {
-  background: rgba(209, 152, 11, 0.3);
+  background: rgba(200, 118, 25, 0.3);
   color: #f5c186;
 }
 .bp5-dark .bp5-button.bp5-minimal.bp5-intent-warning:disabled, .bp5-dark .bp5-button.bp5-minimal.bp5-intent-warning.bp5-disabled {
   background: none;
-  color: rgba(251, 208, 101, 0.5);
+  color: rgba(251, 179, 96, 0.5);
 }
 .bp5-dark .bp5-button.bp5-minimal.bp5-intent-warning:disabled.bp5-active, .bp5-dark .bp5-button.bp5-minimal.bp5-intent-warning.bp5-disabled.bp5-active {
-  background: rgba(209, 152, 11, 0.3);
+  background: rgba(200, 118, 25, 0.3);
 }
 .bp5-button.bp5-minimal.bp5-intent-danger {
-  color: #b83211;
+  color: #ac2f33;
 }
 .bp5-button.bp5-minimal.bp5-intent-danger:hover, .bp5-button.bp5-minimal.bp5-intent-danger:active, .bp5-button.bp5-minimal.bp5-intent-danger.bp5-active {
   background: none;
   box-shadow: none;
-  color: #b83211;
+  color: #ac2f33;
 }
 .bp5-button.bp5-minimal.bp5-intent-danger:hover {
-  background: rgba(211, 61, 23, 0.15);
-  color: #b83211;
+  background: rgba(205, 66, 70, 0.15);
+  color: #ac2f33;
 }
 .bp5-button.bp5-minimal.bp5-intent-danger:active, .bp5-button.bp5-minimal.bp5-intent-danger.bp5-active {
-  background: rgba(211, 61, 23, 0.3);
-  color: #96290d;
+  background: rgba(205, 66, 70, 0.3);
+  color: #8e292c;
 }
 .bp5-button.bp5-minimal.bp5-intent-danger:disabled, .bp5-button.bp5-minimal.bp5-intent-danger.bp5-disabled {
   background: none;
-  color: rgba(184, 50, 17, 0.5);
+  color: rgba(172, 47, 51, 0.5);
 }
 .bp5-button.bp5-minimal.bp5-intent-danger:disabled.bp5-active, .bp5-button.bp5-minimal.bp5-intent-danger.bp5-disabled.bp5-active {
-  background: rgba(211, 61, 23, 0.3);
+  background: rgba(205, 66, 70, 0.3);
 }
 .bp5-button.bp5-minimal.bp5-intent-danger .bp5-button-spinner .bp5-spinner-head {
-  stroke: #b83211;
+  stroke: #ac2f33;
 }
 .bp5-dark .bp5-button.bp5-minimal.bp5-intent-danger {
-  color: #ff9980;
+  color: #fa999c;
 }
 .bp5-dark .bp5-button.bp5-minimal.bp5-intent-danger:hover {
-  background: rgba(211, 61, 23, 0.2);
-  color: #ff9980;
+  background: rgba(205, 66, 70, 0.2);
+  color: #fa999c;
 }
 .bp5-dark .bp5-button.bp5-minimal.bp5-intent-danger:active, .bp5-dark .bp5-button.bp5-minimal.bp5-intent-danger.bp5-active {
-  background: rgba(211, 61, 23, 0.3);
+  background: rgba(205, 66, 70, 0.3);
   color: #ffa1a4;
 }
 .bp5-dark .bp5-button.bp5-minimal.bp5-intent-danger:disabled, .bp5-dark .bp5-button.bp5-minimal.bp5-intent-danger.bp5-disabled {
   background: none;
-  color: rgba(255, 153, 128, 0.5);
+  color: rgba(250, 153, 156, 0.5);
 }
 .bp5-dark .bp5-button.bp5-minimal.bp5-intent-danger:disabled.bp5-active, .bp5-dark .bp5-button.bp5-minimal.bp5-intent-danger.bp5-disabled.bp5-active {
-  background: rgba(211, 61, 23, 0.3);
+  background: rgba(205, 66, 70, 0.3);
 }
 .bp5-button.bp5-outlined {
   background: none;
@@ -4049,180 +4049,180 @@ Styleguide button
   background: rgba(143, 153, 168, 0.3);
 }
 .bp5-button.bp5-outlined.bp5-intent-primary {
-  color: #0f6894;
+  color: #215db0;
 }
 .bp5-button.bp5-outlined.bp5-intent-primary:hover, .bp5-button.bp5-outlined.bp5-intent-primary:active, .bp5-button.bp5-outlined.bp5-intent-primary.bp5-active {
   background: none;
   box-shadow: none;
-  color: #0f6894;
+  color: #215db0;
 }
 .bp5-button.bp5-outlined.bp5-intent-primary:hover {
-  background: rgba(20, 126, 179, 0.15);
-  color: #0f6894;
+  background: rgba(45, 114, 210, 0.15);
+  color: #215db0;
 }
 .bp5-button.bp5-outlined.bp5-intent-primary:active, .bp5-button.bp5-outlined.bp5-intent-primary.bp5-active {
-  background: rgba(20, 126, 179, 0.3);
-  color: #0c5174;
+  background: rgba(45, 114, 210, 0.3);
+  color: #184a90;
 }
 .bp5-button.bp5-outlined.bp5-intent-primary:disabled, .bp5-button.bp5-outlined.bp5-intent-primary.bp5-disabled {
   background: none;
-  color: rgba(15, 104, 148, 0.5);
+  color: rgba(33, 93, 176, 0.5);
 }
 .bp5-button.bp5-outlined.bp5-intent-primary:disabled.bp5-active, .bp5-button.bp5-outlined.bp5-intent-primary.bp5-disabled.bp5-active {
-  background: rgba(20, 126, 179, 0.3);
+  background: rgba(45, 114, 210, 0.3);
 }
 .bp5-button.bp5-outlined.bp5-intent-primary .bp5-button-spinner .bp5-spinner-head {
-  stroke: #0f6894;
+  stroke: #215db0;
 }
 .bp5-dark .bp5-button.bp5-outlined.bp5-intent-primary {
-  color: #68c1ee;
+  color: #8abbff;
 }
 .bp5-dark .bp5-button.bp5-outlined.bp5-intent-primary:hover {
-  background: rgba(20, 126, 179, 0.2);
-  color: #68c1ee;
+  background: rgba(45, 114, 210, 0.2);
+  color: #8abbff;
 }
 .bp5-dark .bp5-button.bp5-outlined.bp5-intent-primary:active, .bp5-dark .bp5-button.bp5-outlined.bp5-intent-primary.bp5-active {
-  background: rgba(20, 126, 179, 0.3);
+  background: rgba(45, 114, 210, 0.3);
   color: #99c4ff;
 }
 .bp5-dark .bp5-button.bp5-outlined.bp5-intent-primary:disabled, .bp5-dark .bp5-button.bp5-outlined.bp5-intent-primary.bp5-disabled {
   background: none;
-  color: rgba(104, 193, 238, 0.5);
+  color: rgba(138, 187, 255, 0.5);
 }
 .bp5-dark .bp5-button.bp5-outlined.bp5-intent-primary:disabled.bp5-active, .bp5-dark .bp5-button.bp5-outlined.bp5-intent-primary.bp5-disabled.bp5-active {
-  background: rgba(20, 126, 179, 0.3);
+  background: rgba(45, 114, 210, 0.3);
 }
 .bp5-button.bp5-outlined.bp5-intent-success {
-  color: #5a701a;
+  color: #1c6e42;
 }
 .bp5-button.bp5-outlined.bp5-intent-success:hover, .bp5-button.bp5-outlined.bp5-intent-success:active, .bp5-button.bp5-outlined.bp5-intent-success.bp5-active {
   background: none;
   box-shadow: none;
-  color: #5a701a;
+  color: #1c6e42;
 }
 .bp5-button.bp5-outlined.bp5-intent-success:hover {
-  background: rgba(142, 177, 37, 0.15);
-  color: #5a701a;
+  background: rgba(35, 133, 81, 0.15);
+  color: #1c6e42;
 }
 .bp5-button.bp5-outlined.bp5-intent-success:active, .bp5-button.bp5-outlined.bp5-intent-success.bp5-active {
-  background: rgba(142, 177, 37, 0.3);
-  color: #43501b;
+  background: rgba(35, 133, 81, 0.3);
+  color: #165a36;
 }
 .bp5-button.bp5-outlined.bp5-intent-success:disabled, .bp5-button.bp5-outlined.bp5-intent-success.bp5-disabled {
   background: none;
-  color: rgba(90, 112, 26, 0.5);
+  color: rgba(28, 110, 66, 0.5);
 }
 .bp5-button.bp5-outlined.bp5-intent-success:disabled.bp5-active, .bp5-button.bp5-outlined.bp5-intent-success.bp5-disabled.bp5-active {
-  background: rgba(142, 177, 37, 0.3);
+  background: rgba(35, 133, 81, 0.3);
 }
 .bp5-button.bp5-outlined.bp5-intent-success .bp5-button-spinner .bp5-spinner-head {
-  stroke: #5a701a;
+  stroke: #1c6e42;
 }
 .bp5-dark .bp5-button.bp5-outlined.bp5-intent-success {
-  color: #d4f17e;
+  color: #72ca9b;
 }
 .bp5-dark .bp5-button.bp5-outlined.bp5-intent-success:hover {
-  background: rgba(142, 177, 37, 0.2);
-  color: #d4f17e;
+  background: rgba(35, 133, 81, 0.2);
+  color: #72ca9b;
 }
 .bp5-dark .bp5-button.bp5-outlined.bp5-intent-success:active, .bp5-dark .bp5-button.bp5-outlined.bp5-intent-success.bp5-active {
-  background: rgba(142, 177, 37, 0.3);
+  background: rgba(35, 133, 81, 0.3);
   color: #7cd7a2;
 }
 .bp5-dark .bp5-button.bp5-outlined.bp5-intent-success:disabled, .bp5-dark .bp5-button.bp5-outlined.bp5-intent-success.bp5-disabled {
   background: none;
-  color: rgba(212, 241, 126, 0.5);
+  color: rgba(114, 202, 155, 0.5);
 }
 .bp5-dark .bp5-button.bp5-outlined.bp5-intent-success:disabled.bp5-active, .bp5-dark .bp5-button.bp5-outlined.bp5-intent-success.bp5-disabled.bp5-active {
-  background: rgba(142, 177, 37, 0.3);
+  background: rgba(35, 133, 81, 0.3);
 }
 .bp5-button.bp5-outlined.bp5-intent-warning {
-  color: #866103;
+  color: #935610;
 }
 .bp5-button.bp5-outlined.bp5-intent-warning:hover, .bp5-button.bp5-outlined.bp5-intent-warning:active, .bp5-button.bp5-outlined.bp5-intent-warning.bp5-active {
   background: none;
   box-shadow: none;
-  color: #866103;
+  color: #935610;
 }
 .bp5-button.bp5-outlined.bp5-intent-warning:hover {
-  background: rgba(209, 152, 11, 0.15);
-  color: #866103;
+  background: rgba(200, 118, 25, 0.15);
+  color: #935610;
 }
 .bp5-button.bp5-outlined.bp5-intent-warning:active, .bp5-button.bp5-outlined.bp5-intent-warning.bp5-active {
-  background: rgba(209, 152, 11, 0.3);
-  color: #5c4405;
+  background: rgba(200, 118, 25, 0.3);
+  color: #77450d;
 }
 .bp5-button.bp5-outlined.bp5-intent-warning:disabled, .bp5-button.bp5-outlined.bp5-intent-warning.bp5-disabled {
   background: none;
-  color: rgba(134, 97, 3, 0.5);
+  color: rgba(147, 86, 16, 0.5);
 }
 .bp5-button.bp5-outlined.bp5-intent-warning:disabled.bp5-active, .bp5-button.bp5-outlined.bp5-intent-warning.bp5-disabled.bp5-active {
-  background: rgba(209, 152, 11, 0.3);
+  background: rgba(200, 118, 25, 0.3);
 }
 .bp5-button.bp5-outlined.bp5-intent-warning .bp5-button-spinner .bp5-spinner-head {
-  stroke: #866103;
+  stroke: #935610;
 }
 .bp5-dark .bp5-button.bp5-outlined.bp5-intent-warning {
-  color: #fbd065;
+  color: #fbb360;
 }
 .bp5-dark .bp5-button.bp5-outlined.bp5-intent-warning:hover {
-  background: rgba(209, 152, 11, 0.2);
-  color: #fbd065;
+  background: rgba(200, 118, 25, 0.2);
+  color: #fbb360;
 }
 .bp5-dark .bp5-button.bp5-outlined.bp5-intent-warning:active, .bp5-dark .bp5-button.bp5-outlined.bp5-intent-warning.bp5-active {
-  background: rgba(209, 152, 11, 0.3);
+  background: rgba(200, 118, 25, 0.3);
   color: #f5c186;
 }
 .bp5-dark .bp5-button.bp5-outlined.bp5-intent-warning:disabled, .bp5-dark .bp5-button.bp5-outlined.bp5-intent-warning.bp5-disabled {
   background: none;
-  color: rgba(251, 208, 101, 0.5);
+  color: rgba(251, 179, 96, 0.5);
 }
 .bp5-dark .bp5-button.bp5-outlined.bp5-intent-warning:disabled.bp5-active, .bp5-dark .bp5-button.bp5-outlined.bp5-intent-warning.bp5-disabled.bp5-active {
-  background: rgba(209, 152, 11, 0.3);
+  background: rgba(200, 118, 25, 0.3);
 }
 .bp5-button.bp5-outlined.bp5-intent-danger {
-  color: #b83211;
+  color: #ac2f33;
 }
 .bp5-button.bp5-outlined.bp5-intent-danger:hover, .bp5-button.bp5-outlined.bp5-intent-danger:active, .bp5-button.bp5-outlined.bp5-intent-danger.bp5-active {
   background: none;
   box-shadow: none;
-  color: #b83211;
+  color: #ac2f33;
 }
 .bp5-button.bp5-outlined.bp5-intent-danger:hover {
-  background: rgba(211, 61, 23, 0.15);
-  color: #b83211;
+  background: rgba(205, 66, 70, 0.15);
+  color: #ac2f33;
 }
 .bp5-button.bp5-outlined.bp5-intent-danger:active, .bp5-button.bp5-outlined.bp5-intent-danger.bp5-active {
-  background: rgba(211, 61, 23, 0.3);
-  color: #96290d;
+  background: rgba(205, 66, 70, 0.3);
+  color: #8e292c;
 }
 .bp5-button.bp5-outlined.bp5-intent-danger:disabled, .bp5-button.bp5-outlined.bp5-intent-danger.bp5-disabled {
   background: none;
-  color: rgba(184, 50, 17, 0.5);
+  color: rgba(172, 47, 51, 0.5);
 }
 .bp5-button.bp5-outlined.bp5-intent-danger:disabled.bp5-active, .bp5-button.bp5-outlined.bp5-intent-danger.bp5-disabled.bp5-active {
-  background: rgba(211, 61, 23, 0.3);
+  background: rgba(205, 66, 70, 0.3);
 }
 .bp5-button.bp5-outlined.bp5-intent-danger .bp5-button-spinner .bp5-spinner-head {
-  stroke: #b83211;
+  stroke: #ac2f33;
 }
 .bp5-dark .bp5-button.bp5-outlined.bp5-intent-danger {
-  color: #ff9980;
+  color: #fa999c;
 }
 .bp5-dark .bp5-button.bp5-outlined.bp5-intent-danger:hover {
-  background: rgba(211, 61, 23, 0.2);
-  color: #ff9980;
+  background: rgba(205, 66, 70, 0.2);
+  color: #fa999c;
 }
 .bp5-dark .bp5-button.bp5-outlined.bp5-intent-danger:active, .bp5-dark .bp5-button.bp5-outlined.bp5-intent-danger.bp5-active {
-  background: rgba(211, 61, 23, 0.3);
+  background: rgba(205, 66, 70, 0.3);
   color: #ffa1a4;
 }
 .bp5-dark .bp5-button.bp5-outlined.bp5-intent-danger:disabled, .bp5-dark .bp5-button.bp5-outlined.bp5-intent-danger.bp5-disabled {
   background: none;
-  color: rgba(255, 153, 128, 0.5);
+  color: rgba(250, 153, 156, 0.5);
 }
 .bp5-dark .bp5-button.bp5-outlined.bp5-intent-danger:disabled.bp5-active, .bp5-dark .bp5-button.bp5-outlined.bp5-intent-danger.bp5-disabled.bp5-active {
-  background: rgba(211, 61, 23, 0.3);
+  background: rgba(205, 66, 70, 0.3);
 }
 .bp5-button.bp5-outlined:disabled, .bp5-button.bp5-outlined.bp5-disabled, .bp5-button.bp5-outlined:disabled:hover, .bp5-button.bp5-outlined.bp5-disabled:hover {
   border-color: rgba(95, 107, 124, 0.1);
@@ -4234,66 +4234,66 @@ Styleguide button
   border-color: rgba(255, 255, 255, 0.2);
 }
 .bp5-button.bp5-outlined.bp5-intent-primary {
-  border-color: rgba(15, 104, 148, 0.6);
+  border-color: rgba(33, 93, 176, 0.6);
 }
 .bp5-button.bp5-outlined.bp5-intent-primary:disabled, .bp5-button.bp5-outlined.bp5-intent-primary.bp5-disabled {
-  border-color: rgba(15, 104, 148, 0.2);
+  border-color: rgba(33, 93, 176, 0.2);
 }
 .bp5-dark .bp5-button.bp5-outlined.bp5-intent-primary {
-  border-color: rgba(104, 193, 238, 0.6);
+  border-color: rgba(138, 187, 255, 0.6);
 }
 .bp5-dark .bp5-button.bp5-outlined.bp5-intent-primary:disabled, .bp5-dark .bp5-button.bp5-outlined.bp5-intent-primary.bp5-disabled {
-  border-color: rgba(104, 193, 238, 0.2);
+  border-color: rgba(138, 187, 255, 0.2);
 }
 .bp5-button.bp5-outlined.bp5-intent-success {
-  border-color: rgba(90, 112, 26, 0.6);
+  border-color: rgba(28, 110, 66, 0.6);
 }
 .bp5-button.bp5-outlined.bp5-intent-success:disabled, .bp5-button.bp5-outlined.bp5-intent-success.bp5-disabled {
-  border-color: rgba(90, 112, 26, 0.2);
+  border-color: rgba(28, 110, 66, 0.2);
 }
 .bp5-dark .bp5-button.bp5-outlined.bp5-intent-success {
-  border-color: rgba(212, 241, 126, 0.6);
+  border-color: rgba(114, 202, 155, 0.6);
 }
 .bp5-dark .bp5-button.bp5-outlined.bp5-intent-success:disabled, .bp5-dark .bp5-button.bp5-outlined.bp5-intent-success.bp5-disabled {
-  border-color: rgba(212, 241, 126, 0.2);
+  border-color: rgba(114, 202, 155, 0.2);
 }
 .bp5-button.bp5-outlined.bp5-intent-warning {
-  border-color: rgba(134, 97, 3, 0.6);
+  border-color: rgba(147, 86, 16, 0.6);
 }
 .bp5-button.bp5-outlined.bp5-intent-warning:disabled, .bp5-button.bp5-outlined.bp5-intent-warning.bp5-disabled {
-  border-color: rgba(134, 97, 3, 0.2);
+  border-color: rgba(147, 86, 16, 0.2);
 }
 .bp5-dark .bp5-button.bp5-outlined.bp5-intent-warning {
-  border-color: rgba(251, 208, 101, 0.6);
+  border-color: rgba(251, 179, 96, 0.6);
 }
 .bp5-dark .bp5-button.bp5-outlined.bp5-intent-warning:disabled, .bp5-dark .bp5-button.bp5-outlined.bp5-intent-warning.bp5-disabled {
-  border-color: rgba(251, 208, 101, 0.2);
+  border-color: rgba(251, 179, 96, 0.2);
 }
 .bp5-button.bp5-outlined.bp5-intent-danger {
-  border-color: rgba(184, 50, 17, 0.6);
+  border-color: rgba(172, 47, 51, 0.6);
 }
 .bp5-button.bp5-outlined.bp5-intent-danger:disabled, .bp5-button.bp5-outlined.bp5-intent-danger.bp5-disabled {
-  border-color: rgba(184, 50, 17, 0.2);
+  border-color: rgba(172, 47, 51, 0.2);
 }
 .bp5-dark .bp5-button.bp5-outlined.bp5-intent-danger {
-  border-color: rgba(255, 153, 128, 0.6);
+  border-color: rgba(250, 153, 156, 0.6);
 }
 .bp5-dark .bp5-button.bp5-outlined.bp5-intent-danger:disabled, .bp5-dark .bp5-button.bp5-outlined.bp5-intent-danger.bp5-disabled {
-  border-color: rgba(255, 153, 128, 0.2);
+  border-color: rgba(250, 153, 156, 0.2);
 }
 .bp5-button.bp5-intent-warning {
-  background: #fbd065;
+  background: #fbb360;
   color: #111418;
 }
 .bp5-button.bp5-intent-warning:not(.bp5-disabled).bp5-icon > svg {
   fill: rgba(28, 33, 39, 0.7);
 }
 .bp5-button.bp5-intent-warning:not(.bp5-disabled):not(.bp5-minimal):not(.bp5-outlined):hover {
-  background: #f0b726;
+  background: #ec9a3c;
   color: #111418;
 }
 .bp5-button.bp5-intent-warning:not(.bp5-disabled):not(.bp5-minimal):not(.bp5-outlined):active, .bp5-button.bp5-intent-warning:not(.bp5-disabled):not(.bp5-minimal):not(.bp5-outlined).bp5-active {
-  background: #d1980b;
+  background: #c87619;
   color: #111418;
 }
 @media (forced-colors: active) and (prefers-color-scheme: dark) {
@@ -4302,7 +4302,7 @@ Styleguide button
   }
 }
 .bp5-button.bp5-intent-warning:disabled, .bp5-button.bp5-intent-warning.bp5-disabled {
-  background: rgba(209, 152, 11, 0.5);
+  background: rgba(200, 118, 25, 0.5);
   color: rgba(28, 33, 39, 0.35);
 }
 .bp5-dark .bp5-button.bp5-intent-warning:disabled, .bp5-dark .bp5-button.bp5-intent-warning.bp5-disabled {
@@ -4312,7 +4312,7 @@ Styleguide button
   background: none;
 }
 .bp5-dark .bp5-button.bp5-intent-warning.bp5-minimal:not(.bp5-disabled).bp5-icon > svg, .bp5-dark .bp5-button.bp5-intent-warning.bp5-outlined:not(.bp5-disabled).bp5-icon > svg {
-  fill: #fbd065;
+  fill: #fbb360;
 }
 
 a.bp5-button {
@@ -4563,180 +4563,180 @@ Styleguide button-group
   background: rgba(143, 153, 168, 0.3);
 }
 .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-primary, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-primary {
-  color: #0f6894;
+  color: #215db0;
 }
 .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-primary:hover, .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-primary:active, .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-primary.bp5-active, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-primary:hover, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-primary:active, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-primary.bp5-active {
   background: none;
   box-shadow: none;
-  color: #0f6894;
+  color: #215db0;
 }
 .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-primary:hover, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-primary:hover {
-  background: rgba(20, 126, 179, 0.15);
-  color: #0f6894;
+  background: rgba(45, 114, 210, 0.15);
+  color: #215db0;
 }
 .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-primary:active, .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-primary.bp5-active, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-primary:active, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-primary.bp5-active {
-  background: rgba(20, 126, 179, 0.3);
-  color: #0c5174;
+  background: rgba(45, 114, 210, 0.3);
+  color: #184a90;
 }
 .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-primary:disabled, .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-primary.bp5-disabled, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-primary:disabled, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-primary.bp5-disabled {
   background: none;
-  color: rgba(15, 104, 148, 0.5);
+  color: rgba(33, 93, 176, 0.5);
 }
 .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-primary:disabled.bp5-active, .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-primary.bp5-disabled.bp5-active, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-primary:disabled.bp5-active, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-primary.bp5-disabled.bp5-active {
-  background: rgba(20, 126, 179, 0.3);
+  background: rgba(45, 114, 210, 0.3);
 }
 .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-primary .bp5-button-spinner .bp5-spinner-head, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-primary .bp5-button-spinner .bp5-spinner-head {
-  stroke: #0f6894;
+  stroke: #215db0;
 }
 .bp5-dark .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-primary, .bp5-dark .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-primary {
-  color: #68c1ee;
+  color: #8abbff;
 }
 .bp5-dark .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-primary:hover, .bp5-dark .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-primary:hover {
-  background: rgba(20, 126, 179, 0.2);
-  color: #68c1ee;
+  background: rgba(45, 114, 210, 0.2);
+  color: #8abbff;
 }
 .bp5-dark .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-primary:active, .bp5-dark .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-primary.bp5-active, .bp5-dark .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-primary:active, .bp5-dark .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-primary.bp5-active {
-  background: rgba(20, 126, 179, 0.3);
+  background: rgba(45, 114, 210, 0.3);
   color: #99c4ff;
 }
 .bp5-dark .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-primary:disabled, .bp5-dark .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-primary.bp5-disabled, .bp5-dark .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-primary:disabled, .bp5-dark .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-primary.bp5-disabled {
   background: none;
-  color: rgba(104, 193, 238, 0.5);
+  color: rgba(138, 187, 255, 0.5);
 }
 .bp5-dark .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-primary:disabled.bp5-active, .bp5-dark .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-primary.bp5-disabled.bp5-active, .bp5-dark .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-primary:disabled.bp5-active, .bp5-dark .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-primary.bp5-disabled.bp5-active {
-  background: rgba(20, 126, 179, 0.3);
+  background: rgba(45, 114, 210, 0.3);
 }
 .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-success, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-success {
-  color: #5a701a;
+  color: #1c6e42;
 }
 .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-success:hover, .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-success:active, .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-success.bp5-active, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-success:hover, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-success:active, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-success.bp5-active {
   background: none;
   box-shadow: none;
-  color: #5a701a;
+  color: #1c6e42;
 }
 .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-success:hover, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-success:hover {
-  background: rgba(142, 177, 37, 0.15);
-  color: #5a701a;
+  background: rgba(35, 133, 81, 0.15);
+  color: #1c6e42;
 }
 .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-success:active, .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-success.bp5-active, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-success:active, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-success.bp5-active {
-  background: rgba(142, 177, 37, 0.3);
-  color: #43501b;
+  background: rgba(35, 133, 81, 0.3);
+  color: #165a36;
 }
 .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-success:disabled, .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-success.bp5-disabled, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-success:disabled, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-success.bp5-disabled {
   background: none;
-  color: rgba(90, 112, 26, 0.5);
+  color: rgba(28, 110, 66, 0.5);
 }
 .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-success:disabled.bp5-active, .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-success.bp5-disabled.bp5-active, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-success:disabled.bp5-active, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-success.bp5-disabled.bp5-active {
-  background: rgba(142, 177, 37, 0.3);
+  background: rgba(35, 133, 81, 0.3);
 }
 .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-success .bp5-button-spinner .bp5-spinner-head, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-success .bp5-button-spinner .bp5-spinner-head {
-  stroke: #5a701a;
+  stroke: #1c6e42;
 }
 .bp5-dark .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-success, .bp5-dark .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-success {
-  color: #d4f17e;
+  color: #72ca9b;
 }
 .bp5-dark .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-success:hover, .bp5-dark .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-success:hover {
-  background: rgba(142, 177, 37, 0.2);
-  color: #d4f17e;
+  background: rgba(35, 133, 81, 0.2);
+  color: #72ca9b;
 }
 .bp5-dark .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-success:active, .bp5-dark .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-success.bp5-active, .bp5-dark .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-success:active, .bp5-dark .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-success.bp5-active {
-  background: rgba(142, 177, 37, 0.3);
+  background: rgba(35, 133, 81, 0.3);
   color: #7cd7a2;
 }
 .bp5-dark .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-success:disabled, .bp5-dark .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-success.bp5-disabled, .bp5-dark .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-success:disabled, .bp5-dark .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-success.bp5-disabled {
   background: none;
-  color: rgba(212, 241, 126, 0.5);
+  color: rgba(114, 202, 155, 0.5);
 }
 .bp5-dark .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-success:disabled.bp5-active, .bp5-dark .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-success.bp5-disabled.bp5-active, .bp5-dark .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-success:disabled.bp5-active, .bp5-dark .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-success.bp5-disabled.bp5-active {
-  background: rgba(142, 177, 37, 0.3);
+  background: rgba(35, 133, 81, 0.3);
 }
 .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-warning, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-warning {
-  color: #866103;
+  color: #935610;
 }
 .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-warning:hover, .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-warning:active, .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-warning.bp5-active, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-warning:hover, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-warning:active, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-warning.bp5-active {
   background: none;
   box-shadow: none;
-  color: #866103;
+  color: #935610;
 }
 .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-warning:hover, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-warning:hover {
-  background: rgba(209, 152, 11, 0.15);
-  color: #866103;
+  background: rgba(200, 118, 25, 0.15);
+  color: #935610;
 }
 .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-warning:active, .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-warning.bp5-active, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-warning:active, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-warning.bp5-active {
-  background: rgba(209, 152, 11, 0.3);
-  color: #5c4405;
+  background: rgba(200, 118, 25, 0.3);
+  color: #77450d;
 }
 .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-warning:disabled, .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-warning.bp5-disabled, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-warning:disabled, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-warning.bp5-disabled {
   background: none;
-  color: rgba(134, 97, 3, 0.5);
+  color: rgba(147, 86, 16, 0.5);
 }
 .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-warning:disabled.bp5-active, .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-warning.bp5-disabled.bp5-active, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-warning:disabled.bp5-active, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-warning.bp5-disabled.bp5-active {
-  background: rgba(209, 152, 11, 0.3);
+  background: rgba(200, 118, 25, 0.3);
 }
 .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-warning .bp5-button-spinner .bp5-spinner-head, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-warning .bp5-button-spinner .bp5-spinner-head {
-  stroke: #866103;
+  stroke: #935610;
 }
 .bp5-dark .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-warning, .bp5-dark .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-warning {
-  color: #fbd065;
+  color: #fbb360;
 }
 .bp5-dark .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-warning:hover, .bp5-dark .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-warning:hover {
-  background: rgba(209, 152, 11, 0.2);
-  color: #fbd065;
+  background: rgba(200, 118, 25, 0.2);
+  color: #fbb360;
 }
 .bp5-dark .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-warning:active, .bp5-dark .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-warning.bp5-active, .bp5-dark .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-warning:active, .bp5-dark .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-warning.bp5-active {
-  background: rgba(209, 152, 11, 0.3);
+  background: rgba(200, 118, 25, 0.3);
   color: #f5c186;
 }
 .bp5-dark .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-warning:disabled, .bp5-dark .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-warning.bp5-disabled, .bp5-dark .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-warning:disabled, .bp5-dark .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-warning.bp5-disabled {
   background: none;
-  color: rgba(251, 208, 101, 0.5);
+  color: rgba(251, 179, 96, 0.5);
 }
 .bp5-dark .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-warning:disabled.bp5-active, .bp5-dark .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-warning.bp5-disabled.bp5-active, .bp5-dark .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-warning:disabled.bp5-active, .bp5-dark .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-warning.bp5-disabled.bp5-active {
-  background: rgba(209, 152, 11, 0.3);
+  background: rgba(200, 118, 25, 0.3);
 }
 .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-danger, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-danger {
-  color: #b83211;
+  color: #ac2f33;
 }
 .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-danger:hover, .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-danger:active, .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-danger.bp5-active, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-danger:hover, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-danger:active, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-danger.bp5-active {
   background: none;
   box-shadow: none;
-  color: #b83211;
+  color: #ac2f33;
 }
 .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-danger:hover, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-danger:hover {
-  background: rgba(211, 61, 23, 0.15);
-  color: #b83211;
+  background: rgba(205, 66, 70, 0.15);
+  color: #ac2f33;
 }
 .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-danger:active, .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-danger.bp5-active, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-danger:active, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-danger.bp5-active {
-  background: rgba(211, 61, 23, 0.3);
-  color: #96290d;
+  background: rgba(205, 66, 70, 0.3);
+  color: #8e292c;
 }
 .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-danger:disabled, .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-danger.bp5-disabled, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-danger:disabled, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-danger.bp5-disabled {
   background: none;
-  color: rgba(184, 50, 17, 0.5);
+  color: rgba(172, 47, 51, 0.5);
 }
 .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-danger:disabled.bp5-active, .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-danger.bp5-disabled.bp5-active, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-danger:disabled.bp5-active, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-danger.bp5-disabled.bp5-active {
-  background: rgba(211, 61, 23, 0.3);
+  background: rgba(205, 66, 70, 0.3);
 }
 .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-danger .bp5-button-spinner .bp5-spinner-head, .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-danger .bp5-button-spinner .bp5-spinner-head {
-  stroke: #b83211;
+  stroke: #ac2f33;
 }
 .bp5-dark .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-danger, .bp5-dark .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-danger {
-  color: #ff9980;
+  color: #fa999c;
 }
 .bp5-dark .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-danger:hover, .bp5-dark .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-danger:hover {
-  background: rgba(211, 61, 23, 0.2);
-  color: #ff9980;
+  background: rgba(205, 66, 70, 0.2);
+  color: #fa999c;
 }
 .bp5-dark .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-danger:active, .bp5-dark .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-danger.bp5-active, .bp5-dark .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-danger:active, .bp5-dark .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-danger.bp5-active {
-  background: rgba(211, 61, 23, 0.3);
+  background: rgba(205, 66, 70, 0.3);
   color: #ffa1a4;
 }
 .bp5-dark .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-danger:disabled, .bp5-dark .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-danger.bp5-disabled, .bp5-dark .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-danger:disabled, .bp5-dark .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-danger.bp5-disabled {
   background: none;
-  color: rgba(255, 153, 128, 0.5);
+  color: rgba(250, 153, 156, 0.5);
 }
 .bp5-dark .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-danger:disabled.bp5-active, .bp5-dark .bp5-button-group.bp5-minimal .bp5-button.bp5-intent-danger.bp5-disabled.bp5-active, .bp5-dark .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-danger:disabled.bp5-active, .bp5-dark .bp5-button-group.bp5-outlined .bp5-button.bp5-intent-danger.bp5-disabled.bp5-active {
-  background: rgba(211, 61, 23, 0.3);
+  background: rgba(205, 66, 70, 0.3);
 }
 @media (forced-colors: active) and (prefers-color-scheme: dark) {
   .bp5-button-group.bp5-minimal:not(:first-child), .bp5-button-group.bp5-outlined:not(:first-child) {
@@ -4764,52 +4764,52 @@ Styleguide button-group
   border-color: rgba(255, 255, 255, 0.2);
 }
 .bp5-button-group.bp5-outlined > .bp5-button.bp5-intent-primary {
-  border-color: rgba(15, 104, 148, 0.6);
+  border-color: rgba(33, 93, 176, 0.6);
 }
 .bp5-button-group.bp5-outlined > .bp5-button.bp5-intent-primary:disabled, .bp5-button-group.bp5-outlined > .bp5-button.bp5-intent-primary.bp5-disabled {
-  border-color: rgba(15, 104, 148, 0.2);
+  border-color: rgba(33, 93, 176, 0.2);
 }
 .bp5-dark .bp5-button-group.bp5-outlined > .bp5-button.bp5-intent-primary {
-  border-color: rgba(104, 193, 238, 0.6);
+  border-color: rgba(138, 187, 255, 0.6);
 }
 .bp5-dark .bp5-button-group.bp5-outlined > .bp5-button.bp5-intent-primary:disabled, .bp5-dark .bp5-button-group.bp5-outlined > .bp5-button.bp5-intent-primary.bp5-disabled {
-  border-color: rgba(104, 193, 238, 0.2);
+  border-color: rgba(138, 187, 255, 0.2);
 }
 .bp5-button-group.bp5-outlined > .bp5-button.bp5-intent-success {
-  border-color: rgba(90, 112, 26, 0.6);
+  border-color: rgba(28, 110, 66, 0.6);
 }
 .bp5-button-group.bp5-outlined > .bp5-button.bp5-intent-success:disabled, .bp5-button-group.bp5-outlined > .bp5-button.bp5-intent-success.bp5-disabled {
-  border-color: rgba(90, 112, 26, 0.2);
+  border-color: rgba(28, 110, 66, 0.2);
 }
 .bp5-dark .bp5-button-group.bp5-outlined > .bp5-button.bp5-intent-success {
-  border-color: rgba(212, 241, 126, 0.6);
+  border-color: rgba(114, 202, 155, 0.6);
 }
 .bp5-dark .bp5-button-group.bp5-outlined > .bp5-button.bp5-intent-success:disabled, .bp5-dark .bp5-button-group.bp5-outlined > .bp5-button.bp5-intent-success.bp5-disabled {
-  border-color: rgba(212, 241, 126, 0.2);
+  border-color: rgba(114, 202, 155, 0.2);
 }
 .bp5-button-group.bp5-outlined > .bp5-button.bp5-intent-warning {
-  border-color: rgba(134, 97, 3, 0.6);
+  border-color: rgba(147, 86, 16, 0.6);
 }
 .bp5-button-group.bp5-outlined > .bp5-button.bp5-intent-warning:disabled, .bp5-button-group.bp5-outlined > .bp5-button.bp5-intent-warning.bp5-disabled {
-  border-color: rgba(134, 97, 3, 0.2);
+  border-color: rgba(147, 86, 16, 0.2);
 }
 .bp5-dark .bp5-button-group.bp5-outlined > .bp5-button.bp5-intent-warning {
-  border-color: rgba(251, 208, 101, 0.6);
+  border-color: rgba(251, 179, 96, 0.6);
 }
 .bp5-dark .bp5-button-group.bp5-outlined > .bp5-button.bp5-intent-warning:disabled, .bp5-dark .bp5-button-group.bp5-outlined > .bp5-button.bp5-intent-warning.bp5-disabled {
-  border-color: rgba(251, 208, 101, 0.2);
+  border-color: rgba(251, 179, 96, 0.2);
 }
 .bp5-button-group.bp5-outlined > .bp5-button.bp5-intent-danger {
-  border-color: rgba(184, 50, 17, 0.6);
+  border-color: rgba(172, 47, 51, 0.6);
 }
 .bp5-button-group.bp5-outlined > .bp5-button.bp5-intent-danger:disabled, .bp5-button-group.bp5-outlined > .bp5-button.bp5-intent-danger.bp5-disabled {
-  border-color: rgba(184, 50, 17, 0.2);
+  border-color: rgba(172, 47, 51, 0.2);
 }
 .bp5-dark .bp5-button-group.bp5-outlined > .bp5-button.bp5-intent-danger {
-  border-color: rgba(255, 153, 128, 0.6);
+  border-color: rgba(250, 153, 156, 0.6);
 }
 .bp5-dark .bp5-button-group.bp5-outlined > .bp5-button.bp5-intent-danger:disabled, .bp5-dark .bp5-button-group.bp5-outlined > .bp5-button.bp5-intent-danger.bp5-disabled {
-  border-color: rgba(255, 153, 128, 0.2);
+  border-color: rgba(250, 153, 156, 0.2);
 }
 .bp5-button-group.bp5-outlined:not(.bp5-vertical) > .bp5-button:not(:last-child) {
   border-right: none;
@@ -4947,8 +4947,8 @@ Styleguide callout
   color: #abb3bf;
 }
 .bp5-callout.bp5-intent-primary {
-  background-color: rgba(20, 126, 179, 0.1);
-  color: #0f6894;
+  background-color: rgba(45, 114, 210, 0.1);
+  color: #215db0;
 }
 @media (forced-colors: active) and (prefers-color-scheme: dark) {
   .bp5-callout.bp5-intent-primary {
@@ -4958,20 +4958,20 @@ Styleguide callout
 .bp5-callout.bp5-intent-primary[class*=bp5-icon-]::before,
 .bp5-callout.bp5-intent-primary > .bp5-icon:first-child,
 .bp5-callout.bp5-intent-primary .bp5-heading {
-  color: #0f6894;
+  color: #215db0;
 }
 .bp5-dark .bp5-callout.bp5-intent-primary {
-  background-color: rgba(20, 126, 179, 0.2);
-  color: #68c1ee;
+  background-color: rgba(45, 114, 210, 0.2);
+  color: #8abbff;
 }
 .bp5-dark .bp5-callout.bp5-intent-primary[class*=bp5-icon-]::before,
 .bp5-dark .bp5-callout.bp5-intent-primary > .bp5-icon:first-child,
 .bp5-dark .bp5-callout.bp5-intent-primary .bp5-heading {
-  color: #68c1ee;
+  color: #8abbff;
 }
 .bp5-callout.bp5-intent-success {
-  background-color: rgba(142, 177, 37, 0.1);
-  color: #5a701a;
+  background-color: rgba(35, 133, 81, 0.1);
+  color: #1c6e42;
 }
 @media (forced-colors: active) and (prefers-color-scheme: dark) {
   .bp5-callout.bp5-intent-success {
@@ -4981,20 +4981,20 @@ Styleguide callout
 .bp5-callout.bp5-intent-success[class*=bp5-icon-]::before,
 .bp5-callout.bp5-intent-success > .bp5-icon:first-child,
 .bp5-callout.bp5-intent-success .bp5-heading {
-  color: #5a701a;
+  color: #1c6e42;
 }
 .bp5-dark .bp5-callout.bp5-intent-success {
-  background-color: rgba(142, 177, 37, 0.2);
-  color: #d4f17e;
+  background-color: rgba(35, 133, 81, 0.2);
+  color: #72ca9b;
 }
 .bp5-dark .bp5-callout.bp5-intent-success[class*=bp5-icon-]::before,
 .bp5-dark .bp5-callout.bp5-intent-success > .bp5-icon:first-child,
 .bp5-dark .bp5-callout.bp5-intent-success .bp5-heading {
-  color: #d4f17e;
+  color: #72ca9b;
 }
 .bp5-callout.bp5-intent-warning {
-  background-color: rgba(209, 152, 11, 0.1);
-  color: #866103;
+  background-color: rgba(200, 118, 25, 0.1);
+  color: #935610;
 }
 @media (forced-colors: active) and (prefers-color-scheme: dark) {
   .bp5-callout.bp5-intent-warning {
@@ -5004,20 +5004,20 @@ Styleguide callout
 .bp5-callout.bp5-intent-warning[class*=bp5-icon-]::before,
 .bp5-callout.bp5-intent-warning > .bp5-icon:first-child,
 .bp5-callout.bp5-intent-warning .bp5-heading {
-  color: #866103;
+  color: #935610;
 }
 .bp5-dark .bp5-callout.bp5-intent-warning {
-  background-color: rgba(209, 152, 11, 0.2);
-  color: #fbd065;
+  background-color: rgba(200, 118, 25, 0.2);
+  color: #fbb360;
 }
 .bp5-dark .bp5-callout.bp5-intent-warning[class*=bp5-icon-]::before,
 .bp5-dark .bp5-callout.bp5-intent-warning > .bp5-icon:first-child,
 .bp5-dark .bp5-callout.bp5-intent-warning .bp5-heading {
-  color: #fbd065;
+  color: #fbb360;
 }
 .bp5-callout.bp5-intent-danger {
-  background-color: rgba(211, 61, 23, 0.1);
-  color: #b83211;
+  background-color: rgba(205, 66, 70, 0.1);
+  color: #ac2f33;
 }
 @media (forced-colors: active) and (prefers-color-scheme: dark) {
   .bp5-callout.bp5-intent-danger {
@@ -5027,22 +5027,22 @@ Styleguide callout
 .bp5-callout.bp5-intent-danger[class*=bp5-icon-]::before,
 .bp5-callout.bp5-intent-danger > .bp5-icon:first-child,
 .bp5-callout.bp5-intent-danger .bp5-heading {
-  color: #b83211;
+  color: #ac2f33;
 }
 .bp5-dark .bp5-callout.bp5-intent-danger {
-  background-color: rgba(211, 61, 23, 0.2);
-  color: #ff9980;
+  background-color: rgba(205, 66, 70, 0.2);
+  color: #fa999c;
 }
 .bp5-dark .bp5-callout.bp5-intent-danger[class*=bp5-icon-]::before,
 .bp5-dark .bp5-callout.bp5-intent-danger > .bp5-icon:first-child,
 .bp5-dark .bp5-callout.bp5-intent-danger .bp5-heading {
-  color: #ff9980;
+  color: #fa999c;
 }
 .bp5-callout.bp5-intent-primary a {
   text-decoration: underline;
 }
 .bp5-callout.bp5-intent-primary a:hover {
-  color: #0c5174;
+  color: #184a90;
 }
 .bp5-dark .bp5-callout.bp5-intent-primary a:hover {
   color: #99c4ff;
@@ -5161,10 +5161,10 @@ Styleguide card
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2), 0 2px 4px rgba(17, 20, 24, 0.4), 0 8px 24px rgba(17, 20, 24, 0.4);
 }
 .bp5-card.bp5-interactive.bp5-selected {
-  box-shadow: 0 0 0 3px rgba(63, 166, 218, 0.2), 0 0 0 1px #3fa6da;
+  box-shadow: 0 0 0 3px rgba(76, 144, 240, 0.2), 0 0 0 1px #4c90f0;
 }
 .bp5-card.bp5-interactive.bp5-selected.bp5-dark, .bp5-dark .bp5-card.bp5-interactive.bp5-selected {
-  box-shadow: 0 0 0 3px rgba(104, 193, 238, 0.4), 0 0 0 1px #68c1ee;
+  box-shadow: 0 0 0 3px rgba(138, 187, 255, 0.4), 0 0 0 1px #8abbff;
 }
 .bp5-card.bp5-interactive:active {
   box-shadow: 0 0 0 1px rgba(17, 20, 24, 0.1), 0 1px 1px rgba(17, 20, 24, 0.2);
@@ -5719,7 +5719,7 @@ Format transition class name with all the bits.
   background-color: rgba(171, 179, 191, 0.6);
 }
 .bp5-active.bp5-dialog-step-viewed .bp5-dialog-step-icon {
-  background-color: #3fa6da;
+  background-color: #4c90f0;
 }
 .bp5-dialog-step-viewed .bp5-dialog-step-icon {
   background-color: #8f99a8;
@@ -5734,7 +5734,7 @@ Format transition class name with all the bits.
   color: rgba(171, 179, 191, 0.6);
 }
 .bp5-active.bp5-dialog-step-viewed .bp5-dialog-step-title {
-  color: #3fa6da;
+  color: #4c90f0;
 }
 .bp5-dialog-step-viewed:not(.bp5-active) .bp5-dialog-step-title {
   color: #111418;
@@ -6044,11 +6044,11 @@ CSS `border` property issues:
   transition: background-color 100ms cubic-bezier(0.4, 1, 0.75, 0.9), box-shadow 100ms cubic-bezier(0.4, 1, 0.75, 0.9);
 }
 .bp5-editable-text:hover::before {
-  box-shadow: 0 0 0 0 rgba(15, 104, 148, 0), 0 0 0 0 rgba(15, 104, 148, 0), inset 0 0 0 1px rgba(17, 20, 24, 0.15);
+  box-shadow: 0 0 0 0 rgba(33, 93, 176, 0), 0 0 0 0 rgba(33, 93, 176, 0), inset 0 0 0 1px rgba(17, 20, 24, 0.15);
 }
 .bp5-editable-text.bp5-editable-text-editing::before {
   background-color: #ffffff;
-  box-shadow: inset 0 0 0 1px rgba(15, 104, 148, 0.752), 0 0 0 1px rgba(15, 104, 148, 0.752), inset 0 1px 1px rgba(17, 20, 24, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(33, 93, 176, 0.752), 0 0 0 1px rgba(33, 93, 176, 0.752), inset 0 1px 1px rgba(17, 20, 24, 0.2);
 }
 @media (forced-colors: active) and (prefers-color-scheme: dark) {
   .bp5-editable-text:not(.bp5-disabled)::before {
@@ -6058,53 +6058,53 @@ CSS `border` property issues:
 .bp5-editable-text.bp5-intent-primary .bp5-editable-text-content,
 .bp5-editable-text.bp5-intent-primary .bp5-editable-text-input,
 .bp5-editable-text.bp5-intent-primary .bp5-editable-text-input::placeholder {
-  color: #147eb3;
+  color: #2d72d2;
 }
 .bp5-editable-text.bp5-intent-primary:hover::before {
-  box-shadow: 0 0 0 0 rgba(20, 126, 179, 0), 0 0 0 0 rgba(20, 126, 179, 0), inset 0 0 0 1px rgba(20, 126, 179, 0.4);
+  box-shadow: 0 0 0 0 rgba(45, 114, 210, 0), 0 0 0 0 rgba(45, 114, 210, 0), inset 0 0 0 1px rgba(45, 114, 210, 0.4);
 }
 .bp5-editable-text.bp5-intent-primary.bp5-editable-text-editing::before {
-  box-shadow: inset 0 0 0 1px rgba(20, 126, 179, 0.752), 0 0 0 1px rgba(20, 126, 179, 0.752), inset 0 1px 1px rgba(17, 20, 24, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(45, 114, 210, 0.752), 0 0 0 1px rgba(45, 114, 210, 0.752), inset 0 1px 1px rgba(17, 20, 24, 0.2);
 }
 .bp5-editable-text.bp5-intent-success .bp5-editable-text-content,
 .bp5-editable-text.bp5-intent-success .bp5-editable-text-input,
 .bp5-editable-text.bp5-intent-success .bp5-editable-text-input::placeholder {
-  color: #8eb125;
+  color: #238551;
 }
 .bp5-editable-text.bp5-intent-success:hover::before {
-  box-shadow: 0 0 0 0 rgba(142, 177, 37, 0), 0 0 0 0 rgba(142, 177, 37, 0), inset 0 0 0 1px rgba(142, 177, 37, 0.4);
+  box-shadow: 0 0 0 0 rgba(35, 133, 81, 0), 0 0 0 0 rgba(35, 133, 81, 0), inset 0 0 0 1px rgba(35, 133, 81, 0.4);
 }
 .bp5-editable-text.bp5-intent-success.bp5-editable-text-editing::before {
-  box-shadow: inset 0 0 0 1px rgba(142, 177, 37, 0.752), 0 0 0 1px rgba(142, 177, 37, 0.752), inset 0 1px 1px rgba(17, 20, 24, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(35, 133, 81, 0.752), 0 0 0 1px rgba(35, 133, 81, 0.752), inset 0 1px 1px rgba(17, 20, 24, 0.2);
 }
 .bp5-editable-text.bp5-intent-warning .bp5-editable-text-content,
 .bp5-editable-text.bp5-intent-warning .bp5-editable-text-input,
 .bp5-editable-text.bp5-intent-warning .bp5-editable-text-input::placeholder {
-  color: #d1980b;
+  color: #c87619;
 }
 .bp5-editable-text.bp5-intent-warning:hover::before {
-  box-shadow: 0 0 0 0 rgba(209, 152, 11, 0), 0 0 0 0 rgba(209, 152, 11, 0), inset 0 0 0 1px rgba(209, 152, 11, 0.4);
+  box-shadow: 0 0 0 0 rgba(200, 118, 25, 0), 0 0 0 0 rgba(200, 118, 25, 0), inset 0 0 0 1px rgba(200, 118, 25, 0.4);
 }
 .bp5-editable-text.bp5-intent-warning.bp5-editable-text-editing::before {
-  box-shadow: inset 0 0 0 1px rgba(209, 152, 11, 0.752), 0 0 0 1px rgba(209, 152, 11, 0.752), inset 0 1px 1px rgba(17, 20, 24, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(200, 118, 25, 0.752), 0 0 0 1px rgba(200, 118, 25, 0.752), inset 0 1px 1px rgba(17, 20, 24, 0.2);
 }
 .bp5-editable-text.bp5-intent-danger .bp5-editable-text-content,
 .bp5-editable-text.bp5-intent-danger .bp5-editable-text-input,
 .bp5-editable-text.bp5-intent-danger .bp5-editable-text-input::placeholder {
-  color: #d33d17;
+  color: #cd4246;
 }
 .bp5-editable-text.bp5-intent-danger:hover::before {
-  box-shadow: 0 0 0 0 rgba(211, 61, 23, 0), 0 0 0 0 rgba(211, 61, 23, 0), inset 0 0 0 1px rgba(211, 61, 23, 0.4);
+  box-shadow: 0 0 0 0 rgba(205, 66, 70, 0), 0 0 0 0 rgba(205, 66, 70, 0), inset 0 0 0 1px rgba(205, 66, 70, 0.4);
 }
 .bp5-editable-text.bp5-intent-danger.bp5-editable-text-editing::before {
-  box-shadow: inset 0 0 0 1px rgba(211, 61, 23, 0.752), 0 0 0 1px rgba(211, 61, 23, 0.752), inset 0 1px 1px rgba(17, 20, 24, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(205, 66, 70, 0.752), 0 0 0 1px rgba(205, 66, 70, 0.752), inset 0 1px 1px rgba(17, 20, 24, 0.2);
 }
 .bp5-dark .bp5-editable-text:hover::before {
-  box-shadow: 0 0 0 0 rgba(104, 193, 238, 0), 0 0 0 0 rgba(104, 193, 238, 0), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 0 0 rgba(138, 187, 255, 0), 0 0 0 0 rgba(138, 187, 255, 0), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 .bp5-dark .bp5-editable-text.bp5-editable-text-editing::before {
   background-color: rgba(17, 20, 24, 0.3);
-  box-shadow: inset 0 0 0 1px rgba(104, 193, 238, 0.752), 0 0 0 1px rgba(104, 193, 238, 0.752), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(138, 187, 255, 0.752), 0 0 0 1px rgba(138, 187, 255, 0.752), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 .bp5-dark .bp5-editable-text.bp5-disabled::before {
   box-shadow: none;
@@ -6112,46 +6112,46 @@ CSS `border` property issues:
 .bp5-dark .bp5-editable-text.bp5-intent-primary .bp5-editable-text-content,
 .bp5-dark .bp5-editable-text.bp5-intent-primary .bp5-editable-text-input,
 .bp5-dark .bp5-editable-text.bp5-intent-primary .bp5-editable-text-input::placeholder {
-  color: #68c1ee;
+  color: #8abbff;
 }
 .bp5-dark .bp5-editable-text.bp5-intent-primary:hover::before {
-  box-shadow: 0 0 0 0 rgba(104, 193, 238, 0), 0 0 0 0 rgba(104, 193, 238, 0), inset 0 0 0 1px rgba(104, 193, 238, 0.4);
+  box-shadow: 0 0 0 0 rgba(138, 187, 255, 0), 0 0 0 0 rgba(138, 187, 255, 0), inset 0 0 0 1px rgba(138, 187, 255, 0.4);
 }
 .bp5-dark .bp5-editable-text.bp5-intent-primary.bp5-editable-text-editing::before {
-  box-shadow: inset 0 0 0 1px rgba(104, 193, 238, 0.752), 0 0 0 1px rgba(104, 193, 238, 0.752), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(138, 187, 255, 0.752), 0 0 0 1px rgba(138, 187, 255, 0.752), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 .bp5-dark .bp5-editable-text.bp5-intent-success .bp5-editable-text-content,
 .bp5-dark .bp5-editable-text.bp5-intent-success .bp5-editable-text-input,
 .bp5-dark .bp5-editable-text.bp5-intent-success .bp5-editable-text-input::placeholder {
-  color: #d4f17e;
+  color: #72ca9b;
 }
 .bp5-dark .bp5-editable-text.bp5-intent-success:hover::before {
-  box-shadow: 0 0 0 0 rgba(212, 241, 126, 0), 0 0 0 0 rgba(212, 241, 126, 0), inset 0 0 0 1px rgba(212, 241, 126, 0.4);
+  box-shadow: 0 0 0 0 rgba(114, 202, 155, 0), 0 0 0 0 rgba(114, 202, 155, 0), inset 0 0 0 1px rgba(114, 202, 155, 0.4);
 }
 .bp5-dark .bp5-editable-text.bp5-intent-success.bp5-editable-text-editing::before {
-  box-shadow: inset 0 0 0 1px rgba(212, 241, 126, 0.752), 0 0 0 1px rgba(212, 241, 126, 0.752), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(114, 202, 155, 0.752), 0 0 0 1px rgba(114, 202, 155, 0.752), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 .bp5-dark .bp5-editable-text.bp5-intent-warning .bp5-editable-text-content,
 .bp5-dark .bp5-editable-text.bp5-intent-warning .bp5-editable-text-input,
 .bp5-dark .bp5-editable-text.bp5-intent-warning .bp5-editable-text-input::placeholder {
-  color: #fbd065;
+  color: #fbb360;
 }
 .bp5-dark .bp5-editable-text.bp5-intent-warning:hover::before {
-  box-shadow: 0 0 0 0 rgba(251, 208, 101, 0), 0 0 0 0 rgba(251, 208, 101, 0), inset 0 0 0 1px rgba(251, 208, 101, 0.4);
+  box-shadow: 0 0 0 0 rgba(251, 179, 96, 0), 0 0 0 0 rgba(251, 179, 96, 0), inset 0 0 0 1px rgba(251, 179, 96, 0.4);
 }
 .bp5-dark .bp5-editable-text.bp5-intent-warning.bp5-editable-text-editing::before {
-  box-shadow: inset 0 0 0 1px rgba(251, 208, 101, 0.752), 0 0 0 1px rgba(251, 208, 101, 0.752), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(251, 179, 96, 0.752), 0 0 0 1px rgba(251, 179, 96, 0.752), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 .bp5-dark .bp5-editable-text.bp5-intent-danger .bp5-editable-text-content,
 .bp5-dark .bp5-editable-text.bp5-intent-danger .bp5-editable-text-input,
 .bp5-dark .bp5-editable-text.bp5-intent-danger .bp5-editable-text-input::placeholder {
-  color: #ff9980;
+  color: #fa999c;
 }
 .bp5-dark .bp5-editable-text.bp5-intent-danger:hover::before {
-  box-shadow: 0 0 0 0 rgba(255, 153, 128, 0), 0 0 0 0 rgba(255, 153, 128, 0), inset 0 0 0 1px rgba(255, 153, 128, 0.4);
+  box-shadow: 0 0 0 0 rgba(250, 153, 156, 0), 0 0 0 0 rgba(250, 153, 156, 0), inset 0 0 0 1px rgba(250, 153, 156, 0.4);
 }
 .bp5-dark .bp5-editable-text.bp5-intent-danger.bp5-editable-text-editing::before {
-  box-shadow: inset 0 0 0 1px rgba(255, 153, 128, 0.752), 0 0 0 1px rgba(255, 153, 128, 0.752), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(250, 153, 156, 0.752), 0 0 0 1px rgba(250, 153, 156, 0.752), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 .bp5-editable-text.bp5-disabled::before {
   /* stylelint-disable-next-line declaration-no-important */
@@ -6748,7 +6748,7 @@ CSS `border` property issues:
   */
 }
 .bp5-control input:checked ~ .bp5-control-indicator {
-  background-color: #147eb3;
+  background-color: #2d72d2;
   box-shadow: inset 0 0 0 0px rgba(17, 20, 24, 0.2);
   color: #ffffff;
 }
@@ -6759,7 +6759,7 @@ CSS `border` property issues:
   }
 }
 .bp5-control:hover input:checked ~ .bp5-control-indicator {
-  background-color: #0f6894;
+  background-color: #215db0;
 }
 @media (forced-colors: active) and (prefers-color-scheme: dark) {
   .bp5-control:hover input:checked ~ .bp5-control-indicator {
@@ -6767,10 +6767,10 @@ CSS `border` property issues:
   }
 }
 .bp5-control input:not(:disabled):active:checked ~ .bp5-control-indicator {
-  background: #0c5174;
+  background: #184a90;
 }
 .bp5-control input:disabled:checked ~ .bp5-control-indicator {
-  background: rgba(20, 126, 179, 0.5);
+  background: rgba(45, 114, 210, 0.5);
   box-shadow: none;
   color: rgba(255, 255, 255, 0.6);
 }
@@ -6789,15 +6789,15 @@ CSS `border` property issues:
   }
 }
 .bp5-dark .bp5-control:hover input:checked ~ .bp5-control-indicator {
-  background-color: #0f6894;
+  background-color: #215db0;
   box-shadow: inset 0 0 0 0px rgba(255, 255, 255, 0.1);
 }
 .bp5-dark .bp5-control input:not(:disabled):active:checked ~ .bp5-control-indicator {
-  background-color: #0c5174;
+  background-color: #184a90;
   box-shadow: inset 0 0 0 0px rgba(255, 255, 255, 0.1);
 }
 .bp5-dark .bp5-control input:disabled:checked ~ .bp5-control-indicator {
-  background: rgba(20, 126, 179, 0.5);
+  background: rgba(45, 114, 210, 0.5);
   box-shadow: none;
   color: rgba(255, 255, 255, 0.6);
 }
@@ -6872,12 +6872,12 @@ CSS `border` property issues:
   cursor: not-allowed;
 }
 .bp5-control input:focus ~ .bp5-control-indicator {
-  outline: rgba(15, 104, 148, 0.752) solid 2px;
+  outline: rgba(33, 93, 176, 0.752) solid 2px;
   outline-offset: 2px;
   -moz-outline-radius: 6px;
 }
 .bp5-dark .bp5-control input:focus ~ .bp5-control-indicator {
-  outline-color: rgba(104, 193, 238, 0.752);
+  outline-color: rgba(138, 187, 255, 0.752);
 }
 .bp5-control.bp5-align-right .bp5-control-indicator {
   float: right;
@@ -6906,7 +6906,7 @@ CSS `border` property issues:
   margin-top: 0;
 }
 .bp5-control.bp5-checkbox input:indeterminate ~ .bp5-control-indicator {
-  background-color: #147eb3;
+  background-color: #2d72d2;
   box-shadow: inset 0 0 0 0px rgba(17, 20, 24, 0.2);
   color: #ffffff;
 }
@@ -6917,7 +6917,7 @@ CSS `border` property issues:
   }
 }
 .bp5-control.bp5-checkbox:hover input:indeterminate ~ .bp5-control-indicator {
-  background-color: #0f6894;
+  background-color: #215db0;
 }
 @media (forced-colors: active) and (prefers-color-scheme: dark) {
   .bp5-control.bp5-checkbox:hover input:indeterminate ~ .bp5-control-indicator {
@@ -6925,10 +6925,10 @@ CSS `border` property issues:
   }
 }
 .bp5-control.bp5-checkbox input:not(:disabled):active:indeterminate ~ .bp5-control-indicator {
-  background: #0c5174;
+  background: #184a90;
 }
 .bp5-control.bp5-checkbox input:disabled:indeterminate ~ .bp5-control-indicator {
-  background: rgba(20, 126, 179, 0.5);
+  background: rgba(45, 114, 210, 0.5);
   box-shadow: none;
   color: rgba(255, 255, 255, 0.6);
 }
@@ -6947,15 +6947,15 @@ CSS `border` property issues:
   }
 }
 .bp5-dark .bp5-control.bp5-checkbox:hover input:indeterminate ~ .bp5-control-indicator {
-  background-color: #0f6894;
+  background-color: #215db0;
   box-shadow: inset 0 0 0 0px rgba(255, 255, 255, 0.1);
 }
 .bp5-dark .bp5-control.bp5-checkbox input:not(:disabled):active:indeterminate ~ .bp5-control-indicator {
-  background-color: #0c5174;
+  background-color: #184a90;
   box-shadow: inset 0 0 0 0px rgba(255, 255, 255, 0.1);
 }
 .bp5-dark .bp5-control.bp5-checkbox input:disabled:indeterminate ~ .bp5-control-indicator {
-  background: rgba(20, 126, 179, 0.5);
+  background: rgba(45, 114, 210, 0.5);
   box-shadow: none;
   color: rgba(255, 255, 255, 0.6);
 }
@@ -7029,17 +7029,17 @@ CSS `border` property issues:
   box-shadow: none;
 }
 .bp5-control.bp5-switch input:checked ~ .bp5-control-indicator {
-  background: #147eb3;
+  background: #2d72d2;
   color: #ffffff;
 }
 .bp5-control.bp5-switch:hover input:checked ~ .bp5-control-indicator {
-  background: #0f6894;
+  background: #215db0;
 }
 .bp5-control.bp5-switch input:checked:not(:disabled):active ~ .bp5-control-indicator {
-  background: #0c5174;
+  background: #184a90;
 }
 .bp5-control.bp5-switch input:checked:disabled ~ .bp5-control-indicator {
-  background: rgba(20, 126, 179, 0.5);
+  background: rgba(45, 114, 210, 0.5);
   color: rgba(255, 255, 255, 0.6);
 }
 .bp5-control.bp5-switch input:checked:disabled ~ .bp5-control-indicator::before {
@@ -7141,17 +7141,17 @@ CSS `border` property issues:
   box-shadow: none;
 }
 .bp5-dark .bp5-control.bp5-switch input:checked ~ .bp5-control-indicator {
-  background: #147eb3;
+  background: #2d72d2;
   color: #ffffff;
 }
 .bp5-dark .bp5-control.bp5-switch:hover input:checked ~ .bp5-control-indicator {
-  background: #0f6894;
+  background: #215db0;
 }
 .bp5-dark .bp5-control.bp5-switch input:checked:not(:disabled):active ~ .bp5-control-indicator {
-  background: #0c5174;
+  background: #184a90;
 }
 .bp5-dark .bp5-control.bp5-switch input:checked:disabled ~ .bp5-control-indicator {
-  background: rgba(20, 126, 179, 0.5);
+  background: rgba(45, 114, 210, 0.5);
   color: rgba(171, 179, 191, 0.6);
 }
 .bp5-dark .bp5-control.bp5-switch input:checked:disabled ~ .bp5-control-indicator::before {
@@ -7229,7 +7229,7 @@ CSS `border` property issues:
   cursor: not-allowed;
 }
 .bp5-dark .bp5-control.bp5-checkbox input:disabled:checked ~ .bp5-control-indicator, .bp5-dark .bp5-control.bp5-checkbox input:disabled:indeterminate ~ .bp5-control-indicator {
-  background: rgba(20, 126, 179, 0.5);
+  background: rgba(45, 114, 210, 0.5);
 }
 
 /*
@@ -7338,7 +7338,7 @@ Styleguide file-input
   background: #ffffff;
   border: none;
   border-radius: 5px;
-  box-shadow: 0 0 0 0 rgba(15, 104, 148, 0), 0 0 0 0 rgba(15, 104, 148, 0), inset 0 0 0 1px rgba(17, 20, 24, 0.2);
+  box-shadow: 0 0 0 0 rgba(33, 93, 176, 0), 0 0 0 0 rgba(33, 93, 176, 0), inset 0 0 0 1px rgba(17, 20, 24, 0.2);
   color: #111418;
   font-size: 14px;
   font-weight: 400;
@@ -7365,7 +7365,7 @@ Styleguide file-input
   opacity: 1;
 }
 .bp5-file-upload-input:focus, .bp5-file-upload-input.bp5-active {
-  box-shadow: inset 0 0 0 1px rgba(15, 104, 148, 0.752), 0 0 0 1px rgba(15, 104, 148, 0.752), inset 0 1px 1px rgba(17, 20, 24, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(33, 93, 176, 0.752), 0 0 0 1px rgba(33, 93, 176, 0.752), inset 0 1px 1px rgba(17, 20, 24, 0.2);
 }
 .bp5-file-upload-input[type=search], .bp5-file-upload-input.bp5-round {
   border-radius: 30px;
@@ -7460,7 +7460,7 @@ Styleguide file-input
 }
 .bp5-dark .bp5-file-upload-input {
   background: rgba(17, 20, 24, 0.3);
-  box-shadow: 0 0 0 0 rgba(104, 193, 238, 0), 0 0 0 0 rgba(104, 193, 238, 0), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 0 0 rgba(138, 187, 255, 0), 0 0 0 0 rgba(138, 187, 255, 0), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
   color: #f6f7f9;
   color: rgba(171, 179, 191, 0.6);
 }
@@ -7468,7 +7468,7 @@ Styleguide file-input
   color: #abb3bf;
 }
 .bp5-dark .bp5-file-upload-input:focus {
-  box-shadow: inset 0 0 0 1px rgba(104, 193, 238, 0.752), 0 0 0 1px rgba(104, 193, 238, 0.752);
+  box-shadow: inset 0 0 0 1px rgba(138, 187, 255, 0.752), 0 0 0 1px rgba(138, 187, 255, 0.752);
 }
 .bp5-dark .bp5-file-upload-input[readonly] {
   box-shadow: inset 0 0 0 1px rgba(17, 20, 24, 0.4);
@@ -7577,16 +7577,16 @@ Styleguide form-group
   margin-top: 5px;
 }
 .bp5-form-group.bp5-intent-primary .bp5-form-helper-text {
-  color: #0f6894;
+  color: #215db0;
 }
 .bp5-form-group.bp5-intent-success .bp5-form-helper-text {
-  color: #5a701a;
+  color: #1c6e42;
 }
 .bp5-form-group.bp5-intent-warning .bp5-form-helper-text {
-  color: #866103;
+  color: #935610;
 }
 .bp5-form-group.bp5-intent-danger .bp5-form-helper-text {
-  color: #b83211;
+  color: #ac2f33;
 }
 .bp5-form-group.bp5-fill {
   width: 100%;
@@ -7611,16 +7611,16 @@ Styleguide form-group
   color: rgba(95, 107, 124, 0.6) !important;
 }
 .bp5-dark .bp5-form-group.bp5-intent-primary .bp5-form-helper-text {
-  color: #68c1ee;
+  color: #8abbff;
 }
 .bp5-dark .bp5-form-group.bp5-intent-success .bp5-form-helper-text {
-  color: #d4f17e;
+  color: #72ca9b;
 }
 .bp5-dark .bp5-form-group.bp5-intent-warning .bp5-form-helper-text {
-  color: #fbd065;
+  color: #fbb360;
 }
 .bp5-dark .bp5-form-group.bp5-intent-danger .bp5-form-helper-text {
-  color: #ff9980;
+  color: #fa999c;
 }
 .bp5-dark .bp5-form-group .bp5-form-group-sub-label,
 .bp5-dark .bp5-form-group .bp5-form-helper-text {
@@ -7862,124 +7862,124 @@ Styleguide input-group
   color: rgba(171, 179, 191, 0.6);
 }
 .bp5-input-group.bp5-intent-primary .bp5-input {
-  box-shadow: 0 0 0 0 rgba(20, 126, 179, 0), 0 0 0 0 rgba(20, 126, 179, 0), inset 0 0 0 1px #147eb3, inset 0 0 0 1px rgba(17, 20, 24, 0.2);
+  box-shadow: 0 0 0 0 rgba(45, 114, 210, 0), 0 0 0 0 rgba(45, 114, 210, 0), inset 0 0 0 1px #2d72d2, inset 0 0 0 1px rgba(17, 20, 24, 0.2);
 }
 .bp5-input-group.bp5-intent-primary .bp5-input:focus {
-  box-shadow: inset 0 0 0 1px rgba(20, 126, 179, 0.752), 0 0 0 2px rgba(20, 126, 179, 0.752), inset 0 1px 1px rgba(17, 20, 24, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(45, 114, 210, 0.752), 0 0 0 2px rgba(45, 114, 210, 0.752), inset 0 1px 1px rgba(17, 20, 24, 0.2);
 }
 .bp5-input-group.bp5-intent-primary .bp5-input[readonly] {
-  box-shadow: inset 0 0 0 1px #147eb3;
+  box-shadow: inset 0 0 0 1px #2d72d2;
 }
 .bp5-input-group.bp5-intent-primary .bp5-input:disabled, .bp5-input-group.bp5-intent-primary .bp5-input.bp5-disabled {
   box-shadow: none;
 }
 .bp5-dark .bp5-input-group.bp5-intent-primary .bp5-input {
-  box-shadow: 0 0 0 0 rgba(63, 166, 218, 0), 0 0 0 0 rgba(63, 166, 218, 0), inset 0 0 0 1px #3fa6da, inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 0 0 rgba(76, 144, 240, 0), 0 0 0 0 rgba(76, 144, 240, 0), inset 0 0 0 1px #4c90f0, inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 .bp5-dark .bp5-input-group.bp5-intent-primary .bp5-input:focus {
-  box-shadow: inset 0 0 0 1px rgba(63, 166, 218, 0.752), 0 0 0 2px rgba(63, 166, 218, 0.752), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(76, 144, 240, 0.752), 0 0 0 2px rgba(76, 144, 240, 0.752), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 .bp5-dark .bp5-input-group.bp5-intent-primary .bp5-input[readonly] {
-  box-shadow: inset 0 0 0 1px #3fa6da;
+  box-shadow: inset 0 0 0 1px #4c90f0;
 }
 .bp5-dark .bp5-input-group.bp5-intent-primary .bp5-input:disabled, .bp5-dark .bp5-input-group.bp5-intent-primary .bp5-input.bp5-disabled {
   box-shadow: none;
 }
 .bp5-input-group.bp5-intent-primary > .bp5-icon {
-  color: #0f6894;
+  color: #215db0;
 }
 .bp5-dark .bp5-input-group.bp5-intent-primary > .bp5-icon {
-  color: #68c1ee;
+  color: #8abbff;
 }
 .bp5-input-group.bp5-intent-success .bp5-input {
-  box-shadow: 0 0 0 0 rgba(142, 177, 37, 0), 0 0 0 0 rgba(142, 177, 37, 0), inset 0 0 0 1px #8eb125, inset 0 0 0 1px rgba(17, 20, 24, 0.2);
+  box-shadow: 0 0 0 0 rgba(35, 133, 81, 0), 0 0 0 0 rgba(35, 133, 81, 0), inset 0 0 0 1px #238551, inset 0 0 0 1px rgba(17, 20, 24, 0.2);
 }
 .bp5-input-group.bp5-intent-success .bp5-input:focus {
-  box-shadow: inset 0 0 0 1px rgba(142, 177, 37, 0.752), 0 0 0 2px rgba(142, 177, 37, 0.752), inset 0 1px 1px rgba(17, 20, 24, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(35, 133, 81, 0.752), 0 0 0 2px rgba(35, 133, 81, 0.752), inset 0 1px 1px rgba(17, 20, 24, 0.2);
 }
 .bp5-input-group.bp5-intent-success .bp5-input[readonly] {
-  box-shadow: inset 0 0 0 1px #8eb125;
+  box-shadow: inset 0 0 0 1px #238551;
 }
 .bp5-input-group.bp5-intent-success .bp5-input:disabled, .bp5-input-group.bp5-intent-success .bp5-input.bp5-disabled {
   box-shadow: none;
 }
 .bp5-dark .bp5-input-group.bp5-intent-success .bp5-input {
-  box-shadow: 0 0 0 0 rgba(182, 217, 76, 0), 0 0 0 0 rgba(182, 217, 76, 0), inset 0 0 0 1px #b6d94c, inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 0 0 rgba(50, 164, 103, 0), 0 0 0 0 rgba(50, 164, 103, 0), inset 0 0 0 1px #32a467, inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 .bp5-dark .bp5-input-group.bp5-intent-success .bp5-input:focus {
-  box-shadow: inset 0 0 0 1px rgba(182, 217, 76, 0.752), 0 0 0 2px rgba(182, 217, 76, 0.752), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(50, 164, 103, 0.752), 0 0 0 2px rgba(50, 164, 103, 0.752), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 .bp5-dark .bp5-input-group.bp5-intent-success .bp5-input[readonly] {
-  box-shadow: inset 0 0 0 1px #b6d94c;
+  box-shadow: inset 0 0 0 1px #32a467;
 }
 .bp5-dark .bp5-input-group.bp5-intent-success .bp5-input:disabled, .bp5-dark .bp5-input-group.bp5-intent-success .bp5-input.bp5-disabled {
   box-shadow: none;
 }
 .bp5-input-group.bp5-intent-success > .bp5-icon {
-  color: #5a701a;
+  color: #1c6e42;
 }
 .bp5-dark .bp5-input-group.bp5-intent-success > .bp5-icon {
-  color: #d4f17e;
+  color: #72ca9b;
 }
 .bp5-input-group.bp5-intent-warning .bp5-input {
-  box-shadow: 0 0 0 0 rgba(209, 152, 11, 0), 0 0 0 0 rgba(209, 152, 11, 0), inset 0 0 0 1px #d1980b, inset 0 0 0 1px rgba(17, 20, 24, 0.2);
+  box-shadow: 0 0 0 0 rgba(200, 118, 25, 0), 0 0 0 0 rgba(200, 118, 25, 0), inset 0 0 0 1px #c87619, inset 0 0 0 1px rgba(17, 20, 24, 0.2);
 }
 .bp5-input-group.bp5-intent-warning .bp5-input:focus {
-  box-shadow: inset 0 0 0 1px rgba(209, 152, 11, 0.752), 0 0 0 2px rgba(209, 152, 11, 0.752), inset 0 1px 1px rgba(17, 20, 24, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(200, 118, 25, 0.752), 0 0 0 2px rgba(200, 118, 25, 0.752), inset 0 1px 1px rgba(17, 20, 24, 0.2);
 }
 .bp5-input-group.bp5-intent-warning .bp5-input[readonly] {
-  box-shadow: inset 0 0 0 1px #d1980b;
+  box-shadow: inset 0 0 0 1px #c87619;
 }
 .bp5-input-group.bp5-intent-warning .bp5-input:disabled, .bp5-input-group.bp5-intent-warning .bp5-input.bp5-disabled {
   box-shadow: none;
 }
 .bp5-dark .bp5-input-group.bp5-intent-warning .bp5-input {
-  box-shadow: 0 0 0 0 rgba(240, 183, 38, 0), 0 0 0 0 rgba(240, 183, 38, 0), inset 0 0 0 1px #f0b726, inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 0 0 rgba(236, 154, 60, 0), 0 0 0 0 rgba(236, 154, 60, 0), inset 0 0 0 1px #ec9a3c, inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 .bp5-dark .bp5-input-group.bp5-intent-warning .bp5-input:focus {
-  box-shadow: inset 0 0 0 1px rgba(240, 183, 38, 0.752), 0 0 0 2px rgba(240, 183, 38, 0.752), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(236, 154, 60, 0.752), 0 0 0 2px rgba(236, 154, 60, 0.752), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 .bp5-dark .bp5-input-group.bp5-intent-warning .bp5-input[readonly] {
-  box-shadow: inset 0 0 0 1px #f0b726;
+  box-shadow: inset 0 0 0 1px #ec9a3c;
 }
 .bp5-dark .bp5-input-group.bp5-intent-warning .bp5-input:disabled, .bp5-dark .bp5-input-group.bp5-intent-warning .bp5-input.bp5-disabled {
   box-shadow: none;
 }
 .bp5-input-group.bp5-intent-warning > .bp5-icon {
-  color: #866103;
+  color: #935610;
 }
 .bp5-dark .bp5-input-group.bp5-intent-warning > .bp5-icon {
-  color: #fbd065;
+  color: #fbb360;
 }
 .bp5-input-group.bp5-intent-danger .bp5-input {
-  box-shadow: 0 0 0 0 rgba(211, 61, 23, 0), 0 0 0 0 rgba(211, 61, 23, 0), inset 0 0 0 1px #d33d17, inset 0 0 0 1px rgba(17, 20, 24, 0.2);
+  box-shadow: 0 0 0 0 rgba(205, 66, 70, 0), 0 0 0 0 rgba(205, 66, 70, 0), inset 0 0 0 1px #cd4246, inset 0 0 0 1px rgba(17, 20, 24, 0.2);
 }
 .bp5-input-group.bp5-intent-danger .bp5-input:focus {
-  box-shadow: inset 0 0 0 1px rgba(211, 61, 23, 0.752), 0 0 0 2px rgba(211, 61, 23, 0.752), inset 0 1px 1px rgba(17, 20, 24, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(205, 66, 70, 0.752), 0 0 0 2px rgba(205, 66, 70, 0.752), inset 0 1px 1px rgba(17, 20, 24, 0.2);
 }
 .bp5-input-group.bp5-intent-danger .bp5-input[readonly] {
-  box-shadow: inset 0 0 0 1px #d33d17;
+  box-shadow: inset 0 0 0 1px #cd4246;
 }
 .bp5-input-group.bp5-intent-danger .bp5-input:disabled, .bp5-input-group.bp5-intent-danger .bp5-input.bp5-disabled {
   box-shadow: none;
 }
 .bp5-dark .bp5-input-group.bp5-intent-danger .bp5-input {
-  box-shadow: 0 0 0 0 rgba(235, 104, 71, 0), 0 0 0 0 rgba(235, 104, 71, 0), inset 0 0 0 1px #eb6847, inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 0 0 rgba(231, 106, 110, 0), 0 0 0 0 rgba(231, 106, 110, 0), inset 0 0 0 1px #e76a6e, inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 .bp5-dark .bp5-input-group.bp5-intent-danger .bp5-input:focus {
-  box-shadow: inset 0 0 0 1px rgba(235, 104, 71, 0.752), 0 0 0 2px rgba(235, 104, 71, 0.752), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(231, 106, 110, 0.752), 0 0 0 2px rgba(231, 106, 110, 0.752), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 .bp5-dark .bp5-input-group.bp5-intent-danger .bp5-input[readonly] {
-  box-shadow: inset 0 0 0 1px #eb6847;
+  box-shadow: inset 0 0 0 1px #e76a6e;
 }
 .bp5-dark .bp5-input-group.bp5-intent-danger .bp5-input:disabled, .bp5-dark .bp5-input-group.bp5-intent-danger .bp5-input.bp5-disabled {
   box-shadow: none;
 }
 .bp5-input-group.bp5-intent-danger > .bp5-icon {
-  color: #b83211;
+  color: #ac2f33;
 }
 .bp5-dark .bp5-input-group.bp5-intent-danger > .bp5-icon {
-  color: #ff9980;
+  color: #fa999c;
 }
 
 /*
@@ -8009,7 +8009,7 @@ Styleguide input
   background: #ffffff;
   border: none;
   border-radius: 5px;
-  box-shadow: 0 0 0 0 rgba(15, 104, 148, 0), 0 0 0 0 rgba(15, 104, 148, 0), inset 0 0 0 1px rgba(17, 20, 24, 0.2);
+  box-shadow: 0 0 0 0 rgba(33, 93, 176, 0), 0 0 0 0 rgba(33, 93, 176, 0), inset 0 0 0 1px rgba(17, 20, 24, 0.2);
   color: #111418;
   font-size: 14px;
   font-weight: 400;
@@ -8025,7 +8025,7 @@ Styleguide input
   opacity: 1;
 }
 .bp5-input:focus, .bp5-input.bp5-active {
-  box-shadow: inset 0 0 0 1px rgba(15, 104, 148, 0.752), 0 0 0 1px rgba(15, 104, 148, 0.752), inset 0 1px 1px rgba(17, 20, 24, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(33, 93, 176, 0.752), 0 0 0 1px rgba(33, 93, 176, 0.752), inset 0 1px 1px rgba(17, 20, 24, 0.2);
 }
 .bp5-input[type=search], .bp5-input.bp5-round {
   border-radius: 30px;
@@ -8074,14 +8074,14 @@ Styleguide input
 }
 .bp5-dark .bp5-input {
   background: rgba(17, 20, 24, 0.3);
-  box-shadow: 0 0 0 0 rgba(104, 193, 238, 0), 0 0 0 0 rgba(104, 193, 238, 0), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 0 0 rgba(138, 187, 255, 0), 0 0 0 0 rgba(138, 187, 255, 0), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
   color: #f6f7f9;
 }
 .bp5-dark .bp5-input::placeholder {
   color: #abb3bf;
 }
 .bp5-dark .bp5-input:focus {
-  box-shadow: inset 0 0 0 1px rgba(104, 193, 238, 0.752), 0 0 0 1px rgba(104, 193, 238, 0.752);
+  box-shadow: inset 0 0 0 1px rgba(138, 187, 255, 0.752), 0 0 0 1px rgba(138, 187, 255, 0.752);
 }
 .bp5-dark .bp5-input[readonly] {
   box-shadow: inset 0 0 0 1px rgba(17, 20, 24, 0.4);
@@ -8092,97 +8092,97 @@ Styleguide input
   color: rgba(171, 179, 191, 0.6);
 }
 .bp5-input.bp5-intent-primary {
-  box-shadow: 0 0 0 0 rgba(20, 126, 179, 0), 0 0 0 0 rgba(20, 126, 179, 0), inset 0 0 0 1px #147eb3, inset 0 0 0 1px rgba(17, 20, 24, 0.2);
+  box-shadow: 0 0 0 0 rgba(45, 114, 210, 0), 0 0 0 0 rgba(45, 114, 210, 0), inset 0 0 0 1px #2d72d2, inset 0 0 0 1px rgba(17, 20, 24, 0.2);
 }
 .bp5-input.bp5-intent-primary:focus {
-  box-shadow: inset 0 0 0 1px rgba(20, 126, 179, 0.752), 0 0 0 2px rgba(20, 126, 179, 0.752), inset 0 1px 1px rgba(17, 20, 24, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(45, 114, 210, 0.752), 0 0 0 2px rgba(45, 114, 210, 0.752), inset 0 1px 1px rgba(17, 20, 24, 0.2);
 }
 .bp5-input.bp5-intent-primary[readonly] {
-  box-shadow: inset 0 0 0 1px #147eb3;
+  box-shadow: inset 0 0 0 1px #2d72d2;
 }
 .bp5-input.bp5-intent-primary:disabled, .bp5-input.bp5-intent-primary.bp5-disabled {
   box-shadow: none;
 }
 .bp5-dark .bp5-input.bp5-intent-primary {
-  box-shadow: 0 0 0 0 rgba(63, 166, 218, 0), 0 0 0 0 rgba(63, 166, 218, 0), inset 0 0 0 1px #3fa6da, inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 0 0 rgba(76, 144, 240, 0), 0 0 0 0 rgba(76, 144, 240, 0), inset 0 0 0 1px #4c90f0, inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 .bp5-dark .bp5-input.bp5-intent-primary:focus {
-  box-shadow: inset 0 0 0 1px rgba(63, 166, 218, 0.752), 0 0 0 2px rgba(63, 166, 218, 0.752), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(76, 144, 240, 0.752), 0 0 0 2px rgba(76, 144, 240, 0.752), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 .bp5-dark .bp5-input.bp5-intent-primary[readonly] {
-  box-shadow: inset 0 0 0 1px #3fa6da;
+  box-shadow: inset 0 0 0 1px #4c90f0;
 }
 .bp5-dark .bp5-input.bp5-intent-primary:disabled, .bp5-dark .bp5-input.bp5-intent-primary.bp5-disabled {
   box-shadow: none;
 }
 .bp5-input.bp5-intent-success {
-  box-shadow: 0 0 0 0 rgba(142, 177, 37, 0), 0 0 0 0 rgba(142, 177, 37, 0), inset 0 0 0 1px #8eb125, inset 0 0 0 1px rgba(17, 20, 24, 0.2);
+  box-shadow: 0 0 0 0 rgba(35, 133, 81, 0), 0 0 0 0 rgba(35, 133, 81, 0), inset 0 0 0 1px #238551, inset 0 0 0 1px rgba(17, 20, 24, 0.2);
 }
 .bp5-input.bp5-intent-success:focus {
-  box-shadow: inset 0 0 0 1px rgba(142, 177, 37, 0.752), 0 0 0 2px rgba(142, 177, 37, 0.752), inset 0 1px 1px rgba(17, 20, 24, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(35, 133, 81, 0.752), 0 0 0 2px rgba(35, 133, 81, 0.752), inset 0 1px 1px rgba(17, 20, 24, 0.2);
 }
 .bp5-input.bp5-intent-success[readonly] {
-  box-shadow: inset 0 0 0 1px #8eb125;
+  box-shadow: inset 0 0 0 1px #238551;
 }
 .bp5-input.bp5-intent-success:disabled, .bp5-input.bp5-intent-success.bp5-disabled {
   box-shadow: none;
 }
 .bp5-dark .bp5-input.bp5-intent-success {
-  box-shadow: 0 0 0 0 rgba(182, 217, 76, 0), 0 0 0 0 rgba(182, 217, 76, 0), inset 0 0 0 1px #b6d94c, inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 0 0 rgba(50, 164, 103, 0), 0 0 0 0 rgba(50, 164, 103, 0), inset 0 0 0 1px #32a467, inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 .bp5-dark .bp5-input.bp5-intent-success:focus {
-  box-shadow: inset 0 0 0 1px rgba(182, 217, 76, 0.752), 0 0 0 2px rgba(182, 217, 76, 0.752), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(50, 164, 103, 0.752), 0 0 0 2px rgba(50, 164, 103, 0.752), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 .bp5-dark .bp5-input.bp5-intent-success[readonly] {
-  box-shadow: inset 0 0 0 1px #b6d94c;
+  box-shadow: inset 0 0 0 1px #32a467;
 }
 .bp5-dark .bp5-input.bp5-intent-success:disabled, .bp5-dark .bp5-input.bp5-intent-success.bp5-disabled {
   box-shadow: none;
 }
 .bp5-input.bp5-intent-warning {
-  box-shadow: 0 0 0 0 rgba(209, 152, 11, 0), 0 0 0 0 rgba(209, 152, 11, 0), inset 0 0 0 1px #d1980b, inset 0 0 0 1px rgba(17, 20, 24, 0.2);
+  box-shadow: 0 0 0 0 rgba(200, 118, 25, 0), 0 0 0 0 rgba(200, 118, 25, 0), inset 0 0 0 1px #c87619, inset 0 0 0 1px rgba(17, 20, 24, 0.2);
 }
 .bp5-input.bp5-intent-warning:focus {
-  box-shadow: inset 0 0 0 1px rgba(209, 152, 11, 0.752), 0 0 0 2px rgba(209, 152, 11, 0.752), inset 0 1px 1px rgba(17, 20, 24, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(200, 118, 25, 0.752), 0 0 0 2px rgba(200, 118, 25, 0.752), inset 0 1px 1px rgba(17, 20, 24, 0.2);
 }
 .bp5-input.bp5-intent-warning[readonly] {
-  box-shadow: inset 0 0 0 1px #d1980b;
+  box-shadow: inset 0 0 0 1px #c87619;
 }
 .bp5-input.bp5-intent-warning:disabled, .bp5-input.bp5-intent-warning.bp5-disabled {
   box-shadow: none;
 }
 .bp5-dark .bp5-input.bp5-intent-warning {
-  box-shadow: 0 0 0 0 rgba(240, 183, 38, 0), 0 0 0 0 rgba(240, 183, 38, 0), inset 0 0 0 1px #f0b726, inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 0 0 rgba(236, 154, 60, 0), 0 0 0 0 rgba(236, 154, 60, 0), inset 0 0 0 1px #ec9a3c, inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 .bp5-dark .bp5-input.bp5-intent-warning:focus {
-  box-shadow: inset 0 0 0 1px rgba(240, 183, 38, 0.752), 0 0 0 2px rgba(240, 183, 38, 0.752), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(236, 154, 60, 0.752), 0 0 0 2px rgba(236, 154, 60, 0.752), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 .bp5-dark .bp5-input.bp5-intent-warning[readonly] {
-  box-shadow: inset 0 0 0 1px #f0b726;
+  box-shadow: inset 0 0 0 1px #ec9a3c;
 }
 .bp5-dark .bp5-input.bp5-intent-warning:disabled, .bp5-dark .bp5-input.bp5-intent-warning.bp5-disabled {
   box-shadow: none;
 }
 .bp5-input.bp5-intent-danger {
-  box-shadow: 0 0 0 0 rgba(211, 61, 23, 0), 0 0 0 0 rgba(211, 61, 23, 0), inset 0 0 0 1px #d33d17, inset 0 0 0 1px rgba(17, 20, 24, 0.2);
+  box-shadow: 0 0 0 0 rgba(205, 66, 70, 0), 0 0 0 0 rgba(205, 66, 70, 0), inset 0 0 0 1px #cd4246, inset 0 0 0 1px rgba(17, 20, 24, 0.2);
 }
 .bp5-input.bp5-intent-danger:focus {
-  box-shadow: inset 0 0 0 1px rgba(211, 61, 23, 0.752), 0 0 0 2px rgba(211, 61, 23, 0.752), inset 0 1px 1px rgba(17, 20, 24, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(205, 66, 70, 0.752), 0 0 0 2px rgba(205, 66, 70, 0.752), inset 0 1px 1px rgba(17, 20, 24, 0.2);
 }
 .bp5-input.bp5-intent-danger[readonly] {
-  box-shadow: inset 0 0 0 1px #d33d17;
+  box-shadow: inset 0 0 0 1px #cd4246;
 }
 .bp5-input.bp5-intent-danger:disabled, .bp5-input.bp5-intent-danger.bp5-disabled {
   box-shadow: none;
 }
 .bp5-dark .bp5-input.bp5-intent-danger {
-  box-shadow: 0 0 0 0 rgba(235, 104, 71, 0), 0 0 0 0 rgba(235, 104, 71, 0), inset 0 0 0 1px #eb6847, inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 0 0 rgba(231, 106, 110, 0), 0 0 0 0 rgba(231, 106, 110, 0), inset 0 0 0 1px #e76a6e, inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 .bp5-dark .bp5-input.bp5-intent-danger:focus {
-  box-shadow: inset 0 0 0 1px rgba(235, 104, 71, 0.752), 0 0 0 2px rgba(235, 104, 71, 0.752), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(231, 106, 110, 0.752), 0 0 0 2px rgba(231, 106, 110, 0.752), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 .bp5-dark .bp5-input.bp5-intent-danger[readonly] {
-  box-shadow: inset 0 0 0 1px #eb6847;
+  box-shadow: inset 0 0 0 1px #e76a6e;
 }
 .bp5-dark .bp5-input.bp5-intent-danger:disabled, .bp5-dark .bp5-input.bp5-intent-danger.bp5-disabled {
   box-shadow: none;
@@ -8634,7 +8634,7 @@ CSS `border` property issues:
 }
 .bp5-html-select.bp5-minimal select.bp5-intent-primary,
 .bp5-select.bp5-minimal select.bp5-intent-primary {
-  color: #0f6894;
+  color: #215db0;
 }
 .bp5-html-select.bp5-minimal select.bp5-intent-primary:hover,
 .bp5-select.bp5-minimal select.bp5-intent-primary:hover, .bp5-html-select.bp5-minimal select.bp5-intent-primary:active,
@@ -8642,51 +8642,51 @@ CSS `border` property issues:
 .bp5-select.bp5-minimal select.bp5-intent-primary.bp5-active {
   background: none;
   box-shadow: none;
-  color: #0f6894;
+  color: #215db0;
 }
 .bp5-html-select.bp5-minimal select.bp5-intent-primary:hover,
 .bp5-select.bp5-minimal select.bp5-intent-primary:hover {
-  background: rgba(20, 126, 179, 0.15);
-  color: #0f6894;
+  background: rgba(45, 114, 210, 0.15);
+  color: #215db0;
 }
 .bp5-html-select.bp5-minimal select.bp5-intent-primary:active,
 .bp5-select.bp5-minimal select.bp5-intent-primary:active, .bp5-html-select.bp5-minimal select.bp5-intent-primary.bp5-active,
 .bp5-select.bp5-minimal select.bp5-intent-primary.bp5-active {
-  background: rgba(20, 126, 179, 0.3);
-  color: #0c5174;
+  background: rgba(45, 114, 210, 0.3);
+  color: #184a90;
 }
 .bp5-html-select.bp5-minimal select.bp5-intent-primary:disabled,
 .bp5-select.bp5-minimal select.bp5-intent-primary:disabled, .bp5-html-select.bp5-minimal select.bp5-intent-primary.bp5-disabled,
 .bp5-select.bp5-minimal select.bp5-intent-primary.bp5-disabled {
   background: none;
-  color: rgba(15, 104, 148, 0.5);
+  color: rgba(33, 93, 176, 0.5);
 }
 .bp5-html-select.bp5-minimal select.bp5-intent-primary:disabled.bp5-active,
 .bp5-select.bp5-minimal select.bp5-intent-primary:disabled.bp5-active, .bp5-html-select.bp5-minimal select.bp5-intent-primary.bp5-disabled.bp5-active,
 .bp5-select.bp5-minimal select.bp5-intent-primary.bp5-disabled.bp5-active {
-  background: rgba(20, 126, 179, 0.3);
+  background: rgba(45, 114, 210, 0.3);
 }
 .bp5-html-select.bp5-minimal select.bp5-intent-primary .bp5-button-spinner .bp5-spinner-head,
 .bp5-select.bp5-minimal select.bp5-intent-primary .bp5-button-spinner .bp5-spinner-head {
-  stroke: #0f6894;
+  stroke: #215db0;
 }
 .bp5-dark .bp5-html-select.bp5-minimal select.bp5-intent-primary, .bp5-html-select.bp5-minimal .bp5-dark select.bp5-intent-primary,
 .bp5-dark .bp5-select.bp5-minimal select.bp5-intent-primary,
 .bp5-select.bp5-minimal .bp5-dark select.bp5-intent-primary {
-  color: #68c1ee;
+  color: #8abbff;
 }
 .bp5-dark .bp5-html-select.bp5-minimal select.bp5-intent-primary:hover, .bp5-html-select.bp5-minimal .bp5-dark select.bp5-intent-primary:hover,
 .bp5-dark .bp5-select.bp5-minimal select.bp5-intent-primary:hover,
 .bp5-select.bp5-minimal .bp5-dark select.bp5-intent-primary:hover {
-  background: rgba(20, 126, 179, 0.2);
-  color: #68c1ee;
+  background: rgba(45, 114, 210, 0.2);
+  color: #8abbff;
 }
 .bp5-dark .bp5-html-select.bp5-minimal select.bp5-intent-primary:active, .bp5-html-select.bp5-minimal .bp5-dark select.bp5-intent-primary:active,
 .bp5-dark .bp5-select.bp5-minimal select.bp5-intent-primary:active,
 .bp5-select.bp5-minimal .bp5-dark select.bp5-intent-primary:active, .bp5-dark .bp5-html-select.bp5-minimal select.bp5-intent-primary.bp5-active, .bp5-html-select.bp5-minimal .bp5-dark select.bp5-intent-primary.bp5-active,
 .bp5-dark .bp5-select.bp5-minimal select.bp5-intent-primary.bp5-active,
 .bp5-select.bp5-minimal .bp5-dark select.bp5-intent-primary.bp5-active {
-  background: rgba(20, 126, 179, 0.3);
+  background: rgba(45, 114, 210, 0.3);
   color: #99c4ff;
 }
 .bp5-dark .bp5-html-select.bp5-minimal select.bp5-intent-primary:disabled, .bp5-html-select.bp5-minimal .bp5-dark select.bp5-intent-primary:disabled,
@@ -8695,18 +8695,18 @@ CSS `border` property issues:
 .bp5-dark .bp5-select.bp5-minimal select.bp5-intent-primary.bp5-disabled,
 .bp5-select.bp5-minimal .bp5-dark select.bp5-intent-primary.bp5-disabled {
   background: none;
-  color: rgba(104, 193, 238, 0.5);
+  color: rgba(138, 187, 255, 0.5);
 }
 .bp5-dark .bp5-html-select.bp5-minimal select.bp5-intent-primary:disabled.bp5-active, .bp5-html-select.bp5-minimal .bp5-dark select.bp5-intent-primary:disabled.bp5-active,
 .bp5-dark .bp5-select.bp5-minimal select.bp5-intent-primary:disabled.bp5-active,
 .bp5-select.bp5-minimal .bp5-dark select.bp5-intent-primary:disabled.bp5-active, .bp5-dark .bp5-html-select.bp5-minimal select.bp5-intent-primary.bp5-disabled.bp5-active, .bp5-html-select.bp5-minimal .bp5-dark select.bp5-intent-primary.bp5-disabled.bp5-active,
 .bp5-dark .bp5-select.bp5-minimal select.bp5-intent-primary.bp5-disabled.bp5-active,
 .bp5-select.bp5-minimal .bp5-dark select.bp5-intent-primary.bp5-disabled.bp5-active {
-  background: rgba(20, 126, 179, 0.3);
+  background: rgba(45, 114, 210, 0.3);
 }
 .bp5-html-select.bp5-minimal select.bp5-intent-success,
 .bp5-select.bp5-minimal select.bp5-intent-success {
-  color: #5a701a;
+  color: #1c6e42;
 }
 .bp5-html-select.bp5-minimal select.bp5-intent-success:hover,
 .bp5-select.bp5-minimal select.bp5-intent-success:hover, .bp5-html-select.bp5-minimal select.bp5-intent-success:active,
@@ -8714,51 +8714,51 @@ CSS `border` property issues:
 .bp5-select.bp5-minimal select.bp5-intent-success.bp5-active {
   background: none;
   box-shadow: none;
-  color: #5a701a;
+  color: #1c6e42;
 }
 .bp5-html-select.bp5-minimal select.bp5-intent-success:hover,
 .bp5-select.bp5-minimal select.bp5-intent-success:hover {
-  background: rgba(142, 177, 37, 0.15);
-  color: #5a701a;
+  background: rgba(35, 133, 81, 0.15);
+  color: #1c6e42;
 }
 .bp5-html-select.bp5-minimal select.bp5-intent-success:active,
 .bp5-select.bp5-minimal select.bp5-intent-success:active, .bp5-html-select.bp5-minimal select.bp5-intent-success.bp5-active,
 .bp5-select.bp5-minimal select.bp5-intent-success.bp5-active {
-  background: rgba(142, 177, 37, 0.3);
-  color: #43501b;
+  background: rgba(35, 133, 81, 0.3);
+  color: #165a36;
 }
 .bp5-html-select.bp5-minimal select.bp5-intent-success:disabled,
 .bp5-select.bp5-minimal select.bp5-intent-success:disabled, .bp5-html-select.bp5-minimal select.bp5-intent-success.bp5-disabled,
 .bp5-select.bp5-minimal select.bp5-intent-success.bp5-disabled {
   background: none;
-  color: rgba(90, 112, 26, 0.5);
+  color: rgba(28, 110, 66, 0.5);
 }
 .bp5-html-select.bp5-minimal select.bp5-intent-success:disabled.bp5-active,
 .bp5-select.bp5-minimal select.bp5-intent-success:disabled.bp5-active, .bp5-html-select.bp5-minimal select.bp5-intent-success.bp5-disabled.bp5-active,
 .bp5-select.bp5-minimal select.bp5-intent-success.bp5-disabled.bp5-active {
-  background: rgba(142, 177, 37, 0.3);
+  background: rgba(35, 133, 81, 0.3);
 }
 .bp5-html-select.bp5-minimal select.bp5-intent-success .bp5-button-spinner .bp5-spinner-head,
 .bp5-select.bp5-minimal select.bp5-intent-success .bp5-button-spinner .bp5-spinner-head {
-  stroke: #5a701a;
+  stroke: #1c6e42;
 }
 .bp5-dark .bp5-html-select.bp5-minimal select.bp5-intent-success, .bp5-html-select.bp5-minimal .bp5-dark select.bp5-intent-success,
 .bp5-dark .bp5-select.bp5-minimal select.bp5-intent-success,
 .bp5-select.bp5-minimal .bp5-dark select.bp5-intent-success {
-  color: #d4f17e;
+  color: #72ca9b;
 }
 .bp5-dark .bp5-html-select.bp5-minimal select.bp5-intent-success:hover, .bp5-html-select.bp5-minimal .bp5-dark select.bp5-intent-success:hover,
 .bp5-dark .bp5-select.bp5-minimal select.bp5-intent-success:hover,
 .bp5-select.bp5-minimal .bp5-dark select.bp5-intent-success:hover {
-  background: rgba(142, 177, 37, 0.2);
-  color: #d4f17e;
+  background: rgba(35, 133, 81, 0.2);
+  color: #72ca9b;
 }
 .bp5-dark .bp5-html-select.bp5-minimal select.bp5-intent-success:active, .bp5-html-select.bp5-minimal .bp5-dark select.bp5-intent-success:active,
 .bp5-dark .bp5-select.bp5-minimal select.bp5-intent-success:active,
 .bp5-select.bp5-minimal .bp5-dark select.bp5-intent-success:active, .bp5-dark .bp5-html-select.bp5-minimal select.bp5-intent-success.bp5-active, .bp5-html-select.bp5-minimal .bp5-dark select.bp5-intent-success.bp5-active,
 .bp5-dark .bp5-select.bp5-minimal select.bp5-intent-success.bp5-active,
 .bp5-select.bp5-minimal .bp5-dark select.bp5-intent-success.bp5-active {
-  background: rgba(142, 177, 37, 0.3);
+  background: rgba(35, 133, 81, 0.3);
   color: #7cd7a2;
 }
 .bp5-dark .bp5-html-select.bp5-minimal select.bp5-intent-success:disabled, .bp5-html-select.bp5-minimal .bp5-dark select.bp5-intent-success:disabled,
@@ -8767,18 +8767,18 @@ CSS `border` property issues:
 .bp5-dark .bp5-select.bp5-minimal select.bp5-intent-success.bp5-disabled,
 .bp5-select.bp5-minimal .bp5-dark select.bp5-intent-success.bp5-disabled {
   background: none;
-  color: rgba(212, 241, 126, 0.5);
+  color: rgba(114, 202, 155, 0.5);
 }
 .bp5-dark .bp5-html-select.bp5-minimal select.bp5-intent-success:disabled.bp5-active, .bp5-html-select.bp5-minimal .bp5-dark select.bp5-intent-success:disabled.bp5-active,
 .bp5-dark .bp5-select.bp5-minimal select.bp5-intent-success:disabled.bp5-active,
 .bp5-select.bp5-minimal .bp5-dark select.bp5-intent-success:disabled.bp5-active, .bp5-dark .bp5-html-select.bp5-minimal select.bp5-intent-success.bp5-disabled.bp5-active, .bp5-html-select.bp5-minimal .bp5-dark select.bp5-intent-success.bp5-disabled.bp5-active,
 .bp5-dark .bp5-select.bp5-minimal select.bp5-intent-success.bp5-disabled.bp5-active,
 .bp5-select.bp5-minimal .bp5-dark select.bp5-intent-success.bp5-disabled.bp5-active {
-  background: rgba(142, 177, 37, 0.3);
+  background: rgba(35, 133, 81, 0.3);
 }
 .bp5-html-select.bp5-minimal select.bp5-intent-warning,
 .bp5-select.bp5-minimal select.bp5-intent-warning {
-  color: #866103;
+  color: #935610;
 }
 .bp5-html-select.bp5-minimal select.bp5-intent-warning:hover,
 .bp5-select.bp5-minimal select.bp5-intent-warning:hover, .bp5-html-select.bp5-minimal select.bp5-intent-warning:active,
@@ -8786,51 +8786,51 @@ CSS `border` property issues:
 .bp5-select.bp5-minimal select.bp5-intent-warning.bp5-active {
   background: none;
   box-shadow: none;
-  color: #866103;
+  color: #935610;
 }
 .bp5-html-select.bp5-minimal select.bp5-intent-warning:hover,
 .bp5-select.bp5-minimal select.bp5-intent-warning:hover {
-  background: rgba(209, 152, 11, 0.15);
-  color: #866103;
+  background: rgba(200, 118, 25, 0.15);
+  color: #935610;
 }
 .bp5-html-select.bp5-minimal select.bp5-intent-warning:active,
 .bp5-select.bp5-minimal select.bp5-intent-warning:active, .bp5-html-select.bp5-minimal select.bp5-intent-warning.bp5-active,
 .bp5-select.bp5-minimal select.bp5-intent-warning.bp5-active {
-  background: rgba(209, 152, 11, 0.3);
-  color: #5c4405;
+  background: rgba(200, 118, 25, 0.3);
+  color: #77450d;
 }
 .bp5-html-select.bp5-minimal select.bp5-intent-warning:disabled,
 .bp5-select.bp5-minimal select.bp5-intent-warning:disabled, .bp5-html-select.bp5-minimal select.bp5-intent-warning.bp5-disabled,
 .bp5-select.bp5-minimal select.bp5-intent-warning.bp5-disabled {
   background: none;
-  color: rgba(134, 97, 3, 0.5);
+  color: rgba(147, 86, 16, 0.5);
 }
 .bp5-html-select.bp5-minimal select.bp5-intent-warning:disabled.bp5-active,
 .bp5-select.bp5-minimal select.bp5-intent-warning:disabled.bp5-active, .bp5-html-select.bp5-minimal select.bp5-intent-warning.bp5-disabled.bp5-active,
 .bp5-select.bp5-minimal select.bp5-intent-warning.bp5-disabled.bp5-active {
-  background: rgba(209, 152, 11, 0.3);
+  background: rgba(200, 118, 25, 0.3);
 }
 .bp5-html-select.bp5-minimal select.bp5-intent-warning .bp5-button-spinner .bp5-spinner-head,
 .bp5-select.bp5-minimal select.bp5-intent-warning .bp5-button-spinner .bp5-spinner-head {
-  stroke: #866103;
+  stroke: #935610;
 }
 .bp5-dark .bp5-html-select.bp5-minimal select.bp5-intent-warning, .bp5-html-select.bp5-minimal .bp5-dark select.bp5-intent-warning,
 .bp5-dark .bp5-select.bp5-minimal select.bp5-intent-warning,
 .bp5-select.bp5-minimal .bp5-dark select.bp5-intent-warning {
-  color: #fbd065;
+  color: #fbb360;
 }
 .bp5-dark .bp5-html-select.bp5-minimal select.bp5-intent-warning:hover, .bp5-html-select.bp5-minimal .bp5-dark select.bp5-intent-warning:hover,
 .bp5-dark .bp5-select.bp5-minimal select.bp5-intent-warning:hover,
 .bp5-select.bp5-minimal .bp5-dark select.bp5-intent-warning:hover {
-  background: rgba(209, 152, 11, 0.2);
-  color: #fbd065;
+  background: rgba(200, 118, 25, 0.2);
+  color: #fbb360;
 }
 .bp5-dark .bp5-html-select.bp5-minimal select.bp5-intent-warning:active, .bp5-html-select.bp5-minimal .bp5-dark select.bp5-intent-warning:active,
 .bp5-dark .bp5-select.bp5-minimal select.bp5-intent-warning:active,
 .bp5-select.bp5-minimal .bp5-dark select.bp5-intent-warning:active, .bp5-dark .bp5-html-select.bp5-minimal select.bp5-intent-warning.bp5-active, .bp5-html-select.bp5-minimal .bp5-dark select.bp5-intent-warning.bp5-active,
 .bp5-dark .bp5-select.bp5-minimal select.bp5-intent-warning.bp5-active,
 .bp5-select.bp5-minimal .bp5-dark select.bp5-intent-warning.bp5-active {
-  background: rgba(209, 152, 11, 0.3);
+  background: rgba(200, 118, 25, 0.3);
   color: #f5c186;
 }
 .bp5-dark .bp5-html-select.bp5-minimal select.bp5-intent-warning:disabled, .bp5-html-select.bp5-minimal .bp5-dark select.bp5-intent-warning:disabled,
@@ -8839,18 +8839,18 @@ CSS `border` property issues:
 .bp5-dark .bp5-select.bp5-minimal select.bp5-intent-warning.bp5-disabled,
 .bp5-select.bp5-minimal .bp5-dark select.bp5-intent-warning.bp5-disabled {
   background: none;
-  color: rgba(251, 208, 101, 0.5);
+  color: rgba(251, 179, 96, 0.5);
 }
 .bp5-dark .bp5-html-select.bp5-minimal select.bp5-intent-warning:disabled.bp5-active, .bp5-html-select.bp5-minimal .bp5-dark select.bp5-intent-warning:disabled.bp5-active,
 .bp5-dark .bp5-select.bp5-minimal select.bp5-intent-warning:disabled.bp5-active,
 .bp5-select.bp5-minimal .bp5-dark select.bp5-intent-warning:disabled.bp5-active, .bp5-dark .bp5-html-select.bp5-minimal select.bp5-intent-warning.bp5-disabled.bp5-active, .bp5-html-select.bp5-minimal .bp5-dark select.bp5-intent-warning.bp5-disabled.bp5-active,
 .bp5-dark .bp5-select.bp5-minimal select.bp5-intent-warning.bp5-disabled.bp5-active,
 .bp5-select.bp5-minimal .bp5-dark select.bp5-intent-warning.bp5-disabled.bp5-active {
-  background: rgba(209, 152, 11, 0.3);
+  background: rgba(200, 118, 25, 0.3);
 }
 .bp5-html-select.bp5-minimal select.bp5-intent-danger,
 .bp5-select.bp5-minimal select.bp5-intent-danger {
-  color: #b83211;
+  color: #ac2f33;
 }
 .bp5-html-select.bp5-minimal select.bp5-intent-danger:hover,
 .bp5-select.bp5-minimal select.bp5-intent-danger:hover, .bp5-html-select.bp5-minimal select.bp5-intent-danger:active,
@@ -8858,51 +8858,51 @@ CSS `border` property issues:
 .bp5-select.bp5-minimal select.bp5-intent-danger.bp5-active {
   background: none;
   box-shadow: none;
-  color: #b83211;
+  color: #ac2f33;
 }
 .bp5-html-select.bp5-minimal select.bp5-intent-danger:hover,
 .bp5-select.bp5-minimal select.bp5-intent-danger:hover {
-  background: rgba(211, 61, 23, 0.15);
-  color: #b83211;
+  background: rgba(205, 66, 70, 0.15);
+  color: #ac2f33;
 }
 .bp5-html-select.bp5-minimal select.bp5-intent-danger:active,
 .bp5-select.bp5-minimal select.bp5-intent-danger:active, .bp5-html-select.bp5-minimal select.bp5-intent-danger.bp5-active,
 .bp5-select.bp5-minimal select.bp5-intent-danger.bp5-active {
-  background: rgba(211, 61, 23, 0.3);
-  color: #96290d;
+  background: rgba(205, 66, 70, 0.3);
+  color: #8e292c;
 }
 .bp5-html-select.bp5-minimal select.bp5-intent-danger:disabled,
 .bp5-select.bp5-minimal select.bp5-intent-danger:disabled, .bp5-html-select.bp5-minimal select.bp5-intent-danger.bp5-disabled,
 .bp5-select.bp5-minimal select.bp5-intent-danger.bp5-disabled {
   background: none;
-  color: rgba(184, 50, 17, 0.5);
+  color: rgba(172, 47, 51, 0.5);
 }
 .bp5-html-select.bp5-minimal select.bp5-intent-danger:disabled.bp5-active,
 .bp5-select.bp5-minimal select.bp5-intent-danger:disabled.bp5-active, .bp5-html-select.bp5-minimal select.bp5-intent-danger.bp5-disabled.bp5-active,
 .bp5-select.bp5-minimal select.bp5-intent-danger.bp5-disabled.bp5-active {
-  background: rgba(211, 61, 23, 0.3);
+  background: rgba(205, 66, 70, 0.3);
 }
 .bp5-html-select.bp5-minimal select.bp5-intent-danger .bp5-button-spinner .bp5-spinner-head,
 .bp5-select.bp5-minimal select.bp5-intent-danger .bp5-button-spinner .bp5-spinner-head {
-  stroke: #b83211;
+  stroke: #ac2f33;
 }
 .bp5-dark .bp5-html-select.bp5-minimal select.bp5-intent-danger, .bp5-html-select.bp5-minimal .bp5-dark select.bp5-intent-danger,
 .bp5-dark .bp5-select.bp5-minimal select.bp5-intent-danger,
 .bp5-select.bp5-minimal .bp5-dark select.bp5-intent-danger {
-  color: #ff9980;
+  color: #fa999c;
 }
 .bp5-dark .bp5-html-select.bp5-minimal select.bp5-intent-danger:hover, .bp5-html-select.bp5-minimal .bp5-dark select.bp5-intent-danger:hover,
 .bp5-dark .bp5-select.bp5-minimal select.bp5-intent-danger:hover,
 .bp5-select.bp5-minimal .bp5-dark select.bp5-intent-danger:hover {
-  background: rgba(211, 61, 23, 0.2);
-  color: #ff9980;
+  background: rgba(205, 66, 70, 0.2);
+  color: #fa999c;
 }
 .bp5-dark .bp5-html-select.bp5-minimal select.bp5-intent-danger:active, .bp5-html-select.bp5-minimal .bp5-dark select.bp5-intent-danger:active,
 .bp5-dark .bp5-select.bp5-minimal select.bp5-intent-danger:active,
 .bp5-select.bp5-minimal .bp5-dark select.bp5-intent-danger:active, .bp5-dark .bp5-html-select.bp5-minimal select.bp5-intent-danger.bp5-active, .bp5-html-select.bp5-minimal .bp5-dark select.bp5-intent-danger.bp5-active,
 .bp5-dark .bp5-select.bp5-minimal select.bp5-intent-danger.bp5-active,
 .bp5-select.bp5-minimal .bp5-dark select.bp5-intent-danger.bp5-active {
-  background: rgba(211, 61, 23, 0.3);
+  background: rgba(205, 66, 70, 0.3);
   color: #ffa1a4;
 }
 .bp5-dark .bp5-html-select.bp5-minimal select.bp5-intent-danger:disabled, .bp5-html-select.bp5-minimal .bp5-dark select.bp5-intent-danger:disabled,
@@ -8911,14 +8911,14 @@ CSS `border` property issues:
 .bp5-dark .bp5-select.bp5-minimal select.bp5-intent-danger.bp5-disabled,
 .bp5-select.bp5-minimal .bp5-dark select.bp5-intent-danger.bp5-disabled {
   background: none;
-  color: rgba(255, 153, 128, 0.5);
+  color: rgba(250, 153, 156, 0.5);
 }
 .bp5-dark .bp5-html-select.bp5-minimal select.bp5-intent-danger:disabled.bp5-active, .bp5-html-select.bp5-minimal .bp5-dark select.bp5-intent-danger:disabled.bp5-active,
 .bp5-dark .bp5-select.bp5-minimal select.bp5-intent-danger:disabled.bp5-active,
 .bp5-select.bp5-minimal .bp5-dark select.bp5-intent-danger:disabled.bp5-active, .bp5-dark .bp5-html-select.bp5-minimal select.bp5-intent-danger.bp5-disabled.bp5-active, .bp5-html-select.bp5-minimal .bp5-dark select.bp5-intent-danger.bp5-disabled.bp5-active,
 .bp5-dark .bp5-select.bp5-minimal select.bp5-intent-danger.bp5-disabled.bp5-active,
 .bp5-select.bp5-minimal .bp5-dark select.bp5-intent-danger.bp5-disabled.bp5-active {
-  background: rgba(211, 61, 23, 0.3);
+  background: rgba(205, 66, 70, 0.3);
 }
 
 .bp5-html-select.bp5-large select,
@@ -11962,8 +11962,8 @@ span.bp5-icon:empty.bp5-icon-large {
   color: #abb3bf;
 }
 .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-], .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-]:hover, .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-]:active {
-  background-color: rgba(20, 126, 179, 0.1);
-  color: #0f6894;
+  background-color: rgba(45, 114, 210, 0.1);
+  color: #215db0;
 }
 .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-] .bp5-menu-item-label, .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-]:hover .bp5-menu-item-label, .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-]:active .bp5-menu-item-label {
   color: inherit;
@@ -11978,11 +11978,11 @@ span.bp5-icon:empty.bp5-icon-large {
 .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-]:active .bp5-menu-item-icon,
 .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-]:active .bp5-menu-item-selected-icon,
 .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-]:active .bp5-submenu-icon {
-  color: #0f6894;
+  color: #215db0;
 }
 .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-].bp5-intent-success, .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-]:hover.bp5-intent-success, .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-]:active.bp5-intent-success {
-  background-color: rgba(142, 177, 37, 0.1);
-  color: #5a701a;
+  background-color: rgba(35, 133, 81, 0.1);
+  color: #1c6e42;
 }
 .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-].bp5-intent-success::before,
 .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-].bp5-intent-success .bp5-menu-item-icon,
@@ -11994,8 +11994,8 @@ span.bp5-icon:empty.bp5-icon-large {
   color: inherit;
 }
 .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-].bp5-intent-warning, .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-]:hover.bp5-intent-warning, .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-]:active.bp5-intent-warning {
-  background-color: rgba(209, 152, 11, 0.1);
-  color: #866103;
+  background-color: rgba(200, 118, 25, 0.1);
+  color: #935610;
 }
 .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-].bp5-intent-warning::before,
 .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-].bp5-intent-warning .bp5-menu-item-icon,
@@ -12007,8 +12007,8 @@ span.bp5-icon:empty.bp5-icon-large {
   color: inherit;
 }
 .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-].bp5-intent-danger, .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-]:hover.bp5-intent-danger, .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-]:active.bp5-intent-danger {
-  background-color: rgba(211, 61, 23, 0.1);
-  color: #b83211;
+  background-color: rgba(205, 66, 70, 0.1);
+  color: #ac2f33;
 }
 .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-].bp5-intent-danger::before,
 .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-].bp5-intent-danger .bp5-menu-item-icon,
@@ -12025,8 +12025,8 @@ span.bp5-icon:empty.bp5-icon-large {
   }
 }
 .bp5-dark .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-], .bp5-dark .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-]:hover, .bp5-dark .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-]:active {
-  background-color: rgba(20, 126, 179, 0.2);
-  color: #68c1ee;
+  background-color: rgba(45, 114, 210, 0.2);
+  color: #8abbff;
 }
 .bp5-dark .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-]::before,
 .bp5-dark .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-] .bp5-menu-item-icon,
@@ -12038,11 +12038,11 @@ span.bp5-icon:empty.bp5-icon-large {
 .bp5-dark .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-]:active .bp5-menu-item-icon,
 .bp5-dark .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-]:active .bp5-menu-item-selected-icon,
 .bp5-dark .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-]:active .bp5-submenu-icon {
-  color: #68c1ee;
+  color: #8abbff;
 }
 .bp5-dark .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-].bp5-intent-success, .bp5-dark .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-]:hover.bp5-intent-success, .bp5-dark .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-]:active.bp5-intent-success {
-  background-color: rgba(142, 177, 37, 0.2);
-  color: #d4f17e;
+  background-color: rgba(35, 133, 81, 0.2);
+  color: #72ca9b;
 }
 .bp5-dark .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-].bp5-intent-success::before,
 .bp5-dark .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-].bp5-intent-success .bp5-menu-item-icon,
@@ -12054,8 +12054,8 @@ span.bp5-icon:empty.bp5-icon-large {
   color: inherit;
 }
 .bp5-dark .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-].bp5-intent-warning, .bp5-dark .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-]:hover.bp5-intent-warning, .bp5-dark .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-]:active.bp5-intent-warning {
-  background-color: rgba(209, 152, 11, 0.2);
-  color: #fbd065;
+  background-color: rgba(200, 118, 25, 0.2);
+  color: #fbb360;
 }
 .bp5-dark .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-].bp5-intent-warning::before,
 .bp5-dark .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-].bp5-intent-warning .bp5-menu-item-icon,
@@ -12067,8 +12067,8 @@ span.bp5-icon:empty.bp5-icon-large {
   color: inherit;
 }
 .bp5-dark .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-].bp5-intent-danger, .bp5-dark .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-]:hover.bp5-intent-danger, .bp5-dark .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-]:active.bp5-intent-danger {
-  background-color: rgba(211, 61, 23, 0.2);
-  color: #ff9980;
+  background-color: rgba(205, 66, 70, 0.2);
+  color: #fa999c;
 }
 .bp5-dark .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-].bp5-intent-danger::before,
 .bp5-dark .bp5-submenu .bp5-popover-target.bp5-popover-open > .bp5-menu-item[class*=bp5-intent-].bp5-intent-danger .bp5-menu-item-icon,
@@ -12207,8 +12207,8 @@ Styleguide menu
   color: #111418;
 }
 .bp5-menu-item.bp5-active {
-  background-color: rgba(20, 126, 179, 0.1);
-  color: #0f6894;
+  background-color: rgba(45, 114, 210, 0.1);
+  color: #215db0;
 }
 .bp5-menu-item.bp5-active .bp5-menu-item-label {
   color: inherit;
@@ -12217,11 +12217,11 @@ Styleguide menu
 .bp5-menu-item.bp5-active .bp5-menu-item-icon,
 .bp5-menu-item.bp5-active .bp5-menu-item-selected-icon,
 .bp5-menu-item.bp5-active .bp5-submenu-icon {
-  color: #0f6894;
+  color: #215db0;
 }
 .bp5-menu-item.bp5-active.bp5-intent-success {
-  background-color: rgba(142, 177, 37, 0.1);
-  color: #5a701a;
+  background-color: rgba(35, 133, 81, 0.1);
+  color: #1c6e42;
 }
 .bp5-menu-item.bp5-active.bp5-intent-success::before,
 .bp5-menu-item.bp5-active.bp5-intent-success .bp5-menu-item-icon,
@@ -12229,8 +12229,8 @@ Styleguide menu
   color: inherit;
 }
 .bp5-menu-item.bp5-active.bp5-intent-warning {
-  background-color: rgba(209, 152, 11, 0.1);
-  color: #866103;
+  background-color: rgba(200, 118, 25, 0.1);
+  color: #935610;
 }
 .bp5-menu-item.bp5-active.bp5-intent-warning::before,
 .bp5-menu-item.bp5-active.bp5-intent-warning .bp5-menu-item-icon,
@@ -12238,8 +12238,8 @@ Styleguide menu
   color: inherit;
 }
 .bp5-menu-item.bp5-active.bp5-intent-danger {
-  background-color: rgba(211, 61, 23, 0.1);
-  color: #b83211;
+  background-color: rgba(205, 66, 70, 0.1);
+  color: #ac2f33;
 }
 .bp5-menu-item.bp5-active.bp5-intent-danger::before,
 .bp5-menu-item.bp5-active.bp5-intent-danger .bp5-menu-item-icon,
@@ -12276,7 +12276,7 @@ Styleguide menu
   color: rgba(95, 107, 124, 0.6) !important;
 }
 .bp5-menu-item.bp5-intent-primary {
-  color: #0f6894;
+  color: #215db0;
 }
 .bp5-menu-item.bp5-intent-primary::before,
 .bp5-menu-item.bp5-intent-primary .bp5-menu-item-icon,
@@ -12286,14 +12286,14 @@ Styleguide menu
   color: inherit;
 }
 .bp5-menu-item.bp5-intent-primary:hover {
-  background-color: rgba(20, 126, 179, 0.1);
+  background-color: rgba(45, 114, 210, 0.1);
 }
 .bp5-menu-item.bp5-intent-primary:active, .bp5-menu-item.bp5-intent-primary.bp5-active {
-  background-color: rgba(20, 126, 179, 0.2);
-  color: #0c5174;
+  background-color: rgba(45, 114, 210, 0.2);
+  color: #184a90;
 }
 .bp5-menu-item.bp5-intent-success {
-  color: #5a701a;
+  color: #1c6e42;
 }
 .bp5-menu-item.bp5-intent-success::before,
 .bp5-menu-item.bp5-intent-success .bp5-menu-item-icon,
@@ -12303,14 +12303,14 @@ Styleguide menu
   color: inherit;
 }
 .bp5-menu-item.bp5-intent-success:hover {
-  background-color: rgba(142, 177, 37, 0.1);
+  background-color: rgba(35, 133, 81, 0.1);
 }
 .bp5-menu-item.bp5-intent-success:active, .bp5-menu-item.bp5-intent-success.bp5-active {
-  background-color: rgba(142, 177, 37, 0.2);
-  color: #43501b;
+  background-color: rgba(35, 133, 81, 0.2);
+  color: #165a36;
 }
 .bp5-menu-item.bp5-intent-warning {
-  color: #866103;
+  color: #935610;
 }
 .bp5-menu-item.bp5-intent-warning::before,
 .bp5-menu-item.bp5-intent-warning .bp5-menu-item-icon,
@@ -12320,14 +12320,14 @@ Styleguide menu
   color: inherit;
 }
 .bp5-menu-item.bp5-intent-warning:hover {
-  background-color: rgba(209, 152, 11, 0.1);
+  background-color: rgba(200, 118, 25, 0.1);
 }
 .bp5-menu-item.bp5-intent-warning:active, .bp5-menu-item.bp5-intent-warning.bp5-active {
-  background-color: rgba(209, 152, 11, 0.2);
-  color: #5c4405;
+  background-color: rgba(200, 118, 25, 0.2);
+  color: #77450d;
 }
 .bp5-menu-item.bp5-intent-danger {
-  color: #b83211;
+  color: #ac2f33;
 }
 .bp5-menu-item.bp5-intent-danger::before,
 .bp5-menu-item.bp5-intent-danger .bp5-menu-item-icon,
@@ -12337,11 +12337,11 @@ Styleguide menu
   color: inherit;
 }
 .bp5-menu-item.bp5-intent-danger:hover {
-  background-color: rgba(211, 61, 23, 0.1);
+  background-color: rgba(205, 66, 70, 0.1);
 }
 .bp5-menu-item.bp5-intent-danger:active, .bp5-menu-item.bp5-intent-danger.bp5-active {
-  background-color: rgba(211, 61, 23, 0.2);
-  color: #96290d;
+  background-color: rgba(205, 66, 70, 0.2);
+  color: #8e292c;
 }
 .bp5-menu-item::before {
   font-family: "blueprint-icons-16", sans-serif;
@@ -12488,18 +12488,18 @@ Styleguide menu-header
   color: #f6f7f9;
 }
 .bp5-dark .bp5-menu-item.bp5-active {
-  background-color: rgba(20, 126, 179, 0.2);
-  color: #68c1ee;
+  background-color: rgba(45, 114, 210, 0.2);
+  color: #8abbff;
 }
 .bp5-dark .bp5-menu-item.bp5-active::before,
 .bp5-dark .bp5-menu-item.bp5-active .bp5-menu-item-icon,
 .bp5-dark .bp5-menu-item.bp5-active .bp5-menu-item-selected-icon,
 .bp5-dark .bp5-menu-item.bp5-active .bp5-submenu-icon {
-  color: #68c1ee;
+  color: #8abbff;
 }
 .bp5-dark .bp5-menu-item.bp5-active.bp5-intent-success {
-  background-color: rgba(142, 177, 37, 0.2);
-  color: #d4f17e;
+  background-color: rgba(35, 133, 81, 0.2);
+  color: #72ca9b;
 }
 .bp5-dark .bp5-menu-item.bp5-active.bp5-intent-success::before,
 .bp5-dark .bp5-menu-item.bp5-active.bp5-intent-success .bp5-menu-item-icon,
@@ -12507,8 +12507,8 @@ Styleguide menu-header
   color: inherit;
 }
 .bp5-dark .bp5-menu-item.bp5-active.bp5-intent-warning {
-  background-color: rgba(209, 152, 11, 0.2);
-  color: #fbd065;
+  background-color: rgba(200, 118, 25, 0.2);
+  color: #fbb360;
 }
 .bp5-dark .bp5-menu-item.bp5-active.bp5-intent-warning::before,
 .bp5-dark .bp5-menu-item.bp5-active.bp5-intent-warning .bp5-menu-item-icon,
@@ -12516,8 +12516,8 @@ Styleguide menu-header
   color: inherit;
 }
 .bp5-dark .bp5-menu-item.bp5-active.bp5-intent-danger {
-  background-color: rgba(211, 61, 23, 0.2);
-  color: #ff9980;
+  background-color: rgba(205, 66, 70, 0.2);
+  color: #fa999c;
 }
 .bp5-dark .bp5-menu-item.bp5-active.bp5-intent-danger::before,
 .bp5-dark .bp5-menu-item.bp5-active.bp5-intent-danger .bp5-menu-item-icon,
@@ -12541,7 +12541,7 @@ Styleguide menu-header
   color: rgba(171, 179, 191, 0.6) !important;
 }
 .bp5-dark .bp5-menu-item.bp5-intent-primary {
-  color: #68c1ee;
+  color: #8abbff;
 }
 .bp5-dark .bp5-menu-item.bp5-intent-primary::before,
 .bp5-dark .bp5-menu-item.bp5-intent-primary .bp5-menu-item-icon,
@@ -12551,14 +12551,14 @@ Styleguide menu-header
   color: inherit;
 }
 .bp5-dark .bp5-menu-item.bp5-intent-primary:hover {
-  background-color: rgba(20, 126, 179, 0.2);
+  background-color: rgba(45, 114, 210, 0.2);
 }
 .bp5-dark .bp5-menu-item.bp5-intent-primary:active, .bp5-dark .bp5-menu-item.bp5-intent-primary.bp5-active {
-  background-color: rgba(20, 126, 179, 0.3);
+  background-color: rgba(45, 114, 210, 0.3);
   color: #99c4ff;
 }
 .bp5-dark .bp5-menu-item.bp5-intent-success {
-  color: #d4f17e;
+  color: #72ca9b;
 }
 .bp5-dark .bp5-menu-item.bp5-intent-success::before,
 .bp5-dark .bp5-menu-item.bp5-intent-success .bp5-menu-item-icon,
@@ -12568,14 +12568,14 @@ Styleguide menu-header
   color: inherit;
 }
 .bp5-dark .bp5-menu-item.bp5-intent-success:hover {
-  background-color: rgba(142, 177, 37, 0.2);
+  background-color: rgba(35, 133, 81, 0.2);
 }
 .bp5-dark .bp5-menu-item.bp5-intent-success:active, .bp5-dark .bp5-menu-item.bp5-intent-success.bp5-active {
-  background-color: rgba(142, 177, 37, 0.3);
+  background-color: rgba(35, 133, 81, 0.3);
   color: #7cd7a2;
 }
 .bp5-dark .bp5-menu-item.bp5-intent-warning {
-  color: #fbd065;
+  color: #fbb360;
 }
 .bp5-dark .bp5-menu-item.bp5-intent-warning::before,
 .bp5-dark .bp5-menu-item.bp5-intent-warning .bp5-menu-item-icon,
@@ -12585,14 +12585,14 @@ Styleguide menu-header
   color: inherit;
 }
 .bp5-dark .bp5-menu-item.bp5-intent-warning:hover {
-  background-color: rgba(209, 152, 11, 0.2);
+  background-color: rgba(200, 118, 25, 0.2);
 }
 .bp5-dark .bp5-menu-item.bp5-intent-warning:active, .bp5-dark .bp5-menu-item.bp5-intent-warning.bp5-active {
-  background-color: rgba(209, 152, 11, 0.3);
+  background-color: rgba(200, 118, 25, 0.3);
   color: #f5c186;
 }
 .bp5-dark .bp5-menu-item.bp5-intent-danger {
-  color: #ff9980;
+  color: #fa999c;
 }
 .bp5-dark .bp5-menu-item.bp5-intent-danger::before,
 .bp5-dark .bp5-menu-item.bp5-intent-danger .bp5-menu-item-icon,
@@ -12602,10 +12602,10 @@ Styleguide menu-header
   color: inherit;
 }
 .bp5-dark .bp5-menu-item.bp5-intent-danger:hover {
-  background-color: rgba(211, 61, 23, 0.2);
+  background-color: rgba(205, 66, 70, 0.2);
 }
 .bp5-dark .bp5-menu-item.bp5-intent-danger:active, .bp5-dark .bp5-menu-item.bp5-intent-danger.bp5-active {
-  background-color: rgba(211, 61, 23, 0.3);
+  background-color: rgba(205, 66, 70, 0.3);
   color: #ffa1a4;
 }
 .bp5-dark .bp5-menu-divider,
@@ -13868,19 +13868,19 @@ Styleguide progress-bar
 }
 
 .bp5-progress-bar.bp5-intent-primary .bp5-progress-meter {
-  background-color: #147eb3;
+  background-color: #2d72d2;
 }
 
 .bp5-progress-bar.bp5-intent-success .bp5-progress-meter {
-  background-color: #8eb125;
+  background-color: #238551;
 }
 
 .bp5-progress-bar.bp5-intent-warning .bp5-progress-meter {
-  background-color: #d1980b;
+  background-color: #c87619;
 }
 
 .bp5-progress-bar.bp5-intent-danger .bp5-progress-meter {
-  background-color: #d33d17;
+  background-color: #cd4246;
 }
 
 /*
@@ -14182,10 +14182,10 @@ Format transition class name with all the bits.
   border-color: rgba(255, 255, 255, 0.2);
 }
 .bp5-tooltip a {
-  color: #68c1ee;
+  color: #8abbff;
 }
 .bp5-tooltip a:hover {
-  color: #68c1ee;
+  color: #8abbff;
 }
 .bp5-tooltip a .bp5-icon, .bp5-tooltip a .bp5-icon-standard, .bp5-tooltip a .bp5-icon-large {
   color: inherit;
@@ -14222,16 +14222,16 @@ a > .bp5-tooltip .bp5-running-text code {
   color: #abb3bf;
 }
 .bp5-tooltip .bp5-icon.bp5-intent-primary, .bp5-tooltip .bp5-icon-standard.bp5-intent-primary, .bp5-tooltip .bp5-icon-large.bp5-intent-primary {
-  color: #68c1ee;
+  color: #8abbff;
 }
 .bp5-tooltip .bp5-icon.bp5-intent-success, .bp5-tooltip .bp5-icon-standard.bp5-intent-success, .bp5-tooltip .bp5-icon-large.bp5-intent-success {
-  color: #d4f17e;
+  color: #72ca9b;
 }
 .bp5-tooltip .bp5-icon.bp5-intent-warning, .bp5-tooltip .bp5-icon-standard.bp5-intent-warning, .bp5-tooltip .bp5-icon-large.bp5-intent-warning {
-  color: #fbd065;
+  color: #fbb360;
 }
 .bp5-tooltip .bp5-icon.bp5-intent-danger, .bp5-tooltip .bp5-icon-standard.bp5-intent-danger, .bp5-tooltip .bp5-icon-large.bp5-intent-danger {
-  color: #ff9980;
+  color: #fa999c;
 }
 .bp5-tooltip .bp5-popover-content {
   padding: 10px 12px;
@@ -14296,10 +14296,10 @@ a > .bp5-tooltip .bp5-running-text code {
   border-color: rgba(17, 20, 24, 0.15);
 }
 .bp5-tooltip.bp5-dark a, .bp5-dark .bp5-tooltip a {
-  color: #0f6894;
+  color: #215db0;
 }
 .bp5-tooltip.bp5-dark a:hover, .bp5-dark .bp5-tooltip a:hover {
-  color: #0f6894;
+  color: #215db0;
 }
 .bp5-tooltip.bp5-dark a .bp5-icon, .bp5-tooltip.bp5-dark a .bp5-icon-standard, .bp5-tooltip.bp5-dark a .bp5-icon-large, .bp5-dark .bp5-tooltip a .bp5-icon, .bp5-dark .bp5-tooltip a .bp5-icon-standard, .bp5-dark .bp5-tooltip a .bp5-icon-large {
   color: inherit;
@@ -14317,7 +14317,7 @@ a > .bp5-tooltip .bp5-running-text code {
 a > .bp5-tooltip.bp5-dark .bp5-code,
 a > .bp5-tooltip.bp5-dark .bp5-running-text code, a > .bp5-dark .bp5-tooltip .bp5-code,
 a > .bp5-dark .bp5-tooltip .bp5-running-text code {
-  color: #147eb3;
+  color: #2d72d2;
 }
 .bp5-tooltip.bp5-dark .bp5-code-block,
 .bp5-tooltip.bp5-dark .bp5-running-text pre, .bp5-dark .bp5-tooltip .bp5-code-block,
@@ -14349,23 +14349,23 @@ a > .bp5-dark .bp5-tooltip .bp5-running-text code {
   color: #8f99a8;
 }
 .bp5-tooltip.bp5-dark .bp5-icon.bp5-intent-primary, .bp5-tooltip.bp5-dark .bp5-icon-standard.bp5-intent-primary, .bp5-tooltip.bp5-dark .bp5-icon-large.bp5-intent-primary, .bp5-dark .bp5-tooltip .bp5-icon.bp5-intent-primary, .bp5-dark .bp5-tooltip .bp5-icon-standard.bp5-intent-primary, .bp5-dark .bp5-tooltip .bp5-icon-large.bp5-intent-primary {
-  color: #147eb3;
+  color: #2d72d2;
 }
 .bp5-tooltip.bp5-dark .bp5-icon.bp5-intent-success, .bp5-tooltip.bp5-dark .bp5-icon-standard.bp5-intent-success, .bp5-tooltip.bp5-dark .bp5-icon-large.bp5-intent-success, .bp5-dark .bp5-tooltip .bp5-icon.bp5-intent-success, .bp5-dark .bp5-tooltip .bp5-icon-standard.bp5-intent-success, .bp5-dark .bp5-tooltip .bp5-icon-large.bp5-intent-success {
-  color: #8eb125;
+  color: #238551;
 }
 .bp5-tooltip.bp5-dark .bp5-icon.bp5-intent-warning, .bp5-tooltip.bp5-dark .bp5-icon-standard.bp5-intent-warning, .bp5-tooltip.bp5-dark .bp5-icon-large.bp5-intent-warning, .bp5-dark .bp5-tooltip .bp5-icon.bp5-intent-warning, .bp5-dark .bp5-tooltip .bp5-icon-standard.bp5-intent-warning, .bp5-dark .bp5-tooltip .bp5-icon-large.bp5-intent-warning {
-  color: #d1980b;
+  color: #c87619;
 }
 .bp5-tooltip.bp5-dark .bp5-icon.bp5-intent-danger, .bp5-tooltip.bp5-dark .bp5-icon-standard.bp5-intent-danger, .bp5-tooltip.bp5-dark .bp5-icon-large.bp5-intent-danger, .bp5-dark .bp5-tooltip .bp5-icon.bp5-intent-danger, .bp5-dark .bp5-tooltip .bp5-icon-standard.bp5-intent-danger, .bp5-dark .bp5-tooltip .bp5-icon-large.bp5-intent-danger {
-  color: #d33d17;
+  color: #cd4246;
 }
 .bp5-tooltip.bp5-intent-primary .bp5-popover-content {
-  background: #147eb3;
+  background: #2d72d2;
   color: #ffffff;
 }
 .bp5-tooltip.bp5-intent-primary .bp5-popover-arrow-fill {
-  fill: #147eb3;
+  fill: #2d72d2;
 }
 @media (forced-colors: active) and (prefers-color-scheme: dark) {
   .bp5-tooltip.bp5-intent-primary .bp5-popover-arrow-fill {
@@ -14373,11 +14373,11 @@ a > .bp5-dark .bp5-tooltip .bp5-running-text code {
   }
 }
 .bp5-tooltip.bp5-intent-success .bp5-popover-content {
-  background: #8eb125;
+  background: #238551;
   color: #ffffff;
 }
 .bp5-tooltip.bp5-intent-success .bp5-popover-arrow-fill {
-  fill: #8eb125;
+  fill: #238551;
 }
 @media (forced-colors: active) and (prefers-color-scheme: dark) {
   .bp5-tooltip.bp5-intent-success .bp5-popover-arrow-fill {
@@ -14385,11 +14385,11 @@ a > .bp5-dark .bp5-tooltip .bp5-running-text code {
   }
 }
 .bp5-tooltip.bp5-intent-warning .bp5-popover-content {
-  background: #d1980b;
+  background: #c87619;
   color: #ffffff;
 }
 .bp5-tooltip.bp5-intent-warning .bp5-popover-arrow-fill {
-  fill: #d1980b;
+  fill: #c87619;
 }
 @media (forced-colors: active) and (prefers-color-scheme: dark) {
   .bp5-tooltip.bp5-intent-warning .bp5-popover-arrow-fill {
@@ -14397,11 +14397,11 @@ a > .bp5-dark .bp5-tooltip .bp5-running-text code {
   }
 }
 .bp5-tooltip.bp5-intent-danger .bp5-popover-content {
-  background: #d33d17;
+  background: #cd4246;
   color: #ffffff;
 }
 .bp5-tooltip.bp5-intent-danger .bp5-popover-arrow-fill {
-  fill: #d33d17;
+  fill: #cd4246;
 }
 @media (forced-colors: active) and (prefers-color-scheme: dark) {
   .bp5-tooltip.bp5-intent-danger .bp5-popover-arrow-fill {
@@ -14485,16 +14485,16 @@ CSS `border` property issues:
   background: rgba(17, 20, 24, 0.5);
 }
 .bp5-slider-progress.bp5-intent-primary {
-  background-color: #147eb3;
+  background-color: #2d72d2;
 }
 .bp5-slider-progress.bp5-intent-success {
-  background-color: #8eb125;
+  background-color: #238551;
 }
 .bp5-slider-progress.bp5-intent-warning {
-  background-color: #d1980b;
+  background-color: #c87619;
 }
 .bp5-slider-progress.bp5-intent-danger {
-  background-color: #d33d17;
+  background-color: #cd4246;
 }
 @media (forced-colors: active) and (prefers-color-scheme: dark) {
   .bp5-slider-progress {
@@ -14726,19 +14726,19 @@ CSS `border` property issues:
 }
 
 .bp5-spinner.bp5-intent-primary .bp5-spinner-head {
-  stroke: #147eb3;
+  stroke: #2d72d2;
 }
 
 .bp5-spinner.bp5-intent-success .bp5-spinner-head {
-  stroke: #8eb125;
+  stroke: #238551;
 }
 
 .bp5-spinner.bp5-intent-warning .bp5-spinner-head {
-  stroke: #d1980b;
+  stroke: #c87619;
 }
 
 .bp5-spinner.bp5-intent-danger .bp5-spinner-head {
-  stroke: #d33d17;
+  stroke: #cd4246;
 }
 
 /*
@@ -14788,7 +14788,7 @@ Styleguide tabs
   width: 100%;
 }
 .bp5-tabs.bp5-vertical > .bp5-tab-list .bp5-tab[aria-selected=true] {
-  background-color: rgba(20, 126, 179, 0.2);
+  background-color: rgba(45, 114, 210, 0.2);
   box-shadow: none;
 }
 @media (forced-colors: active) and (prefers-color-scheme: dark) {
@@ -14798,7 +14798,7 @@ Styleguide tabs
   }
 }
 .bp5-tabs.bp5-vertical > .bp5-tab-list .bp5-tab-indicator-wrapper .bp5-tab-indicator {
-  background-color: rgba(20, 126, 179, 0.2);
+  background-color: rgba(45, 114, 210, 0.2);
   border-radius: 5px;
   bottom: 0;
   height: auto;
@@ -14862,10 +14862,10 @@ Styleguide tabs
 }
 .bp5-tab[aria-selected=true] {
   border-radius: 0;
-  box-shadow: inset 0 -3px 0 #0f6894;
+  box-shadow: inset 0 -3px 0 #215db0;
 }
 .bp5-tab[aria-selected=true], .bp5-tab:not([aria-disabled=true]):hover {
-  color: #0f6894;
+  color: #215db0;
 }
 @media (forced-colors: active) and (prefers-color-scheme: dark) {
   .bp5-tab[aria-selected=true], .bp5-tab:not([aria-disabled=true]):hover {
@@ -14906,7 +14906,7 @@ Styleguide tabs
   transition-timing-function: cubic-bezier(0.4, 1, 0.75, 0.9);
 }
 .bp5-tab-indicator-wrapper .bp5-tab-indicator {
-  background-color: #0f6894;
+  background-color: #215db0;
   bottom: 0;
   height: 3px;
   left: 0;
@@ -14937,10 +14937,10 @@ Styleguide tabs
   }
 }
 .bp5-dark .bp5-tab[aria-selected=true] {
-  box-shadow: inset 0 -3px 0 #68c1ee;
+  box-shadow: inset 0 -3px 0 #8abbff;
 }
 .bp5-dark .bp5-tab[aria-selected=true], .bp5-dark .bp5-tab:not([aria-disabled=true]):hover {
-  color: #68c1ee;
+  color: #8abbff;
 }
 @media (forced-colors: active) and (prefers-color-scheme: dark) {
   .bp5-dark .bp5-tab[aria-selected=true], .bp5-dark .bp5-tab:not([aria-disabled=true]):hover {
@@ -14948,7 +14948,7 @@ Styleguide tabs
   }
 }
 .bp5-dark .bp5-tab-indicator {
-  background-color: #68c1ee;
+  background-color: #8abbff;
 }
 @media (forced-colors: active) and (prefers-color-scheme: dark) {
   .bp5-dark .bp5-tab-indicator {
@@ -15037,12 +15037,12 @@ Styleguide tag
   margin-right: 0;
 }
 .bp5-tag:focus {
-  outline: rgba(15, 104, 148, 0.752) solid 2px;
+  outline: rgba(33, 93, 176, 0.752) solid 2px;
   outline-offset: 0;
   -moz-outline-radius: 6px;
 }
 .bp5-dark .bp5-tag:focus {
-  outline-color: rgba(104, 193, 238, 0.752);
+  outline-color: rgba(138, 187, 255, 0.752);
 }
 .bp5-tag.bp5-interactive {
   cursor: pointer;
@@ -15101,14 +15101,14 @@ Styleguide tag
   padding-right: 12px;
 }
 .bp5-tag.bp5-intent-primary {
-  background: #147eb3;
+  background: #2d72d2;
   color: #ffffff;
 }
 .bp5-tag.bp5-intent-primary.bp5-interactive:hover {
-  background-color: #0f6894;
+  background-color: #215db0;
 }
 .bp5-tag.bp5-intent-primary.bp5-interactive:active, .bp5-tag.bp5-intent-primary.bp5-interactive.bp5-active {
-  background-color: #0c5174;
+  background-color: #184a90;
 }
 .bp5-tag.bp5-intent-primary .bp5-tag-remove {
   color: rgba(255, 255, 255, 0.7);
@@ -15117,14 +15117,14 @@ Styleguide tag
   color: #ffffff;
 }
 .bp5-tag.bp5-intent-success {
-  background: #8eb125;
+  background: #238551;
   color: #ffffff;
 }
 .bp5-tag.bp5-intent-success.bp5-interactive:hover {
-  background-color: #5a701a;
+  background-color: #1c6e42;
 }
 .bp5-tag.bp5-intent-success.bp5-interactive:active, .bp5-tag.bp5-intent-success.bp5-interactive.bp5-active {
-  background-color: #43501b;
+  background-color: #165a36;
 }
 .bp5-tag.bp5-intent-success .bp5-tag-remove {
   color: rgba(255, 255, 255, 0.7);
@@ -15133,14 +15133,14 @@ Styleguide tag
   color: #ffffff;
 }
 .bp5-tag.bp5-intent-warning {
-  background: #fbd065;
+  background: #fbb360;
   color: #111418;
 }
 .bp5-tag.bp5-intent-warning.bp5-interactive:hover {
-  background-color: #f0b726;
+  background-color: #ec9a3c;
 }
 .bp5-tag.bp5-intent-warning.bp5-interactive:active, .bp5-tag.bp5-intent-warning.bp5-interactive.bp5-active {
-  background-color: #d1980b;
+  background-color: #c87619;
 }
 .bp5-tag.bp5-intent-warning .bp5-tag-remove {
   color: rgba(17, 20, 24, 0.7);
@@ -15149,14 +15149,14 @@ Styleguide tag
   color: #111418;
 }
 .bp5-tag.bp5-intent-danger {
-  background: #d33d17;
+  background: #cd4246;
   color: #ffffff;
 }
 .bp5-tag.bp5-intent-danger.bp5-interactive:hover {
-  background-color: #b83211;
+  background-color: #ac2f33;
 }
 .bp5-tag.bp5-intent-danger.bp5-interactive:active, .bp5-tag.bp5-intent-danger.bp5-interactive.bp5-active {
-  background-color: #96290d;
+  background-color: #8e292c;
 }
 .bp5-tag.bp5-intent-danger .bp5-tag-remove {
   color: rgba(255, 255, 255, 0.7);
@@ -15214,157 +15214,157 @@ Styleguide tag
   color: #d3d8de;
 }
 .bp5-tag.bp5-minimal.bp5-intent-primary {
-  background-color: rgba(20, 126, 179, 0.1);
-  color: #0f6894;
+  background-color: rgba(45, 114, 210, 0.1);
+  color: #215db0;
 }
 .bp5-tag.bp5-minimal.bp5-intent-primary > .bp5-icon, .bp5-tag.bp5-minimal.bp5-intent-primary .bp5-icon-standard, .bp5-tag.bp5-minimal.bp5-intent-primary .bp5-icon-large {
-  fill: #0f6894;
+  fill: #215db0;
 }
 .bp5-tag.bp5-minimal.bp5-intent-primary.bp5-interactive:hover {
-  background-color: rgba(20, 126, 179, 0.2);
-  color: #0c5174;
+  background-color: rgba(45, 114, 210, 0.2);
+  color: #184a90;
 }
 .bp5-tag.bp5-minimal.bp5-intent-primary.bp5-interactive:active, .bp5-tag.bp5-minimal.bp5-intent-primary.bp5-interactive.bp5-active {
-  background-color: rgba(20, 126, 179, 0.3);
-  color: #0c5174;
+  background-color: rgba(45, 114, 210, 0.3);
+  color: #184a90;
 }
 .bp5-tag.bp5-minimal.bp5-intent-primary .bp5-tag-remove {
-  color: #0f6894;
+  color: #215db0;
 }
 .bp5-tag.bp5-minimal.bp5-intent-primary .bp5-tag-remove:hover, .bp5-tag.bp5-minimal.bp5-intent-primary .bp5-tag-remove:active {
-  color: #0c5174;
+  color: #184a90;
 }
 .bp5-tag.bp5-minimal.bp5-intent-success {
-  background-color: rgba(142, 177, 37, 0.1);
-  color: #5a701a;
+  background-color: rgba(35, 133, 81, 0.1);
+  color: #1c6e42;
 }
 .bp5-tag.bp5-minimal.bp5-intent-success > .bp5-icon, .bp5-tag.bp5-minimal.bp5-intent-success .bp5-icon-standard, .bp5-tag.bp5-minimal.bp5-intent-success .bp5-icon-large {
-  fill: #5a701a;
+  fill: #1c6e42;
 }
 .bp5-tag.bp5-minimal.bp5-intent-success.bp5-interactive:hover {
-  background-color: rgba(142, 177, 37, 0.2);
-  color: #43501b;
+  background-color: rgba(35, 133, 81, 0.2);
+  color: #165a36;
 }
 .bp5-tag.bp5-minimal.bp5-intent-success.bp5-interactive:active, .bp5-tag.bp5-minimal.bp5-intent-success.bp5-interactive.bp5-active {
-  background-color: rgba(142, 177, 37, 0.3);
-  color: #43501b;
+  background-color: rgba(35, 133, 81, 0.3);
+  color: #165a36;
 }
 .bp5-tag.bp5-minimal.bp5-intent-success .bp5-tag-remove {
-  color: #5a701a;
+  color: #1c6e42;
 }
 .bp5-tag.bp5-minimal.bp5-intent-success .bp5-tag-remove:hover, .bp5-tag.bp5-minimal.bp5-intent-success .bp5-tag-remove:active {
-  color: #43501b;
+  color: #165a36;
 }
 .bp5-tag.bp5-minimal.bp5-intent-warning {
-  background-color: rgba(209, 152, 11, 0.1);
-  color: #866103;
+  background-color: rgba(200, 118, 25, 0.1);
+  color: #935610;
 }
 .bp5-tag.bp5-minimal.bp5-intent-warning > .bp5-icon, .bp5-tag.bp5-minimal.bp5-intent-warning .bp5-icon-standard, .bp5-tag.bp5-minimal.bp5-intent-warning .bp5-icon-large {
-  fill: #866103;
+  fill: #935610;
 }
 .bp5-tag.bp5-minimal.bp5-intent-warning.bp5-interactive:hover {
-  background-color: rgba(209, 152, 11, 0.2);
-  color: #5c4405;
+  background-color: rgba(200, 118, 25, 0.2);
+  color: #77450d;
 }
 .bp5-tag.bp5-minimal.bp5-intent-warning.bp5-interactive:active, .bp5-tag.bp5-minimal.bp5-intent-warning.bp5-interactive.bp5-active {
-  background-color: rgba(209, 152, 11, 0.3);
-  color: #5c4405;
+  background-color: rgba(200, 118, 25, 0.3);
+  color: #77450d;
 }
 .bp5-tag.bp5-minimal.bp5-intent-warning .bp5-tag-remove {
-  color: #866103;
+  color: #935610;
 }
 .bp5-tag.bp5-minimal.bp5-intent-warning .bp5-tag-remove:hover, .bp5-tag.bp5-minimal.bp5-intent-warning .bp5-tag-remove:active {
-  color: #5c4405;
+  color: #77450d;
 }
 .bp5-tag.bp5-minimal.bp5-intent-danger {
-  background-color: rgba(211, 61, 23, 0.1);
-  color: #b83211;
+  background-color: rgba(205, 66, 70, 0.1);
+  color: #ac2f33;
 }
 .bp5-tag.bp5-minimal.bp5-intent-danger > .bp5-icon, .bp5-tag.bp5-minimal.bp5-intent-danger .bp5-icon-standard, .bp5-tag.bp5-minimal.bp5-intent-danger .bp5-icon-large {
-  fill: #b83211;
+  fill: #ac2f33;
 }
 .bp5-tag.bp5-minimal.bp5-intent-danger.bp5-interactive:hover {
-  background-color: rgba(211, 61, 23, 0.2);
-  color: #96290d;
+  background-color: rgba(205, 66, 70, 0.2);
+  color: #8e292c;
 }
 .bp5-tag.bp5-minimal.bp5-intent-danger.bp5-interactive:active, .bp5-tag.bp5-minimal.bp5-intent-danger.bp5-interactive.bp5-active {
-  background-color: rgba(211, 61, 23, 0.3);
-  color: #96290d;
+  background-color: rgba(205, 66, 70, 0.3);
+  color: #8e292c;
 }
 .bp5-tag.bp5-minimal.bp5-intent-danger .bp5-tag-remove {
-  color: #b83211;
+  color: #ac2f33;
 }
 .bp5-tag.bp5-minimal.bp5-intent-danger .bp5-tag-remove:hover, .bp5-tag.bp5-minimal.bp5-intent-danger .bp5-tag-remove:active {
-  color: #96290d;
+  color: #8e292c;
 }
 .bp5-dark .bp5-tag.bp5-minimal.bp5-intent-primary {
-  background-color: rgba(20, 126, 179, 0.2);
-  color: #68c1ee;
+  background-color: rgba(45, 114, 210, 0.2);
+  color: #8abbff;
 }
 .bp5-dark .bp5-tag.bp5-minimal.bp5-intent-primary.bp5-interactive:hover {
-  background-color: rgba(20, 126, 179, 0.3);
+  background-color: rgba(45, 114, 210, 0.3);
   color: #99c4ff;
 }
 .bp5-dark .bp5-tag.bp5-minimal.bp5-intent-primary.bp5-interactive:active, .bp5-dark .bp5-tag.bp5-minimal.bp5-intent-primary.bp5-interactive.bp5-active {
-  background-color: rgba(20, 126, 179, 0.35);
+  background-color: rgba(45, 114, 210, 0.35);
   color: #99c4ff;
 }
 .bp5-dark .bp5-tag.bp5-minimal.bp5-intent-primary .bp5-tag-remove {
-  color: #68c1ee;
+  color: #8abbff;
 }
 .bp5-dark .bp5-tag.bp5-minimal.bp5-intent-primary .bp5-tag-remove:hover, .bp5-dark .bp5-tag.bp5-minimal.bp5-intent-primary .bp5-tag-remove:active {
   color: #99c4ff;
 }
 .bp5-dark .bp5-tag.bp5-minimal.bp5-intent-success {
-  background-color: rgba(142, 177, 37, 0.2);
-  color: #d4f17e;
+  background-color: rgba(35, 133, 81, 0.2);
+  color: #72ca9b;
 }
 .bp5-dark .bp5-tag.bp5-minimal.bp5-intent-success.bp5-interactive:hover {
-  background-color: rgba(142, 177, 37, 0.3);
+  background-color: rgba(35, 133, 81, 0.3);
   color: #7cd7a2;
 }
 .bp5-dark .bp5-tag.bp5-minimal.bp5-intent-success.bp5-interactive:active, .bp5-dark .bp5-tag.bp5-minimal.bp5-intent-success.bp5-interactive.bp5-active {
-  background-color: rgba(142, 177, 37, 0.35);
+  background-color: rgba(35, 133, 81, 0.35);
   color: #7cd7a2;
 }
 .bp5-dark .bp5-tag.bp5-minimal.bp5-intent-success .bp5-tag-remove {
-  color: #d4f17e;
+  color: #72ca9b;
 }
 .bp5-dark .bp5-tag.bp5-minimal.bp5-intent-success .bp5-tag-remove:hover, .bp5-dark .bp5-tag.bp5-minimal.bp5-intent-success .bp5-tag-remove:active {
   color: #7cd7a2;
 }
 .bp5-dark .bp5-tag.bp5-minimal.bp5-intent-warning {
-  background-color: rgba(209, 152, 11, 0.2);
-  color: #fbd065;
+  background-color: rgba(200, 118, 25, 0.2);
+  color: #fbb360;
 }
 .bp5-dark .bp5-tag.bp5-minimal.bp5-intent-warning.bp5-interactive:hover {
-  background-color: rgba(209, 152, 11, 0.3);
+  background-color: rgba(200, 118, 25, 0.3);
   color: #f5c186;
 }
 .bp5-dark .bp5-tag.bp5-minimal.bp5-intent-warning.bp5-interactive:active, .bp5-dark .bp5-tag.bp5-minimal.bp5-intent-warning.bp5-interactive.bp5-active {
-  background-color: rgba(209, 152, 11, 0.35);
+  background-color: rgba(200, 118, 25, 0.35);
   color: #f5c186;
 }
 .bp5-dark .bp5-tag.bp5-minimal.bp5-intent-warning .bp5-tag-remove {
-  color: #fbd065;
+  color: #fbb360;
 }
 .bp5-dark .bp5-tag.bp5-minimal.bp5-intent-warning .bp5-tag-remove:hover, .bp5-dark .bp5-tag.bp5-minimal.bp5-intent-warning .bp5-tag-remove:active {
   color: #f5c186;
 }
 .bp5-dark .bp5-tag.bp5-minimal.bp5-intent-danger {
-  background-color: rgba(211, 61, 23, 0.2);
-  color: #ff9980;
+  background-color: rgba(205, 66, 70, 0.2);
+  color: #fa999c;
 }
 .bp5-dark .bp5-tag.bp5-minimal.bp5-intent-danger.bp5-interactive:hover {
-  background-color: rgba(211, 61, 23, 0.3);
+  background-color: rgba(205, 66, 70, 0.3);
   color: #ffa1a4;
 }
 .bp5-dark .bp5-tag.bp5-minimal.bp5-intent-danger.bp5-interactive:active, .bp5-dark .bp5-tag.bp5-minimal.bp5-intent-danger.bp5-interactive.bp5-active {
-  background-color: rgba(211, 61, 23, 0.35);
+  background-color: rgba(205, 66, 70, 0.35);
   color: #ffa1a4;
 }
 .bp5-dark .bp5-tag.bp5-minimal.bp5-intent-danger .bp5-tag-remove {
-  color: #ff9980;
+  color: #fa999c;
 }
 .bp5-dark .bp5-tag.bp5-minimal.bp5-intent-danger .bp5-tag-remove:hover, .bp5-dark .bp5-tag.bp5-minimal.bp5-intent-danger .bp5-tag-remove:active {
   color: #ffa1a4;
@@ -15569,85 +15569,85 @@ Compound Tags
   background: none;
 }
 .bp5-compound-tag.bp5-minimal.bp5-intent-primary .bp5-compound-tag-left {
-  background-color: rgba(20, 126, 179, 0.2);
+  background-color: rgba(45, 114, 210, 0.2);
 }
 .bp5-compound-tag.bp5-minimal.bp5-intent-primary .bp5-compound-tag-right {
-  background-color: rgba(20, 126, 179, 0.1);
+  background-color: rgba(45, 114, 210, 0.1);
 }
 .bp5-compound-tag.bp5-minimal.bp5-intent-primary.bp5-interactive:hover .bp5-compound-tag-left {
-  background-color: rgba(20, 126, 179, 0.3);
+  background-color: rgba(45, 114, 210, 0.3);
 }
 .bp5-compound-tag.bp5-minimal.bp5-intent-primary.bp5-interactive:hover .bp5-compound-tag-right {
-  background-color: rgba(20, 126, 179, 0.2);
+  background-color: rgba(45, 114, 210, 0.2);
 }
 .bp5-compound-tag.bp5-minimal.bp5-intent-primary.bp5-interactive:active .bp5-compound-tag-left, .bp5-compound-tag.bp5-minimal.bp5-intent-primary.bp5-interactive.bp5-active .bp5-compound-tag-left {
-  background-color: rgba(20, 126, 179, 0.4);
+  background-color: rgba(45, 114, 210, 0.4);
 }
 .bp5-compound-tag.bp5-minimal.bp5-intent-primary.bp5-interactive:active .bp5-compound-tag-right, .bp5-compound-tag.bp5-minimal.bp5-intent-primary.bp5-interactive.bp5-active .bp5-compound-tag-right {
-  background-color: rgba(20, 126, 179, 0.3);
+  background-color: rgba(45, 114, 210, 0.3);
 }
 .bp5-compound-tag.bp5-minimal.bp5-intent-success {
   background: none;
 }
 .bp5-compound-tag.bp5-minimal.bp5-intent-success .bp5-compound-tag-left {
-  background-color: rgba(142, 177, 37, 0.2);
+  background-color: rgba(35, 133, 81, 0.2);
 }
 .bp5-compound-tag.bp5-minimal.bp5-intent-success .bp5-compound-tag-right {
-  background-color: rgba(142, 177, 37, 0.1);
+  background-color: rgba(35, 133, 81, 0.1);
 }
 .bp5-compound-tag.bp5-minimal.bp5-intent-success.bp5-interactive:hover .bp5-compound-tag-left {
-  background-color: rgba(142, 177, 37, 0.3);
+  background-color: rgba(35, 133, 81, 0.3);
 }
 .bp5-compound-tag.bp5-minimal.bp5-intent-success.bp5-interactive:hover .bp5-compound-tag-right {
-  background-color: rgba(142, 177, 37, 0.2);
+  background-color: rgba(35, 133, 81, 0.2);
 }
 .bp5-compound-tag.bp5-minimal.bp5-intent-success.bp5-interactive:active .bp5-compound-tag-left, .bp5-compound-tag.bp5-minimal.bp5-intent-success.bp5-interactive.bp5-active .bp5-compound-tag-left {
-  background-color: rgba(142, 177, 37, 0.4);
+  background-color: rgba(35, 133, 81, 0.4);
 }
 .bp5-compound-tag.bp5-minimal.bp5-intent-success.bp5-interactive:active .bp5-compound-tag-right, .bp5-compound-tag.bp5-minimal.bp5-intent-success.bp5-interactive.bp5-active .bp5-compound-tag-right {
-  background-color: rgba(142, 177, 37, 0.3);
+  background-color: rgba(35, 133, 81, 0.3);
 }
 .bp5-compound-tag.bp5-minimal.bp5-intent-warning {
   background: none;
 }
 .bp5-compound-tag.bp5-minimal.bp5-intent-warning .bp5-compound-tag-left {
-  background-color: rgba(209, 152, 11, 0.2);
+  background-color: rgba(200, 118, 25, 0.2);
 }
 .bp5-compound-tag.bp5-minimal.bp5-intent-warning .bp5-compound-tag-right {
-  background-color: rgba(209, 152, 11, 0.1);
+  background-color: rgba(200, 118, 25, 0.1);
 }
 .bp5-compound-tag.bp5-minimal.bp5-intent-warning.bp5-interactive:hover .bp5-compound-tag-left {
-  background-color: rgba(209, 152, 11, 0.3);
+  background-color: rgba(200, 118, 25, 0.3);
 }
 .bp5-compound-tag.bp5-minimal.bp5-intent-warning.bp5-interactive:hover .bp5-compound-tag-right {
-  background-color: rgba(209, 152, 11, 0.2);
+  background-color: rgba(200, 118, 25, 0.2);
 }
 .bp5-compound-tag.bp5-minimal.bp5-intent-warning.bp5-interactive:active .bp5-compound-tag-left, .bp5-compound-tag.bp5-minimal.bp5-intent-warning.bp5-interactive.bp5-active .bp5-compound-tag-left {
-  background-color: rgba(209, 152, 11, 0.4);
+  background-color: rgba(200, 118, 25, 0.4);
 }
 .bp5-compound-tag.bp5-minimal.bp5-intent-warning.bp5-interactive:active .bp5-compound-tag-right, .bp5-compound-tag.bp5-minimal.bp5-intent-warning.bp5-interactive.bp5-active .bp5-compound-tag-right {
-  background-color: rgba(209, 152, 11, 0.3);
+  background-color: rgba(200, 118, 25, 0.3);
 }
 .bp5-compound-tag.bp5-minimal.bp5-intent-danger {
   background: none;
 }
 .bp5-compound-tag.bp5-minimal.bp5-intent-danger .bp5-compound-tag-left {
-  background-color: rgba(211, 61, 23, 0.2);
+  background-color: rgba(205, 66, 70, 0.2);
 }
 .bp5-compound-tag.bp5-minimal.bp5-intent-danger .bp5-compound-tag-right {
-  background-color: rgba(211, 61, 23, 0.1);
+  background-color: rgba(205, 66, 70, 0.1);
 }
 .bp5-compound-tag.bp5-minimal.bp5-intent-danger.bp5-interactive:hover .bp5-compound-tag-left {
-  background-color: rgba(211, 61, 23, 0.3);
+  background-color: rgba(205, 66, 70, 0.3);
 }
 .bp5-compound-tag.bp5-minimal.bp5-intent-danger.bp5-interactive:hover .bp5-compound-tag-right {
-  background-color: rgba(211, 61, 23, 0.2);
+  background-color: rgba(205, 66, 70, 0.2);
 }
 .bp5-compound-tag.bp5-minimal.bp5-intent-danger.bp5-interactive:active .bp5-compound-tag-left, .bp5-compound-tag.bp5-minimal.bp5-intent-danger.bp5-interactive.bp5-active .bp5-compound-tag-left {
-  background-color: rgba(211, 61, 23, 0.4);
+  background-color: rgba(205, 66, 70, 0.4);
 }
 .bp5-compound-tag.bp5-minimal.bp5-intent-danger.bp5-interactive:active .bp5-compound-tag-right, .bp5-compound-tag.bp5-minimal.bp5-intent-danger.bp5-interactive.bp5-active .bp5-compound-tag-right {
-  background-color: rgba(211, 61, 23, 0.3);
+  background-color: rgba(205, 66, 70, 0.3);
 }
 .bp5-dark .bp5-compound-tag {
   background: none;
@@ -15695,169 +15695,169 @@ Compound Tags
   background: none;
 }
 .bp5-dark .bp5-compound-tag.bp5-minimal.bp5-intent-primary .bp5-compound-tag-left {
-  background-color: rgba(20, 126, 179, 0.4);
+  background-color: rgba(45, 114, 210, 0.4);
 }
 .bp5-dark .bp5-compound-tag.bp5-minimal.bp5-intent-primary .bp5-compound-tag-right {
-  background-color: rgba(20, 126, 179, 0.2);
+  background-color: rgba(45, 114, 210, 0.2);
 }
 .bp5-dark .bp5-compound-tag.bp5-minimal.bp5-intent-primary.bp5-interactive:hover .bp5-compound-tag-left {
-  background-color: rgba(20, 126, 179, 0.5);
+  background-color: rgba(45, 114, 210, 0.5);
 }
 .bp5-dark .bp5-compound-tag.bp5-minimal.bp5-intent-primary.bp5-interactive:hover .bp5-compound-tag-right {
-  background-color: rgba(20, 126, 179, 0.3);
+  background-color: rgba(45, 114, 210, 0.3);
 }
 .bp5-dark .bp5-compound-tag.bp5-minimal.bp5-intent-primary.bp5-interactive:active .bp5-compound-tag-left, .bp5-dark .bp5-compound-tag.bp5-minimal.bp5-intent-primary.bp5-interactive.bp5-active .bp5-compound-tag-left {
-  background-color: rgba(20, 126, 179, 0.55);
+  background-color: rgba(45, 114, 210, 0.55);
 }
 .bp5-dark .bp5-compound-tag.bp5-minimal.bp5-intent-primary.bp5-interactive:active .bp5-compound-tag-right, .bp5-dark .bp5-compound-tag.bp5-minimal.bp5-intent-primary.bp5-interactive.bp5-active .bp5-compound-tag-right {
-  background-color: rgba(20, 126, 179, 0.35);
+  background-color: rgba(45, 114, 210, 0.35);
 }
 .bp5-dark .bp5-compound-tag.bp5-minimal.bp5-intent-success {
   background: none;
 }
 .bp5-dark .bp5-compound-tag.bp5-minimal.bp5-intent-success .bp5-compound-tag-left {
-  background-color: rgba(142, 177, 37, 0.4);
+  background-color: rgba(35, 133, 81, 0.4);
 }
 .bp5-dark .bp5-compound-tag.bp5-minimal.bp5-intent-success .bp5-compound-tag-right {
-  background-color: rgba(142, 177, 37, 0.2);
+  background-color: rgba(35, 133, 81, 0.2);
 }
 .bp5-dark .bp5-compound-tag.bp5-minimal.bp5-intent-success.bp5-interactive:hover .bp5-compound-tag-left {
-  background-color: rgba(142, 177, 37, 0.5);
+  background-color: rgba(35, 133, 81, 0.5);
 }
 .bp5-dark .bp5-compound-tag.bp5-minimal.bp5-intent-success.bp5-interactive:hover .bp5-compound-tag-right {
-  background-color: rgba(142, 177, 37, 0.3);
+  background-color: rgba(35, 133, 81, 0.3);
 }
 .bp5-dark .bp5-compound-tag.bp5-minimal.bp5-intent-success.bp5-interactive:active .bp5-compound-tag-left, .bp5-dark .bp5-compound-tag.bp5-minimal.bp5-intent-success.bp5-interactive.bp5-active .bp5-compound-tag-left {
-  background-color: rgba(142, 177, 37, 0.55);
+  background-color: rgba(35, 133, 81, 0.55);
 }
 .bp5-dark .bp5-compound-tag.bp5-minimal.bp5-intent-success.bp5-interactive:active .bp5-compound-tag-right, .bp5-dark .bp5-compound-tag.bp5-minimal.bp5-intent-success.bp5-interactive.bp5-active .bp5-compound-tag-right {
-  background-color: rgba(142, 177, 37, 0.35);
+  background-color: rgba(35, 133, 81, 0.35);
 }
 .bp5-dark .bp5-compound-tag.bp5-minimal.bp5-intent-warning {
   background: none;
 }
 .bp5-dark .bp5-compound-tag.bp5-minimal.bp5-intent-warning .bp5-compound-tag-left {
-  background-color: rgba(209, 152, 11, 0.4);
+  background-color: rgba(200, 118, 25, 0.4);
 }
 .bp5-dark .bp5-compound-tag.bp5-minimal.bp5-intent-warning .bp5-compound-tag-right {
-  background-color: rgba(209, 152, 11, 0.2);
+  background-color: rgba(200, 118, 25, 0.2);
 }
 .bp5-dark .bp5-compound-tag.bp5-minimal.bp5-intent-warning.bp5-interactive:hover .bp5-compound-tag-left {
-  background-color: rgba(209, 152, 11, 0.5);
+  background-color: rgba(200, 118, 25, 0.5);
 }
 .bp5-dark .bp5-compound-tag.bp5-minimal.bp5-intent-warning.bp5-interactive:hover .bp5-compound-tag-right {
-  background-color: rgba(209, 152, 11, 0.3);
+  background-color: rgba(200, 118, 25, 0.3);
 }
 .bp5-dark .bp5-compound-tag.bp5-minimal.bp5-intent-warning.bp5-interactive:active .bp5-compound-tag-left, .bp5-dark .bp5-compound-tag.bp5-minimal.bp5-intent-warning.bp5-interactive.bp5-active .bp5-compound-tag-left {
-  background-color: rgba(209, 152, 11, 0.55);
+  background-color: rgba(200, 118, 25, 0.55);
 }
 .bp5-dark .bp5-compound-tag.bp5-minimal.bp5-intent-warning.bp5-interactive:active .bp5-compound-tag-right, .bp5-dark .bp5-compound-tag.bp5-minimal.bp5-intent-warning.bp5-interactive.bp5-active .bp5-compound-tag-right {
-  background-color: rgba(209, 152, 11, 0.35);
+  background-color: rgba(200, 118, 25, 0.35);
 }
 .bp5-dark .bp5-compound-tag.bp5-minimal.bp5-intent-danger {
   background: none;
 }
 .bp5-dark .bp5-compound-tag.bp5-minimal.bp5-intent-danger .bp5-compound-tag-left {
-  background-color: rgba(211, 61, 23, 0.4);
+  background-color: rgba(205, 66, 70, 0.4);
 }
 .bp5-dark .bp5-compound-tag.bp5-minimal.bp5-intent-danger .bp5-compound-tag-right {
-  background-color: rgba(211, 61, 23, 0.2);
+  background-color: rgba(205, 66, 70, 0.2);
 }
 .bp5-dark .bp5-compound-tag.bp5-minimal.bp5-intent-danger.bp5-interactive:hover .bp5-compound-tag-left {
-  background-color: rgba(211, 61, 23, 0.5);
+  background-color: rgba(205, 66, 70, 0.5);
 }
 .bp5-dark .bp5-compound-tag.bp5-minimal.bp5-intent-danger.bp5-interactive:hover .bp5-compound-tag-right {
-  background-color: rgba(211, 61, 23, 0.3);
+  background-color: rgba(205, 66, 70, 0.3);
 }
 .bp5-dark .bp5-compound-tag.bp5-minimal.bp5-intent-danger.bp5-interactive:active .bp5-compound-tag-left, .bp5-dark .bp5-compound-tag.bp5-minimal.bp5-intent-danger.bp5-interactive.bp5-active .bp5-compound-tag-left {
-  background-color: rgba(211, 61, 23, 0.55);
+  background-color: rgba(205, 66, 70, 0.55);
 }
 .bp5-dark .bp5-compound-tag.bp5-minimal.bp5-intent-danger.bp5-interactive:active .bp5-compound-tag-right, .bp5-dark .bp5-compound-tag.bp5-minimal.bp5-intent-danger.bp5-interactive.bp5-active .bp5-compound-tag-right {
-  background-color: rgba(211, 61, 23, 0.35);
+  background-color: rgba(205, 66, 70, 0.35);
 }
 .bp5-compound-tag.bp5-intent-primary {
   background: none;
 }
 .bp5-compound-tag.bp5-intent-primary .bp5-compound-tag-left {
-  background-color: #0f6894;
+  background-color: #215db0;
 }
 .bp5-compound-tag.bp5-intent-primary .bp5-compound-tag-right {
-  background-color: #147eb3;
+  background-color: #2d72d2;
 }
 .bp5-compound-tag.bp5-intent-primary.bp5-interactive:hover .bp5-compound-tag-left {
-  background-color: #0c5174;
+  background-color: #184a90;
 }
 .bp5-compound-tag.bp5-intent-primary.bp5-interactive:hover .bp5-compound-tag-right {
-  background-color: #0f6894;
+  background-color: #215db0;
 }
 .bp5-compound-tag.bp5-intent-primary.bp5-interactive:active .bp5-compound-tag-left, .bp5-compound-tag.bp5-intent-primary.bp5-interactive.bp5-active .bp5-compound-tag-left {
   background-color: #11376b;
 }
 .bp5-compound-tag.bp5-intent-primary.bp5-interactive:active .bp5-compound-tag-right, .bp5-compound-tag.bp5-intent-primary.bp5-interactive.bp5-active .bp5-compound-tag-right {
-  background-color: #0c5174;
+  background-color: #184a90;
 }
 .bp5-compound-tag.bp5-intent-success {
   background: none;
 }
 .bp5-compound-tag.bp5-intent-success .bp5-compound-tag-left {
-  background-color: #5a701a;
+  background-color: #1c6e42;
 }
 .bp5-compound-tag.bp5-intent-success .bp5-compound-tag-right {
-  background-color: #8eb125;
+  background-color: #238551;
 }
 .bp5-compound-tag.bp5-intent-success.bp5-interactive:hover .bp5-compound-tag-left {
-  background-color: #43501b;
+  background-color: #165a36;
 }
 .bp5-compound-tag.bp5-intent-success.bp5-interactive:hover .bp5-compound-tag-right {
-  background-color: #5a701a;
+  background-color: #1c6e42;
 }
 .bp5-compound-tag.bp5-intent-success.bp5-interactive:active .bp5-compound-tag-left, .bp5-compound-tag.bp5-intent-success.bp5-interactive.bp5-active .bp5-compound-tag-left {
   background-color: #0f3e25;
 }
 .bp5-compound-tag.bp5-intent-success.bp5-interactive:active .bp5-compound-tag-right, .bp5-compound-tag.bp5-intent-success.bp5-interactive.bp5-active .bp5-compound-tag-right {
-  background-color: #43501b;
+  background-color: #165a36;
 }
 .bp5-compound-tag.bp5-intent-warning {
   background: none;
 }
 .bp5-compound-tag.bp5-intent-warning .bp5-compound-tag-left {
-  background-color: #f0b726;
+  background-color: #ec9a3c;
 }
 .bp5-compound-tag.bp5-intent-warning .bp5-compound-tag-right {
-  background-color: #fbd065;
+  background-color: #fbb360;
 }
 .bp5-compound-tag.bp5-intent-warning.bp5-interactive:hover .bp5-compound-tag-left {
-  background-color: #d1980b;
+  background-color: #c87619;
 }
 .bp5-compound-tag.bp5-intent-warning.bp5-interactive:hover .bp5-compound-tag-right {
-  background-color: #f0b726;
+  background-color: #ec9a3c;
 }
 .bp5-compound-tag.bp5-intent-warning.bp5-interactive:active .bp5-compound-tag-left, .bp5-compound-tag.bp5-intent-warning.bp5-interactive.bp5-active .bp5-compound-tag-left {
-  background-color: #866103;
+  background-color: #935610;
 }
 .bp5-compound-tag.bp5-intent-warning.bp5-interactive:active .bp5-compound-tag-right, .bp5-compound-tag.bp5-intent-warning.bp5-interactive.bp5-active .bp5-compound-tag-right {
-  background-color: #d1980b;
+  background-color: #c87619;
 }
 .bp5-compound-tag.bp5-intent-danger {
   background: none;
 }
 .bp5-compound-tag.bp5-intent-danger .bp5-compound-tag-left {
-  background-color: #b83211;
+  background-color: #ac2f33;
 }
 .bp5-compound-tag.bp5-intent-danger .bp5-compound-tag-right {
-  background-color: #d33d17;
+  background-color: #cd4246;
 }
 .bp5-compound-tag.bp5-intent-danger.bp5-interactive:hover .bp5-compound-tag-left {
-  background-color: #96290d;
+  background-color: #8e292c;
 }
 .bp5-compound-tag.bp5-intent-danger.bp5-interactive:hover .bp5-compound-tag-right {
-  background-color: #b83211;
+  background-color: #ac2f33;
 }
 .bp5-compound-tag.bp5-intent-danger.bp5-interactive:active .bp5-compound-tag-left, .bp5-compound-tag.bp5-intent-danger.bp5-interactive.bp5-active .bp5-compound-tag-left {
   background-color: #782326;
 }
 .bp5-compound-tag.bp5-intent-danger.bp5-interactive:active .bp5-compound-tag-right, .bp5-compound-tag.bp5-intent-danger.bp5-interactive.bp5-active .bp5-compound-tag-right {
-  background-color: #96290d;
+  background-color: #8e292c;
 }
 
 /*
@@ -15958,12 +15958,12 @@ CSS `border` property issues:
   overflow-wrap: break-word;
 }
 .bp5-tag-input .bp5-tag.bp5-active {
-  outline: rgba(15, 104, 148, 0.752) solid 2px;
+  outline: rgba(33, 93, 176, 0.752) solid 2px;
   outline-offset: 0;
   -moz-outline-radius: 6px;
 }
 .bp5-dark .bp5-tag-input .bp5-tag.bp5-active {
-  outline-color: rgba(104, 193, 238, 0.752);
+  outline-color: rgba(138, 187, 255, 0.752);
 }
 .bp5-tag-input .bp5-input-ghost {
   flex: 1 1 auto;
@@ -16015,19 +16015,19 @@ CSS `border` property issues:
 }
 .bp5-tag-input.bp5-active {
   background-color: #ffffff;
-  box-shadow: inset 0 0 0 1px rgba(15, 104, 148, 0.752), 0 0 0 1px rgba(15, 104, 148, 0.752), inset 0 1px 1px rgba(17, 20, 24, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(33, 93, 176, 0.752), 0 0 0 1px rgba(33, 93, 176, 0.752), inset 0 1px 1px rgba(17, 20, 24, 0.2);
 }
 .bp5-tag-input.bp5-active.bp5-intent-primary {
-  box-shadow: inset 0 0 0 1px rgba(20, 126, 179, 0.752), 0 0 0 1px rgba(20, 126, 179, 0.752), inset 0 1px 1px rgba(17, 20, 24, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(45, 114, 210, 0.752), 0 0 0 1px rgba(45, 114, 210, 0.752), inset 0 1px 1px rgba(17, 20, 24, 0.2);
 }
 .bp5-tag-input.bp5-active.bp5-intent-success {
-  box-shadow: inset 0 0 0 1px rgba(142, 177, 37, 0.752), 0 0 0 1px rgba(142, 177, 37, 0.752), inset 0 1px 1px rgba(17, 20, 24, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(35, 133, 81, 0.752), 0 0 0 1px rgba(35, 133, 81, 0.752), inset 0 1px 1px rgba(17, 20, 24, 0.2);
 }
 .bp5-tag-input.bp5-active.bp5-intent-warning {
-  box-shadow: inset 0 0 0 1px rgba(209, 152, 11, 0.752), 0 0 0 1px rgba(209, 152, 11, 0.752), inset 0 1px 1px rgba(17, 20, 24, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(200, 118, 25, 0.752), 0 0 0 1px rgba(200, 118, 25, 0.752), inset 0 1px 1px rgba(17, 20, 24, 0.2);
 }
 .bp5-tag-input.bp5-active.bp5-intent-danger {
-  box-shadow: inset 0 0 0 1px rgba(211, 61, 23, 0.752), 0 0 0 1px rgba(211, 61, 23, 0.752), inset 0 1px 1px rgba(17, 20, 24, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(205, 66, 70, 0.752), 0 0 0 1px rgba(205, 66, 70, 0.752), inset 0 1px 1px rgba(17, 20, 24, 0.2);
 }
 .bp5-dark .bp5-tag-input .bp5-tag-input-icon, .bp5-tag-input.bp5-dark .bp5-tag-input-icon {
   color: #abb3bf;
@@ -16040,19 +16040,19 @@ CSS `border` property issues:
 }
 .bp5-dark .bp5-tag-input.bp5-active, .bp5-tag-input.bp5-dark.bp5-active {
   background-color: rgba(17, 20, 24, 0.3);
-  box-shadow: inset 0 0 0 1px rgba(104, 193, 238, 0.752), 0 0 0 1px rgba(104, 193, 238, 0.752), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(138, 187, 255, 0.752), 0 0 0 1px rgba(138, 187, 255, 0.752), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 .bp5-dark .bp5-tag-input.bp5-active.bp5-intent-primary, .bp5-tag-input.bp5-dark.bp5-active.bp5-intent-primary {
-  box-shadow: inset 0 0 0 1px rgba(63, 166, 218, 0.752), 0 0 0 1px rgba(63, 166, 218, 0.752), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(76, 144, 240, 0.752), 0 0 0 1px rgba(76, 144, 240, 0.752), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 .bp5-dark .bp5-tag-input.bp5-active.bp5-intent-success, .bp5-tag-input.bp5-dark.bp5-active.bp5-intent-success {
-  box-shadow: inset 0 0 0 1px rgba(182, 217, 76, 0.752), 0 0 0 1px rgba(182, 217, 76, 0.752), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(50, 164, 103, 0.752), 0 0 0 1px rgba(50, 164, 103, 0.752), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 .bp5-dark .bp5-tag-input.bp5-active.bp5-intent-warning, .bp5-tag-input.bp5-dark.bp5-active.bp5-intent-warning {
-  box-shadow: inset 0 0 0 1px rgba(240, 183, 38, 0.752), 0 0 0 1px rgba(240, 183, 38, 0.752), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(236, 154, 60, 0.752), 0 0 0 1px rgba(236, 154, 60, 0.752), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 .bp5-dark .bp5-tag-input.bp5-active.bp5-intent-danger, .bp5-tag-input.bp5-dark.bp5-active.bp5-intent-danger {
-  box-shadow: inset 0 0 0 1px rgba(235, 104, 71, 0.752), 0 0 0 1px rgba(235, 104, 71, 0.752), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(231, 106, 110, 0.752), 0 0 0 1px rgba(231, 106, 110, 0.752), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 
 .bp5-input-ghost {
@@ -16224,7 +16224,7 @@ Format transition class name with all the bits.
   color: #ffffff;
 }
 .bp5-toast.bp5-intent-primary {
-  background-color: #147eb3;
+  background-color: #2d72d2;
   color: #ffffff;
   /* stylelint-disable declaration-no-important */
   /* stylelint-enable declaration-no-important */
@@ -16233,15 +16233,15 @@ Format transition class name with all the bits.
   color: rgba(255, 255, 255, 0.7);
 }
 .bp5-toast.bp5-intent-primary .bp5-button {
-  background-color: #147eb3 !important;
+  background-color: #2d72d2 !important;
   color: #ffffff !important;
 }
 .bp5-toast.bp5-intent-primary .bp5-button:hover {
-  background-color: #0f6894 !important;
+  background-color: #215db0 !important;
   color: #ffffff !important;
 }
 .bp5-toast.bp5-intent-primary .bp5-button:active {
-  background-color: #0c5174 !important;
+  background-color: #184a90 !important;
   color: #ffffff !important;
 }
 .bp5-toast.bp5-intent-primary .bp5-button:focus {
@@ -16251,7 +16251,7 @@ Format transition class name with all the bits.
   color: rgba(255, 255, 255, 0.7) !important;
 }
 .bp5-toast.bp5-intent-success {
-  background-color: #8eb125;
+  background-color: #238551;
   color: #ffffff;
   /* stylelint-disable declaration-no-important */
   /* stylelint-enable declaration-no-important */
@@ -16260,15 +16260,15 @@ Format transition class name with all the bits.
   color: rgba(255, 255, 255, 0.7);
 }
 .bp5-toast.bp5-intent-success .bp5-button {
-  background-color: #8eb125 !important;
+  background-color: #238551 !important;
   color: #ffffff !important;
 }
 .bp5-toast.bp5-intent-success .bp5-button:hover {
-  background-color: #5a701a !important;
+  background-color: #1c6e42 !important;
   color: #ffffff !important;
 }
 .bp5-toast.bp5-intent-success .bp5-button:active {
-  background-color: #43501b !important;
+  background-color: #165a36 !important;
   color: #ffffff !important;
 }
 .bp5-toast.bp5-intent-success .bp5-button:focus {
@@ -16278,7 +16278,7 @@ Format transition class name with all the bits.
   color: rgba(255, 255, 255, 0.7) !important;
 }
 .bp5-toast.bp5-intent-warning {
-  background-color: #fbd065;
+  background-color: #fbb360;
   color: #1c2127;
   /* stylelint-disable declaration-no-important */
   /* stylelint-enable declaration-no-important */
@@ -16287,15 +16287,15 @@ Format transition class name with all the bits.
   color: rgba(28, 33, 39, 0.7);
 }
 .bp5-toast.bp5-intent-warning .bp5-button {
-  background-color: #fbd065 !important;
+  background-color: #fbb360 !important;
   color: #1c2127 !important;
 }
 .bp5-toast.bp5-intent-warning .bp5-button:hover {
-  background-color: #f0b726 !important;
+  background-color: #ec9a3c !important;
   color: #1c2127 !important;
 }
 .bp5-toast.bp5-intent-warning .bp5-button:active {
-  background-color: #d1980b !important;
+  background-color: #c87619 !important;
   color: #1c2127 !important;
 }
 .bp5-toast.bp5-intent-warning .bp5-button:focus {
@@ -16305,7 +16305,7 @@ Format transition class name with all the bits.
   color: rgba(28, 33, 39, 0.7) !important;
 }
 .bp5-toast.bp5-intent-danger {
-  background-color: #d33d17;
+  background-color: #cd4246;
   color: #ffffff;
   /* stylelint-disable declaration-no-important */
   /* stylelint-enable declaration-no-important */
@@ -16314,15 +16314,15 @@ Format transition class name with all the bits.
   color: rgba(255, 255, 255, 0.7);
 }
 .bp5-toast.bp5-intent-danger .bp5-button {
-  background-color: #d33d17 !important;
+  background-color: #cd4246 !important;
   color: #ffffff !important;
 }
 .bp5-toast.bp5-intent-danger .bp5-button:hover {
-  background-color: #b83211 !important;
+  background-color: #ac2f33 !important;
   color: #ffffff !important;
 }
 .bp5-toast.bp5-intent-danger .bp5-button:active {
-  background-color: #96290d !important;
+  background-color: #8e292c !important;
   color: #ffffff !important;
 }
 .bp5-toast.bp5-intent-danger .bp5-button:focus {
@@ -16506,10 +16506,10 @@ Format transition class name with all the bits.
   border-color: rgba(255, 255, 255, 0.2);
 }
 .bp5-tooltip a {
-  color: #68c1ee;
+  color: #8abbff;
 }
 .bp5-tooltip a:hover {
-  color: #68c1ee;
+  color: #8abbff;
 }
 .bp5-tooltip a .bp5-icon, .bp5-tooltip a .bp5-icon-standard, .bp5-tooltip a .bp5-icon-large {
   color: inherit;
@@ -16546,16 +16546,16 @@ a > .bp5-tooltip .bp5-running-text code {
   color: #abb3bf;
 }
 .bp5-tooltip .bp5-icon.bp5-intent-primary, .bp5-tooltip .bp5-icon-standard.bp5-intent-primary, .bp5-tooltip .bp5-icon-large.bp5-intent-primary {
-  color: #68c1ee;
+  color: #8abbff;
 }
 .bp5-tooltip .bp5-icon.bp5-intent-success, .bp5-tooltip .bp5-icon-standard.bp5-intent-success, .bp5-tooltip .bp5-icon-large.bp5-intent-success {
-  color: #d4f17e;
+  color: #72ca9b;
 }
 .bp5-tooltip .bp5-icon.bp5-intent-warning, .bp5-tooltip .bp5-icon-standard.bp5-intent-warning, .bp5-tooltip .bp5-icon-large.bp5-intent-warning {
-  color: #fbd065;
+  color: #fbb360;
 }
 .bp5-tooltip .bp5-icon.bp5-intent-danger, .bp5-tooltip .bp5-icon-standard.bp5-intent-danger, .bp5-tooltip .bp5-icon-large.bp5-intent-danger {
-  color: #ff9980;
+  color: #fa999c;
 }
 .bp5-tooltip .bp5-popover-content {
   padding: 10px 12px;
@@ -16620,10 +16620,10 @@ a > .bp5-tooltip .bp5-running-text code {
   border-color: rgba(17, 20, 24, 0.15);
 }
 .bp5-tooltip.bp5-dark a, .bp5-dark .bp5-tooltip a {
-  color: #0f6894;
+  color: #215db0;
 }
 .bp5-tooltip.bp5-dark a:hover, .bp5-dark .bp5-tooltip a:hover {
-  color: #0f6894;
+  color: #215db0;
 }
 .bp5-tooltip.bp5-dark a .bp5-icon, .bp5-tooltip.bp5-dark a .bp5-icon-standard, .bp5-tooltip.bp5-dark a .bp5-icon-large, .bp5-dark .bp5-tooltip a .bp5-icon, .bp5-dark .bp5-tooltip a .bp5-icon-standard, .bp5-dark .bp5-tooltip a .bp5-icon-large {
   color: inherit;
@@ -16641,7 +16641,7 @@ a > .bp5-tooltip .bp5-running-text code {
 a > .bp5-tooltip.bp5-dark .bp5-code,
 a > .bp5-tooltip.bp5-dark .bp5-running-text code, a > .bp5-dark .bp5-tooltip .bp5-code,
 a > .bp5-dark .bp5-tooltip .bp5-running-text code {
-  color: #147eb3;
+  color: #2d72d2;
 }
 .bp5-tooltip.bp5-dark .bp5-code-block,
 .bp5-tooltip.bp5-dark .bp5-running-text pre, .bp5-dark .bp5-tooltip .bp5-code-block,
@@ -16673,23 +16673,23 @@ a > .bp5-dark .bp5-tooltip .bp5-running-text code {
   color: #8f99a8;
 }
 .bp5-tooltip.bp5-dark .bp5-icon.bp5-intent-primary, .bp5-tooltip.bp5-dark .bp5-icon-standard.bp5-intent-primary, .bp5-tooltip.bp5-dark .bp5-icon-large.bp5-intent-primary, .bp5-dark .bp5-tooltip .bp5-icon.bp5-intent-primary, .bp5-dark .bp5-tooltip .bp5-icon-standard.bp5-intent-primary, .bp5-dark .bp5-tooltip .bp5-icon-large.bp5-intent-primary {
-  color: #147eb3;
+  color: #2d72d2;
 }
 .bp5-tooltip.bp5-dark .bp5-icon.bp5-intent-success, .bp5-tooltip.bp5-dark .bp5-icon-standard.bp5-intent-success, .bp5-tooltip.bp5-dark .bp5-icon-large.bp5-intent-success, .bp5-dark .bp5-tooltip .bp5-icon.bp5-intent-success, .bp5-dark .bp5-tooltip .bp5-icon-standard.bp5-intent-success, .bp5-dark .bp5-tooltip .bp5-icon-large.bp5-intent-success {
-  color: #8eb125;
+  color: #238551;
 }
 .bp5-tooltip.bp5-dark .bp5-icon.bp5-intent-warning, .bp5-tooltip.bp5-dark .bp5-icon-standard.bp5-intent-warning, .bp5-tooltip.bp5-dark .bp5-icon-large.bp5-intent-warning, .bp5-dark .bp5-tooltip .bp5-icon.bp5-intent-warning, .bp5-dark .bp5-tooltip .bp5-icon-standard.bp5-intent-warning, .bp5-dark .bp5-tooltip .bp5-icon-large.bp5-intent-warning {
-  color: #d1980b;
+  color: #c87619;
 }
 .bp5-tooltip.bp5-dark .bp5-icon.bp5-intent-danger, .bp5-tooltip.bp5-dark .bp5-icon-standard.bp5-intent-danger, .bp5-tooltip.bp5-dark .bp5-icon-large.bp5-intent-danger, .bp5-dark .bp5-tooltip .bp5-icon.bp5-intent-danger, .bp5-dark .bp5-tooltip .bp5-icon-standard.bp5-intent-danger, .bp5-dark .bp5-tooltip .bp5-icon-large.bp5-intent-danger {
-  color: #d33d17;
+  color: #cd4246;
 }
 .bp5-tooltip.bp5-intent-primary .bp5-popover-content {
-  background: #147eb3;
+  background: #2d72d2;
   color: #ffffff;
 }
 .bp5-tooltip.bp5-intent-primary .bp5-popover-arrow-fill {
-  fill: #147eb3;
+  fill: #2d72d2;
 }
 @media (forced-colors: active) and (prefers-color-scheme: dark) {
   .bp5-tooltip.bp5-intent-primary .bp5-popover-arrow-fill {
@@ -16697,11 +16697,11 @@ a > .bp5-dark .bp5-tooltip .bp5-running-text code {
   }
 }
 .bp5-tooltip.bp5-intent-success .bp5-popover-content {
-  background: #8eb125;
+  background: #238551;
   color: #ffffff;
 }
 .bp5-tooltip.bp5-intent-success .bp5-popover-arrow-fill {
-  fill: #8eb125;
+  fill: #238551;
 }
 @media (forced-colors: active) and (prefers-color-scheme: dark) {
   .bp5-tooltip.bp5-intent-success .bp5-popover-arrow-fill {
@@ -16709,11 +16709,11 @@ a > .bp5-dark .bp5-tooltip .bp5-running-text code {
   }
 }
 .bp5-tooltip.bp5-intent-warning .bp5-popover-content {
-  background: #d1980b;
+  background: #c87619;
   color: #ffffff;
 }
 .bp5-tooltip.bp5-intent-warning .bp5-popover-arrow-fill {
-  fill: #d1980b;
+  fill: #c87619;
 }
 @media (forced-colors: active) and (prefers-color-scheme: dark) {
   .bp5-tooltip.bp5-intent-warning .bp5-popover-arrow-fill {
@@ -16721,11 +16721,11 @@ a > .bp5-dark .bp5-tooltip .bp5-running-text code {
   }
 }
 .bp5-tooltip.bp5-intent-danger .bp5-popover-content {
-  background: #d33d17;
+  background: #cd4246;
   color: #ffffff;
 }
 .bp5-tooltip.bp5-intent-danger .bp5-popover-arrow-fill {
-  fill: #d33d17;
+  fill: #cd4246;
 }
 @media (forced-colors: active) and (prefers-color-scheme: dark) {
   .bp5-tooltip.bp5-intent-danger .bp5-popover-arrow-fill {
@@ -16786,16 +16786,16 @@ Styleguide tree
   color: #8f99a8;
 }
 .bp5-tree .bp5-icon.bp5-intent-primary, .bp5-tree .bp5-icon-standard.bp5-intent-primary, .bp5-tree .bp5-icon-large.bp5-intent-primary {
-  color: #147eb3;
+  color: #2d72d2;
 }
 .bp5-tree .bp5-icon.bp5-intent-success, .bp5-tree .bp5-icon-standard.bp5-intent-success, .bp5-tree .bp5-icon-large.bp5-intent-success {
-  color: #8eb125;
+  color: #238551;
 }
 .bp5-tree .bp5-icon.bp5-intent-warning, .bp5-tree .bp5-icon-standard.bp5-intent-warning, .bp5-tree .bp5-icon-large.bp5-intent-warning {
-  color: #d1980b;
+  color: #c87619;
 }
 .bp5-tree .bp5-icon.bp5-intent-danger, .bp5-tree .bp5-icon-standard.bp5-intent-danger, .bp5-tree .bp5-icon-large.bp5-intent-danger {
-  color: #d33d17;
+  color: #cd4246;
 }
 
 .bp5-tree-node-list {
@@ -16981,7 +16981,7 @@ Styleguide tree
 }
 
 .bp5-tree-node.bp5-tree-node-selected > .bp5-tree-node-content {
-  background-color: #147eb3;
+  background-color: #2d72d2;
 }
 .bp5-tree-node.bp5-tree-node-selected > .bp5-tree-node-content,
 .bp5-tree-node.bp5-tree-node-selected > .bp5-tree-node-content .bp5-icon, .bp5-tree-node.bp5-tree-node-selected > .bp5-tree-node-content .bp5-icon-standard, .bp5-tree-node.bp5-tree-node-selected > .bp5-tree-node-content .bp5-icon-large {
@@ -17010,22 +17010,22 @@ Styleguide tree
   color: #abb3bf;
 }
 .bp5-dark .bp5-tree .bp5-icon.bp5-intent-primary, .bp5-dark .bp5-tree .bp5-icon-standard.bp5-intent-primary, .bp5-dark .bp5-tree .bp5-icon-large.bp5-intent-primary {
-  color: #68c1ee;
+  color: #8abbff;
 }
 .bp5-dark .bp5-tree .bp5-icon.bp5-intent-success, .bp5-dark .bp5-tree .bp5-icon-standard.bp5-intent-success, .bp5-dark .bp5-tree .bp5-icon-large.bp5-intent-success {
-  color: #d4f17e;
+  color: #72ca9b;
 }
 .bp5-dark .bp5-tree .bp5-icon.bp5-intent-warning, .bp5-dark .bp5-tree .bp5-icon-standard.bp5-intent-warning, .bp5-dark .bp5-tree .bp5-icon-large.bp5-intent-warning {
-  color: #fbd065;
+  color: #fbb360;
 }
 .bp5-dark .bp5-tree .bp5-icon.bp5-intent-danger, .bp5-dark .bp5-tree .bp5-icon-standard.bp5-intent-danger, .bp5-dark .bp5-tree .bp5-icon-large.bp5-intent-danger {
-  color: #ff9980;
+  color: #fa999c;
 }
 .bp5-dark .bp5-tree-node:not(.bp5-disabled) .bp5-tree-node-caret:hover {
   color: #f6f7f9;
 }
 .bp5-dark .bp5-tree-node.bp5-tree-node-selected > .bp5-tree-node-content {
-  background-color: #147eb3;
+  background-color: #2d72d2;
 }
 .bp5-dark .bp5-tree-node.bp5-tree-node-selected > .bp5-tree-node-content .bp5-icon, .bp5-dark .bp5-tree-node.bp5-tree-node-selected > .bp5-tree-node-content .bp5-icon-standard, .bp5-dark .bp5-tree-node.bp5-tree-node-selected > .bp5-tree-node-content .bp5-icon-large {
   color: #ffffff;
