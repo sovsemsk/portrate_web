@@ -30,8 +30,8 @@ class ParserYandex:
     def parse_rating(self):
         try:
             node = self.driver.find_element(By.CLASS_NAME, "business-summary-rating-badge-view__rating")
-            return float(".".join(re.findall(r'\d+', node.text)))
-        except (NoSuchElementException, StaleElementReferenceException):
+            return float(".".join(re.findall(r"\d+", node.text)))
+        except (NoSuchElementException, StaleElementReferenceException, ValueError, TypeError):
             return False
 
     def parse_reviews(self):
@@ -53,7 +53,7 @@ class ParserYandex:
     def __scroll_reviews_to_bottom__(self, node):
         """ Скроллинг списка до последнего отзыва """
         self.driver.execute_script("arguments[0].scrollIntoView();", node)
-        time.sleep(20)
+        time.sleep(5)
 
         new_node = self.driver.find_elements(By.CLASS_NAME, "business-reviews-card-view__review")[-1]
 
