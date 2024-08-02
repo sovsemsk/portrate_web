@@ -645,7 +645,7 @@ class Review(Model):
 
 {self.get_service_display()}: {self.stars * '⭐️'}
 {self.text}
-{localize(self.created_at)}"""
+{self.name}, {localize(self.created_at)}"""
 
 
 @receiver(post_save, sender=Review)

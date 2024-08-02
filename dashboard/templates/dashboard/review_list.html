@@ -24,8 +24,8 @@
                     <div class="bp5-section-header">
                         <div class="bp5-section-header-left">
                             <img class="bp5-icon" height=16 src="{% static 'dashboard/images/services/'|add:review.service|lower|add:'.png' %}"/>
-                            <h6 class="bp5-heading bp5-section-header-title">{{review.name}}</h6>
-                            <div class="bp5-text-muted bp5-text-small">{{review.created_at}}</div>
+                            <h6 class="bp5-heading bp5-section-header-title">{{ review.name }}</h6>
+                            <div class="bp5-text-muted bp5-text-small">{{ review.created_at }}</div>
                         </div>
                         <div class="bp5-section-header-right">
                             <img height=10 src="{% static 'dashboard/images/stars/'|add:review.stars_str|add:'.svg' %}" width=70>
@@ -34,7 +34,7 @@
                     <div class="bp5-padded bp5-section-card">
                         <div class="bp5-form-group">
                             <div class="bp5-form-content">
-                                <div class="bp5-running-text bp5-text-large">{{review.text}}</div>
+                                <div class="bp5-running-text bp5-text-large">{{ review.text|default:"Отзыв без текста" }}</div>
                             </div>
                         </div>
                         <form action="{% url 'review_update' company.id review.id %}?{{request.META.QUERY_STRING}}" method="post">

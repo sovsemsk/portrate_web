@@ -44,10 +44,7 @@ class ParserGis:
             lxml_reviews_nodes = lxml_container_node.xpath(".//div[contains(@class, '_11gvyqv')]")
 
             for lxml_review_node in lxml_reviews_nodes:
-                review = self.__parse_review__(lxml_review_node)
-
-                if review["text"]:
-                    reviews.append(review)
+                reviews.append(self.__parse_review__(lxml_review_node))
 
         return reviews
 
@@ -70,7 +67,10 @@ class ParserGis:
             date = None
 
         try:
-            name = lxml_node.xpath(".//span[contains(@class, '_16s5yj36')]")[0].text
+            try:
+                name = lxml_node.xpath(".//span[contains(@class, '_16s5yj36')]")[0].text
+            except IndexError:
+                name = lxml_node.xpath(".//span[contains(@class, '_k6nyhb6')]")[0].text
         except IndexError:
             name = None
 

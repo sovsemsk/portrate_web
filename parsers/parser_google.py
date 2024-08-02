@@ -51,10 +51,7 @@ class ParserGoogle:
             lxml_reviews_nodes = lxml_container_node.xpath(".//div[contains(@class, 'jftiEf')]")
 
             for lxml_review_node in lxml_reviews_nodes:
-                review = self.__parse_review__(lxml_review_node)
-
-                if review["text"]:
-                    reviews.append(review)
+                reviews.append(self.__parse_review__(lxml_review_node))
 
         return reviews
 
