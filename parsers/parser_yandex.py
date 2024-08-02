@@ -53,9 +53,10 @@ class ParserYandex:
     def __scroll_reviews_to_bottom__(self, node):
         """ Скроллинг списка до последнего отзыва """
         self.driver.execute_script("arguments[0].scrollIntoView();", node)
+        time.sleep(20)
+
         new_node = self.driver.find_elements(By.CLASS_NAME, "business-reviews-card-view__review")[-1]
 
-        time.sleep(20)
         if node == new_node:
             return
 
