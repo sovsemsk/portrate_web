@@ -58,7 +58,7 @@ class ParserGoogle:
     def __scroll_reviews_to_bottom__(self, node):
         self.driver.execute_script("arguments[0].scrollIntoView();", node)
 
-        time.sleep(5)
+        time.sleep(10)
         new_node = self.driver.find_elements(By.CLASS_NAME, "jftiEf")[-1]
 
         if node == new_node:
