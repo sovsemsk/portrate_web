@@ -55,7 +55,7 @@ class ParserYandex:
         self.driver.execute_script("arguments[0].scrollIntoView();", node)
         new_node = self.driver.find_elements(By.CLASS_NAME, "business-reviews-card-view__review")[-1]
 
-        time.sleep(10)
+        time.sleep(20)
         if node == new_node:
             return
 
