@@ -650,7 +650,6 @@ class Review(Model):
 
 @receiver(post_save, sender=Review)
 def review_post_save(sender, instance, created, ** kwargs):
-    return
     if created and not instance.company.__getattribute__(f"is_first_parsing_{instance.service.lower()}"):
         for user in instance.company.users.filter(
             ** {
