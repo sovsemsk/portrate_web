@@ -644,7 +644,7 @@ class Review(Model):
         return f"""Новый отзыв: {self.company.name}
 
 {self.get_service_display()}: {self.stars * '⭐️'}
-{self.text if not self.text else 'Оценка без текста'}
+{self.text if self.text else 'Оценка без текста'}
 {self.name}, {localize(self.created_at)}"""
 
 
