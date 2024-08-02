@@ -31,7 +31,7 @@
                             <th width="15%">Отзывы</th>
                             <th width="15%">Позитивные</th>
                             <th width="15%">Негативные</th>
-                            <th colspan="2" width="15%">Рейтинг</th>
+                            <th colspan="2" width="25%">Рейтинг</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,9 +43,6 @@
                                     <img height=16 src="{% static 'dashboard/images/services/yandex.png' %}" width=16>
                                     {% if company.is_parser_run_yandex %}<span class="bp5-icon bp5-icon-bring-data bp5-intent-primary"></span>{% endif %}
                                     <div class="bp5-text-large">Яндекс</div>
-                                    <a class="bp5-button bp5-minimal bp5-small ml-auto" href="{% url 'company_update_link_yandex' company.id %}">
-                                        <span class="bp5-text-muted bp5-text-small">{% if company.parser_link_yandex %}Изменить{% else %}Добавить{% endif %}</span>
-                                    </a>
                                 </div>
                             </td>
                             <td style="position:relative;">
@@ -67,6 +64,9 @@
                                 <div class="bp5-entity-title">
                                     <div class="bp5-text-large">{{ company.rating_yandex|default:"0,0" }}</div>
                                     <img height=10 src="{% static 'dashboard/images/stars/'|add:company.rating_yandex_str|add:'.svg' %}" width=70>
+                                    <a class="bp5-button bp5-minimal bp5-small ml-auto" href="{% url 'company_update_link_yandex' company.id %}">
+                                        <span class="bp5-icon bp5-text-small {% if company.parser_link_yandex %}bp5-icon-settings{% else %}bp5-icon-plus{% endif %}"></span>
+                                    </a>
                                 </div>
                             </td>
                         </tr>
@@ -78,9 +78,6 @@
                                     <img height=16 src="{% static 'dashboard/images/services/gis.png' %}" width=16>
                                     {% if company.is_parser_run_gis %}<span class="bp5-icon bp5-icon-bring-data bp5-intent-primary"></span>{% endif %}
                                     <div class="bp5-text-large">2Гис</div>
-                                    <a class="bp5-button bp5-minimal bp5-small ml-auto" href="{% url 'company_update_link_gis' company.id %}">
-                                        <span class="bp5-text-muted bp5-text-small">{% if company.parser_link_gis %}Изменить{% else %}Добавить{% endif %}</span>
-                                    </a>
                                 </div>
                             </td>
                             <td style="position:relative;">
@@ -99,6 +96,9 @@
                                 <div class="bp5-entity-title">
                                     <div class="bp5-text-large">{{ company.rating_gis|default:"0,0" }}</div>
                                     <img height=10 src="{% static 'dashboard/images/stars/'|add:company.rating_gis_str|add:'.svg' %}" width=70>
+                                    <a class="bp5-button bp5-minimal bp5-small ml-auto" href="{% url 'company_update_link_gis' company.id %}">
+                                        <span class="bp5-icon bp5-text-small {% if company.parser_link_gis %}bp5-icon-settings{% else %}bp5-icon-plus{% endif %}"></span>
+                                    </a>
                                 </div>
                             </td>
                         </tr>
@@ -110,9 +110,6 @@
                                     <img height=16 src="{% static 'dashboard/images/services/google.png' %}" width=16>
                                     {% if company.is_parser_run_google %}<span class="bp5-icon bp5-icon-bring-data bp5-intent-primary"></span>{% endif %}
                                     <div class="bp5-text-large">Google</div>
-                                    <a class="bp5-button bp5-minimal bp5-small ml-auto" href="{% url 'company_update_link_google' company.id %}">
-                                        <span class="bp5-text-muted bp5-text-small">{% if company.parser_link_google %}Изменить{% else %}Добавить{% endif %}</span>
-                                    </a>
                                 </div>
                             </td>
                             <td style="position:relative;">
@@ -131,6 +128,9 @@
                                 <div class="bp5-entity-title">
                                     <div class="bp5-text-large">{{ company.rating_google|default:"0,0" }}</div>
                                     <img height=10 src="{% static 'dashboard/images/stars/'|add:company.rating_google_str|add:'.svg' %}" width=70>
+                                    <a class="bp5-button bp5-minimal bp5-small ml-auto" href="{% url 'company_update_link_google' company.id %}">
+                                        <span class="bp5-icon bp5-text-small {% if company.parser_link_google %}bp5-icon-settings{% else %}bp5-icon-plus{% endif %}"></span>
+                                    </a>
                                 </div>
                             </td>
                         </tr>
@@ -142,9 +142,6 @@
                                     <img height=16 src="{% static 'dashboard/images/services/avito.png' %}" width=16>
                                     {% if company.is_parser_run_avito %}<span class="bp5-icon bp5-icon-bring-data bp5-intent-primary"></span>{% endif %}
                                     <div class="bp5-text-large">Авито</div>
-                                    <a class="bp5-button bp5-minimal bp5-small ml-auto" href="{% url 'company_update_link_avito' company.id %}">
-                                        <span class="bp5-text-muted bp5-text-small">{% if company.parser_link_avito %}Изменить{% else %}Добавить{% endif %}</span>
-                                    </a>
                                 </div>
                             </td>
                             <td>
@@ -160,6 +157,9 @@
                                 <div class="bp5-entity-title">
                                     <div class="bp5-text-large">{{ company.rating_avito|default:"0,0" }}</div>
                                     <img height=10 src="{% static 'dashboard/images/stars/'|add:company.rating_avito_str|add:'.svg' %}" width=70>
+                                    <a class="bp5-button bp5-minimal bp5-small ml-auto" href="{% url 'company_update_link_avito' company.id %}">
+                                        <span class="bp5-icon bp5-text-small {% if company.parser_link_avito %}bp5-icon-settings{% else %}bp5-icon-plus{% endif %}"></span>
+                                    </a>
                                 </div>
                             </td>
                         </tr>
@@ -171,9 +171,6 @@
                                     <img height=16 src="{% static 'dashboard/images/services/zoon.png' %}" width=16>
                                     {% if company.is_parser_run_zoon %}<span class="bp5-icon bp5-icon-bring-data bp5-intent-primary"></span>{% endif %}
                                     <div class="bp5-text-large">Zoon</div>
-                                    <a class="bp5-button bp5-minimal bp5-small ml-auto" href="{% url 'company_update_link_zoon' company.id %}">
-                                        <span class="bp5-text-muted bp5-text-small">{% if company.parser_link_zoon %}Изменить{% else %}Добавить{% endif %}</span>
-                                    </a>
                                 </div>
                             </td>
                             <td>
@@ -189,6 +186,9 @@
                                 <div class="bp5-entity-title">
                                     <div class="bp5-text-large">{{ company.rating_zoon|default:"0,0" }}</div>
                                     <img height=10 src="{% static 'dashboard/images/stars/'|add:company.rating_zoon_str|add:'.svg' %}" width=70>
+                                    <a class="bp5-button bp5-minimal bp5-small ml-auto" href="{% url 'company_update_link_zoon' company.id %}">
+                                        <span class="bp5-icon bp5-text-small {% if company.parser_link_zoon %}bp5-icon-settings{% else %}bp5-icon-plus{% endif %}"></span>
+                                    </a>
                                 </div>
                             </td>
                         </tr>
@@ -200,9 +200,6 @@
                                     <img height=16 src="{% static 'dashboard/images/services/flamp.png' %}" width=16>
                                     {% if company.is_parser_run_flamp %}<span class="bp5-icon bp5-icon-bring-data bp5-intent-primary"></span>{% endif %}
                                     <div class="bp5-text-large">Flamp</div>
-                                    <a class="bp5-button bp5-minimal bp5-small ml-auto" href="{% url 'company_update_link_flamp' company.id %}">
-                                        <span class="bp5-text-muted bp5-text-small">{% if company.parser_link_flamp %}Изменить{% else %}Добавить{% endif %}</span>
-                                    </a>
                                 </div>
                             </td>
                             <td>
@@ -218,6 +215,9 @@
                                 <div class="bp5-entity-title">
                                     <div class="bp5-text-large">{{ company.rating_flamp|default:"0,0" }}</div>
                                     <img height=10 src="{% static 'dashboard/images/stars/'|add:company.rating_flamp_str|add:'.svg' %}" width=70>
+                                    <a class="bp5-button bp5-minimal bp5-small ml-auto" href="{% url 'company_update_link_flamp' company.id %}">
+                                        <span class="bp5-icon bp5-text-small {% if company.parser_link_flamp %}bp5-icon-settings{% else %}bp5-icon-plus{% endif %}"></span>
+                                    </a>
                                 </div>
                             </td>
                         </tr>
@@ -229,9 +229,6 @@
                                     <img height=16 src="{% static 'dashboard/images/services/yell.png' %}" width=16>
                                     {% if company.is_parser_run_yell %}<span class="bp5-icon bp5-icon-bring-data bp5-intent-primary"></span>{% endif %}
                                     <div class="bp5-text-large">Yell</div>
-                                    <a class="bp5-button bp5-minimal bp5-small ml-auto" href="{% url 'company_update_link_yell' company.id %}">
-                                        <span class="bp5-text-muted bp5-text-small">{% if company.parser_link_yell %}Изменить{% else %}Добавить{% endif %}</span>
-                                    </a>
                                 </div>
                             </td>
                             <td>
@@ -247,6 +244,9 @@
                                 <div class="bp5-entity-title">
                                     <div class="bp5-text-large">{{ company.rating_yell|default:"0,0" }}</div>
                                     <img height=10 src="{% static 'dashboard/images/stars/'|add:company.rating_yell_str|add:'.svg' %}" width=70>
+                                    <a class="bp5-button bp5-minimal bp5-small ml-auto" href="{% url 'company_update_link_yell' company.id %}">
+                                        <span class="bp5-icon bp5-text-small {% if company.parser_link_yell %}bp5-icon-settings{% else %}bp5-icon-plus{% endif %}"></span>
+                                    </a>
                                 </div>
                             </td>
                         </tr>
@@ -258,9 +258,6 @@
                                     <img height=16 src="{% static 'dashboard/images/services/prodoctorov.png' %}" width=16>
                                     {% if company.is_parser_run_prodoctorov %}<span class="bp5-icon bp5-icon-bring-data bp5-intent-primary"></span>{% endif %}
                                     <div class="bp5-text-large">Продокторов</div>
-                                    <a class="bp5-button bp5-minimal bp5-small ml-auto" href="{% url 'company_update_link_prodoctorov' company.id %}">
-                                        <span class="bp5-text-muted bp5-text-small">{% if company.parser_link_prodoctorov %}Изменить{% else %}Добавить{% endif %}</span>
-                                    </a>
                                 </div>
                             </td>
                             <td>
@@ -276,6 +273,9 @@
                                 <div class="bp5-entity-title">
                                     <div class="bp5-text-large">{{ company.rating_prodoctorov|default:"0,0" }}</div>
                                     <img height=10 src="{% static 'dashboard/images/stars/'|add:company.rating_prodoctorov_str|add:'.svg' %}" width=70>
+                                    <a class="bp5-button bp5-minimal bp5-small ml-auto" href="{% url 'company_update_link_prodoctorov' company.id %}">
+                                        <span class="bp5-icon bp5-text-small {% if company.parser_link_prodoctorov %}bp5-icon-settings{% else %}bp5-icon-plus{% endif %}"></span>
+                                    </a>
                                 </div>
                             </td>
                         </tr>
@@ -287,9 +287,6 @@
                                     <img height=16 src="{% static 'dashboard/images/services/yandex_services.png' %}" width=16>
                                     {% if company.is_parser_run_yandex_services %}<span class="bp5-icon bp5-icon-bring-data bp5-intent-primary"></span>{% endif %}
                                     <div class="bp5-text-large">Яндекс Услуги</div>
-                                    <a class="bp5-button bp5-minimal bp5-small ml-auto" href="{% url 'company_update_link_yandex_services' company.id %}">
-                                        <span class="bp5-text-muted bp5-text-small">{% if company.parser_link_yandex_services %}Изменить{% else %}Добавить{% endif %}</span>
-                                    </a>
                                 </div>
                             </td>
                             <td>
@@ -305,6 +302,9 @@
                                 <div class="bp5-entity-title">
                                     <div class="bp5-text-large">{{ company.rating_yandex_services|default:"0,0" }}</div>
                                     <img height=10 src="{% static 'dashboard/images/stars/'|add:company.rating_yandex_services_str|add:'.svg' %}" width=70>
+                                    <a class="bp5-button bp5-minimal bp5-small ml-auto" href="{% url 'company_update_link_yandex_services' company.id %}">
+                                        <span class="bp5-icon bp5-text-small {% if company.parser_link_yandex_services %}bp5-icon-settings{% else %}bp5-icon-plus{% endif %}"></span>
+                                    </a>
                                 </div>
                             </td>
                         </tr>
@@ -316,9 +316,6 @@
                                     <img height=16 src="{% static 'dashboard/images/services/otzovik.png' %}" width=16>
                                     {% if company.is_parser_run_otzovik %}<span class="bp5-icon bp5-icon-bring-data bp5-intent-primary"></span>{% endif %}
                                     <div class="bp5-text-large">Отзовик</div>
-                                    <a class="bp5-button bp5-minimal bp5-small ml-auto" href="{% url 'company_update_link_otzovik' company.id %}">
-                                        <span class="bp5-text-muted bp5-text-small">{% if company.parser_link_otzovik %}Изменить{% else %}Добавить{% endif %}</span>
-                                    </a>
                                 </div>
                             </td>
                             <td>
@@ -334,6 +331,9 @@
                                 <div class="bp5-entity-title">
                                     <div class="bp5-text-large">{{ company.rating_otzovik|default:"0,0" }}</div>
                                     <img height=10 src="{% static 'dashboard/images/stars/'|add:company.rating_otzovik_str|add:'.svg' %}" width=70>
+                                    <a class="bp5-button bp5-minimal bp5-small ml-auto" href="{% url 'company_update_link_otzovik' company.id %}">
+                                        <span class="bp5-icon bp5-text-small {% if company.parser_link_otzovik %}bp5-icon-settings{% else %}bp5-icon-plus{% endif %}"></span>
+                                    </a>
                                 </div>
                             </td>
                         </tr>
@@ -345,9 +345,6 @@
                                     <img height=16 src="{% static 'dashboard/images/services/irecommend.png' %}" width=16>
                                     {% if company.is_parser_run_irecommend %}<span class="bp5-icon bp5-icon-bring-data bp5-intent-primary"></span>{% endif %}
                                     <div class="bp5-text-large">Irecommend</div>
-                                    <a class="bp5-button bp5-minimal bp5-small ml-auto" href="{% url 'company_update_link_irecommend' company.id %}">
-                                        <span class="bp5-text-muted bp5-text-small">{% if company.parser_link_irecommend %}Изменить{% else %}Добавить{% endif %}</span>
-                                    </a>
                                 </div>
                             </td>
                             <td>
@@ -363,6 +360,9 @@
                                 <div class="bp5-entity-title">
                                     <div class="bp5-text-large">{{ company.rating_irecommend|default:"0,0" }}</div>
                                     <img height=10 src="{% static 'dashboard/images/stars/'|add:company.rating_irecommend_str|add:'.svg' %}" width=70>
+                                    <a class="bp5-button bp5-minimal bp5-small ml-auto" href="{% url 'company_update_link_irecommend' company.id %}">
+                                        <span class="bp5-icon bp5-text-small {% if company.parser_link_irecommend %}bp5-icon-settings{% else %}bp5-icon-plus{% endif %}"></span>
+                                    </a>
                                 </div>
                             </td>
                         </tr>
@@ -374,9 +374,6 @@
                                     <img height=16 src="{% static 'dashboard/images/services/tripadvisor.png' %}" width=16>
                                     {% if company.is_parser_run_tripadvisor %}<span class="bp5-icon bp5-icon-bring-data bp5-intent-primary"></span>{% endif %}
                                     <div class="bp5-text-large">Tripadvisor</div>
-                                    <a class="bp5-button bp5-minimal bp5-small ml-auto" href="{% url 'company_update_link_tripadvisor' company.id %}">
-                                        <span class="bp5-text-muted bp5-text-small">{% if company.parser_link_tripadvisor %}Изменить{% else %}Добавить{% endif %}</span>
-                                    </a>
                                 </div>
                             </td>
                             <td>
@@ -392,6 +389,9 @@
                                 <div class="bp5-entity-title">
                                     <div class="bp5-text-large">{{ company.rating_tripadvisor|default:"0,0" }}</div>
                                     <img height=10 src="{% static 'dashboard/images/stars/'|add:company.rating_tripadvisor_str|add:'.svg' %}" width=70>
+                                    <a class="bp5-button bp5-minimal bp5-small ml-auto" href="{% url 'company_update_link_tripadvisor' company.id %}">
+                                        <span class="bp5-icon bp5-text-small {% if company.parser_link_tripadvisor %}bp5-icon-settings{% else %}bp5-icon-plus{% endif %}"></span>
+                                    </a>
                                 </div>
                             </td>
                         </tr>
@@ -428,7 +428,7 @@
                             <th>Источник</th>
                             <th width="15%">Визиты</th>
                             <th width="15%">Клики</th>
-                            <th width="15%">Конверсия</th>
+                            <th width="25%">Конверсия</th>
                         </tr>
                     </thead>
                     <tbody>

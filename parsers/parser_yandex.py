@@ -31,7 +31,7 @@ class ParserYandex:
         try:
             node = self.driver.find_element(By.CLASS_NAME, "business-summary-rating-badge-view__rating")
             return float(".".join(re.findall(r"\d+", node.text)))
-        except (NoSuchElementException, StaleElementReferenceException, ValueError, TypeError):
+        except (NoSuchElementException, StaleElementReferenceException, TypeError, ValueError):
             return False
 
     def parse_reviews(self):

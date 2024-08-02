@@ -7365,7 +7365,7 @@ Styleguide file-input
   opacity: 1;
 }
 .bp5-file-upload-input:focus, .bp5-file-upload-input.bp5-active {
-  box-shadow: inset 0 0 0 1px rgba(33, 93, 176, 0.752), 0 0 0 1px rgba(33, 93, 176, 0.752), inset 0 1px 1px rgba(17, 20, 24, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(33, 93, 176, 0.752), 0 0 0 1px rgba(33, 93, 176, 0.752);
 }
 .bp5-file-upload-input[type=search], .bp5-file-upload-input.bp5-round {
   border-radius: 30px;
@@ -8025,7 +8025,7 @@ Styleguide input
   opacity: 1;
 }
 .bp5-input:focus, .bp5-input.bp5-active {
-  box-shadow: inset 0 0 0 1px rgba(33, 93, 176, 0.752), 0 0 0 1px rgba(33, 93, 176, 0.752), inset 0 1px 1px rgba(17, 20, 24, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(33, 93, 176, 0.752), 0 0 0 1px rgba(33, 93, 176, 0.752);
 }
 .bp5-input[type=search], .bp5-input.bp5-round {
   border-radius: 30px;
