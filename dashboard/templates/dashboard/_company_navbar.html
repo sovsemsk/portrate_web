@@ -1,10 +1,21 @@
-<div class="bp5-html-select bp5-minimal_" style="width:130px">
-    <select data-select-company>
+<div style="position:relative;">
+    <button class="bp5-button bp5-minimal" data-button-company>
+        <span class="bp5-button-text">{{ company.name|truncatechars:"10" }}</span>
+        <span class="bp5-icon bp5-icon-chevron-down bp5-icon-standard"></span>
+    </button>
+    <ul data-menu-company class="bp5-menu bp5-elevation-4" style="position:absolute;left:-2px;top:-5px;opacity:1; display: none;">
+        <li>
+            <a class="bp5-menu-item" href="{% url 'company_detail' company.id %}">{{ company.name }}</a>
+        </li>
         {% for company_short in company_list_short %}
-        <option {% if company_short.id == company.id %}selected{% endif %} value="{% url 'company_detail' company_short.id %}">{{ company_short.name|truncatechars:"10" }}</option>
+        <li>
+            <a class="bp5-menu-item" href="{% url 'company_detail' company_short.id %}" type="button">{{ company_short.name }}</a>
+        </li>
         {% endfor %}
-    </select>
-    <span class="bp5-icon bp5-icon-chevron-down bp5-icon-standard"></span>
+        <li class="bp5-menu-header"></li>
+        <li><a class="bp5-menu-item">Все филиалы</a></li>
+        <li><a class="bp5-menu-item bp5-intent-success">Добавить филиал</a></li>
+    </ul>
 </div>
 <div class="bp5-navbar-divider"></div>
 <a class="bp5-button bp5-minimal {% if nav == 'statistic' %}bp5-active{% endif %}" href="{% url 'company_detail' company.id %}">Статистика</a>

@@ -152,7 +152,7 @@ class CompanyDetailView(LoginRequiredMixin, DetailView):
                 click_stamp_count or [{"count": 0}])["count"]
         })
 
-        context["company_list_short"] = Company.objects.filter(users__in=[self.request.user])[:15]
+        context["company_list_short"] = Company.objects.filter(users__in=[self.request.user]).exclude(id=self.object.id).order_by("name")[:15]
         context["days_ago_param"] = days_ago_param
         context["nav"] = "statistic"
         return context
