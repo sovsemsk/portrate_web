@@ -1,10 +1,4 @@
-<!--a class="bp5-button bp5-minimal">
-    <span class="bp5-button-text">
-        {{ company.name|truncatechars:"10" }}
-    </span>
-    <span class="bp5-icon bp5-icon-chevron-down bp5-icon-standard"></span>
-</a-->
-<div class="bp5-html-select bp5-minimal">
+<div class="bp5-html-select bp5-minimal_" style="width:130px">
     <select data-select-company>
         {% for company_short in company_list_short %}
         <option {% if company_short.id == company.id %}selected{% endif %} value="{% url 'company_detail' company_short.id %}">{{ company_short.name|truncatechars:"10" }}</option>
@@ -12,7 +6,6 @@
     </select>
     <span class="bp5-icon bp5-icon-chevron-down bp5-icon-standard"></span>
 </div>
-
 <div class="bp5-navbar-divider"></div>
 <a class="bp5-button bp5-minimal {% if nav == 'statistic' %}bp5-active{% endif %}" href="{% url 'company_detail' company.id %}">Статистика</a>
 <a class="bp5-button bp5-minimal {% if nav == 'reviews' %}bp5-active{% endif %}" href="{% url 'review_list' company.id %}">Отзывы</a>
