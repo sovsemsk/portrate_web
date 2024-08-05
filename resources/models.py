@@ -279,7 +279,7 @@ class Company(Model):
 
     @property
     def feedback_utm_source_tags(self):
-        return ["Instagram", "QR", "SMS", "Telegram", "Vk", "Whatsapp"]
+        return ["SMS", "Telegram", "Vk", "Whatsapp", "Instagram"]
 
     @property
     def has_contacts(self):

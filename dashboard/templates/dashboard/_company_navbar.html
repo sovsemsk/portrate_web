@@ -1,14 +1,23 @@
-<a class="bp5-button bp5-minimal">
+<!--a class="bp5-button bp5-minimal">
     <span class="bp5-button-text">
         {{ company.name|truncatechars:"10" }}
     </span>
     <span class="bp5-icon bp5-icon-chevron-down bp5-icon-standard"></span>
-</a>
+</a-->
+<div class="bp5-html-select bp5-minimal">
+    <select>
+        {% for company_short in company_list_short %}
+        <option {% if company_short.id == company.id %}selected{% endif %}>{{ company_short.name|truncatechars:"10" }}</option>
+        {% endfor %}
+    </select>
+    <span class="bp5-icon bp5-icon-chevron-down bp5-icon-standard"></span>
+</div>
+
 <div class="bp5-navbar-divider"></div>
 <a class="bp5-button bp5-minimal {% if nav == 'statistic' %}bp5-active{% endif %}" href="{% url 'company_detail' company.id %}">Статистика</a>
 <a class="bp5-button bp5-minimal {% if nav == 'reviews' %}bp5-active{% endif %}" href="{% url 'review_list' company.id %}">Отзывы</a>
 <a class="bp5-button bp5-minimal {% if nav == 'messages' %}bp5-active{% endif %}" href="{% url 'message_list' company.id %}">Сообщения</a>
 <a class="bp5-button bp5-minimal {% if nav == 'widget' %}bp5-active{% endif %}" href="{% url 'company_update_widget' company.id %}">Виджет</a>
 <a class="bp5-button bp5-minimal {% if nav == 'feedback' %}bp5-active{% endif %}" href="{% url 'company_update_feedback_data' company.id %}">Визитка</a>
-<a class="bp5-button bp5-minimal {% if nav == 'qr' %}bp5-active{% endif %}" href="{% url 'qr' company.id %}">Наклейка</a>
+<a class="bp5-button bp5-minimal {% if nav == 'qr' %}bp5-active{% endif %}" href="{% url 'company_qr' company.id %}">Qr</a>
 <a class="bp5-button bp5-minimal {% if nav == 'notifications' %}bp5-active{% endif %}" href="{% url 'membership_update' company.id %}">Уведомления</a>

@@ -3,6 +3,7 @@ from django.urls import path
 from .views import (
     CompanyDetailView,
     CompanyListView,
+    CompanyQrView,
     CompanyUpdateLinkYandexView,
     CompanyUpdateLinkGisView,
     CompanyUpdateLinkGoogleView,
@@ -26,7 +27,6 @@ from .views import (
     MembershipUpdateView,
     MessageListView,
     ProfileUpdateView,
-    qr,
     ReviewListView,
     ReviewUpdateView,
     PasswordUpdateView,
@@ -55,6 +55,7 @@ urlpatterns = [
     path("company/<int:pk>/update_feedback_data/", CompanyUpdateFeedbackDataView.as_view(), name="company_update_feedback_data"),
     path("company/<int:pk>/update_feedback_contact/", CompanyUpdateFeedbackContactView.as_view(), name="company_update_feedback_contact"),
     path("company/<int:pk>/update_feedback_service/", CompanyUpdateFeedbackServiceView.as_view(), name="company_update_feedback_service"),
+    path("company/<int:pk>/update_widget/", CompanyUpdateWidgetView.as_view(), name="company_update_widget"),
     path("company/master/yandex/", MasterSearchYandexView.as_view(), name="master_search_yandex"),
     path("company/master/gis/", MasterSearchGisView.as_view(), name="master_search_gis"),
     path("company/master/google/", MasterSearchGoogleView.as_view(), name="master_search_google"),
@@ -63,19 +64,14 @@ urlpatterns = [
     path("company/<int:company_pk>/message/", MessageListView.as_view(), name="message_list"),
     path("password/update/", PasswordUpdateView.as_view(), name="password_update"),
     path("profile/update/", ProfileUpdateView.as_view(), name="profile_update"),
-
-    # @TODO
-    path("company/<int:company_pk>/qr/", qr, name="qr"),
-
+    path("company/<int:pk>/update_qr/", CompanyQrView.as_view(), name="company_qr"),
     path("company/<int:company_pk>/review/", ReviewListView.as_view(), name="review_list"),
     path("company/<int:company_pk>/review/<int:pk>/update/", ReviewUpdateView.as_view(), name="review_update"),
-
-    # @TODO
-    path("subscription/", subscription, name="subscription"),
-
     path("user/create/", UserCreateView.as_view(), name="user_create"),
     path("user/update/", UserUpdateView.as_view(), name="user_update"),
     path("login/", UserLoginView.as_view(), name="user_login"),
     path("logout/", UserLogoutView.as_view(), name="user_logout"),
-    path("company/<int:pk>/update_widget/", CompanyUpdateWidgetView.as_view(), name="company_update_widget")
+
+    # @TODO
+    path("subscription/", subscription, name="subscription"),
 ]

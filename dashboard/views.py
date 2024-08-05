@@ -9,6 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import PasswordChangeView, LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Count, Q, F
+from django.dispatch import receiver
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
@@ -151,6 +152,7 @@ class CompanyDetailView(LoginRequiredMixin, DetailView):
                 click_stamp_count or [{"count": 0}])["count"]
         })
 
+        context["company_list_short"] = Company.objects.filter(users__in=[self.request.user])[:15]
         context["days_ago_param"] = days_ago_param
         context["nav"] = "statistic"
         return context
@@ -352,6 +354,81 @@ class CompanyListView(LoginRequiredMixin, ListView):
         )
 
 
+class CompanyQrView(LoginRequiredMixin, View):
+    def get(self, request, pk):
+        company = get_object_or_404(Company, pk=pk, users__in=[self.request.user])
+        theme = self.request.GET.get("theme", "l")
+
+        return render(
+            request,
+            "dashboard/company_qr.html", {
+                "company": company,
+                "nav": "qr",
+                "theme": theme
+            }
+        )
+
+
+class CompanyUpdateFeedbackContactView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    context_object_name = "company"
+    form_class = DashboardCompanyChangeContactForm
+    model = Company
+    success_message = "Филиал успешно обновлен"
+    template_name = "dashboard/company_update_feedback_contact.html"
+
+    def get_context_data(self, ** kwargs):
+        context = super().get_context_data(** kwargs)
+        context["nav"] = "feedback"
+        context["sub_nav"] = "contact"
+        return context
+
+    def get_queryset(self):
+        return super().get_queryset().filter(users__in=[self.request.user])
+
+    def get_success_url(self):
+        return reverse("company_update_feedback_contact", kwargs={"pk": self.kwargs["pk"]})
+
+
+class CompanyUpdateFeedbackDataView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    context_object_name = "company"
+    form_class = DashboardCompanyChangeDataForm
+    model = Company
+    success_message = "Филиал успешно обновлен"
+    template_name = "dashboard/company_update_feedback_data.html"
+
+    def get_context_data(self, ** kwargs):
+        context = super().get_context_data(** kwargs)
+        context["nav"] = "feedback"
+        context["sub_nav"] = "main"
+        return context
+
+    def get_queryset(self):
+        return super().get_queryset().filter(users__in=[self.request.user])
+
+    def get_success_url(self):
+        return reverse("company_update_feedback_data", kwargs={"pk": self.kwargs["pk"]})
+
+
+class CompanyUpdateFeedbackServiceView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    context_object_name = "company"
+    form_class = DashboardCompanyChangeServiceForm
+    model = Company
+    success_message = "Филиал успешно обновлен"
+    template_name = "dashboard/company_update_feedback_service.html"
+
+    def get_context_data(self, ** kwargs):
+        context = super().get_context_data(** kwargs)
+        context["nav"] = "feedback"
+        context["sub_nav"] = "service"
+        return context
+
+    def get_queryset(self):
+        return super().get_queryset().filter(users__in=[self.request.user])
+
+    def get_success_url(self):
+        return reverse("company_update_feedback_service", kwargs={"pk": self.kwargs["pk"]})
+
+
 class CompanyUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     context_object_name = "company"
     model = Company
@@ -466,64 +543,26 @@ class CompanyUpdateLinkTripadvisorView(CompanyUpdateView):
     template_name = "dashboard/company_update_link_tripadvisor.html"
 
 
-class CompanyUpdateFeedbackDataView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class CompanyUpdateWidgetView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     context_object_name = "company"
-    form_class = DashboardCompanyChangeDataForm
+    form_class = DashboardCompanyChangeVisibleForm
     model = Company
-    success_message = "Филиал успешно обновлен"
-    template_name = "dashboard/company_update_feedback_data.html"
+    success_message = "Виджет успешно обновлен"
+    template_name = "dashboard/company_update_widget.html"
 
-    def get_context_data(self, ** kwargs):
-        context = super().get_context_data(** kwargs)
-        context["nav"] = "feedback"
-        context["sub_nav"] = "main"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["reviews"] = Review.objects.filter(company_id=self.kwargs["pk"], is_visible=True).order_by("-created_at")[:15]
+        context["layout"] = self.request.GET.get("layout", "s"),
+        context["nav"] = "widget"
+        context["theme"] = self.request.GET.get("theme", "l")
         return context
 
     def get_queryset(self):
         return super().get_queryset().filter(users__in=[self.request.user])
 
     def get_success_url(self):
-        return reverse("company_update_feedback_data", kwargs={"pk": self.kwargs["pk"]})
-
-
-class CompanyUpdateFeedbackContactView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
-    context_object_name = "company"
-    form_class = DashboardCompanyChangeContactForm
-    model = Company
-    success_message = "Филиал успешно обновлен"
-    template_name = "dashboard/company_update_feedback_contact.html"
-
-    def get_context_data(self, ** kwargs):
-        context = super().get_context_data(** kwargs)
-        context["nav"] = "feedback"
-        context["sub_nav"] = "contact"
-        return context
-
-    def get_queryset(self):
-        return super().get_queryset().filter(users__in=[self.request.user])
-
-    def get_success_url(self):
-        return reverse("company_update_feedback_contact", kwargs={"pk": self.kwargs["pk"]})
-
-
-class CompanyUpdateFeedbackServiceView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
-    context_object_name = "company"
-    form_class = DashboardCompanyChangeServiceForm
-    model = Company
-    success_message = "Филиал успешно обновлен"
-    template_name = "dashboard/company_update_feedback_service.html"
-
-    def get_context_data(self, ** kwargs):
-        context = super().get_context_data(** kwargs)
-        context["nav"] = "feedback"
-        context["sub_nav"] = "service"
-        return context
-
-    def get_queryset(self):
-        return super().get_queryset().filter(users__in=[self.request.user])
-
-    def get_success_url(self):
-        return reverse("company_update_feedback_service", kwargs={"pk": self.kwargs["pk"]})
+        return reverse("company_update_widget", kwargs={"pk": self.kwargs["pk"]})
 
 
 class MasterCompanyCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
@@ -750,13 +789,6 @@ class ProfileUpdateView(LoginRequiredMixin, View):
         return render(request, self.template_name, {"form": form, **self.context})
 
 
-@login_required
-@require_http_methods(["GET"])
-def qr(request, company_pk):
-    company = get_object_or_404(Company, pk=company_pk, users__in=[request.user])
-    return render(request,"dashboard/qr.html", {"company": company, "nav": "company", "nav": "qr"})
-
-
 class ReviewListView(LoginRequiredMixin, FilterView):
     context_object_name = "review_list"
     filterset_class = ReviewFilter
@@ -853,23 +885,3 @@ class UserUpdateView(LoginRequiredMixin, View):
         return render(request, self.template_name, {"form": form, **self.context})
 
 
-class CompanyUpdateWidgetView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
-    context_object_name = "company"
-    form_class = DashboardCompanyChangeVisibleForm
-    model = Company
-    success_message = "Виджет успешно обновлен"
-    template_name = "dashboard/company_update_widget.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["reviews"] = Review.objects.filter(company_id=self.kwargs["pk"], is_visible=True).order_by("-created_at")[:15]
-        context["layout"] = self.request.GET.get("layout", "s"),
-        context["nav"] = "widget"
-        context["theme"] = self.request.GET.get("theme", "l")
-        return context
-
-    def get_queryset(self):
-        return super().get_queryset().filter(users__in=[self.request.user])
-
-    def get_success_url(self):
-        return reverse("company_update_widget", kwargs={"pk": self.kwargs["pk"]})

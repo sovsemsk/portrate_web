@@ -9,14 +9,12 @@
 <h2 class="bp5-heading">Статистика</h2>
 <div class="bp5-form-group">
     <div class="bp5-form-content">
-        <div class="bp5-control-group">
-            <div class="bp5-button-group bp5-minimal">
-                <a class="bp5-button {% if days_ago_param == 'total' %}bp5-active{% endif %}" href="{% url 'company_detail' company.id %}">Всего</a>
-                <a class="bp5-button {% if days_ago_param == '365' %}bp5-active{% endif %}" href="?days_ago=365">Год</a>
-                <a class="bp5-button {% if days_ago_param == '90' %}bp5-active{% endif %}" href="?days_ago=90">Квартал</a>
-                <a class="bp5-button {% if days_ago_param == '30' %}bp5-active{% endif %}" href="?days_ago=30">Месяц</a>
-                <a class="bp5-button {% if days_ago_param == '7' %}bp5-active{% endif %}" href="?days_ago=7">Неделя</a>
-            </div>
+        <div class="bp5-button-group bp5-minimal">
+            <a class="bp5-button {% if days_ago_param == 'total' %}bp5-active{% endif %}" href="{% url 'company_detail' company.id %}">Всего</a>
+            <a class="bp5-button {% if days_ago_param == '365' %}bp5-active{% endif %}" href="?days_ago=365">Год</a>
+            <a class="bp5-button {% if days_ago_param == '90' %}bp5-active{% endif %}" href="?days_ago=90">Квартал</a>
+            <a class="bp5-button {% if days_ago_param == '30' %}bp5-active{% endif %}" href="?days_ago=30">Месяц</a>
+            <a class="bp5-button {% if days_ago_param == '7' %}bp5-active{% endif %}" href="?days_ago=7">Неделя</a>
         </div>
     </div>
 </div>

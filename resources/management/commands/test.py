@@ -10,7 +10,7 @@ class Command(BaseCommand):
 
 	def handle(self, *args, **options):
 		parsers_chain = []
-		company = Company.objects.get(pk=1)
+		company = Company.objects.get(pk=22)
 
 		if company.parser_link_yandex:
 			parsers_chain.append(parse_yandex_task.s(company_id=company.id))

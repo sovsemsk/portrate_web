@@ -19,6 +19,7 @@
         <script src="{% static 'dashboard/javascript/javascript.js' %}"></script>
         <script src="{% static 'dashboard/javascript/imask.min.js' %}"></script>
         <script src="{% static 'dashboard/javascript/js.cookie.min.js' %}"></script>
+        <script src="{% static 'dashboard/javascript/jquery.qrcode.min.js' %}"></script>
     </head>
     <body>
         {% if user.is_authenticated and not user.profile.telegram_id %}

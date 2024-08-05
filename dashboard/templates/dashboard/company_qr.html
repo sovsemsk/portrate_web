@@ -1,0 +1,90 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+{% block navbar %}
+{% include "dashboard/_company_navbar.html" %}
+{% endblock %}
+{% block content %}
+<h2 class="bp5-heading">Qr</h2>
+<div class="row">
+    <div class="xs-4">
+        <div class="bp5-form-group">
+            <label class="bp5-label">Светлая наклейка</label>
+            <div class="bp5-form-content">
+                <div class="bp5-form-group">
+                    <div class="bp5-form-content">
+                        <div data-qr></div>
+                    </div>
+                </div>
+                <button class="bp5-button" type="submit">Загрузить</button>
+            </div>
+        </div>
+    </div>
+    <div class="xs-4">
+        <div class="bp5-form-group">
+            <label class="bp5-label">Темная наклейка</label>
+            <div class="bp5-form-content">
+                <div class="bp5-form-group">
+                    <div class="bp5-form-content">
+                        <div data-qr></div>
+                    </div>
+                </div>
+                <button class="bp5-button" type="submit">Загрузить</button>
+            </div>
+        </div>
+    </div>
+    <div class="xs-4">
+        <div class="bp5-form-group">
+            <label class="bp5-label">Qr</label>
+            <div class="bp5-form-content">
+                <div class="bp5-form-group">
+                    <div class="bp5-form-content">
+                        <div data-qr></div>
+                    </div>
+                </div>
+                <button class="bp5-button" type="submit">Загрузить</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="xs-4">
+        <div class="bp5-form-group">
+            <label class="bp5-label">Светлая наклейка</label>
+            <div class="bp5-form-content">
+                <div class="bp5-form-group">
+                    <div class="bp5-form-content">
+                        <div data-qr></div>
+                    </div>
+                </div>
+                <button class="bp5-button" type="submit">Загрузить</button>
+            </div>
+        </div>
+    </div>
+    <div class="xs-4">
+        <div class="bp5-form-group">
+            <label class="bp5-label">Темная наклейка</label>
+            <div class="bp5-form-content">
+                <div class="bp5-form-group">
+                    <div class="bp5-form-content">
+                        <div data-qr></div>
+                    </div>
+                </div>
+                <button class="bp5-button" type="submit">Загрузить</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+{% block script %}
+<script>
+$(document).ready(event => {
+    $("*[data-qr]").qrcode({
+        height: 128,
+        render: "",
+        text: "https://geo.portrate.io/@{{ company.id }}?utm_source=QR",
+        width: 128
+    });
+});
+</script>
+{% endblock %}

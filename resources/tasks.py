@@ -46,7 +46,12 @@ def parse_yandex_task(previous_result=None, company_id=None):
 
     for review in reviews:
         try:
-            Review.objects.create(company_id=company.id, service=Service.YANDEX, **review)
+            Review.objects.create(
+                company_id=company.id,
+                is_visible=(company.__getattribute__(f"is_visible_{review['stars']}") and company.is_visible_yandex),
+                service=Service.YANDEX,
+                **review
+            )
         except IntegrityError:
             ...
 
@@ -90,7 +95,12 @@ def parse_gis_task(previous_result=None, company_id=None):
 
     for review in reviews:
         try:
-            Review.objects.create(company_id=company.id, service=Service.GIS, **review)
+            Review.objects.create(
+                company_id=company.id,
+                is_visible=(company.__getattribute__(f"is_visible_{review['stars']}") and company.is_visible_gis),
+                service=Service.GIS,
+                **review
+            )
         except IntegrityError:
             ...
 
@@ -134,7 +144,12 @@ def parse_google_task(previous_result=None, company_id=None):
 
     for review in reviews:
         try:
-            Review.objects.create(company_id=company.id, service=Service.GOOGLE, **review)
+            Review.objects.create(
+                company_id=company.id,
+                is_visible=(company.__getattribute__(f"is_visible_{review['stars']}") and company.is_visible_google),
+                service=Service.GOOGLE,
+                **review
+            )
         except IntegrityError:
             ...
 

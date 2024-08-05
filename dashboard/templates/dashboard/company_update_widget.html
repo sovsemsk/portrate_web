@@ -7,11 +7,9 @@
 <h2 class="bp5-heading">Виджет</h2>
 <div class="bp5-form-group">
     <div class="bp5-form-content">
-        <div class="bp5-control-group">
-            <div class="bp5-button-group bp5-minimal">
-                <a class="bp5-button bp5-icon-flash {% if theme == 'l' %}bp5-active{% endif %}" href="{% url 'company_update_widget' company.id %}">Светлый</a>
-                <a class="bp5-button bp5-icon-moon_ {% if theme == 'd' %}bp5-active{% endif %}" href="?theme=d">Темный</a>
-            </div>
+        <div class="bp5-button-group bp5-minimal">
+            <a class="bp5-button bp5-icon-flash {% if theme == 'l' %}bp5-active{% endif %}" href="{% url 'company_update_widget' company.id %}">Светлый</a>
+            <a class="bp5-button bp5-icon-moon_ {% if theme == 'd' %}bp5-active{% endif %}" href="?theme=d">Темный</a>
         </div>
     </div>
 </div>
