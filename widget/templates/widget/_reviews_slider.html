@@ -27,7 +27,7 @@
     </div>
     <div class="__20965ede__">
         {% if company.parser_link_yandex and company.rating_yandex != 0.0 %}
-        <a href="{{ parser_link_yandex }}" class="__40b76d95__" target="_blank">
+        <a href="{{ company.parser_link_yandex }}" class="__40b76d95__" target="_blank">
             <img class="__ccaab7aa__" height="16" src="https://geo.portrate.io/static/dashboard/images/services/yandex.png" width="16">
             Яндекс
             <span class="__cab09265__">{{ company.rating_yandex }}</span>
@@ -35,7 +35,7 @@
         </a>
         {% endif %}
         {% if company.parser_link_gis and company.parser_link_gis != 0.0 %}
-        <a href="{{ parser_link_gis }}" class="__40b76d95__" target="_blank">
+        <a href="{{ company.parser_link_gis }}" class="__40b76d95__" target="_blank">
             <img class="__ccaab7aa__" height="16" src="https://geo.portrate.io/static/dashboard/images/services/gis.png" width="16">
             2Гис
             <span class="__cab09265__">{{ company.rating_gis }}</span>
@@ -43,7 +43,7 @@
         </a>
         {% endif %}
         {% if company.parser_link_google and company.parser_link_google != 0.0 %}
-        <a href="{{ parser_link_google }}" class="__40b76d95__" target="_blank">
+        <a href="{{ company.parser_link_google }}" class="__40b76d95__" target="_blank">
             <img class="__ccaab7aa__" height="16" src="https://geo.portrate.io/static/dashboard/images/services/google.png" width="16">
             Google
             <span class="__cab09265__">{{ company.rating_google }}</span>

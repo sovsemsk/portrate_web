@@ -610,6 +610,8 @@ class DashboardReviewChangeForm(ModelForm):
         model = Review
         fields = ["is_moderated", "is_visible"]
 
+    is_visible = BooleanField(widget=CheckboxInput(attrs={"data-input": ""}), required=False)
+
     def is_valid(self):
         is_valid = super().is_valid()
         self.instance.is_moderated = True

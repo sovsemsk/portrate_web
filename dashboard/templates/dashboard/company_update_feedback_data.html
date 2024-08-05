@@ -72,6 +72,7 @@
             <div class="bp5-form-group">
                 <div class="bp5-form-content">
                     <div class="bp5-control-group">
+                        <span class="bp5-active bp5-interactive bp5-minimal bp5-tag" data-tag="">Прямая ссылка</span>
                         {% for tag in company.feedback_utm_source_tags %}
                         <span class="bp5-interactive bp5-minimal bp5-tag" data-tag="{{ tag }}">{{ tag }}</span>
                         {% endfor %}
@@ -94,8 +95,13 @@
 <script>
 $(document).ready(event => {
     $("*[data-tag]").click(event => {
-        const link = `https://geo.portrate.io/@{{ company.id }}?utm_source=${$(event.currentTarget).data("tag")}`;
+        $("*[data-tag]").removeClass("bp5-active");
+        const tag = $(event.currentTarget);
+        const utm_source = tag.data("tag");
+        var link = `https://geo.portrate.io/@{{ company.id }}`;
+        if(utm_source != ""){link += `?utm_source=${utm_source}`;}
         $("*[data-link]").attr("href", link).text(link);
+        tag.addClass("bp5-active");
     })
 });
 </script>
