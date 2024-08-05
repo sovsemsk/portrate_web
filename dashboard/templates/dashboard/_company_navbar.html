@@ -5,9 +5,9 @@
     <span class="bp5-icon bp5-icon-chevron-down bp5-icon-standard"></span>
 </a-->
 <div class="bp5-html-select bp5-minimal">
-    <select>
+    <select data-select-company>
         {% for company_short in company_list_short %}
-        <option {% if company_short.id == company.id %}selected{% endif %}>{{ company_short.name|truncatechars:"10" }}</option>
+        <option {% if company_short.id == company.id %}selected{% endif %} value="{% url 'company_detail' company_short.id %}">{{ company_short.name|truncatechars:"10" }}</option>
         {% endfor %}
     </select>
     <span class="bp5-icon bp5-icon-chevron-down bp5-icon-standard"></span>

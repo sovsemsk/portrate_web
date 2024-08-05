@@ -85,6 +85,10 @@
                     $("*[data-file]").change(event => $(event.currentTarget).siblings("span").text($(event.currentTarget).val().replace(/.*(\/|\\)/, "")));
                 }
 
+                if($("*[data-select-company]").length){
+                    $("*[data-select-company]").change(event => window.location = $(event.currentTarget).val());
+                }
+
                 {% if nav != "master" %}
                 Cookies.remove("id_yandex");
                 Cookies.remove("id_gis");
