@@ -1,11 +1,16 @@
-<div style="position:relative;">
-    <button class="bp5-button bp5-minimal" data-button-company>
+<div style="position:relative;" data-dropdown>
+    <button class="bp5-button bp5-minimal" data-show>
         <span class="bp5-button-text">{{ company.name|truncatechars:"10" }}</span>
         <span class="bp5-icon bp5-icon-chevron-down bp5-icon-standard"></span>
     </button>
-    <ul data-menu-company class="bp5-menu bp5-elevation-4" style="position:absolute;left:-2px;top:-5px;opacity:1; display: none;">
+    <ul class="bp5-menu bp5-elevation-4" data-target style="display:none;left:-2px;top:-5px;opacity:1;position:absolute;">
         <li>
-            <a class="bp5-menu-item" href="{% url 'company_detail' company.id %}">{{ company.name }}</a>
+            <div class="bp5-menu-item" data-hide>
+                <div class="bp5-entity-title bp5-fill">
+                    {{ company.name }}
+                    <span class="bp5-icon bp5-icon-cross ml-auto bp5-text-muted"></span>
+                </div>
+            </div>
         </li>
         {% for company_short in company_list_short %}
         <li>
@@ -13,8 +18,12 @@
         </li>
         {% endfor %}
         <li class="bp5-menu-header"></li>
-        <li><a class="bp5-menu-item">Все филиалы</a></li>
-        <li><a class="bp5-menu-item bp5-intent-success">Добавить филиал</a></li>
+        <li>
+            <a class="bp5-menu-item" href="{% url 'company_list' %}">Все филиалы</a>
+        </li>
+        <li>
+            <a class="bp5-menu-item bp5-intent-success" href="{% url 'master_search_yandex' %}">Добавить филиал</a>
+        </li>
     </ul>
 </div>
 <div class="bp5-navbar-divider"></div>

@@ -52,6 +52,10 @@ from .forms import (
 )
 
 
+def company_list_short(user, pk):
+    return Company.objects.filter(users__in=[user]).exclude(pk=pk).order_by("name")[:15]
+
+
 class NoCompanyError(Exception):
     def __init__(self, *args):
         ...
@@ -152,7 +156,7 @@ class CompanyDetailView(LoginRequiredMixin, DetailView):
                 click_stamp_count or [{"count": 0}])["count"]
         })
 
-        context["company_list_short"] = Company.objects.filter(users__in=[self.request.user]).exclude(id=self.object.id).order_by("name")[:15]
+        context["company_list_short"] = company_list_short(self.request.user, self.object.id)
         context["days_ago_param"] = days_ago_param
         context["nav"] = "statistic"
         return context
@@ -363,6 +367,7 @@ class CompanyQrView(LoginRequiredMixin, View):
             request,
             "dashboard/company_qr.html", {
                 "company": company,
+                "company_list_short": company_list_short(request.user, company.id),
                 "nav": "qr",
                 "theme": theme
             }
@@ -378,6 +383,7 @@ class CompanyUpdateFeedbackContactView(LoginRequiredMixin, SuccessMessageMixin, 
 
     def get_context_data(self, ** kwargs):
         context = super().get_context_data(** kwargs)
+        context["company_list_short"] = company_list_short(self.request.user, self.object.id)
         context["nav"] = "feedback"
         context["sub_nav"] = "contact"
         return context
@@ -398,6 +404,7 @@ class CompanyUpdateFeedbackDataView(LoginRequiredMixin, SuccessMessageMixin, Upd
 
     def get_context_data(self, ** kwargs):
         context = super().get_context_data(** kwargs)
+        context["company_list_short"] = company_list_short(self.request.user, self.object.id)
         context["nav"] = "feedback"
         context["sub_nav"] = "main"
         return context
@@ -418,6 +425,7 @@ class CompanyUpdateFeedbackServiceView(LoginRequiredMixin, SuccessMessageMixin, 
 
     def get_context_data(self, ** kwargs):
         context = super().get_context_data(** kwargs)
+        context["company_list_short"] = company_list_short(self.request.user, self.object.id)
         context["nav"] = "feedback"
         context["sub_nav"] = "service"
         return context
@@ -473,6 +481,7 @@ class CompanyUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         if self.object.is_parser_link_tripadvisor_disabled and self.form_class == DashboardCompanyChangeTripadvisorForm:
             messages.error(self.request, "Ссылка на филиал в Tripadvisor сегодня уже обновлялась")
 
+        context["company_list_short"] = company_list_short(self.request.user, self.object.id)
         context["nav"] = "statistic"
         return context
 
@@ -552,9 +561,10 @@ class CompanyUpdateWidgetView(LoginRequiredMixin, SuccessMessageMixin, UpdateVie
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["reviews"] = Review.objects.filter(company_id=self.kwargs["pk"], is_visible=True).order_by("-created_at")[:15]
+        context["company_list_short"] = company_list_short(self.request.user, self.object.id)
         context["layout"] = self.request.GET.get("layout", "s"),
         context["nav"] = "widget"
+        context["reviews"] = Review.objects.filter(company_id=self.kwargs["pk"], is_visible=True).order_by("-created_at")[:15]
         context["theme"] = self.request.GET.get("theme", "l")
         return context
 
@@ -723,6 +733,7 @@ class MembershipUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["company_list_short"] = company_list_short(self.request.user, self.object.id)
         context["nav"] = "notifications"
         return context
 
@@ -743,6 +754,7 @@ class MessageListView(LoginRequiredMixin, FilterView):
     def get_context_data(self, ** kwargs):
         context = super().get_context_data(** kwargs)
         context["company"] = get_object_or_404(Company, pk=self.kwargs["company_pk"], users__in=[self.request.user])
+        context["company_list_short"] = company_list_short(self.request.user, self.kwargs["company_pk"])
         context["nav"] = "messages"
         return context
 
@@ -799,6 +811,7 @@ class ReviewListView(LoginRequiredMixin, FilterView):
     def get_context_data(self, ** kwargs):
         context = super().get_context_data(** kwargs)
         context["company"] = get_object_or_404(Company, pk=self.kwargs["company_pk"], users__in=[self.request.user])
+        context["company_list_short"] = company_list_short(self.request.user, self.kwargs["company_pk"])
         context["nav"] = "reviews"
         return context
 

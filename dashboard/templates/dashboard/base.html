@@ -85,10 +85,14 @@
                     $("*[data-file]").change(event => $(event.currentTarget).siblings("span").text($(event.currentTarget).val().replace(/.*(\/|\\)/, "")));
                 }
 
-                if($("*[data-button-company]").length){
-                    $("*[data-button-company]").click(event => {
-                        $("*[data-menu-company]").show();
-                    })
+                if($("*[data-dropdown]").length){
+                    $("*[data-dropdown]").find("*[data-show]").click(event => $(event.currentTarget).parents("*[data-dropdown]").find("*[data-target]").show());
+                    $("*[data-dropdown]").find("*[data-hide]").click(event => $(event.currentTarget).parents("*[data-dropdown]").find("*[data-target]").hide());
+                    $(document).click(event => {
+                        if(!$(event.target).parents("*[data-dropdown]").length){
+                            $("*[data-dropdown]").find("*[data-target]").hide();
+                        }
+                    });
                 }
 
                 {% if nav != "master" %}
