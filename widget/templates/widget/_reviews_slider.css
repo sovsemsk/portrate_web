@@ -10,7 +10,7 @@
     align-items:center !important;
     background-color:rgba(0,0,0,0.25) !important;
     border:none !important;
-    border-radius:5px !important;
+    border-radius:2.5px !important;
     bottom:65px !important;
     cursor:pointer !important;
     display:flex !important;
@@ -69,7 +69,7 @@
 /* Review */
 .__6b948e6f__{
     background-color:{% if theme == 'l' %}#F1F1F1{% else %}#323232{% endif %} !important;
-    border-radius:10px !important;
+    border-radius:5px !important;
     flex-grow:1 !important;
     flex-shrink:0 !important;
     scroll-snap-align:start !important;

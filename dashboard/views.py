@@ -9,7 +9,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import PasswordChangeView, LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Count, Q, F
-from django.dispatch import receiver
 from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
@@ -595,7 +594,7 @@ class MasterCompanyCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateVie
             form.instance.feedback_link_gis = unquote(f"https://2gis.ru/firm/{self.request.COOKIES['id_gis']}/tab/reviews/addreview")
 
         if self.request.COOKIES.get("id_google", False):
-            form.instance.parser_link_google = unquote(f"https://www.google.com/maps/search/?api=1&query=~&query_place_id={self.request.COOKIES['id_google']}")
+            form.instance.parser_link_google = unquote(f"https://google.com/maps/search/?api=1&query=~&query_place_id={self.request.COOKIES['id_google']}")
             form.instance.parser_last_change_at_google = datetime.now(timezone.utc)
             form.instance.feedback_link_google = unquote(f"https://search.google.com/local/writereview?placeid={self.request.COOKIES['id_google']}")
 
