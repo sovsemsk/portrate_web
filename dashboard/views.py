@@ -52,7 +52,7 @@ from .forms import (
 
 
 def company_list_short(user, pk):
-    return Company.objects.filter(users__in=[user]).exclude(pk=pk).order_by("name")[:15]
+    return Company.objects.filter(users__in=[user]).exclude(pk=pk).values("id", "name").order_by("name")[:15]
 
 
 class NoCompanyError(Exception):
