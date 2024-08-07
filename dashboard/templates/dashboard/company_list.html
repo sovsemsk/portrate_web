@@ -1,4 +1,4 @@
-{% extends "dashboard/base.html" %}
+{% extends 'dashboard/base.html' %}
 {% load extensions %}
 {% load static %}
 {% load tz %}
@@ -35,41 +35,41 @@
                     <tbody>
                         {% for company in company_list %}
                         <tr data-href="{% url 'company_detail' company.id %}">
-                                <td>
-                                    <div class="bp5-text-large">{{ company.name }}</div>
-                                    <div class="bp5-text-muted bp5-text-small">{{ company.address|default:"Нет адреса" }}</div>
-                                </td>
-                                <td>
-                                    <div class="bp5-entity-title">
-                                        <div class="bp5-text-large">{{ company.rating_yandex|default:"0,0" }}</div>
-                                        <img height=10 src="{% static 'dashboard/images/stars/'|add:company.rating_yandex_str|add:'.svg' %}" width=70>
-                                        <span class="bp5-icon bp5-icon-dot ml-auto {% if company.parser_link_yandex %}bp5-intent-success{% else %}bp5-intent-danger{% endif %}"></span>
-                                    </div>
-                                    <div class="bp5-text-muted bp5-text-small">
-                                        {{ company.reviews_count_total_yandex|default:"0"}} {{company.reviews_count_total_yandex|default:"0"|rupluralize:"отзыв, отзыва, отзывов" }}
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="bp5-entity-title">
-                                        <div class="bp5-text-large">{{ company.rating_gis|default:"0,0" }}</div>
-                                        <img height=10 src="{% static 'dashboard/images/stars/'|add:company.rating_gis_str|add:'.svg' %}" width=70>
-                                        <span class="bp5-icon bp5-icon-dot ml-auto {% if company.parser_link_gis %}bp5-intent-success{% else %}bp5-intent-danger{% endif %}"></span>
-                                    </div>
-                                    <div class="bp5-text-muted bp5-text-small">
-                                        {{ company.reviews_count_total_gis|default:"0"}} {{company.reviews_count_total_gis|default:"0"|rupluralize:"отзыв, отзыва, отзывов" }}
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="bp5-entity-title">
-                                        <div class="bp5-text-large">{{ company.rating_google|default:"0,0" }}</div>
-                                        <img height=10 src="{% static 'dashboard/images/stars/'|add:company.rating_google_str|add:'.svg' %}" width=70>
-                                        <span class="bp5-icon bp5-icon-dot ml-auto {% if company.parser_link_google %}bp5-intent-success{% else %}bp5-intent-danger{% endif %}"></span>
-                                    </div>
-                                    <div class="bp5-text-muted bp5-text-small">
-                                        {{ company.reviews_count_total_google|default:"0"}} {{company.reviews_count_total_google|default:"0"|rupluralize:"отзыв, отзыва, отзывов" }}
-                                    </div>
-                                </td>
-                            </tr>
+                            <td>
+                                <div class="bp5-text-large">{{ company.name }}</div>
+                                <div class="bp5-text-muted bp5-text-small">{{ company.address|default:'Нет адреса' }}</div>
+                            </td>
+                            <td>
+                                <div class="bp5-entity-title">
+                                    <div class="bp5-text-large">{{ company.rating_yandex|default:'0,0' }}</div>
+                                    <img height=10 src="{% static 'dashboard/images/stars/'|add:company.rating_yandex_str|add:'.svg' %}" width=70>
+                                    <span class="bp5-icon bp5-icon-dot ml-auto {% if company.parser_link_yandex %}bp5-intent-success{% else %}bp5-intent-danger{% endif %}"></span>
+                                </div>
+                                <div class="bp5-text-muted bp5-text-small">
+                                    {{ company.reviews_count_total_yandex|default:'0' }} {{company.reviews_count_total_yandex|default:'0'|rupluralize:'отзыв, отзыва, отзывов' }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="bp5-entity-title">
+                                    <div class="bp5-text-large">{{ company.rating_gis|default:'0,0' }}</div>
+                                    <img height=10 src="{% static 'dashboard/images/stars/'|add:company.rating_gis_str|add:'.svg' %}" width=70>
+                                    <span class="bp5-icon bp5-icon-dot ml-auto {% if company.parser_link_gis %}bp5-intent-success{% else %}bp5-intent-danger{% endif %}"></span>
+                                </div>
+                                <div class="bp5-text-muted bp5-text-small">
+                                    {{ company.reviews_count_total_gis|default:'0' }} {{company.reviews_count_total_gis|default:'0'|rupluralize:'отзыв, отзыва, отзывов' }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="bp5-entity-title">
+                                    <div class="bp5-text-large">{{ company.rating_google|default:'0,0' }}</div>
+                                    <img height=10 src="{% static 'dashboard/images/stars/'|add:company.rating_google_str|add:'.svg' %}" width=70>
+                                    <span class="bp5-icon bp5-icon-dot ml-auto {% if company.parser_link_google %}bp5-intent-success{% else %}bp5-intent-danger{% endif %}"></span>
+                                </div>
+                                <div class="bp5-text-muted bp5-text-small">
+                                    {{ company.reviews_count_total_google|default:'0' }} {{company.reviews_count_total_google|default:'0'|rupluralize:'отзыв, отзыва, отзывов' }}
+                                </div>
+                            </td>
+                        </tr>
                         {% endfor %}
                     </tbody>
                 </table>

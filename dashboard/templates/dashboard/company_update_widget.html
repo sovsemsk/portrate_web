@@ -1,7 +1,7 @@
-{% extends "dashboard/base.html" %}
+{% extends 'dashboard/base.html' %}
 {% load static %}
 {% block navbar %}
-{% include "dashboard/_company_navbar.html" %}
+{% include 'dashboard/_company_navbar.html' %}
 {% endblock %}
 {% block content %}
 <h2 class="bp5-heading">Виджет</h2>
@@ -18,7 +18,7 @@
     <div class="bp5-form-content">
         <div class="bp5-section bp5-card bp5-elevation-0">
             <div class="bp5-section-card" style="{% if theme == 'd' %}background-color:black;{% endif %}padding:15px;">
-                {% include "widget/_reviews_slider.html" %}
+                {% include 'widget/_reviews_slider.html' %}
             </div>
             <div class="bp5-padded bp5-section-card">
                 <form method="post" novalidate>
@@ -29,73 +29,73 @@
                             <div class="row">
                                 <div class="xs-3">
                                     <label class="bp5-control bp5-switch">
-                                        {{form.is_visible_portrate}}
+                                        {{ form.is_visible_portrate }}
                                         <span class="bp5-control-indicator"></span>
                                         Портрет
                                     </label>
                                     <label class="bp5-control bp5-switch">
-                                        {{form.is_visible_yandex}}
+                                        {{ form.is_visible_yandex }}
                                         <span class="bp5-control-indicator"></span>
                                         Яндекс
                                     </label>
                                     <label class="bp5-control bp5-switch">
-                                        {{form.is_visible_gis}}
+                                        {{ form.is_visible_gis }}
                                         <span class="bp5-control-indicator"></span>
                                         2Гис
                                     </label>
                                     <label class="bp5-control bp5-switch">
-                                        {{form.is_visible_google}}
+                                        {{ form.is_visible_google }}
                                         <span class="bp5-control-indicator"></span>
                                         Google
                                     </label>
                                 </div>
                                 <div class="xs-3">
                                     <label class="bp5-control bp5-switch">
-                                        {{form.is_visible_avito}}
+                                        {{ form.is_visible_avito }}
                                         <span class="bp5-control-indicator"></span>
                                         Авито
                                     </label>
                                     <label class="bp5-control bp5-switch">
-                                        {{form.is_visible_zoon}}
+                                        {{ form.is_visible_zoon }}
                                         <span class="bp5-control-indicator"></span>
                                         Zoon
                                     </label>
                                     <label class="bp5-control bp5-switch">
-                                        {{form.is_visible_flamp}}
+                                        {{ form.is_visible_flamp }}
                                         <span class="bp5-control-indicator"></span>
                                         Flamp
                                     </label>
                                 </div>
                                 <div class="xs-3">
                                     <label class="bp5-control bp5-switch">
-                                        {{form.is_visible_yell}}
+                                        {{ form.is_visible_yell }}
                                         <span class="bp5-control-indicator"></span>
                                         Yell
                                     </label>
                                     <label class="bp5-control bp5-switch">
-                                        {{form.is_visible_otzovik}}
+                                        {{ form.is_visible_otzovik }}
                                         <span class="bp5-control-indicator"></span>
                                         Отзовик
                                     </label>
                                     <label class="bp5-control bp5-switch">
-                                        {{form.is_visible_irecommend}}
+                                        {{ form.is_visible_irecommend }}
                                         <span class="bp5-control-indicator"></span>
                                         Irecommend
                                     </label>
                                 </div>
                                 <div class="xs-3">
                                     <label class="bp5-control bp5-switch">
-                                        {{form.is_visible_prodoctorov}}
+                                        {{ form.is_visible_prodoctorov }}
                                         <span class="bp5-control-indicator"></span>
                                         Продокторов
                                     </label>
                                     <label class="bp5-control bp5-switch">
-                                        {{form.is_visible_yandex_services}}
+                                        {{ form.is_visible_yandex_services }}
                                         <span class="bp5-control-indicator"></span>
                                         Яндекс Услуги
                                     </label>
                                     <label class="bp5-control bp5-switch">
-                                        {{form.is_visible_tripadvisor}}
+                                        {{ form.is_visible_tripadvisor }}
                                         <span class="bp5-control-indicator"></span>
                                         Tripadvisor
                                     </label>
@@ -109,29 +109,29 @@
                             <div class="row">
                                 <div class="xs-3">
                                     <label class="bp5-control bp5-switch">
-                                        {{form.is_visible_0}}
+                                        {{ form.is_visible_0 }}
                                         <span class="bp5-control-indicator"></span> <img height=10 src="{% static 'dashboard/images/stars/0.0.svg' %}" width=70>
                                     </label>
                                     <label class="bp5-control bp5-switch">
-                                        {{form.is_visible_1}}
+                                        {{ form.is_visible_1 }}
                                         <span class="bp5-control-indicator"></span> <img height=10 src="{% static 'dashboard/images/stars/1.0.svg' %}" width=70>
                                     </label>
                                     <label class="bp5-control bp5-switch" style="margin-bottom:0;">
-                                        {{form.is_visible_2}}
+                                        {{ form.is_visible_2 }}
                                         <span class="bp5-control-indicator"></span> <img height=10 src="{% static 'dashboard/images/stars/2.0.svg' %}" width=70>
                                     </label>
                                 </div>
                                 <div class="xs-3">
                                     <label class="bp5-control bp5-switch">
-                                        {{form.is_visible_3}}
+                                        {{ form.is_visible_3 }}
                                         <span class="bp5-control-indicator"></span> <img height=10 src="{% static 'dashboard/images/stars/3.0.svg' %}" width=70>
                                     </label>
                                     <label class="bp5-control bp5-switch">
-                                        {{form.is_visible_4}}
+                                        {{ form.is_visible_4 }}
                                         <span class="bp5-control-indicator"></span> <img height=10 src="{% static 'dashboard/images/stars/4.0.svg' %}" width=70>
                                     </label>
                                     <label class="bp5-control bp5-switch" style="margin-bottom:0;">
-                                        {{form.is_visible_5}}
+                                        {{ form.is_visible_5 }}
                                         <span class="bp5-control-indicator"></span> <img height=10 src="{% static 'dashboard/images/stars/5.0.svg' %}" width=70>
                                     </label>
                                 </div>

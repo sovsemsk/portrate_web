@@ -1,4 +1,4 @@
-{% extends "dashboard/base.html" %}
+{% extends 'dashboard/base.html' %}
 {% load static %}
 {% block navbar %}
 <a class="bp5-active bp5-button bp5-intent-success bp5-minimal" href="{% url 'master_search_yandex' %}">Добавить филиал</a>
@@ -8,7 +8,7 @@
 {% include "dashboard/_master_tabs.html" %}
 <div class="row">
     <div class="xs-9">
-        {% include "dashboard/_master_search_form.html" %}
+        {% include 'dashboard/_master_search_form.html' %}
         {% if card_list %}
         <div class="bp5-radio-group">
             {% for card in card_list %}
@@ -26,8 +26,8 @@
                             <span class="bp5-control-indicator"></span>
                             <img class="bp5-icon" height=16 src="{% static 'dashboard/images/services/google.png' %}" width=16>
                             <div class="bp5-control-card-label">
-                                <div class="bp5-text-large">{{ card.name|default:"Название не найдено" }}</div>
-                                <div class="bp5-text-muted">{{ card.formatted_address|default:"Адрес не найден" }}</div>
+                                <div class="bp5-text-large">{{ card.name|default:'Название не найдено' }}</div>
+                                <div class="bp5-text-muted">{{ card.formatted_address|default:'Адрес не найден' }}</div>
                             </div>
                         </label>
                     </div>

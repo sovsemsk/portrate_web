@@ -1,11 +1,11 @@
-{% extends "dashboard/base.html" %}
+{% extends 'dashboard/base.html' %}
 {% load static %}
 {% block navbar %}
-{% include "dashboard/_company_navbar.html" %}
+{% include 'dashboard/_company_navbar.html' %}
 {% endblock %}
 {% block content %}
 <h2 class="bp5-heading">Визитка</h2>
-{% include "dashboard/_feedback_tabs.html" %}
+{% include 'dashboard/_feedback_tabs.html' %}
 <div class="row">
     <div class="xs-9">
         <form enctype="multipart/form-data" method="post" novalidate>
@@ -87,7 +87,7 @@
         </form>
     </div>
     <div class="xs-3">
-        {% include "dashboard/_feedback_preview.html" %}
+        {% include 'dashboard/_feedback_preview.html' %}
     </div>
 </div>
 {% endblock %}
@@ -99,7 +99,7 @@ $(document).ready(event => {
         const tag = $(event.currentTarget);
         const utm_source = tag.data("tag");
         var link = `https://geo.portrate.io/@{{ company.id }}`;
-        if(utm_source != ""){link += `?utm_source=${utm_source}`;}
+        if(utm_source != '"){link += `?utm_source=${utm_source}`;}
         $("*[data-link]").attr("href", link).text(link);
         tag.addClass("bp5-active");
     })

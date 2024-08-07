@@ -1,11 +1,11 @@
-{% extends "dashboard/base.html" %}
+{% extends 'dashboard/base.html' %}
 {% load static %}
 {% block navbar %}
 <a class="bp5-active bp5-button bp5-intent-success bp5-minimal" href="{% url 'master_search_yandex' %}">Добавить филиал</a>
 {% endblock %}
 {% block content %}
 <h2 class="bp5-heading">Добавление филиала</h2>
-{% include "dashboard/_master_tabs.html" %}
+{% include 'dashboard/_master_tabs.html' %}
 <div class="row">
     <div class="xs-9">
         {% include "dashboard/_master_search_form.html" %}
@@ -26,8 +26,8 @@
                             <span class="bp5-control-indicator"></span>
                             <img class="bp5-icon" height=16 src="{% static 'dashboard/images/services/gis.png' %}" width=16>
                             <div class="bp5-control-card-label">
-                                <div class="bp5-text-large">{{ card.name|default:"Название не найдено" }}</div>
-                                <div class="bp5-text-muted">{{ card.address_name|default:"Адрес не найден" }}</div>
+                                <div class="bp5-text-large">{{ card.name|default:'Название не найдено' }}</div>
+                                <div class="bp5-text-muted">{{ card.address_name|default:'Адрес не найден' }}</div>
                             </div>
                         </label>
                     </div>

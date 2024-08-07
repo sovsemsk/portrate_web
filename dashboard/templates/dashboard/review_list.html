@@ -1,8 +1,8 @@
-{% extends "dashboard/base.html" %}
+{% extends 'dashboard/base.html' %}
 {% load static %}
 {% load extensions %}
 {% block navbar %}
-{% include "dashboard/_company_navbar.html" %}
+{% include 'dashboard/_company_navbar.html' %}
 {% endblock %}
 {% block content %}
 <h2 class="bp5-heading">Отзывы</h2>
@@ -34,7 +34,7 @@
                     <div class="bp5-padded bp5-section-card">
                         <div class="bp5-form-group">
                             <div class="bp5-form-content">
-                                <div class="bp5-running-text bp5-text-large">{{ review.text|default:"Оценка без текста" }}</div>
+                                <div class="bp5-running-text bp5-text-large">{{ review.text|default:'Оценка без текста' }}</div>
                             </div>
                         </div>
                         <form action="{% url 'review_update' company.id review.id %}?{{request.META.QUERY_STRING}}" method="post">
@@ -49,7 +49,7 @@
             </div>
         </div>
         {% endfor %}
-        {% include "dashboard/_pagination.html" %}
+        {% include 'dashboard/_pagination.html' %}
         {% else %}
         <div class="bp5-card">
             <div class="bp5-text-muted">Ни одного отзыва не найдено</div>
@@ -62,7 +62,7 @@
             <div class="bp5-form-group">
                 <label class="bp5-label">Сервис</label>
                 <div class="bp5-form-content">
-                    {{filter.form.service}}
+                    {{ filter.form.service }}
                 </div>
             </div>
             {% endif %}
@@ -70,7 +70,7 @@
             <div class="bp5-form-group">
                 <label class="bp5-label">Оценка</label>
                 <div class="bp5-form-content">
-                    {{filter.form.stars}}
+                    {{ filter.form.stars }}
                 </div>
             </div>
             {% endif %}

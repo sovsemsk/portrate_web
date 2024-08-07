@@ -14,13 +14,9 @@
                 <div class="bp5-form-content">
                     <div class="bp5-entity-title">
                         <div class="bp5-entity-title-text">
-                            <h3 class="bp5-entity-title-title bp5-heading">
-                                {{ company.name }}
-                            </h3>
+                            <h3 class="bp5-entity-title-title bp5-heading">{{ company.name }}</h3>
                             {% if company.address %}
-                            <div class="bp5-entity-title-subtitle bp5-text-muted">
-                                {{ company.address }}
-                            </div>
+                            <div class="bp5-entity-title-subtitle bp5-text-muted">{{ company.address }}</div>
                             {% endif %}
                         </div>
                     </div>
@@ -38,7 +34,6 @@
                 </div>
             </div>
             {% endif %}
-
             {% if company.has_contacts %}
             <div class="bp5-form-group">
                 <div class="bp5-form-content">

@@ -1,10 +1,10 @@
-{% extends "dashboard/base.html" %}
+{% extends 'dashboard/base.html' %}
 {% load static %}
 {% block content %}
 <h2 class="bp5-heading">
     Профиль
 </h2>
-{% include "dashboard/_user_tabs.html" %}
+{% include 'dashboard/_user_tabs.html' %}
 <form method="post" novalidate>
     <div class="row">
         <div class="xs-6">
@@ -13,10 +13,10 @@
                 <label class="bp5-label" for="id_username">Имя пользователя *</label>
                 <div class="bp5-form-content">
                     <div class="bp5-input-group {% if form.username.errors %}bp5-intent-danger{% endif %}">
-                        {{form.username}}
+                        {{ form.username }}
                     </div>
                     <div class="bp5-form-helper-text">
-                        {% if form.username.errors %}{{form.username.errors.as_text}}{% else %}Не более 150 символов. Только буквы, цифры и знаки @/./+/-/_{% endif %}
+                        {% if form.username.errors %}{{ form.username.errors.as_text }}{% else %}Не более 150 символов. Только буквы, цифры и знаки @/./+/-/_{% endif %}
                     </div>
                 </div>
             </div>
@@ -24,7 +24,7 @@
                 <label class="bp5-label" for="id_email">Электронная почта</label>
                 <div class="bp5-form-content">
                     <div class="bp5-input-group {% if form.email.errors %}bp5-intent-danger{% endif %}">
-                        {{form.email}}
+                        {{ form.email }}
                     </div>
                     {% if form.email.errors %}
                     <div class="bp5-form-helper-text">

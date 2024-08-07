@@ -8,12 +8,37 @@
 <div class="row">
     <div class="xs-4">
         <div class="bp5-form-group">
-            <label class="bp5-label">Светлая визитка</label>
+            <label class="bp5-label">Темная визитка</label>
             <div class="bp5-form-content">
                 <div class="bp5-form-group">
                     <div class="bp5-form-content">
-                        <div class="bp5-card bp5-elevation-0" style="height:150px;width:275px;">
-                            <div data-qr></div>
+                        <div class="bp5-card bp5-elevation-0" style="background-color:black;height:150px;width:275px;">
+                            <div class="row">
+                                <div class="xs-4">
+                                    <div data-qr></div>
+                                </div>
+                                <div class="xs-8">
+                                    <div class="bp5-form-group bp5-dark">
+                                        <div class="bp5-form-content">
+                                            <div class="bp5-entity-title">
+                                                <div class="bp5-entity-title-text">
+                                                    <h5 class="bp5-entity-title-title bp5-heading">Оставьте отзыв</h5>
+                                                    <div class="bp5-entity-title-subtitle bp5-text-muted">Сканируй QR код</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="bp5-form-group bp5-dark">
+                                        <div class="bp5-form-content">
+                                            <div class="bp5-text-small">{{ company.name }}</div>
+                                            {% if company.address %}
+                                            <span class="bp5-text-small bp5-text-muted">{{ company.address }}</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -23,12 +48,36 @@
     </div>
     <div class="xs-4">
         <div class="bp5-form-group">
-            <label class="bp5-label">Темная визитка</label>
+            <label class="bp5-label">Светлая визитка</label>
             <div class="bp5-form-content">
                 <div class="bp5-form-group">
                     <div class="bp5-form-content">
                         <div class="bp5-card bp5-elevation-0" style="height:150px;width:275px;">
-                            <div data-qr></div>
+                            <div class="row">
+                                <div class="xs-4">
+                                    <div data-qr></div>
+                                </div>
+                                <div class="xs-8">
+                                    <div class="bp5-form-group">
+                                        <div class="bp5-form-content">
+                                            <div class="bp5-entity-title">
+                                                <div class="bp5-entity-title-text">
+                                                    <h5 class="bp5-entity-title-title bp5-heading">Оставьте отзыв</h5>
+                                                    <div class="bp5-entity-title-subtitle bp5-text-muted">Сканируй QR код</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="bp5-form-group">
+                                        <div class="bp5-form-content">
+                                            <div class="bp5-text-small">{{ company.name }}</div>
+                                            {% if company.address %}
+                                            <span class="bp5-text-small bp5-text-muted">{{ company.address }}</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -55,35 +104,39 @@
 <div class="row">
     <div class="xs-4">
         <div class="bp5-form-group">
-            <label class="bp5-label">Светлая наклейка</label>
+            <label class="bp5-label">Темная наклейка</label>
             <div class="bp5-form-content">
                 <div class="bp5-form-group">
                     <div class="bp5-form-content">
-                        <div class="bp5-card bp5-elevation-0" style="height:305px;width:210px">
+                        <div class="bp5-card bp5-elevation-0" style="background-color:black;height:305px;width:210px">
                             <div class="bp5-form-group">
-                <div class="bp5-form-content">
-
-                                            <img height=16 src="{% static 'dashboard/images/ui/map-marker.svg' %}" width=16>
-                </div>
-                </div>
-                            <div class="bp5-form-group">
-                <div class="bp5-form-content">
-                    <div class="bp5-entity-title">
-                        <div class="bp5-entity-title-text">
-                            <h4 class="bp5-entity-title-title bp5-heading">
-                                Оставьте отзыв
-                            </h4>
-                            <div class="bp5-entity-title-subtitle bp5-text-muted">
-                            {{ company.name }}
-                                {% if company.address %}
-                                {{ company.address }}
-                            {% endif %}
+                                <div class="bp5-form-content">
+                                    <img height=16 src="{% static 'dashboard/images/ui/map-marker.svg' %}" width=16>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-                            <div data-qr></div>
+                            <div class="bp5-form-group bp5-dark">
+                                <div class="bp5-form-content">
+                                    <div class="bp5-entity-title">
+                                        <div class="bp5-entity-title-text">
+                                            <h5 class="bp5-entity-title-title bp5-heading">Оставьте отзыв</h5>
+                                            <div class="bp5-entity-title-subtitle bp5-text-muted">Сканируй QR код</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bp5-form-group bp5-dark">
+                                <div class="bp5-form-content">
+                                    <div data-qr></div>
+                                </div>
+                            </div>
+                            <div class="bp5-form-group bp5-dark">
+                                <div class="bp5-form-content">
+                                    <div class="bp5-text-small">{{ company.name }}</div>
+                                    {% if company.address %}
+                                    <span class="bp5-text-small bp5-text-muted">{{ company.address }}</span>
+                                    {% endif %}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -93,12 +146,39 @@
     </div>
     <div class="xs-4">
         <div class="bp5-form-group">
-            <label class="bp5-label">Темная наклейка</label>
+            <label class="bp5-label">Светлая наклейка</label>
             <div class="bp5-form-content">
                 <div class="bp5-form-group">
                     <div class="bp5-form-content">
                         <div class="bp5-card bp5-elevation-0" style="height:305px;width:210px">
-                            <div data-qr></div>
+                            <div class="bp5-form-group">
+                                <div class="bp5-form-content">
+                                    <img height=16 src="{% static 'dashboard/images/ui/map-marker.svg' %}" width=16>
+                                </div>
+                            </div>
+                            <div class="bp5-form-group">
+                                <div class="bp5-form-content">
+                                    <div class="bp5-entity-title">
+                                        <div class="bp5-entity-title-text">
+                                            <h5 class="bp5-entity-title-title bp5-heading">Оставьте отзыв</h5>
+                                            <div class="bp5-entity-title-subtitle bp5-text-muted">Сканируй QR код</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bp5-form-group">
+                                <div class="bp5-form-content">
+                                    <div data-qr></div>
+                                </div>
+                            </div>
+                            <div class="bp5-form-group">
+                                <div class="bp5-form-content">
+                                    <div class="bp5-text-small">{{ company.name }}</div>
+                                    {% if company.address %}
+                                    <span class="bp5-text-small bp5-text-muted">{{ company.address }}</span>
+                                    {% endif %}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -112,10 +192,10 @@
 <script>
 $(document).ready(event => {
     $("*[data-qr]").qrcode({
-        height: 80,
+        height: 70,
         render: "",
         text: "https://geo.portrate.io/@{{ company.id }}?utm_source=QR",
-        width: 80
+        width: 70
     });
 });
 </script>

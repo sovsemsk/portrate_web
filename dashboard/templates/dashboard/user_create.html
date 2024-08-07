@@ -1,4 +1,4 @@
-{% extends "dashboard/base.html" %}
+{% extends 'dashboard/base.html' %}
 {% load static %}
 {% block content %}
 <h2 class="bp5-heading">Регистрация</h2>
@@ -10,10 +10,10 @@
                 <label class="bp5-label" for="id_username">Имя пользователя *</label>
                 <div class="bp5-form-content">
                     <div class="bp5-input-group {% if form.username.errors %}bp5-intent-danger{% endif %}">
-                        {{form.username}}
+                        {{ form.username }}
                     </div>
                     <div class="bp5-form-helper-text">
-                        {% if form.username.errors %}{{form.username.errors.as_text}}{% else %}Не более 150 символов. Только буквы, цифры и знаки @/./+/-/_{% endif %}
+                        {% if form.username.errors %}{{ form.username.errors.as_text }}{% else %}Не более 150 символов. Только буквы, цифры и знаки @/./+/-/_{% endif %}
                     </div>
                 </div>
             </div>

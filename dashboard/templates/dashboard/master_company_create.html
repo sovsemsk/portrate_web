@@ -1,4 +1,4 @@
-{% extends "dashboard/base.html" %}
+{% extends 'dashboard/base.html' %}
 {% load extensions %}
 {% load static %}
 {% block navbar %}
@@ -6,11 +6,11 @@
 {% endblock %}
 {% block content %}
 <h2 class="bp5-heading">Добавление филиала</h2>
-{% include "dashboard/_master_tabs.html" %}
+{% include 'dashboard/_master_tabs.html' %}
         {% if card_list %}
         <div class="row">
             <div class="xs-9">
-                <h5 class="bp5-heading">Найдено {{ card_list|length }} {{ card_list|length|rupluralize:"карточка, карточки, карточек" }} вашего филиала</h5>
+                <h5 class="bp5-heading">Найдено {{ card_list|length }} {{ card_list|length|rupluralize:'карточка, карточки, карточек' }} вашего филиала</h5>
                 <div class="bp5-radio-group">
                     {% for card in card_list %}
                     <div class="bp5-form-group">
@@ -48,7 +48,7 @@
                         <label class="bp5-label" for="id_address">Адрес</label>
                         <div class="bp5-form-content">
                             <div class="bp5-input-group">
-                                {{form.address}}
+                                {{ form.address }}
                             </div>
                             <div class="bp5-form-helper-text">Например «Орск, улица Ленинского-комсомола 4б»</div>
                         </div>
@@ -59,9 +59,9 @@
                                 <label class="bp5-label" for="id_name">Название *</label>
                                 <div class="bp5-form-content">
                                     <div class="bp5-input-group {% if form.name.errors %}bp5-intent-danger{% endif %}">
-                                        {{form.name}}
+                                        {{ form.name }}
                                     </div>
-                                    <div class="bp5-form-helper-text">{% if form.name.errors %}{{form.name.errors.as_text}} {% else %}Без списка услуг{% endif %}</div>
+                                    <div class="bp5-form-helper-text">{% if form.name.errors %}{{ form.name.errors.as_text }}{% else %}Без списка услуг{% endif %}</div>
                                 </div>
                             </div>
                         </div>
@@ -70,7 +70,7 @@
                                 <label class="bp5-label" for="id_phone">Телефон</label>
                                 <div class="bp5-form-content">
                                     <div class="bp5-input-group">
-                                        {{form.phone}}
+                                        {{ form.phone }}
                                     </div>
                                     <div class="bp5-form-helper-text">В формате +7 999 999-99-99</div>
                                 </div>
@@ -83,11 +83,11 @@
                                 <label class="bp5-label" for="id_logo">Логотип</label>
                                 <div class="bp5-form-content">
                                     <label class="bp5-file-input bp5-fill bp5-large {% if form.logo.errors %}bp5-intent-danger{% endif %}">
-                                        {{form.logo}}
+                                        {{ form.logo }}
                                         <span class="bp5-file-upload-input">Выбрать файл...</span>
                                     </label>
                                     <div class="bp5-form-helper-text">
-                                        {% if form.logo.errors %}{{form.logo.errors.as_text}}{% else %} Размер файла не должен превышать 500кб{% endif %}
+                                        {% if form.logo.errors %}{{ form.logo.errors.as_text }}{% else %} Размер файла не должен превышать 500кб{% endif %}
                                     </div>
                                 </div>
                             </div>

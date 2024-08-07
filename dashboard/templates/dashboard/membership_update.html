@@ -1,7 +1,7 @@
-{% extends "dashboard/base.html" %}
+{% extends 'dashboard/base.html' %}
 {% load static %}
 {% block navbar %}
-{% include "dashboard/_company_navbar.html" %}
+{% include 'dashboard/_company_navbar.html' %}
 {% endblock %}
 {% block content %}
 <h2 class="bp5-heading">Уведомления</h2>
@@ -20,73 +20,73 @@
                         <div class="row">
                             <div class="xs-3">
                                 <label class="bp5-control bp5-switch">
-                                    {{form.0.is_notify_portrate}}
+                                    {{ form.0.is_notify_portrate }}
                                     <span class="bp5-control-indicator"></span>
                                     Портрет
                                 </label>
                                 <label class="bp5-control bp5-switch">
-                                    {{form.0.is_notify_yandex}}
+                                    {{ form.0.is_notify_yandex }}
                                     <span class="bp5-control-indicator"></span>
                                     Яндекс
                                 </label>
                                 <label class="bp5-control bp5-switch">
-                                    {{form.0.is_notify_gis}}
+                                    {{ form.0.is_notify_gis }}
                                     <span class="bp5-control-indicator"></span>
                                     2Гис
                                 </label>
                                 <label class="bp5-control bp5-switch">
-                                    {{form.0.is_notify_google}}
+                                    {{ form.0.is_notify_google }}
                                     <span class="bp5-control-indicator"></span>
                                     Google
                                 </label>
                             </div>
                             <div class="xs-3">
                                 <label class="bp5-control bp5-switch">
-                                    {{form.0.is_notify_avito}}
+                                    {{ form.0.is_notify_avito }}
                                     <span class="bp5-control-indicator"></span>
                                     Авито
                                 </label>
                                 <label class="bp5-control bp5-switch">
-                                    {{form.0.is_notify_zoon}}
+                                    {{ form.0.is_notify_zoon }}
                                     <span class="bp5-control-indicator"></span>
                                     Zoon
                                 </label>
                                 <label class="bp5-control bp5-switch">
-                                    {{form.0.is_notify_flamp}}
+                                    {{ form.0.is_notify_flamp }}
                                     <span class="bp5-control-indicator"></span>
                                     Flamp
                                 </label>
                             </div>
                             <div class="xs-3">
                                 <label class="bp5-control bp5-switch">
-                                    {{form.0.is_notify_yell}}
+                                    {{ form.0.is_notify_yell }}
                                     <span class="bp5-control-indicator"></span>
                                     Yell
                                 </label>
                                 <label class="bp5-control bp5-switch">
-                                    {{form.0.is_notify_otzovik}}
+                                    {{ form.0.is_notify_otzovik }}
                                     <span class="bp5-control-indicator"></span>
                                     Отзовик
                                 </label>
                                 <label class="bp5-control bp5-switch">
-                                    {{form.0.is_notify_irecommend}}
+                                    {{ form.0.is_notify_irecommend }}
                                     <span class="bp5-control-indicator"></span>
                                     Irecommend
                                 </label>
                             </div>
                             <div class="xs-3">
                                 <label class="bp5-control bp5-switch">
-                                    {{form.0.is_notify_prodoctorov}}
+                                    {{ form.0.is_notify_prodoctorov }}
                                     <span class="bp5-control-indicator"></span>
                                     Продокторов
                                 </label>
                                 <label class="bp5-control bp5-switch">
-                                    {{form.0.is_notify_yandex_services}}
+                                    {{ form.0.is_notify_yandex_services }}
                                     <span class="bp5-control-indicator"></span>
                                     Яндекс Услуги
                                 </label>
                                 <label class="bp5-control bp5-switch">
-                                    {{form.0.is_notify_tripadvisor}}
+                                    {{ form.0.is_notify_tripadvisor }}
                                     <span class="bp5-control-indicator"></span>
                                     Tripadvisor
                                 </label>
@@ -100,29 +100,29 @@
                         <div class="row">
                             <div class="xs-3">
                                 <label class="bp5-control bp5-switch">
-                                    {{form.0.is_notify_0}}
+                                    {{ form.0.is_notify_0 }}
                                     <span class="bp5-control-indicator"></span> <img height=10 src="{% static 'dashboard/images/stars/0.0.svg' %}" width=70>
                                 </label>
                                 <label class="bp5-control bp5-switch">
-                                    {{form.0.is_notify_1}}
+                                    {{ form.0.is_notify_1 }}
                                     <span class="bp5-control-indicator"></span> <img height=10 src="{% static 'dashboard/images/stars/1.0.svg' %}" width=70>
                                 </label>
                                 <label class="bp5-control bp5-switch" style="margin-bottom:0;">
-                                    {{form.0.is_notify_2}}
+                                    {{ form.0.is_notify_2 }}
                                     <span class="bp5-control-indicator"></span> <img height=10 src="{% static 'dashboard/images/stars/2.0.svg' %}" width=70>
                                 </label>
                             </div>
                             <div class="xs-3">
                                 <label class="bp5-control bp5-switch">
-                                    {{form.0.is_notify_3}}
+                                    {{ form.0.is_notify_3 }}
                                     <span class="bp5-control-indicator"></span> <img height=10 src="{% static 'dashboard/images/stars/3.0.svg' %}" width=70>
                                 </label>
                                 <label class="bp5-control bp5-switch">
-                                    {{form.0.is_notify_4}}
+                                    {{ form.0.is_notify_4 }}
                                     <span class="bp5-control-indicator"></span> <img height=10 src="{% static 'dashboard/images/stars/4.0.svg' %}" width=70>
                                 </label>
                                 <label class="bp5-control bp5-switch" style="margin-bottom:0;">
-                                    {{form.0.is_notify_5}}
+                                    {{ form.0.is_notify_5 }}
                                     <span class="bp5-control-indicator"></span> <img height=10 src="{% static 'dashboard/images/stars/5.0.svg' %}" width=70>
                                 </label>
                             </div>

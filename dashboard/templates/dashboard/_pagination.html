@@ -6,7 +6,7 @@
             <div class="xs-auto">
                 <a class="bp5-button bp5-icon-arrow-left bp5-minimal {% if not page_obj.has_previous %}bp5-disabled{% endif %}" {% if page_obj.has_previous %}href="?{% param_replace page=page_obj.previous_page_number %}"{%endif%}></a>
             </div>
-            <span>{% if is_paginated %}Страниц {{page_obj.number}} из {{page_obj.paginator.num_pages}}{% else %}1 страница{% endif %}</span>
+            <span>{% if is_paginated %}Страниц {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}{% else %}1 страница{% endif %}</span>
             <div class="xs-auto">
                 <a class="bp5-button bp5-icon-arrow-right bp5-minimal {% if not page_obj.has_next %}bp5-disabled{% endif %}" {% if page_obj.has_next %}href="?{% param_replace page=page_obj.next_page_number %}{% endif %}"></a>
             </div>
