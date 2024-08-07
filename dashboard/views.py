@@ -9,7 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import PasswordChangeView, LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Count, Q, F
-from django.http import Http404
+from django.http import Http404, HttpResponse, HttpResponseNotFound
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -18,6 +18,8 @@ from django.views.decorators.http import require_http_methods
 from django.views.generic import CreateView, DetailView, FormView, ListView, UpdateView
 from django_filters.views import FilterView
 
+from pdf.utils import make_stick, make_card
+from po_web import settings
 from resources.models import Company, Message, Review, Service
 from resources.tasks import parse_yandex_task, parse_gis_task, parse_google_task
 from services.search import SearchGis, SearchGoogle, SearchYandex
@@ -360,17 +362,33 @@ class CompanyListView(LoginRequiredMixin, ListView):
 class CompanyQrView(LoginRequiredMixin, View):
     def get(self, request, pk):
         company = get_object_or_404(Company, pk=pk, users__in=[self.request.user])
-        theme = self.request.GET.get("theme", "l")
 
         return render(
             request,
             "dashboard/company_qr.html", {
                 "company": company,
                 "company_list_short": company_list_short(request.user, company.id),
-                "nav": "qr",
-                "theme": theme
+                "nav": "qr"
             }
         )
+
+    def post(self, request, pk):
+        company = get_object_or_404(Company, pk=pk, users__in=[self.request.user])
+
+        theme = request.POST.get("theme", "light")
+        layout = request.POST.get("layout", "stick")
+
+        if theme not in ["light", "dark"] or layout not in ["stick", "card"]:
+            raise Http404
+
+        if layout == "stick":
+            file = make_stick(company, theme)
+        else:
+            file = make_card(company, theme)
+
+        response = HttpResponse(file.getbuffer(), content_type="application/pdf")
+        response["Content-Disposition"] = f"attachment; filename=\"{layout}-{theme}.pdf\""
+        return response
 
 
 class CompanyUpdateFeedbackContactView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):

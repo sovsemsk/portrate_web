@@ -1,10 +1,10 @@
 import io
 
-import fitz
+import pymupdf
 import qrcode
 from django.conf import settings
 
-fitz.TOOLS.set_aa_level(0)
+pymupdf.TOOLS.set_aa_level(0)
 
 
 def make_qrcode(company_id, theme):
@@ -24,10 +24,10 @@ def make_qrcode(company_id, theme):
 
 def make_stick(company_id, theme):
     png_stream = make_qrcode(company_id, theme)
-    template = fitz.open(f"{settings.BASE_DIR}/pdf/qr_pdf_stick_{theme}.pdf")
+    template = pymupdf.open(f"{settings.BASE_DIR}/pdf/stick-{theme}.pdf")
 
     for page in template:
-        rect = fitz.Rect(79, 199, 219, 339)
+        rect = pymupdf.Rect(30, 150, 150, 270)
         page.insert_image(rect, stream=png_stream)
 
     pdf_stream = io.BytesIO()
@@ -35,5 +35,14 @@ def make_stick(company_id, theme):
     return pdf_stream
 
 
-def make_card(company_id):
-    ...
+def make_card(company_id, theme):
+    png_stream = make_qrcode(company_id, theme)
+    template = pymupdf.open(f"{settings.BASE_DIR}/pdf/card-{theme}.pdf")
+
+    for page in template:
+        rect = pymupdf.Rect(20, 20, 90, 90)
+        page.insert_image(rect, stream=png_stream)
+
+    pdf_stream = io.BytesIO()
+    template.save(pdf_stream, deflate=True, garbage=3)
+    return pdf_stream
