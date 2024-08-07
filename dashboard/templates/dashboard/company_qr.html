@@ -32,7 +32,7 @@
                                         <div class="bp5-form-content">
                                             <div class="bp5-text-small">{{ company.name }}</div>
                                             {% if company.address %}
-                                            <span class="bp5-text-small bp5-text-muted">{{ company.address }}</span>
+                                            <span class="bp5-text-small bp5-text-muted">{{ company.address|truncatechars:'50' }}</span>
                                             {% endif %}
                                         </div>
                                     </div>
@@ -72,7 +72,7 @@
                                         <div class="bp5-form-content">
                                             <div class="bp5-text-small">{{ company.name }}</div>
                                             {% if company.address %}
-                                            <span class="bp5-text-small bp5-text-muted">{{ company.address }}</span>
+                                            <span class="bp5-text-small bp5-text-muted">{{ company.address|truncatechars:'50' }}</span>
                                             {% endif %}
                                         </div>
                                     </div>
@@ -133,7 +133,7 @@
                                 <div class="bp5-form-content">
                                     <div class="bp5-text-small">{{ company.name }}</div>
                                     {% if company.address %}
-                                    <span class="bp5-text-small bp5-text-muted">{{ company.address }}</span>
+                                    <span class="bp5-text-small bp5-text-muted">{{ company.address|truncatechars:'50' }}</span>
                                     {% endif %}
                                 </div>
                             </div>
@@ -175,7 +175,7 @@
                                 <div class="bp5-form-content">
                                     <div class="bp5-text-small">{{ company.name }}</div>
                                     {% if company.address %}
-                                    <span class="bp5-text-small bp5-text-muted">{{ company.address }}</span>
+                                    <span class="bp5-text-small bp5-text-muted">{{ company.address|truncatechars:'50' }}</span>
                                     {% endif %}
                                 </div>
                             </div>
