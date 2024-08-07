@@ -9,7 +9,7 @@ pymupdf.TOOLS.set_aa_level(0)
 
 def make_qrcode(company_id, theme):
     qr = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_L, box_size=50, border=0)
-    qr.add_data(f"https://geo.portrate.io/@{company_id}")
+    qr.add_data(f"https://geo.portrate.io/@{company_id}?utm_source=QR")
     qr.make(fit=True)
 
     if theme == "light":
