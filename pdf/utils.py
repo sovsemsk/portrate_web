@@ -22,8 +22,8 @@ def make_qrcode(company_id, theme):
     return stream
 
 
-def make_stick(company_id, theme):
-    png_stream = make_qrcode(company_id, theme)
+def make_stick(company, theme):
+    png_stream = make_qrcode(company.id, theme)
     template = pymupdf.open(f"{settings.BASE_DIR}/pdf/stick-{theme}.pdf")
 
     for page in template:
@@ -35,8 +35,8 @@ def make_stick(company_id, theme):
     return pdf_stream
 
 
-def make_card(company_id, theme):
-    png_stream = make_qrcode(company_id, theme)
+def make_card(company, theme):
+    png_stream = make_qrcode(company.id, theme)
     template = pymupdf.open(f"{settings.BASE_DIR}/pdf/card-{theme}.pdf")
 
     for page in template:
