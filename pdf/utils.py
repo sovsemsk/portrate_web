@@ -27,20 +27,37 @@ def make_stick(company, theme):
     template = pymupdf.open(f"{settings.BASE_DIR}/pdf/stick-{theme}.pdf")
 
     for page in template:
-        rect = pymupdf.Rect(30, 150, 150, 270)
-        page.insert_image(rect, stream=png_stream)
+        page.insert_image(pymupdf.Rect(30, 150, 150, 270), stream=png_stream)
 
-        # text_rect = pymupdf.Rect(30, 300, 270, 290)
-        # red = pymupdf.pdfcolor["red"]
-        #
-        # rc = page.insertTextbox(
-        #     rect,
-        #     "text",
-        #     fontsize=16,  # choose fontsize (float)
-        #     fontname="SF Pro",  # a PDF standard font
-        #     fontfile=None,  # could be a file on your system
-        #     align=1
-        # )
+        font = pymupdf.Font(fontfile=f"{settings.BASE_DIR}/pdf/sf_pro.ttf")
+        page.insert_font(fontname="sf_pro", fontbuffer=font.buffer)
+
+        if theme == "light":
+            color_name = pymupdf.pdfcolor["black"]
+        else:
+            color_name = pymupdf.pdfcolor["white"]
+
+        page.insert_textbox(
+            pymupdf.Rect(30, 280, 270, 305),
+            company.name,
+            color=color_name,
+            encoding=pymupdf.TEXT_ENCODING_CYRILLIC,
+            fontname="sf_pro",
+            fontsize=14,
+            stroke_opacity=0,
+
+        )
+
+        if company.address:
+            page.insert_textbox(
+                pymupdf.Rect(30, 300, 270, 390),
+                company.address,
+                color=pymupdf.pdfcolor["gray50"],
+                encoding=pymupdf.TEXT_ENCODING_CYRILLIC,
+                fontname="sf_pro",
+                fontsize=11,
+                stroke_opacity=0
+            )
 
     pdf_stream = io.BytesIO()
     template.save(pdf_stream, deflate=True, garbage=3)

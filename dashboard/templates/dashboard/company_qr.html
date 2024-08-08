@@ -15,7 +15,7 @@
                         <div class="bp5-card bp5-dark bp5-elevation-0" style="height:150px;width:275px;">
                             <div class="row">
                                 <div class="xs-4">
-                                    <div data-qr></div>
+                                    <div data-qr-dark></div>
                                 </div>
                                 <div class="xs-8">
                                     <div class="bp5-form-group">
@@ -54,7 +54,7 @@
                         <div class="bp5-card bp5-elevation-0" style="height:150px;width:275px;">
                             <div class="row">
                                 <div class="xs-4">
-                                    <div data-qr></div>
+                                    <div data-qr-light></div>
                                 </div>
                                 <div class="xs-8">
                                     <div class="bp5-form-group">
@@ -91,7 +91,7 @@
                 <div class="bp5-form-group">
                     <div class="bp5-form-content">
                         <div class="bp5-card bp5-elevation-0" style="height:150px;width:150px">
-                            <div data-qr></div>
+                            <div data-qr-light></div>
                         </div>
                     </div>
                 </div>
@@ -126,7 +126,7 @@
                             </div>
                             <div class="bp5-form-group">
                                 <div class="bp5-form-content">
-                                    <div data-qr></div>
+                                    <div data-qr-dark></div>
                                 </div>
                             </div>
                             <div class="bp5-form-group">
@@ -168,7 +168,7 @@
                             </div>
                             <div class="bp5-form-group">
                                 <div class="bp5-form-content">
-                                    <div data-qr></div>
+                                    <div data-qr-light></div>
                                 </div>
                             </div>
                             <div class="bp5-form-group">
@@ -195,11 +195,21 @@
 {% block script %}
 <script>
 $(document).ready(event => {
-    $("*[data-qr]").qrcode({
+    $("*[data-qr-light]").qrcode({
         height: 70,
         render: "",
         text: "https://geo.portrate.io/@{{ company.id }}?utm_source=QR",
-        width: 70
+        width: 70,
+    });
+    $("*[data-qr-dark]").qrcode({
+        height: 70,
+        render: "",
+        text: "https://geo.portrate.io/@{{ company.id }}?utm_source=QR",
+        width: 70,
+        background: "#2f343c",
+        foreground: "#ffffff"
+
+
     });
 });
 </script>
