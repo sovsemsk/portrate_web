@@ -16,8 +16,8 @@
 <div class="bp5-form-group">
     <label class="bp5-label">Предпросмотр</label>
     <div class="bp5-form-content">
-        <div class="bp5-section bp5-card bp5-elevation-0">
-            <div class="bp5-section-card" style="{% if theme == 'd' %}background-color:black;{% endif %}padding:15px;">
+        <div class="bp5-section bp5-card bp5-elevation-0 {% if theme == 'd' %}bp5-dark{% endif %}">
+            <div class="bp5-padded bp5-section-card">
                 {% include 'widget/_reviews_slider.html' %}
             </div>
             <div class="bp5-padded bp5-section-card">

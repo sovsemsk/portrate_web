@@ -100,10 +100,10 @@ class Company(Model):
     api_secret = CharField(blank=True, db_index=True, null=True, verbose_name="API ключ")
 
     """ Настройки """
-    is_visible_0 = BooleanField(blank=True, default=True, null=True, verbose_name="отображать с 0 звезд?")
-    is_visible_1 = BooleanField(blank=True, default=True, null=True, verbose_name="отображать с 1 звездой?")
-    is_visible_2 = BooleanField(blank=True, default=True, null=True, verbose_name="отображать с 2 звездами?")
-    is_visible_3 = BooleanField(blank=True, default=True, null=True, verbose_name="отображать с 3 звездами?")
+    is_visible_0 = BooleanField(blank=True, default=False, null=True, verbose_name="отображать с 0 звезд?")
+    is_visible_1 = BooleanField(blank=True, default=False, null=True, verbose_name="отображать с 1 звездой?")
+    is_visible_2 = BooleanField(blank=True, default=False, null=True, verbose_name="отображать с 2 звездами?")
+    is_visible_3 = BooleanField(blank=True, default=False, null=True, verbose_name="отображать с 3 звездами?")
     is_visible_4 = BooleanField(blank=True, default=True, null=True, verbose_name="отображать с 4 звездами?")
     is_visible_5 = BooleanField(blank=True, default=True, null=True, verbose_name="отображать с 5 звездами?")
     is_visible_portrate = BooleanField(blank=True, default=True, null=True, verbose_name="отображать Портрет?")

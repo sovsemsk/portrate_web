@@ -30,6 +30,18 @@ def make_stick(company, theme):
         rect = pymupdf.Rect(30, 150, 150, 270)
         page.insert_image(rect, stream=png_stream)
 
+        text_rect = pymupdf.Rect(30, 300, 270, 290)
+        red = pymupdf.pdfcolor["red"]
+
+        rc = page.insertTextbox(
+            rect,
+            "text",
+            fontsize=16,  # choose fontsize (float)
+            fontname="SF Pro",  # a PDF standard font
+            fontfile=None,  # could be a file on your system
+            align=1
+        )
+
     pdf_stream = io.BytesIO()
     template.save(pdf_stream, deflate=True, garbage=3)
     return pdf_stream

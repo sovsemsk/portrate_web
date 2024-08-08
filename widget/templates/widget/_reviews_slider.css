@@ -68,7 +68,7 @@
 
 /* Review */
 .__6b948e6f__{
-    background-color:{% if theme == 'l' %}#F1F1F1{% else %}#323232{% endif %} !important;
+    background-color:{% if theme == 'l' %}rgba(143, 153, 168, 0.15){% else %}rgba(143, 153, 168, 0.2){% endif %} !important;
     border-radius:5px !important;
     flex-grow:1 !important;
     flex-shrink:0 !important;
@@ -92,7 +92,7 @@
 
 /* Review header title */
 .__e5cfa931__{
-    color:{% if theme == 'l' %}black{% else %}white{% endif %} !important;
+    color:{% if theme == 'l' %}#111418{% else %}#f6f7f9{% endif %} !important;
     font-size:large !important;
     font-weight:bold !important;
     padding-bottom:10px !important;
@@ -105,7 +105,7 @@
 
 /* Review header date */
 .__d384a050__{
-    color:{% if theme == 'l' %}rgba(0,0,0,0.5){% else %}rgba(255,255,255,0.5){% endif %} !important;
+    color:{% if theme == 'l' %}#8f99a8{% else %}#abb3bf{% endif %} !important;
     font-size:small !important;
 }
 
@@ -124,7 +124,7 @@
 
 /* Review text scroll */
 .__c35ad222__{
-    color:{% if theme == 'l' %}black{% else %}white{% endif %} !important;
+    color:{% if theme == 'l' %}#111418{% else %}#f6f7f9{% endif %} !important;
     font-size:large !important;
     line-height:1.4 !important;
     min-height:150px !important;
@@ -176,11 +176,11 @@
 .__40b76d95__,
 .__2affd980__{
     align-items:center !important;
-    border-color:{% if theme == 'l' %}#F1F1F1{% else %}#323232{% endif %} !important;
+    border-color:{% if theme == 'l' %}rgba(143, 153, 168, 0.15){% else %}rgba(143, 153, 168, 0.2){% endif %} !important;
     border-radius: 5px !important;
     border-style:solid !important;
     border-width:1px !important;
-    color:{% if theme == 'l' %}black{% else %}white{% endif %} !important;
+    color:{% if theme == 'l' %}#111418{% else %}#f6f7f9{% endif %} !important;
     display:flex !important;;
     gap:10px !important;
     height:35px !important;
@@ -190,7 +190,7 @@
 }
 
 .__40b76d95__:hover{
-    background-color:{% if theme == 'l' %}#F1F1F1{% else %}#323232{% endif %} !important;
+    background-color:{% if theme == 'l' %}rgba(143, 153, 168, 0.15){% else %}rgba(143, 153, 168, 0.2){% endif %} !important;
 }
 
 /* Link rating */
@@ -207,11 +207,11 @@
 /* Made in */
 .__2affd980__{
     align-items:center !important;
-    border-color:{% if theme == 'l' %}#F1F1F1{% else %}#323232{% endif %} !important;
+    border-color:{% if theme == 'l' %}rgba(143, 153, 168, 0.15){% else %}rgba(143, 153, 168, 0.2){% endif %} !important;
     border-radius: 5px !important;
     border-style:solid !important;
     border-width:1px !important;
-    color:{% if theme == 'l' %}rgba(0,0,0,0.5){% else %}rgba(255,255,255,0.5){% endif %} !important;
+    color:{% if theme == 'l' %}#8f99a8{% else %}#abb3bf{% endif %} !important;
     font-size:small !important;
     display:flex !important;;
     gap:5px !important;
@@ -223,5 +223,5 @@
 }
 
 .__2affd980__:hover{
-    background-color:{% if theme == 'l' %}#F1F1F1{% else %}#323232{% endif %} !important;
+    background-color:{% if theme == 'l' %}rgba(143, 153, 168, 0.15){% else %}rgba(143, 153, 168, 0.2){% endif %} !important;
 }
