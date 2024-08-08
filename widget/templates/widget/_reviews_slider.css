@@ -68,7 +68,7 @@
 
 /* Review */
 .__6b948e6f__{
-    background-color:{% if theme == 'l' %}rgba(143, 153, 168, 0.15){% else %}rgba(143, 153, 168, 0.2){% endif %} !important;
+    background-color:{% if theme == 'l' %}#EFF0F2{% else %}#434950{% endif %} !important;
     border-radius:5px !important;
     flex-grow:1 !important;
     flex-shrink:0 !important;
@@ -139,7 +139,7 @@
 
 /* Review text top fade */
 .__341e4199__{
-    background:{% if theme == 'l' %}linear-gradient(0deg, rgba(241,241,241,0) 0%, rgba(241,241,241,1) 100%){% else %}linear-gradient(0deg, rgba(50,50,50,0) 0%, rgba(50,50,50,1) 100%){% endif %} !important;
+    background:{% if theme == 'l' %}linear-gradient(0deg, rgba(239,240,242,0) 25%, rgba(239,240,242,1) 100%){% else %}linear-gradient(0deg, rgba(67,73,80,0) 0%, rgba(67,73,80,1) 100%){% endif %} !important;
     display:none; /* Except */
     height:55px !important;
     left:-1px !important;
@@ -150,7 +150,7 @@
 
 /* Review text bottom fade */
 .__b4777536__{
-    background:{% if theme == 'l' %}linear-gradient(0deg, rgba(241,241,241,1) 25%, rgba(241,241,241,0) 100%){% else %}linear-gradient(0deg, rgba(50,50,50,1) 25%, rgba(50,50,50,0) 100%){% endif %} !important;
+    background:{% if theme == 'l' %}linear-gradient(0deg, rgba(239,240,242,1) 25%, rgba(239,240,242,0) 100%){% else %}linear-gradient(0deg, rgba(67,73,80,1) 25%, rgba(67,73,80,0) 100%){% endif %} !important;
     bottom:-1px !important;
     display:none; /* Except */
     height:55px !important;
@@ -176,7 +176,7 @@
 .__40b76d95__,
 .__2affd980__{
     align-items:center !important;
-    border-color:{% if theme == 'l' %}rgba(143, 153, 168, 0.15){% else %}rgba(143, 153, 168, 0.2){% endif %} !important;
+    border-color:{% if theme == 'l' %}#EFF0F2{% else %}#434950{% endif %} !important;
     border-radius: 5px !important;
     border-style:solid !important;
     border-width:1px !important;
@@ -190,7 +190,7 @@
 }
 
 .__40b76d95__:hover{
-    background-color:{% if theme == 'l' %}rgba(143, 153, 168, 0.15){% else %}rgba(143, 153, 168, 0.2){% endif %} !important;
+    background-color:{% if theme == 'l' %}#EFF0F2{% else %}#434950{% endif %} !important;
 }
 
 /* Link rating */
@@ -207,7 +207,7 @@
 /* Made in */
 .__2affd980__{
     align-items:center !important;
-    border-color:{% if theme == 'l' %}rgba(143, 153, 168, 0.15){% else %}rgba(143, 153, 168, 0.2){% endif %} !important;
+    border-color:{% if theme == 'l' %}#EFF0F2{% else %}#434950{% endif %} !important;
     border-radius: 5px !important;
     border-style:solid !important;
     border-width:1px !important;
@@ -223,5 +223,5 @@
 }
 
 .__2affd980__:hover{
-    background-color:{% if theme == 'l' %}rgba(143, 153, 168, 0.15){% else %}rgba(143, 153, 168, 0.2){% endif %} !important;
+    background-color:{% if theme == 'l' %}#EFF0F2{% else %}#434950{% endif %} !important;
 }
