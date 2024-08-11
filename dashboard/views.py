@@ -18,7 +18,7 @@ from django.views.decorators.http import require_http_methods
 from django.views.generic import CreateView, DetailView, FormView, ListView, UpdateView
 from django_filters.views import FilterView
 
-from pdf.utils import make_stick, make_card
+from pdf.utils import make_stick, make_card, make_qr
 from po_web import settings
 from resources.models import Company, Message, Review, Service
 from resources.tasks import parse_yandex_task, parse_gis_task, parse_google_task
@@ -378,13 +378,15 @@ class CompanyQrView(LoginRequiredMixin, View):
         theme = request.POST.get("theme", "light")
         layout = request.POST.get("layout", "stick")
 
-        if theme not in ["light", "dark"] or layout not in ["stick", "card"]:
+        if theme not in ["light", "dark"] or layout not in ["stick", "card", "qr"]:
             raise Http404
 
         if layout == "stick":
             file = make_stick(company, theme)
-        else:
+        elif layout == "card":
             file = make_card(company, theme)
+        elif layout == "qr":
+            file = make_qr(company, theme)
 
         response = HttpResponse(file.getbuffer(), content_type="application/pdf")
         response["Content-Disposition"] = f"attachment; filename=\"{layout}-{theme}.pdf\""

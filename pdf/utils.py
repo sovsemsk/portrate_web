@@ -29,20 +29,20 @@ def make_stick(company, theme):
     for page in template:
         page.insert_image(pymupdf.Rect(30, 150, 150, 270), stream=png_stream)
 
-        font = pymupdf.Font(fontfile=f"{settings.BASE_DIR}/pdf/sf_pro.ttf")
-        page.insert_font(fontname="sf_pro", fontbuffer=font.buffer)
+        font = pymupdf.Font(fontfile=f"{settings.BASE_DIR}/pdf/Roboto-Regular.ttf")
+        page.insert_font(fontname="roboto", fontbuffer=font.buffer)
 
         if theme == "light":
-            color_name = pymupdf.pdfcolor["black"]
+            color = pymupdf.pdfcolor["black"]
         else:
-            color_name = pymupdf.pdfcolor["white"]
+            color = pymupdf.pdfcolor["white"]
 
         page.insert_textbox(
-            pymupdf.Rect(30, 280, 270, 305),
+            pymupdf.Rect(30, 290, 270, 315),
             company.name,
-            color=color_name,
+            color=color,
             encoding=pymupdf.TEXT_ENCODING_CYRILLIC,
-            fontname="sf_pro",
+            fontname="roboto",
             fontsize=14,
             stroke_opacity=0,
 
@@ -50,11 +50,11 @@ def make_stick(company, theme):
 
         if company.address:
             page.insert_textbox(
-                pymupdf.Rect(30, 300, 270, 390),
+                pymupdf.Rect(30, 310, 270, 400),
                 company.address,
                 color=pymupdf.pdfcolor["gray50"],
                 encoding=pymupdf.TEXT_ENCODING_CYRILLIC,
-                fontname="sf_pro",
+                fontname="roboto",
                 fontsize=11,
                 stroke_opacity=0
             )
@@ -69,8 +69,49 @@ def make_card(company, theme):
     template = pymupdf.open(f"{settings.BASE_DIR}/pdf/card-{theme}.pdf")
 
     for page in template:
-        rect = pymupdf.Rect(20, 20, 90, 90)
-        page.insert_image(rect, stream=png_stream)
+        page.insert_image(pymupdf.Rect(20, 20, 90, 90), stream=png_stream)
+
+        font = pymupdf.Font(fontfile=f"{settings.BASE_DIR}/pdf/Roboto-Regular.ttf")
+        page.insert_font(fontname="roboto", fontbuffer=font.buffer)
+
+        if theme == "light":
+            color = pymupdf.pdfcolor["black"]
+        else:
+            color = pymupdf.pdfcolor["white"]
+
+        page.insert_textbox(
+            pymupdf.Rect(100, 68, 240, 83),
+            company.name,
+            color=color,
+            encoding=pymupdf.TEXT_ENCODING_CYRILLIC,
+            fontname="roboto",
+            fontsize=10,
+            stroke_opacity=0,
+
+        )
+
+        if company.address:
+            page.insert_textbox(
+                pymupdf.Rect(100, 80, 230, 125),
+                company.address,
+                color=pymupdf.pdfcolor["gray50"],
+                encoding=pymupdf.TEXT_ENCODING_CYRILLIC,
+                fontname="roboto",
+                fontsize=8,
+                stroke_opacity=0
+            )
+
+    pdf_stream = io.BytesIO()
+    template.save(pdf_stream, deflate=True, garbage=3)
+    return pdf_stream
+
+
+def make_qr(company, theme):
+    png_stream = make_qrcode(company.id, theme)
+    template = pymupdf.open(f"{settings.BASE_DIR}/pdf/qr-light.pdf")
+
+    for page in template:
+        page.insert_image(pymupdf.Rect(15, 15, 126, 126), stream=png_stream)
 
     pdf_stream = io.BytesIO()
     template.save(pdf_stream, deflate=True, garbage=3)
