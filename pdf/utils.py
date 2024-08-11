@@ -3,6 +3,7 @@ import io
 import pymupdf
 import qrcode
 from django.conf import settings
+from django.utils.text import Truncator
 
 pymupdf.TOOLS.set_aa_level(0)
 
@@ -38,24 +39,24 @@ def make_stick(company, theme):
             color = pymupdf.pdfcolor["white"]
 
         page.insert_textbox(
-            pymupdf.Rect(30, 290, 270, 315),
-            company.name,
+            pymupdf.Rect(30, 300, 260, 315),
+            Truncator(company.name).chars(50),
             color=color,
             encoding=pymupdf.TEXT_ENCODING_CYRILLIC,
             fontname="roboto",
-            fontsize=14,
-            stroke_opacity=0,
-
+            fontsize=10,
+            stroke_opacity=0
         )
 
         if company.address:
             page.insert_textbox(
-                pymupdf.Rect(30, 310, 270, 400),
-                company.address,
+                pymupdf.Rect(30, 315, 260, 385),
+                Truncator(company.address).chars(130),
                 color=pymupdf.pdfcolor["gray50"],
                 encoding=pymupdf.TEXT_ENCODING_CYRILLIC,
                 fontname="roboto",
-                fontsize=11,
+                fontsize=10,
+                lineheight=1.6,
                 stroke_opacity=0
             )
 
@@ -80,8 +81,8 @@ def make_card(company, theme):
             color = pymupdf.pdfcolor["white"]
 
         page.insert_textbox(
-            pymupdf.Rect(100, 68, 240, 83),
-            company.name,
+            pymupdf.Rect(100, 66, 240, 81),
+            Truncator(company.name).chars(30),
             color=color,
             encoding=pymupdf.TEXT_ENCODING_CYRILLIC,
             fontname="roboto",
@@ -92,12 +93,13 @@ def make_card(company, theme):
 
         if company.address:
             page.insert_textbox(
-                pymupdf.Rect(100, 80, 230, 125),
-                company.address,
+                pymupdf.Rect(100, 81, 240, 126),
+                Truncator(company.address).chars(130),
                 color=pymupdf.pdfcolor["gray50"],
                 encoding=pymupdf.TEXT_ENCODING_CYRILLIC,
                 fontname="roboto",
                 fontsize=8,
+                lineheight=1.5,
                 stroke_opacity=0
             )
 
