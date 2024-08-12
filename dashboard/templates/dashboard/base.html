@@ -40,6 +40,7 @@
                 </div>
                 <div class="bp5-align-right bp5-navbar-group">
                     {% if user.is_authenticated %}
+                    <a class="bp5-button bp5-minimal {% if nav == 'finance' %}bp5-active{% endif %}" href="{% url 'profile_update_finance' %}">Финансы</a>
                     <a class="bp5-button bp5-minimal {% if nav == 'user' %}bp5-active{% endif %}" href="{% url 'profile_update' %}">{{ request.user|title|truncatechars:'10' }}</a>
                     <form action="{% url 'user_logout' %}" method="post">
                         {% csrf_token %}

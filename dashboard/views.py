@@ -26,22 +26,22 @@ from services.search import SearchGis, SearchGoogle, SearchYandex
 from .filters import MessageFilter, ReviewFilter
 from .forms import (
     DashboardAuthenticationForm,
-    DashboardCompanyChangeYandexForm,
+    DashboardCompanyChangeAvitoForm,
+    DashboardCompanyChangeContactForm,
+    DashboardCompanyChangeDataForm,
+    DashboardCompanyChangeFlampForm,
     DashboardCompanyChangeGisForm,
     DashboardCompanyChangeGoogleForm,
-    DashboardCompanyChangeAvitoForm,
-    DashboardCompanyChangeZoonForm,
-    DashboardCompanyChangeFlampForm,
-    DashboardCompanyChangeYellForm,
-    DashboardCompanyChangeProdoctorovForm,
-    DashboardCompanyChangeYandexServicesForm,
-    DashboardCompanyChangeOtzovikForm,
     DashboardCompanyChangeIrecommendForm,
-    DashboardCompanyChangeTripadvisorForm,
-    DashboardCompanyChangeDataForm,
-    DashboardCompanyChangeContactForm,
+    DashboardCompanyChangeOtzovikForm,
+    DashboardCompanyChangeProdoctorovForm,
     DashboardCompanyChangeServiceForm,
+    DashboardCompanyChangeTripadvisorForm,
     DashboardCompanyChangeVisibleForm,
+    DashboardCompanyChangeYandexForm,
+    DashboardCompanyChangeYandexServicesForm,
+    DashboardCompanyChangeYellForm,
+    DashboardCompanyChangeZoonForm,
     DashboardCompanyCreationDataForm,
     DashboardMembershipChangeFormSet,
     DashboardPasswordChangeForm,
@@ -71,6 +71,40 @@ class OneCompanyError(Exception):
 
     def __str__(self):
         return "OneCompanyError"
+
+
+class CompanyDetailQrView(LoginRequiredMixin, View):
+    def get(self, request, pk):
+        company = get_object_or_404(Company, pk=pk, users__in=[self.request.user])
+
+        return render(
+            request,
+            "dashboard/company_qr.html", {
+                "company": company,
+                "company_list_short": company_list_short(request.user, company.id),
+                "nav": "qr"
+            }
+        )
+
+    def post(self, request, pk):
+        company = get_object_or_404(Company, pk=pk, users__in=[self.request.user])
+
+        theme = request.POST.get("theme", "light")
+        layout = request.POST.get("layout", "stick")
+
+        if theme not in ["light", "dark"] or layout not in ["stick", "card", "qr"]:
+            raise Http404
+
+        if layout == "stick":
+            file = make_stick(company, theme)
+        elif layout == "card":
+            file = make_card(company, theme)
+        elif layout == "qr":
+            file = make_qr(company, theme)
+
+        response = HttpResponse(file.getbuffer(), content_type="application/pdf")
+        response["Content-Disposition"] = f"attachment; filename=\"{layout}-{theme}.pdf\""
+        return response
 
 
 class CompanyDetailView(LoginRequiredMixin, DetailView):
@@ -357,40 +391,6 @@ class CompanyListView(LoginRequiredMixin, ListView):
         ).annotate(
             reviews_count_total_google=Count("review", filter=Q(review__service=Service.GOOGLE))
         )
-
-
-class CompanyQrView(LoginRequiredMixin, View):
-    def get(self, request, pk):
-        company = get_object_or_404(Company, pk=pk, users__in=[self.request.user])
-
-        return render(
-            request,
-            "dashboard/company_qr.html", {
-                "company": company,
-                "company_list_short": company_list_short(request.user, company.id),
-                "nav": "qr"
-            }
-        )
-
-    def post(self, request, pk):
-        company = get_object_or_404(Company, pk=pk, users__in=[self.request.user])
-
-        theme = request.POST.get("theme", "light")
-        layout = request.POST.get("layout", "stick")
-
-        if theme not in ["light", "dark"] or layout not in ["stick", "card", "qr"]:
-            raise Http404
-
-        if layout == "stick":
-            file = make_stick(company, theme)
-        elif layout == "card":
-            file = make_card(company, theme)
-        elif layout == "qr":
-            file = make_qr(company, theme)
-
-        response = HttpResponse(file.getbuffer(), content_type="application/pdf")
-        response["Content-Disposition"] = f"attachment; filename=\"{layout}-{theme}.pdf\""
-        return response
 
 
 class CompanyUpdateFeedbackContactView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -802,6 +802,14 @@ class PasswordUpdateView(LoginRequiredMixin, SuccessMessageMixin, PasswordChange
         return reverse("password_update")
 
 
+class ProfileUpdateFinanceView(LoginRequiredMixin, View):
+    template_name = "dashboard/profile_update_finance.html"
+    context = {"nav": "finance"}
+
+    def get(self, request):
+        return render(request, self.template_name, {**self.context})
+
+
 class ProfileUpdateView(LoginRequiredMixin, View):
     template_name = "dashboard/profile_update.html"
     context = {"nav": "user", "sub_nav": "settings"}
@@ -862,12 +870,6 @@ class ReviewUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         return f"{reverse('review_list', kwargs={'company_pk': self.kwargs['company_pk']})}?{self.request.GET.urlencode()}"
 
 
-@login_required
-@require_http_methods(["GET", "POST"])
-def subscription(request):
-    return render(request, "dashboard/subscription.html", {"nav": "user", "sub_nav": "subscription"})
-
-
 class UserCreateView(FormView):
     form_class = DashboardUserCreationForm
     template_name = "dashboard/user_create.html"
@@ -915,5 +917,3 @@ class UserUpdateView(LoginRequiredMixin, View):
             messages.success(request, "Профиль успешно обновлен")
 
         return render(request, self.template_name, {"form": form, **self.context})
-
-

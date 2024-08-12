@@ -3,7 +3,7 @@
         <span class="bp5-button-text">{{ company.name|truncatechars:'10' }}</span>
         <span class="bp5-icon bp5-icon-chevron-down bp5-icon-standard"></span>
     </button>
-    <ul class="bp5-menu bp5-elevation-4" data-target style="display:none;left:-2px;top:-5px;opacity:1;position:absolute;">
+    <ul class="bp5-menu bp5-elevation-4" data-target style="display:none;left:-2px;top:-5px;opacity:1;position:absolute;z-index:99999;">
         <li>
             <div class="bp5-menu-item" data-hide>
                 <div class="bp5-entity-title bp5-fill bp5-text-overflow-ellipsis">
@@ -32,5 +32,5 @@
 <a class="bp5-button bp5-minimal {% if nav == 'messages' %}bp5-active{% endif %}" href="{% url 'message_list' company.id %}">Сообщения</a>
 <a class="bp5-button bp5-minimal {% if nav == 'widget' %}bp5-active{% endif %}" href="{% url 'company_update_widget' company.id %}">Виджет</a>
 <a class="bp5-button bp5-minimal {% if nav == 'feedback' %}bp5-active{% endif %}" href="{% url 'company_update_feedback_data' company.id %}">Визитка</a>
-<a class="bp5-button bp5-minimal {% if nav == 'qr' %}bp5-active{% endif %}" href="{% url 'company_qr' company.id %}">Qr</a>
+<a class="bp5-button bp5-minimal {% if nav == 'qr' %}bp5-active{% endif %}" href="{% url 'company_detail_qr' company.id %}">Qr</a>
 <a class="bp5-button bp5-minimal {% if nav == 'notifications' %}bp5-active{% endif %}" href="{% url 'membership_update' company.id %}">Уведомления</a>
