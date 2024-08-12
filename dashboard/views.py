@@ -4,22 +4,19 @@ from urllib.parse import unquote
 
 from celery import chain
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import PasswordChangeView, LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Count, Q, F
-from django.http import Http404, HttpResponse, HttpResponseNotFound
+from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views import View
-from django.views.decorators.http import require_http_methods
 from django.views.generic import CreateView, DetailView, FormView, ListView, UpdateView
 from django_filters.views import FilterView
 
 from pdf.utils import make_stick, make_card, make_qr
-from po_web import settings
 from resources.models import Company, Message, Review, Service
 from resources.tasks import parse_yandex_task, parse_gis_task, parse_google_task
 from services.search import SearchGis, SearchGoogle, SearchYandex

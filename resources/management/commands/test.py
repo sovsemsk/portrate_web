@@ -1,8 +1,4 @@
-from celery import chain
 from django.core.management.base import BaseCommand
-
-from resources.models import Company, Review
-from resources.tasks import parse_yandex_task, parse_gis_task, parse_google_task
 
 
 class Command(BaseCommand):
