@@ -1,6 +1,6 @@
-from django.forms import HiddenInput, ModelForm, Textarea, CharField, TextInput
+from django.forms import HiddenInput, ModelForm, Textarea, CharField, TextInput, ChoiceField
 
-from resources.models import ClickStamp, Message
+from resources.models import ClickStamp, Message, Service
 
 
 class MessageForm(ModelForm):
@@ -17,4 +17,4 @@ class ClickStampForm(ModelForm):
         model = ClickStamp
         fields = ["service"]
 
-    service = CharField(widget=HiddenInput(), required=False)
+    service = ChoiceField(widget=HiddenInput(), choices=[(service.name, service.value) for service in Service])

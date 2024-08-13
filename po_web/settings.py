@@ -103,7 +103,7 @@ MIDDLEWARE = [
 ]
 ROOT_URLCONF = "po_web.urls"
 SECRET_KEY = "$1_5!x!*_-vc&d7$usb94$pm)2h=q0+q))5wm96&#78l8#mn0"
-SESSION_COOKIE_AGE = 86400
+SESSION_COOKIE_AGE = 604800
 SILENCED_SYSTEM_CHECKS = ["security.W019"]
 STATIC_ROOT = "static/"
 STATIC_URL = "static/"

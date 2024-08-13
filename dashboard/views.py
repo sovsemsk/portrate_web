@@ -363,7 +363,7 @@ class CompanyDetailView(LoginRequiredMixin, DetailView):
 
 
 class CompanyListView(LoginRequiredMixin, ListView):
-    allow_empty = False
+    # allow_empty = False
     context_object_name = "company_list"
     model = Company
     paginate_by = 30
