@@ -40,7 +40,12 @@
                                     <span class="bp5-icon bp5-icon-dot {% if company.parser_link_yandex %}bp5-intent-success{% else %}bp5-intent-danger{% endif %}"></span>
                                     <img height=16 src="{% static 'dashboard/images/services/yandex.png' %}" width=16>
                                     {% if company.is_parser_run_yandex %}<span class="bp5-icon bp5-icon-bring-data bp5-intent-primary"></span>{% endif %}
+                                    {% if company.parser_link_yandex %}
+                                    <a class="bp5-text-large" href="{{ company.parser_link_yandex }}" target="_blank">Яндекс</a>
+                                    <span class="bp5-icon bp5-icon-share bp5-intent-primary"></span>
+                                    {% else %}
                                     <div class="bp5-text-large">Яндекс</div>
+                                    {% endif %}
                                 </div>
                             </td>
                             <td style="position:relative;">
@@ -75,7 +80,12 @@
                                     <span class="bp5-icon {% if company.parser_link_gis %}bp5-intent-success{% else %}bp5-intent-danger{% endif %} bp5-icon-dot"></span>
                                     <img height=16 src="{% static 'dashboard/images/services/gis.png' %}" width=16>
                                     {% if company.is_parser_run_gis %}<span class="bp5-icon bp5-icon-bring-data bp5-intent-primary"></span>{% endif %}
+                                    {% if company.parser_link_gis %}
+                                    <a class="bp5-text-large" href="{{ company.parser_link_gis }}" target="_blank">2Гис</a>
+                                    <span class="bp5-icon bp5-icon-share bp5-intent-primary"></span>
+                                    {% else %}
                                     <div class="bp5-text-large">2Гис</div>
+                                    {% endif %}
                                 </div>
                             </td>
                             <td style="position:relative;">
@@ -107,7 +117,12 @@
                                     <span class="bp5-icon {% if company.parser_link_google %}bp5-intent-success{% else %}bp5-intent-danger{% endif %} bp5-icon-dot"></span>
                                     <img height=16 src="{% static 'dashboard/images/services/google.png' %}" width=16>
                                     {% if company.is_parser_run_google %}<span class="bp5-icon bp5-icon-bring-data bp5-intent-primary"></span>{% endif %}
+                                    {% if company.parser_link_google %}
+                                    <a class="bp5-text-large" href="{{ company.parser_link_google }}" target="_blank">Google</a>
+                                    <span class="bp5-icon bp5-icon-share bp5-intent-primary"></span>
+                                    {% else %}
                                     <div class="bp5-text-large">Google</div>
+                                    {% endif %}
                                 </div>
                             </td>
                             <td style="position:relative;">
@@ -139,7 +154,12 @@
                                     <span class="bp5-icon {% if company.parser_link_avito %}bp5-intent-success{% else %}bp5-intent-danger{% endif %} bp5-icon-dot"></span>
                                     <img height=16 src="{% static 'dashboard/images/services/avito.png' %}" width=16>
                                     {% if company.is_parser_run_avito %}<span class="bp5-icon bp5-icon-bring-data bp5-intent-primary"></span>{% endif %}
+                                    {% if company.parser_link_avito %}
+                                    <a class="bp5-text-large" href="{{ company.parser_link_avito }}" target="_blank">Авито</a>
+                                    <span class="bp5-icon bp5-icon-share bp5-intent-primary"></span>
+                                    {% else %}
                                     <div class="bp5-text-large">Авито</div>
+                                    {% endif %}
                                 </div>
                             </td>
                             <td>
@@ -168,7 +188,12 @@
                                     <span class="bp5-icon {% if company.parser_link_zoon %}bp5-intent-success{% else %}bp5-intent-danger{% endif %} bp5-icon-dot"></span>
                                     <img height=16 src="{% static 'dashboard/images/services/zoon.png' %}" width=16>
                                     {% if company.is_parser_run_zoon %}<span class="bp5-icon bp5-icon-bring-data bp5-intent-primary"></span>{% endif %}
+                                    {% if company.parser_link_zoon %}
+                                    <a class="bp5-text-large" href="{{ company.parser_link_zoon }}" target="_blank">Zoon</a>
+                                    <span class="bp5-icon bp5-icon-share bp5-intent-primary"></span>
+                                    {% else %}
                                     <div class="bp5-text-large">Zoon</div>
+                                    {% endif %}
                                 </div>
                             </td>
                             <td>
@@ -197,7 +222,12 @@
                                     <span class="bp5-icon {% if company.parser_link_flamp %}bp5-intent-success{% else %}bp5-intent-danger{% endif %} bp5-icon-dot"></span>
                                     <img height=16 src="{% static 'dashboard/images/services/flamp.png' %}" width=16>
                                     {% if company.is_parser_run_flamp %}<span class="bp5-icon bp5-icon-bring-data bp5-intent-primary"></span>{% endif %}
+                                    {% if company.parser_link_flamp %}
+                                    <a class="bp5-text-large" href="{{ company.parser_link_flamp }}" target="_blank">Flamp</a>
+                                    <span class="bp5-icon bp5-icon-share bp5-intent-primary"></span>
+                                    {% else %}
                                     <div class="bp5-text-large">Flamp</div>
+                                    {% endif %}
                                 </div>
                             </td>
                             <td>
@@ -226,7 +256,12 @@
                                     <span class="bp5-icon {% if company.parser_link_yell %}bp5-intent-success{% else %}bp5-intent-danger{% endif %} bp5-icon-dot"></span>
                                     <img height=16 src="{% static 'dashboard/images/services/yell.png' %}" width=16>
                                     {% if company.is_parser_run_yell %}<span class="bp5-icon bp5-icon-bring-data bp5-intent-primary"></span>{% endif %}
+                                    {% if company.parser_link_yell %}
+                                    <a class="bp5-text-large" href="{{ company.parser_link_yell }}" target="_blank">Yell</a>
+                                    <span class="bp5-icon bp5-icon-share bp5-intent-primary"></span>
+                                    {% else %}
                                     <div class="bp5-text-large">Yell</div>
+                                    {% endif %}
                                 </div>
                             </td>
                             <td>
@@ -255,7 +290,12 @@
                                     <span class="bp5-icon {% if company.parser_link_prodoctorov %}bp5-intent-success{% else %}bp5-intent-danger{% endif %} bp5-icon-dot"></span>
                                     <img height=16 src="{% static 'dashboard/images/services/prodoctorov.png' %}" width=16>
                                     {% if company.is_parser_run_prodoctorov %}<span class="bp5-icon bp5-icon-bring-data bp5-intent-primary"></span>{% endif %}
+                                    {% if company.parser_link_prodoctorov %}
+                                    <a class="bp5-text-large" href="{{ company.parser_link_prodoctorov }}" target="_blank">Продокторов</a>
+                                    <span class="bp5-icon bp5-icon-share bp5-intent-primary"></span>
+                                    {% else %}
                                     <div class="bp5-text-large">Продокторов</div>
+                                    {% endif %}
                                 </div>
                             </td>
                             <td>
@@ -284,7 +324,12 @@
                                     <span class="bp5-icon {% if company.parser_link_yandex_services %}bp5-intent-success{% else %}bp5-intent-danger{% endif %} bp5-icon-dot"></span>
                                     <img height=16 src="{% static 'dashboard/images/services/yandex_services.png' %}" width=16>
                                     {% if company.is_parser_run_yandex_services %}<span class="bp5-icon bp5-icon-bring-data bp5-intent-primary"></span>{% endif %}
+                                    {% if company.parser_link_yandex_services %}
+                                    <a class="bp5-text-large" href="{{ company.parser_link_yandex_services }}" target="_blank">Яндекс Услуги</a>
+                                    <span class="bp5-icon bp5-icon-share bp5-intent-primary"></span>
+                                    {% else %}
                                     <div class="bp5-text-large">Яндекс Услуги</div>
+                                    {% endif %}
                                 </div>
                             </td>
                             <td>
@@ -313,7 +358,12 @@
                                     <span class="bp5-icon {% if company.parser_link_otzovik %}bp5-intent-success{% else %}bp5-intent-danger{% endif %} bp5-icon-dot"></span>
                                     <img height=16 src="{% static 'dashboard/images/services/otzovik.png' %}" width=16>
                                     {% if company.is_parser_run_otzovik %}<span class="bp5-icon bp5-icon-bring-data bp5-intent-primary"></span>{% endif %}
+                                    {% if company.parser_link_otzovik %}
+                                    <a class="bp5-text-large" href="{{ company.parser_link_otzovik }}" target="_blank">Отзовик</a>
+                                    <span class="bp5-icon bp5-icon-share bp5-intent-primary"></span>
+                                    {% else %}
                                     <div class="bp5-text-large">Отзовик</div>
+                                    {% endif %}
                                 </div>
                             </td>
                             <td>
@@ -342,7 +392,12 @@
                                     <span class="bp5-icon {% if company.parser_link_irecommend %}bp5-intent-success{% else %}bp5-intent-danger{% endif %} bp5-icon-dot"></span>
                                     <img height=16 src="{% static 'dashboard/images/services/irecommend.png' %}" width=16>
                                     {% if company.is_parser_run_irecommend %}<span class="bp5-icon bp5-icon-bring-data bp5-intent-primary"></span>{% endif %}
+                                    {% if company.parser_link_irecommend %}
+                                    <a class="bp5-text-large" href="{{ company.parser_link_irecommend }}" target="_blank">Irecommend</a>
+                                    <span class="bp5-icon bp5-icon-share bp5-intent-primary"></span>
+                                    {% else %}
                                     <div class="bp5-text-large">Irecommend</div>
+                                    {% endif %}
                                 </div>
                             </td>
                             <td>
@@ -371,7 +426,12 @@
                                     <span class="bp5-icon {% if company.parser_link_tripadvisor %}bp5-intent-success{% else %}bp5-intent-danger{% endif %} bp5-icon-dot"></span>
                                     <img height=16 src="{% static 'dashboard/images/services/tripadvisor.png' %}" width=16>
                                     {% if company.is_parser_run_tripadvisor %}<span class="bp5-icon bp5-icon-bring-data bp5-intent-primary"></span>{% endif %}
+                                    {% if company.parser_link_tripadvisor %}
+                                    <a class="bp5-text-large" href="{{ company.parser_link_tripadvisor }}" target="_blank">Irecommend</a>
+                                    <span class="bp5-icon bp5-icon-share bp5-intent-primary"></span>
+                                    {% else %}
                                     <div class="bp5-text-large">Tripadvisor</div>
+                                    {% endif %}
                                 </div>
                             </td>
                             <td>
