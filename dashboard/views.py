@@ -15,9 +15,10 @@ from django.urls import reverse
 from django.views import View
 from django.views.generic import CreateView, DetailView, FormView, ListView, UpdateView
 from django_filters.views import FilterView
+from djmoney.money import Money
 
 from pdf.utils import make_stick, make_card, make_qr
-from resources.models import Company, Message, Review, Service
+from resources.models import Company, Message, Review, Service, Membership
 from resources.tasks import parse_yandex_task, parse_gis_task, parse_google_task
 from services.search import SearchGis, SearchGoogle, SearchYandex
 from .filters import MessageFilter, ReviewFilter
@@ -600,6 +601,7 @@ class MasterCompanyCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateVie
     def form_valid(self, form):
         parsers_chain = []
 
+        """ Инициализация ссылок из API """
         if self.request.COOKIES.get("id_yandex", False):
             form.instance.parser_link_yandex = unquote(f"https://yandex.ru/maps/org/{self.request.COOKIES['name_yandex']}/{self.request.COOKIES['id_yandex']}/reviews")
             form.instance.parser_last_change_at_yandex = datetime.now(timezone.utc)
@@ -615,8 +617,19 @@ class MasterCompanyCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateVie
             form.instance.parser_last_change_at_google = datetime.now(timezone.utc)
             form.instance.feedback_link_google = unquote(f"https://search.google.com/local/writereview?placeid={self.request.COOKIES['id_google']}")
 
+        """ Сохранение обьекта филиала """
         form_valid = super().form_valid(form)
         form.instance.users.add(self.request.user)
+
+        """ Инициализация и сохранение флага владельца филиала """
+        membership = self.request.user.membership_set.filter(company=self.object).first()
+        membership.is_owner = True
+        membership.save()
+
+        """ Инициализация и сохранение первичного баланса """
+        profile = self.request.user.profile
+        profile.balance = Money(60, "RUB")
+        profile.save()
 
         if form.instance.parser_link_yandex:
             parsers_chain.append(parse_yandex_task.s(company_id=form.instance.id))
@@ -804,7 +817,15 @@ class ProfileUpdateFinanceView(LoginRequiredMixin, View):
     context = {"nav": "finance"}
 
     def get(self, request):
-        return render(request, self.template_name, {**self.context})
+        period = self.request.GET.get("period", "annually")
+
+        rate = request.user.profile.rate
+        rate_display = request.user.profile.get_rate_display()
+
+        return render(request, self.template_name, {
+            "period": period,
+            **self.context
+        })
 
 
 class ProfileUpdateView(LoginRequiredMixin, View):

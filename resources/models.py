@@ -29,7 +29,7 @@ from telegram import Bot
 
 class Rate(TextChoices):
     """ Тариф """
-    START = "STARTS", "Старт"
+    START = "START", "Старт"
     REGULAR = "REGULAR", "Стандарт"
     BUSINESS = "BUSINESS", "Бизнес"
 
@@ -169,7 +169,6 @@ class Company(Model):
     parser_link_yell = CharField(blank=True, null=True, verbose_name="ссылка Yell")
     parser_last_change_at_yell = DateField(blank=True, null=True, verbose_name="дата последнего изменения Yell")
     parser_last_parse_at_yell = DateTimeField(blank=True, null=True, verbose_name="дата и время последней загрузки Yell")
-
 
     """ Парсер Продокторов """
     is_first_parsing_prodoctorov= BooleanField(blank=True, default=True, null=True, verbose_name="это первый парсинг Продокторов?")
@@ -508,6 +507,7 @@ class Membership(Model):
         verbose_name_plural = "участники"
 
     """ Настройки """
+    is_owner = BooleanField(blank=True, default=False, null=True, verbose_name="владелец?")
     is_notify_0 = BooleanField(blank=True, default=True, null=True, verbose_name="оповещать с 0 звезд?")
     is_notify_1 = BooleanField(blank=True, default=True, null=True, verbose_name="оповещать с 1 звездой?")
     is_notify_2 = BooleanField(blank=True, default=True, null=True, verbose_name="оповещать с 2 звездами?")
@@ -583,7 +583,6 @@ class Profile(Model):
     """ Автогенерация """
     api_secret = CharField(blank=True, db_index=True, null=True, verbose_name="API ключ")
     balance = MoneyField(blank=True, default=0, default_currency="RUB", decimal_places=2,  max_digits=14, null=True)
-    is_billing = BooleanField(blank=True, default=False, null=True, verbose_name="списывать оплату?")
 
     """ Настройки """
     default_timezone = CharField(blank=False, choices=Timezone.choices, default=Timezone.UTC, null=True, verbose_name="Временная зона по умолчанию")
@@ -592,6 +591,10 @@ class Profile(Model):
 
     """ Связи """
     user = OneToOneField("auth.User", on_delete=CASCADE)
+
+    @property
+    def is_active(self):
+        return self.balance > 0
 
     def __str__(self):
         return f"Profile #{self.id}"
@@ -681,4 +684,3 @@ class VisitStamp(Model):
 
     def __str__(self):
         return f"VisitStamp #{self.id}"
-

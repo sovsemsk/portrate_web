@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     "django_celery_beat",
     "django_celery_results",
     "django_filters",
+    "djmoney",
 
     # Django
     "django.contrib.admin",

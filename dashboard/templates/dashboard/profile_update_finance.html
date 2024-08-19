@@ -4,9 +4,14 @@
 <h2 class="bp5-heading">Тариф</h2>
 <div class="bp5-form-group">
     <div class="bp5-form-content">
-        <div class="bp5-button-group bp5-minimal">
-            <a class="bp5-button bp5-active" href="#">Ежемесячно</a>
-            <a class="bp5-button" href="#">Ежегодно</a>
+        <div class="bp5-entity-title">
+            <div class="bp5-button-group bp5-minimal">
+                <a class="bp5-button {% if period == 'annually' %}bp5-active{% endif %}" href="{% url 'profile_update_finance' %}" data-period-annually>Год</a>
+                <a class="bp5-button {% if period == 'monthly' %}bp5-active{% endif %}" href="?period=monthly" data-period-monthly>Месяц</a>
+            </div>
+            <div class="bp5-intent-success bp5-large bp5-minimal bp5-tag ml-auto">
+                <strong>Старт</strong>&nbsp;—&nbsp;активен до 25 августа
+            </div>
         </div>
     </div>
 </div>
@@ -20,8 +25,8 @@
                             <div class="bp5-section-header">
                                 <div class="bp5-section-header-left">
                                     <div>
-                                        <h2 class="bp5-heading bp5-section-header-title">250 ₽</h2>
-                                        <div class="bp5-text-muted bp5-section-header-sub-title">в месяц</div>
+                                        <h2 class="bp5-heading bp5-section-header-title">{% if period == 'annually' %}3000{% else %}250{% endif %} ₽</h2>
+                                        <div class="bp5-text-muted bp5-section-header-sub-title">в {% if period == 'annually' %}год{% else %}месяц{% endif %}</div>
                                     </div>
                                 </div>
                                 <div class="bp5-section-header-right">
@@ -66,7 +71,7 @@
                         </div>
                     </div>
                 </div>
-                <button class="bp5-button bp5-large bp5-active">Ваш тариф</button>
+                <button class="bp5-button bp5-large">Оплатить</button>
             </div>
             <div class="xs-4">
                 <div class="bp5-form-group">
@@ -75,8 +80,8 @@
                             <div class="bp5-section-header">
                                 <div class="bp5-section-header-left">
                                     <div>
-                                        <h2 class="bp5-heading bp5-section-header-title">500 ₽</h2>
-                                        <div class="bp5-text-muted bp5-section-header-sub-title">в месяц</div>
+                                        <h2 class="bp5-heading bp5-section-header-title">{% if period == 'annually' %}6000{% else %}500{% endif %} ₽</h2>
+                                        <div class="bp5-text-muted bp5-section-header-sub-title">в {% if period == 'annually' %}год{% else %}месяц{% endif %}</div>
                                     </div>
                                 </div>
                                 <div class="bp5-section-header-right">
@@ -128,7 +133,7 @@
                         </div>
                     </div>
                 </div>
-                <button class="bp5-button bp5-large">Подключить</button>
+                <button class="bp5-button bp5-large">Оплатить</button>
             </div>
             <div class="xs-4">
                 <div class="bp5-form-group">
@@ -137,8 +142,8 @@
                             <div class="bp5-section-header">
                                 <div class="bp5-section-header-left">
                                     <div>
-                                        <h2 class="bp5-heading bp5-section-header-title">от 1500 ₽</h2>
-                                        <div class="bp5-text-muted bp5-section-header-sub-title">в месяц</div>
+                                        <h2 class="bp5-heading bp5-section-header-title">от {% if period == 'annually' %}18000{% else %}1500{% endif %} ₽</h2>
+                                        <div class="bp5-text-muted bp5-section-header-sub-title">в {% if period == 'annually' %}год{% else %}месяц{% endif %}</div>
                                     </div>
                                 </div>
                                 <div class="bp5-section-header-right">
@@ -148,7 +153,7 @@
                             <div class="bp5-section-card bp5-padded">
                                 <p class="bp5-entity-title">
                                     <span class="bp5-icon bp5-icon-tick bp5-intent-success"></span>
-                                    <span class="bp5-text-large">Компания с множеством филиалом</span>
+                                    <span class="bp5-text-large">Компания с множеством филиалов</span>
                                 </p>
                                 <p class="bp5-entity-title">
                                     <span class="bp5-icon bp5-icon-tick bp5-intent-success"></span>
@@ -190,9 +195,14 @@
                         </div>
                     </div>
                 </div>
-                <button class="bp5-button bp5-large">Подключить</button>
+                <button class="bp5-button bp5-large">Запросить</button>
             </div>
         </div>
     </div>
 </div>
+{% endblock %}
+{% block script %}
+<script>
+    $(document).ready(event => {});
+</script>
 {% endblock %}
