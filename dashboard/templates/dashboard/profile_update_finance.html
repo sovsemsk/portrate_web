@@ -1,4 +1,5 @@
 {% extends 'dashboard/base.html' %}
+{% load extensions %}
 {% load static %}
 {% block content %}
 <h2 class="bp5-heading">Тариф</h2>
@@ -9,8 +10,8 @@
                 <a class="bp5-button {% if period == 'annually' %}bp5-active{% endif %}" href="{% url 'profile_update_finance' %}" data-period-annually>Год</a>
                 <a class="bp5-button {% if period == 'monthly' %}bp5-active{% endif %}" href="?period=monthly" data-period-monthly>Месяц</a>
             </div>
-            <div class="bp5-intent-success bp5-large bp5-minimal bp5-tag ml-auto">
-                <strong>Старт</strong>&nbsp;—&nbsp;активен до 25 августа
+            <div class="bp5-large bp5-minimal bp5-tag ml-auto {% if request.user.profile.is_active%}bp5-intent-success{% else %}bp5-intent-danger{% endif %}">
+                <strong>{{ request.user.profile.get_rate_display }},&nbsp;</strong>{% if request.user.profile.is_active%}активен еще {{ request.user.profile.days_left|default:'0' }} {{ request.user.profile.days_left|default:'0'|rupluralize:'день, дня, дней' }}{% else %}не активен{% endif %}
             </div>
         </div>
     </div>
@@ -25,7 +26,7 @@
                             <div class="bp5-section-header">
                                 <div class="bp5-section-header-left">
                                     <div>
-                                        <h2 class="bp5-heading bp5-section-header-title">{% if period == 'annually' %}3000{% else %}250{% endif %} ₽</h2>
+                                        <h2 class="bp5-heading bp5-section-header-title">{% if period == 'annually' %}{{ request.user.profile.start_price_annually }}{% else %}{{ request.user.profile.start_price_monthly }}{% endif %} ₽</h2>
                                         <div class="bp5-text-muted bp5-section-header-sub-title">в {% if period == 'annually' %}год{% else %}месяц{% endif %}</div>
                                     </div>
                                 </div>
@@ -36,7 +37,7 @@
                             <div class="bp5-section-card bp5-padded">
                                 <p class="bp5-entity-title">
                                     <span class="bp5-icon bp5-icon-tick bp5-intent-success"></span>
-                                    <span class="bp5-text-large">Компания с 1 филиалом</span>
+                                    <span class="bp5-text-large">1 филиал</span>
                                 </p>
                                 <p class="bp5-entity-title">
                                     <span class="bp5-icon bp5-icon-tick bp5-intent-success"></span>
@@ -80,7 +81,7 @@
                             <div class="bp5-section-header">
                                 <div class="bp5-section-header-left">
                                     <div>
-                                        <h2 class="bp5-heading bp5-section-header-title">{% if period == 'annually' %}6000{% else %}500{% endif %} ₽</h2>
+                                        <h2 class="bp5-heading bp5-section-header-title">{% if period == 'annually' %}{{ request.user.profile.regular_price_annually }}{% else %}{{ request.user.profile.regular_price_monthly }}{% endif %} ₽</h2>
                                         <div class="bp5-text-muted bp5-section-header-sub-title">в {% if period == 'annually' %}год{% else %}месяц{% endif %}</div>
                                     </div>
                                 </div>
@@ -91,7 +92,7 @@
                             <div class="bp5-section-card bp5-padded">
                                 <p class="bp5-entity-title">
                                     <span class="bp5-icon bp5-icon-tick bp5-intent-success"></span>
-                                    <span class="bp5-text-large">Компания с 1 филиалом</span>
+                                    <span class="bp5-text-large">До 3 филиалов</span>
                                 </p>
                                 <p class="bp5-entity-title">
                                     <span class="bp5-icon bp5-icon-tick bp5-intent-success"></span>
@@ -142,7 +143,7 @@
                             <div class="bp5-section-header">
                                 <div class="bp5-section-header-left">
                                     <div>
-                                        <h2 class="bp5-heading bp5-section-header-title">от {% if period == 'annually' %}18000{% else %}1500{% endif %} ₽</h2>
+                                        <h2 class="bp5-heading bp5-section-header-title">от {% if period == 'annually' %}{{ request.user.profile.business_price_annually }}{% else %}{{ request.user.profile.business_price_monthly }}{% endif %} ₽</h2>
                                         <div class="bp5-text-muted bp5-section-header-sub-title">в {% if period == 'annually' %}год{% else %}месяц{% endif %}</div>
                                     </div>
                                 </div>
@@ -153,7 +154,7 @@
                             <div class="bp5-section-card bp5-padded">
                                 <p class="bp5-entity-title">
                                     <span class="bp5-icon bp5-icon-tick bp5-intent-success"></span>
-                                    <span class="bp5-text-large">Компания с множеством филиалов</span>
+                                    <span class="bp5-text-large">Множество филиалов</span>
                                 </p>
                                 <p class="bp5-entity-title">
                                     <span class="bp5-icon bp5-icon-tick bp5-intent-success"></span>

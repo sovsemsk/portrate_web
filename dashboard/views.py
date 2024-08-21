@@ -364,7 +364,7 @@ class CompanyDetailView(LoginRequiredMixin, DetailView):
 
 
 class CompanyListView(LoginRequiredMixin, ListView):
-    # allow_empty = False
+    allow_empty = False
     context_object_name = "company_list"
     model = Company
     paginate_by = 30
@@ -513,60 +513,132 @@ class CompanyUpdateLinkYandexView(CompanyUpdateView):
     form_class = DashboardCompanyChangeYandexForm
     template_name = "dashboard/company_update_link_yandex.html"
 
+    def dispatch(self, *args, **kwargs):
+        if not args[0].user.profile.can_parse_yandex:
+            return redirect("profile_update_finance")
+        else:
+            return super().dispatch(*args, **kwargs)
+
 
 class CompanyUpdateLinkGisView(CompanyUpdateView):
     form_class = DashboardCompanyChangeGisForm
     template_name = "dashboard/company_update_link_gis.html"
+
+    def dispatch(self, *args, **kwargs):
+        if not args[0].user.profile.can_parse_gis:
+            return redirect("profile_update_finance")
+        else:
+            return super().dispatch(*args, **kwargs)
 
 
 class CompanyUpdateLinkGoogleView(CompanyUpdateView):
     form_class = DashboardCompanyChangeGoogleForm
     template_name = "dashboard/company_update_link_google.html"
 
+    def dispatch(self, *args, **kwargs):
+        if not args[0].user.profile.can_parse_google:
+            return redirect("profile_update_finance")
+        else:
+            return super().dispatch(*args, **kwargs)
+
 
 class CompanyUpdateLinkAvitoView(CompanyUpdateView):
     form_class = DashboardCompanyChangeAvitoForm
     template_name = "dashboard/company_update_link_avito.html"
+
+    def dispatch(self, *args, **kwargs):
+        if not args[0].user.profile.can_parse_avito:
+            return redirect("profile_update_finance")
+        else:
+            return super().dispatch(*args, **kwargs)
 
 
 class CompanyUpdateLinkZoonView(CompanyUpdateView):
     form_class = DashboardCompanyChangeZoonForm
     template_name = "dashboard/company_update_link_zoon.html"
 
+    def dispatch(self, *args, **kwargs):
+        if not args[0].user.profile.can_parse_zoon:
+            return redirect("profile_update_finance")
+        else:
+            return super().dispatch(*args, **kwargs)
+
 
 class CompanyUpdateLinkFlampView(CompanyUpdateView):
     form_class = DashboardCompanyChangeFlampForm
     template_name = "dashboard/company_update_link_flamp.html"
+
+    def dispatch(self, *args, **kwargs):
+        if not args[0].user.profile.can_parse_flamp:
+            return redirect("profile_update_finance")
+        else:
+            return super().dispatch(*args, **kwargs)
 
 
 class CompanyUpdateLinkYellView(CompanyUpdateView):
     form_class = DashboardCompanyChangeYellForm
     template_name = "dashboard/company_update_link_yell.html"
 
+    def dispatch(self, *args, **kwargs):
+        if not args[0].user.profile.can_parse_yell:
+            return redirect("profile_update_finance")
+        else:
+            return super().dispatch(*args, **kwargs)
+
 
 class CompanyUpdateLinkProdoctorovView(CompanyUpdateView):
     form_class = DashboardCompanyChangeProdoctorovForm
     template_name = "dashboard/company_update_link_prodoctorov.html"
+
+    def dispatch(self, *args, **kwargs):
+        if not args[0].user.profile.can_parse_prodoctorov:
+            return redirect("profile_update_finance")
+        else:
+            return super().dispatch(*args, **kwargs)
 
 
 class CompanyUpdateLinkYandexServicesView(CompanyUpdateView):
     form_class = DashboardCompanyChangeYandexServicesForm
     template_name = "dashboard/company_update_link_yandex_services.html"
 
+    def dispatch(self, *args, **kwargs):
+        if not args[0].user.profile.can_parse_yandex_services:
+            return redirect("profile_update_finance")
+        else:
+            return super().dispatch(*args, **kwargs)
+
 
 class CompanyUpdateLinkOtzovikView(CompanyUpdateView):
     form_class = DashboardCompanyChangeOtzovikForm
     template_name = "dashboard/company_update_link_otzovik.html"
+
+    def dispatch(self, *args, **kwargs):
+        if not args[0].user.profile.can_parse_otzovik:
+            return redirect("profile_update_finance")
+        else:
+            return super().dispatch(*args, **kwargs)
 
 
 class CompanyUpdateLinkIrecommendView(CompanyUpdateView):
     form_class = DashboardCompanyChangeIrecommendForm
     template_name = "dashboard/company_update_link_irecommend.html"
 
+    def dispatch(self, *args, **kwargs):
+        if not args[0].user.profile.can_parse_irecommend:
+            return redirect("profile_update_finance")
+        else:
+            return super().dispatch(*args, **kwargs)
+
 
 class CompanyUpdateLinkTripadvisorView(CompanyUpdateView):
     form_class = DashboardCompanyChangeTripadvisorForm
     template_name = "dashboard/company_update_link_tripadvisor.html"
+
+    def dispatch(self, *args, **kwargs):
+        if not args[0].user.profile.can_parse_tripadvisor:
+            return redirect("profile_update_finance")
+        else:
+            return super().dispatch(*args, **kwargs)
 
 
 class CompanyUpdateWidgetView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -597,6 +669,12 @@ class MasterCompanyCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateVie
     model = Company
     template_name = "dashboard/master_company_create.html"
     success_message = "Филиал успешно добавлен"
+
+    def dispatch(self, *args, **kwargs):
+        if not args[0].user.profile.can_create_company:
+            return redirect("profile_update_finance")
+        else:
+            return super().dispatch(*args, **kwargs)
 
     def form_valid(self, form):
         parsers_chain = []
@@ -679,6 +757,9 @@ class MasterCompanyCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateVie
 
 class MasterSearchGisView(LoginRequiredMixin, View):
     def get(self, request):
+        if not request.user.profile.can_create_company:
+            return redirect("profile_update_finance")
+
         card_list = []
 
         if "query" in request.GET:
@@ -702,6 +783,9 @@ class MasterSearchGisView(LoginRequiredMixin, View):
 
 class MasterSearchGoogleView(LoginRequiredMixin, View):
     def get(self, request):
+        if not request.user.profile.can_create_company:
+            return redirect("profile_update_finance")
+
         card_list = []
 
         if "query" in request.GET:
@@ -726,6 +810,9 @@ class MasterSearchGoogleView(LoginRequiredMixin, View):
 
 class MasterSearchYandexView(LoginRequiredMixin, View):
     def get(self, request):
+        if not request.user.profile.can_create_company:
+            return redirect("profile_update_finance")
+
         card_list = []
 
         if "query" in request.GET:
@@ -818,9 +905,6 @@ class ProfileUpdateFinanceView(LoginRequiredMixin, View):
 
     def get(self, request):
         period = self.request.GET.get("period", "annually")
-
-        rate = request.user.profile.rate
-        rate_display = request.user.profile.get_rate_display()
 
         return render(request, self.template_name, {
             "period": period,

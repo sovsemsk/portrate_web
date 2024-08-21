@@ -1,4 +1,5 @@
 import asyncio
+import math
 from datetime import date
 
 from django.conf import settings
@@ -582,19 +583,139 @@ class Profile(Model):
 
     """ Автогенерация """
     api_secret = CharField(blank=True, db_index=True, null=True, verbose_name="API ключ")
-    balance = MoneyField(blank=True, default=0, default_currency="RUB", decimal_places=2,  max_digits=14, null=True)
+    balance = MoneyField(blank=True, default=0, default_currency="RUB", decimal_places=2,  max_digits=14, null=True,  verbose_name="баланс")
 
     """ Настройки """
-    default_timezone = CharField(blank=False, choices=Timezone.choices, default=Timezone.UTC, null=True, verbose_name="Временная зона по умолчанию")
+    default_timezone = CharField(blank=False, choices=Timezone.choices, default=Timezone.UTC, null=True, verbose_name="временная зона по умолчанию")
     telegram_id = CharField(blank=True, null=True, verbose_name="telegram ID")
-    rate = CharField(blank=False, choices=Rate.choices, default=Rate.START, null=True, verbose_name="Тариф")
+    rate = CharField(blank=False, choices=Rate.choices, default=Rate.START, null=True, verbose_name="тариф")
+
+    start_price_monthly_base = MoneyField(blank=True, default=250, default_currency="RUB", decimal_places=2,  max_digits=14, null=True, verbose_name="стоимость тарифа Старт, в месяц")
+    regular_price_monthly_base = MoneyField(blank=True, default=500, default_currency="RUB", decimal_places=2,  max_digits=14, null=True, verbose_name="стоимость тарифа Стандарт, в месяц")
+    business_price_monthly_base = MoneyField(blank=True, default=1500, default_currency="RUB", decimal_places=2,  max_digits=14, null=True, verbose_name="стоимость тарифа Бизнес, в месяц")
+
+    start_max_count = IntegerField(blank=True, default=1, null=True, verbose_name="максимальное количество филиалов тарифа Старт")
+    regular_max_count = IntegerField(blank=True, default=3, null=True, verbose_name="максимальное количество филиалов тарифа Стандарт")
+    business_max_count = IntegerField(blank=True, default=10, null=True, verbose_name="максимальное количество филиалов тарифа Бизнес")
 
     """ Связи """
     user = OneToOneField("auth.User", on_delete=CASCADE)
 
+    """ Стоимость тарифов """
+    @property
+    def start_price_monthly(self):
+        return self.start_price_monthly_base.amount
+
+    @property
+    def start_price_monthly_sale(self):
+        return self.start_price_monthly_base.amount
+
+    @property
+    def start_price_annually(self):
+        return self.start_price_monthly * 12
+
+    @property
+    def start_price_annually_sale(self):
+        return self.start_price_annually * 0.7
+
+    @property
+    def regular_price_monthly(self):
+        return self.regular_price_monthly_base.amount
+
+    @property
+    def regular_price_monthly_sale(self):
+        return self.regular_price_monthly_base.amount
+
+    @property
+    def regular_price_annually(self):
+        return self.regular_price_monthly * 12
+
+    @property
+    def regular_price_annually_sale(self):
+        return self.regular_price_annually * 0.7
+
+    @property
+    def business_price_monthly(self):
+        return self.business_price_monthly_base.amount
+
+    @property
+    def business_price_monthly_sale(self):
+        return self.business_price_monthly_base.amount
+
+    @property
+    def business_price_annually(self):
+        return self.business_price_monthly * 12
+
+    @property
+    def business_price_annually_sale(self):
+        return self.business_price_annually * 0.7
+
+    @property
+    def days_left(self):
+        return math.floor(float(self.balance.amount) / float(self.__getattribute__(f"{self.rate.lower()}_price_annually") / 365))
+
     @property
     def is_active(self):
-        return self.balance > 0
+        return self.days_left > 0
+
+    @property
+    def can_create_company(self):
+        count = Membership.objects.filter(user=self.user).count()
+
+        if self.rate == Rate.START:
+            return count < self.start_max_count
+        elif self.rate == Rate.REGULAR:
+            return count < self.regular_max_count
+        elif self.rate == Rate.BUSINESS:
+            return count < self.business_max_count
+
+    @property
+    def can_parse_yandex(self):
+        return self.rate in [Rate.START, Rate.REGULAR, Rate.BUSINESS]
+
+    @property
+    def can_parse_gis(self):
+        return self.rate in [Rate.START, Rate.REGULAR, Rate.BUSINESS]
+
+    @property
+    def can_parse_google(self):
+        return self.rate in [Rate.START, Rate.REGULAR, Rate.BUSINESS]
+
+    @property
+    def can_parse_avito(self):
+        return self.rate in [Rate.START, Rate.REGULAR, Rate.BUSINESS]
+
+    @property
+    def can_parse_zoon(self):
+        return self.rate in [Rate.START, Rate.REGULAR, Rate.BUSINESS]
+
+    @property
+    def can_parse_flamp(self):
+        return self.rate in [Rate.REGULAR, Rate.BUSINESS]
+
+    @property
+    def can_parse_yell(self):
+        return self.rate in [Rate.REGULAR, Rate.BUSINESS]
+
+    @property
+    def can_parse_prodoctorov(self):
+        return self.rate in [Rate.REGULAR, Rate.BUSINESS]
+
+    @property
+    def can_parse_yandex_services(self):
+        return self.rate in [Rate.REGULAR, Rate.BUSINESS]
+
+    @property
+    def can_parse_otzovik(self):
+        return self.rate in [Rate.REGULAR, Rate.BUSINESS]
+
+    @property
+    def can_parse_irecommend(self):
+        return self.rate in [Rate.REGULAR, Rate.BUSINESS]
+
+    @property
+    def can_parse_tripadvisor(self):
+        return self.rate in [Rate.REGULAR, Rate.BUSINESS]
 
     def __str__(self):
         return f"Profile #{self.id}"
