@@ -700,14 +700,12 @@ class MasterCompanyCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateVie
         form.instance.users.add(self.request.user)
 
         """ Инициализация и сохранение флага владельца филиала """
-        membership = self.request.user.membership_set.filter(company=self.object).first()
-        membership.is_owner = True
-        membership.save()
+        self.request.user.membership_set.filter(company=self.object).update(is_owner=True)
 
         """ Инициализация и сохранение первичного баланса """
-        profile = self.request.user.profile
-        profile.balance = Money(60, "RUB")
-        profile.save()
+        # profile = self.request.user.profile
+        # profile.balance = Money(60, "RUB")
+        # profile.save()
 
         if form.instance.parser_link_yandex:
             parsers_chain.append(parse_yandex_task.s(company_id=form.instance.id))

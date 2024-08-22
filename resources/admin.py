@@ -5,7 +5,7 @@ from .models import Company, Membership
 
 class MembershipInlineAdmin(TabularInline):
     autocomplete_fields = ["user"]
-    fields = ["user"]
+    fields = ["user", "is_owner"]
     model = Membership
 
 

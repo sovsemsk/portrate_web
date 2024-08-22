@@ -583,7 +583,7 @@ class Profile(Model):
 
     """ Автогенерация """
     api_secret = CharField(blank=True, db_index=True, null=True, verbose_name="API ключ")
-    balance = MoneyField(blank=True, default=0, default_currency="RUB", decimal_places=2,  max_digits=14, null=True,  verbose_name="баланс")
+    balance = MoneyField(blank=True, default=60, default_currency="RUB", decimal_places=2,  max_digits=14, null=True,  verbose_name="баланс")
 
     """ Настройки """
     default_timezone = CharField(blank=False, choices=Timezone.choices, default=Timezone.UTC, null=True, verbose_name="временная зона по умолчанию")
