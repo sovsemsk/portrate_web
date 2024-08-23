@@ -1,10 +1,11 @@
 from django.db import IntegrityError
+from django.db.models import Prefetch
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.views.decorators.http import require_http_methods
 
 from feedback.forms import ClickStampForm, MessageForm
-from resources.models import Company, VisitStamp, Membership
+from resources.models import Company, VisitStamp, Membership, Profile
 
 
 def create_session(func):

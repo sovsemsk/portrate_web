@@ -19,7 +19,7 @@
     </head>
     <body>
     <div class="container" style="padding-top:15px;">
-        {% if  company.is_active %}
+        {% if not company.is_active %}
         <div class="bp5-form-group">
             <div class="bp5-form-content">
                 <div class="bp5-callout_ bp5-intent-warning">
@@ -28,7 +28,7 @@
                             <span class="bp5-running-text bp5-text-large">Подписка для филиала «{{ company.name }}{% if company.address %}, {{ company.address }}{% endif %}» закончилась.</span>
                         </div>
                     </div>
-                    Передите по этой <a href="https://geo.portrate.io">ссылке</a> для продления подписки в личном кабинете.
+                    <a href="https://geo.portrate.io">Продлить</a>
                 </div>
             </div>
         </div>
