@@ -74,6 +74,9 @@ class CompanyDetailQrView(LoginRequiredMixin, View):
     def get(self, request, pk):
         company = get_object_or_404(Company, pk=pk, users__in=[self.request.user])
 
+        if not company.is_active:
+            return redirect("profile_update_finance")
+
         return render(
             request,
             "dashboard/company_qr.html", {
@@ -85,6 +88,9 @@ class CompanyDetailQrView(LoginRequiredMixin, View):
 
     def post(self, request, pk):
         company = get_object_or_404(Company, pk=pk, users__in=[self.request.user])
+
+        if not company.is_active:
+            return redirect("profile_update_finance")
 
         theme = request.POST.get("theme", "light")
         layout = request.POST.get("layout", "stick")
@@ -108,6 +114,12 @@ class CompanyDetailView(LoginRequiredMixin, DetailView):
     context_object_name = "company"
     model = Company
     template_name = "dashboard/company_detail.html"
+
+    def dispatch(self, *args, **kwargs):
+        if not self.get_object().is_active:
+            return redirect("profile_update_finance")
+
+        return super().dispatch(*args, **kwargs)
 
     def get_context_data(self, ** kwargs):
         context = super().get_context_data(** kwargs)
@@ -397,6 +409,12 @@ class CompanyUpdateFeedbackContactView(LoginRequiredMixin, SuccessMessageMixin, 
     success_message = "Филиал успешно обновлен"
     template_name = "dashboard/company_update_feedback_contact.html"
 
+    def dispatch(self, *args, **kwargs):
+        if not self.get_object().is_active:
+            return redirect("profile_update_finance")
+
+        return super().dispatch(*args, **kwargs)
+
     def get_context_data(self, ** kwargs):
         context = super().get_context_data(** kwargs)
         context["company_list_short"] = company_list_short(self.request.user, self.object.id)
@@ -418,6 +436,12 @@ class CompanyUpdateFeedbackDataView(LoginRequiredMixin, SuccessMessageMixin, Upd
     success_message = "Филиал успешно обновлен"
     template_name = "dashboard/company_update_feedback_data.html"
 
+    def dispatch(self, *args, **kwargs):
+        if not self.get_object().is_active:
+            return redirect("profile_update_finance")
+
+        return super().dispatch(*args, **kwargs)
+
     def get_context_data(self, ** kwargs):
         context = super().get_context_data(** kwargs)
         context["company_list_short"] = company_list_short(self.request.user, self.object.id)
@@ -438,6 +462,12 @@ class CompanyUpdateFeedbackServiceView(LoginRequiredMixin, SuccessMessageMixin, 
     model = Company
     success_message = "Филиал успешно обновлен"
     template_name = "dashboard/company_update_feedback_service.html"
+
+    def dispatch(self, *args, **kwargs):
+        if not self.get_object().is_active:
+            return redirect("profile_update_finance")
+
+        return super().dispatch(*args, **kwargs)
 
     def get_context_data(self, ** kwargs):
         context = super().get_context_data(** kwargs)
@@ -647,6 +677,12 @@ class CompanyUpdateWidgetView(LoginRequiredMixin, SuccessMessageMixin, UpdateVie
     success_message = "Виджет успешно обновлен"
     template_name = "dashboard/company_update_widget.html"
 
+    def dispatch(self, *args, **kwargs):
+        if not self.get_object().is_active:
+            return redirect("profile_update_finance")
+
+        return super().dispatch(*args, **kwargs)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["company_list_short"] = company_list_short(self.request.user, self.object.id)
@@ -670,7 +706,9 @@ class MasterCompanyCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateVie
     success_message = "Филиал успешно добавлен"
 
     def dispatch(self, *args, **kwargs):
-        if not args[0].user.profile.can_create_company:
+        profile = args[0].user.profile
+
+        if not profile.is_active or not profile.can_create_company:
             return redirect("profile_update_finance")
 
         return super().dispatch(*args, **kwargs)
@@ -754,7 +792,9 @@ class MasterCompanyCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateVie
 
 class MasterSearchGisView(LoginRequiredMixin, View):
     def get(self, request):
-        if not request.user.profile.can_create_company:
+        profile = request.user.profile
+
+        if not profile.is_active or not profile.can_create_company:
             return redirect("profile_update_finance")
 
         card_list = []
@@ -780,7 +820,9 @@ class MasterSearchGisView(LoginRequiredMixin, View):
 
 class MasterSearchGoogleView(LoginRequiredMixin, View):
     def get(self, request):
-        if not request.user.profile.can_create_company:
+        profile = request.user.profile
+
+        if not profile.is_active or not profile.can_create_company:
             return redirect("profile_update_finance")
 
         card_list = []
@@ -807,7 +849,9 @@ class MasterSearchGoogleView(LoginRequiredMixin, View):
 
 class MasterSearchYandexView(LoginRequiredMixin, View):
     def get(self, request):
-        if not request.user.profile.can_create_company:
+        profile = request.user.profile
+
+        if not profile.is_active or not profile.can_create_company:
             return redirect("profile_update_finance")
 
         card_list = []
@@ -839,6 +883,12 @@ class MembershipUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     template_name = "dashboard/membership_update.html"
     success_message = "Настройки успешно обновлены"
 
+    def dispatch(self, *args, **kwargs):
+        if not self.get_object().is_active:
+            return redirect("profile_update_finance")
+
+        return super().dispatch(*args, **kwargs)
+
     def get_form(self, form_class=None):
         form = super().get_form(self.form_class)
         form.queryset = form.queryset.filter(user=self.request.user)
@@ -863,6 +913,15 @@ class MessageListView(LoginRequiredMixin, FilterView):
     model = Message
     paginate_by = 30
     template_name = "dashboard/message_list.html"
+
+    def dispatch(self, *args, **kwargs):
+        __super__ = super().dispatch(*args, **kwargs)
+
+        company = self.get_context_data()["company"]
+        if not company.is_active:
+            return redirect("profile_update_finance")
+
+        return __super__
 
     def get_context_data(self, ** kwargs):
         context = super().get_context_data(** kwargs)
@@ -933,6 +992,15 @@ class ReviewListView(LoginRequiredMixin, FilterView):
     paginate_by = 30
     model = Review
     template_name = "dashboard/review_list.html"
+
+    def dispatch(self, *args, **kwargs):
+        __super__ = super().dispatch(*args, **kwargs)
+
+        company = self.get_context_data()["company"]
+        if not company.is_active:
+            return redirect("profile_update_finance")
+
+        return __super__
 
     def get_context_data(self, ** kwargs):
         context = super().get_context_data(** kwargs)
