@@ -15,10 +15,9 @@ from django.urls import reverse
 from django.views import View
 from django.views.generic import CreateView, DetailView, FormView, ListView, UpdateView
 from django_filters.views import FilterView
-from djmoney.money import Money
 
 from pdf.utils import make_stick, make_card, make_qr
-from resources.models import Company, Message, Review, Service, Membership
+from resources.models import Company, Message, Review, Service
 from resources.tasks import parse_yandex_task, parse_gis_task, parse_google_task
 from services.search import SearchGis, SearchGoogle, SearchYandex
 from .filters import MessageFilter, ReviewFilter
@@ -516,8 +515,8 @@ class CompanyUpdateLinkYandexView(CompanyUpdateView):
     def dispatch(self, *args, **kwargs):
         if not args[0].user.profile.can_parse_yandex:
             return redirect("profile_update_finance")
-        else:
-            return super().dispatch(*args, **kwargs)
+
+        return super().dispatch(*args, **kwargs)
 
 
 class CompanyUpdateLinkGisView(CompanyUpdateView):
@@ -527,8 +526,8 @@ class CompanyUpdateLinkGisView(CompanyUpdateView):
     def dispatch(self, *args, **kwargs):
         if not args[0].user.profile.can_parse_gis:
             return redirect("profile_update_finance")
-        else:
-            return super().dispatch(*args, **kwargs)
+
+        return super().dispatch(*args, **kwargs)
 
 
 class CompanyUpdateLinkGoogleView(CompanyUpdateView):
@@ -538,8 +537,8 @@ class CompanyUpdateLinkGoogleView(CompanyUpdateView):
     def dispatch(self, *args, **kwargs):
         if not args[0].user.profile.can_parse_google:
             return redirect("profile_update_finance")
-        else:
-            return super().dispatch(*args, **kwargs)
+
+        return super().dispatch(*args, **kwargs)
 
 
 class CompanyUpdateLinkAvitoView(CompanyUpdateView):
@@ -549,8 +548,8 @@ class CompanyUpdateLinkAvitoView(CompanyUpdateView):
     def dispatch(self, *args, **kwargs):
         if not args[0].user.profile.can_parse_avito:
             return redirect("profile_update_finance")
-        else:
-            return super().dispatch(*args, **kwargs)
+
+        return super().dispatch(*args, **kwargs)
 
 
 class CompanyUpdateLinkZoonView(CompanyUpdateView):
@@ -560,8 +559,8 @@ class CompanyUpdateLinkZoonView(CompanyUpdateView):
     def dispatch(self, *args, **kwargs):
         if not args[0].user.profile.can_parse_zoon:
             return redirect("profile_update_finance")
-        else:
-            return super().dispatch(*args, **kwargs)
+
+        return super().dispatch(*args, **kwargs)
 
 
 class CompanyUpdateLinkFlampView(CompanyUpdateView):
@@ -571,8 +570,8 @@ class CompanyUpdateLinkFlampView(CompanyUpdateView):
     def dispatch(self, *args, **kwargs):
         if not args[0].user.profile.can_parse_flamp:
             return redirect("profile_update_finance")
-        else:
-            return super().dispatch(*args, **kwargs)
+
+        return super().dispatch(*args, **kwargs)
 
 
 class CompanyUpdateLinkYellView(CompanyUpdateView):
@@ -582,8 +581,8 @@ class CompanyUpdateLinkYellView(CompanyUpdateView):
     def dispatch(self, *args, **kwargs):
         if not args[0].user.profile.can_parse_yell:
             return redirect("profile_update_finance")
-        else:
-            return super().dispatch(*args, **kwargs)
+
+        return super().dispatch(*args, **kwargs)
 
 
 class CompanyUpdateLinkProdoctorovView(CompanyUpdateView):
@@ -593,8 +592,8 @@ class CompanyUpdateLinkProdoctorovView(CompanyUpdateView):
     def dispatch(self, *args, **kwargs):
         if not args[0].user.profile.can_parse_prodoctorov:
             return redirect("profile_update_finance")
-        else:
-            return super().dispatch(*args, **kwargs)
+
+        return super().dispatch(*args, **kwargs)
 
 
 class CompanyUpdateLinkYandexServicesView(CompanyUpdateView):
@@ -604,8 +603,8 @@ class CompanyUpdateLinkYandexServicesView(CompanyUpdateView):
     def dispatch(self, *args, **kwargs):
         if not args[0].user.profile.can_parse_yandex_services:
             return redirect("profile_update_finance")
-        else:
-            return super().dispatch(*args, **kwargs)
+
+        return super().dispatch(*args, **kwargs)
 
 
 class CompanyUpdateLinkOtzovikView(CompanyUpdateView):
@@ -615,8 +614,8 @@ class CompanyUpdateLinkOtzovikView(CompanyUpdateView):
     def dispatch(self, *args, **kwargs):
         if not args[0].user.profile.can_parse_otzovik:
             return redirect("profile_update_finance")
-        else:
-            return super().dispatch(*args, **kwargs)
+
+        return super().dispatch(*args, **kwargs)
 
 
 class CompanyUpdateLinkIrecommendView(CompanyUpdateView):
@@ -626,8 +625,8 @@ class CompanyUpdateLinkIrecommendView(CompanyUpdateView):
     def dispatch(self, *args, **kwargs):
         if not args[0].user.profile.can_parse_irecommend:
             return redirect("profile_update_finance")
-        else:
-            return super().dispatch(*args, **kwargs)
+
+        return super().dispatch(*args, **kwargs)
 
 
 class CompanyUpdateLinkTripadvisorView(CompanyUpdateView):
@@ -637,8 +636,8 @@ class CompanyUpdateLinkTripadvisorView(CompanyUpdateView):
     def dispatch(self, *args, **kwargs):
         if not args[0].user.profile.can_parse_tripadvisor:
             return redirect("profile_update_finance")
-        else:
-            return super().dispatch(*args, **kwargs)
+
+        return super().dispatch(*args, **kwargs)
 
 
 class CompanyUpdateWidgetView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -673,8 +672,8 @@ class MasterCompanyCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateVie
     def dispatch(self, *args, **kwargs):
         if not args[0].user.profile.can_create_company:
             return redirect("profile_update_finance")
-        else:
-            return super().dispatch(*args, **kwargs)
+
+        return super().dispatch(*args, **kwargs)
 
     def form_valid(self, form):
         parsers_chain = []

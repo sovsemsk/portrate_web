@@ -87,7 +87,7 @@ class ClickStamp(Model):
     company = ForeignKey("resources.Company", on_delete=CASCADE, verbose_name="филиал")
 
     def __str__(self):
-        return f"ClickStamp #{self.id}"
+        return f"{self.company} → {self.service} - {self.created_at}"
 
 
 class Company(Model):
@@ -271,7 +271,7 @@ class Company(Model):
         self.cached_parser_link_tripadvisor = self.parser_link_tripadvisor
 
     def __str__(self):
-        return f"Company {self.id}"
+        return self.name
 
     @property
     def feedback_form_tags(self):
@@ -299,6 +299,97 @@ class Company(Model):
         ):
             return True
         else:
+            return False
+
+    @property
+    def is_active(self):
+        try:
+            return self.users.filter(membership__is_owner=True).select_related("profile").first().profile.is_active
+        except AttributeError:
+            return False
+
+    @property
+    def can_parse_yandex(self):
+        try:
+            return self.users.filter(membership__is_owner=True).select_related("profile").first().profile.can_parse_yandex
+        except AttributeError:
+            return False
+
+    @property
+    def can_parse_gis(self):
+        try:
+            return self.users.filter(membership__is_owner=True).select_related("profile").first().profile.can_parse_gis
+        except AttributeError:
+            return False
+
+    @property
+    def can_parse_google(self):
+        try:
+            return self.users.filter(membership__is_owner=True).select_related("profile").first().profile.can_parse_google
+        except AttributeError:
+            return False
+
+    @property
+    def can_parse_avito(self):
+        try:
+            return self.users.filter(membership__is_owner=True).select_related("profile").first().profile.can_parse_avito
+        except AttributeError:
+            return False
+
+    @property
+    def can_parse_zoon(self):
+        try:
+            return self.users.filter(membership__is_owner=True).select_related("profile").first().profile.can_parse_zoon
+        except AttributeError:
+            return False
+
+    @property
+    def can_parse_flamp(self):
+        try:
+            return self.users.filter(membership__is_owner=True).select_related("profile").first().profile.can_parse_flamp
+        except AttributeError:
+            return False
+
+    @property
+    def can_parse_yell(self):
+        try:
+            return self.users.filter(membership__is_owner=True).select_related("profile").first().profile.can_parse_yell
+        except AttributeError:
+            return False
+
+    @property
+    def can_parse_prodoctorov(self):
+        try:
+            return self.users.filter(membership__is_owner=True).select_related("profile").first().profile.can_parse_prodoctorov
+        except AttributeError:
+            return False
+
+    @property
+    def can_parse_yandex_services(self):
+        try:
+            return self.users.filter(membership__is_owner=True).select_related("profile").first().profile.can_parse_yandex_services
+        except AttributeError:
+            return False
+
+    @property
+    def can_parse_otzovik(self):
+        try:
+            return self.users.filter(membership__is_owner=True).select_related("profile").first().profile.can_parse_otzovik
+        except AttributeError:
+            return False
+
+    @property
+    def can_parse_irecommend(self):
+        try:
+            return self.users.filter(membership__is_owner=True).select_related("profile").first().profile.can_parse_irecommend
+        except AttributeError:
+            return False
+
+    @property
+    def can_parse_tripadvisor(self):
+        try:
+            return self.users.filter(membership__is_owner=True).select_related("profile").first().profile.can_parse_tripadvisor
+        except AttributeError:
             return False
 
     @property
@@ -534,7 +625,7 @@ class Membership(Model):
     user = ForeignKey("auth.User", on_delete=CASCADE)
 
     def __str__(self):
-        return f"Membership #{self.company_id}"
+        return f"{self.company} → {self.user}"
 
 
 class Message(Model):
@@ -556,7 +647,7 @@ class Message(Model):
     visit_stamp = ForeignKey("resources.VisitStamp", on_delete=CASCADE, verbose_name="отпечаток перехода на форму запроса отзывов")
 
     def __str__(self):
-        return f"Message {self.id}"
+        return f"{self.company} → {self.created_at}"
 
     @property
     def notification_template(self):
@@ -600,6 +691,9 @@ class Profile(Model):
 
     """ Связи """
     user = OneToOneField("auth.User", on_delete=CASCADE)
+
+    def __str__(self):
+        return self.user.username
 
     """ Стоимость тарифов """
     @property
@@ -717,9 +811,6 @@ class Profile(Model):
     def can_parse_tripadvisor(self):
         return self.rate in [Rate.REGULAR, Rate.BUSINESS]
 
-    def __str__(self):
-        return f"Profile #{self.id}"
-
 
 @receiver(post_init, sender=Profile)
 def profile_post_init(sender, instance, ** kwargs):
@@ -753,7 +844,7 @@ class Review(Model):
     company = ForeignKey("resources.Company", on_delete=CASCADE, verbose_name="филиал")
 
     def __str__(self):
-        return f"Review {self.id}"
+        return f"{self.company} → {self.service} - {self.created_at}"
 
     @property
     def stars_float(self):
@@ -804,4 +895,4 @@ class VisitStamp(Model):
     company = ForeignKey("resources.Company", on_delete=CASCADE, verbose_name="филиал")
 
     def __str__(self):
-        return f"VisitStamp #{self.id}"
+        return f"{self.company} → {self.utm_source} - {self.created_at}"

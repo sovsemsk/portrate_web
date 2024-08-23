@@ -225,3 +225,7 @@
 .__2affd980__:hover{
     background-color:{% if theme == 'l' %}#EFF0F2{% else %}#434950{% endif %} !important;
 }
+
+.__465c2f34__{
+    padding-top:2px;
+}

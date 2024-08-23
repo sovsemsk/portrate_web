@@ -19,8 +19,29 @@
     </head>
     <body>
     <div class="container" style="padding-top:15px;">
+        {% if not company.is_active %}
+        <div class="bp5-form-group">
+            <div class="bp5-form-content">
+                <div class="bp5-callout_ bp5-intent-warning">
+                    <div class="bp5-form-group">
+                        <div class="bp5-form-content">
+                            <span class="bp5-running-text bp5-text-large">Подписка для филиала «{{ company.name }}{% if company.address %}, {{ company.address }}{% endif %}» закончилась.</span>
+                        </div>
+                    </div>
+                    Передите по этой <a href="https://geo.portrate.io">ссылке</a> для продления подписки в личном кабинете.
+                </div>
+            </div>
+        </div>
+        {% else %}
         {% block content %}
         {% endblock %}
+        {% endif %}
+        <a href="https://portrate.io" target="_blank">
+            <div class="bp5-entity-title">
+                <span class="bp5-text-muted">Визитка от</span>
+                <img height=18 src="{% static 'dashboard/images/ui/logo-word.svg' %}" style="padding-top:2px;">
+            </div>
+        </a>
     </div>
     {% block script %}
     {% endblock %}

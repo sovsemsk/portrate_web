@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.views.decorators.http import require_http_methods
 
 from feedback.forms import ClickStampForm, MessageForm
-from resources.models import Company, VisitStamp
+from resources.models import Company, VisitStamp, Membership
 
 
 def create_session(func):
