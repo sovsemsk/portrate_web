@@ -1,12 +1,13 @@
 import requests
 
+from django.conf import settings
 
 class SearchYandex:
 
     @staticmethod
     def search(query):
         payload = {
-            "apikey": "6556c817-ac54-4e7a-8594-0464aaf8c357",
+            "apikey": settings.YANDEX_API_KEY,
             "lang": "ru_RU",
             "results": "15",
             "type": "biz",
@@ -26,7 +27,7 @@ class SearchGis:
     @staticmethod
     def search(query):
         payload = {
-            "key": "25f0a522-41a4-4fd3-a0cd-8876348867db",
+            "key":  settings.GIS_API_KEY,
             "fields": "items.org",
             "type": "branch",
             "q": query
@@ -45,7 +46,7 @@ class SearchGoogle:
     @staticmethod
     def search(query):
         payload = {
-            "key": "AIzaSyAAhf8FlUtP2F0QuXev4BNSzLoKFCZd874",
+            "key":  settings.GOOGLE_API_KEY,
             "language": "ru_RU",
             "query": query
         }

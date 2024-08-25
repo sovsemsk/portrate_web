@@ -6,7 +6,7 @@ from django.core.validators import RegexValidator
 from django.forms import CharField, ModelForm, PasswordInput, TextInput
 from django.forms import Form, inlineformset_factory, Select, ImageField, FileInput, BooleanField, CheckboxInput
 
-from resources.models import Company, Membership, Profile, Review, Timezone, Service
+from resources.models import Company, Membership, Profile, Rate, Review, Service, Timezone
 from resources.tasks import (
     parse_yandex_task,
     parse_gis_task,
@@ -603,6 +603,14 @@ class DashboardProfileChangeForm(ModelForm):
         fields = ["default_timezone"]
 
     default_timezone = Select(choices=Timezone.choices)
+
+
+class DashboardProfileChangeRateForm(ModelForm):
+    class Meta:
+        model = Profile
+        fields = ["rate"]
+
+    default_timezone = Select(choices=Rate.choices)
 
 
 class DashboardReviewChangeForm(ModelForm):

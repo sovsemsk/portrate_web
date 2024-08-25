@@ -3,6 +3,7 @@ import math
 from datetime import date
 
 from django.conf import settings
+from django.contrib.auth.models import User
 from django.db.models import (
     BooleanField,
     CASCADE,
@@ -11,12 +12,14 @@ from django.db.models import (
     DecimalField,
     DateTimeField,
     DateField,
+    IntegerField,
     ManyToManyField,
     Model,
+    Manager,
+    Prefetch,
     OneToOneField,
-    IntegerField,
     TextChoices,
-    TextField,
+    TextField
 )
 from django.db.models.signals import post_init
 from django.db.models.signals import post_save
@@ -26,6 +29,12 @@ from django.utils.formats import localize
 from django_resized import ResizedImageField
 from djmoney.models.fields import MoneyField
 from telegram import Bot
+
+
+class Period(TextChoices):
+    """ Период оплаты """
+    ANNUALLY = "ANNUALLY", "Год"
+    MONTHLY = "MONTHLY", "Месяц"
 
 
 class Rate(TextChoices):
@@ -90,12 +99,25 @@ class ClickStamp(Model):
         return f"{self.company} → {self.service} - {self.created_at}"
 
 
+class CompanyManager(Manager):
+    def get_queryset(self):
+        return super().get_queryset().prefetch_related(
+            Prefetch(
+                "users",
+                to_attr="users_is_owner",
+                queryset=User.objects.filter(membership__is_owner=True).select_related("profile")
+            )
+        )
+
+
 class Company(Model):
     """ Филиал """
     class Meta:
         db_table = "resources_company"
         verbose_name = "филиал"
         verbose_name_plural = "филиалы"
+
+    objects = CompanyManager()
 
     """ Автогенерация """
     api_secret = CharField(blank=True, db_index=True, null=True, verbose_name="API ключ")
@@ -304,92 +326,92 @@ class Company(Model):
     @property
     def is_active(self):
         try:
-            return self.users.filter(membership__is_owner=True).select_related("profile").first().profile.is_active
-        except AttributeError:
+            return self.users_is_owner[0].profile.is_active
+        except (AttributeError, IndexError):
             return False
 
     @property
     def can_parse_yandex(self):
         try:
-            return self.users.filter(membership__is_owner=True).select_related("profile").first().profile.can_parse_yandex
-        except AttributeError:
+            return self.users_is_owner[0].profile.can_parse_yandex
+        except (AttributeError, IndexError):
             return False
 
     @property
     def can_parse_gis(self):
         try:
-            return self.users.filter(membership__is_owner=True).select_related("profile").first().profile.can_parse_gis
+            return self.users_is_owner[0].profile.can_parse_gis
         except AttributeError:
             return False
 
     @property
     def can_parse_google(self):
         try:
-            return self.users.filter(membership__is_owner=True).select_related("profile").first().profile.can_parse_google
-        except AttributeError:
+            return self.users_is_owner[0].profile.can_parse_google
+        except (AttributeError, IndexError):
             return False
 
     @property
     def can_parse_avito(self):
         try:
-            return self.users.filter(membership__is_owner=True).select_related("profile").first().profile.can_parse_avito
-        except AttributeError:
+            return self.users_is_owner[0].profile.can_parse_avito
+        except (AttributeError, IndexError):
             return False
 
     @property
     def can_parse_zoon(self):
         try:
-            return self.users.filter(membership__is_owner=True).select_related("profile").first().profile.can_parse_zoon
-        except AttributeError:
+            return self.users_is_owner[0].profile.can_parse_zoon
+        except (AttributeError, IndexError):
             return False
 
     @property
     def can_parse_flamp(self):
         try:
-            return self.users.filter(membership__is_owner=True).select_related("profile").first().profile.can_parse_flamp
-        except AttributeError:
+            return self.users_is_owner[0].profile.can_parse_flamp
+        except (AttributeError, IndexError):
             return False
 
     @property
     def can_parse_yell(self):
         try:
-            return self.users.filter(membership__is_owner=True).select_related("profile").first().profile.can_parse_yell
-        except AttributeError:
+            return self.users_is_owner[0].profile.can_parse_yell
+        except (AttributeError, IndexError):
             return False
 
     @property
     def can_parse_prodoctorov(self):
         try:
-            return self.users.filter(membership__is_owner=True).select_related("profile").first().profile.can_parse_prodoctorov
-        except AttributeError:
+            return self.users_is_owner[0].profile.can_parse_prodoctorov
+        except (AttributeError, IndexError):
             return False
 
     @property
     def can_parse_yandex_services(self):
         try:
-            return self.users.filter(membership__is_owner=True).select_related("profile").first().profile.can_parse_yandex_services
-        except AttributeError:
+            return self.users_is_owner[0].profile.can_parse_yandex_services
+        except (AttributeError, IndexError):
             return False
 
     @property
     def can_parse_otzovik(self):
         try:
-            return self.users.filter(membership__is_owner=True).select_related("profile").first().profile.can_parse_otzovik
-        except AttributeError:
+            return self.users_is_owner[0].profile.can_parse_otzovik
+        except (AttributeError, IndexError):
             return False
 
     @property
     def can_parse_irecommend(self):
         try:
-            return self.users.filter(membership__is_owner=True).select_related("profile").first().profile.can_parse_irecommend
-        except AttributeError:
+            return self.users_is_owner[0].profile.can_parse_irecommend
+        except (AttributeError, IndexError):
             return False
 
     @property
     def can_parse_tripadvisor(self):
         try:
-            return self.users.filter(membership__is_owner=True).select_related("profile").first().profile.can_parse_tripadvisor
-        except AttributeError:
+            return self.users_is_owner[0].profile.can_parse_tripadvisor
+        except (AttributeError, IndexError):
             return False
 
     @property
@@ -665,6 +687,37 @@ def message_post_save(sender, instance, created, ** kwargs):
             asyncio.run(Bot(settings.TELEGRAM_BOT_API_SECRET).send_message(user.profile.telegram_id, instance.notification_template))
 
 
+class Payment(Model):
+    """ Платеж """
+    class Meta:
+        db_table = "resources_payment"
+        verbose_name = "платеж"
+        verbose_name_plural = "платежи"
+
+    """ Автогенерация """
+    created_at = DateTimeField(auto_now_add=True, blank=True, null=True, verbose_name="дата создания")
+    api_secret = CharField(blank=True, db_index=True, null=True, verbose_name="API ключ")
+
+    """ Данные """
+    rate = CharField(blank=False, choices=Rate.choices, default=Rate.START, null=True, verbose_name="тариф")
+    period = CharField(blank=False, choices=Period.choices, default=Period.ANNUALLY, null=True, verbose_name="период")
+    amount = MoneyField(blank=True, default=0, default_currency="RUB", decimal_places=2, max_digits=14, null=True, verbose_name="сумма")
+    is_paid = BooleanField(blank=True, default=False, null=True, verbose_name="оплачен?")
+    paid_at = DateTimeField(blank=True, null=True, verbose_name="дата оплаты")
+
+    """ Связи """
+    user = ForeignKey("auth.User", on_delete=CASCADE)
+
+    def __str__(self):
+        return f"{self.user} → {self.created_at}"
+
+
+@receiver(post_init, sender=Payment)
+def payment_post_init(sender, instance, ** kwargs):
+    if not instance.api_secret:
+        instance.api_secret = get_random_string(length=8)
+
+
 class Profile(Model):
     """ Профиль """
     class Meta:
@@ -698,51 +751,51 @@ class Profile(Model):
     """ Стоимость тарифов """
     @property
     def start_price_monthly(self):
-        return self.start_price_monthly_base.amount
+        return float(self.start_price_monthly_base.amount)
 
     @property
     def start_price_monthly_sale(self):
-        return self.start_price_monthly_base.amount
+        return float(self.start_price_monthly_base.amount)
 
     @property
     def start_price_annually(self):
-        return self.start_price_monthly * 12
+        return float(self.start_price_monthly * 12)
 
     @property
     def start_price_annually_sale(self):
-        return self.start_price_annually * 0.7
+        return float(self.start_price_annually * 0.7)
 
     @property
     def regular_price_monthly(self):
-        return self.regular_price_monthly_base.amount
+        return float(self.regular_price_monthly_base.amount)
 
     @property
     def regular_price_monthly_sale(self):
-        return self.regular_price_monthly_base.amount
+        return float(self.regular_price_monthly_base.amount)
 
     @property
     def regular_price_annually(self):
-        return self.regular_price_monthly * 12
+        return float(self.regular_price_monthly * 12)
 
     @property
     def regular_price_annually_sale(self):
-        return self.regular_price_annually * 0.7
+        return float(self.regular_price_annually * 0.7)
 
     @property
     def business_price_monthly(self):
-        return self.business_price_monthly_base.amount
+        return float(self.business_price_monthly_base.amount)
 
     @property
     def business_price_monthly_sale(self):
-        return self.business_price_monthly_base.amount
+        return float(self.business_price_monthly_base.amount)
 
     @property
     def business_price_annually(self):
-        return self.business_price_monthly * 12
+        return float(self.business_price_monthly * 12)
 
     @property
     def business_price_annually_sale(self):
-        return self.business_price_annually * 0.7
+        return float(self.business_price_annually * 0.7)
 
     @property
     def days_left(self):

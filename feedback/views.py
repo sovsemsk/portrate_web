@@ -33,6 +33,9 @@ def create_session(func):
 @create_session
 def rate(request, pk):
     company = get_object_or_404(Company, pk=pk)
+
+    # print(company.owner)
+
     return render(request, "feedback/rate.html", {"company": company})
 
 

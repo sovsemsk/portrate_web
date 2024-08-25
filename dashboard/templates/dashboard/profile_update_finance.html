@@ -27,8 +27,8 @@
                             <div class="bp5-section-header">
                                 <div class="bp5-section-header-left">
                                     <div>
-                                        <h2 class="bp5-heading bp5-section-header-title">{% if period == 'annually' %}{% money_localize request.user.profile.start_price_annually 'RUB' %}{% else %}{% money_localize request.user.profile.start_price_monthly 'RUB' %}{% endif %}</h2>
-                                        <div class="bp5-text-muted bp5-section-header-sub-title">в {% if period == 'annually' %}год{% else %}месяц{% endif %}</div>
+                                        <h2 class="bp5-heading bp5-section-header-title">{% if period == 'annually' %}{% money_localize request.user.profile.start_price_annually_sale 'RUB' %}{% else %}{% money_localize request.user.profile.start_price_monthly_sale 'RUB' %}{% endif %}</h2>
+                                        <div class="bp5-text-muted bp5-section-header-sub-title">в {% if period == 'annually' %}год - экономия 30%{% else %}месяц{% endif %}</div>
                                     </div>
                                 </div>
                                 <div class="bp5-section-header-right">
@@ -73,7 +73,11 @@
                         </div>
                     </div>
                 </div>
-                <button class="bp5-button bp5-large">Оплатить</button>
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    <input name="rate" type="hidden" value="START">
+                    <button class="bp5-button bp5-large" type="submit">Оплатить</button>
+                </form>
             </div>
             <div class="xs-4">
                 <div class="bp5-form-group">
@@ -82,8 +86,8 @@
                             <div class="bp5-section-header">
                                 <div class="bp5-section-header-left">
                                     <div>
-                                        <h2 class="bp5-heading bp5-section-header-title">{% if period == 'annually' %}{% money_localize request.user.profile.regular_price_annually 'RUB' %}{% else %}{% money_localize request.user.profile.regular_price_monthly 'RUB' %}{% endif %}</h2>
-                                        <div class="bp5-text-muted bp5-section-header-sub-title">в {% if period == 'annually' %}год{% else %}месяц{% endif %}</div>
+                                        <h2 class="bp5-heading bp5-section-header-title">{% if period == 'annually' %}{% money_localize request.user.profile.regular_price_annually_sale 'RUB' %}{% else %}{% money_localize request.user.profile.regular_price_monthly_sale 'RUB' %}{% endif %}</h2>
+                                        <div class="bp5-text-muted bp5-section-header-sub-title">в {% if period == 'annually' %}год - экономия 30%{% else %}месяц{% endif %}</div>
                                     </div>
                                 </div>
                                 <div class="bp5-section-header-right">
@@ -135,7 +139,11 @@
                         </div>
                     </div>
                 </div>
-                <button class="bp5-button bp5-large">Оплатить</button>
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    <input name="rate" type="hidden" value="REGULAR">
+                    <button class="bp5-button bp5-large" type="submit">Оплатить</button>
+                </form>
             </div>
             <div class="xs-4">
                 <div class="bp5-form-group">
@@ -144,8 +152,8 @@
                             <div class="bp5-section-header">
                                 <div class="bp5-section-header-left">
                                     <div>
-                                        <h2 class="bp5-heading bp5-section-header-title">{% if period == 'annually' %}{% money_localize request.user.profile.business_price_annually 'RUB' %}{% else %}{% money_localize request.user.profile.business_price_monthly 'RUB' %}{% endif %}</h2>
-                                        <div class="bp5-text-muted bp5-section-header-sub-title">в {% if period == 'annually' %}год{% else %}месяц{% endif %}</div>
+                                        <h2 class="bp5-heading bp5-section-header-title">от {% if period == 'annually' %}{% money_localize request.user.profile.business_price_annually_sale 'RUB' %}{% else %}{% money_localize request.user.profile.business_price_monthly_sale 'RUB' %}{% endif %}</h2>
+                                        <div class="bp5-text-muted bp5-section-header-sub-title">в {% if period == 'annually' %}год - экономия 30%{% else %}месяц{% endif %}</div>
                                     </div>
                                 </div>
                                 <div class="bp5-section-header-right">

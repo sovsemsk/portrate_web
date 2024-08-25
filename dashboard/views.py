@@ -15,9 +15,11 @@ from django.urls import reverse
 from django.views import View
 from django.views.generic import CreateView, DetailView, FormView, ListView, UpdateView
 from django_filters.views import FilterView
+from djmoney.money import Money
 
+from billing.tbank import Tbank
 from pdf.utils import make_stick, make_card, make_qr
-from resources.models import Company, Message, Review, Service
+from resources.models import Company, Message, Review, Service, Payment
 from resources.tasks import parse_yandex_task, parse_gis_task, parse_google_task
 from services.search import SearchGis, SearchGoogle, SearchYandex
 from .filters import MessageFilter, ReviewFilter
@@ -43,10 +45,11 @@ from .forms import (
     DashboardMembershipChangeFormSet,
     DashboardPasswordChangeForm,
     DashboardProfileChangeForm,
+    DashboardProfileChangeRateForm,
     DashboardReviewChangeForm,
     DashboardSearchForm,
     DashboardUserChangeForm,
-    DashboardUserCreationForm,
+    DashboardUserCreationForm
 )
 
 
@@ -961,11 +964,29 @@ class ProfileUpdateFinanceView(LoginRequiredMixin, View):
 
     def get(self, request):
         period = self.request.GET.get("period", "annually")
+        form = DashboardProfileChangeRateForm(request.POST, instance=request.user.profile)
+        return render(request, self.template_name, {"form": form, "period": period, ** self.context})
 
-        return render(request, self.template_name, {
-            "period": period,
-            **self.context
-        })
+    def post(self, request):
+        period = self.request.GET.get("period", "annually")
+        form = DashboardProfileChangeRateForm(request.POST, instance=request.user.profile)
+
+        if form.is_valid() and period in ["annually", "monthly"]:
+            form.save()
+
+            amount = request.user.profile.__getattribute__(f"{form.instance.rate.lower()}_price_{period}_sale")
+            payment = Payment.objects.create(
+                amount=Money(amount, "RUB"),
+                period=period.upper(),
+                rate=form.instance.rate,
+                user=request.user
+            )
+
+            try:
+                tbank = Tbank().init_order(payment.api_secret, amount)
+                return redirect(tbank.get("PaymentURL"))
+            except:
+                return render(request, self.template_name, {"form": form, "period": period, ** self.context})
 
 
 class ProfileUpdateView(LoginRequiredMixin, View):

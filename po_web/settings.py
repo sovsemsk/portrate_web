@@ -151,3 +151,14 @@ DJANGORESIZED_DEFAULT_NORMALIZE_ROTATION = True
 
 # Telegram
 TELEGRAM_BOT_API_SECRET = str(os.getenv("TELEGRAM_BOT_API_SECRET"))
+
+# Search
+YANDEX_API_KEY = str(os.getenv("YANDEX_API_KEY"))
+GIS_API_KEY = str(os.getenv("GIS_API_KEY"))
+GOOGLE_API_KEY = str(os.getenv("GOOGLE_API_KEY"))
+
+# Tbank
+TINKOFF_KEY = str(os.getenv("TINKOFF_KEY"))
+TINKOFF_SECRET = str(os.getenv("TINKOFF_SECRET"))
+
+

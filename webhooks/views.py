@@ -49,3 +49,10 @@ def telegram_update_start(message):
 
     finally:
         return
+
+
+@csrf_exempt
+@require_http_methods(["POST"])
+def tbank_update(request):
+    print(request)
+    return HttpResponse()

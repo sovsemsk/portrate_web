@@ -1,6 +1,6 @@
 from django.contrib.admin import ModelAdmin, register, TabularInline
 
-from .models import Company, Membership
+from .models import Company, Membership, Payment
 
 
 class MembershipInlineAdmin(TabularInline):
@@ -16,6 +16,15 @@ class CompanyAdmin(ModelAdmin):
     fields = ["name", "address", "phone"]
     readonly_fields = ["name", "address", "phone"]
     search_fields = ["name"]
+
+    def has_add_permission(self, request):
+        return False
+
+
+@register(Payment)
+class PaymentAdmin(ModelAdmin):
+    fields = ["rate", "period", "amount", "user", "is_paid"]
+    readonly_fields = ["rate", "period", "amount", "user", "is_paid"]
 
     def has_add_permission(self, request):
         return False
