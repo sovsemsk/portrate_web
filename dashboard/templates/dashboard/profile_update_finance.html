@@ -12,7 +12,7 @@
                 <a class="bp5-button {% if period == 'monthly' %}bp5-active{% endif %}" href="?period=monthly" data-period-monthly>Месяц</a>
             </div>
             <div class="bp5-large bp5-minimal bp5-tag ml-auto {% if request.user.profile.is_active%}bp5-intent-success{% else %}bp5-intent-danger{% endif %}">
-                <strong>Ваш тариф «{{ request.user.profile.get_rate_display }}»,&nbsp;</strong>{% if request.user.profile.is_active%}активен еще {{ request.user.profile.days_left|default:'0' }} {{ request.user.profile.days_left|default:'0'|rupluralize:'день, дня, дней' }}{% else %}не активен{% endif %}
+                <strong>Ваш тариф — {{ request.user.profile.get_rate_display }},&nbsp;</strong>{% if request.user.profile.is_active%}активен еще {{ request.user.profile.days_left|default:'0' }} {{ request.user.profile.days_left|default:'0'|rupluralize:'день, дня, дней' }}{% else %}не активен{% endif %}
             </div>
         </div>
     </div>
@@ -27,8 +27,8 @@
                             <div class="bp5-section-header">
                                 <div class="bp5-section-header-left">
                                     <div>
-                                        <h2 class="bp5-heading bp5-section-header-title">{% if period == 'annually' %}{% money_localize request.user.profile.start_price_annually_sale 'RUB' %}{% else %}{% money_localize request.user.profile.start_price_monthly_sale 'RUB' %}{% endif %}</h2>
-                                        <div class="bp5-text-muted bp5-section-header-sub-title">в {% if period == 'annually' %}год - экономия 30%{% else %}месяц{% endif %}</div>
+                                        <h2 class="bp5-heading bp5-section-header-title">{% if period == 'annually' %}{% money_localize request.user.profile.start_price_annually_display 'RUB' %}{% else %}{% money_localize request.user.profile.start_price_monthly_display 'RUB' %}{% endif %}</h2>
+                                        <div class="bp5-text-muted bp5-section-header-sub-title">в {% if period == 'annually' %}месяц - экономия 30%{% else %}месяц{% endif %}</div>
                                     </div>
                                 </div>
                                 <div class="bp5-section-header-right">
@@ -73,11 +73,16 @@
                         </div>
                     </div>
                 </div>
-                <form method="post" novalidate>
+                {% if request.user.profile.rate != 'START' %}
+                <button class="bp5-button bp5-large" data-button-start>Перейти на Старт</button>
+                {% else %}
+                <form action="{% url 'profile_pay' %}" method="post" novalidate>
                     {% csrf_token %}
                     <input name="rate" type="hidden" value="START">
+                    <input name="period" type="hidden" value="{{ period }}">
                     <button class="bp5-button bp5-large" type="submit">Оплатить</button>
                 </form>
+                {% endif %}
             </div>
             <div class="xs-4">
                 <div class="bp5-form-group">
@@ -86,8 +91,8 @@
                             <div class="bp5-section-header">
                                 <div class="bp5-section-header-left">
                                     <div>
-                                        <h2 class="bp5-heading bp5-section-header-title">{% if period == 'annually' %}{% money_localize request.user.profile.regular_price_annually_sale 'RUB' %}{% else %}{% money_localize request.user.profile.regular_price_monthly_sale 'RUB' %}{% endif %}</h2>
-                                        <div class="bp5-text-muted bp5-section-header-sub-title">в {% if period == 'annually' %}год - экономия 30%{% else %}месяц{% endif %}</div>
+                                        <h2 class="bp5-heading bp5-section-header-title">{% if period == 'annually' %}{% money_localize request.user.profile.regular_price_annually_display 'RUB' %}{% else %}{% money_localize request.user.profile.regular_price_monthly_display 'RUB' %}{% endif %}</h2>
+                                        <div class="bp5-text-muted bp5-section-header-sub-title">в {% if period == 'annually' %}месяц - экономия 30%{% else %}месяц{% endif %}</div>
                                     </div>
                                 </div>
                                 <div class="bp5-section-header-right">
@@ -139,11 +144,16 @@
                         </div>
                     </div>
                 </div>
-                <form method="post" novalidate>
+                {% if request.user.profile.rate != 'REGULAR' %}
+                <button class="bp5-button bp5-large" data-button-regular>Перейти на Стандарт</button>
+                {% else %}
+                <form action="{% url 'profile_pay' %}" method="post" novalidate>
                     {% csrf_token %}
                     <input name="rate" type="hidden" value="REGULAR">
+                    <input name="period" type="hidden" value="{{ period }}">
                     <button class="bp5-button bp5-large" type="submit">Оплатить</button>
                 </form>
+                {% endif %}
             </div>
             <div class="xs-4">
                 <div class="bp5-form-group">
@@ -152,8 +162,8 @@
                             <div class="bp5-section-header">
                                 <div class="bp5-section-header-left">
                                     <div>
-                                        <h2 class="bp5-heading bp5-section-header-title">от {% if period == 'annually' %}{% money_localize request.user.profile.business_price_annually_sale 'RUB' %}{% else %}{% money_localize request.user.profile.business_price_monthly_sale 'RUB' %}{% endif %}</h2>
-                                        <div class="bp5-text-muted bp5-section-header-sub-title">в {% if period == 'annually' %}год - экономия 30%{% else %}месяц{% endif %}</div>
+                                        <h2 class="bp5-heading bp5-section-header-title">от {% if period == 'annually' %}{% money_localize request.user.profile.business_price_annually_display 'RUB' %}{% else %}{% money_localize request.user.profile.business_price_monthly_display 'RUB' %}{% endif %}</h2>
+                                        <div class="bp5-text-muted bp5-section-header-sub-title">в {% if period == 'annually' %}месяц - экономия 30%{% else %}месяц{% endif %}</div>
                                     </div>
                                 </div>
                                 <div class="bp5-section-header-right">
@@ -210,9 +220,66 @@
         </div>
     </div>
 </div>
+
+<div class="bp5-overlay bp5-overlay-open bp5-overlay-scroll-container" style="display:none" data-modal-start>
+    <div class="bp5-overlay-backdrop bp5-overlay-enter-done"></div>
+    <div class="bp5-dialog-container bp5-overlay-content bp5-overlay-enter-done">
+        <div class="bp5-dialog">
+            <div class="bp5-dialog-header">
+                <h5 class="bp5-heading">Переход на тариф — Старт</h5>
+                <button class="bp5-button bp5-dialog-close-button bp5-minimal">
+                    <span class="bp5-icon bp5-icon-cross"></span>
+                </button>
+            </div>
+            <div class="bp5-dialog-body bp5-dialog-body-scroll-container">
+                <span class="bp5-running-text bp5-text-large">Palantir Foundry radically reimagines the way enterprises interact with data by amplifying and extending the power of data integration. With Foundry, anyone can source, fuse, and transform data into any shape they desire. Business analysts become data engineers — and leaders in their organization’s data revolution.</span>
+            </div>
+            <div class="bp5-dialog-footer bp5-dialog-footer-fixed">
+                <div class="bp5-dialog-footer-main-section"></div>
+                <div class="bp5-dialog-footer-actions">
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        <input name="rate" type="hidden" value="START">
+                        <button class="bp5-button bp5-large" type="submit">Подтвердить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="bp5-overlay bp5-overlay-open bp5-overlay-scroll-container" style="display:none" data-modal-regular>
+    <div class="bp5-overlay-backdrop bp5-overlay-enter-done"></div>
+    <div class="bp5-dialog-container bp5-overlay-content bp5-overlay-enter-done">
+        <div class="bp5-dialog">
+            <div class="bp5-dialog-header">
+                <h5 class="bp5-heading">Переход на тариф — Стандарт</h5>
+                <button class="bp5-button bp5-dialog-close-button bp5-minimal">
+                    <span class="bp5-icon bp5-icon-cross"></span>
+                </button>
+            </div>
+            <div class="bp5-dialog-body bp5-dialog-body-scroll-container">
+                <span class="bp5-running-text bp5-text-large">Palantir Foundry radically reimagines the way enterprises interact with data by amplifying and extending the power of data integration. With Foundry, anyone can source, fuse, and transform data into any shape they desire. Business analysts become data engineers — and leaders in their organization’s data revolution.</span>
+            </div>
+            <div class="bp5-dialog-footer bp5-dialog-footer-fixed">
+                <div class="bp5-dialog-footer-main-section"></div>
+                <div class="bp5-dialog-footer-actions">
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        <input name="rate" type="hidden" value="REGULAR">
+                        <button class="bp5-button bp5-large" type="submit">Подтвердить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
 {% block script %}
 <script>
-    $(document).ready(event => {});
+    $(document).ready(event => {
+        $("*[data-button-start]").click(event => $("*[data-modal-start]").show());
+        $("*[data-button-regular]").click(event => $("*[data-modal-regular]").show())
+    });
 </script>
 {% endblock %}

@@ -958,6 +958,22 @@ class PasswordUpdateView(LoginRequiredMixin, SuccessMessageMixin, PasswordChange
         return reverse("password_update")
 
 
+class ProfilePayView(View):
+    def post(self, request):
+        period = self.request.POST.get("period", "annually")
+        rate = self.request.POST.get("rate", "START")
+
+        if rate in ["START", "REGULAR"] and period in ["annually", "monthly"]:
+            amount = request.user.profile.__getattribute__(f"{rate.lower()}_price_{period}_sale")
+            payment = Payment.objects.create(amount=Money(amount, "RUB"), period=period.upper(), rate=rate, user=request.user)
+
+            try:
+                order = Tbank().init_order(payment.api_secret, amount)
+                return redirect(order.get("PaymentURL"))
+            except:
+                return redirect("profile_update_finance")
+
+
 class ProfileUpdateFinanceView(LoginRequiredMixin, View):
     template_name = "dashboard/profile_update_finance.html"
     context = {"nav": "finance"}
@@ -970,23 +986,17 @@ class ProfileUpdateFinanceView(LoginRequiredMixin, View):
     def post(self, request):
         period = self.request.GET.get("period", "annually")
         form = DashboardProfileChangeRateForm(request.POST, instance=request.user.profile)
+        companies_count = Company.objects.filter(users__in=[self.request.user], membership__is_owner=True).count()
 
-        if form.is_valid() and period in ["annually", "monthly"]:
+        if form['rate'].value() == "START" and companies_count > 1:
+            messages.success(request, "Переход на тариф Старт невозможен. Профиль является владельцем более чем 1 филиала")
+        elif form['rate'].value() == "REGULAR" and companies_count > 3:
+            messages.success(request, "Переход на тариф Стандарт невозможен. Профиль является владельцем более чем 3 филиалов")
+        elif form.is_valid():
             form.save()
+            messages.success(request, "Тариф успешно обновлен")
 
-            amount = request.user.profile.__getattribute__(f"{form.instance.rate.lower()}_price_{period}_sale")
-            payment = Payment.objects.create(
-                amount=Money(amount, "RUB"),
-                period=period.upper(),
-                rate=form.instance.rate,
-                user=request.user
-            )
-
-            try:
-                tbank = Tbank().init_order(payment.api_secret, amount)
-                return redirect(tbank.get("PaymentURL"))
-            except:
-                return render(request, self.template_name, {"form": form, "period": period, ** self.context})
+        return render(request, self.template_name, {"form": form, "period": period, ** self.context})
 
 
 class ProfileUpdateView(LoginRequiredMixin, View):

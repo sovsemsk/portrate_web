@@ -715,7 +715,7 @@ class Payment(Model):
 @receiver(post_init, sender=Payment)
 def payment_post_init(sender, instance, ** kwargs):
     if not instance.api_secret:
-        instance.api_secret = get_random_string(length=8)
+        instance.api_secret = get_random_string(length=36)
 
 
 class Profile(Model):
@@ -758,6 +758,10 @@ class Profile(Model):
         return float(self.start_price_monthly_base.amount)
 
     @property
+    def start_price_monthly_display(self):
+        return float(self.start_price_monthly_base.amount)
+
+    @property
     def start_price_annually(self):
         return float(self.start_price_monthly * 12)
 
@@ -766,11 +770,19 @@ class Profile(Model):
         return float(self.start_price_annually * 0.7)
 
     @property
+    def start_price_annually_display(self):
+        return float(self.start_price_monthly * 0.7)
+
+    @property
     def regular_price_monthly(self):
         return float(self.regular_price_monthly_base.amount)
 
     @property
     def regular_price_monthly_sale(self):
+        return float(self.regular_price_monthly_base.amount)
+
+    @property
+    def regular_price_monthly_display(self):
         return float(self.regular_price_monthly_base.amount)
 
     @property
@@ -782,11 +794,19 @@ class Profile(Model):
         return float(self.regular_price_annually * 0.7)
 
     @property
+    def regular_price_annually_display(self):
+        return float(self.regular_price_monthly * 0.7)
+
+    @property
     def business_price_monthly(self):
         return float(self.business_price_monthly_base.amount)
 
     @property
     def business_price_monthly_sale(self):
+        return float(self.business_price_monthly_base.amount)
+
+    @property
+    def business_price_monthly_display(self):
         return float(self.business_price_monthly_base.amount)
 
     @property
@@ -796,6 +816,10 @@ class Profile(Model):
     @property
     def business_price_annually_sale(self):
         return float(self.business_price_annually * 0.7)
+
+    @property
+    def business_price_annually_display(self):
+        return float(self.business_price_monthly * 0.7)
 
     @property
     def days_left(self):

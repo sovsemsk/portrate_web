@@ -27,9 +27,7 @@ class Tbank():
         headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
         arrayData['TerminalKey'] = self.tinkoffKey
         newArray = arrayData.copy()
-
         arrayData['Token'] = self.create_hash(newArray)
-
         response = requests.post(url, data=json.dumps(arrayData), headers=headers)
         data = response.json()
 

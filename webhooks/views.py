@@ -1,14 +1,16 @@
 import asyncio
 import json
 import re
+from datetime import datetime, timezone
 
 from django.conf import settings
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
+from djmoney.money import Money
 from telegram import Bot, Update, MessageEntity
 
-from resources.models import Profile
+from resources.models import Profile, Payment
 
 
 @csrf_exempt
@@ -54,5 +56,21 @@ def telegram_update_start(message):
 @csrf_exempt
 @require_http_methods(["POST"])
 def tbank_update(request):
-    print(request)
-    return HttpResponse()
+    data = json.loads(request.body)
+
+    try:
+        if data.get("Success") and data.get("Status") == "CONFIRMED":
+            # Обновление платежа
+            payment = Payment.objects.get(api_secret=data.get("OrderId"))
+            payment.is_paid = True
+            payment.paid_at = datetime.now(timezone.utc)
+            payment.save()
+
+            # Обновление профиля
+            profile = payment.user.profile
+            profile.balance = Money(profile.balance.amount + payment.amount.amount, "RUB")
+            profile.save()
+    except:
+        return HttpResponse()
+    finally:
+        return HttpResponse()
