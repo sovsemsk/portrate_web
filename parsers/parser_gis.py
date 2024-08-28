@@ -62,7 +62,7 @@ class ParserGis:
     @staticmethod
     def __parse_review__(lxml_node):
         try:
-            date = lxml_node.xpath(".//div[contains(@class, '_4mwq3d')]")[0].text
+            date = lxml_node.xpath(".//div[contains(@class, '_139ll30')]")[0].text
         except IndexError:
             date = None
 
@@ -76,9 +76,9 @@ class ParserGis:
 
         try:
             try:
-                text = lxml_node.xpath(".//a[contains(@class, '_1it5ivp')]")[0].text
+                text = lxml_node.xpath(".//a[contains(@class, '_h3pmwn')]")[0].text
             except IndexError:
-                text = lxml_node.xpath(".//a[contains(@class, '_ayej9u3')]")[0].text
+                text = lxml_node.xpath(".//a[contains(@class, '_1oir7fah')]")[0].text
         except IndexError:
             text = None
 
