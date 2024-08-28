@@ -221,13 +221,13 @@
     </div>
 </div>
 
-<div class="bp5-overlay bp5-overlay-open bp5-overlay-scroll-container" style="display:none" data-modal-start>
+<div class="bp5-overlay bp5-overlay-open bp5-overlay-scroll-container" style="display:none" data-modal data-modal-start>
     <div class="bp5-overlay-backdrop bp5-overlay-enter-done"></div>
     <div class="bp5-dialog-container bp5-overlay-content bp5-overlay-enter-done">
         <div class="bp5-dialog">
             <div class="bp5-dialog-header">
                 <h5 class="bp5-heading">Переход на тариф — Старт</h5>
-                <button class="bp5-button bp5-dialog-close-button bp5-minimal">
+                <button class="bp5-button bp5-dialog-close-button bp5-minimal" data-button-close>
                     <span class="bp5-icon bp5-icon-cross"></span>
                 </button>
             </div>
@@ -247,13 +247,13 @@
         </div>
     </div>
 </div>
-<div class="bp5-overlay bp5-overlay-open bp5-overlay-scroll-container" style="display:none" data-modal-regular>
+<div class="bp5-overlay bp5-overlay-open bp5-overlay-scroll-container" style="display:none" data-modal data-modal-regular>
     <div class="bp5-overlay-backdrop bp5-overlay-enter-done"></div>
     <div class="bp5-dialog-container bp5-overlay-content bp5-overlay-enter-done">
         <div class="bp5-dialog">
             <div class="bp5-dialog-header">
                 <h5 class="bp5-heading">Переход на тариф — Стандарт</h5>
-                <button class="bp5-button bp5-dialog-close-button bp5-minimal">
+                <button class="bp5-button bp5-dialog-close-button bp5-minimal" data-button-close>
                     <span class="bp5-icon bp5-icon-cross"></span>
                 </button>
             </div>
@@ -280,6 +280,7 @@
     $(document).ready(event => {
         $("*[data-button-start]").click(event => $("*[data-modal-start]").show());
         $("*[data-button-regular]").click(event => $("*[data-modal-regular]").show())
+        $("*[data-button-close]").click(event => $("*[data-modal]").hide())
     });
 </script>
 {% endblock %}
