@@ -983,13 +983,10 @@ class ProfileUpdateFinanceView(LoginRequiredMixin, View):
         pay_error_code = self.request.GET.get("ErrorCode", None)
         pay_amount = self.request.GET.get("Amount", None)
 
-        try:
-            if int(pay_error_code) == 0:
-                messages.success(request, f"Оплата прошла успешно. На баланс профиля зачислено {Money(int(pay_amount) / 100, 'RUB')}")
-            elif int(pay_error_code) == 1051:
-                messages.success(request, f"Оплата не прошла. На баланс профиля не зачислено {Money(int(pay_amount) / 100, 'RUB')}")
-        except:
-            ...
+        if (pay_error_code and int(pay_error_code) == 0) and (pay_amount and int(pay_amount) > 0):
+            messages.success(request, f"Оплата прошла успешно. На баланс профиля зачислено {Money(int(pay_amount) / 100, 'RUB')}")
+        elif (pay_error_code and int(pay_error_code) == 1051) and (pay_amount and int(pay_amount) > 0):
+            messages.success(request, f"Оплата не прошла. На баланс профиля не зачислено {Money(int(pay_amount) / 100, 'RUB')}")
 
         form = DashboardProfileChangeRateForm(request.POST, instance=request.user.profile)
         return render(request, self.template_name, {"form": form, "period": period, ** self.context})
