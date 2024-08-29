@@ -33,7 +33,7 @@ LOGGING = {
 
 # Django
 ADMINS = [["Eugene", "sovsemsk@gmail.com"]]
-ALLOWED_HOSTS = ["127.0.0.1", "geo.portrate.io", "0ec6-109-107-176-172.ngrok-free.app"]
+ALLOWED_HOSTS = ["127.0.0.1", "geo.portrate.io", "8e52-109-107-176-172.ngrok-free.app"]
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
@@ -47,6 +47,7 @@ CACHES = {
         "LOCATION": "127.0.0.1:11211",
     }
 }
+CSRF_TRUSTED_ORIGINS = ['https://*.ngrok-free.app','https://*.127.0.0.1']
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",

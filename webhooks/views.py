@@ -70,9 +70,8 @@ def tbank_update(request):
             payment.save()
 
             # Обновление профиля
-            profile = payment.user.profile
-            profile.balance = Money(profile.balance.amount + payment.amount.amount, "RUB")
-            profile.save()
+            payment.user.profile.balance = Money(payment.user.profile.balance.amount + payment.amount.amount, "RUB")
+            payment.user.save()
     except:
         return HttpResponse()
     finally:

@@ -980,14 +980,16 @@ class ProfileUpdateFinanceView(LoginRequiredMixin, View):
 
     def get(self, request):
         period = self.request.GET.get("period", "annually")
-        pay_success = self.request.GET.get("pay_success", False)
-        pay_fail = self.request.GET.get("pay_fail", False)
+        pay_error_code = self.request.GET.get("ErrorCode", None)
+        pay_amount = self.request.GET.get("Amount", None)
 
-        if pay_success:
-            messages.success(request, "Оплата прошла успешно")
-
-        if pay_fail:
-            messages.success(request, "Оплата не прошла")
+        try:
+            if int(pay_error_code) == 0:
+                messages.success(request, f"Оплата прошла успешно. На баланс профиля зачислено {Money(int(pay_amount) / 100, 'RUB')}")
+            elif int(pay_error_code) == 1051:
+                messages.success(request, f"Оплата не прошла. На баланс профиля не зачислено {Money(int(pay_amount) / 100, 'RUB')}")
+        except:
+            ...
 
         form = DashboardProfileChangeRateForm(request.POST, instance=request.user.profile)
         return render(request, self.template_name, {"form": form, "period": period, ** self.context})
