@@ -47,7 +47,7 @@ CACHES = {
         "LOCATION": "127.0.0.1:11211",
     }
 }
-CSRF_TRUSTED_ORIGINS = ['https://*.ngrok-free.app','https://*.127.0.0.1']
+# CSRF_TRUSTED_ORIGINS = ['https://*.ngrok-free.app','https://*.127.0.0.1']
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
