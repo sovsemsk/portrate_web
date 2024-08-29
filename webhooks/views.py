@@ -60,10 +60,13 @@ def tbank_update(request):
 
     try:
         if data.get("Success") and data.get("Status") == "CONFIRMED":
+            print(data)
+
             # Обновление платежа
             payment = Payment.objects.get(api_secret=data.get("OrderId"))
             payment.is_paid = True
             payment.paid_at = datetime.now(timezone.utc)
+            payment.card_id = data.get("CardId")
             payment.save()
 
             # Обновление профиля

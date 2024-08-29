@@ -704,6 +704,7 @@ class Payment(Model):
     amount = MoneyField(blank=True, default=0, default_currency="RUB", decimal_places=2, max_digits=14, null=True, verbose_name="сумма")
     is_paid = BooleanField(blank=True, default=False, null=True, verbose_name="оплачен?")
     paid_at = DateTimeField(blank=True, null=True, verbose_name="дата оплаты")
+    card_id = CharField(blank=True, null=True, verbose_name="ID карты")
 
     """ Связи """
     user = ForeignKey("auth.User", on_delete=CASCADE)

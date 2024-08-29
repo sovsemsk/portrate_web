@@ -958,7 +958,7 @@ class PasswordUpdateView(LoginRequiredMixin, SuccessMessageMixin, PasswordChange
         return reverse("password_update")
 
 
-class ProfilePayView(View):
+class ProfilePayView(LoginRequiredMixin, View):
     def post(self, request):
         period = self.request.POST.get("period", "annually")
         rate = self.request.POST.get("rate", "START")
@@ -980,6 +980,15 @@ class ProfileUpdateFinanceView(LoginRequiredMixin, View):
 
     def get(self, request):
         period = self.request.GET.get("period", "annually")
+        pay_success = self.request.GET.get("pay_success", False)
+        pay_fail = self.request.GET.get("pay_fail", False)
+
+        if pay_success:
+            messages.success(request, "Оплата прошла успешно")
+
+        if pay_fail:
+            messages.success(request, "Оплата не прошла")
+
         form = DashboardProfileChangeRateForm(request.POST, instance=request.user.profile)
         return render(request, self.template_name, {"form": form, "period": period, ** self.context})
 

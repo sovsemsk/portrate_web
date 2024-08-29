@@ -6,33 +6,29 @@ from django.conf import settings
 
 
 class Tbank():
-    tinkoffKey = settings.TINKOFF_KEY
-    tinkoffSecrete = settings.TINKOFF_SECRET
+    tbank_key = settings.TBANK_KEY
+    tbank_secret = settings.TBANK_SECRET
+    init_url = "https://securepay.tinkoff.ru/v2/Init"
 
-    initURL = "https://securepay.tinkoff.ru/v2/Init"
+    def create_hash(self, hash_array):
+        hash_array["Password"] = self.tbank_secret
+        sorted_hash_array = json.loads(json.dumps(hash_array, sort_keys=True))
+        hash_string = ""
 
-    def create_hash(self, newArray):
-        newArray['Password'] = self.tinkoffSecrete
-        sortedArray = json.loads(json.dumps(newArray, sort_keys=True))
-        hashString = ''
+        for key in sorted_hash_array:
+            value = sorted_hash_array[key]
+            hash_string += str(value)
 
-        for key in sortedArray:
-            value = sortedArray[key]
-            hashString += str(value)
+        return hashlib.sha256(hash_string.encode('utf-8')).hexdigest()
 
-        hashString = hashlib.sha256(hashString.encode('utf-8')).hexdigest()
-        return hashString
+    def send_request(self, data, url):
+        headers = {"Content-type": "application/json", "Accept": "text/plain"}
+        data["TerminalKey"] = self.tbank_key
+        data["Token"] = self.create_hash(data.copy())
 
-    def send_request(self, arrayData, url):
-        headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
-        arrayData['TerminalKey'] = self.tinkoffKey
-        newArray = arrayData.copy()
-        arrayData['Token'] = self.create_hash(newArray)
-        response = requests.post(url, data=json.dumps(arrayData), headers=headers)
-        data = response.json()
-
-        return data
+        response = requests.post(url, data=json.dumps(data), headers=headers)
+        return response.json()
 
     def init_order(self, order_number, amount):
-        data = {'OrderId': str(order_number), 'Amount': int(float(amount * 100))}
-        return self.send_request(data, self.initURL)
+        data = {"OrderId": str(order_number), "Amount": int(float(amount * 100))}
+        return self.send_request(data, self.init_url)

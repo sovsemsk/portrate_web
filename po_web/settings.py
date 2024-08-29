@@ -33,7 +33,7 @@ LOGGING = {
 
 # Django
 ADMINS = [["Eugene", "sovsemsk@gmail.com"]]
-ALLOWED_HOSTS = ["127.0.0.1", "geo.portrate.io"]
+ALLOWED_HOSTS = ["127.0.0.1", "geo.portrate.io", "0ec6-109-107-176-172.ngrok-free.app"]
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
@@ -158,7 +158,7 @@ GIS_API_KEY = str(os.getenv("GIS_API_KEY"))
 GOOGLE_API_KEY = str(os.getenv("GOOGLE_API_KEY"))
 
 # Tbank
-TINKOFF_KEY = str(os.getenv("TINKOFF_KEY"))
-TINKOFF_SECRET = str(os.getenv("TINKOFF_SECRET"))
+TBANK_KEY = str(os.getenv("TBANK_KEY"))
+TBANK_SECRET = str(os.getenv("TBANK_SECRET"))
 
 
