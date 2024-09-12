@@ -60,8 +60,6 @@ def tbank_update(request):
 
     try:
         if data.get("Success") and data.get("Status") == "CONFIRMED":
-            print(data)
-
             # Обновление платежа
             payment = Payment.objects.get(api_secret=data.get("OrderId"))
             payment.is_paid = True
@@ -72,7 +70,9 @@ def tbank_update(request):
             # Обновление профиля
             payment.user.profile.balance = Money(payment.user.profile.balance.amount + payment.amount.amount, "RUB")
             payment.user.save()
+
     except:
         return HttpResponse()
+
     finally:
         return HttpResponse()

@@ -707,7 +707,7 @@ class Payment(Model):
     card_id = CharField(blank=True, null=True, verbose_name="ID карты")
 
     """ Связи """
-    user = ForeignKey("auth.User", on_delete=CASCADE)
+    user = ForeignKey("auth.User", on_delete=CASCADE, verbose_name="пользователь")
 
     def __str__(self):
         return f"{self.user} → {self.created_at}"

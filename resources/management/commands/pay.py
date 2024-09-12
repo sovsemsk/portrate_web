@@ -13,5 +13,10 @@ class Command(BaseCommand):
 
         for user in users:
             day_price = round(float(user.profile.__getattribute__(f"{user.profile.rate.lower()}_price_annually") / 365), 2)
-            user.profile.balance = Money(float(user.profile.balance.amount) - day_price, "RUB")
+
+            if user.profile.balance.amount > day_price:
+                user.profile.balance = Money(float(user.profile.balance.amount) - day_price, "RUB")
+            else:
+                user.profile.balance = Money(0, "RUB")
+
             user.save()

@@ -23,6 +23,7 @@ class CompanyAdmin(ModelAdmin):
 
 @register(Payment)
 class PaymentAdmin(ModelAdmin):
+    list_display = ["user", "created_at", "paid_at","is_paid"]
     fields = ["rate", "period", "amount", "user", "is_paid"]
     readonly_fields = ["rate", "period", "amount", "user", "is_paid"]
 
