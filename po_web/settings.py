@@ -33,7 +33,7 @@ LOGGING = {
 
 # Django
 ADMINS = [["Eugene", "sovsemsk@gmail.com"]]
-ALLOWED_HOSTS = ["127.0.0.1", "geo.portrate.io", "8e52-109-107-176-172.ngrok-free.app"]
+ALLOWED_HOSTS = ["127.0.0.1", "geo.portrate.io"]
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},

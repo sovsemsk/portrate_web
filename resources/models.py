@@ -716,7 +716,7 @@ class Payment(Model):
 @receiver(post_init, sender=Payment)
 def payment_post_init(sender, instance, ** kwargs):
     if not instance.api_secret:
-        instance.api_secret = get_random_string(length=36)
+        instance.api_secret = get_random_string(length=8)
 
 
 class Profile(Model):

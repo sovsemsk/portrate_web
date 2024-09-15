@@ -10,6 +10,7 @@ from django.views.decorators.http import require_http_methods
 from djmoney.money import Money
 from telegram import Bot, Update, MessageEntity
 
+from billing.tbank import Tbank
 from resources.models import Profile, Payment
 
 
@@ -44,13 +45,9 @@ def telegram_update_start(message):
     if not profile:
         return
 
-    try:
-        profile.telegram_id = message.from_user.id
-        profile.save()
-        asyncio.run(Bot(settings.TELEGRAM_BOT_API_SECRET).send_message(message.from_user.id, "🍾 Вы подписаны на уведомления telegram"))
-
-    finally:
-        return
+    profile.telegram_id = message.from_user.id
+    profile.save()
+    asyncio.run(Bot(settings.TELEGRAM_BOT_API_SECRET).send_message(message.from_user.id, "🍾 Вы подписаны на уведомления telegram"))
 
 
 @csrf_exempt
@@ -58,8 +55,13 @@ def telegram_update_start(message):
 def tbank_update(request):
     data = json.loads(request.body)
 
-    try:
-        if data.get("Success") and data.get("Status") == "CONFIRMED":
+    if data.get("Success") and data.get("Status") == "CONFIRMED":
+        # Проверка обновления
+        token = data.get("Token")
+        data["Success"] = str(data.get("Success")).lower()
+        data.pop("Token")
+
+        if Tbank().create_hash(data) == token:
             # Обновление платежа
             payment = Payment.objects.get(api_secret=data.get("OrderId"))
             payment.is_paid = True
@@ -71,8 +73,4 @@ def tbank_update(request):
             payment.user.profile.balance = Money(payment.user.profile.balance.amount + payment.amount.amount, "RUB")
             payment.user.save()
 
-    except:
-        return HttpResponse()
-
-    finally:
-        return HttpResponse()
+    return HttpResponse()

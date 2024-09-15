@@ -11,9 +11,9 @@ class MembershipInlineAdmin(TabularInline):
 
 @register(Company)
 class CompanyAdmin(ModelAdmin):
+    fields = ["name", "address", "phone"]
     inlines = [MembershipInlineAdmin]
     list_display = ["name"]
-    fields = ["name", "address", "phone"]
     readonly_fields = ["name", "address", "phone"]
     search_fields = ["name"]
 
@@ -23,9 +23,16 @@ class CompanyAdmin(ModelAdmin):
 
 @register(Payment)
 class PaymentAdmin(ModelAdmin):
-    list_display = ["user", "created_at", "paid_at","is_paid"]
-    fields = ["rate", "period", "amount", "user", "is_paid"]
-    readonly_fields = ["rate", "period", "amount", "user", "is_paid"]
+    fields = ["user", "rate", "period", "amount", "is_paid" ]
+    list_display = ["user", "created_at", "paid_at", "amount", "is_paid"]
+    list_filter = ["is_paid", "created_at", "paid_at"]
+    readonly_fields = ["amount", "is_paid", "period", "rate", "user"]
 
     def has_add_permission(self, request):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    def has_change_permission(self, request, obj=None):
         return False

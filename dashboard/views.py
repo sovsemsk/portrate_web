@@ -966,12 +966,8 @@ class ProfilePayView(LoginRequiredMixin, View):
         if rate in ["START", "REGULAR"] and period in ["annually", "monthly"]:
             amount = request.user.profile.__getattribute__(f"{rate.lower()}_price_{period}_sale")
             payment = Payment.objects.create(amount=Money(amount, "RUB"), period=period.upper(), rate=rate, user=request.user)
-
-            try:
-                order = Tbank().init_order(payment.api_secret, amount)
-                return redirect(order.get("PaymentURL"))
-            except:
-                return redirect("profile_update_finance")
+            order = Tbank().init_order(payment.api_secret, amount)
+            return redirect(order.get("PaymentURL"))
 
 
 class ProfileUpdateFinanceView(LoginRequiredMixin, View):
@@ -984,9 +980,16 @@ class ProfileUpdateFinanceView(LoginRequiredMixin, View):
         pay_amount = self.request.GET.get("Amount", None)
 
         if (pay_error_code and int(pay_error_code) == 0) and (pay_amount and int(pay_amount) > 0):
-            messages.success(request, f"Оплата прошла успешно. На баланс профиля зачислено {Money(int(pay_amount) / 100, 'RUB')}")
+            messages.success(
+                request,
+                f"Оплата прошла успешно. На баланс профиля зачислено {Money(int(pay_amount) / 100, 'RUB')}"
+            )
+
         elif (pay_error_code and int(pay_error_code) == 1051) and (pay_amount and int(pay_amount) > 0):
-            messages.success(request, f"Оплата не прошла. На баланс профиля не зачислено {Money(int(pay_amount) / 100, 'RUB')}")
+            messages.success(
+                request,
+                f"Оплата не прошла. На баланс профиля не зачислено {Money(int(pay_amount) / 100, 'RUB')}"
+            )
 
         form = DashboardProfileChangeRateForm(request.POST, instance=request.user.profile)
         return render(request, self.template_name, {"form": form, "period": period, ** self.context})
@@ -998,8 +1001,10 @@ class ProfileUpdateFinanceView(LoginRequiredMixin, View):
 
         if form['rate'].value() == "START" and companies_count > 1:
             messages.success(request, "Переход на тариф Старт невозможен. Профиль является владельцем более чем 1 филиала")
+
         elif form['rate'].value() == "REGULAR" and companies_count > 3:
             messages.success(request, "Переход на тариф Стандарт невозможен. Профиль является владельцем более чем 3 филиалов")
+
         elif form.is_valid():
             form.save()
             messages.success(request, "Тариф успешно обновлен")
