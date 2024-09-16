@@ -19,7 +19,7 @@ from django.db.models import (
     Prefetch,
     OneToOneField,
     TextChoices,
-    TextField
+    TextField, FileField
 )
 from django.db.models.signals import post_init
 from django.db.models.signals import post_save
@@ -696,7 +696,7 @@ class Payment(Model):
 
     """ Автогенерация """
     created_at = DateTimeField(auto_now_add=True, blank=True, null=True, verbose_name="дата создания")
-    api_secret = CharField(blank=True, db_index=True, null=True, verbose_name="API ключ")
+    api_secret = CharField(blank=True, db_index=True, null=True, verbose_name="№ заказа")
 
     """ Данные """
     rate = CharField(blank=False, choices=Rate.choices, default=Rate.START, null=True, verbose_name="тариф")
@@ -951,6 +951,39 @@ def review_post_save(sender, instance, created, ** kwargs):
             }
         ).exclude(profile__telegram_id=None).all():
             asyncio.run(Bot(settings.TELEGRAM_BOT_API_SECRET).send_message(user.profile.telegram_id, instance.notification_template))
+
+
+class Story(Model):
+    """ Платеж """
+    class Meta:
+        db_table = "resources_story"
+        verbose_name = "история"
+        verbose_name_plural = "истории"
+
+    """ Настройки """
+    is_active = BooleanField(blank=True, default=False, null=True, verbose_name="активно?")
+    is_visible_master = BooleanField(blank=True, default=False, null=True, verbose_name="отображать в мастере?")
+    is_visible_finance = BooleanField(blank=True, default=False, null=True, verbose_name="отображать в тарифах?")
+    is_visible_profile = BooleanField(blank=True, default=False, null=True, verbose_name="отображать в профиле?")
+    is_visible_home = BooleanField(blank=True, default=False, null=True, verbose_name="отображать в списке филиалов?")
+    is_visible_statistic = BooleanField(blank=True, default=False, null=True, verbose_name="отображать в статистике?")
+    is_visible_reviews = BooleanField(blank=True, default=False, null=True, verbose_name="отображать в отзывах?")
+    is_visible_messages = BooleanField(blank=True, default=False, null=True, verbose_name="отображать в жалобах?")
+    is_visible_widget = BooleanField(blank=True, default=False, null=True, verbose_name="отображать в виджете?")
+    is_visible_feedback = BooleanField(blank=True, default=False, null=True, verbose_name="отображать в визитке?")
+    is_visible_qr = BooleanField(blank=True, default=False, null=True, verbose_name="отображать в списке qr?")
+    is_visible_notifications = BooleanField(blank=True, default=False, null=True, verbose_name="отображать в уведомлениях?")
+
+    """ Данные """
+    name = CharField(blank=True, null=True, verbose_name="название")
+    preview = ResizedImageField(blank=True, crop=['middle', 'center'], null=True, size=[256, 256], upload_to="dashboard/%Y/%m/%d/", verbose_name="превью")
+    media = FileField(blank=True, null=True, upload_to="dashboard/%Y/%m/%d/", verbose_name="медиа файл")
+
+    """ Связи """
+    company = ForeignKey("resources.Company", on_delete=CASCADE, verbose_name="филиал")
+
+    def __str__(self):
+        return f"{self.company} → {self.name}"
 
 
 class VisitStamp(Model):
