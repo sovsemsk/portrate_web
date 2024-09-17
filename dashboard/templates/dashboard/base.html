@@ -62,6 +62,16 @@
             </div>
         </div>
         {% endif %}
+        {% if story_list %}
+        <div class="container" style="padding-top:15px;">
+            <div class="bp5-entity-title">
+
+                {% for story in story_list %}
+                    <img height=100 src="{{story.preview.url}}" style="border-radius:5px;" width=100>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
         <div class="container" style="padding-bottom:30px;padding-top:30px;">
             {% block content %}
             {% endblock %}

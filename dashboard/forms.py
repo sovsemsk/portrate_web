@@ -4,7 +4,17 @@ from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm, Us
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.core.validators import RegexValidator
-from django.forms import CharField, EmailField, ModelForm, PasswordInput, TextInput, MultipleChoiceField, CheckboxSelectMultiple
+from django.forms import (
+    CharField,
+    CheckboxSelectMultiple,
+    EmailField,
+    ModelForm,
+    MultipleChoiceField,
+    NumberInput,
+    PasswordInput,
+    TextInput
+)
+
 from django.forms import Form, inlineformset_factory, Select, ImageField, FileInput, BooleanField, CheckboxInput
 
 from resources.models import Company, Membership, Profile, Rate, Review, Service, Timezone
@@ -40,7 +50,7 @@ class DashboardBusinessRequestCreationForm(Form):
     name = CharField(label="Имя", widget=TextInput(attrs={"class": "bp5-input bp5-large", "autofocus": ""}))
     phone = CharField(label="Телефон", widget=TextInput(attrs={"class": "bp5-input bp5-large", "data-phone": ""}))
     company_name = CharField(label="Название компании", widget=TextInput(attrs={"class": "bp5-input bp5-large"}))
-    companies_count = CharField(label="Количество филиалов", widget=TextInput(attrs={"class": "bp5-input bp5-large"}))
+    companies_count = CharField(label="Количество филиалов", widget=NumberInput(attrs={"class": "bp5-input bp5-large"}))
     services = MultipleChoiceField(choices=Service.choices, label="Сервисы", widget=SwitchSelectMultiple)
 
     def save(self):

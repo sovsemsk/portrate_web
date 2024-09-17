@@ -19,7 +19,7 @@ from djmoney.money import Money
 
 from billing.tbank import Tbank
 from pdf.utils import make_stick, make_card, make_qr
-from resources.models import Company, Message, Review, Service, Payment
+from resources.models import Company, Message, Payment, Review, Service, Story
 from resources.tasks import parse_yandex_task, parse_gis_task, parse_google_task
 from services.search import SearchGis, SearchGoogle, SearchYandex
 from .filters import MessageFilter, ReviewFilter
@@ -57,6 +57,8 @@ from .forms import (
 def company_list_short(user, pk):
     return Company.objects.filter(users__in=[user]).exclude(pk=pk).values("id", "name").order_by("name")[:15]
 
+def story_list(navs):
+    return Story.objects.filter(is_active=True).all
 
 class NoCompanyError(Exception):
     def __init__(self, *args):
@@ -394,6 +396,7 @@ class CompanyListView(LoginRequiredMixin, ListView):
     def get_context_data(self, ** kwargs):
         context = super().get_context_data(** kwargs)
         context["nav"] = "home"
+        context["story_list"] = story_list([])
         return context
 
     def get_ordering(self):
