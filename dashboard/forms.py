@@ -45,7 +45,7 @@ class DashboardBusinessRequestCreationForm(Form):
     def save(self):
         send_mail(
             f"Заявка на бизнес тариф от {self.cleaned_data.get("name")}, {self.cleaned_data.get("phone")}",
-            f"""Количество филиалов - {self.cleaned_data.get("companies_count")}
+            f"""Количество филиалов - {self.cleaned_data.get("companies_count")},
 Имя - {self.cleaned_data.get("name")}
 Телефон - {self.cleaned_data.get("phone")}
 Сервисы - {", ".join(self.cleaned_data.get("services"))}
