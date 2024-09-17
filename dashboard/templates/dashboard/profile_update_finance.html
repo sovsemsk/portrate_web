@@ -12,7 +12,7 @@
                 <a class="bp5-button {% if period == 'monthly' %}bp5-active{% endif %}" href="?period=monthly" data-period-monthly>Месяц</a>
             </div>
             <div class="bp5-large bp5-minimal bp5-tag ml-auto {% if request.user.profile.is_active%}bp5-intent-success{% else %}bp5-intent-danger{% endif %}">
-                <strong>Ваш тариф — {{ request.user.profile.get_rate_display }},&nbsp;</strong>{% if request.user.profile.is_active%}активен еще {{ request.user.profile.days_left|default:'0' }} {{ request.user.profile.days_left|default:'0'|rupluralize:'день, дня, дней' }}{% else %}не активен{% endif %}
+                <strong>{{ request.user.profile.get_rate_display }},&nbsp;</strong>{% if request.user.profile.is_active%}активен до {{ request.user.profile.end_at }}{% else %}не активен{% endif %}
             </div>
         </div>
     </div>
@@ -215,12 +215,13 @@
                         </div>
                     </div>
                 </div>
-                <button class="bp5-button bp5-large">Запросить</button>
+                <a class="bp5-button bp5-large" href="{% url 'profile_create_business_request' %}">Запросить</a>
             </div>
         </div>
     </div>
 </div>
 
+<!-- Переход на тариф Старт -->
 <div class="bp5-overlay bp5-overlay-open bp5-overlay-scroll-container" style="display:none" data-modal data-modal-start>
     <div class="bp5-overlay-backdrop bp5-overlay-enter-done"></div>
     <div class="bp5-dialog-container bp5-overlay-content bp5-overlay-enter-done">
@@ -247,6 +248,8 @@
         </div>
     </div>
 </div>
+
+<!-- Переход на тариф Стандарт -->
 <div class="bp5-overlay bp5-overlay-open bp5-overlay-scroll-container" style="display:none" data-modal data-modal-regular>
     <div class="bp5-overlay-backdrop bp5-overlay-enter-done"></div>
     <div class="bp5-dialog-container bp5-overlay-content bp5-overlay-enter-done">
@@ -273,7 +276,6 @@
         </div>
     </div>
 </div>
-
 
 {% endblock %}
 {% block script %}

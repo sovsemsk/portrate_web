@@ -1,0 +1,85 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block content %}
+<h2 class="bp5-heading">Запрос на бизнес тариф </h2>
+<div class="row">
+    <div class="xs-9">
+        <form method="post" novalidate>
+            {% csrf_token %}
+            <div class="bp5-form-group {% if form.name.errors %}bp5-intent-danger{% endif %}">
+                <label class="bp5-label" for="id_name">Имя</label>
+                <div class="bp5-form-content">
+                    <div class="bp5-input-group {% if form.name.errors %}bp5-intent-danger{% endif %}">
+                        {{form.name}}
+                    </div>
+                    {% if form.name.errors %}
+                    <div class="bp5-form-helper-text">{{form.name.errors.as_text}}</div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="xs-6">
+                    <div class="bp5-form-group {% if form.phone.errors %}bp5-intent-danger{% endif %}">
+                        <label class="bp5-label" for="id_phone">Телефон</label>
+                        <div class="bp5-form-content">
+                            <div class="bp5-input-group {% if form.phone.errors %}bp5-intent-danger{% endif %}">
+                                {{form.phone}}
+                            </div>
+                            <div class="bp5-form-helper-text">{% if form.phone.errors %}{{form.phone.errors.as_text}}{% else %}В формате +7 999 999-99-99{% endif %}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="xs-6">
+                    <div class="bp5-form-group {% if form.companies_count.errors %}bp5-intent-danger{% endif %}">
+                        <label class="bp5-label" for="id_companies_count">Количество филиалов</label>
+                        <div class="bp5-form-content">
+                            <div class="bp5-input-group {% if form.companies_count.errors %}bp5-intent-danger{% endif %}">
+                                {{form.companies_count}}
+                            </div>
+                            {% if form.companies_count.errors %}
+                            <div class="bp5-form-helper-text">{{ form.companies_count.errors.as_text }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bp5-form-group {% if form.services.errors %}bp5-intent-danger{% endif %}">
+                <label class="bp5-label">Сервисы</label>
+                <div class="bp5-form-content">
+                    <div class="row">
+                        <div class="xs-3">
+                            {{form.services.0}}
+                            {{form.services.1}}
+                            {{form.services.2}}
+                            {{form.services.3}}
+                        </div>
+                        <div class="xs-3">
+                            {{form.services.4}}
+                            {{form.services.5}}
+                            {{form.services.6}}
+                        </div>
+                        <div class="xs-3">
+                            {{form.services.7}}
+                            {{form.services.8}}
+                            {{form.services.9}}
+                        </div>
+                        <div class="xs-3">
+                            {{form.services.10}}
+                            {{form.services.11}}
+                            {{form.services.12}}
+                        </div>
+                    </div>
+                    {% if form.services.errors %}
+                        <div class="bp5-form-helper-text">{{ form.services.errors.as_text }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="bp5-form-group">
+                <div class="bp5-form-content">
+                    <button class="bp5-button bp5-large" type="submit">Отправить</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

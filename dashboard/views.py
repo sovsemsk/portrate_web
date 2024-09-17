@@ -25,6 +25,7 @@ from services.search import SearchGis, SearchGoogle, SearchYandex
 from .filters import MessageFilter, ReviewFilter
 from .forms import (
     DashboardAuthenticationForm,
+    DashboardBusinessRequestCreationForm,
     DashboardCompanyChangeAvitoForm,
     DashboardCompanyChangeContactForm,
     DashboardCompanyChangeDataForm,
@@ -973,6 +974,25 @@ class ProfilePayView(LoginRequiredMixin, View):
             payment = Payment.objects.create(amount=Money(amount, "RUB"), period=period.upper(), rate=rate, user=request.user)
             order = Tbank().init_order(payment.api_secret, amount)
             return redirect(order.get("PaymentURL"))
+
+
+class ProfileCreateBusinessRequest(LoginRequiredMixin, View):
+    template_name = "dashboard/profile_create_business_request.html"
+    context = {"nav": "finance"}
+
+    def get(self, request):
+        form = DashboardBusinessRequestCreationForm()
+        return render(request, self.template_name, {"form": form, ** self.context})
+
+    def post(self, request):
+        form = DashboardBusinessRequestCreationForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Спасибо, ваш запрос успешно отправлен, скоро с вами свяжется наш менеджер")
+            return redirect("profile_update_finance")
+
+        return render(request, self.template_name, {"form": form, ** self.context})
 
 
 class ProfileUpdateFinanceView(LoginRequiredMixin, View):

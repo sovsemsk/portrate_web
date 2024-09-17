@@ -27,6 +27,7 @@ from .views import (
     MembershipUpdateView,
     MessageListView,
     PasswordUpdateView,
+    ProfileCreateBusinessRequest,
     ProfilePayView,
     ProfileUpdateFinanceView,
     ProfileUpdateView,
@@ -69,9 +70,11 @@ urlpatterns = [
     path("master/google/", MasterSearchGoogleView.as_view(), name="master_search_google"),
     path("master/yandex/", MasterSearchYandexView.as_view(), name="master_search_yandex"),
     path("password/update/", PasswordUpdateView.as_view(), name="password_update"),
+    path("profile/create_business_request/", ProfileCreateBusinessRequest.as_view(), name="profile_create_business_request"),
     path("profile/pay/", ProfilePayView.as_view(), name="profile_pay"),
     path("profile/update/", ProfileUpdateView.as_view(), name="profile_update"),
     path("profile/update_finance/", ProfileUpdateFinanceView.as_view(), name="profile_update_finance"),
     path("user/create/", UserCreateView.as_view(), name="user_create"),
-    path("user/update/", UserUpdateView.as_view(), name="user_update")
+    path("user/update/", UserUpdateView.as_view(), name="user_update"),
+
 ]

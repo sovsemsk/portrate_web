@@ -23,7 +23,7 @@ class CompanyAdmin(ModelAdmin):
 
 @register(Payment)
 class PaymentAdmin(ModelAdmin):
-    fields = ["api_secret", "user", "rate", "period", "amount", "is_paid" ]
+    fields = ["api_secret", "user", "rate", "period", "card_id", "amount", "is_paid" ]
     list_display = ["api_secret", "user", "created_at", "paid_at", "amount", "is_paid"]
     list_filter = ["is_paid", "created_at", "paid_at"]
     readonly_fields = ["amount", "is_paid", "period", "rate", "user"]
@@ -57,7 +57,7 @@ class StoryAdmin(ModelAdmin):
             },
         ),
         (
-            "РАЗДЕЛЫ",
+            "Разделы",
             {
                 "fields": [
                     "is_visible_master",

@@ -94,7 +94,7 @@ def make_card(company, theme):
         if company.address:
             page.insert_textbox(
                 pymupdf.Rect(100, 81, 240, 126),
-                Truncator(company.address).chars(100),
+                Truncator(company.address).chars(50),
                 color=pymupdf.pdfcolor["gray50"],
                 encoding=pymupdf.TEXT_ENCODING_CYRILLIC,
                 fontname="roboto",

@@ -33,7 +33,7 @@ LOGGING = {
 
 # Django
 ADMINS = [["Eugene", "sovsemsk@gmail.com"]]
-ALLOWED_HOSTS = ["127.0.0.1", "geo.portrate.io"]
+ALLOWED_HOSTS = str(os.getenv("ALLOWED_HOSTS")).split(",")
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
@@ -47,7 +47,7 @@ CACHES = {
         "LOCATION": "127.0.0.1:11211",
     }
 }
-# CSRF_TRUSTED_ORIGINS = ['https://*.ngrok-free.app','https://*.127.0.0.1']
+CSRF_TRUSTED_ORIGINS = str(os.getenv("CSRF_TRUSTED_ORIGINS")).split(",")
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
@@ -60,6 +60,13 @@ DATABASES = {
 }
 DEBUG = json.loads(str(os.getenv("DEBUG")).lower())
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+DEFAULT_FROM_EMAIL = "noreply@portrate.io"
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "mail.netangels.ru"
+EMAIL_HOST_PASSWORD = str(os.getenv("EMAIL_HOST_PASSWORD"))
+EMAIL_HOST_USER = "noreply@portrate.io"
+EMAIL_PORT = 25
+EMAIL_USE_TLS = False
 INSTALLED_APPS = [
 
     # Пакеты

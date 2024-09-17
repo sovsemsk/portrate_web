@@ -1,6 +1,6 @@
 import asyncio
 import math
-from datetime import date
+from datetime import date, datetime, timedelta
 
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -823,8 +823,16 @@ class Profile(Model):
         return float(self.business_price_monthly * 0.7)
 
     @property
+    def day_price(self):
+        return round(float(self.__getattribute__(f"{self.rate.lower()}_price_annually") / 365), 2)
+
+    @property
     def days_left(self):
-        return math.floor(float(self.balance.amount) / float(self.__getattribute__(f"{self.rate.lower()}_price_annually") / 365))
+        return math.floor(float(self.balance.amount) / self.day_price)
+
+    @property
+    def end_at(self):
+        return date.today() + timedelta(days=self.days_left)
 
     @property
     def is_active(self):
@@ -912,7 +920,7 @@ class Review(Model):
     is_moderated = BooleanField(blank=True, default=False, null=True, verbose_name="отмодерирован?")
 
     """ Контент """
-    remote_id = CharField(blank=True, null=True, verbose_name="ID (агрегация)")
+    remote_id = CharField(blank=True, db_index=True, null=True, verbose_name="ID (агрегация)")
     service = CharField(blank=True, choices=Service.choices, default=Service.YANDEX, null=True, verbose_name="сервис")
     stars = IntegerField(blank=True, default=0, null=True, verbose_name="оценка")
     name = CharField(blank=True, null=True, verbose_name="пользователь")
@@ -981,6 +989,7 @@ class Story(Model):
 
     """ Связи """
     company = ForeignKey("resources.Company", on_delete=CASCADE, verbose_name="филиал")
+    users = ManyToManyField("auth.User", blank=True, verbose_name="пользователи")
 
     def __str__(self):
         return f"{self.company} → {self.name}"

@@ -17,6 +17,17 @@
                     </div>
                 </div>
             </div>
+            <div class="bp5-form-group {% if form.username.errors %}bp5-intent-danger{% endif %}">
+                <label class="bp5-label" for="id_username">Адрес электронной почты *</label>
+                <div class="bp5-form-content">
+                    <div class="bp5-input-group {% if form.username.errors %}bp5-intent-danger{% endif %}">
+                        {{ form.email }}
+                    </div>
+                    <div class="bp5-form-helper-text">
+                        {% if form.email.errors %}{{ form.email.errors.as_text }}{% else %}Следует использовать только свой адрес{% endif %}
+                    </div>
+                </div>
+            </div>
             <div class="bp5-form-group {% if form.password1.errors %}bp5-intent-danger{% endif %}">
                 <label class="bp5-label">Пароль *</label>
                 <div class="bp5-form-content">

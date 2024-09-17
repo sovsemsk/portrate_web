@@ -2,8 +2,9 @@ from datetime import datetime, timezone
 
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm, UserChangeForm, UsernameField, UserCreationForm
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
 from django.core.validators import RegexValidator
-from django.forms import CharField, ModelForm, PasswordInput, TextInput
+from django.forms import CharField, EmailField, ModelForm, PasswordInput, TextInput, MultipleChoiceField, CheckboxSelectMultiple
 from django.forms import Form, inlineformset_factory, Select, ImageField, FileInput, BooleanField, CheckboxInput
 
 from resources.models import Company, Membership, Profile, Rate, Review, Service, Timezone
@@ -22,6 +23,8 @@ from resources.tasks import (
     parse_tripadvisor_task
 )
 
+class SwitchSelectMultiple(CheckboxSelectMultiple):
+    option_template_name = "forms/widgets/switch_option.html"
 
 class DashboardAuthenticationForm(AuthenticationForm):
     error_messages = {
@@ -31,6 +34,25 @@ class DashboardAuthenticationForm(AuthenticationForm):
 
     username = UsernameField(widget=TextInput(attrs={"class": "bp5-input bp5-large"}))
     password = CharField(widget=PasswordInput(attrs={"class": "bp5-input bp5-large"}))
+
+
+class DashboardBusinessRequestCreationForm(Form):
+    name = CharField(label="Имя", widget=TextInput(attrs={"class": "bp5-input bp5-large", "autofocus": ""}))
+    phone = CharField(label="Телефон", widget=TextInput(attrs={"class": "bp5-input bp5-large", "data-phone": ""}))
+    companies_count = CharField(label="Количество филиалов", widget=TextInput(attrs={"class": "bp5-input bp5-large"}))
+    services = MultipleChoiceField(choices=Service.choices, label="Сервисы", widget=SwitchSelectMultiple)
+
+    def save(self):
+        send_mail(
+            f"Заявка на бизнес тариф от {self.cleaned_data.get("name")}, {self.cleaned_data.get("phone")}",
+            f"""Количество филиалов - {self.cleaned_data.get("companies_count")}
+Имя - {self.cleaned_data.get("name")}
+Телефон - {self.cleaned_data.get("phone")}
+Сервисы - {", ".join(self.cleaned_data.get("services"))}
+""",
+            "noreply@portrate.io",
+            ["sovsemsk@gmail.com", "sakiruma@gmail.com", "service@portrate.io"]
+        )
 
 
 class DashboardCompanyChangeYandexForm(ModelForm):
@@ -646,6 +668,12 @@ class DashboardUserChangeForm(UserChangeForm):
 
 
 class DashboardUserCreationForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ["username", "email", "password1", "password2"]
+
     username = UsernameField(widget=TextInput(attrs={"class": "bp5-input bp5-large"}))
+    email = EmailField(widget=TextInput(attrs={"class": "bp5-input bp5-large"}))
     password1 = CharField(widget=PasswordInput(attrs={"class": "bp5-input bp5-large"}))
     password2 = CharField(widget=PasswordInput(attrs={"class": "bp5-input bp5-large"}))
+
