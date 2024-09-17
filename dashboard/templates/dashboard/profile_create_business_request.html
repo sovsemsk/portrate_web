@@ -2,19 +2,21 @@
 {% load static %}
 {% block content %}
 <h2 class="bp5-heading">Запрос на бизнес тариф </h2>
-<div class="row">
-    <div class="xs-9">
         <form method="post" novalidate>
             {% csrf_token %}
-            <div class="bp5-form-group {% if form.name.errors %}bp5-intent-danger{% endif %}">
-                <label class="bp5-label" for="id_name">Имя</label>
-                <div class="bp5-form-content">
-                    <div class="bp5-input-group {% if form.name.errors %}bp5-intent-danger{% endif %}">
-                        {{form.name}}
+            <div class="row">
+                <div class="xs-6">
+                    <div class="bp5-form-group {% if form.name.errors %}bp5-intent-danger{% endif %}">
+                        <label class="bp5-label" for="id_name">Имя</label>
+                        <div class="bp5-form-content">
+                            <div class="bp5-input-group {% if form.name.errors %}bp5-intent-danger{% endif %}">
+                                {{form.name}}
+                            </div>
+                            {% if form.name.errors %}
+                            <div class="bp5-form-helper-text">{{form.name.errors.as_text}}</div>
+                            {% endif %}
+                        </div>
                     </div>
-                    {% if form.name.errors %}
-                    <div class="bp5-form-helper-text">{{form.name.errors.as_text}}</div>
-                    {% endif %}
                 </div>
             </div>
             <div class="row">
@@ -29,7 +31,26 @@
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div class="row">
                 <div class="xs-6">
+
+                    <div class="bp5-form-group {% if form.company_name.errors %}bp5-intent-danger{% endif %}">
+                        <label class="bp5-label" for="id_company_name">Название компании</label>
+                        <div class="bp5-form-content">
+                            <div class="bp5-input-group {% if form.company_name.errors %}bp5-intent-danger{% endif %}">
+                                {{form.company_name}}
+                            </div>
+                            {% if form.company_name.errors %}
+                            <div class="bp5-form-helper-text">{{form.company_name.errors.as_text}}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="xs-3">
                     <div class="bp5-form-group {% if form.companies_count.errors %}bp5-intent-danger{% endif %}">
                         <label class="bp5-label" for="id_companies_count">Количество филиалов</label>
                         <div class="bp5-form-content">
@@ -80,6 +101,4 @@
                 </div>
             </div>
         </form>
-    </div>
-</div>
 {% endblock %}

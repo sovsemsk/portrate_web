@@ -39,15 +39,17 @@ class DashboardAuthenticationForm(AuthenticationForm):
 class DashboardBusinessRequestCreationForm(Form):
     name = CharField(label="Имя", widget=TextInput(attrs={"class": "bp5-input bp5-large", "autofocus": ""}))
     phone = CharField(label="Телефон", widget=TextInput(attrs={"class": "bp5-input bp5-large", "data-phone": ""}))
+    company_name = CharField(label="Название компании", widget=TextInput(attrs={"class": "bp5-input bp5-large"}))
     companies_count = CharField(label="Количество филиалов", widget=TextInput(attrs={"class": "bp5-input bp5-large"}))
     services = MultipleChoiceField(choices=Service.choices, label="Сервисы", widget=SwitchSelectMultiple)
 
     def save(self):
         send_mail(
             f"Заявка на бизнес тариф от {self.cleaned_data.get('name')}, {self.cleaned_data.get('phone')}",
-            f"""Количество филиалов - {self.cleaned_data.get('companies_count')}
-Имя - {self.cleaned_data.get('name')}
+            f"""Имя - {self.cleaned_data.get('name')}
 Телефон - {self.cleaned_data.get('phone')}
+Название компании - {self.cleaned_data.get('company_name')}
+Количество филиалов - {self.cleaned_data.get('companies_count')}
 Сервисы - {", ".join(self.cleaned_data.get('services'))}
 """,
             "noreply@portrate.io",
