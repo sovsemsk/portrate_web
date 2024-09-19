@@ -63,19 +63,36 @@
         </div>
         {% endif %}
         {% if story_list %}
-        <div class="container" style="padding-top:15px;">
+        <div class="container" style="padding-top:15px">
             <div class="bp5-entity-title">
-
                 {% for story in story_list %}
-                    <img height=100 src="{{story.preview.url}}" style="border-radius:5px;" width=100>
+                <a href="{{story.media.url}}" style="border-radius:5px;height:128px;overflow:hidden;width:128px;{% if not story.users_is_seen %}outline:#ed6c2c 2px solid;{% endif %}" data-href-story="{{story.id}}">
+                    <img height=128 src="{{story.preview.url}}" width=128>
+                </a>
                 {% endfor %}
             </div>
         </div>
+
+        <!-- Истории -->
+        <div class="bp5-overlay bp5-overlay-open bp5-overlay-scroll-container" style="display:none" data-modal-story>
+            <div class="bp5-overlay-backdrop bp5-overlay-enter-done"></div>
+            <div class="bp5-dialog-container bp5-overlay-content bp5-overlay-enter-done">
+                <div class="bp5-entity-title" style="pointer-events:all">
+                    <button class="bp5-button bp5-icon-arrow-left bp5-minimal" data-button-left></button>
+                    <video class="bp5-elevation-3" style="border-radius:5px;" width="320" data-video-story>
+                        <source src="" type="video/mp4" />
+                    </video>
+                    <button class="bp5-button bp5-icon-arrow-right bp5-minimal" data-button-right></button>
+                </div>
+            </div>
+        </div>
+
         {% endif %}
         <div class="container" style="padding-bottom:30px;padding-top:30px;">
             {% block content %}
             {% endblock %}
         </div>
+
         {% block script %}
         {% endblock %}
         <script>
@@ -104,6 +121,86 @@
                             $("*[data-dropdown]").find("*[data-target]").hide();
                         }
                     });
+                }
+
+                if($("*[data-href-story]").length){
+                    var stories = $("*[data-href-story]");
+                    var current = 0;
+                    var length = stories.length;
+                    var storyUpdateUrl = "{% url 'story_update' '0' %}";
+
+                    $("*[data-href-story]").click(event => {
+                        event.preventDefault();
+                        current = $("*[data-href-story]").index(event.currentTarget);
+                        var storyId = $(stories[current]).data("href-story");
+                        var storySrc = $(stories[current]).attr("href");
+
+                        $("*[data-modal-story]").show();
+                        $("*[data-modal-story]").find("source").attr("src", storySrc);
+                        $("*[data-modal-story]").find("video")[0].play();
+                        $(stories[current]).css("outline", "none");
+
+                        $.ajax({
+                            data: {csrfmiddlewaretoken: "{{ csrf_token }}"},
+                            dataType: "json",
+                            method: "POST",
+                            url: storyUpdateUrl.replace("0", storyId)
+                        });
+                    });
+
+                    $("*[data-button-left]").click(event => {
+                        event.preventDefault();
+
+                        if(current==0){
+                            current=length-1;
+                        }else{
+                            current-=1;
+                        }
+
+                        var storyId = $(stories[current]).data("href-story");
+                        var storySrc = $(stories[current]).attr("href");
+                        $("*[data-modal-story]").find("video")[0].pause();
+                        $("*[data-modal-story]").find("video")[0].currentTime = 0;
+                        $("*[data-modal-story]").find("source").attr("src", storySrc);
+                        $("*[data-modal-story]").find("video")[0].load();
+                        $("*[data-modal-story]").find("video")[0].play();
+                        $(stories[current]).css("outline", "none");
+
+                        $.ajax({
+                            data: {csrfmiddlewaretoken: "{{ csrf_token }}"},
+                            dataType: "json",
+                            method: "POST",
+                            url: storyUpdateUrl.replace("0", storyId)
+                        });
+                    });
+
+                    $("*[data-button-right]").click(event => {
+                        event.preventDefault();
+
+                        if(current+1 < length){
+                            current+=1;
+                        }else{
+                            current=0;
+                        }
+
+                        var storyId = $(stories[current]).data("href-story");
+                        var storySrc = $(stories[current]).attr("href");
+                        $("*[data-modal-story]").find("video")[0].pause();
+                        $("*[data-modal-story]").find("video")[0].currentTime = 0;
+                        $("*[data-modal-story]").find("source").attr("src", storySrc);
+                        $("*[data-modal-story]").find("video")[0].load();
+                        $("*[data-modal-story]").find("video")[0].play();
+                        $(stories[current]).css("outline", "none");
+
+                        $.ajax({
+                            data: {csrfmiddlewaretoken: "{{ csrf_token }}"},
+                            dataType: "json",
+                            method: "POST",
+                            url: storyUpdateUrl.replace("0", storyId)
+                        });
+                    });
+
+                    $("*[data-modal-story]").find(".bp5-overlay-backdrop").click(event => $("*[data-modal-story]").hide());
                 }
 
                 {% if nav != 'master' %}

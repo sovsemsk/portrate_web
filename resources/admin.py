@@ -41,15 +41,12 @@ class PaymentAdmin(ModelAdmin):
 
 @register(Story)
 class StoryAdmin(ModelAdmin):
-    autocomplete_fields = ["company"]
-
     fieldsets = [
         (
             None,
             {
                 "fields": [
                     "name",
-                    "company",
                     "is_active",
                     "preview",
                     "media"
@@ -76,7 +73,7 @@ class StoryAdmin(ModelAdmin):
         ),
     ]
 
-    list_display = ["name", "company", "is_active"]
+    list_display = ["name", "is_active"]
 
     list_filter = [
         "is_active",

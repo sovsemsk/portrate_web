@@ -33,6 +33,7 @@ from .views import (
     ProfileUpdateView,
     ReviewListView,
     ReviewUpdateView,
+    StoryUpdateView,
     UserCreateView,
     UserLoginView,
     UserLogoutView,
@@ -74,7 +75,8 @@ urlpatterns = [
     path("profile/pay/", ProfilePayView.as_view(), name="profile_pay"),
     path("profile/update/", ProfileUpdateView.as_view(), name="profile_update"),
     path("profile/update_finance/", ProfileUpdateFinanceView.as_view(), name="profile_update_finance"),
+    path("profile/update_finance/", ProfileUpdateFinanceView.as_view(), name="profile_update_finance"),
+    path("story/<int:pk>/update/", StoryUpdateView.as_view(), name="story_update"),
     path("user/create/", UserCreateView.as_view(), name="user_create"),
-    path("user/update/", UserUpdateView.as_view(), name="user_update"),
-
+    path("user/update/", UserUpdateView.as_view(), name="user_update")
 ]

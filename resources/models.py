@@ -293,7 +293,7 @@ class Company(Model):
         self.cached_parser_link_tripadvisor = self.parser_link_tripadvisor
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
     @property
     def feedback_form_tags(self):
@@ -747,7 +747,7 @@ class Profile(Model):
     user = OneToOneField("auth.User", on_delete=CASCADE)
 
     def __str__(self):
-        return self.user.username
+        return str(self.user.username)
 
     """ Стоимость тарифов """
     @property
@@ -985,14 +985,13 @@ class Story(Model):
     """ Данные """
     name = CharField(blank=True, null=True, verbose_name="название")
     preview = ResizedImageField(blank=True, crop=['middle', 'center'], null=True, size=[256, 256], upload_to="dashboard/%Y/%m/%d/", verbose_name="превью")
-    media = FileField(blank=True, null=True, upload_to="dashboard/%Y/%m/%d/", verbose_name="медиа файл")
+    media = FileField(blank=True, null=True, upload_to="dashboard/%Y/%m/%d/", verbose_name="видео файл")
 
     """ Связи """
-    company = ForeignKey("resources.Company", on_delete=CASCADE, verbose_name="филиал")
     users = ManyToManyField("auth.User", blank=True, verbose_name="пользователи")
 
     def __str__(self):
-        return f"{self.company} → {self.name}"
+        return str(self.name)
 
 
 class VisitStamp(Model):

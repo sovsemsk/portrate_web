@@ -5,10 +5,11 @@ from urllib.parse import unquote
 from celery import chain
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
 from django.contrib.auth.views import PasswordChangeView, LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
-from django.db.models import Count, Q, F
-from django.http import Http404, HttpResponse
+from django.db.models import Count, F, Prefetch, Q
+from django.http import Http404, HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -18,6 +19,7 @@ from django_filters.views import FilterView
 from djmoney.money import Money
 
 from billing.tbank import Tbank
+from feedback.views import request
 from pdf.utils import make_stick, make_card, make_qr
 from resources.models import Company, Message, Payment, Review, Service, Story
 from resources.tasks import parse_yandex_task, parse_gis_task, parse_google_task
@@ -57,8 +59,19 @@ from .forms import (
 def company_list_short(user, pk):
     return Company.objects.filter(users__in=[user]).exclude(pk=pk).values("id", "name").order_by("name")[:15]
 
-def story_list(navs):
-    return Story.objects.filter(is_active=True).all
+
+def story_list(user, nav):
+    return Story.objects.filter(** {
+        "is_active": True,
+        f"is_visible_{nav}": True
+    }).prefetch_related(
+        Prefetch(
+            "users",
+            to_attr="users_is_seen",
+            queryset=User.objects.filter(pk=user.id)
+        )
+    ).all
+
 
 class NoCompanyError(Exception):
     def __init__(self, *args):
@@ -396,7 +409,7 @@ class CompanyListView(LoginRequiredMixin, ListView):
     def get_context_data(self, ** kwargs):
         context = super().get_context_data(** kwargs)
         context["nav"] = "home"
-        context["story_list"] = story_list([])
+        context["story_list"] = story_list(self.request.user, context["nav"])
         return context
 
     def get_ordering(self):
@@ -1107,6 +1120,13 @@ class ReviewUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
     def get_success_url(self):
         return f"{reverse('review_list', kwargs={'company_pk': self.kwargs['company_pk']})}?{self.request.GET.urlencode()}"
+
+
+class StoryUpdateView(LoginRequiredMixin, View):
+    def post(self, request, pk):
+        story = get_object_or_404(Story, pk=pk)
+        story.users.add(request.user)
+        return JsonResponse({})
 
 
 class UserCreateView(FormView):

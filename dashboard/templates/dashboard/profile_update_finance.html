@@ -222,7 +222,7 @@
 </div>
 
 <!-- Переход на тариф Старт -->
-<div class="bp5-overlay bp5-overlay-open bp5-overlay-scroll-container" style="display:none" data-modal data-modal-start>
+<div class="bp5-overlay bp5-overlay-open bp5-overlay-scroll-container" style="display:none" data-modal_ data-modal-start>
     <div class="bp5-overlay-backdrop bp5-overlay-enter-done"></div>
     <div class="bp5-dialog-container bp5-overlay-content bp5-overlay-enter-done">
         <div class="bp5-dialog">
@@ -250,7 +250,7 @@
 </div>
 
 <!-- Переход на тариф Стандарт -->
-<div class="bp5-overlay bp5-overlay-open bp5-overlay-scroll-container" style="display:none" data-modal data-modal-regular>
+<div class="bp5-overlay bp5-overlay-open bp5-overlay-scroll-container" style="display:none" data-modal_ data-modal-regular>
     <div class="bp5-overlay-backdrop bp5-overlay-enter-done"></div>
     <div class="bp5-dialog-container bp5-overlay-content bp5-overlay-enter-done">
         <div class="bp5-dialog">
@@ -282,8 +282,9 @@
 <script>
     $(document).ready(event => {
         $("*[data-button-start]").click(event => $("*[data-modal-start]").show());
-        $("*[data-button-regular]").click(event => $("*[data-modal-regular]").show())
-        $("*[data-button-close]").click(event => $("*[data-modal]").hide())
+        $("*[data-button-regular]").click(event => $("*[data-modal-regular]").show());
+        $("*[data-button-close]").click(event => $("*[data-modal-start], *[data-modal-regular]").hide());
+        $("*[data-modal-start], *[data-modal-regular]").find(".bp5-overlay-backdrop").click(event => $("*[data-modal-start], *[data-modal-regular]").hide());
     });
 </script>
 {% endblock %}
