@@ -675,7 +675,7 @@ class DashboardUserChangeForm(UserChangeForm):
         model = User
         fields = ["email", "username"]
 
-    email = CharField(required=False, widget=TextInput(attrs={"class": "bp5-input bp5-large"}))
+    email = CharField(widget=TextInput(attrs={"class": "bp5-input bp5-large"}))
     username = UsernameField(widget=TextInput(attrs={"class": "bp5-input bp5-large"}))
 
 

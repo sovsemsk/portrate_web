@@ -72,8 +72,6 @@
                 {% endfor %}
             </div>
         </div>
-
-        <!-- Истории -->
         <div class="bp5-overlay bp5-overlay-open bp5-overlay-scroll-container" style="display:none" data-modal-story>
             <div class="bp5-overlay-backdrop bp5-overlay-enter-done"></div>
             <div class="bp5-dialog-container bp5-overlay-content bp5-overlay-enter-done">
@@ -86,13 +84,11 @@
                 </div>
             </div>
         </div>
-
         {% endif %}
         <div class="container" style="padding-bottom:30px;padding-top:30px;">
             {% block content %}
             {% endblock %}
         </div>
-
         {% block script %}
         {% endblock %}
         <script>

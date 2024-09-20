@@ -988,7 +988,8 @@ class ProfilePayView(LoginRequiredMixin, View):
         if rate in ["START", "REGULAR"] and period in ["annually", "monthly"]:
             amount = request.user.profile.__getattribute__(f"{rate.lower()}_price_{period}_sale")
             payment = Payment.objects.create(amount=Money(amount, "RUB"), period=period.upper(), rate=rate, user=request.user)
-            order = Tbank().init_order(payment.api_secret, amount)
+            order = Tbank().init_order(payment.api_secret, amount, request.user.email)
+            print(order)
             return redirect(order.get("PaymentURL"))
 
 

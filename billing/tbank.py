@@ -29,6 +29,22 @@ class Tbank():
         response = requests.post(url, data=json.dumps(data), headers=headers)
         return response.json()
 
-    def init_order(self, order_number, amount):
-        data = {"OrderId": str(order_number), "Amount": int(float(amount * 100))}
+    def init_order(self, order_number, amount, email):
+        data = {
+            "OrderId": str(order_number),
+            "Amount": int(float(amount * 100)),
+            "Receipt": {
+                "Email": email,
+                "Items": [
+                    {
+                        "Name": "Подписка на сервис, Portrate.io",
+                        "Price": int(float(amount * 100)),
+                        "Quantity": 1,
+                        "Amount": int(float(amount * 100)),
+                        "Tax": "none"
+                    }
+                ],
+                "Taxation": "usn_income",
+            }
+        }
         return self.send_request(data, self.init_url)

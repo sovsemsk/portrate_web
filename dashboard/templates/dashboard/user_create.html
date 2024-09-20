@@ -10,7 +10,7 @@
                 <label class="bp5-label" for="id_username">Имя пользователя *</label>
                 <div class="bp5-form-content">
                     <div class="bp5-input-group {% if form.username.errors %}bp5-intent-danger{% endif %}">
-                        {{ form.username }}
+                        {{form.username}}
                     </div>
                     <div class="bp5-form-helper-text">
                         {% if form.username.errors %}{{ form.username.errors.as_text }}{% else %}Не более 150 символов. Только буквы, цифры и знаки @/./+/-/_{% endif %}
@@ -21,10 +21,10 @@
                 <label class="bp5-label" for="id_username">Адрес электронной почты *</label>
                 <div class="bp5-form-content">
                     <div class="bp5-input-group {% if form.username.errors %}bp5-intent-danger{% endif %}">
-                        {{ form.email }}
+                        {{form.email}}
                     </div>
                     <div class="bp5-form-helper-text">
-                        {% if form.email.errors %}{{ form.email.errors.as_text }}{% else %}Следует использовать только свой адрес{% endif %}
+                        {% if form.email.errors %}{{form.email.errors.as_text}}{% else %}Следует использовать только свой адрес{% endif %}
                     </div>
                 </div>
             </div>
@@ -32,28 +32,22 @@
                 <label class="bp5-label">Пароль *</label>
                 <div class="bp5-form-content">
                     <div class="bp5-input-group {% if form.password1.errors %}bp5-intent-danger{% endif %}">
-                        {{ form.password1 }}
+                        {{form.password1}}
                     </div>
                     {% if form.password1.errors %}
-                    <div class="bp5-form-helper-text">
-                        {{ form.password1.errors.as_text }}
-                    </div>
+                    <div class="bp5-form-helper-text">{{form.password1.errors.as_text}}</div>
                     {% else %}
-                    <div class="bp5-form-helper-text">
-                        Пароль не может состоять только из цифр и должен содержать как минимум 8 символов
-                    </div>
+                    <div class="bp5-form-helper-text">Пароль не может состоять только из цифр и должен содержать как минимум 8 символов</div>
                     {% endif %}
                 </div>
             </div>
             <div class="bp5-form-group {% if form.password2.errors %}bp5-intent-danger{% endif %}">
                 <label class="bp5-label">Подтверждение пароля *</label>
                 <div class="bp5-input-group {% if form.password2.errors %}bp5-intent-danger{% endif %}">
-                    {{ form.password2 }}
+                    {{form.password2}}
                 </div>
                 {% if form.password2.errors %}
-                <div class="bp5-form-helper-text">
-                    {{ form.password2.errors.as_text }}
-                </div>
+                <div class="bp5-form-helper-text">{{form.password2.errors.as_text}}</div>
                 {% endif %}
             </div>
             <div class="bp5-form-group">
