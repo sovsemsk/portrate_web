@@ -131,11 +131,12 @@
                         var storySrc = $(stories[current]).attr("href");
                         var storyIsVideo = $(stories[current]).data("href-story-is-video");
 
+                        $("*[data-modal-story]").find("video")[0].pause();
+                        $("*[data-modal-story]").find("video")[0].currentTime = 0;
+
                         if(storyIsVideo !== undefined){
                             $("*[data-modal-story]").find("img").hide();
                             $("*[data-modal-story]").find("video").show();
-                            $("*[data-modal-story]").find("video")[0].pause();
-                            $("*[data-modal-story]").find("video")[0].currentTime = 0;
                             $("*[data-modal-story]").find("source").attr("src", storySrc);
                             $("*[data-modal-story]").find("video")[0].load();
                             $("*[data-modal-story]").find("video")[0].play();
@@ -153,7 +154,6 @@
                             method: "POST",
                             url: storyUpdateUrl.replace("0", storyId)
                         });
-
                     }
 
                     $("*[data-href-story]").click(event => {
