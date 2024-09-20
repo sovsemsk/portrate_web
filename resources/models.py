@@ -973,7 +973,6 @@ class Story(Model):
 
     """ Настройки """
     is_active = BooleanField(blank=True, default=False, null=True, verbose_name="активно?")
-    is_video = BooleanField(blank=True, default=False, null=True, verbose_name="видео?")
     is_visible_master = BooleanField(blank=True, default=False, null=True, verbose_name="отображать в мастере?")
     is_visible_finance = BooleanField(blank=True, default=False, null=True, verbose_name="отображать в тарифах?")
     is_visible_profile = BooleanField(blank=True, default=False, null=True, verbose_name="отображать в профиле?")
@@ -989,11 +988,27 @@ class Story(Model):
     """ Данные """
     name = CharField(blank=True, null=True, verbose_name="название")
     preview = ResizedImageField(blank=True, crop=['middle', 'center'], null=True, size=[256, 256], upload_to="dashboard/%Y/%m/%d/", verbose_name="превью")
-    media = FileField(blank=True, null=True, upload_to="dashboard/%Y/%m/%d/", verbose_name="видео")
-    image = ImageField(blank=True, null=True, upload_to="dashboard/%Y/%m/%d/", verbose_name="избражение")
+    video = FileField(blank=True, null=True, upload_to="dashboard/%Y/%m/%d/", verbose_name="видео")
+    image = ImageField(blank=True, null=True, upload_to="dashboard/%Y/%m/%d/", verbose_name="изображение")
 
     """ Связи """
     users = ManyToManyField("auth.User", blank=True, verbose_name="пользователи")
+
+    @property
+    def is_video(self):
+        if self.video:
+            return True
+        else:
+            return False
+
+    @property
+    def media(self):
+        if self.video:
+            return self.video
+        elif self.image:
+            return self.image
+        else:
+            return None
 
     def __str__(self):
         return str(self.name)

@@ -66,8 +66,8 @@
         <div class="container" style="padding-top:15px">
             <div class="bp5-entity-title">
                 {% for story in story_list %}
-                <a href="{% if story.is_video %}{{story.media.url}}{% else %}{{story.image.url}}{% endif %}" style="border-radius:5px;height:128px;overflow:hidden;width:128px;{% if not story.users_is_seen %}outline:#ed6c2c 2px solid;{% endif %}" data-href-story="{{story.id}}" {% if story.is_video %}data-href-story-is-video{% endif %}>
-                    <img height=128 src="{{story.preview.url}}" width=128>
+                <a href="{% if story.media %}{{story.media.url}}{% else %}{% static '/dashboard/images/ui/story-media-default.png' %}{% endif %}" style="border-radius:5px;height:128px;overflow:hidden;width:128px;{% if not story.users_is_seen %}outline:#ed6c2c 2px solid;{% endif %}" data-href-story="{{story.id}}" {% if story.is_video %}data-href-story-is-video{% endif %}>
+                    <img height=128 src="{% if story.preview %}{{story.preview.url}}{% else %}{% static '/dashboard/images/ui/story-preview-default.png' %}{% endif %}" width=128>
                 </a>
                 {% endfor %}
             </div>

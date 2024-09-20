@@ -48,9 +48,8 @@ class StoryAdmin(ModelAdmin):
                 "fields": [
                     "name",
                     "is_active",
-                    "is_video",
                     "preview",
-                    "media",
+                    "video",
                     "image"
                 ],
             },
