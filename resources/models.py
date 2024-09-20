@@ -19,7 +19,7 @@ from django.db.models import (
     Prefetch,
     OneToOneField,
     TextChoices,
-    TextField, FileField
+    TextField, FileField, ImageField
 )
 from django.db.models.signals import post_init
 from django.db.models.signals import post_save
@@ -968,8 +968,12 @@ class Story(Model):
         verbose_name = "история"
         verbose_name_plural = "истории"
 
+    """ Автогенерация """
+    created_at = DateTimeField(auto_now_add=True, blank=True, null=True, verbose_name="дата создания")
+
     """ Настройки """
     is_active = BooleanField(blank=True, default=False, null=True, verbose_name="активно?")
+    is_video = BooleanField(blank=True, default=False, null=True, verbose_name="видео?")
     is_visible_master = BooleanField(blank=True, default=False, null=True, verbose_name="отображать в мастере?")
     is_visible_finance = BooleanField(blank=True, default=False, null=True, verbose_name="отображать в тарифах?")
     is_visible_profile = BooleanField(blank=True, default=False, null=True, verbose_name="отображать в профиле?")
@@ -985,7 +989,8 @@ class Story(Model):
     """ Данные """
     name = CharField(blank=True, null=True, verbose_name="название")
     preview = ResizedImageField(blank=True, crop=['middle', 'center'], null=True, size=[256, 256], upload_to="dashboard/%Y/%m/%d/", verbose_name="превью")
-    media = FileField(blank=True, null=True, upload_to="dashboard/%Y/%m/%d/", verbose_name="видео файл")
+    media = FileField(blank=True, null=True, upload_to="dashboard/%Y/%m/%d/", verbose_name="видео")
+    image = ImageField(blank=True, null=True, upload_to="dashboard/%Y/%m/%d/", verbose_name="избражение")
 
     """ Связи """
     users = ManyToManyField("auth.User", blank=True, verbose_name="пользователи")

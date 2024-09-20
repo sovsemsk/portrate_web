@@ -66,7 +66,7 @@
         <div class="container" style="padding-top:15px">
             <div class="bp5-entity-title">
                 {% for story in story_list %}
-                <a href="{{story.media.url}}" style="border-radius:5px;height:128px;overflow:hidden;width:128px;{% if not story.users_is_seen %}outline:#ed6c2c 2px solid;{% endif %}" data-href-story="{{story.id}}">
+                <a href="{% if story.is_video %}{{story.media.url}}{% else %}{{story.image.url}}{% endif %}" style="border-radius:5px;height:128px;overflow:hidden;width:128px;{% if not story.users_is_seen %}outline:#ed6c2c 2px solid;{% endif %}" data-href-story="{{story.id}}" {% if story.is_video %}data-href-story-is-video{% endif %}>
                     <img height=128 src="{{story.preview.url}}" width=128>
                 </a>
                 {% endfor %}
@@ -77,9 +77,10 @@
             <div class="bp5-dialog-container bp5-overlay-content bp5-overlay-enter-done">
                 <div class="bp5-entity-title" style="pointer-events:all">
                     <button class="bp5-button bp5-icon-arrow-left bp5-minimal" data-button-left></button>
-                    <video class="bp5-elevation-3" style="border-radius:5px;" width="320" data-video-story>
+                    <video class="bp5-elevation-3" style="border-radius:5px;display:none;" width="320" data-video-story>
                         <source src="" type="video/mp4" />
                     </video>
+                    <img class="bp5-elevation-3" src="" style="border-radius:5px;display:none;max-height:600px;" data-video-story>
                     <button class="bp5-button bp5-icon-arrow-right bp5-minimal" data-button-right></button>
                 </div>
             </div>
@@ -125,15 +126,25 @@
                     var length = stories.length;
                     var storyUpdateUrl = "{% url 'story_update' '0' %}";
 
-                    $("*[data-href-story]").click(event => {
-                        event.preventDefault();
-                        current = $("*[data-href-story]").index(event.currentTarget);
+                    var loadStory = () => {
                         var storyId = $(stories[current]).data("href-story");
                         var storySrc = $(stories[current]).attr("href");
+                        var storyIsVideo = $(stories[current]).data("href-story-is-video");
 
-                        $("*[data-modal-story]").show();
-                        $("*[data-modal-story]").find("source").attr("src", storySrc);
-                        $("*[data-modal-story]").find("video")[0].play();
+                        if(storyIsVideo !== undefined){
+                            $("*[data-modal-story]").find("img").hide();
+                            $("*[data-modal-story]").find("video").show();
+                            $("*[data-modal-story]").find("video")[0].pause();
+                            $("*[data-modal-story]").find("video")[0].currentTime = 0;
+                            $("*[data-modal-story]").find("source").attr("src", storySrc);
+                            $("*[data-modal-story]").find("video")[0].load();
+                            $("*[data-modal-story]").find("video")[0].play();
+                        }else{
+                            $("*[data-modal-story]").find("video").hide();
+                            $("*[data-modal-story]").find("img").show();
+                            $("*[data-modal-story]").find("img").attr("src", storySrc);
+                        }
+
                         $(stories[current]).css("outline", "none");
 
                         $.ajax({
@@ -142,61 +153,33 @@
                             method: "POST",
                             url: storyUpdateUrl.replace("0", storyId)
                         });
+
+                    }
+
+                    $("*[data-href-story]").click(event => {
+                        event.preventDefault();
+                        current = $("*[data-href-story]").index(event.currentTarget);
+                        $("*[data-modal-story]").show();
+                        loadStory();
                     });
 
                     $("*[data-button-left]").click(event => {
                         event.preventDefault();
-
-                        if(current==0){
-                            current=length-1;
-                        }else{
-                            current-=1;
-                        }
-
-                        var storyId = $(stories[current]).data("href-story");
-                        var storySrc = $(stories[current]).attr("href");
-                        $("*[data-modal-story]").find("video")[0].pause();
-                        $("*[data-modal-story]").find("video")[0].currentTime = 0;
-                        $("*[data-modal-story]").find("source").attr("src", storySrc);
-                        $("*[data-modal-story]").find("video")[0].load();
-                        $("*[data-modal-story]").find("video")[0].play();
-                        $(stories[current]).css("outline", "none");
-
-                        $.ajax({
-                            data: {csrfmiddlewaretoken: "{{ csrf_token }}"},
-                            dataType: "json",
-                            method: "POST",
-                            url: storyUpdateUrl.replace("0", storyId)
-                        });
+                        current = current == 0 ? length-1 : current-1;
+                        loadStory();
                     });
 
                     $("*[data-button-right]").click(event => {
                         event.preventDefault();
-
-                        if(current+1 < length){
-                            current+=1;
-                        }else{
-                            current=0;
-                        }
-
-                        var storyId = $(stories[current]).data("href-story");
-                        var storySrc = $(stories[current]).attr("href");
-                        $("*[data-modal-story]").find("video")[0].pause();
-                        $("*[data-modal-story]").find("video")[0].currentTime = 0;
-                        $("*[data-modal-story]").find("source").attr("src", storySrc);
-                        $("*[data-modal-story]").find("video")[0].load();
-                        $("*[data-modal-story]").find("video")[0].play();
-                        $(stories[current]).css("outline", "none");
-
-                        $.ajax({
-                            data: {csrfmiddlewaretoken: "{{ csrf_token }}"},
-                            dataType: "json",
-                            method: "POST",
-                            url: storyUpdateUrl.replace("0", storyId)
-                        });
+                        current = current+1 < length ? current+1 : 0;
+                        loadStory();
                     });
 
-                    $("*[data-modal-story]").find(".bp5-overlay-backdrop").click(event => $("*[data-modal-story]").hide());
+                    $("*[data-modal-story]").find(".bp5-overlay-backdrop").click(event => {
+                        $("*[data-modal-story]").find("video")[0].pause();
+                        $("*[data-modal-story]").find("video")[0].currentTime = 0;
+                        $("*[data-modal-story]").hide();
+                    });
                 }
 
                 {% if nav != 'master' %}

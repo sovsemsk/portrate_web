@@ -19,7 +19,6 @@ from django_filters.views import FilterView
 from djmoney.money import Money
 
 from billing.tbank import Tbank
-from feedback.views import request
 from pdf.utils import make_stick, make_card, make_qr
 from resources.models import Company, Message, Payment, Review, Service, Story
 from resources.tasks import parse_yandex_task, parse_gis_task, parse_google_task
@@ -70,7 +69,7 @@ def story_list(user, nav):
             to_attr="users_is_seen",
             queryset=User.objects.filter(pk=user.id)
         )
-    ).all
+    ).order_by("-created_at").all
 
 
 class NoCompanyError(Exception):
