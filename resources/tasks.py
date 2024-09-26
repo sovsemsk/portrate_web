@@ -206,7 +206,7 @@ def parse_avito_task(previous_result=None, company_id=None):
 
     """ Разблокировка для выполнения """
     cache.delete(lock_id)
-    return 0.0
+    return rating
 
 
 @shared_task(name="parse_zoon_task")
