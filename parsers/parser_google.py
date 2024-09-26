@@ -91,7 +91,7 @@ class ParserGoogle:
             text = None
 
         return {
-            "created_at": dateparser.parse(date, languages=["ru", "en"]),
+            "created_at": dateparser.parse(str(date), languages=["ru", "en"]),
             "name": name,
             "remote_id": lxml_node.get("data-review-id"),
             "stars": len(lxml_node.xpath(".//span[contains(@class, 'elGi1d')]")),

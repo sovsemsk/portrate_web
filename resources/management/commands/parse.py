@@ -2,7 +2,12 @@ from celery import chain
 from django.core.management.base import BaseCommand
 
 from resources.models import Company
-from resources.tasks import parse_yandex_task, parse_gis_task, parse_google_task
+from resources.tasks import (
+    parse_yandex_task,
+    parse_gis_task,
+    parse_google_task,
+    parse_avito_task
+)
 
 
 class Command(BaseCommand):
@@ -22,5 +27,8 @@ class Command(BaseCommand):
 
                 if company.can_parse_google and company.parser_link_google:
                     parsers_chain.append(parse_google_task.s(company_id=company.id))
+
+                if company.can_parse_avito and company.parser_link_avito:
+                    parsers_chain.append(parse_avito_task.s(company_id=company.id))
 
                 chain(* parsers_chain).apply_async()

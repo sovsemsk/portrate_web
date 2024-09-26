@@ -1,10 +1,11 @@
 import hashlib
+import re
 import time
 
 import dateparser
-from bs4 import BeautifulSoup
 from lxml import etree
 from selenium import webdriver
+from selenium.common import NoSuchElementException, StaleElementReferenceException
 from selenium.webdriver.common.by import By
 
 
@@ -13,123 +14,76 @@ from selenium.webdriver.common.by import By
 
 class ParserAvito:
     def __init__(self, parser_link):
-        """ Парсер Авито """
+        """ Парсер Яндекс """
         options = webdriver.ChromeOptions()
         options.set_capability("selenoid:options", {
             "enableVNC": True,
-            "screenResolution": "1280x1024x24"
+            "screenResolution": "1280x1024x24",
+            "env": ["LANG=ru_RU.UTF-8", "LANGUAGE=ru", "LC_ALL=ru_RU.UTF-8"]
         })
-        self.driver = webdriver.Remote(command_executor=f"http://185.85.160.249:4444/wd/hub", options=options)
+        self.driver = webdriver.Remote(command_executor=f"http://9bea7b5c.portrate.io/wd/hub", options=options)
         self.driver.get(parser_link)
-        time.sleep(1)
+        time.sleep(5)
+        self.driver.implicitly_wait(5)
 
     def close_page(self):
-        """ Закрытие страницы """
         self.driver.close()
         self.driver.quit()
 
-    def check_page(self):
-        """ Проверка страницы """
-        try:
-            # better find_by data-marker="profile/score"
-            self.driver.find_element(By.CLASS_NAME, "desktop-1m2m2bk")
-            return True
-        except:
-            return False
-
     def parse_rating(self):
-        """ Парсинг рейтинга организации """
         try:
-            # better find_by data-marker="profile/score"
-            node = self.driver.find_element(By.CLASS_NAME, "desktop-1m2m2bk")
-            return float(node.text)
-        except:
-            return 0.0
+            node = self.driver.find_element(By.XPATH, ".//h2[@data-marker='ratingSummary/rating']")
+            return float(node.text.replace(",", "."))
+        except (NoSuchElementException, StaleElementReferenceException, TypeError, ValueError):
+            return False
 
     def parse_reviews(self):
         """ Парсинг отзывов """
-        result = []
-
-        try:
-            self.driver.find_element(By.CLASS_NAME, "_fs4sw2").click()
-        except:
-            pass
-
-        # Сбор нод
+        reviews = []
         nodes = self.driver.find_elements(By.CLASS_NAME, "style-snippet-E6g8Y")
 
-        if len(nodes) > 1:
-            self.__scroll_reviews_to_bottom__(nodes[-1])
+        if len(nodes) > 0:
+            self.__scroll_reviews_to_bottom__()
+            container_node = nodes[0].find_element(By.XPATH, "./..")
+            lxml_container_node = etree.HTML(container_node.get_attribute("innerHTML"))
+            lxml_reviews_nodes = lxml_container_node.xpath(".//div[contains(@class, 'style-snippet-E6g8Y')]")
 
-        nodes = self.driver.find_elements(By.CLASS_NAME, "style-snippet-E6g8Y")
+            for index, lxml_review_node in enumerate(lxml_reviews_nodes):
+                reviews.append(self.__parse_review__(index, lxml_review_node))
 
-        # Парсинг нод
-        for node in nodes:
-            result.append(self.__parse_review__(node.get_attribute("innerHTML")))
+        return reviews
 
-        return result
-
-    def __scroll_reviews_to_bottom__(self, node):
+    def __scroll_reviews_to_bottom__(self):
         """ Скроллинг списка до последнего отзыва """
-        self.driver.execute_script("arguments[0].scrollIntoView();", node)
-        time.sleep(2)
+        try:
+            button_node = self.driver.find_element(By.XPATH, ".//button[@data-marker='rating-list/moreReviewsButton']")
+            button_node.click()
+            time.sleep(5)
 
-        new_node = self.driver.find_elements(By.CLASS_NAME, "style-snippet-E6g8Y")[-1]
-
-        if node == new_node:
+            self.__scroll_reviews_to_bottom__()
+        except NoSuchElementException:
             return
 
-        self.__scroll_reviews_to_bottom__(new_node)
-
-    @staticmethod
-    def __parse_review__(str_node):
-        """ Парсинг отзыва """
-        bs_node = BeautifulSoup(str_node, "html.parser")
-        lxml_node = etree.HTML(str(bs_node))
-
+    def __parse_review__(self, index, lxml_node):
         try:
-            # better find by data-marker="review(0)/header/subtitle"
-            date = lxml_node.xpath(".//span[@class='desktop-11ffzh3']")[0].text
-            # if date == '28 января':
-            #     date = date + datetime.now().year
-            # else:
-            #     today = datetime.date.today()
-            #     months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря']
-            #     if date == 'Сегодня':
-            #         date = today.day + months[today.month] + today.year
-            #     elif date == 'Вчера':
-            #         yesterday = today - timedelta(days=1)
-            #         date = yesterday.day + months[yesterday.month] + yesterday.year
-            #     else:
-            #         date = date
-        except:
+            date = lxml_node.xpath(f".//p[@data-marker='review({index})/header/subtitle']")[0].text
+        except IndexError:
             date = None
 
         try:
-            # better find by data-marker="review(0)/header/title"
-            name = lxml_node.xpath(".//span[@class='desktop-fzlb6d']")[0].text
-        except:
+            name = lxml_node.xpath(f".//h5[@data-marker='review({index})/header/title']")[0].text
+        except IndexError:
             name = None
 
         try:
-            # try:
-                comment = lxml_node.xpath(".//div[@class='TextSection-root-Gf13z ReviewBody-text-section-tzVXe']")[0]
-                # better find by data-marker="review(1)/text-section/text"
-                text = comment.xpath(".//span[@class='desktop-rkrl0v']")[0].text
-            # except:
-            #     text = lxml_node.xpath(".//a[@class='_ayej9u3']")[0].text
-        except:
+            text = lxml_node.xpath(f".//p[@data-marker='review({index})/text-section/text']")[0].text
+        except IndexError:
             text = None
 
-        try:
-            stars = lxml_node.xpath(".//div[@class='Icon-root-_l3uz Attributes-yellow-star-PY9XT']")
-        except:
-            stars = []
-
         return {
-            "created_at": dateparser.parse(date, languages=["ru", "en"]),
+            "created_at": dateparser.parse(str(date), languages=["ru", "en"]),
             "name": name,
             "remote_id": hashlib.md5(f"{name}{date}".encode()).hexdigest(),
-            "stars": float(len(stars)),
+            "stars": len(lxml_node.xpath(".//path[@fill='#ffb021']")),
             "text": text
         }

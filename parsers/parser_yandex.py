@@ -79,9 +79,9 @@ class ParserYandex:
             text = None
 
         return {
-            "created_at": dateparser.parse(date, languages=["ru", "en"]),
+            "created_at": dateparser.parse(str(date), languages=["ru", "en"]),
             "name": name,
             "remote_id": hashlib.md5(f"{name}{date}".encode()).hexdigest(),
-            "stars": len(lxml_node.xpath(".//span[contains(@class, '_full')]")),
+            "stars": len(lxml_node.xpath(".//div[@class='Icon-root-_l3uz Attributes-yellow-star-PY9XT']")),
             "text": text
         }

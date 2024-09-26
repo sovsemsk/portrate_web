@@ -5,6 +5,7 @@ from celery import shared_task
 from django.core.cache import cache
 from django.db import IntegrityError
 
+from parsers.parser_avito import ParserAvito
 from parsers.parser_gis import ParserGis
 from parsers.parser_google import ParserGoogle
 from parsers.parser_yandex import ParserYandex
@@ -164,13 +165,45 @@ def parse_avito_task(previous_result=None, company_id=None):
 
     """ Отмена выполнения если уже есть блокировка """
     if cache.get(lock_id):
-        return
+        # return
+        pass
 
     """ Блокировка для выполнения """
     cache.set(lock_id, lock_id)
 
     """ Задача """
-    
+    company = Company.objects.get(pk=company_id)
+    company.is_parser_run_avito = True
+    company.save(update_fields=["is_parser_run_avito"])
+
+    parser = ParserAvito(company.parser_link_avito)
+
+    if parser.parse_rating():
+        rating = parser.parse_rating()
+        reviews = parser.parse_reviews()
+    else:
+        rating = 0.0
+        reviews = []
+
+    parser.close_page()
+
+    company.is_first_parsing_avito = False
+    company.parser_last_parse_at_avito = datetime.now(timezone.utc)
+    company.is_parser_run_avito = False
+    company.rating_avito = rating
+    company.save(update_fields=["is_first_parsing_avito", "parser_last_parse_at_avito", "is_parser_run_avito", "rating_avito"])
+
+    for review in reviews:
+        try:
+            Review.objects.create(
+                company_id=company.id,
+                is_visible=(company.__getattribute__(f"is_visible_{review['stars']}") and company.is_visible_avito),
+                service=Service.AVITO,
+                **review
+            )
+        except IntegrityError:
+            ...
+
     """ Разблокировка для выполнения """
     cache.delete(lock_id)
     return 0.0

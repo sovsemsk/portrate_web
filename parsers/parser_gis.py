@@ -83,7 +83,7 @@ class ParserGis:
             text = None
 
         return {
-            "created_at": dateparser.parse(date.replace(", отредактирован", ""), languages=["ru", "en"]),
+            "created_at": dateparser.parse(str(date).replace(", отредактирован", ""), languages=["ru", "en"]),
             "name": name,
             "remote_id": hashlib.md5(f"{name}{date}".encode()).hexdigest(),
             "stars": len(lxml_node.xpath(".//div[contains(@class, '_1fkin5c')]/span")),

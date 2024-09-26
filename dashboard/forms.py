@@ -180,7 +180,15 @@ class DashboardCompanyChangeAvitoForm(ModelForm):
         model = Company
         fields = ["parser_link_avito"]
 
-    parser_link_avito = CharField(required=False, widget=TextInput(attrs={"class": "bp5-input bp5-large"}))
+    parser_link_avito = CharField(
+        required=False,
+        validators=[RegexValidator(
+            regex=r"^https:\/\/avito\.ru\/brands\/[\w\W]{1,}\/$",
+            message="Введите правильную ссылку «https://avito.ru/brands/{NAME}/»",
+            code="invalid_parser_link_yandex",
+        )],
+        widget=TextInput(attrs={"class": "bp5-input bp5-large"})
+    )
 
     def __init__(self, *args, **kwargs):
         __init__ = super().__init__(*args, **kwargs)
