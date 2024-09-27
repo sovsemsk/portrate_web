@@ -18,11 +18,11 @@
                 </label>
                 <div class="bp5-form-content">
                     <div class="bp5-input-group {% if form.parser_link_avito.errors %}bp5-intent-danger{% endif %}">
-                        {{ form.parser_link_avito }}
+                        {{form.parser_link_avito}}
                     </div>
-                    {% if form.parser_link_avito.errors %}
-                    <div class="bp5-form-helper-text">{{ form.parser_link_avito.errors.as_text }}</div>
-                    {% endif %}
+                    <div class="bp5-form-helper-text">
+                    {% if form.parser_link_avito.errors %}{{form.parser_link_avito.errors.as_text}}{% else %}Например «https://avito.ru/brands/{NAME}/»{% endif %}
+                    </div>
                 </div>
             </div>
             <div class="bp5-form-group">
