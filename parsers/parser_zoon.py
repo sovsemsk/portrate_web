@@ -65,7 +65,7 @@ class ParserZoon:
         """ Скроллинг списка до последнего отзыва """
         try:
             button_show_more = self.driver.find_element(By.CLASS_NAME, "js-show-more")
-            self.driver.execute_script(f"window.scrollBy(0,{button_show_more.get_attribute("offsetTop")});")
+            self.driver.execute_script(f"window.scrollBy(0,{button_show_more.get_attribute('offsetTop')});")
             time.sleep(5)
 
             button_show_more.click()
