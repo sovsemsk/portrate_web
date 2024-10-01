@@ -8,6 +8,7 @@ from django.db import IntegrityError
 from parsers.parser_avito import ParserAvito
 from parsers.parser_gis import ParserGis
 from parsers.parser_google import ParserGoogle
+from parsers.parser_zoon import ParserZoon
 from parsers.parser_yandex import ParserYandex
 from resources.models import Company, Review, Service
 
@@ -128,7 +129,7 @@ def parse_google_task(previous_result=None, company_id=None):
 
     parser = ParserGoogle(company.parser_link_google)
 
-    if parser.open_reviews_tab() and parser.parse_rating():
+    if parser.parse_rating():
         rating = parser.parse_rating()
         reviews = parser.parse_reviews()
     else:
@@ -165,8 +166,7 @@ def parse_avito_task(previous_result=None, company_id=None):
 
     """ Отмена выполнения если уже есть блокировка """
     if cache.get(lock_id):
-        # return
-        pass
+        return
 
     """ Блокировка для выполнения """
     cache.set(lock_id, lock_id)
@@ -221,10 +221,42 @@ def parse_zoon_task(previous_result=None, company_id=None):
     cache.set(lock_id, lock_id)
 
     """ Задача """
+    company = Company.objects.get(pk=company_id)
+    company.is_parser_run_zoon = True
+    company.save(update_fields=["is_parser_run_zoon"])
+
+    parser = ParserZoon(company.parser_link_zoon)
+
+    if parser.parse_rating():
+        rating = parser.parse_rating()
+        reviews = parser.parse_reviews()
+    else:
+        rating = 0.0
+        reviews = []
+
+    parser.close_page()
+
+    company.is_first_parsing_zoon = False
+    company.parser_last_parse_at_zoon = datetime.now(timezone.utc)
+    company.is_parser_run_zoon = False
+    company.rating_zoon = rating
+    company.save(update_fields=["is_first_parsing_zoon", "parser_last_parse_at_zoon", "is_parser_run_zoon", "rating_zoon"])
+
+    for review in reviews:
+        try:
+            if review["name"] != "Официальный комментарий заведения":
+                Review.objects.create(
+                    company_id=company.id,
+                    is_visible=(company.__getattribute__(f"is_visible_{review['stars']}") and company.is_visible_zoon),
+                    service=Service.ZOON,
+                    **review
+                )
+        except IntegrityError:
+            ...
 
     """ Разблокировка для выполнения """
     cache.delete(lock_id)
-    return 0.0
+    return rating
 
 
 @shared_task(name="parse_flamp_task")

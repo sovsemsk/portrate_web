@@ -1,0 +1,2 @@
+docker run -d --name selenoid -p 127.0.0.1:4444:4444 -v /var/run/docker.sock:/var/run/docker.sock -v $HOME/.local/etc/selenoid/:/etc/selenoid/:ro aerokube/selenoid:latest-release -limit 10 -timeout 10m0s
+docker run -d --name selenoid_ui --link selenoid -p 127.0.0.1:8080:8080 aerokube/selenoid-ui --selenoid-uri http://selenoid:4444

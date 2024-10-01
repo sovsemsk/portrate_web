@@ -15,14 +15,14 @@ def create_session(func):
         if not request.user.is_authenticated:
             request.session.save()
 
-            try:
-                VisitStamp.objects.create(
-                    id=request.session.session_key,
-                    company_id=kwargs.get("pk", None),
-                    utm_source=request.GET.get("utm_source", "Прямой")
-                )
-            except IntegrityError:
-                ...
+        try:
+            VisitStamp.objects.create(
+                id=request.session.session_key,
+                company_id=kwargs.get("pk", None),
+                utm_source=request.GET.get("utm_source", "Прямой")
+            )
+        except IntegrityError:
+            ...
 
         return func(request, *args, **kwargs)
 

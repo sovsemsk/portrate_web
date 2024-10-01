@@ -2,114 +2,99 @@ import hashlib
 import time
 
 import dateparser
-from bs4 import BeautifulSoup
 from lxml import etree
 from selenium import webdriver
+from selenium.common import (
+    NoSuchElementException,
+    StaleElementReferenceException,
+    ElementClickInterceptedException,
+    ElementNotInteractableException
+)
+
 from selenium.webdriver.common.by import By
 
 
 class ParserZoon:
     def __init__(self, parser_link):
-        """ Парсер Zoon """
+        """ Парсер Яндекс """
         options = webdriver.ChromeOptions()
-        options.set_capability("selenoid:options", {"enableVNC": True})
-        self.driver = webdriver.Remote(command_executor=f"http://185.85.160.249:4444/wd/hub", options=options)
+        options.set_capability("selenoid:options", {
+            "enableVNC": True,
+            "screenResolution": "1280x1024x24",
+            "env": ["LANG=ru_RU.UTF-8", "LANGUAGE=ru", "LC_ALL=ru_RU.UTF-8"]
+        })
+        self.driver = webdriver.Remote(command_executor=f"http://9bea7b5c.portrate.io/wd/hub", options=options)
         self.driver.get(parser_link)
-        time.sleep(1)
+        time.sleep(5)
+        self.driver.implicitly_wait(5)
 
     def close_page(self):
-        """ Закрытие страницы """
         self.driver.close()
         self.driver.quit()
 
-    def check_page(self):
-        """ Проверка страницы """
-        try:
-            self.driver.find_element(By.CLASS_NAME, "js-heading-rating-container")
-            return True
-        except:
-            return False
-
     def parse_rating(self):
-        """ Парсинг рейтинга организации """
         try:
-            rating = self.driver.find_element(By.CLASS_NAME, "js-heading-rating-container")
-            node = rating.find_elements(By.CLASS_NAME, "z-text--16")
-            return float(node.text)
-        except:
-            return 0.0
+            self.driver.find_element(By.XPATH, ".//button[contains(text(), 'Мне исполнилось 18 лет')]").click()
+        except (AttributeError, NoSuchElementException, StaleElementReferenceException):
+            ...
+
+        try:
+            node = self.driver.find_element(By.XPATH, ".//div[@data-uitest='stars-count']")
+            return float(node.text.replace(",", "."))
+        except (AttributeError, NoSuchElementException, StaleElementReferenceException):
+            return False
 
     def parse_reviews(self):
         """ Парсинг отзывов """
-        result = []
+        reviews = []
+        nodes = self.driver.find_elements(By.XPATH, ".//li[@data-type='comment']")
 
-        # try:
-        #     self.driver.find_element(By.CLASS_NAME, "_fs4sw2").click()
-        # except:
-        #     pass
+        if len(nodes) > 0:
+            self.__scroll_reviews_to_bottom__()
+            container_node = self.driver.find_element(By.XPATH, ".//ul[@data-uitest='org-reviews-list']")
 
-        # Сбор нод
-        nodes = self.driver.find_element(By.XPATH, '//div[@itemprop="review"]')
+            lxml_container_node = etree.HTML(container_node.get_attribute("innerHTML"))
+            lxml_reviews_nodes = lxml_container_node.xpath(".//li[@data-type='comment']")
 
-        if len(nodes) > 1:
-            self.__scroll_reviews_to_bottom__(nodes[-1])
+            for lxml_review_node in lxml_reviews_nodes:
+                reviews.append(self.__parse_review__(lxml_review_node))
 
-        nodes = self.driver.find_element(By.XPATH, '//div[@itemprop="review"]')
+        return reviews
 
-        # Парсинг нод
-        for node in nodes:
-            result.append(self.__parse_review__(node.get_attribute("innerHTML")))
-
-        return result
-
-    def __scroll_reviews_to_bottom__(self, node):
+    def __scroll_reviews_to_bottom__(self):
         """ Скроллинг списка до последнего отзыва """
-        self.driver.execute_script("arguments[0].scrollIntoView();", node)
-        time.sleep(2)
-
-        load_reviews_button = self.driver.find_element(By.CSS_SELECTOR, ".js-show-more")
-        # click on button and wait loading
-        if bool(load_reviews_button):
-            load_reviews_button.click()
+        try:
+            button_show_more = self.driver.find_element(By.CLASS_NAME, "js-show-more")
+            self.driver.execute_script(f"window.scrollBy(0,{button_show_more.get_attribute("offsetTop")});")
             time.sleep(5)
 
-        new_node = self.driver.find_element(By.XPATH, '//div[@itemprop="review"]')[-1]
+            button_show_more.click()
+            time.sleep(15)
 
-        if node == new_node:
+            self.__scroll_reviews_to_bottom__()
+        except (AttributeError, ElementClickInterceptedException, ElementNotInteractableException, NoSuchElementException):
             return
 
-        self.__scroll_reviews_to_bottom__(new_node)
-
-    @staticmethod
-    def __parse_review__(str_node):
-        """ Парсинг отзыва """
-        bs_node = BeautifulSoup(str_node, "html.parser")
-        lxml_node = etree.HTML(str(bs_node))
-
+    def __parse_review__(self, lxml_node):
         try:
-            date = lxml_node.xpath(".//div[@class='invisible-links']")[0].text
-        except:
+            date = lxml_node.xpath(f".//meta[@itemprop='datePublished']")[0].get("content")
+        except IndexError:
             date = None
 
         try:
-            name = lxml_node.xpath('.//span[@itemprop="name"]')[0].text
-        except:
-            name = None
-
-        try:
-            text = lxml_node.xpath(".//span[@class='js-comment-content']")[0].text
-        except:
+            text = lxml_node.xpath(".//span[contains(@class, 'js-comment-content')]")[0].text
+        except IndexError:
             text = None
 
         try:
-            stars = lxml_node.xpath('.//div[@data-uitest="personal-mark"]')[0].text
-        except:
-            stars = None
+            stars = lxml_node.xpath(".//meta[@itemprop='ratingValue']")[0].get("content")
+        except IndexError:
+            stars = 0
 
         return {
-            "created_at": dateparser.parse(date, languages=["ru", "en"]),
-            "name": name,
-            "remote_id": hashlib.md5(f"{name}{date}".encode()).hexdigest(),
-            "stars": stars,
+            "created_at": dateparser.parse(str(date), languages=["ru", "en"]),
+            "name": lxml_node.get("data-author"),
+            "remote_id": lxml_node.get("data-id"),
+            "stars": int(stars),
             "text": text
         }

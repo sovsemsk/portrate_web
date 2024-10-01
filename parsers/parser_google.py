@@ -25,18 +25,13 @@ class ParserGoogle:
         self.driver.close()
         self.driver.quit()
 
-    def open_reviews_tab(self):
-        try:
-            self.driver.find_elements(By.CLASS_NAME, "hh2c6")[1].click()
-            return True
-        except (NoSuchElementException, IndexError):
-            return False
 
     def parse_rating(self):
         try:
+            self.driver.find_elements(By.CLASS_NAME, "hh2c6")[1].click()
             node = self.driver.find_element(By.CLASS_NAME, "fontDisplayLarge")
             return float(node.text.replace(",", "."))
-        except (NoSuchElementException, StaleElementReferenceException):
+        except (AttributeError, IndexError, NoSuchElementException, StaleElementReferenceException):
             return False
 
     def parse_reviews(self):

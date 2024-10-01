@@ -1,5 +1,4 @@
 import hashlib
-import re
 import time
 
 import dateparser
@@ -9,12 +8,9 @@ from selenium.common import NoSuchElementException, StaleElementReferenceExcepti
 from selenium.webdriver.common.by import By
 
 
-# import datetime
-
-
 class ParserAvito:
     def __init__(self, parser_link):
-        """ Парсер Яндекс """
+        """ Парсер Авито """
         options = webdriver.ChromeOptions()
         options.set_capability("selenoid:options", {
             "enableVNC": True,
@@ -56,12 +52,11 @@ class ParserAvito:
     def __scroll_reviews_to_bottom__(self):
         """ Скроллинг списка до последнего отзыва """
         try:
-            button_node = self.driver.find_element(By.XPATH, ".//button[@data-marker='rating-list/moreReviewsButton']")
-            button_node.click()
+            self.driver.find_element(By.XPATH, ".//button[@data-marker='rating-list/moreReviewsButton']").click()
             time.sleep(5)
 
             self.__scroll_reviews_to_bottom__()
-        except NoSuchElementException:
+        except (AttributeError, NoSuchElementException):
             return
 
     def __parse_review__(self, index, lxml_node):
