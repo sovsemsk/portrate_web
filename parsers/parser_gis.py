@@ -17,7 +17,7 @@ class ParserGis:
             "screenResolution": "1280x1024x24",
             "env": ["LANG=ru_RU.UTF-8", "LANGUAGE=ru", "LC_ALL=ru_RU.UTF-8"]
         })
-        self.driver = webdriver.Remote(command_executor=f"http://9bea7b5c.portrate.io/wd/hub", options=options)
+        self.driver = webdriver.Remote(command_executor="http://9bea7b5c.portrate.io/wd/hub", options=options)
         self.driver.get(parser_link)
         time.sleep(5)
         self.driver.implicitly_wait(5)

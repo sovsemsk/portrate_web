@@ -218,7 +218,7 @@ def parse_zoon_task(previous_result=None, company_id=None):
         return
 
     """ Блокировка для выполнения """
-    cache.set(lock_id, lock_id)
+    # cache.set(lock_id, lock_id)
 
     """ Задача """
     company = Company.objects.get(pk=company_id)
@@ -244,13 +244,12 @@ def parse_zoon_task(previous_result=None, company_id=None):
 
     for review in reviews:
         try:
-            if review["name"] != "Официальный комментарий заведения":
-                Review.objects.create(
-                    company_id=company.id,
-                    is_visible=(company.__getattribute__(f"is_visible_{review['stars']}") and company.is_visible_zoon),
-                    service=Service.ZOON,
-                    **review
-                )
+            Review.objects.create(
+                company_id=company.id,
+                is_visible=(company.__getattribute__(f"is_visible_{review['stars']}") and company.is_visible_zoon),
+                service=Service.ZOON,
+                **review
+            )
         except IntegrityError:
             ...
 

@@ -216,7 +216,17 @@ class DashboardCompanyChangeZoonForm(ModelForm):
         model = Company
         fields = ["parser_link_zoon"]
 
-    parser_link_zoon = CharField(required=False, widget=TextInput(attrs={"class": "bp5-input bp5-large"}))
+    # https://zoon.ru/msk/medical/klinika_lichnyj_doktor_na_ulitse_novatorov/
+
+    parser_link_zoon = CharField(
+        required=False,
+        validators=[RegexValidator(
+            regex=r"^https:\/\/zoon\.ru\/[\w\W]{1,}\/[\w\W]{1,}\/[\w\W]{1,}\/$",
+            message="Введите правильную ссылку «https://zoon.ru/{CITY}/{CATEGORY}/{NAME}/»",
+            code="invalid_parser_link_yandex",
+        )],
+        widget=TextInput(attrs={"class": "bp5-input bp5-large"})
+    )
 
     def __init__(self, *args, **kwargs):
         __init__ = super().__init__(*args, **kwargs)

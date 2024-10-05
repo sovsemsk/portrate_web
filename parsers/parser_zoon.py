@@ -2,6 +2,7 @@ import hashlib
 import time
 
 import dateparser
+from django.core.mail import send_mail
 from lxml import etree
 from selenium import webdriver
 from selenium.common import (
@@ -23,7 +24,7 @@ class ParserZoon:
             "screenResolution": "1280x1024x24",
             "env": ["LANG=ru_RU.UTF-8", "LANGUAGE=ru", "LC_ALL=ru_RU.UTF-8"]
         })
-        self.driver = webdriver.Remote(command_executor=f"http://9bea7b5c.portrate.io/wd/hub", options=options)
+        self.driver = webdriver.Remote(command_executor="http://9bea7b5c.portrate.io/wd/hub", options=options)
         self.driver.get(parser_link)
         time.sleep(5)
         self.driver.implicitly_wait(5)
@@ -33,6 +34,17 @@ class ParserZoon:
         self.driver.quit()
 
     def parse_rating(self):
+        try:
+            self.driver.find_element(By.XPATH, ".//div[contains(@class, 'captcha-wrapper')]")
+            send_mail(
+                "Сигнал о капче в Zoon",
+                "Сигнал о капче в Zoon",
+                "noreply@portrate.io",
+                ["sovsemsk@gmail.com", "sakiruma@gmail.com", "service@portrate.io"]
+            )
+        except NoSuchElementException:
+            pass
+
         try:
             self.driver.find_element(By.XPATH, ".//button[contains(text(), 'Мне исполнилось 18 лет')]").click()
         except (AttributeError, NoSuchElementException, StaleElementReferenceException):
@@ -53,8 +65,8 @@ class ParserZoon:
             self.__scroll_reviews_to_bottom__()
             container_node = self.driver.find_element(By.XPATH, ".//ul[@data-uitest='org-reviews-list']")
 
-            lxml_container_node = etree.HTML(container_node.get_attribute("innerHTML"))
-            lxml_reviews_nodes = lxml_container_node.xpath(".//li[@data-type='comment']")
+            lxml_container_node = etree.HTML(container_node.get_attribute("outerHTML"))
+            lxml_reviews_nodes = lxml_container_node.xpath(".//ul[@data-uitest='org-reviews-list']/li[@data-type='comment']")
 
             for lxml_review_node in lxml_reviews_nodes:
                 reviews.append(self.__parse_review__(lxml_review_node))
@@ -69,20 +81,33 @@ class ParserZoon:
             time.sleep(5)
 
             button_show_more.click()
-            time.sleep(15)
+            time.sleep(10)
 
             self.__scroll_reviews_to_bottom__()
         except (AttributeError, ElementClickInterceptedException, ElementNotInteractableException, NoSuchElementException):
             return
 
     def __parse_review__(self, lxml_node):
+
         try:
-            date = lxml_node.xpath(f".//meta[@itemprop='datePublished']")[0].get("content")
+            date = lxml_node.xpath(".//meta[@itemprop='datePublished']")[0].get("content")
         except IndexError:
             date = None
 
         try:
-            text = lxml_node.xpath(".//span[contains(@class, 'js-comment-content')]")[0].text
+            parts = lxml_node.xpath(".//div[contains(@class, 'js-comment-part')]")
+
+            if parts:
+                text = ""
+
+                for part in parts:
+                    subtitle = part.xpath(".//div[contains(@class, 'comment-text-subtitle')]")
+                    content = part.xpath(".//span[contains(@class, 'js-comment-content')]")
+                    text += f"{subtitle[0].text}{content[0].text}. "
+
+            else:
+                text = lxml_node.xpath(".//span[contains(@class, 'js-comment-content')]")[0].text
+
         except IndexError:
             text = None
 

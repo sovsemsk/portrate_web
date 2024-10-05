@@ -18,7 +18,7 @@ class ParserYandex:
             "screenResolution": "1280x1024x24",
             "env": ["LANG=ru_RU.UTF-8", "LANGUAGE=ru", "LC_ALL=ru_RU.UTF-8"]
         })
-        self.driver = webdriver.Remote(command_executor=f"http://9bea7b5c.portrate.io/wd/hub", options=options)
+        self.driver = webdriver.Remote(command_executor="http://9bea7b5c.portrate.io/wd/hub", options=options)
         self.driver.get(parser_link)
         time.sleep(5)
         self.driver.implicitly_wait(5)
@@ -82,6 +82,6 @@ class ParserYandex:
             "created_at": dateparser.parse(str(date), languages=["ru", "en"]),
             "name": name,
             "remote_id": hashlib.md5(f"{name}{date}".encode()).hexdigest(),
-            "stars": len(lxml_node.xpath(".//div[@class='Icon-root-_l3uz Attributes-yellow-star-PY9XT']")),
+            "stars": len(lxml_node.xpath(".//span[contains(@class, '_full')]")),
             "text": text
         }
