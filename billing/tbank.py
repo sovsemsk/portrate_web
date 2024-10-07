@@ -11,6 +11,7 @@ class Tbank():
     init_url = "https://securepay.tinkoff.ru/v2/Init"
 
     def create_hash(self, hash_array):
+        del hash_array["Receipt"]
         hash_array["Password"] = self.tbank_secret
         sorted_hash_array = json.loads(json.dumps(hash_array, sort_keys=True))
         hash_string = ""
@@ -33,18 +34,18 @@ class Tbank():
         data = {
             "OrderId": str(order_number),
             "Amount": int(amount * 100),
-            # "Receipt": {
-            #     "Email": email,
-            #     "Items": [
-            #         {
-            #             "Name": "Подписка на сервис, Portrate.io",
-            #             "Price": int(amount * 100),
-            #             "Quantity": 1,
-            #             "Amount": int(amount * 100),
-            #             "Tax": "none"
-            #         }
-            #     ],
-            #     "Taxation": "usn_income"
-            # }
+            "Receipt": {
+                "Email": email,
+                "Items": [
+                    {
+                        "Name": "Подписка на сервис, Portrate.io",
+                        "Price": int(amount * 100),
+                        "Quantity": 1,
+                        "Amount": int(amount * 100),
+                        "Tax": "none"
+                    }
+                ],
+                "Taxation": "usn_income"
+            }
         }
         return self.send_request(data, self.init_url)
