@@ -33,18 +33,18 @@ class Tbank():
         data = {
             "OrderId": str(order_number),
             "Amount": int(amount * 100),
-            # "Receipt": {
-            #     "Email": email,
-            #     "Items": [
-            #         {
-            #             "Name": "Подписка на сервис, Portrate.io",
-            #             "Price": int(amount * 100),
-            #             "Quantity": 1,
-            #             "Amount": int(amount * 100),
-            #             "Tax": "none"
-            #         }
-            #     ],
-            #     "Taxation": "usn_income"
-            # }
+            "Receipt": {
+                "Email": email,
+                "Items": [
+                    {
+                        "Name": "Подписка на сервис, Portrate.io",
+                        "Price": int(amount * 100),
+                        "Quantity": 1,
+                        "Amount": int(amount * 100),
+                        "Tax": "none"
+                    }
+                ],
+                "Taxation": "usn_income"
+            }
         }
         return self.send_request(data, self.init_url)
