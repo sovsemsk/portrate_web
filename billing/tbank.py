@@ -6,10 +6,8 @@ from django.conf import settings
 
 
 class Tbank():
-    # tbank_key = settings.TBANK_KEY
-    # tbank_secret = settings.TBANK_SECRET
-    tbank_key = "1689246939442"
-    tbank_secret = "254551vkrn0dkum9"
+    tbank_key = settings.TBANK_KEY
+    tbank_secret = settings.TBANK_SECRET
     init_url = "https://securepay.tinkoff.ru/v2/Init"
 
     def create_hash(self, hash_array):
