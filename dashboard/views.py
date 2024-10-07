@@ -991,7 +991,7 @@ class ProfilePayView(LoginRequiredMixin, View):
 
             order = Tbank().init_order(payment.api_secret, amount, request.user.email)
 
-            return HttpResponse(order)
+            return JsonResponse(order)
             # return redirect(order.get("PaymentURL"))
 
 
