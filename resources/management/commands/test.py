@@ -1,20 +1,14 @@
-from celery import chain
 from django.core.management.base import BaseCommand
 
-from resources.models import Company
-from resources.tasks import parse_zoon_task
-
+from parsers.parser_flamp import ParserFlamp
 
 class Command(BaseCommand):
 	help = "Тест парсера"
 
 	def handle(self, *args, **options):
-		companies = Company.objects.all()
+		parser = ParserFlamp("https://moscow.flamp.ru/firm/gorynych_restoran-70000001031017075")
 
-		for company in companies:
-			parsers_chain = []
+		parser.parse_rating()
+		parser.parse_reviews()
+		parser.close_page()
 
-			if company.parser_link_zoon:
-				parsers_chain.append(parse_zoon_task.s(company_id=company.id))
-
-			chain(* parsers_chain).apply_async()
