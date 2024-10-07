@@ -988,8 +988,11 @@ class ProfilePayView(LoginRequiredMixin, View):
             amount = request.user.profile.__getattribute__(f"{rate.lower()}_price_{period}_sale")
             payment = Payment.objects.create(amount=Money(amount, "RUB"), period=period.upper(), rate=rate, user=request.user)
 
+
             order = Tbank().init_order(payment.api_secret, amount, request.user.email)
-            return redirect(order.get("PaymentURL"))
+
+            return JsonResponse(order)
+            # return redirect(order.get("PaymentURL"))
 
 
 class ProfileCreateBusinessRequest(LoginRequiredMixin, View):
