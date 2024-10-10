@@ -18,10 +18,10 @@
                 </label>
                 <div class="bp5-form-content">
                     <div class="bp5-input-group {% if form.parser_link_yandex.errors %}bp5-intent-danger{% endif %}">
-                        {{ form.parser_link_yandex }}
+                        {{form.parser_link_yandex}}
                     </div>
                     <div class="bp5-form-helper-text">
-                        {% if form.parser_link_yandex.errors %}{{ form.parser_link_yandex.errors.as_text }}{% else %}Например «https://yandex.ru/maps/org/{NAME}/{ID}/reviews»{% endif %}
+                        {% if form.parser_link_yandex.errors %}{{form.parser_link_yandex.errors.as_text}}{% else %}Например «https://yandex.ru/maps/org/{NAME}/{ID}/reviews»{% endif %}
                     </div>
                 </div>
             </div>

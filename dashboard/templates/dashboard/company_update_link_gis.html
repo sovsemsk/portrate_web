@@ -18,10 +18,10 @@
                 </label>
                 <div class="bp5-form-content">
                     <div class="bp5-input-group {% if form.parser_link_gis.errors %}bp5-intent-danger{% endif %}">
-                        {{ form.parser_link_gis }}
+                        {{form.parser_link_gis}}
                     </div>
                     <div class="bp5-form-helper-text">
-                        {% if form.parser_link_gis.errors %}{{ form.parser_link_gis.errors.as_text }}{% else %}Например «https://2gis.ru/firm/{ID}/tab/reviews»{% endif %}
+                        {% if form.parser_link_gis.errors %}{{form.parser_link_gis.errors.as_text}}{% else %}Например «https://2gis.ru/firm/{ID}/tab/reviews»{% endif %}
                     </div>
                 </div>
             </div>
