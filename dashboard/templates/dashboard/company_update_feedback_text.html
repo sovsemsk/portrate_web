@@ -1,0 +1,91 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block navbar %}
+{% include 'dashboard/_company_navbar.html' %}
+{% endblock %}
+{% block content %}
+<h2 class="bp5-heading">Визитка</h2>
+{% include 'dashboard/_feedback_tabs.html' %}
+<div class="row">
+    <div class="xs-9">
+        <form method="post" novalidate>
+            {% csrf_token %}
+            <div class="row">
+                <div class="xs-6">
+                    <div class="bp5-form-group {% if form.feedback_text_rate_heading.errors %}bp5-intent-danger{% endif %}">
+                        <label class="bp5-label" for="id_feedback_text_rate_heading">
+                            <div class="bp5-entity-title">Заголовок главной страницы</div>
+                        </label>
+                        <div class="bp5-form-content">
+                            <div class="bp5-input-group {% if form.feedback_text_rate_heading.errors %}bp5-intent-danger{% endif %}">
+                                {{form.feedback_text_rate_heading}}
+                            </div>
+                            <div class="bp5-form-helper-text">{% if form.feedback_text_rate_heading.errors %}{{form.feedback_text_rate_heading.errors.as_text}}{% endif %}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="xs-6">
+                    <div class="bp5-form-group {% if form.feedback_text_request_heading.errors %}bp5-intent-danger{% endif %}">
+                        <label class="bp5-label" for="id_feedback_text_request_heading">
+                            <div class="bp5-entity-title">Заголовок страницы запроса отзывов</div>
+                        </label>
+                        <div class="bp5-form-content">
+                            <div class="bp5-input-group {% if form.feedback_text_request_heading.errors %}bp5-intent-danger{% endif %}">
+                                {{form.feedback_text_request_heading}}
+                            </div>
+                            <div class="bp5-form-helper-text">{% if form.feedback_text_request_heading.errors %}{{form.feedback_text_request_heading.errors.as_text}}{% endif %}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="xs-6">
+                    <div class="bp5-form-group {% if form.feedback_text_create_heading.errors %}bp5-intent-danger{% endif %}">
+                        <label class="bp5-label" for="id_feedback_text_create_heading">
+                            <div class="bp5-entity-title">Заголовок страницы создания жалобы</div>
+                        </label>
+                        <div class="bp5-form-content">
+                            <div class="bp5-input-group {% if form.feedback_text_create_heading.errors %}bp5-intent-danger{% endif %}">
+                                {{form.feedback_text_create_heading}}
+                            </div>
+                            <div class="bp5-form-helper-text">{% if form.feedback_text_create_heading.errors %}{{form.feedback_text_create_heading.errors.as_text}}{% endif %}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="xs-6">
+                    <div class="bp5-form-group {% if form.feedback_text_success_heading.errors %}bp5-intent-danger{% endif %}">
+                        <label class="bp5-label" for="id_feedback_text_success_heading">
+                            <div class="bp5-entity-title">Заголовок страницы после оставления жалобы</div>
+                        </label>
+                        <div class="bp5-form-content">
+                            <div class="bp5-input-group {% if form.feedback_text_success_heading.errors %}bp5-intent-danger{% endif %}">
+                                {{form.feedback_text_success_heading}}
+                            </div>
+                            <div class="bp5-form-helper-text">{% if form.feedback_text_success_heading.errors %}{{form.feedback_text_success_heading.errors.as_text}}{% endif %}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bp5-form-group {% if form.feedback_text_success_text.errors %}bp5-intent-danger{% endif %}">
+                <label class="bp5-label" for="id_feedback_text_success_text">
+                    <div class="bp5-entity-title">Текст страницы после оставления жалобы</div>
+                </label>
+                <div class="bp5-form-content">
+                    <div class="bp5-input-group {% if form.feedback_text_success_text.errors %}bp5-intent-danger{% endif %}">
+                        {{ form.feedback_text_success_text }}
+                    </div>
+                    <div class="bp5-form-helper-text">{% if form.feedback_text_success_text.errors %}{{form.feedback_text_success_text.errors.as_text}}{% endif %}</div>
+                </div>
+            </div>
+            <div class="bp5-form-group">
+                <div class="bp5-form-content">
+                    <button class="bp5-button bp5-large" type="submit">Сохранить</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="xs-3">
+        {% include 'dashboard/_feedback_preview.html' %}
+    </div>
+</div>
+{% endblock %}

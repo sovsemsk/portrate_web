@@ -87,7 +87,7 @@
                 </div>
             </div>
             {% endif %}
-            <h5 class="bp5-heading">Наградите нас отзывом</h5>
+            <h5 class="bp5-heading">{{company.feedback_text_request_heading}}</h5>
             <div class="bp5-control-group bp5-fill bp5-large bp5-vertical">
                 {% if company.feedback_link_yandex %}
                 <button class="bp5-button bp5-fill bp5-large bp5-align-left">
@@ -108,8 +108,8 @@
                 </button>
                 {% endif %}
                 {% if company.feedback_link_avito %}
-                    <img height="16" src="{% static 'dashboard/images/services/avito.png' %}" width="16">
                 <button class="bp5-button bp5-fill bp5-large bp5-align-left">
+                    <img height="16" src="{% static 'dashboard/images/services/avito.png' %}" width="16">
                     <span class="bp5-button-text">Авито</span>
                 </button>
                 {% endif %}

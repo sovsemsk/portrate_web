@@ -3,10 +3,10 @@
 {% block content %}
 {% include "feedback/_company_heading.html" %}
 {% include "feedback/_company_contact.html" %}
-<h5 class="bp5-heading">Ваше сообщение отправлено</h5>
+<h5 class="bp5-heading">{{company.feedback_text_success_heading}}</h5>
 <div class="bp5-form-group">
     <div class="bp5-form-content">
-        <p class="bp5-running-text">Спасибо за обращение, в близжайшее время с вами свяжется наш администратор по указанному вам телефону.</p>
+        <p class="bp5-running-text">{{company.feedback_text_success_text}}</p>
     </div>
 </div>
 {% endblock %}

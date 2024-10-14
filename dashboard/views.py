@@ -37,6 +37,7 @@ from .forms import (
     DashboardCompanyChangeOtzovikForm,
     DashboardCompanyChangeProdoctorovForm,
     DashboardCompanyChangeServiceForm,
+    DashboardCompanyChangeTextForm,
     DashboardCompanyChangeTripadvisorForm,
     DashboardCompanyChangeVisibleForm,
     DashboardCompanyChangeYandexForm,
@@ -478,6 +479,33 @@ class CompanyUpdateFeedbackDataView(LoginRequiredMixin, SuccessMessageMixin, Upd
 
     def get_success_url(self):
         return reverse("company_update_feedback_data", kwargs={"pk": self.kwargs["pk"]})
+
+
+class CompanyUpdateFeedbackTextView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    context_object_name = "company"
+    form_class = DashboardCompanyChangeTextForm
+    model = Company
+    success_message = "Филиал успешно обновлен"
+    template_name = "dashboard/company_update_feedback_text.html"
+
+    def dispatch(self, *args, **kwargs):
+        if not self.get_object().is_active:
+            return redirect("profile_update_finance")
+
+        return super().dispatch(*args, **kwargs)
+
+    def get_context_data(self, ** kwargs):
+        context = super().get_context_data(** kwargs)
+        context["company_list_short"] = company_list_short(self.request.user, self.object.id)
+        context["nav"] = "feedback"
+        context["sub_nav"] = "text"
+        return context
+
+    def get_queryset(self):
+        return super().get_queryset().filter(users__in=[self.request.user])
+
+    def get_success_url(self):
+        return reverse("company_update_feedback_text", kwargs={"pk": self.kwargs["pk"]})
 
 
 class CompanyUpdateFeedbackServiceView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):

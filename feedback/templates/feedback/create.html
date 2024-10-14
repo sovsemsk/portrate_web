@@ -3,7 +3,7 @@
 {% block content %}
 {% include 'feedback/_company_heading.html' %}
 {% include 'feedback/_company_contact.html' %}
-<h5 class="bp5-heading">Написать директору</h5>
+<h5 class="bp5-heading">{{company.feedback_text_create_heading}}</h5>
 <form method="post" novalidate>
     {% csrf_token %}
     <div class="bp5-form-group {% if form.text.errors %}bp5-intent-danger{% endif%}">

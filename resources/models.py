@@ -260,6 +260,12 @@ class Company(Model):
     feedback_contact_rutube = CharField(blank=True, null=True, verbose_name="ссылка Rutube")
     feedback_contact_vimeo = CharField(blank=True, null=True, verbose_name="ссылка Vimeo")
 
+    feedback_text_rate_heading = CharField(default="Вам понравилось обслуживание?", verbose_name="заголовок главной страницы")
+    feedback_text_request_heading = CharField(default="Наградите нас отзывом", verbose_name="заголовок страницы запроса отзывов")
+    feedback_text_create_heading = CharField(default="Написать директору", verbose_name="заголовок страницы создания жалобы")
+    feedback_text_success_heading = CharField(default="Ваше сообщение отправлено", verbose_name="заголовок страницы после оставления жалобы")
+    feedback_text_success_text = CharField(default="Спасибо за обращение, в близжайшее время с вами свяжется наш администратор по указанному вам телефону.", verbose_name="текст страницы после оставления жалобы")
+
     """ Агрегация """
     rating_yandex = DecimalField(decimal_places=1, default=0.0, max_digits=10, verbose_name="рейтинг Яндекс")
     rating_gis = DecimalField(decimal_places=1, default=0.0, max_digits=10, verbose_name="рейтинг 2Гис")

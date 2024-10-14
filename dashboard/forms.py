@@ -12,7 +12,8 @@ from django.forms import (
     MultipleChoiceField,
     NumberInput,
     PasswordInput,
-    TextInput
+    TextInput,
+    Textarea
 )
 
 from django.forms import Form, inlineformset_factory, Select, ImageField, FileInput, BooleanField, CheckboxInput
@@ -458,6 +459,24 @@ class DashboardCompanyChangeContactForm(ModelForm):
     feedback_contact_youtube = CharField(widget=TextInput(attrs={"class": "bp5-input bp5-large"}), required=False)
     feedback_contact_rutube = CharField(widget=TextInput(attrs={"class": "bp5-input bp5-large"}), required=False)
     feedback_contact_vimeo = CharField(widget=TextInput(attrs={"class": "bp5-input bp5-large"}), required=False)
+
+
+class DashboardCompanyChangeTextForm(ModelForm):
+    class Meta:
+        model = Company
+        fields = [
+            "feedback_text_rate_heading",
+            "feedback_text_request_heading",
+            "feedback_text_create_heading",
+            "feedback_text_success_heading",
+            "feedback_text_success_text"
+        ]
+
+    feedback_text_rate_heading = CharField(widget=TextInput(attrs={"class": "bp5-input bp5-large"}))
+    feedback_text_request_heading = CharField(widget=TextInput(attrs={"class": "bp5-input bp5-large"}))
+    feedback_text_create_heading = CharField(widget=TextInput(attrs={"class": "bp5-input bp5-large"}))
+    feedback_text_success_heading = CharField(widget=TextInput(attrs={"class": "bp5-input bp5-large"}))
+    feedback_text_success_text = CharField(widget=Textarea(attrs={"class": "bp5-input bp5-large"}))
 
 
 class DashboardCompanyChangeServiceForm(ModelForm):
