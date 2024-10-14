@@ -1,14 +1,27 @@
+import re
+
+from celery import chain
 from django.core.management.base import BaseCommand
 
-from parsers.parser_flamp import ParserFlamp
+from resources.models import Company
+from resources.tasks import (
+    parse_avito_task,
+    parse_gis_task,
+    parse_google_task,
+    parse_flamp_task,
+    parse_yandex_task
+)
+
 
 class Command(BaseCommand):
-	help = "Тест парсера"
+    help = "Запуск всех парсеров"
 
-	def handle(self, *args, **options):
-		parser = ParserFlamp("https://moscow.flamp.ru/firm/gorynych_restoran-70000001031017075")
-
-		parser.parse_rating()
-		parser.parse_reviews()
-		parser.close_page()
-
+    def handle(self, *args, **options):
+        company = Company.objects.first()
+        parsers_chain = []
+        # parsers_chain.append(parse_avito_task.s(company_id=company.id))
+        parsers_chain.append(parse_google_task.s(company_id=company.id))
+        # parsers_chain.append(parse_gis_task.s(company_id=company.id))
+        # parsers_chain.append(parse_flamp_task.s(company_id=company.id))
+        # parsers_chain.append(parse_yandex_task.s(company_id=company.id))
+        chain(* parsers_chain).apply_async()

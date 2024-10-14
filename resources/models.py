@@ -86,10 +86,10 @@ class ClickStamp(Model):
         verbose_name_plural = "Отпечатки клика по кнопке сервиса на форме запроса отзывов"
 
     """ Автогенерация """
-    created_at = DateField(auto_now_add=True, blank=True, null=True, verbose_name="дата создания")
+    created_at = DateField(auto_now_add=True, verbose_name="дата создания")
 
     """ Контент """
-    service = CharField(blank=True, choices=Service.choices, default=Service.YANDEX, null=True, verbose_name="сервис")
+    service = CharField(choices=Service.choices, default=Service.YANDEX, verbose_name="сервис")
 
     """ Связи """
     visit_stamp = ForeignKey("resources.VisitStamp", on_delete=CASCADE, verbose_name="отпечаток перехода на форму запроса отзывов")
@@ -123,107 +123,107 @@ class Company(Model):
     api_secret = CharField(blank=True, db_index=True, null=True, verbose_name="API ключ")
 
     """ Настройки """
-    is_visible_0 = BooleanField(blank=True, default=False, null=True, verbose_name="отображать с 0 звезд?")
-    is_visible_1 = BooleanField(blank=True, default=False, null=True, verbose_name="отображать с 1 звездой?")
-    is_visible_2 = BooleanField(blank=True, default=False, null=True, verbose_name="отображать с 2 звездами?")
-    is_visible_3 = BooleanField(blank=True, default=False, null=True, verbose_name="отображать с 3 звездами?")
-    is_visible_4 = BooleanField(blank=True, default=True, null=True, verbose_name="отображать с 4 звездами?")
-    is_visible_5 = BooleanField(blank=True, default=True, null=True, verbose_name="отображать с 5 звездами?")
-    is_visible_portrate = BooleanField(blank=True, default=True, null=True, verbose_name="отображать Портрет?")
-    is_visible_yandex = BooleanField(blank=True, default=True, null=True, verbose_name="отображать Яндекс?")
-    is_visible_gis = BooleanField(blank=True, default=True, null=True, verbose_name="отображать 2Гис?")
-    is_visible_google = BooleanField(blank=True, default=True, null=True, verbose_name="отображать Google?")
-    is_visible_avito = BooleanField(blank=True, default=True, null=True, verbose_name="отображать Авито?")
-    is_visible_zoon = BooleanField(blank=True, default=True, null=True, verbose_name="отображать Zoon?")
-    is_visible_flamp = BooleanField(blank=True, default=True, null=True, verbose_name="отображать Flamp?")
-    is_visible_yell = BooleanField(blank=True, default=True, null=True, verbose_name="отображать Yell?")
-    is_visible_prodoctorov = BooleanField(blank=True, default=True, null=True, verbose_name="отображать Продокторов?")
-    is_visible_yandex_services = BooleanField(blank=True, default=True, null=True, verbose_name="отображать Яндекс услуги?")
-    is_visible_otzovik = BooleanField(blank=True, default=True, null=True, verbose_name="отображать Otzovik?")
-    is_visible_irecommend = BooleanField(blank=True, default=True, null=True, verbose_name="отображать Irecommend?")
-    is_visible_tripadvisor = BooleanField(blank=True, default=True, null=True, verbose_name="отображать Tripadvisor?")
-    is_visible_short = BooleanField(blank=True, default=False, null=True, verbose_name="отображать короткие?")
+    is_visible_0 = BooleanField(default=False, verbose_name="отображать с 0 звезд?")
+    is_visible_1 = BooleanField(default=False, verbose_name="отображать с 1 звездой?")
+    is_visible_2 = BooleanField(default=False, verbose_name="отображать с 2 звездами?")
+    is_visible_3 = BooleanField(default=False, verbose_name="отображать с 3 звездами?")
+    is_visible_4 = BooleanField(default=True, verbose_name="отображать с 4 звездами?")
+    is_visible_5 = BooleanField(default=True, verbose_name="отображать с 5 звездами?")
+    is_visible_portrate = BooleanField(default=True, verbose_name="отображать Портрет?")
+    is_visible_yandex = BooleanField(default=True, verbose_name="отображать Яндекс?")
+    is_visible_gis = BooleanField(default=True, verbose_name="отображать 2Гис?")
+    is_visible_google = BooleanField(default=True, verbose_name="отображать Google?")
+    is_visible_avito = BooleanField(default=True, verbose_name="отображать Авито?")
+    is_visible_zoon = BooleanField(default=True, verbose_name="отображать Zoon?")
+    is_visible_flamp = BooleanField(default=True, verbose_name="отображать Flamp?")
+    is_visible_yell = BooleanField(default=True, verbose_name="отображать Yell?")
+    is_visible_prodoctorov = BooleanField(default=True, verbose_name="отображать Продокторов?")
+    is_visible_yandex_services = BooleanField(default=True, verbose_name="отображать Яндекс услуги?")
+    is_visible_otzovik = BooleanField(default=True, verbose_name="отображать Otzovik?")
+    is_visible_irecommend = BooleanField(default=True, verbose_name="отображать Irecommend?")
+    is_visible_tripadvisor = BooleanField(default=True, verbose_name="отображать Tripadvisor?")
+    is_visible_short = BooleanField(default=False, verbose_name="отображать короткие?")
 
     """ Парсер Яндекса """
-    is_first_parsing_yandex = BooleanField(blank=True, default=True, null=True, verbose_name="это первый парсинг Яндекс?")
-    is_parser_run_yandex = BooleanField(blank=True, default=False, null=True, verbose_name="парсер Яндекс сейчас запущен?")
+    is_first_parsing_yandex = BooleanField(default=True, verbose_name="это первый парсинг Яндекс?")
+    is_parser_run_yandex = BooleanField(default=False, verbose_name="парсер Яндекс сейчас запущен?")
     parser_link_yandex = CharField(blank=True, null=True, verbose_name="ссылка Яндекс")
     parser_last_change_at_yandex = DateField(blank=True, null=True, verbose_name="дата последнего изменения Яндекс")
     parser_last_parse_at_yandex = DateTimeField(blank=True, null=True, verbose_name="дата и время последней загрузки Яндекс")
 
     """ Парсер 2Гис """
-    is_first_parsing_gis = BooleanField(blank=True, default=True, null=True, verbose_name="это первый парсинг 2Гис?")
-    is_parser_run_gis = BooleanField(blank=True, default=False, null=True, verbose_name="парсер 2Гис сейчас запущен?")
+    is_first_parsing_gis = BooleanField(default=True, verbose_name="это первый парсинг 2Гис?")
+    is_parser_run_gis = BooleanField(default=False, verbose_name="парсер 2Гис сейчас запущен?")
     parser_link_gis = CharField(blank=True, null=True, verbose_name="ссылка 2Гис")
     parser_last_change_at_gis = DateField(blank=True, null=True, verbose_name="дата последнего изменения 2Гис")
     parser_last_parse_at_gis = DateTimeField(blank=True, null=True, verbose_name="дата и время последней загрузки 2Гис")
 
     """ Парсер Google """
-    is_first_parsing_google = BooleanField(blank=True, default=True, null=True, verbose_name="это первый парсинг Google?")
-    is_parser_run_google = BooleanField(blank=True, default=False, null=True, verbose_name="парсер Google сейчас запущен?")
+    is_first_parsing_google = BooleanField(default=True, verbose_name="это первый парсинг Google?")
+    is_parser_run_google = BooleanField(default=False, verbose_name="парсер Google сейчас запущен?")
     parser_link_google = CharField(blank=True, null=True, verbose_name="ссылка Google")
     parser_last_change_at_google = DateField(blank=True, null=True, verbose_name="дата последнего изменения Google")
     parser_last_parse_at_google = DateTimeField(blank=True, null=True, verbose_name="дата и время последней загрузки Google")
 
     """ Парсер Avito """
-    is_first_parsing_avito = BooleanField(blank=True, default=True, null=True, verbose_name="это первый парсинг Авито?")
-    is_parser_run_avito = BooleanField(blank=True, default=False, null=True, verbose_name="парсер Авито сейчас запущен?")
+    is_first_parsing_avito = BooleanField(default=True, verbose_name="это первый парсинг Авито?")
+    is_parser_run_avito = BooleanField(default=False, verbose_name="парсер Авито сейчас запущен?")
     parser_link_avito = CharField(blank=True, null=True, verbose_name="ссылка Авито")
     parser_last_change_at_avito = DateField(blank=True, null=True, verbose_name="дата последнего изменения Авито")
     parser_last_parse_at_avito = DateTimeField(blank=True, null=True, verbose_name="дата и время последней загрузки Авито")
 
     """ Парсер Zoon """
-    is_first_parsing_zoon = BooleanField(blank=True, default=True, null=True, verbose_name="это первый парсинг Zoon?")
-    is_parser_run_zoon = BooleanField(blank=True, default=False, null=True, verbose_name="парсер Zoon сейчас запущен?")
+    is_first_parsing_zoon = BooleanField(default=True, verbose_name="это первый парсинг Zoon?")
+    is_parser_run_zoon = BooleanField(default=False, verbose_name="парсер Zoon сейчас запущен?")
     parser_link_zoon = CharField(blank=True, null=True, verbose_name="ссылка Zoon")
     parser_last_change_at_zoon = DateField(blank=True, null=True, verbose_name="дата последнего изменения Zoon")
     parser_last_parse_at_zoon = DateTimeField(blank=True, null=True, verbose_name="дата и время последней загрузки Zoon")
 
     """ Парсер Flamp """
-    is_first_parsing_flamp = BooleanField(blank=True, default=True, null=True, verbose_name="это первый парсинг Flamp?")
-    is_parser_run_flamp = BooleanField(blank=True, default=False, null=True, verbose_name="парсер Flamp сейчас запущен?")
+    is_first_parsing_flamp = BooleanField(default=True, verbose_name="это первый парсинг Flamp?")
+    is_parser_run_flamp = BooleanField(default=False, verbose_name="парсер Flamp сейчас запущен?")
     parser_link_flamp = CharField(blank=True, null=True, verbose_name="ссылка Flamp")
     parser_last_change_at_flamp = DateField(blank=True, null=True, verbose_name="дата последнего изменения Flamp")
     parser_last_parse_at_flamp = DateTimeField(blank=True, null=True, verbose_name="дата и время последней загрузки Flamp")
 
     """ Парсер Yell """
-    is_first_parsing_yell = BooleanField(blank=True, default=True, null=True, verbose_name="это первый парсинг Yell?")
-    is_parser_run_yell = BooleanField(blank=True, default=False, null=True, verbose_name="парсер Yell сейчас запущен?")
+    is_first_parsing_yell = BooleanField(default=True, verbose_name="это первый парсинг Yell?")
+    is_parser_run_yell = BooleanField(default=False, verbose_name="парсер Yell сейчас запущен?")
     parser_link_yell = CharField(blank=True, null=True, verbose_name="ссылка Yell")
     parser_last_change_at_yell = DateField(blank=True, null=True, verbose_name="дата последнего изменения Yell")
     parser_last_parse_at_yell = DateTimeField(blank=True, null=True, verbose_name="дата и время последней загрузки Yell")
 
     """ Парсер Продокторов """
-    is_first_parsing_prodoctorov= BooleanField(blank=True, default=True, null=True, verbose_name="это первый парсинг Продокторов?")
-    is_parser_run_prodoctorov = BooleanField(blank=True, default=False, null=True, verbose_name="парсер Продокторов сейчас запущен?")
+    is_first_parsing_prodoctorov= BooleanField(default=True, verbose_name="это первый парсинг Продокторов?")
+    is_parser_run_prodoctorov = BooleanField(default=False, verbose_name="парсер Продокторов сейчас запущен?")
     parser_link_prodoctorov = CharField(blank=True, null=True, verbose_name="ссылка Продокторов")
     parser_last_change_at_prodoctorov = DateField(blank=True, null=True, verbose_name="дата последнего изменения Продокторов")
     parser_last_parse_at_prodoctorov = DateTimeField(blank=True, null=True, verbose_name="дата и время последней загрузки Продокторов")
 
     """ Парсер Яндекс Сервисы """
-    is_first_parsing_yandex_services = BooleanField(blank=True, default=True, null=True, verbose_name="это первый парсинг Яндекс Сервисы?")
-    is_parser_run_yandex_services = BooleanField(blank=True, default=False, null=True, verbose_name="парсер Яндекс Сервисы сейчас запущен?")
+    is_first_parsing_yandex_services = BooleanField(default=True, verbose_name="это первый парсинг Яндекс Сервисы?")
+    is_parser_run_yandex_services = BooleanField(default=False, verbose_name="парсер Яндекс Сервисы сейчас запущен?")
     parser_link_yandex_services = CharField(blank=True, null=True, verbose_name="ссылка Яндекс Сервисы")
     parser_last_change_at_yandex_services = DateField(blank=True, null=True, verbose_name="дата последнего изменения Яндекс Сервисы")
     parser_last_parse_at_yandex_services = DateTimeField(blank=True, null=True, verbose_name="дата и время последней загрузки Яндекс Сервисы")
 
     """ Парсер Отзовик """
-    is_first_parsing_otzovik = BooleanField(blank=True, default=True, null=True, verbose_name="это первый парсинг Отзовик?")
-    is_parser_run_otzovik = BooleanField(blank=True, default=False, null=True, verbose_name="парсер Отзовик сейчас запущен?")
+    is_first_parsing_otzovik = BooleanField(default=True, verbose_name="это первый парсинг Отзовик?")
+    is_parser_run_otzovik = BooleanField(default=False, verbose_name="парсер Отзовик сейчас запущен?")
     parser_link_otzovik = CharField(blank=True, null=True, verbose_name="ссылка Отзовик")
     parser_last_change_at_otzovik = DateField(blank=True, null=True, verbose_name="дата последнего изменения Отзовик")
     parser_last_parse_at_otzovik = DateTimeField(blank=True, null=True, verbose_name="дата и время последней загрузки Отзовик")
 
     """ Парсер Irecommend """
-    is_first_parsing_irecommend = BooleanField(blank=True, default=True, null=True, verbose_name="это первый парсинг Irecommend?")
-    is_parser_run_irecommend = BooleanField(blank=True, default=False, null=True, verbose_name="парсер Irecommend сейчас запущен?")
+    is_first_parsing_irecommend = BooleanField(default=True, verbose_name="это первый парсинг Irecommend?")
+    is_parser_run_irecommend = BooleanField(default=False, verbose_name="парсер Irecommend сейчас запущен?")
     parser_link_irecommend = CharField(blank=True, null=True, verbose_name="ссылка Irecommend")
     parser_last_change_at_irecommend = DateField(blank=True, null=True, verbose_name="дата последнего изменения Irecommend")
     parser_last_parse_at_irecommend = DateTimeField(blank=True, null=True, verbose_name="дата и время последней загрузки Irecommend")
 
     """ Парсер Tripadvisor """
-    is_first_parsing_tripadvisor = BooleanField(blank=True, default=True, null=True, verbose_name="это первый парсинг Tripadvisor?")
-    is_parser_run_tripadvisor = BooleanField(blank=True, default=False, null=True, verbose_name="парсер Tripadvisor сейчас запущен?")
+    is_first_parsing_tripadvisor = BooleanField(default=True, verbose_name="это первый парсинг Tripadvisor?")
+    is_parser_run_tripadvisor = BooleanField(default=False, verbose_name="парсер Tripadvisor сейчас запущен?")
     parser_link_tripadvisor = CharField(blank=True, null=True, verbose_name="ссылка Tripadvisor")
     parser_last_change_at_tripadvisor = DateField(blank=True, null=True, verbose_name="дата последнего изменения Tripadvisor")
     parser_last_parse_at_tripadvisor = DateTimeField(blank=True, null=True, verbose_name="дата и время последней загрузки Tripadvisor")
@@ -231,7 +231,7 @@ class Company(Model):
     """ Контент """
     address = CharField(blank=True, null=True, verbose_name="адрес")
     logo = ResizedImageField(blank=True, crop=['middle', 'center'], null=True, size=[300, 300], upload_to="dashboard/%Y/%m/%d/", verbose_name="логотип")
-    name = CharField(blank=True, null=True, verbose_name="название")
+    name = CharField(verbose_name="название")
     phone = CharField(blank=True, null=True, verbose_name="телефон")
 
     feedback_link_yandex = CharField(blank=True, null=True, verbose_name="ссылка Яндекс")
@@ -257,25 +257,38 @@ class Company(Model):
     feedback_contact_instagram = CharField(blank=True, null=True, verbose_name="ссылка Instagram")
     feedback_contact_x = CharField(blank=True, null=True, verbose_name="ссылка X")
     feedback_contact_youtube = CharField(blank=True, null=True, verbose_name="ссылка Youtube")
-    feedback_contact_rutube = CharField(blank=True, null=True, verbose_name="ссылка Rutube") #100943
-    feedback_contact_vimeo = CharField(blank=True, null=True, verbose_name="ссылка Vimeo") #1AB7EA
+    feedback_contact_rutube = CharField(blank=True, null=True, verbose_name="ссылка Rutube")
+    feedback_contact_vimeo = CharField(blank=True, null=True, verbose_name="ссылка Vimeo")
 
     """ Агрегация """
-    rating_yandex = DecimalField(blank=True, decimal_places=1, default=0.0, max_digits=10, null=True, verbose_name="рейтинг Яндекс")
-    rating_gis = DecimalField(blank=True, decimal_places=1, default=0.0, max_digits=10, null=True, verbose_name="рейтинг 2Гис")
-    rating_google = DecimalField(blank=True, decimal_places=1, default=0.0, max_digits=10, null=True, verbose_name="рейтинг Google")
-    rating_avito = DecimalField(blank=True, decimal_places=1, default=0.0, max_digits=10, null=True, verbose_name="рейтинг Авито")
-    rating_zoon = DecimalField(blank=True, decimal_places=1, default=0.0, max_digits=10, null=True, verbose_name="рейтинг Zoon")
-    rating_flamp = DecimalField(blank=True, decimal_places=1, default=0.0, max_digits=10, null=True, verbose_name="рейтинг Flamp")
-    rating_yell = DecimalField(blank=True, decimal_places=1, default=0.0, max_digits=10, null=True, verbose_name="рейтинг Yell")
-    rating_prodoctorov = DecimalField(blank=True, decimal_places=1, default=0.0, max_digits=10, null=True, verbose_name="рейтинг Продокторов")
-    rating_yandex_services = DecimalField(blank=True, decimal_places=1, default=0.0, max_digits=10, null=True, verbose_name="рейтинг Яндекс услуги")
-    rating_otzovik = DecimalField(blank=True, decimal_places=1, default=0.0, max_digits=10, null=True, verbose_name="рейтинг Отзовик")
-    rating_irecommend = DecimalField(blank=True, decimal_places=1, default=0.0, max_digits=10, null=True, verbose_name="рейтинг Irecommend")
-    rating_tripadvisor = DecimalField(blank=True, decimal_places=1, default=0.0, max_digits=10, null=True, verbose_name="рейтинг Tripadvisor")
+    rating_yandex = DecimalField(decimal_places=1, default=0.0, max_digits=10, verbose_name="рейтинг Яндекс")
+    rating_gis = DecimalField(decimal_places=1, default=0.0, max_digits=10, verbose_name="рейтинг 2Гис")
+    rating_google = DecimalField(decimal_places=1, default=0.0, max_digits=10, verbose_name="рейтинг Google")
+    rating_avito = DecimalField(decimal_places=1, default=0.0, max_digits=10, verbose_name="рейтинг Авито")
+    rating_zoon = DecimalField(decimal_places=1, default=0.0, max_digits=10, verbose_name="рейтинг Zoon")
+    rating_flamp = DecimalField(decimal_places=1, default=0.0, max_digits=10, verbose_name="рейтинг Flamp")
+    rating_yell = DecimalField(decimal_places=1, default=0.0, max_digits=10, verbose_name="рейтинг Yell")
+    rating_prodoctorov = DecimalField(decimal_places=1, default=0.0, max_digits=10, verbose_name="рейтинг Продокторов")
+    rating_yandex_services = DecimalField(decimal_places=1, default=0.0, max_digits=10, verbose_name="рейтинг Яндекс услуги")
+    rating_otzovik = DecimalField(decimal_places=1, default=0.0, max_digits=10, verbose_name="рейтинг Отзовик")
+    rating_irecommend = DecimalField(decimal_places=1, default=0.0, max_digits=10, verbose_name="рейтинг Irecommend")
+    rating_tripadvisor = DecimalField(decimal_places=1, default=0.0, max_digits=10, verbose_name="рейтинг Tripadvisor")
+
+    reviews_count_remote_yandex = IntegerField(default=0, verbose_name="количество отзывов Яндекс")
+    reviews_count_remote_gis = IntegerField(default=0, verbose_name="количество отзывов 2Гис")
+    reviews_count_remote_google = IntegerField(default=0, verbose_name="количество отзывов Google")
+    reviews_count_remote_avito = IntegerField(default=0, verbose_name="количество отзывов Авито")
+    reviews_count_remote_zoon = IntegerField(default=0, verbose_name="количество отзывов Zoon")
+    reviews_count_remote_flamp = IntegerField(default=0, verbose_name="количество отзывов Flamp")
+    reviews_count_remote_yell = IntegerField(default=0, verbose_name="количество отзывов Yell")
+    reviews_count_remote_prodoctorov = IntegerField(default=0, verbose_name="количество отзывов Продокторов")
+    reviews_count_remote_yandex_services = IntegerField(default=0, verbose_name="количество отзывов Яндекс услуги")
+    reviews_count_remote_otzovik = IntegerField(default=0, verbose_name="количество отзывов Отзовик")
+    reviews_count_remote_irecommend = IntegerField(default=0, verbose_name="количество отзывов Irecommend")
+    reviews_count_remote_tripadvisor = IntegerField(default=0, verbose_name="количество отзывов Tripadvisor")
 
     """ Связи """
-    users = ManyToManyField("auth.User", blank=True, verbose_name="пользователи", through="resources.Membership")
+    users = ManyToManyField("auth.User", verbose_name="пользователи", through="resources.Membership")
 
     def __init__(self, *args, ** kwargs):
         super().__init__(*args, ** kwargs)
@@ -341,7 +354,7 @@ class Company(Model):
     def can_parse_gis(self):
         try:
             return self.users_is_owner[0].profile.can_parse_gis
-        except AttributeError:
+        except (AttributeError, IndexError):
             return False
 
     @property
@@ -621,26 +634,26 @@ class Membership(Model):
         verbose_name_plural = "участники"
 
     """ Настройки """
-    is_owner = BooleanField(blank=True, default=False, null=True, verbose_name="владелец?")
-    is_notify_0 = BooleanField(blank=True, default=True, null=True, verbose_name="оповещать с 0 звезд?")
-    is_notify_1 = BooleanField(blank=True, default=True, null=True, verbose_name="оповещать с 1 звездой?")
-    is_notify_2 = BooleanField(blank=True, default=True, null=True, verbose_name="оповещать с 2 звездами?")
-    is_notify_3 = BooleanField(blank=True, default=True, null=True, verbose_name="оповещать с 3 звездами?")
-    is_notify_4 = BooleanField(blank=True, default=True, null=True, verbose_name="оповещать с 4 звездами?")
-    is_notify_5 = BooleanField(blank=True, default=True, null=True, verbose_name="оповещать с 5 звездами?")
-    is_notify_portrate = BooleanField(blank=True, default=True, null=True, verbose_name="оповещать Портрет?")
-    is_notify_yandex = BooleanField(blank=True, default=True, null=True, verbose_name="оповещать Яндекс?")
-    is_notify_gis = BooleanField(blank=True, default=True, null=True, verbose_name="оповещать 2Гис?")
-    is_notify_google = BooleanField(blank=True, default=True, null=True, verbose_name="оповещать Google?")
-    is_notify_avito = BooleanField(blank=True, default=True, null=True, verbose_name="оповещать Авито?")
-    is_notify_zoon = BooleanField(blank=True, default=True, null=True, verbose_name="оповещать Zoon?")
-    is_notify_flamp = BooleanField(blank=True, default=True, null=True, verbose_name="оповещать Flamp?")
-    is_notify_yell = BooleanField(blank=True, default=True, null=True, verbose_name="оповещать Yell?")
-    is_notify_prodoctorov = BooleanField(blank=True, default=True, null=True, verbose_name="оповещать Продокторов?")
-    is_notify_yandex_services = BooleanField(blank=True, default=True, null=True, verbose_name="оповещать Яндекс услуги?")
-    is_notify_otzovik = BooleanField(blank=True, default=True, null=True, verbose_name="оповещать Otzovik?")
-    is_notify_irecommend = BooleanField(blank=True, default=True, null=True, verbose_name="оповещать Irecommend?")
-    is_notify_tripadvisor = BooleanField(blank=True, default=True, null=True, verbose_name="оповещать Tripadvisor?")
+    is_owner = BooleanField(default=False, verbose_name="владелец?")
+    is_notify_0 = BooleanField(default=True, verbose_name="оповещать с 0 звезд?")
+    is_notify_1 = BooleanField(default=True, verbose_name="оповещать с 1 звездой?")
+    is_notify_2 = BooleanField(default=True, verbose_name="оповещать с 2 звездами?")
+    is_notify_3 = BooleanField(default=True, verbose_name="оповещать с 3 звездами?")
+    is_notify_4 = BooleanField(default=True, verbose_name="оповещать с 4 звездами?")
+    is_notify_5 = BooleanField(default=True, verbose_name="оповещать с 5 звездами?")
+    is_notify_portrate = BooleanField(default=True, verbose_name="оповещать Портрет?")
+    is_notify_yandex = BooleanField(default=True, verbose_name="оповещать Яндекс?")
+    is_notify_gis = BooleanField(default=True, verbose_name="оповещать 2Гис?")
+    is_notify_google = BooleanField(default=True, verbose_name="оповещать Google?")
+    is_notify_avito = BooleanField(default=True, verbose_name="оповещать Авито?")
+    is_notify_zoon = BooleanField(default=True, verbose_name="оповещать Zoon?")
+    is_notify_flamp = BooleanField(default=True, verbose_name="оповещать Flamp?")
+    is_notify_yell = BooleanField(default=True, verbose_name="оповещать Yell?")
+    is_notify_prodoctorov = BooleanField(default=True, verbose_name="оповещать Продокторов?")
+    is_notify_yandex_services = BooleanField(default=True, verbose_name="оповещать Яндекс услуги?")
+    is_notify_otzovik = BooleanField(default=True, verbose_name="оповещать Otzovik?")
+    is_notify_irecommend = BooleanField(default=True, verbose_name="оповещать Irecommend?")
+    is_notify_tripadvisor = BooleanField(default=True, verbose_name="оповещать Tripadvisor?")
 
     """ Связи """
     company = ForeignKey("resources.Company", on_delete=CASCADE)
@@ -658,10 +671,10 @@ class Message(Model):
         verbose_name_plural = "сообщения"
 
     """ Автогенерация """
-    created_at = DateTimeField(auto_now_add=True, blank=True, null=True, verbose_name="дата создания")
+    created_at = DateTimeField(auto_now_add=True, verbose_name="дата создания")
 
     """ Контент """
-    phone = CharField(blank=True, null=True, verbose_name="контактный телефон")
+    phone = CharField(verbose_name="контактный телефон")
     text = TextField(blank=True, null=True, verbose_name="текст сообщения")
 
     """ Связи """
@@ -695,14 +708,14 @@ class Payment(Model):
         verbose_name_plural = "платежи"
 
     """ Автогенерация """
-    created_at = DateTimeField(auto_now_add=True, blank=True, null=True, verbose_name="дата создания")
-    api_secret = CharField(blank=True, db_index=True, null=True, verbose_name="№ заказа")
+    created_at = DateTimeField(auto_now_add=True, verbose_name="дата создания")
+    api_secret = CharField(db_index=True, verbose_name="№ заказа")
 
     """ Данные """
-    rate = CharField(blank=False, choices=Rate.choices, default=Rate.START, null=True, verbose_name="тариф")
-    period = CharField(blank=False, choices=Period.choices, default=Period.ANNUALLY, null=True, verbose_name="период")
-    amount = MoneyField(blank=True, default=0, default_currency="RUB", decimal_places=2, max_digits=14, null=True, verbose_name="сумма")
-    is_paid = BooleanField(blank=True, default=False, null=True, verbose_name="оплачен?")
+    rate = CharField(choices=Rate.choices, default=Rate.START, verbose_name="тариф")
+    period = CharField(choices=Period.choices, default=Period.ANNUALLY, verbose_name="период")
+    amount = MoneyField(default=0, default_currency="RUB", decimal_places=2, max_digits=14, verbose_name="сумма")
+    is_paid = BooleanField(default=False, verbose_name="оплачен?")
     paid_at = DateTimeField(blank=True, null=True, verbose_name="дата оплаты")
     card_id = CharField(blank=True, null=True, verbose_name="ID карты")
 
@@ -727,21 +740,21 @@ class Profile(Model):
         verbose_name_plural = "профили"
 
     """ Автогенерация """
-    api_secret = CharField(blank=True, db_index=True, null=True, verbose_name="API ключ")
-    balance = MoneyField(blank=True, default=60, default_currency="RUB", decimal_places=2,  max_digits=14, null=True,  verbose_name="баланс")
+    api_secret = CharField(db_index=True, verbose_name="API ключ")
+    balance = MoneyField(default=60, default_currency="RUB", decimal_places=2,  max_digits=14, verbose_name="баланс")
 
     """ Настройки """
-    default_timezone = CharField(blank=False, choices=Timezone.choices, default=Timezone.UTC, null=True, verbose_name="временная зона по умолчанию")
+    default_timezone = CharField(choices=Timezone.choices, default=Timezone.UTC, verbose_name="временная зона по умолчанию")
     telegram_id = CharField(blank=True, null=True, verbose_name="telegram ID")
-    rate = CharField(blank=False, choices=Rate.choices, default=Rate.START, null=True, verbose_name="тариф")
+    rate = CharField(choices=Rate.choices, default=Rate.START, verbose_name="тариф")
 
-    start_price_monthly_base = MoneyField(blank=True, default=250, default_currency="RUB", decimal_places=2,  max_digits=14, null=True, verbose_name="стоимость тарифа Старт, в месяц")
-    regular_price_monthly_base = MoneyField(blank=True, default=500, default_currency="RUB", decimal_places=2,  max_digits=14, null=True, verbose_name="стоимость тарифа Стандарт, в месяц")
-    business_price_monthly_base = MoneyField(blank=True, default=1500, default_currency="RUB", decimal_places=2,  max_digits=14, null=True, verbose_name="стоимость тарифа Бизнес, в месяц")
+    start_price_monthly_base = MoneyField(default=250, default_currency="RUB", decimal_places=2, max_digits=14, verbose_name="стоимость тарифа Старт, в месяц")
+    regular_price_monthly_base = MoneyField(default=500, default_currency="RUB", decimal_places=2, max_digits=14, verbose_name="стоимость тарифа Стандарт, в месяц")
+    business_price_monthly_base = MoneyField(default=1500, default_currency="RUB", decimal_places=2, max_digits=14, verbose_name="стоимость тарифа Бизнес, в месяц")
 
-    start_max_count = IntegerField(blank=True, default=1, null=True, verbose_name="максимальное количество филиалов тарифа Старт")
-    regular_max_count = IntegerField(blank=True, default=3, null=True, verbose_name="максимальное количество филиалов тарифа Стандарт")
-    business_max_count = IntegerField(blank=True, default=10, null=True, verbose_name="максимальное количество филиалов тарифа Бизнес")
+    start_max_count = IntegerField(default=1, verbose_name="максимальное количество филиалов тарифа Старт")
+    regular_max_count = IntegerField(default=3, verbose_name="максимальное количество филиалов тарифа Стандарт")
+    business_max_count = IntegerField(default=10, verbose_name="максимальное количество филиалов тарифа Бизнес")
 
     """ Связи """
     user = OneToOneField("auth.User", on_delete=CASCADE)
@@ -913,18 +926,18 @@ class Review(Model):
         unique_together = ["company", "remote_id"]
 
     """ Автогенерация """
-    created_at = DateField(blank=True, null=True, verbose_name="дата создания")
+    created_at = DateField(verbose_name="дата создания")
 
     """ Настройки """
-    is_visible = BooleanField(blank=True, default=True, null=True, verbose_name="отображается в виджете?")
-    is_moderated = BooleanField(blank=True, default=False, null=True, verbose_name="отмодерирован?")
+    is_visible = BooleanField(default=True, verbose_name="отображается в виджете?")
+    is_moderated = BooleanField(default=False, verbose_name="отмодерирован?")
 
     """ Контент """
-    remote_id = CharField(blank=True, db_index=True, null=True, verbose_name="ID (агрегация)")
-    service = CharField(blank=True, choices=Service.choices, default=Service.YANDEX, null=True, verbose_name="сервис")
-    stars = IntegerField(blank=True, default=0, null=True, verbose_name="оценка")
-    name = CharField(blank=True, null=True, verbose_name="пользователь")
-    text = TextField(blank=True, null=True, verbose_name="текст отзыва")
+    remote_id = CharField(db_index=True, verbose_name="ID (агрегация)")
+    service = CharField(choices=Service.choices, default=Service.YANDEX, verbose_name="сервис")
+    stars = IntegerField(default=0, verbose_name="оценка")
+    name = CharField(verbose_name="пользователь")
+    text = TextField(verbose_name="текст отзыва")
 
     """ Связи """
     company = ForeignKey("resources.Company", on_delete=CASCADE, verbose_name="филиал")
@@ -969,25 +982,25 @@ class Story(Model):
         verbose_name_plural = "истории"
 
     """ Автогенерация """
-    created_at = DateTimeField(auto_now_add=True, blank=True, null=True, verbose_name="дата создания")
+    created_at = DateTimeField(auto_now_add=True, verbose_name="дата создания")
 
     """ Настройки """
-    is_active = BooleanField(blank=True, default=False, null=True, verbose_name="активно?")
-    is_visible_master = BooleanField(blank=True, default=False, null=True, verbose_name="отображать в мастере?")
-    is_visible_finance = BooleanField(blank=True, default=False, null=True, verbose_name="отображать в тарифах?")
-    is_visible_profile = BooleanField(blank=True, default=False, null=True, verbose_name="отображать в профиле?")
-    is_visible_home = BooleanField(blank=True, default=False, null=True, verbose_name="отображать в списке филиалов?")
-    is_visible_statistic = BooleanField(blank=True, default=False, null=True, verbose_name="отображать в статистике?")
-    is_visible_reviews = BooleanField(blank=True, default=False, null=True, verbose_name="отображать в отзывах?")
-    is_visible_messages = BooleanField(blank=True, default=False, null=True, verbose_name="отображать в жалобах?")
-    is_visible_widget = BooleanField(blank=True, default=False, null=True, verbose_name="отображать в виджете?")
-    is_visible_feedback = BooleanField(blank=True, default=False, null=True, verbose_name="отображать в визитке?")
-    is_visible_qr = BooleanField(blank=True, default=False, null=True, verbose_name="отображать в списке qr?")
-    is_visible_notifications = BooleanField(blank=True, default=False, null=True, verbose_name="отображать в уведомлениях?")
+    is_active = BooleanField(default=False, verbose_name="активно?")
+    is_visible_master = BooleanField(default=False, verbose_name="отображать в мастере?")
+    is_visible_finance = BooleanField(default=False, verbose_name="отображать в тарифах?")
+    is_visible_profile = BooleanField(default=False, verbose_name="отображать в профиле?")
+    is_visible_home = BooleanField(default=False, verbose_name="отображать в списке филиалов?")
+    is_visible_statistic = BooleanField(default=False, verbose_name="отображать в статистике?")
+    is_visible_reviews = BooleanField(default=False, verbose_name="отображать в отзывах?")
+    is_visible_messages = BooleanField(default=False, verbose_name="отображать в жалобах?")
+    is_visible_widget = BooleanField(default=False, verbose_name="отображать в виджете?")
+    is_visible_feedback = BooleanField(default=False, verbose_name="отображать в визитке?")
+    is_visible_qr = BooleanField(default=False, verbose_name="отображать в списке qr?")
+    is_visible_notifications = BooleanField(default=False, verbose_name="отображать в уведомлениях?")
 
     """ Данные """
-    name = CharField(blank=True, null=True, verbose_name="название")
-    preview = ResizedImageField(blank=True, crop=['middle', 'center'], null=True, size=[256, 256], upload_to="dashboard/%Y/%m/%d/", verbose_name="превью")
+    name = CharField(verbose_name="название")
+    preview = ResizedImageField(crop=['middle', 'center'], size=[256, 256], upload_to="dashboard/%Y/%m/%d/", verbose_name="превью")
     video = FileField(blank=True, null=True, upload_to="dashboard/%Y/%m/%d/", verbose_name="видео")
     image = ImageField(blank=True, null=True, upload_to="dashboard/%Y/%m/%d/", verbose_name="изображение")
 
@@ -1025,7 +1038,7 @@ class VisitStamp(Model):
     id = CharField(max_length=40, primary_key=True)
 
     """ Автогенерация """
-    created_at = DateField(auto_now_add=True, blank=True, null=True, verbose_name="дата создания")
+    created_at = DateField(auto_now_add=True, verbose_name="дата создания")
 
     """ Контент """
     utm_source = CharField(blank=True, null=True, verbose_name="источник")

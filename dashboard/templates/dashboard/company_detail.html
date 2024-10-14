@@ -39,7 +39,7 @@
                                 <div class="bp5-entity-title">
                                     <span class="bp5-icon bp5-icon-dot {% if company.parser_link_yandex %}bp5-intent-success{% else %}bp5-intent-danger{% endif %}"></span>
                                     <img height=16 src="{% static 'dashboard/images/services/yandex.png' %}" width=16>
-                                    {% if company.is_parser_run_yandex %}<span class="bp5-icon bp5-icon-bring-data bp5-intent-primary"></span>{% endif %}
+                                    {% if company.is_parser_run_yandex %}<img height=16 class="bp5-icon" src="{% static 'dashboard/images/ui/loader.svg' %}" width=16>{% endif %}
                                     {% if company.parser_link_yandex %}
                                     <a class="bp5-text-large" href="{{ company.parser_link_yandex }}" target="_blank">Яндекс</a>
                                     <span class="bp5-icon bp5-icon-share bp5-intent-primary"></span>
@@ -48,20 +48,25 @@
                                     {% endif %}
                                 </div>
                             </td>
-                            <td style="position:relative;">
-                                <div style="background:rgba(0, 0, 0, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_total_yandex company.reviews_count_total 100 %}%;z-index:0;"></div>
-                                <div class="bp5-text-large">{{ company.reviews_count_total_yandex|default:'0' }}</div>
+                            <td>
+                                <div class="bp5-text-large">{{ company.reviews_count_remote_yandex|default:'0' }}</div>
                                 <!--div class="bp5-progress-bar bp5-no-animation bp5-no-stripes">
                                     <div class="bp5-progress-meter" style="width:{% widthratio company.reviews_count_total_yandex company.reviews_count_total 100 %}%"></div>
                                 </div-->
                             </td>
                             <td style="position:relative;">
-                                <div style="background:rgba(28, 110, 66, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_positive_yandex company.reviews_count_total 100 %}%;z-index:0;"></div>
-                                <div class="bp5-text-large">{{ company.reviews_count_positive_yandex|default:'0' }}</div>
+                                <div style="background:rgba(28, 110, 66, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_positive_yandex company.reviews_count_total_yandex 100 %}%;z-index:0;"></div>
+                                <div class="bp5-text-large">
+                                    {% widthratio company.reviews_count_positive_yandex company.reviews_count_total_yandex 100 %}
+                                    <span class="bp5-text-small">%</span>
+                                </div>
                             </td>
                             <td style="position:relative;">
-                                <div style="background:rgba(172, 47, 51, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_negative_yandex company.reviews_count_total 100 %}%;z-index:0;"></div>
-                                <div class="bp5-text-large">{{ company.reviews_count_negative_yandex|default:'0' }}</div>
+                                <div style="background:rgba(172, 47, 51, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_negative_yandex company.reviews_count_total_yandex 100 %}%;z-index:0;"></div>
+                                <div class="bp5-text-large">
+                                    {% widthratio company.reviews_count_negative_yandex company.reviews_count_total_yandex 100 %}
+                                    <span class="bp5-text-small">%</span>
+                                </div>
                             </td>
                             <td>
                                 <div class="bp5-entity-title">
@@ -79,7 +84,7 @@
                                 <div class="bp5-entity-title">
                                     <span class="bp5-icon {% if company.parser_link_gis %}bp5-intent-success{% else %}bp5-intent-danger{% endif %} bp5-icon-dot"></span>
                                     <img height=16 src="{% static 'dashboard/images/services/gis.png' %}" width=16>
-                                    {% if company.is_parser_run_gis %}<span class="bp5-icon bp5-icon-bring-data bp5-intent-primary"></span>{% endif %}
+                                    {% if company.is_parser_run_gis %}<img height=16 class="bp5-icon" src="{% static 'dashboard/images/ui/loader.svg' %}" width=16>{% endif %}
                                     {% if company.parser_link_gis %}
                                     <a class="bp5-text-large" href="{{ company.parser_link_gis }}" target="_blank">2Гис</a>
                                     <span class="bp5-icon bp5-icon-share bp5-intent-primary"></span>
@@ -88,17 +93,21 @@
                                     {% endif %}
                                 </div>
                             </td>
-                            <td style="position:relative;">
-                                <div style="background:rgba(0, 0, 0, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_total_gis company.reviews_count_total 100 %}%;z-index:0;"></div>
-                                <div class="bp5-text-large">{{ company.reviews_count_total_gis|default:'0' }}</div>
+                            <td>
+                                <div class="bp5-text-large">{{ company.reviews_count_remote_gis|default:'0' }}</div>
                             </td>
                             <td style="position:relative;">
-                                <div style="background:rgba(28, 110, 66, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_positive_gis company.reviews_count_total 100 %}%;z-index:0;"></div>
-                                <div class="bp5-text-large">{{ company.reviews_count_positive_gis|default:'0' }}</div>
+                                <div style="background:rgba(28, 110, 66, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_positive_gis company.reviews_count_total_gis 100 %}%;z-index:0;"></div>
+                                <div class="bp5-text-large">{% widthratio company.reviews_count_positive_gis company.reviews_count_total_yandex 100 %}
+                                    <span class="bp5-text-small">%</span>
+                                </div>
                             </td>
                             <td style="position:relative;">
-                                <div style="background:rgba(172, 47, 51, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_negative_gis company.reviews_count_total 100 %}%;z-index:0;"></div>
-                                <div class="bp5-text-large">{{ company.reviews_count_negative_gis|default:'0' }}</div>
+                                <div style="background:rgba(172, 47, 51, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_negative_gis company.reviews_count_total_gis 100 %}%;z-index:0;"></div>
+                                <div class="bp5-text-large">
+                                    {% widthratio company.reviews_count_negative_gis company.reviews_count_total_gis 100 %}
+                                    <span class="bp5-text-small">%</span>
+                                </div>
                             </td>
                             <td>
                                 <div class="bp5-entity-title">
@@ -116,7 +125,7 @@
                                 <div class="bp5-entity-title">
                                     <span class="bp5-icon {% if company.parser_link_google %}bp5-intent-success{% else %}bp5-intent-danger{% endif %} bp5-icon-dot"></span>
                                     <img height=16 src="{% static 'dashboard/images/services/google.png' %}" width=16>
-                                    {% if company.is_parser_run_google %}<span class="bp5-icon bp5-icon-bring-data bp5-intent-primary"></span>{% endif %}
+                                    {% if company.is_parser_run_google %}<img height=16 class="bp5-icon" src="{% static 'dashboard/images/ui/loader.svg' %}" width=16>{% endif %}
                                     {% if company.parser_link_google %}
                                     <a class="bp5-text-large" href="{{ company.parser_link_google }}" target="_blank">Google</a>
                                     <span class="bp5-icon bp5-icon-share bp5-intent-primary"></span>
@@ -126,16 +135,21 @@
                                 </div>
                             </td>
                             <td style="position:relative;">
-                                <div style="background:rgba(0, 0, 0, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_total_google company.reviews_count_total 100 %}%;z-index:0;"></div>
-                                <div class="bp5-text-large">{{ company.reviews_count_total_google|default:'0' }}</div>
+                                <div class="bp5-text-large">{{ company.reviews_count_remote_google|default:'0' }}</div>
                             </td>
                             <td style="position:relative;">
-                                <div style="background:rgba(28, 110, 66, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_positive_google company.reviews_count_total 100 %}%;z-index:0;"></div>
-                                <div class="bp5-text-large">{{ company.reviews_count_positive_google|default:'0' }}</div>
+                                <div style="background:rgba(28, 110, 66, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_positive_google company.reviews_count_total_google 100 %}%;z-index:0;"></div>
+                                <div class="bp5-text-large">
+                                    {% widthratio company.reviews_count_positive_google company.reviews_count_total_google 100 %}
+                                    <span class="bp5-text-small">%</span>
+                                </div>
                             </td>
                             <td style="position:relative;">
-                                <div style="background:rgba(172, 47, 51, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_negative_google company.reviews_count_total 100 %}%;z-index:0;"></div>
-                                <div class="bp5-text-large">{{ company.reviews_count_negative_google|default:'0' }}</div>
+                                <div style="background:rgba(172, 47, 51, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_negative_google company.reviews_count_total_google 100 %}%;z-index:0;"></div>
+                                <div class="bp5-text-large">
+                                    {% widthratio company.reviews_count_negative_google company.reviews_count_total_google 100 %}
+                                    <span class="bp5-text-small">%</span>
+                                </div>
                             </td>
                             <td>
                                 <div class="bp5-entity-title">
@@ -153,7 +167,7 @@
                                 <div class="bp5-entity-title">
                                     <span class="bp5-icon {% if company.parser_link_avito %}bp5-intent-success{% else %}bp5-intent-danger{% endif %} bp5-icon-dot"></span>
                                     <img height=16 src="{% static 'dashboard/images/services/avito.png' %}" width=16>
-                                    {% if company.is_parser_run_avito %}<span class="bp5-icon bp5-icon-bring-data bp5-intent-primary"></span>{% endif %}
+                                    {% if company.is_parser_run_avito %}<img height=16 class="bp5-icon" src="{% static 'dashboard/images/ui/loader.svg' %}" width=16>{% endif %}
                                     {% if company.parser_link_avito %}
                                     <a class="bp5-text-large" href="{{ company.parser_link_avito }}" target="_blank">Авито</a>
                                     <span class="bp5-icon bp5-icon-share bp5-intent-primary"></span>
@@ -187,7 +201,7 @@
                                 <div class="bp5-entity-title">
                                     <span class="bp5-icon {% if company.parser_link_zoon %}bp5-intent-success{% else %}bp5-intent-danger{% endif %} bp5-icon-dot"></span>
                                     <img height=16 src="{% static 'dashboard/images/services/zoon.png' %}" width=16>
-                                    {% if company.is_parser_run_zoon %}<span class="bp5-icon bp5-icon-bring-data bp5-intent-primary"></span>{% endif %}
+                                    {% if company.is_parser_run_zoon %}<img height=16 class="bp5-icon" src="{% static 'dashboard/images/ui/loader.svg' %}" width=16>{% endif %}
                                     {% if company.parser_link_zoon %}
                                     <a class="bp5-text-large" href="{{ company.parser_link_zoon }}" target="_blank">Zoon</a>
                                     <span class="bp5-icon bp5-icon-share bp5-intent-primary"></span>
@@ -221,7 +235,7 @@
                                 <div class="bp5-entity-title">
                                     <span class="bp5-icon {% if company.parser_link_flamp %}bp5-intent-success{% else %}bp5-intent-danger{% endif %} bp5-icon-dot"></span>
                                     <img height=16 src="{% static 'dashboard/images/services/flamp.png' %}" width=16>
-                                    {% if company.is_parser_run_flamp %}<span class="bp5-icon bp5-icon-bring-data bp5-intent-primary"></span>{% endif %}
+                                    {% if company.is_parser_run_flamp %}<img height=16 class="bp5-icon" src="{% static 'dashboard/images/ui/loader.svg' %}" width=16>{% endif %}
                                     {% if company.parser_link_flamp %}
                                     <a class="bp5-text-large" href="{{ company.parser_link_flamp }}" target="_blank">Flamp</a>
                                     <span class="bp5-icon bp5-icon-share bp5-intent-primary"></span>
@@ -255,7 +269,7 @@
                                 <div class="bp5-entity-title">
                                     <span class="bp5-icon {% if company.parser_link_yell %}bp5-intent-success{% else %}bp5-intent-danger{% endif %} bp5-icon-dot"></span>
                                     <img height=16 src="{% static 'dashboard/images/services/yell.png' %}" width=16>
-                                    {% if company.is_parser_run_yell %}<span class="bp5-icon bp5-icon-bring-data bp5-intent-primary"></span>{% endif %}
+                                    {% if company.is_parser_run_yell %}<img height=16 class="bp5-icon" src="{% static 'dashboard/images/ui/loader.svg' %}" width=16>{% endif %}
                                     {% if company.parser_link_yell %}
                                     <a class="bp5-text-large" href="{{ company.parser_link_yell }}" target="_blank">Yell</a>
                                     <span class="bp5-icon bp5-icon-share bp5-intent-primary"></span>
@@ -289,7 +303,7 @@
                                 <div class="bp5-entity-title">
                                     <span class="bp5-icon {% if company.parser_link_prodoctorov %}bp5-intent-success{% else %}bp5-intent-danger{% endif %} bp5-icon-dot"></span>
                                     <img height=16 src="{% static 'dashboard/images/services/prodoctorov.png' %}" width=16>
-                                    {% if company.is_parser_run_prodoctorov %}<span class="bp5-icon bp5-icon-bring-data bp5-intent-primary"></span>{% endif %}
+                                    {% if company.is_parser_run_prodoctorov %}<img height=16 class="bp5-icon" src="{% static 'dashboard/images/ui/loader.svg' %}" width=16>{% endif %}
                                     {% if company.parser_link_prodoctorov %}
                                     <a class="bp5-text-large" href="{{ company.parser_link_prodoctorov }}" target="_blank">Продокторов</a>
                                     <span class="bp5-icon bp5-icon-share bp5-intent-primary"></span>
@@ -323,7 +337,7 @@
                                 <div class="bp5-entity-title">
                                     <span class="bp5-icon {% if company.parser_link_yandex_services %}bp5-intent-success{% else %}bp5-intent-danger{% endif %} bp5-icon-dot"></span>
                                     <img height=16 src="{% static 'dashboard/images/services/yandex_services.png' %}" width=16>
-                                    {% if company.is_parser_run_yandex_services %}<span class="bp5-icon bp5-icon-bring-data bp5-intent-primary"></span>{% endif %}
+                                    {% if company.is_parser_run_yandex_services %}<img height=16 class="bp5-icon" src="{% static 'dashboard/images/ui/loader.svg' %}" width=16>{% endif %}
                                     {% if company.parser_link_yandex_services %}
                                     <a class="bp5-text-large" href="{{ company.parser_link_yandex_services }}" target="_blank">Яндекс Услуги</a>
                                     <span class="bp5-icon bp5-icon-share bp5-intent-primary"></span>
@@ -357,7 +371,7 @@
                                 <div class="bp5-entity-title">
                                     <span class="bp5-icon {% if company.parser_link_otzovik %}bp5-intent-success{% else %}bp5-intent-danger{% endif %} bp5-icon-dot"></span>
                                     <img height=16 src="{% static 'dashboard/images/services/otzovik.png' %}" width=16>
-                                    {% if company.is_parser_run_otzovik %}<span class="bp5-icon bp5-icon-bring-data bp5-intent-primary"></span>{% endif %}
+                                    {% if company.is_parser_run_otzovik %}<img height=16 class="bp5-icon" src="{% static 'dashboard/images/ui/loader.svg' %}" width=16>{% endif %}
                                     {% if company.parser_link_otzovik %}
                                     <a class="bp5-text-large" href="{{ company.parser_link_otzovik }}" target="_blank">Отзовик</a>
                                     <span class="bp5-icon bp5-icon-share bp5-intent-primary"></span>
@@ -391,7 +405,7 @@
                                 <div class="bp5-entity-title">
                                     <span class="bp5-icon {% if company.parser_link_irecommend %}bp5-intent-success{% else %}bp5-intent-danger{% endif %} bp5-icon-dot"></span>
                                     <img height=16 src="{% static 'dashboard/images/services/irecommend.png' %}" width=16>
-                                    {% if company.is_parser_run_irecommend %}<span class="bp5-icon bp5-icon-bring-data bp5-intent-primary"></span>{% endif %}
+                                    {% if company.is_parser_run_irecommend %}<img height=16 class="bp5-icon" src="{% static 'dashboard/images/ui/loader.svg' %}" width=16>{% endif %}
                                     {% if company.parser_link_irecommend %}
                                     <a class="bp5-text-large" href="{{ company.parser_link_irecommend }}" target="_blank">Irecommend</a>
                                     <span class="bp5-icon bp5-icon-share bp5-intent-primary"></span>
@@ -425,7 +439,7 @@
                                 <div class="bp5-entity-title">
                                     <span class="bp5-icon {% if company.parser_link_tripadvisor %}bp5-intent-success{% else %}bp5-intent-danger{% endif %} bp5-icon-dot"></span>
                                     <img height=16 src="{% static 'dashboard/images/services/tripadvisor.png' %}" width=16>
-                                    {% if company.is_parser_run_tripadvisor %}<span class="bp5-icon bp5-icon-bring-data bp5-intent-primary"></span>{% endif %}
+                                    {% if company.is_parser_run_tripadvisor %}<img height=16 class="bp5-icon" src="{% static 'dashboard/images/ui/loader.svg' %}" width=16>{% endif %}
                                     {% if company.parser_link_tripadvisor %}
                                     <a class="bp5-text-large" href="{{ company.parser_link_tripadvisor }}" target="_blank">Irecommend</a>
                                     <span class="bp5-icon bp5-icon-share bp5-intent-primary"></span>
@@ -454,7 +468,7 @@
                             </td>
                         </tr>
                     </tbody>
-                    <tfoot>
+                    <!--tfoot>
                         <tr>
                             <td>
                                 <div class="bp5-text-large">Всего</div>
@@ -470,7 +484,7 @@
                             </td>
                             <td>&nbsp;</td>
                         </tr>
-                    </tfoot>
+                    </tfoot-->
                 </table>
             </div>
         </div>

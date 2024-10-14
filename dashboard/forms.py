@@ -74,11 +74,11 @@ class DashboardCompanyChangeYandexForm(ModelForm):
 
     parser_link_yandex = CharField(
         required=False,
-        validators=[RegexValidator(
-            regex=r"^https:\/\/yandex\.ru\/maps\/org\/[\w\W]{1,}\/[\d]{1,}\/reviews[\/]{0,1}$",
-            message="Введите правильную ссылку «https://yandex.ru/maps/org/{NAME}/{ID}/reviews/»",
-            code="invalid_parser_link_yandex",
-        )],
+        # validators=[RegexValidator(
+        #     regex=r"^https:\/\/yandex\.ru\/maps\/org\/[\w\W]{1,}\/[\d]{1,}\/reviews[\/]{0,1}$",
+        #     message="Введите правильную ссылку «https://yandex.ru/maps/org/{NAME}/{ID}/reviews/»",
+        #     code="invalid_parser_link_yandex",
+        # )],
         widget=TextInput(attrs={"class": "bp5-input bp5-large"}),
     )
 
@@ -110,11 +110,11 @@ class DashboardCompanyChangeGisForm(ModelForm):
 
     parser_link_gis = CharField(
         required=False,
-        validators=[RegexValidator(
-            regex=r"^https:\/\/2gis\.ru\/firm\/[\d]{1,}\/tab\/reviews[\/]{0,1}$",
-            message="Введите правильную ссылку «https://2gis.ru/firm/{ID}/tab/reviews»",
-            code="invalid_parser_link_yandex",
-        )],
+        # validators=[RegexValidator(
+        #     regex=r"^https:\/\/2gis\.ru\/firm\/[\d]{1,}\/tab\/reviews[\/]{0,1}$",
+        #     message="Введите правильную ссылку «https://2gis.ru/firm/{ID}/tab/reviews»",
+        #     code="invalid_parser_link_yandex",
+        # )],
         widget=TextInput(attrs={"class": "bp5-input bp5-large"}),
     )
 
@@ -146,11 +146,11 @@ class DashboardCompanyChangeGoogleForm(ModelForm):
 
     parser_link_google = CharField(
         required=False,
-        validators=[RegexValidator(
-            regex=r"^https:\/\/google\.com\/maps\/search\/\?api=1&query=~&query_place_id=[\w\W]{1,}[\/]{0,1}$",
-            message="Введите правильную ссылку «https://google.com/maps/search/?api=1&query=~&query_place_id={ID}»",
-            code="invalid_parser_link_yandex",
-        )],
+        # validators=[RegexValidator(
+        #     regex=r"^https:\/\/google\.com\/maps\/search\/\?api=1&query=~&query_place_id=[\w\W]{1,}[\/]{0,1}$",
+        #     message="Введите правильную ссылку «https://google.com/maps/search/?api=1&query=~&query_place_id={ID}»",
+        #     code="invalid_parser_link_yandex",
+        # )],
         widget=TextInput(attrs={"class": "bp5-input bp5-large"}),
     )
 
@@ -182,11 +182,11 @@ class DashboardCompanyChangeAvitoForm(ModelForm):
 
     parser_link_avito = CharField(
         required=False,
-        validators=[RegexValidator(
-            regex=r"^https:\/\/avito\.ru\/brands\/[\w\W]{1,}\/$",
-            message="Введите правильную ссылку «https://avito.ru/brands/{NAME}/»",
-            code="invalid_parser_link_yandex",
-        )],
+        # validators=[RegexValidator(
+        #     regex=r"^https:\/\/avito\.ru\/brands\/[\w\W]{1,}\/$",
+        #     message="Введите правильную ссылку «https://avito.ru/brands/{NAME}/»",
+        #     code="invalid_parser_link_yandex",
+        # )],
         widget=TextInput(attrs={"class": "bp5-input bp5-large"})
     )
 
@@ -220,11 +220,11 @@ class DashboardCompanyChangeZoonForm(ModelForm):
 
     parser_link_zoon = CharField(
         required=False,
-        validators=[RegexValidator(
-            regex=r"^https:\/\/zoon\.ru\/[\w\W]{1,}\/[\w\W]{1,}\/[\w\W]{1,}\/$",
-            message="Введите правильную ссылку «https://zoon.ru/{CITY}/{CATEGORY}/{NAME}/»",
-            code="invalid_parser_link_yandex",
-        )],
+        # validators=[RegexValidator(
+        #     regex=r"^https:\/\/zoon\.ru\/[\w\W]{1,}\/[\w\W]{1,}\/[\w\W]{1,}\/$",
+        #     message="Введите правильную ссылку «https://zoon.ru/{CITY}/{CATEGORY}/{NAME}/»",
+        #     code="invalid_parser_link_yandex",
+        # )],
         widget=TextInput(attrs={"class": "bp5-input bp5-large"})
     )
 
