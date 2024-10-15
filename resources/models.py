@@ -625,6 +625,23 @@ class Company(Model):
     def rating_tripadvisor_str(self):
         return str(self.rating_tripadvisor)
 
+    @property
+    def reviews_remote_total(self):
+        return (
+            self.reviews_count_remote_yandex +
+            self.reviews_count_remote_gis +
+            self.reviews_count_remote_google +
+            self.reviews_count_remote_avito +
+            self.reviews_count_remote_zoon +
+            self.reviews_count_remote_flamp +
+            self.reviews_count_remote_yell +
+            self.reviews_count_remote_prodoctorov +
+            self.reviews_count_remote_yandex_services +
+            self.reviews_count_remote_otzovik +
+            self.reviews_count_remote_irecommend +
+            self.reviews_count_remote_tripadvisor
+        )
+
 
 @receiver(post_init, sender=Company)
 def company_post_init(sender, instance, ** kwargs):

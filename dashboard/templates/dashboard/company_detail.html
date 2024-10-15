@@ -39,9 +39,10 @@
                         <tr>
                             <th>Сервис</th>
                             <th width="15%">Отзывы</th>
+                            <th width="15%">Собрано</th>
                             <th width="15%">Позитивные</th>
                             <th width="15%">Негативные</th>
-                            <th colspan="2" width="25%">Рейтинг</th>
+                            <th colspan="2" width="15%">Рейтинг</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -62,9 +63,9 @@
                             </td>
                             <td>
                                 <div class="bp5-text-large">{{ company.reviews_count_remote_yandex|default:'0' }}</div>
-                                <!--div class="bp5-progress-bar bp5-no-animation bp5-no-stripes">
-                                    <div class="bp5-progress-meter" style="width:{% widthratio company.reviews_count_total_yandex company.reviews_count_total 100 %}%"></div>
-                                </div-->
+                            </td>
+                            <td>
+                                <div class="bp5-text-large">{{ company.reviews_count_total_yandex|default:'0' }}</div>
                             </td>
                             <td style="position:relative;">
                                 <div style="background:rgba(28, 110, 66, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_positive_yandex company.reviews_count_total_yandex 100 %}%;z-index:0;"></div>
@@ -108,6 +109,9 @@
                             <td>
                                 <div class="bp5-text-large">{{ company.reviews_count_remote_gis|default:'0' }}</div>
                             </td>
+                            <td>
+                                <div class="bp5-text-large">{{ company.reviews_count_total_gis|default:'0' }}</div>
+                            </td>
                             <td style="position:relative;">
                                 <div style="background:rgba(28, 110, 66, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_positive_gis company.reviews_count_total_gis 100 %}%;z-index:0;"></div>
                                 <div class="bp5-text-large">{% widthratio company.reviews_count_positive_gis company.reviews_count_total_gis 100 %}
@@ -146,8 +150,11 @@
                                     {% endif %}
                                 </div>
                             </td>
-                            <td style="position:relative;">
+                            <td>
                                 <div class="bp5-text-large">{{ company.reviews_count_remote_google|default:'0' }}</div>
+                            </td>
+                            <td>
+                                <div class="bp5-text-large">{{ company.reviews_count_total_google|default:'0' }}</div>
                             </td>
                             <td style="position:relative;">
                                 <div style="background:rgba(28, 110, 66, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_positive_google company.reviews_count_total_google 100 %}%;z-index:0;"></div>
@@ -189,13 +196,24 @@
                                 </div>
                             </td>
                             <td>
+                                <div class="bp5-text-large">{{ company.reviews_count_remote_avito|default:'0' }}</div>
+                            </td>
+                            <td>
                                 <div class="bp5-text-large">{{ company.reviews_count_total_avito|default:'0' }}</div>
                             </td>
-                            <td>
-                                <div class="bp5-text-large">{{ company.reviews_count_positive_avito|default:'0' }}</div>
+                            <td style="position:relative;">
+                                <div style="background:rgba(28, 110, 66, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_positive_avito company.reviews_count_total_avito 100 %}%;z-index:0;"></div>
+                                <div class="bp5-text-large">
+                                    {% widthratio company.reviews_count_positive_avito company.reviews_count_total_avito 100 %}
+                                    <span class="bp5-text-small">%</span>
+                                </div>
                             </td>
-                            <td>
-                                <div class="bp5-text-large">{{ company.reviews_count_negative_avito|default:'0' }}</div>
+                            <td style="position:relative;">
+                                <div style="background:rgba(172, 47, 51, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_negative_avito company.reviews_count_total_avito 100 %}%;z-index:0;"></div>
+                                <div class="bp5-text-large">
+                                    {% widthratio company.reviews_count_negative_avito company.reviews_count_total_avito 100 %}
+                                    <span class="bp5-text-small">%</span>
+                                </div>
                             </td>
                             <td>
                                 <div class="bp5-entity-title">
@@ -223,13 +241,24 @@
                                 </div>
                             </td>
                             <td>
+                                <div class="bp5-text-large">{{ company.reviews_count_remote_zoon|default:'0' }}</div>
+                            </td>
+                            <td>
                                 <div class="bp5-text-large">{{ company.reviews_count_total_zoon|default:'0' }}</div>
                             </td>
-                            <td>
-                                <div class="bp5-text-large">{{ company.reviews_count_positive_zoon|default:'0' }}</div>
+                            <td style="position:relative;">
+                                <div style="background:rgba(28, 110, 66, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_positive_zoon company.reviews_count_total_zoon 100 %}%;z-index:0;"></div>
+                                <div class="bp5-text-large">
+                                    {% widthratio company.reviews_count_positive_zoon company.reviews_count_total_zoon 100 %}
+                                    <span class="bp5-text-small">%</span>
+                                </div>
                             </td>
-                            <td>
-                                <div class="bp5-text-large">{{ company.reviews_count_negative_zoon|default:'0' }}</div>
+                            <td style="position:relative;">
+                                <div style="background:rgba(172, 47, 51, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_negative_zoon company.reviews_count_total_zoon 100 %}%;z-index:0;"></div>
+                                <div class="bp5-text-large">
+                                    {% widthratio company.reviews_count_negative_zoon company.reviews_count_total_zoon 100 %}
+                                    <span class="bp5-text-small">%</span>
+                                </div>
                             </td>
                             <td>
                                 <div class="bp5-entity-title">
@@ -257,13 +286,24 @@
                                 </div>
                             </td>
                             <td>
+                                <div class="bp5-text-large">{{ company.reviews_count_remote_flamp|default:'0' }}</div>
+                            </td>
+                            <td>
                                 <div class="bp5-text-large">{{ company.reviews_count_total_flamp|default:'0' }}</div>
                             </td>
-                            <td>
-                                <div class="bp5-text-large">{{ company.reviews_count_positive_flamp|default:'0' }}</div>
+                            <td style="position:relative;">
+                                <div style="background:rgba(28, 110, 66, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_positive_flamp company.reviews_count_total_flamp 100 %}%;z-index:0;"></div>
+                                <div class="bp5-text-large">
+                                    {% widthratio company.reviews_count_positive_flamp company.reviews_count_total_flamp 100 %}
+                                    <span class="bp5-text-small">%</span>
+                                </div>
                             </td>
-                            <td>
-                                <div class="bp5-text-large">{{ company.reviews_count_negative_flamp|default:'0' }}</div>
+                            <td style="position:relative;">
+                                <div style="background:rgba(172, 47, 51, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_negative_flamp company.reviews_count_total_flamp 100 %}%;z-index:0;"></div>
+                                <div class="bp5-text-large">
+                                    {% widthratio company.reviews_count_negative_flamp company.reviews_count_total_flamp 100 %}
+                                    <span class="bp5-text-small">%</span>
+                                </div>
                             </td>
                             <td>
                                 <div class="bp5-entity-title">
@@ -289,6 +329,9 @@
                                     <div class="bp5-text-large">Yell</div>
                                     {% endif %}
                                 </div>
+                            </td>
+                            <td>
+                                <div class="bp5-text-large">{{ company.reviews_count_remote_yell|default:'0' }}</div>
                             </td>
                             <td>
                                 <div class="bp5-text-large">{{ company.reviews_count_total_yell|default:'0' }}</div>
@@ -325,13 +368,24 @@
                                 </div>
                             </td>
                             <td>
+                                <div class="bp5-text-large">{{ company.reviews_count_remote_prodoctorov|default:'0' }}</div>
+                            </td>
+                            <td>
                                 <div class="bp5-text-large">{{ company.reviews_count_total_prodoctorov|default:'0' }}</div>
                             </td>
-                            <td>
-                                <div class="bp5-text-large">{{ company.reviews_count_positive_prodoctorov|default:'0' }}</div>
+                            <td style="position:relative;">
+                                <div style="background:rgba(28, 110, 66, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_positive_prodoctorov company.reviews_count_total_prodoctorov 100 %}%;z-index:0;"></div>
+                                <div class="bp5-text-large">
+                                    {% widthratio company.reviews_count_positive_prodoctorov company.reviews_count_total_prodoctorov 100 %}
+                                    <span class="bp5-text-small">%</span>
+                                </div>
                             </td>
-                            <td>
-                                <div class="bp5-text-large">{{ company.reviews_count_negative_prodoctorov|default:'0' }}</div>
+                            <td style="position:relative;">
+                                <div style="background:rgba(172, 47, 51, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_negative_prodoctorov company.reviews_count_total_prodoctorov 100 %}%;z-index:0;"></div>
+                                <div class="bp5-text-large">
+                                    {% widthratio company.reviews_count_negative_prodoctorov company.reviews_count_total_prodoctorov 100 %}
+                                    <span class="bp5-text-small">%</span>
+                                </div>
                             </td>
                             <td>
                                 <div class="bp5-entity-title">
@@ -359,13 +413,24 @@
                                 </div>
                             </td>
                             <td>
+                                <div class="bp5-text-large">{{ company.reviews_count_remote_yandex_services|default:'0' }}</div>
+                            </td>
+                            <td>
                                 <div class="bp5-text-large">{{ company.reviews_count_total_yandex_services|default:'0' }}</div>
                             </td>
-                            <td>
-                                <div class="bp5-text-large">{{ company.reviews_count_positive_yandex_services|default:'0' }}</div>
+                            <td style="position:relative;">
+                                <div style="background:rgba(28, 110, 66, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_positive_yandex_services company.reviews_count_total_yandex_services 100 %}%;z-index:0;"></div>
+                                <div class="bp5-text-large">
+                                    {% widthratio company.reviews_count_positive_yandex_services company.reviews_count_total_yandex_services 100 %}
+                                    <span class="bp5-text-small">%</span>
+                                </div>
                             </td>
-                            <td>
-                                <div class="bp5-text-large">{{ company.reviews_count_negative_yandex_services|default:'0' }}</div>
+                            <td style="position:relative;">
+                                <div style="background:rgba(172, 47, 51, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_negative_yandex_services company.reviews_count_total_yandex_services 100 %}%;z-index:0;"></div>
+                                <div class="bp5-text-large">
+                                    {% widthratio company.reviews_count_negative_yandex_services company.reviews_count_total_yandex_services 100 %}
+                                    <span class="bp5-text-small">%</span>
+                                </div>
                             </td>
                             <td>
                                 <div class="bp5-entity-title">
@@ -393,13 +458,24 @@
                                 </div>
                             </td>
                             <td>
+                                <div class="bp5-text-large">{{ company.reviews_count_remote_otzovik|default:'0' }}</div>
+                            </td>
+                            <td>
                                 <div class="bp5-text-large">{{ company.reviews_count_total_otzovik|default:'0' }}</div>
                             </td>
-                            <td>
-                                <div class="bp5-text-large">{{ company.reviews_count_positive_otzovik|default:'0' }}</div>
+                            <td style="position:relative;">
+                                <div style="background:rgba(28, 110, 66, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_positive_otzovik company.reviews_count_total_otzovik 100 %}%;z-index:0;"></div>
+                                <div class="bp5-text-large">
+                                    {% widthratio company.reviews_count_positive_otzovik company.reviews_count_total_otzovik 100 %}
+                                    <span class="bp5-text-small">%</span>
+                                </div>
                             </td>
-                            <td>
-                                <div class="bp5-text-large">{{ company.reviews_count_negative_otzovik|default:'0' }}</div>
+                            <td style="position:relative;">
+                                <div style="background:rgba(172, 47, 51, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_negative_otzovik company.reviews_count_total_otzovik 100 %}%;z-index:0;"></div>
+                                <div class="bp5-text-large">
+                                    {% widthratio company.reviews_count_negative_otzovik company.reviews_count_total_otzovik 100 %}
+                                    <span class="bp5-text-small">%</span>
+                                </div>
                             </td>
                             <td>
                                 <div class="bp5-entity-title">
@@ -427,14 +503,26 @@
                                 </div>
                             </td>
                             <td>
+                                <div class="bp5-text-large">{{ company.reviews_count_remote_irecommend|default:'0' }}</div>
+                            </td>
+                            <td>
                                 <div class="bp5-text-large">{{ company.reviews_count_total_irecommend|default:'0' }}</div>
                             </td>
-                            <td>
-                                <div class="bp5-text-large">{{ company.reviews_count_positive_irecommend|default:'0' }}</div>
+                            <td style="position:relative;">
+                                <div style="background:rgba(28, 110, 66, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_positive_irecommend company.reviews_count_total_irecommend 100 %}%;z-index:0;"></div>
+                                <div class="bp5-text-large">
+                                    {% widthratio company.reviews_count_positive_irecommend company.reviews_count_total_irecommend 100 %}
+                                    <span class="bp5-text-small">%</span>
+                                </div>
                             </td>
-                            <td>
-                                <div class="bp5-text-large">{{ company.reviews_count_negative_irecommend|default:'0' }}</div>
+                            <td style="position:relative;">
+                                <div style="background:rgba(172, 47, 51, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_negative_irecommend company.reviews_count_total_irecommend 100 %}%;z-index:0;"></div>
+                                <div class="bp5-text-large">
+                                    {% widthratio company.reviews_count_negative_irecommend company.reviews_count_total_irecommend 100 %}
+                                    <span class="bp5-text-small">%</span>
+                                </div>
                             </td>
+
                             <td>
                                 <div class="bp5-entity-title">
                                     <div class="bp5-text-large">{{ company.rating_irecommend|default:'0,0' }}</div>
@@ -461,13 +549,24 @@
                                 </div>
                             </td>
                             <td>
+                                <div class="bp5-text-large">{{ company.reviews_count_remote_tripadvisor|default:'0' }}</div>
+                            </td>
+                            <td>
                                 <div class="bp5-text-large">{{ company.reviews_count_total_tripadvisor|default:'0' }}</div>
                             </td>
-                            <td>
-                                <div class="bp5-text-large">{{ company.reviews_count_positive_tripadvisor|default:'0' }}</div>
+                            <td style="position:relative;">
+                                <div style="background:rgba(28, 110, 66, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_positive_tripadvisor company.reviews_count_total_tripadvisor 100 %}%;z-index:0;"></div>
+                                <div class="bp5-text-large">
+                                    {% widthratio company.reviews_count_positive_tripadvisor company.reviews_count_total_tripadvisor 100 %}
+                                    <span class="bp5-text-small">%</span>
+                                </div>
                             </td>
-                            <td>
-                                <div class="bp5-text-large">{{ company.reviews_count_negative_tripadvisor|default:'0' }}</div>
+                            <td style="position:relative;">
+                                <div style="background:rgba(172, 47, 51, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_negative_tripadvisor company.reviews_count_total_tripadvisor 100 %}%;z-index:0;"></div>
+                                <div class="bp5-text-large">
+                                    {% widthratio company.reviews_count_negative_tripadvisor company.reviews_count_total_tripadvisor 100 %}
+                                    <span class="bp5-text-small">%</span>
+                                </div>
                             </td>
                             <td>
                                 <div class="bp5-entity-title">
@@ -480,23 +579,34 @@
                             </td>
                         </tr>
                     </tbody>
-                    <!--tfoot>
+                    <tfoot>
                         <tr>
                             <td>
                                 <div class="bp5-text-large">Всего</div>
                             </td>
                             <td>
+                                <div class="bp5-text-large">{{ company.reviews_remote_total }}</div>
+                            </td>
+                            <td>
                                 <div class="bp5-text-large">{{ company.reviews_count_total }}</div>
                             </td>
-                            <td>
-                                <div class="bp5-text-large">{{ company.reviews_count_positive }}</div>
+                            <td style="position:relative;">
+                                <div style="background:rgba(28, 110, 66, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_positive company.reviews_count_total 100 %}%;z-index:0;"></div>
+                                <div class="bp5-text-large">
+                                    {% widthratio company.reviews_count_positive company.reviews_count_total 100 %}
+                                    <span class="bp5-text-small">%</span>
+                                </div>
                             </td>
-                            <td>
-                                <div class="bp5-text-large">{{ company.reviews_count_negative }}</div>
+                            <td style="position:relative;">
+                                <div style="background:rgba(28, 110, 66, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_negative company.reviews_count_total 100 %}%;z-index:0;"></div>
+                                <div class="bp5-text-large">
+                                    {% widthratio company.reviews_count_negative company.reviews_count_total 100 %}
+                                    <span class="bp5-text-small">%</span>
+                                </div>
                             </td>
                             <td>&nbsp;</td>
                         </tr>
-                    </tfoot-->
+                    </tfoot>
                 </table>
             </div>
         </div>
@@ -512,7 +622,7 @@
                             <th>Источник</th>
                             <th width="15%">Визиты</th>
                             <th width="15%">Клики</th>
-                            <th width="25%">Конверсия</th>
+                            <th width="15%">Конверсия</th>
                         </tr>
                     </thead>
                     <tbody>
