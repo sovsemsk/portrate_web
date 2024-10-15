@@ -120,6 +120,14 @@
                     });
                 }
 
+                if($("*[data-hint]").length){
+                    $("*[data-hint]").find("*[data-hide]").click(event => {
+                        const hindEl = $(event.currentTarget).parents("*[data-hint]");
+                        Cookies.set(hindEl.data("hint"), true);
+                        hindEl.hide();
+                    });
+                }
+
                 if($("*[data-href-story]").length){
                     var stories = $("*[data-href-story]");
                     var current = 0;
