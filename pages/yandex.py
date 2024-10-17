@@ -144,7 +144,7 @@ def perform(company_id, task):
                     company_id=company.id
                 )
             except IntegrityError:
-                pass
+                ...
 
         company.rating_yandex = float(".".join(re.findall(r"\d+", reviews_page.rating))) if reviews_page.rating else None
         company.reviews_count_remote_yandex = int("".join(re.findall(r"\d+", reviews_page.count))) if reviews_page.count else None

@@ -20,7 +20,7 @@ from djmoney.money import Money
 
 from billing.tbank import Tbank
 from pdf.utils import make_stick, make_card, make_qr
-from resources.models import Company, Message, Payment, Review, Service, Story
+from resources.models import Company, Message, Payment, Review, Service, Story, StorySlide
 from resources.tasks import parse_yandex_task, parse_gis_task, parse_google_task
 from services.search import SearchGis, SearchGoogle, SearchYandex
 from .filters import MessageFilter, ReviewFilter
@@ -69,6 +69,11 @@ def story_list(user, nav):
             "users",
             to_attr="users_is_seen",
             queryset=User.objects.filter(pk=user.id)
+        )
+    ).prefetch_related(
+        Prefetch(
+            "storyslide_set",
+            queryset=StorySlide.objects.order_by("sort")
         )
     ).order_by("-created_at").all
 

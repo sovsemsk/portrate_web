@@ -1,6 +1,6 @@
 from django.contrib.admin import ModelAdmin, register, TabularInline
 
-from .models import Company, Membership, Payment, Story
+from .models import Company, Membership, Payment, Story, StorySlide
 
 
 class MembershipInlineAdmin(TabularInline):
@@ -39,19 +39,20 @@ class PaymentAdmin(ModelAdmin):
         return False
 
 
+class StorySlideInlineAdmin(TabularInline):
+    fields = ["sort", "video", "image"]
+    model = StorySlide
+
+
 @register(Story)
 class StoryAdmin(ModelAdmin):
+    inlines = [StorySlideInlineAdmin]
+
     fieldsets = [
         (
             None,
             {
-                "fields": [
-                    "name",
-                    "is_active",
-                    "preview",
-                    "video",
-                    "image"
-                ],
+                "fields": ["name", "is_active", "preview"],
             },
         ),
         (

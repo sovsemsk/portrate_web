@@ -122,7 +122,7 @@ def perform(company_id, task):
                     company_id=company.id
                 )
             except IntegrityError:
-                pass
+                ...
 
         company.rating_avito = float(reviews_page.rating.replace(",", ".")) if reviews_page.rating else None
         company.save(update_fields=["rating_avito"])

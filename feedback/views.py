@@ -1,7 +1,7 @@
 from django.db import IntegrityError
 from django.db.models import Prefetch
 from django.shortcuts import get_object_or_404, render, redirect
-from django.urls import reverse
+from django.urls import reverse, NoReverseMatch
 from django.views.decorators.http import require_http_methods
 
 from feedback.forms import ClickStampForm, MessageForm
@@ -64,12 +64,15 @@ def request(request, pk):
     if request.method == "POST":
         form = ClickStampForm(request.POST)
         form.instance.company_id = pk
-        form.instance.visit_stamp_id = request.session.session_key
 
-        if not request.user.is_authenticated and form.is_valid():
+        if form.is_valid():
+            form.instance.visit_stamp_id = request.session.session_key
             form.save()
 
-        return redirect(company.__getattribute__(f"feedback_link_{form.instance.service.lower()}"))
+        try:
+            return redirect(company.__getattribute__(f"feedback_link_{form.instance.service.lower()}"))
+        except NoReverseMatch:
+            ...
 
     return render(request, "feedback/request.html", {"company": company })
 

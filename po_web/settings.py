@@ -74,6 +74,7 @@ INSTALLED_APPS = [
     "colorfield",
     "django_celery_beat",
     "django_celery_results",
+    "django_cleanup",
     "django_filters",
     "djmoney",
 

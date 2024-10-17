@@ -8,7 +8,9 @@ from django.db.models import (
     BooleanField,
     CASCADE,
     CharField,
+    FileField,
     ForeignKey,
+    ImageField,
     DecimalField,
     DateTimeField,
     DateField,
@@ -19,17 +21,16 @@ from django.db.models import (
     Prefetch,
     OneToOneField,
     TextChoices,
-    TextField, FileField, ImageField
+    TextField,
 )
-from django.db.models.signals import post_init
-from django.db.models.signals import post_save
+from django.db.models.signals import post_init, post_save
 from django.dispatch import receiver
 from django.utils.crypto import get_random_string
 from django.utils.formats import localize
+from django_cleanup.signals import cleanup_pre_delete, cleanup_post_delete
 from django_resized import ResizedImageField
 from djmoney.models.fields import MoneyField
 from telegram import Bot
-
 
 class Period(TextChoices):
     """ Период оплаты """
@@ -998,7 +999,7 @@ def review_post_save(sender, instance, created, ** kwargs):
 
 
 class Story(Model):
-    """ Платеж """
+    """ История """
     class Meta:
         db_table = "resources_story"
         verbose_name = "история"
@@ -1024,30 +1025,41 @@ class Story(Model):
     """ Данные """
     name = CharField(verbose_name="название")
     preview = ResizedImageField(crop=['middle', 'center'], size=[256, 256], upload_to="dashboard/%Y/%m/%d/", verbose_name="превью")
-    video = FileField(blank=True, null=True, upload_to="dashboard/%Y/%m/%d/", verbose_name="видео")
-    image = ImageField(blank=True, null=True, upload_to="dashboard/%Y/%m/%d/", verbose_name="изображение")
 
     """ Связи """
     users = ManyToManyField("auth.User", blank=True, verbose_name="пользователи")
 
-    @property
-    def is_video(self):
-        if self.video:
-            return True
-        else:
-            return False
-
-    @property
-    def media(self):
-        if self.video:
-            return self.video
-        elif self.image:
-            return self.image
-        else:
-            return None
-
     def __str__(self):
         return str(self.name)
+
+
+class StorySlide(Model):
+    """ Медиа истории """
+    class Meta:
+        db_table = "resources_story_media"
+        verbose_name = "медиа истории"
+        verbose_name_plural = "медиа историй"
+
+    """ Настройки """
+    sort = IntegerField(default=0, verbose_name="порядок")
+
+    """ Контент """
+    video = FileField(blank=True, null=True, upload_to="dashboard/%Y/%m/%d/", verbose_name="видео")
+    image = ImageField(blank=True, null=True, upload_to="dashboard/%Y/%m/%d/", verbose_name="изображение")
+
+    """ Связи """
+    story = ForeignKey("resources.Story", on_delete=CASCADE, verbose_name="история")
+
+    @property
+    def is_video(self):
+        return True if self.video else False
+
+    @property
+    def is_image(self):
+        return True if self.image else False
+
+    def __str__(self):
+        return str(self.story)
 
 
 class VisitStamp(Model):
