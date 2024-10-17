@@ -77,10 +77,15 @@
             <div class="bp5-dialog-container bp5-overlay-content bp5-overlay-enter-done">
                 <div class="bp5-entity-title" style="pointer-events:all">
                     <button class="bp5-button bp5-icon-arrow-left bp5-minimal" data-story_left></button>
-                    {{story.id}}
-
                     {% for story in story_list %}
-                    <div style="display:none;" data-story_container>
+                    <div style="display:none;position:relative;" data-story_container>
+                        {% if story.storyslide_set.all.count > 1 %}
+                        <div style="display:flex;gap:5px;justify-content:space-between;position:absolute;width:100%;padding:5px;">
+                        {% for story_slide in story.storyslide_set.all %}
+                        <div style="background-color:rgba(255, 255, 255, 0.5);border-radius:2px;height:5px;flex-basis:100%" data-story_slide_indicator></div>
+                        {% endfor %}
+                        </div>
+                        {% endif %}
                         {% for story_slide in story.storyslide_set.all %}
                         {% if story_slide.is_video %}
                         <video class="bp5-elevation-3" style="border-radius:5px;display:none;" width="320" data-story_slide>
@@ -92,7 +97,6 @@
                         {% endfor %}
                     </div>
                     {% endfor %}
-
                     <button class="bp5-button bp5-icon-arrow-right bp5-minimal" data-story_right></button>
                 </div>
             </div>
@@ -146,7 +150,7 @@
                     var storyUpdateUrl = "{% url 'story_update' '0' %}";
                     var timerId;
 
-                    var loadStory = () => {
+                    var showStory = () => {
                         $("*[data-story_container]").hide();
                         $($("*[data-story_container]")[currentStory]).show();
                         $($("*[data-story_preview]")[currentStory]).css("outline", "none");
@@ -158,34 +162,32 @@
                             url: storyUpdateUrl.replace("0", $($("*[data-story_preview]")[currentStory]).data("story_preview"))
                         });
 
-                        loadStorySlide();
+                        showStorySlide();
                     }
 
-                    var loadStorySlide = () => {
+                    var showStorySlide = () => {
                         currentStorySlide = 0;
-
-                        $($("*[data-story_container]")[currentStory]).find("*[data-story_slide]").hide();
-                        $($($("*[data-story_container]")[currentStory]).find("*[data-story_slide]")[currentStorySlide]).show();
-
-                        if ($($($("*[data-story_container]")[currentStory]).find("*[data-story_slide]")[currentStorySlide]).prop("tagName") == "VIDEO"){
-                            $($("*[data-story_container]")[currentStory]).find("*[data-story_slide]").pause;
-                            $($("*[data-story_container]")[currentStory]).find("*[data-story_slide]")[currentStorySlide].currentTime = 0;
-                            $($("*[data-story_container]")[currentStory]).find("*[data-story_slide]")[currentStorySlide].play();
-                        }
+                        loadStorySlide();
 
                         if($($("*[data-story_container]")[currentStory]).find("*[data-story_slide]").length > 1){
                             timerId = setInterval(() => {
                                 currentStorySlide = currentStorySlide+1 < $($("*[data-story_container]")[currentStory]).find("*[data-story_slide]").length ? currentStorySlide+1 : 0;
-
-                                $($("*[data-story_container]")[currentStory]).find("*[data-story_slide]").hide();
-                                $($($("*[data-story_container]")[currentStory]).find("*[data-story_slide]")[currentStorySlide]).show();
-
-                                if ($($($("*[data-story_container]")[currentStory]).find("*[data-story_slide]")[currentStorySlide]).prop("tagName") == "VIDEO"){
-                                    $($("*[data-story_container]")[currentStory]).find("*[data-story_slide]").pause_;
-                                    $($("*[data-story_container]")[currentStory]).find("*[data-story_slide]")[currentStorySlide].currentTime = 0;
-                                    $($("*[data-story_container]")[currentStory]).find("*[data-story_slide]")[currentStorySlide].play();
-                                }
+                                loadStorySlide();
                             }, 5000);
+                        }
+                    }
+
+                    var loadStorySlide = () => {
+                        $($("*[data-story_container]")[currentStory]).find("*[data-story_slide_indicator]").css("background-color", "rgba(255, 255, 255, 0.5)");
+                        $($($("*[data-story_container]")[currentStory]).find("*[data-story_slide_indicator]")[currentStorySlide]).css("background-color", "white");
+
+                        $($("*[data-story_container]")[currentStory]).find("*[data-story_slide]").hide();
+                        $($($("*[data-story_container]")[currentStory]).find("*[data-story_slide]")[currentStorySlide]).show();
+
+                        if($($($("*[data-story_container]")[currentStory]).find("*[data-story_slide]")[currentStorySlide]).prop("tagName") == "VIDEO"){
+                            $($("*[data-story_container]")[currentStory]).find("*[data-story_slide]").pause;
+                            $($("*[data-story_container]")[currentStory]).find("*[data-story_slide]")[currentStorySlide].currentTime = 0;
+                            $($("*[data-story_container]")[currentStory]).find("*[data-story_slide]")[currentStorySlide].play();
                         }
                     }
 
@@ -193,21 +195,21 @@
                         event.preventDefault();
                         currentStory = $("*[data-story_preview]").index(event.currentTarget);
                         $("*[data-story_modal]").show();
-                        loadStory();
+                        showStory();
                     });
 
                     $("*[data-story_left]").click(event => {
                         event.preventDefault();
                         clearTimeout(timerId);
                         currentStory = currentStory == 0 ? $("*[data-story_preview]").length-1 : currentStory-1;
-                        loadStory();
+                        showStory();
                     });
 
                     $("*[data-story_right]").click(event => {
                         event.preventDefault();
                         clearTimeout(timerId);
                         currentStory = currentStory+1 < $("*[data-story_preview]").length ? currentStory+1 : 0;
-                        loadStory();
+                        showStory();
                     });
 
                     $("*[data-story_modal]").find(".bp5-overlay-backdrop").click(event => {
