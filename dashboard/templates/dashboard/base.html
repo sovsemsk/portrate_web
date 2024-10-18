@@ -78,24 +78,15 @@
                 <div class="bp5-entity-title" style="pointer-events:all">
                     <button class="bp5-button bp5-icon-arrow-left bp5-minimal" data-story_left></button>
                     {% for story in story_list %}
-                    <div style="display:none;position:relative;" data-story_container>
-                        {% if story.storyslide_set.all.count > 1 %}
-                        <div style="display:flex;gap:5px;justify-content:space-between;position:absolute;width:100%;padding:5px;">
-                        {% for story_slide in story.storyslide_set.all %}
-                        <div style="background-color:rgba(255, 255, 255, 0.5);border-radius:2px;height:5px;flex-basis:100%" data-story_slide_indicator></div>
-                        {% endfor %}
-                        </div>
-                        {% endif %}
-                        {% for story_slide in story.storyslide_set.all %}
-                        {% if story_slide.is_video %}
-                        <video class="bp5-elevation-3" style="border-radius:5px;display:none;" width="320" data-story_slide>
-                            <source src="{{story_slide.video.url}}" type="video/mp4" />
-                        </video>
-                        {% elif story_slide.is_image %}
-                        <img class="bp5-elevation-3" src="{{story_slide.image.url}}" style="border-radius:5px;display:none;max-height:750px;" data-story_slide>
-                        {% endif %}
-                        {% endfor %}
-                    </div>
+                    {% for story_slide in story.storyslide_set.all %}
+                    {% if story_slide.is_video %}
+                    <video class="bp5-elevation-3" style="border-radius:5px;display:none_;" width="320"  data-story_slide="{{story.id}}">
+                        <source src="{{story_slide.video.url}}" type="video/mp4" />
+                    </video>
+                    {% elif story_slide.is_image %}
+                    <img class="bp5-elevation-3" src="{{story_slide.image.url}}" style="border-radius:5px;display:none_;max-height:750px;" data-story_slide="{{story.id}}">
+                    {% endif %}
+                    {% endfor %}
                     {% endfor %}
                     <button class="bp5-button bp5-icon-arrow-right bp5-minimal" data-story_right></button>
                 </div>
@@ -145,76 +136,54 @@
                 }
 
                 if($("*[data-story_preview]").length){
-                    var currentStory = 0;
-                    var currentStorySlide = 0;
+                    var current = 0;
                     var storyUpdateUrl = "{% url 'story_update' '0' %}";
-                    var timerId;
 
-                    var showStory = () => {
-                        $("*[data-story_container]").hide();
-                        $($("*[data-story_container]")[currentStory]).show();
-                        $($("*[data-story_preview]")[currentStory]).css("outline", "none");
-
-                        $.ajax({
-                            data: {csrfmiddlewaretoken: "{{ csrf_token }}"},
-                            dataType: "json",
-                            method: "POST",
-                            url: storyUpdateUrl.replace("0", $($("*[data-story_preview]")[currentStory]).data("story_preview"))
-                        });
-
-                        showStorySlide();
-                    }
+                    var storyPreview = $("*[data-story_preview]");
+                    var storySlide = $("*[data-story_slide]");
+                    var storyModal = $("*[data-story_modal]");
 
                     var showStorySlide = () => {
-                        currentStorySlide = 0;
-                        loadStorySlide();
+                        storySlide.hide();
+                        $("video").map((i, el) => el.pause());
+                        $(storySlide[current]).show();
+                        storyPreview.filter(`a[data-story_preview=${$(storySlide[current]).data("story_slide")}]`).css("outline", "none");
 
-                        if($($("*[data-story_container]")[currentStory]).find("*[data-story_slide]").length > 1){
-                            timerId = setInterval(() => {
-                                currentStorySlide = currentStorySlide+1 < $($("*[data-story_container]")[currentStory]).find("*[data-story_slide]").length ? currentStorySlide+1 : 0;
-                                loadStorySlide();
-                            }, 5000);
+                        if($(storySlide[current]).prop("tagName") == "VIDEO"){
+                            storySlide[current].currentTime = 0;
+                            storySlide[current].play();
                         }
+
+                        $.ajax({
+                            data: {csrfmiddlewaretoken: "{{csrf_token}}"},
+                            dataType: "json",
+                            method: "POST",
+                            url: storyUpdateUrl.replace("0", $(storySlide[current]).data("story_slide"))
+                        });
                     }
 
-                    var loadStorySlide = () => {
-                        $($("*[data-story_container]")[currentStory]).find("*[data-story_slide_indicator]").css("background-color", "rgba(255, 255, 255, 0.5)");
-                        $($($("*[data-story_container]")[currentStory]).find("*[data-story_slide_indicator]")[currentStorySlide]).css("background-color", "white");
-
-                        $($("*[data-story_container]")[currentStory]).find("*[data-story_slide]").hide();
-                        $($($("*[data-story_container]")[currentStory]).find("*[data-story_slide]")[currentStorySlide]).show();
-
-                        if($($($("*[data-story_container]")[currentStory]).find("*[data-story_slide]")[currentStorySlide]).prop("tagName") == "VIDEO"){
-                            $($("*[data-story_container]")[currentStory]).find("*[data-story_slide]").pause;
-                            $($("*[data-story_container]")[currentStory]).find("*[data-story_slide]")[currentStorySlide].currentTime = 0;
-                            $($("*[data-story_container]")[currentStory]).find("*[data-story_slide]")[currentStorySlide].play();
-                        }
-                    }
-
-                    $("*[data-story_preview]").click(event => {
+                    storyPreview.click(event => {
                         event.preventDefault();
-                        currentStory = $("*[data-story_preview]").index(event.currentTarget);
-                        $("*[data-story_modal]").show();
-                        showStory();
+                        current = storySlide.index(storySlide.filter(`*[data-story_slide=${$(event.currentTarget).data("story_preview")}]`)[0]);
+                        storyModal.show();
+                        showStorySlide();
                     });
 
                     $("*[data-story_left]").click(event => {
                         event.preventDefault();
-                        clearTimeout(timerId);
-                        currentStory = currentStory == 0 ? $("*[data-story_preview]").length-1 : currentStory-1;
-                        showStory();
+                        current = current == 0 ? storySlide.length-1 : current-1;
+                        showStorySlide();
                     });
 
                     $("*[data-story_right]").click(event => {
                         event.preventDefault();
-                        clearTimeout(timerId);
-                        currentStory = currentStory+1 < $("*[data-story_preview]").length ? currentStory+1 : 0;
-                        showStory();
+                        current = current+1 < storySlide.length ? current+1 : 0;
+                        showStorySlide();
                     });
 
                     $("*[data-story_modal]").find(".bp5-overlay-backdrop").click(event => {
-                        $("*[data-story_modal]").hide();
-                        clearTimeout(timerId);
+                        storyModal.hide();
+                        $("video").map((i, el) => el.pause());
                     });
                 }
 

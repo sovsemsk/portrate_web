@@ -74,7 +74,7 @@
                     </div>
                 </div>
                 {% if request.user.profile.rate != 'START' %}
-                <button class="bp5-button bp5-large" data-button-start>Перейти на Старт</button>
+                <button class="bp5-button bp5-large" data-start_button>Перейти на Старт</button>
                 {% else %}
                 <form action="{% url 'profile_pay' %}" method="post" novalidate>
                     {% csrf_token %}
@@ -145,7 +145,7 @@
                     </div>
                 </div>
                 {% if request.user.profile.rate != 'REGULAR' %}
-                <button class="bp5-button bp5-large" data-button-regular>Перейти на Стандарт</button>
+                <button class="bp5-button bp5-large" data-regular_button>Перейти на Стандарт</button>
                 {% else %}
                 <form action="{% url 'profile_pay' %}" method="post" novalidate>
                     {% csrf_token %}
@@ -222,13 +222,13 @@
 </div>
 
 <!-- Переход на тариф Старт -->
-<div class="bp5-overlay bp5-overlay-open bp5-overlay-scroll-container" style="display:none" data-modal-start>
+<div class="bp5-overlay bp5-overlay-open bp5-overlay-scroll-container" style="display:none" data-start_modal>
     <div class="bp5-overlay-backdrop bp5-overlay-enter-done"></div>
     <div class="bp5-dialog-container bp5-overlay-content bp5-overlay-enter-done">
         <div class="bp5-dialog">
             <div class="bp5-dialog-header">
                 <h5 class="bp5-heading">Переход на тариф — Старт</h5>
-                <button class="bp5-button bp5-dialog-close-button bp5-minimal" data-button-close>
+                <button class="bp5-button bp5-dialog-close-button bp5-minimal" data-close_button>
                     <span class="bp5-icon bp5-icon-cross"></span>
                 </button>
             </div>
@@ -250,13 +250,13 @@
 </div>
 
 <!-- Переход на тариф Стандарт -->
-<div class="bp5-overlay bp5-overlay-open bp5-overlay-scroll-container" style="display:none" data-modal-regular>
+<div class="bp5-overlay bp5-overlay-open bp5-overlay-scroll-container" style="display:none" data-regular_modal>
     <div class="bp5-overlay-backdrop bp5-overlay-enter-done"></div>
     <div class="bp5-dialog-container bp5-overlay-content bp5-overlay-enter-done">
         <div class="bp5-dialog">
             <div class="bp5-dialog-header">
                 <h5 class="bp5-heading">Переход на тариф — Стандарт</h5>
-                <button class="bp5-button bp5-dialog-close-button bp5-minimal" data-button-close>
+                <button class="bp5-button bp5-dialog-close-button bp5-minimal" data-close_button>
                     <span class="bp5-icon bp5-icon-cross"></span>
                 </button>
             </div>
@@ -281,10 +281,10 @@
 {% block script %}
 <script>
     $(document).ready(event => {
-        $("*[data-button-start]").click(event => $("*[data-modal-start]").show());
-        $("*[data-button-regular]").click(event => $("*[data-modal-regular]").show());
-        $("*[data-button-close]").click(event => $("*[data-modal-start], *[data-modal-regular]").hide());
-        $("*[data-modal-start], *[data-modal-regular]").find(".bp5-overlay-backdrop").click(event => $("*[data-modal-start], *[data-modal-regular]").hide());
+        $("*[data-start_button]").click(event => $("*[data-start_modal]").show());
+        $("*[data-regular_button]").click(event => $("*[data-regular_modal]").show());
+        $("*[data-close_button]").click(event => $("*[data-start_modal], *[data-regular_modal]").hide());
+        $("*[data-start_modal], *[data-regular_modal]").find(".bp5-overlay-backdrop").click(event => $("*[data-start_modal], *[data-regular_modal]").hide());
     });
 </script>
 {% endblock %}
