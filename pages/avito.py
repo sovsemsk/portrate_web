@@ -111,7 +111,7 @@ class ReviewsPage():
             if len(text_els) == 1:
                 text = text_els[0].get_attribute("textContent")
             elif len(text_els) > 1:
-                text = f"Преимущества: {text_els[0].get_attribute("textContent")}. Недостатки: {text_els[1].get_attribute("textContent")}"
+                text = f"Преимущества: {text_els[0].get_attribute('textContent')}. Недостатки: {text_els[1].get_attribute('textContent')}"
             else:
                 text = None
 
