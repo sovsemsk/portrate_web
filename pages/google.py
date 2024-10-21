@@ -29,10 +29,15 @@ class ReviewsPage():
 
     def __wait_first_review__(self):
         review = None
+        now = time.time()
 
         while not review:
             try:
                 review = self.driver.find_element(*self._review_locator)
+
+                if time.time() - now > 20:
+                    review = True
+
             except NoSuchElementException:
                 continue
 

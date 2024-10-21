@@ -80,11 +80,11 @@
                     {% for story in story_list %}
                     {% for story_slide in story.storyslide_set.all %}
                     {% if story_slide.is_video %}
-                    <video class="bp5-elevation-3" style="border-radius:5px;display:none_;" width="320"  data-story_slide="{{story.id}}">
+                    <video class="bp5-elevation-3" style="border-radius:5px;" width="320"  data-story_slide="{{story.id}}">
                         <source src="{{story_slide.video.url}}" type="video/mp4" />
                     </video>
                     {% elif story_slide.is_image %}
-                    <img class="bp5-elevation-3" src="{{story_slide.image.url}}" style="border-radius:5px;display:none_;max-height:750px;" data-story_slide="{{story.id}}">
+                    <img class="bp5-elevation-3" src="{{story_slide.image.url}}" style="border-radius:5px;max-height:750px;" data-story_slide="{{story.id}}">
                     {% endif %}
                     {% endfor %}
                     {% endfor %}
