@@ -25,9 +25,9 @@ class ReviewsPage():
 
     def __init__(self, driver):
         self.driver = driver
-        self.__wait_first_review__()
+        self._wait_first_review_()
 
-    def __wait_first_review__(self):
+    def _wait_first_review_(self):
         review = None
         now = time.time()
 
@@ -41,7 +41,7 @@ class ReviewsPage():
             except NoSuchElementException:
                 continue
 
-    def __scroll_more__(self, node):
+    def _scroll_more_(self, node):
         self.driver.execute_script("arguments[0].scrollIntoView();", node)
         time.sleep(5)
         new_nods = self.driver.find_elements(*self._review_locator)
@@ -50,13 +50,13 @@ class ReviewsPage():
         if node == new_node or len(new_nods) >= 500:
             return
 
-        self.__scroll_more__(new_node)
+        self._scroll_more_(new_node)
 
     def show_all(self):
         nodes = self.driver.find_elements(*self._review_locator)
 
         if len(nodes) > 0:
-            self.__scroll_more__(nodes[-1])
+            self._scroll_more_(nodes[-1])
 
         return self
 
@@ -95,15 +95,15 @@ class ReviewsPage():
         for index, el in enumerate(self.driver.find_elements(*self._review_locator)):
             result.append(self.Review(el))
 
-            if index == 100:
+            if index == 99:
                 break
 
         return result
 
     class Review():
         _created_at_locator = (By.XPATH, ".//span[@class='rsqaWe']")
-        _name_locator = (By.XPATH, ".//div[@class='d4r55 ']")
         _stars_locator = (By.XPATH, ".//span[@class='hCCjke google-symbols NhBTye elGi1d']")
+        _name_locator = (By.XPATH, ".//div[@class='d4r55 ']")
         _text_locator = (By.XPATH, ".//span[@class='wiI7pd']")
 
         def __init__(self, el):
@@ -160,7 +160,7 @@ def perform(company_id, task):
                     company_id=company.id
                 )
             except IntegrityError:
-                ...
+                pass
 
         company.rating_google = float(reviews_page.rating.replace(",", ".")) if reviews_page.rating else None
         company.reviews_count_remote_google = int("".join(re.findall(r"\d+", reviews_page.count))) if reviews_page.count else None

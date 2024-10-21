@@ -1,3 +1,4 @@
+import re
 from datetime import datetime, timezone
 import hashlib
 import logging
@@ -16,39 +17,42 @@ logger = logging.getLogger(__name__)
 
 class ReviewsPage():
     _rating_locator = (By.XPATH, ".//h2[@data-marker='ratingSummary/rating']")
+    _count_locator = (By.XPATH, ".//p[@data-marker='ratingSummary/description']")
     _review_locator = (By.XPATH, ".//div[@class='style-snippet-E6g8Y']")
     _more_locator = (By.XPATH, ".//button[@data-marker='rating-list/moreReviewsButton']")
 
     def __init__(self, driver):
         self.driver = driver
-        self.__wait_first_review__()
+        self._wait_first_review_()
 
-    def __wait_first_review__(self):
+    def _wait_first_review_(self):
         review = None
+        now = time.time()
 
         while not review:
             try:
                 review = self.driver.find_element(*self._review_locator)
+
+                if time.time() - now > 20:
+                    review = True
+
             except NoSuchElementException:
                 continue
 
-    def __click_more__(self):
-        """ Скроллинг списка до последнего отзыва """
+
+    def _click_more_(self):
+
         try:
-            self.driver.execute_script(
-                "arguments[0].scrollIntoView();",
-                driver.find_element(By.XPATH, ".//button[@data-marker='rating-list/moreReviewsButton']")
-            )
-
-            self.driver.find_element(By.XPATH, ".//button[@data-marker='rating-list/moreReviewsButton']").click()
-            time.sleep(15)
-
-            self.__scroll_reviews_to_bottom__()
+            self.driver.execute_script("arguments[0].scrollIntoView();", self.driver.find_element(*self._more_locator))
+            time.sleep(10)
+            self.driver.find_element(*self._more_locator).click()
+            time.sleep(5)
+            self._click_more_()
         except (AttributeError, NoSuchElementException):
             return
 
     def show_all(self):
-        self.__click_more__()
+        self._click_more_()
         return self
 
     @property
@@ -59,24 +63,33 @@ class ReviewsPage():
             return None
 
     @property
+    def count(self):
+        try:
+            return self.driver.find_element(*self._count_locator).get_attribute("textContent")
+        except NoSuchElementException:
+            return None
+
+    @property
     def reviews(self):
         result = []
 
         for index, el in enumerate(self.driver.find_elements(*self._review_locator)):
             result.append(self.Review(el, index))
 
+            if index == 99:
+                break
+
         return result
 
 
     class Review():
-        _stars_locator = (By.XPATH, ".//path[@fill='#ffb021']")
-
         def __init__(self, el, index):
             self.node = el
             self.index = index
 
             self._created_at_locator = (By.XPATH, f".//p[@data-marker='review({index})/header/subtitle']")
             self._name_locator = (By.XPATH, f".//h5[@data-marker='review({index})/header/title']")
+            self._stars_locator = (By.XPATH, f".//div[@data-marker='review({index})/score']//*[local-name() = 'path' and @fill='#ffb021']")
             self._text_locator = (By.XPATH, f".//p[@data-marker='review({index})/text-section/text']")
 
         @property
@@ -85,7 +98,7 @@ class ReviewsPage():
 
         @property
         def stars(self):
-            return len(self.node.find_elements(*self._created_at_locator))
+            return len(self.node.find_elements(*self._stars_locator))
 
         @property
         def name(self):
@@ -93,7 +106,16 @@ class ReviewsPage():
 
         @property
         def text(self):
-            return self.node.find_element(*self._text_locator).get_attribute("textContent")
+            text_els = self.node.find_elements(*self._text_locator)
+
+            if len(text_els) == 1:
+                text = text_els[0].get_attribute("textContent")
+            elif len(text_els) > 1:
+                text = f"Преимущества: {text_els[0].get_attribute("textContent")}. Недостатки: {text_els[1].get_attribute("textContent")}"
+            else:
+                text = None
+
+            return text
 
 def perform(company_id, task):
     company = Company.objects.get(pk=company_id)
@@ -122,10 +144,11 @@ def perform(company_id, task):
                     company_id=company.id
                 )
             except IntegrityError:
-                ...
+                pass
 
         company.rating_avito = float(reviews_page.rating.replace(",", ".")) if reviews_page.rating else None
-        company.save(update_fields=["rating_avito"])
+        company.reviews_count_remote_avito = int("".join(re.findall(r"\d+", reviews_page.count))) if reviews_page.count else None
+        company.save(update_fields=["rating_avito", "reviews_count_remote_avito"])
 
     except Exception as exc:
         logger.exception(f"Task {task.request.task}[{task.request.id}] failed:", exc_info=exc)

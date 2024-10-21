@@ -98,7 +98,7 @@ def test(driver, company_id):
                 company_id=company.id,
             )
         except IntegrityError:
-            ...
+            pass
 
     company.rating_flamp = float(flamp_reviews_page.rating)
     company.save(update_fields=["rating_flamp"])

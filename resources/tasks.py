@@ -5,7 +5,7 @@ from celery import shared_task
 from django.core.cache import cache
 from django.db import IntegrityError
 
-# from pages.avito import perform as avito_perform
+from pages.avito import perform as avito_perform
 from pages.gis import perform as gis_perform
 from pages.google import perform as google_perform
 from pages.yandex import perform as yandex_perform
@@ -80,6 +80,7 @@ def parse_avito_task(previous_result=None, company_id=None):
     cache.set(lock_id, lock_id)
 
     """ Задача """
+    avito_perform(company_id, celery.current_task)
 
     """ Разблокировка для выполнения """
     cache.delete(lock_id)
