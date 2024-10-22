@@ -112,9 +112,6 @@ class CompanyCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         return super().dispatch(*args, **kwargs)
 
     def form_valid(self, form):
-        parsers_chain = []
-
-        """ Инициализация ссылок из API """
         if self.request.session.get("parser_link_yandex", False):
             form.instance.parser_link_yandex = unquote(self.request.session["parser_link_yandex"])
             form.instance.parser_last_change_at_yandex = datetime.now(timezone.utc)
@@ -133,17 +130,6 @@ class CompanyCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
         """ Инициализация и сохранение флага владельца филиала """
         self.request.user.membership_set.filter(company=self.object).update(is_owner=True)
-
-        if form.instance.parser_link_yandex:
-            parsers_chain.append(parse_yandex_task.s(company_id=form.instance.id))
-
-        if form.instance.parser_link_gis:
-            parsers_chain.append(parse_gis_task.s(company_id=form.instance.id))
-
-        if form.instance.parser_link_google:
-            parsers_chain.append(parse_google_task.s(company_id=form.instance.id))
-
-        chain(* parsers_chain).apply_async()
         return form_valid
 
     def get_context_data(self, ** kwargs):

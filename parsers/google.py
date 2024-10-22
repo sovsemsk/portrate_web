@@ -25,21 +25,7 @@ class ReviewsPage():
 
     def __init__(self, driver):
         self.driver = driver
-        self._wait_first_review_()
-
-    def _wait_first_review_(self):
-        review = None
-        now = time.time()
-
-        while not review:
-            try:
-                review = self.driver.find_element(*self._review_locator)
-
-                if time.time() - now > 20:
-                    review = True
-
-            except NoSuchElementException:
-                continue
+        time.sleep(10)
 
     def _scroll_more_(self, node):
         self.driver.execute_script("arguments[0].scrollIntoView();", node)
@@ -78,14 +64,14 @@ class ReviewsPage():
     def rating(self):
         try:
             return self.driver.find_element(*self._rating_locator).get_attribute("textContent")
-        except NoSuchElementException:
+        except (AttributeError, NoSuchElementException):
             return None
 
     @property
     def count(self):
         try:
             return self.driver.find_element(*self._count_locator).get_attribute("textContent")
-        except NoSuchElementException:
+        except (AttributeError, NoSuchElementException):
             return None
 
     @property
@@ -111,15 +97,24 @@ class ReviewsPage():
 
         @property
         def remote_id(self):
-            return self.node.get_attribute("data-review-id")
+            try:
+                return self.node.get_attribute("data-review-id")
+            except AttributeError:
+                return None
 
         @property
         def created_at(self):
-            return self.node.find_element(*self._created_at_locator).get_attribute("textContent")
+            try:
+                return self.node.find_element(*self._created_at_locator).get_attribute("textContent")
+            except (AttributeError, NoSuchElementException):
+                return None
 
         @property
         def name(self):
-            return self.node.find_element(*self._name_locator).get_attribute("textContent")
+            try:
+                return self.node.find_element(*self._name_locator).get_attribute("textContent")
+            except (AttributeError, NoSuchElementException):
+                return None
 
         @property
         def stars(self):

@@ -1,5 +1,6 @@
 from datetime import datetime, timezone
 
+from celery import chain
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm, UserChangeForm, UsernameField, UserCreationForm
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
@@ -610,6 +611,22 @@ class DashboardCompanyCreationForm(ModelForm):
     logo = ImageField(widget=FileInput(attrs={"accept": "image/png, image/jpeg", "data-file": ""}), required=False)
     name = CharField(widget=TextInput(attrs={"class": "bp5-input bp5-large", "data-name": ""}))
     phone = CharField(widget=TextInput(attrs={"class": "bp5-input bp5-large", "data-phone": ""}), required=False)
+
+    def save(self):
+        save = super().save()
+        parsers_chain = []
+
+        if self.instance.parser_link_yandex:
+            parsers_chain.append(parse_yandex_task.s(company_id=self.instance.id))
+
+        if self.instance.parser_link_gis:
+            parsers_chain.append(parse_gis_task.s(company_id=self.instance.id))
+
+        if self.instance.parser_link_google:
+            parsers_chain.append(parse_google_task.s(company_id=self.instance.id))
+
+        chain(* parsers_chain).apply_async()
+        return save
 
 
 class DashboardCompanyCreationLinkYandexForm(Form):
