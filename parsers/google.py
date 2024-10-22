@@ -9,7 +9,7 @@ from django.db import IntegrityError
 from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 
-from pages.driver import driver
+from parsers.driver import driver
 from resources.models import Company, Review, Service
 
 logger = logging.getLogger(__name__)

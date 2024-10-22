@@ -1,6 +1,10 @@
 from django.urls import path
 
 from .views import (
+    CompanyCreateView,
+    CompanyCreateLinkYandexView,
+    CompanyCreateLinkGisView,
+    CompanyCreateLinkGoogleView,
     CompanyDetailQrView,
     CompanyDetailView,
     CompanyListView,
@@ -51,8 +55,8 @@ urlpatterns = [
     path("company/<int:pk>/membership/update/", MembershipUpdateView.as_view(), name="membership_update"),
     path("company/<int:pk>/update_feedback_contact/", CompanyUpdateFeedbackContactView.as_view(), name="company_update_feedback_contact"),
     path("company/<int:pk>/update_feedback_data/", CompanyUpdateFeedbackDataView.as_view(), name="company_update_feedback_data"),
-    path("company/<int:pk>/update_feedback_text/", CompanyUpdateFeedbackTextView.as_view(), name="company_update_feedback_text"),
     path("company/<int:pk>/update_feedback_service/", CompanyUpdateFeedbackServiceView.as_view(), name="company_update_feedback_service"),
+    path("company/<int:pk>/update_feedback_text/", CompanyUpdateFeedbackTextView.as_view(), name="company_update_feedback_text"),
     path("company/<int:pk>/update_link_avito/", CompanyUpdateLinkAvitoView.as_view(), name="company_update_link_avito"),
     path("company/<int:pk>/update_link_flamp/", CompanyUpdateLinkFlampView.as_view(), name="company_update_link_flamp"),
     path("company/<int:pk>/update_link_gis/", CompanyUpdateLinkGisView.as_view(), name="company_update_link_gis"),
@@ -66,6 +70,10 @@ urlpatterns = [
     path("company/<int:pk>/update_link_yell/", CompanyUpdateLinkYellView.as_view(), name="company_update_link_yell"),
     path("company/<int:pk>/update_link_zoon/", CompanyUpdateLinkZoonView.as_view(), name="company_update_link_zoon"),
     path("company/<int:pk>/update_widget/", CompanyUpdateWidgetView.as_view(), name="company_update_widget"),
+    path("company/create/", CompanyCreateView.as_view(), name="company_create"),
+    path("company/create_link_gis/", CompanyCreateLinkGisView.as_view(), name="company_create_link_gis"),
+    path("company/create_link_google/", CompanyCreateLinkGoogleView.as_view(), name="company_create_link_google"),
+    path("company/create_link_yandex/", CompanyCreateLinkYandexView.as_view(), name="company_create_link_yandex"),
     path("login/", UserLoginView.as_view(), name="user_login"),
     path("logout/", UserLogoutView.as_view(), name="user_logout"),
     path("master/create/", MasterCompanyCreateView.as_view(), name="master_company_create"),

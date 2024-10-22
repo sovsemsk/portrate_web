@@ -1,6 +1,7 @@
 from datetime import datetime, timezone
 import hashlib
 import logging
+import re
 import time
 
 import dateparser
@@ -8,16 +9,18 @@ from django.db import IntegrityError
 from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 
-from pages.driver import driver
+from parsers.driver import driver
 from resources.models import Company, Review, Service
 
 logger = logging.getLogger(__name__)
 
 
 class ReviewsPage():
-    _rating_locator = (By.XPATH, ".//div[@class='_13nm4f0']")
-    _count_locator = (By.XPATH, ".//span[@class='_1xhlznaa']")
-    _review_locator = (By.XPATH, ".//div[@class='_1vbd37n']")
+    _rating_locator = (By.XPATH, ".//div[@class='business-summary-rating-badge-view__rating']")
+    _count_locator = (By.XPATH, ".//h2[@class='card-section-header__title _wide']")
+    _review_locator = (By.XPATH, ".//div[@class='business-reviews-card-view__review']")
+    _dropdown_locator = (By.XPATH, ".//div[@class='rating-ranking-view']")
+    _order_locator = (By.XPATH, ".//div[@aria-label='По новизне']")
 
     def __init__(self, driver):
         self.driver = driver
@@ -56,6 +59,13 @@ class ReviewsPage():
 
         return self
 
+    def order_all(self):
+        self.driver.find_element(*self._dropdown_locator).click()
+        time.sleep(5)
+        self.driver.find_element(*self._order_locator).click()
+        time.sleep(5)
+        return self
+
     @property
     def rating(self):
         try:
@@ -82,59 +92,57 @@ class ReviewsPage():
 
         return result
 
+
     class Review():
-        _created_at_locator = (By.XPATH, ".//div[@class='_139ll30']")
-        _stars_locator = (By.XPATH, ".//div[@class='_1fkin5c']/span")
-        _name_locator = ((By.XPATH, ".//span[@class='_16s5yj36']"), (By.XPATH, ".//span[@class='_k6nyhb6']"))
-        _text_locator = ((By.XPATH, ".//a[@class='_h3pmwn']"), (By.XPATH, ".//a[@class='_1oir7fah']"))
+        _created_at_locator = (By.XPATH, ".//meta[@itemprop='datePublished']")
+        _stars_locator = (By.XPATH, ".//span[@class='inline-image _loaded icon business-rating-badge-view__star _full']")
+        _name_locator = (By.XPATH, ".//span[@itemprop='name']")
+        _text_locator = (By.XPATH, ".//span[@class='business-review-view__body-text']")
 
         def __init__(self, el):
             self.node = el
 
         @property
         def created_at(self):
-            return self.node.find_element(*self._created_at_locator).get_attribute("textContent")
+            return self.node.find_element(*self._created_at_locator).get_attribute("content")
+
+        @property
+        def name(self):
+            return self.node.find_element(*self._name_locator).get_attribute("textContent")
 
         @property
         def stars(self):
             return len(self.node.find_elements(*self._stars_locator))
 
         @property
-        def name(self):
-            try:
-                return self.node.find_element(*self._name_locator[0]).get_attribute("textContent")
-            except NoSuchElementException:
-                return self.node.find_element(*self._name_locator[1]).get_attribute("textContent")
-
-        @property
         def text(self):
             try:
-                return self.node.find_element(*self._text_locator[0]).get_attribute("textContent")
+                return self.node.find_element(*self._text_locator).get_attribute("textContent")
             except NoSuchElementException:
-                return self.node.find_element(*self._text_locator[1]).get_attribute("textContent")
+                return None
 
 
 def perform(company_id, task):
     company = Company.objects.get(pk=company_id)
 
     # Запись в бд флагов начала парсинга
-    company.is_parser_run_gis = True
-    company.save(update_fields=["is_parser_run_gis"])
+    company.is_parser_run_yandex = True
+    company.save(update_fields=["is_parser_run_yandex"])
 
     # Парсинг
     web_driver = driver()
 
     try:
-        web_driver.get(company.parser_link_gis)
-        reviews_page = ReviewsPage(web_driver).show_all()
+        web_driver.get(company.parser_link_yandex)
+        reviews_page = ReviewsPage(web_driver).order_all().show_all()
 
         for review in reviews_page.reviews:
             try:
                 Review.objects.create(
-                    created_at=dateparser.parse(review.created_at.replace(", отредактирован", ""), languages=["ru", "en"]),
-                    is_visible=(company.__getattribute__(f"is_visible_{review.stars}") and company.is_visible_gis),
+                    created_at=dateparser.parse(review.created_at, languages=["ru", "en"]),
+                    is_visible=(company.__getattribute__(f"is_visible_{review.stars}") and company.is_visible_yandex),
                     remote_id=hashlib.md5(f"{review.name}{review.created_at}".encode()).hexdigest(),
-                    service=Service.GIS,
+                    service=Service.YANDEX,
                     stars=review.stars,
                     name=review.name,
                     text=review.text,
@@ -143,9 +151,9 @@ def perform(company_id, task):
             except IntegrityError:
                 pass
 
-        company.rating_gis = float(reviews_page.rating) if reviews_page.rating else None
-        company.reviews_count_remote_gis = int(reviews_page.count) if reviews_page.count else None
-        company.save(update_fields=["rating_gis", "reviews_count_remote_gis"])
+        company.rating_yandex = float(".".join(re.findall(r"\d+", reviews_page.rating))) if reviews_page.rating else None
+        company.reviews_count_remote_yandex = int("".join(re.findall(r"\d+", reviews_page.count))) if reviews_page.count else None
+        company.save(update_fields=["rating_yandex", "reviews_count_remote_yandex"])
 
     except Exception as exc:
         logger.exception(f"Task {task.request.task}[{task.request.id}] failed:", exc_info=exc)
@@ -153,7 +161,7 @@ def perform(company_id, task):
     web_driver.quit()
 
     # Запись в бд флагов окончания парсинга
-    company.is_parser_run_gis = False
-    company.is_first_parsing_gis = False
-    company.parser_last_parse_at_gis = datetime.now(timezone.utc)
-    company.save(update_fields=["is_first_parsing_gis", "parser_last_parse_at_gis", "is_parser_run_gis"])
+    company.is_parser_run_yandex = False
+    company.is_first_parsing_yandex = False
+    company.parser_last_parse_at_yandex = datetime.now(timezone.utc)
+    company.save(update_fields=["is_first_parsing_yandex", "parser_last_parse_at_yandex", "is_parser_run_yandex"])

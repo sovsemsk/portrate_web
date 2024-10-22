@@ -44,7 +44,10 @@ from .forms import (
     DashboardCompanyChangeYandexServicesForm,
     DashboardCompanyChangeYellForm,
     DashboardCompanyChangeZoonForm,
-    DashboardCompanyCreationDataForm,
+    DashboardCompanyCreationForm,
+    DashboardCompanyCreationLinkYandexForm,
+    DashboardCompanyCreationLinkGisForm,
+    DashboardCompanyCreationLinkGoogleForm,
     DashboardMembershipChangeFormSet,
     DashboardPasswordChangeForm,
     DashboardProfileChangeForm,
@@ -92,6 +95,191 @@ class OneCompanyError(Exception):
 
     def __str__(self):
         return "OneCompanyError"
+
+
+class CompanyCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    form_class = DashboardCompanyCreationForm
+    model = Company
+    template_name = "dashboard/company_create.html"
+    success_message = "Филиал успешно добавлен"
+
+    def dispatch(self, *args, **kwargs):
+        profile = args[0].user.profile
+
+        if not profile.is_active or not profile.can_create_company:
+            return redirect("profile_update_finance")
+
+        return super().dispatch(*args, **kwargs)
+
+    def form_valid(self, form):
+        parsers_chain = []
+
+        """ Инициализация ссылок из API """
+        if self.request.session.get("parser_link_yandex", False):
+            form.instance.parser_link_yandex = unquote(self.request.session["parser_link_yandex"])
+            form.instance.parser_last_change_at_yandex = datetime.now(timezone.utc)
+
+        if self.request.session.get("parser_link_gis", False):
+            form.instance.parser_link_gis = unquote(self.request.session["parser_link_gis"])
+            form.instance.parser_last_change_at_gis = datetime.now(timezone.utc)
+
+        if self.request.session.get("parser_link_google", False):
+            form.instance.parser_link_google = unquote(self.request.session["parser_link_google"])
+            form.instance.parser_last_change_at_google = datetime.now(timezone.utc)
+
+        """ Сохранение обьекта филиала """
+        form_valid = super().form_valid(form)
+        form.instance.users.add(self.request.user)
+
+        """ Инициализация и сохранение флага владельца филиала """
+        self.request.user.membership_set.filter(company=self.object).update(is_owner=True)
+
+        if form.instance.parser_link_yandex:
+            parsers_chain.append(parse_yandex_task.s(company_id=form.instance.id))
+
+        if form.instance.parser_link_gis:
+            parsers_chain.append(parse_gis_task.s(company_id=form.instance.id))
+
+        if form.instance.parser_link_google:
+            parsers_chain.append(parse_google_task.s(company_id=form.instance.id))
+
+        chain(* parsers_chain).apply_async()
+        return form_valid
+
+    def get_context_data(self, ** kwargs):
+        context = super().get_context_data(** kwargs)
+        context["nav"] = "master"
+        context["sub_nav"] = "data"
+        return context
+
+    def get_success_url(self):
+        return reverse("company_detail", kwargs={"pk": self.object.id})
+
+
+class CompanyCreateLinkYandexView(LoginRequiredMixin, View):
+    def get(self, request):
+        profile = request.user.profile
+
+        if not profile.is_active or not profile.can_create_company:
+            return redirect("profile_update_finance")
+
+        form = DashboardCompanyCreationLinkYandexForm()
+
+        return render(
+            request,
+            "dashboard/company_create_link_yandex.html",
+            {
+                "form": form,
+                "nav": "master",
+                "sub_nav": "yandex"
+            }
+        )
+
+    def post(self, request):
+        profile = request.user.profile
+
+        if not profile.is_active or not profile.can_create_company:
+            return redirect("profile_update_finance")
+
+        form = DashboardCompanyCreationLinkYandexForm(request.POST)
+
+        if form.is_valid():
+            request.session["parser_link_yandex"] = form.cleaned_data.get("parser_link_yandex")
+            return redirect("company_create_link_gis")
+
+        return render(
+            request,
+            "dashboard/company_create_link_yandex.html",
+            {
+                "form": form,
+                "nav": "master",
+                "sub_nav": "yandex"
+            }
+        )
+
+
+class CompanyCreateLinkGisView(LoginRequiredMixin, View):
+    def get(self, request):
+        profile = request.user.profile
+
+        if not profile.is_active or not profile.can_create_company:
+            return redirect("profile_update_finance")
+
+        form = DashboardCompanyCreationLinkGisForm()
+
+        return render(
+            request,
+            "dashboard/company_create_link_gis.html",
+            {
+                "form": form,
+                "nav": "master",
+                "sub_nav": "gis"
+            }
+        )
+
+    def post(self, request):
+        profile = request.user.profile
+
+        if not profile.is_active or not profile.can_create_company:
+            return redirect("profile_update_finance")
+
+        form = DashboardCompanyCreationLinkGisForm(request.POST)
+
+        if form.is_valid():
+            request.session["parser_link_gis"] = form.cleaned_data.get("parser_link_gis")
+            return redirect("company_create_link_google")
+
+        return render(
+            request,
+            "dashboard/company_create_link_gis.html",
+            {
+                "form": form,
+                "nav": "master",
+                "sub_nav": "gis"
+            }
+        )
+
+
+class CompanyCreateLinkGoogleView(LoginRequiredMixin, View):
+    def get(self, request):
+        profile = request.user.profile
+
+        if not profile.is_active or not profile.can_create_company:
+            return redirect("profile_update_finance")
+
+        form = DashboardCompanyCreationLinkGoogleForm()
+
+        return render(
+            request,
+            "dashboard/company_create_link_google.html",
+            {
+                "form": form,
+                "nav": "master",
+                "sub_nav": "google"
+            }
+        )
+
+    def post(self, request):
+        profile = request.user.profile
+
+        if not profile.is_active or not profile.can_create_company:
+            return redirect("profile_update_finance")
+
+        form = DashboardCompanyCreationLinkGoogleForm(request.POST)
+
+        if form.is_valid():
+            request.session["parser_link_google"] = form.cleaned_data.get("parser_link_google")
+            return redirect("company_create")
+
+        return render(
+            request,
+            "dashboard/company_create_link_google.html",
+            {
+                "form": form,
+                "nav": "master",
+                "sub_nav": "google"
+            }
+        )
 
 
 class CompanyDetailQrView(LoginRequiredMixin, View):
@@ -409,7 +597,7 @@ class CompanyListView(LoginRequiredMixin, ListView):
         try:
             return super().dispatch(*args, **kwargs)
         except Http404:
-            return redirect("master_search_yandex")
+            return redirect("company_create_link_yandex")
 
     def get_context_data(self, ** kwargs):
         context = super().get_context_data(** kwargs)
@@ -757,7 +945,7 @@ class CompanyUpdateWidgetView(LoginRequiredMixin, SuccessMessageMixin, UpdateVie
 
 
 class MasterCompanyCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
-    form_class = DashboardCompanyCreationDataForm
+    form_class = DashboardCompanyCreationForm
     model = Company
     template_name = "dashboard/master_company_create.html"
     success_message = "Филиал успешно добавлен"

@@ -601,7 +601,7 @@ class DashboardCompanyChangeTripadvisorForm(ModelForm):
         return is_valid
 
 
-class DashboardCompanyCreationDataForm(ModelForm):
+class DashboardCompanyCreationForm(ModelForm):
     class Meta:
         model = Company
         fields = ["address", "logo", "name", "phone"]
@@ -610,6 +610,18 @@ class DashboardCompanyCreationDataForm(ModelForm):
     logo = ImageField(widget=FileInput(attrs={"accept": "image/png, image/jpeg", "data-file": ""}), required=False)
     name = CharField(widget=TextInput(attrs={"class": "bp5-input bp5-large", "data-name": ""}))
     phone = CharField(widget=TextInput(attrs={"class": "bp5-input bp5-large", "data-phone": ""}), required=False)
+
+
+class DashboardCompanyCreationLinkYandexForm(Form):
+    parser_link_yandex = CharField(widget=TextInput(attrs={"class": "bp5-input bp5-large"}))
+
+
+class DashboardCompanyCreationLinkGisForm(Form):
+    parser_link_gis = CharField(widget=TextInput(attrs={"class": "bp5-input bp5-large"}))
+
+
+class DashboardCompanyCreationLinkGoogleForm(Form):
+    parser_link_google = CharField(widget=TextInput(attrs={"class": "bp5-input bp5-large"}))
 
 
 class DashboardMembershipChangeForm(ModelForm):

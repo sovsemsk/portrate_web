@@ -1,0 +1,71 @@
+{% extends 'dashboard/base.html' %}
+{% load extensions %}
+{% load static %}
+{% block navbar %}
+<a class="bp5-active bp5-button bp5-intent-success bp5-minimal" href="{% url 'company_create_link_yandex' %}">Добавить филиал</a>
+{% endblock %}
+{% block content %}
+<h2 class="bp5-heading">Добавление филиала</h2>
+{% include 'dashboard/_master_tabs.html' %}
+<div class="row">
+    <div class="xs-9">
+        <form enctype="multipart/form-data" method="post" novalidate>
+            {% csrf_token %}
+            <div class="bp5-form-group">
+                <label class="bp5-label" for="id_address">Адрес</label>
+                <div class="bp5-form-content">
+                    <div class="bp5-input-group">
+                        {{form.address}}
+                    </div>
+                    <div class="bp5-form-helper-text">Например «Орск, улица Ленинского-комсомола 4б»</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="xs-6">
+                    <div class="bp5-form-group {% if form.name.errors %}bp5-intent-danger{% endif %}">
+                        <label class="bp5-label" for="id_name">Название *</label>
+                        <div class="bp5-form-content">
+                            <div class="bp5-input-group {% if form.name.errors %}bp5-intent-danger{% endif %}">
+                                {{form.name}}
+                            </div>
+                            <div class="bp5-form-helper-text">{% if form.name.errors %}{{form.name.errors.as_text}}{% else %}Без списка услуг{% endif %}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="xs-6">
+                    <div class="bp5-form-group">
+                        <label class="bp5-label" for="id_phone">Телефон</label>
+                        <div class="bp5-form-content">
+                            <div class="bp5-input-group">
+                                {{form.phone}}
+                            </div>
+                            <div class="bp5-form-helper-text">В формате +7 999 999-99-99</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="xs-6">
+                    <div class="bp5-form-group {% if form.logo.errors %}bp5-intent-danger{% endif %}">
+                        <label class="bp5-label" for="id_logo">Логотип</label>
+                        <div class="bp5-form-content">
+                            <label class="bp5-file-input bp5-fill bp5-large {% if form.logo.errors %}bp5-intent-danger{% endif %}">
+                                {{form.logo}}
+                                <span class="bp5-file-upload-input">Выбрать файл...</span>
+                            </label>
+                            <div class="bp5-form-helper-text">
+                                {% if form.logo.errors %}{{form.logo.errors.as_text}}{% else %} Размер файла не должен превышать 500кб{% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bp5-form-group">
+                <div class="bp5-form-content">
+                    <button class="bp5-button bp5-large" type="submit">Сохранить</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

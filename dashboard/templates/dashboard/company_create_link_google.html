@@ -1,0 +1,34 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% block navbar %}
+<a class="bp5-active bp5-button bp5-intent-success bp5-minimal" href="{% url 'company_create_link_google' %}">Добавить филиал</a>
+{% endblock %}
+{% block content %}
+<h2 class="bp5-heading">Добавление филиала</h2>
+{% include 'dashboard/_master_tabs.html' %}
+<div class="row">
+    <div class="xs-9">
+        <form method="post" novalidate>
+            {% csrf_token %}
+            <div class="bp5-form-group {% if form.parser_link_google.errors %}bp5-intent-danger{% endif %}">
+                <label class="bp5-label" for="id_parser_link_google">Ссылка на филиал</label>
+                <div class="bp5-form-content">
+                    <div class="bp5-control-group bp5-large">
+                        <div class="bp5-input-group bp5-fill {% if form.parser_link_google.errors %}bp5-intent-danger{% endif %}">
+                            {{form.parser_link_google}}
+                        </div>
+                        <button class="bp5-button bp5-intent-warning">Далее</button>
+                    </div>
+                    <div class="bp5-form-helper-text">{% if form.parser_link_google.errors %}{{form.parser_link_google.errors.as_text}}{% else %}Например «https://maps.app.goo.gl/XXXXXXXXXXXXXXXXX»{% endif %}</div>
+                </div>
+            </div>
+        </form>
+        <div class="bp5-form-group">
+            <div class="bp5-form-content">
+                <a class="bp5-button bp5-large" href="{% url 'company_create' %}">Пропустить</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

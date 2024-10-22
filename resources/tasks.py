@@ -5,10 +5,10 @@ from celery import shared_task
 from django.core.cache import cache
 from django.db import IntegrityError
 
-from pages.avito import perform as avito_perform
-from pages.gis import perform as gis_perform
-from pages.google import perform as google_perform
-from pages.yandex import perform as yandex_perform
+from parsers.avito import perform as avito_perform
+from parsers.gis import perform as gis_perform
+from parsers.google import perform as google_perform
+from parsers.yandex import perform as yandex_perform
 
 
 @shared_task(name="parse_yandex_task")
