@@ -62,6 +62,7 @@ class ReviewsPage():
 
     def show_all(self):
         nodes = self.driver.find_elements(*self._review_locator)
+        time.sleep(5)
 
         if len(nodes) > 0:
             self._scroll_more_(nodes[-1])
@@ -140,7 +141,7 @@ class ReviewsPage():
 def prepare(company_id):
     company = Company.objects.get(pk=company_id)
 
-    if company.parser_link_yandex.startswith("https://yandex.ru/maps/-/"):
+    if not company.parser_link_yandex.startswith("https://yandex.ru/maps/-/"):
         return
 
     web_driver = driver()

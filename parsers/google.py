@@ -15,6 +15,29 @@ from resources.models import Company, Review, Service
 logger = logging.getLogger(__name__)
 
 
+class StartPage():
+    _tab_locator = (By.XPATH, ".//button[@class='hh2c6 G7m0Af'][2]")
+    _url = None
+
+    def __init__(self, driver):
+        self.driver = driver
+        time.sleep(10)
+
+    def open_reviews(self):
+        try:
+            self.driver.find_element(*self._tab_locator).click()
+            time.sleep(5)
+            self._url = self.driver.current_url
+        except (AttributeError, NoSuchElementException):
+            pass
+
+        return self
+
+    @property
+    def url(self):
+        return self._url
+
+
 class ReviewsPage():
     _rating_locator = (By.XPATH, ".//div[@class='jANrlb ']/div[@class='fontDisplayLarge']")
     _count_locator = (By.XPATH, ".//div[@class='jANrlb ']/div[@class='fontBodySmall']")
@@ -40,6 +63,7 @@ class ReviewsPage():
 
     def show_all(self):
         nodes = self.driver.find_elements(*self._review_locator)
+        time.sleep(5)
 
         if len(nodes) > 0:
             self._scroll_more_(nodes[-1])
@@ -128,7 +152,24 @@ class ReviewsPage():
                 return None
 
 
-def perform(company_id, task):
+def prepare(company_id):
+    company = Company.objects.get(pk=company_id)
+
+    if not company.parser_link_google.startswith("https://maps.app.goo.gl/"):
+        return
+
+    web_driver = driver()
+    web_driver.get(company.parser_link_google)
+    start_page = StartPage(web_driver).open_reviews()
+
+    if start_page.url:
+        company.parser_link_google = start_page.url
+        company.save(update_fields=["parser_link_google"])
+
+    web_driver.quit()
+
+
+def parse(company_id, task):
     company = Company.objects.get(pk=company_id)
 
     # Запись в бд флагов начала парсинга
@@ -138,31 +179,32 @@ def perform(company_id, task):
     # Парсинг
     web_driver = driver()
 
-    try:
-        web_driver.get(company.parser_link_google)
-        reviews_page = ReviewsPage(web_driver).order_all().show_all().expand_all()
+    if not company.parser_link_google.startswith("https://maps.app.goo.gl/"):
+        try:
+            web_driver.get(company.parser_link_google)
+            reviews_page = ReviewsPage(web_driver).order_all().show_all().expand_all()
 
-        for review in reviews_page.reviews:
-            try:
-                Review.objects.create(
-                    created_at=dateparser.parse(review.created_at, languages=["ru", "en"]),
-                    is_visible=(company.__getattribute__(f"is_visible_{review.stars}") and company.is_visible_google),
-                    remote_id=review.remote_id,
-                    service=Service.GOOGLE,
-                    stars=review.stars,
-                    name=review.name,
-                    text=review.text,
-                    company_id=company.id
-                )
-            except IntegrityError:
-                pass
+            for review in reviews_page.reviews:
+                try:
+                    Review.objects.create(
+                        created_at=dateparser.parse(review.created_at, languages=["ru", "en"]),
+                        is_visible=(company.__getattribute__(f"is_visible_{review.stars}") and company.is_visible_google),
+                        remote_id=review.remote_id,
+                        service=Service.GOOGLE,
+                        stars=review.stars,
+                        name=review.name,
+                        text=review.text,
+                        company_id=company.id
+                    )
+                except IntegrityError:
+                    pass
 
-        company.rating_google = float(reviews_page.rating.replace(",", ".")) if reviews_page.rating else None
-        company.reviews_count_remote_google = int("".join(re.findall(r"\d+", reviews_page.count))) if reviews_page.count else None
-        company.save(update_fields=["rating_google", "reviews_count_remote_google"])
+            company.rating_google = float(reviews_page.rating.replace(",", ".")) if reviews_page.rating else None
+            company.reviews_count_remote_google = int("".join(re.findall(r"\d+", reviews_page.count))) if reviews_page.count else None
+            company.save(update_fields=["rating_google", "reviews_count_remote_google"])
 
-    except Exception as exc:
-        logger.exception(f"Task {task.request.task}[{task.request.id}] failed:", exc_info=exc)
+        except Exception as exc:
+            logger.exception(f"Task {task.request.task}[{task.request.id}] failed:", exc_info=exc)
 
     web_driver.quit()
 
@@ -171,3 +213,7 @@ def perform(company_id, task):
     company.is_first_parsing_google = False
     company.parser_last_parse_at_google = datetime.now(timezone.utc)
     company.save(update_fields=["is_first_parsing_google", "parser_last_parse_at_google", "is_parser_run_google"])
+
+def perform(company_id, task):
+    prepare(company_id)
+    parse(company_id, task)

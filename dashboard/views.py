@@ -149,6 +149,9 @@ class CompanyCreateLinkYandexView(LoginRequiredMixin, View):
         if not profile.is_active or not profile.can_create_company:
             return redirect("profile_update_finance")
 
+        if self.request.session.get("parser_link_yandex", False):
+            del self.request.session["parser_link_yandex"]
+
         form = DashboardCompanyCreationLinkYandexForm()
 
         return render(
@@ -191,6 +194,9 @@ class CompanyCreateLinkGisView(LoginRequiredMixin, View):
         if not profile.is_active or not profile.can_create_company:
             return redirect("profile_update_finance")
 
+        if self.request.session.get("parser_link_gis", False):
+            del self.request.session["parser_link_gis"]
+
         form = DashboardCompanyCreationLinkGisForm()
 
         return render(
@@ -232,6 +238,9 @@ class CompanyCreateLinkGoogleView(LoginRequiredMixin, View):
 
         if not profile.is_active or not profile.can_create_company:
             return redirect("profile_update_finance")
+
+        if self.request.session.get("parser_link_google", False):
+            del self.request.session["parser_link_google"]
 
         form = DashboardCompanyCreationLinkGoogleForm()
 
