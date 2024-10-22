@@ -1,13 +1,16 @@
 from hashlib import md5
 
 import celery
-from celery import shared_task
+from celery import chain, shared_task
+from django.contrib.auth.models import User
 from django.core.cache import cache
+from djmoney.money import Money
 
 from parsers.yandex import perform as yandex_perform
 from parsers.gis import perform as gis_perform
 from parsers.google import perform as google_perform
 from parsers.avito import perform as avito_perform
+from resources.models import Company
 
 
 @shared_task(name="parse_yandex_task")
@@ -224,6 +227,67 @@ def parse_tripadvisor_task(previous_result=None, company_id=None):
     cache.set(lock_id, lock_id)
 
     """ Задача """
+
+    """ Разблокировка для выполнения """
+    cache.delete(lock_id)
+    return True
+
+
+@shared_task(name="parse_all")
+def parse_all_task():
+    lock_id = f"_parse_all_task_lock_"
+
+    """ Отмена выполнения если уже есть блокировка """
+    if cache.get(lock_id):
+        return
+
+    """ Блокировка для выполнения """
+    cache.set(lock_id, lock_id)
+
+    """ Задача """
+    companies = Company.objects.all()
+
+    for company in companies:
+        parsers_chain = []
+
+        if company.is_active:
+            if company.can_parse_yandex and company.parser_link_yandex:
+                parsers_chain.append(parse_yandex_task.s(company_id=company.id))
+
+            if company.can_parse_gis and company.parser_link_gis:
+                parsers_chain.append(parse_gis_task.s(company_id=company.id))
+
+            if company.can_parse_google and company.parser_link_google:
+                parsers_chain.append(parse_google_task.s(company_id=company.id))
+
+            if company.can_parse_avito and company.parser_link_avito:
+                parsers_chain.append(parse_avito_task.s(company_id=company.id))
+
+            chain(*parsers_chain).apply_async()
+
+    """ Разблокировка для выполнения """
+    cache.delete(lock_id)
+    return True
+
+
+@shared_task(name="withdraw_all")
+def withdraw_all_task():
+    lock_id = f"_withdraw_all_task_lock_"
+
+    """ Отмена выполнения если уже есть блокировка """
+    if cache.get(lock_id):
+        return
+
+    """ Блокировка для выполнения """
+    cache.set(lock_id, lock_id)
+
+    """ Задача """
+    users = User.objects.select_related("profile").all()
+
+    for user in users:
+        if user.profile.is_active:
+            user.profile.balance = Money(float(user.profile.balance.amount) - user.profile.day_price, "RUB")
+            user.save()
 
     """ Разблокировка для выполнения """
     cache.delete(lock_id)
