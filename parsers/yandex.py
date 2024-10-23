@@ -157,15 +157,15 @@ def prepare(company_id):
 
 def parse(company_id, task):
     company = Company.objects.get(pk=company_id)
-
-    # Запись в бд флагов начала парсинга
-    company.is_parser_run_yandex = True
-    company.save(update_fields=["is_parser_run_yandex"])
-
-    # Парсинг
-    web_driver = driver()
-
     if not company.parser_link_yandex.startswith("https://yandex.ru/maps/-/"):
+
+        # Запись в бд флагов начала парсинга
+        company.is_parser_run_yandex = True
+        company.save(update_fields=["is_parser_run_yandex"])
+
+        # Парсинг
+        web_driver = driver()
+
         try:
             web_driver.get(company.parser_link_yandex)
             reviews_page = ReviewsPage(web_driver).order_all().show_all()
@@ -192,13 +192,13 @@ def parse(company_id, task):
         except Exception as exc:
             logger.exception(f"Task {task.request.task}[{task.request.id}] failed:", exc_info=exc)
 
-    web_driver.quit()
+        web_driver.quit()
 
-    # Запись в бд флагов окончания парсинга
-    company.is_parser_run_yandex = False
-    company.is_first_parsing_yandex = False
-    company.parser_last_parse_at_yandex = datetime.now(timezone.utc)
-    company.save(update_fields=["is_first_parsing_yandex", "parser_last_parse_at_yandex", "is_parser_run_yandex"])
+        # Запись в бд флагов окончания парсинга
+        company.is_parser_run_yandex = False
+        company.is_first_parsing_yandex = False
+        company.parser_last_parse_at_yandex = datetime.now(timezone.utc)
+        company.save(update_fields=["is_first_parsing_yandex", "parser_last_parse_at_yandex", "is_parser_run_yandex"])
 
 
 def perform(company_id, task):

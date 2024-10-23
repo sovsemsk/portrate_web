@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 
 
 class StartPage():
-    _tab_locator = (By.XPATH, ".//div[@class='_1kmhi0c'][3]")
+    _tab_locator = (By.XPATH, ".//div[@class='_1kmhi0c' and .//a[contains(text(), 'Отзывы')]]")
     _url = None
 
     def __init__(self, driver):
@@ -147,14 +147,18 @@ def prepare(company_id):
 def parse(company_id, task):
     company = Company.objects.get(pk=company_id)
 
-    # Запись в бд флагов начала парсинга
-    company.is_parser_run_gis = True
-    company.save(update_fields=["is_parser_run_gis"])
+    if not (
+        company.parser_link_gis.startswith("https://go.2gis.com/") or
+        company.parser_link_gis.startswith("https://go.2gis.ru/")
+    ):
 
-    # Парсинг
-    web_driver = driver()
+        # Запись в бд флагов начала парсинга
+        company.is_parser_run_gis = True
+        company.save(update_fields=["is_parser_run_gis"])
 
-    if not company.parser_link_gis.startswith("https://go.2gis.com/") or not company.parser_link_gis.startswith("https://go.2gis.ru/"):
+        # Парсинг
+        web_driver = driver()
+
         try:
             web_driver.get(company.parser_link_gis)
             reviews_page = ReviewsPage(web_driver).show_all()
@@ -181,13 +185,13 @@ def parse(company_id, task):
         except Exception as exc:
             logger.exception(f"Task {task.request.task}[{task.request.id}] failed:", exc_info=exc)
 
-    web_driver.quit()
+        web_driver.quit()
 
-    # Запись в бд флагов окончания парсинга
-    company.is_parser_run_gis = False
-    company.is_first_parsing_gis = False
-    company.parser_last_parse_at_gis = datetime.now(timezone.utc)
-    company.save(update_fields=["is_first_parsing_gis", "parser_last_parse_at_gis", "is_parser_run_gis"])
+        # Запись в бд флагов окончания парсинга
+        company.is_parser_run_gis = False
+        company.is_first_parsing_gis = False
+        company.parser_last_parse_at_gis = datetime.now(timezone.utc)
+        company.save(update_fields=["is_first_parsing_gis", "parser_last_parse_at_gis", "is_parser_run_gis"])
 
 
 def perform(company_id, task):
