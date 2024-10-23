@@ -61,7 +61,7 @@ class StoryAdmin(ModelAdmin):
                 "fields": [
                     "is_visible_master",
                     "is_visible_finance",
-                    "is_visible_profile",
+                    "is_visible_user",
                     "is_visible_home",
                     "is_visible_statistic",
                     "is_visible_reviews",
@@ -81,7 +81,7 @@ class StoryAdmin(ModelAdmin):
         "is_active",
         "is_visible_master",
         "is_visible_finance",
-        "is_visible_profile",
+        "is_visible_user",
         "is_visible_home",
         "is_visible_statistic",
         "is_visible_reviews",

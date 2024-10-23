@@ -136,6 +136,7 @@ class CompanyCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         context = super().get_context_data(** kwargs)
         context["nav"] = "master"
         context["sub_nav"] = "data"
+        context["story_list"] = story_list(self.request.user, context["nav"])
         return context
 
     def get_success_url(self):
@@ -160,7 +161,8 @@ class CompanyCreateLinkYandexView(LoginRequiredMixin, View):
             {
                 "form": form,
                 "nav": "master",
-                "sub_nav": "yandex"
+                "sub_nav": "yandex",
+                "story_list": story_list(request.user, "master")
             }
         )
 
@@ -182,7 +184,8 @@ class CompanyCreateLinkYandexView(LoginRequiredMixin, View):
             {
                 "form": form,
                 "nav": "master",
-                "sub_nav": "yandex"
+                "sub_nav": "yandex",
+                "story_list": story_list(request.user, "master")
             }
         )
 
@@ -205,7 +208,8 @@ class CompanyCreateLinkGisView(LoginRequiredMixin, View):
             {
                 "form": form,
                 "nav": "master",
-                "sub_nav": "gis"
+                "sub_nav": "gis",
+                "story_list": story_list(request.user, "master")
             }
         )
 
@@ -227,7 +231,8 @@ class CompanyCreateLinkGisView(LoginRequiredMixin, View):
             {
                 "form": form,
                 "nav": "master",
-                "sub_nav": "gis"
+                "sub_nav": "gis",
+                "story_list": story_list(request.user, "master")
             }
         )
 
@@ -250,7 +255,8 @@ class CompanyCreateLinkGoogleView(LoginRequiredMixin, View):
             {
                 "form": form,
                 "nav": "master",
-                "sub_nav": "google"
+                "sub_nav": "google",
+                "story_list": story_list(request.user, "master")
             }
         )
 
@@ -272,7 +278,8 @@ class CompanyCreateLinkGoogleView(LoginRequiredMixin, View):
             {
                 "form": form,
                 "nav": "master",
-                "sub_nav": "google"
+                "sub_nav": "google",
+                "story_list": story_list(request.user, "master")
             }
         )
 
@@ -286,10 +293,12 @@ class CompanyDetailQrView(LoginRequiredMixin, View):
 
         return render(
             request,
-            "dashboard/company_qr.html", {
+            "dashboard/company_qr.html",
+            {
                 "company": company,
                 "company_list_short": company_list_short(request.user, company.id),
-                "nav": "qr"
+                "nav": "qr",
+                "story_list": story_list(request.user, "qr")
             }
         )
 
@@ -410,6 +419,7 @@ class CompanyDetailView(LoginRequiredMixin, DetailView):
         context["company_list_short"] = company_list_short(self.request.user, self.object.id)
         context["days_ago_param"] = days_ago_param
         context["nav"] = "statistic"
+        context["story_list"] = story_list(self.request.user, context["nav"])
         return context
 
     def get_queryset(self):
@@ -633,6 +643,7 @@ class CompanyUpdateFeedbackContactView(LoginRequiredMixin, SuccessMessageMixin, 
         context["company_list_short"] = company_list_short(self.request.user, self.object.id)
         context["nav"] = "feedback"
         context["sub_nav"] = "contact"
+        context["story_list"] = story_list(self.request.user, context["nav"])
         return context
 
     def get_queryset(self):
@@ -660,6 +671,7 @@ class CompanyUpdateFeedbackDataView(LoginRequiredMixin, SuccessMessageMixin, Upd
         context["company_list_short"] = company_list_short(self.request.user, self.object.id)
         context["nav"] = "feedback"
         context["sub_nav"] = "main"
+        context["story_list"] = story_list(self.request.user, context["nav"])
         return context
 
     def get_queryset(self):
@@ -687,6 +699,7 @@ class CompanyUpdateFeedbackTextView(LoginRequiredMixin, SuccessMessageMixin, Upd
         context["company_list_short"] = company_list_short(self.request.user, self.object.id)
         context["nav"] = "feedback"
         context["sub_nav"] = "text"
+        context["story_list"] = story_list(self.request.user, context["nav"])
         return context
 
     def get_queryset(self):
@@ -714,6 +727,7 @@ class CompanyUpdateFeedbackServiceView(LoginRequiredMixin, SuccessMessageMixin, 
         context["company_list_short"] = company_list_short(self.request.user, self.object.id)
         context["nav"] = "feedback"
         context["sub_nav"] = "service"
+        context["story_list"] = story_list(self.request.user, context["nav"])
         return context
 
     def get_queryset(self):
@@ -769,6 +783,7 @@ class CompanyUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
         context["company_list_short"] = company_list_short(self.request.user, self.object.id)
         context["nav"] = "statistic"
+        context["story_list"] = story_list(self.request.user, context["nav"])
         return context
 
     def get_queryset(self):
@@ -930,6 +945,7 @@ class CompanyUpdateWidgetView(LoginRequiredMixin, SuccessMessageMixin, UpdateVie
         context["nav"] = "widget"
         context["reviews"] = Review.objects.filter(company_id=self.kwargs["pk"], is_visible=True).order_by("-created_at")[:15]
         context["theme"] = self.request.GET.get("theme", "l")
+        context["story_list"] = story_list(self.request.user, context["nav"])
         return context
 
     def get_queryset(self):
@@ -978,11 +994,6 @@ class MasterCompanyCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateVie
 
         """ Инициализация и сохранение флага владельца филиала """
         self.request.user.membership_set.filter(company=self.object).update(is_owner=True)
-
-        """ Инициализация и сохранение первичного баланса """
-        # profile = self.request.user.profile
-        # profile.balance = Money(60, "RUB")
-        # profile.save()
 
         if form.instance.parser_link_yandex:
             parsers_chain.append(parse_yandex_task.s(company_id=form.instance.id))
@@ -1138,6 +1149,7 @@ class MembershipUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         context = super().get_context_data(**kwargs)
         context["company_list_short"] = company_list_short(self.request.user, self.object.id)
         context["nav"] = "notifications"
+        context["story_list"] = story_list(self.request.user, context["nav"])
         return context
 
     def get_queryset(self):
@@ -1168,6 +1180,7 @@ class MessageListView(LoginRequiredMixin, FilterView):
         context["company"] = get_object_or_404(Company, pk=self.kwargs["company_pk"], users__in=[self.request.user])
         context["company_list_short"] = company_list_short(self.request.user, self.kwargs["company_pk"])
         context["nav"] = "messages"
+        context["story_list"] = story_list(self.request.user, context["nav"])
         return context
 
     def get_ordering(self):
@@ -1189,6 +1202,7 @@ class PasswordUpdateView(LoginRequiredMixin, SuccessMessageMixin, PasswordChange
         context = super().get_context_data(** kwargs)
         context["nav"] = "user"
         context["sub_nav"] = "security"
+        context["story_list"] = story_list(self.request.user, context["nav"])
         return context
 
     def get_success_url(self):
@@ -1214,7 +1228,11 @@ class ProfileCreateBusinessRequest(LoginRequiredMixin, View):
 
     def get(self, request):
         form = DashboardBusinessRequestCreationForm()
-        return render(request, self.template_name, {"form": form, ** self.context})
+        return render(request, self.template_name, {
+            "form": form,
+            "story_list": story_list(request.user, "finance"),
+            ** self.context
+        })
 
     def post(self, request):
         form = DashboardBusinessRequestCreationForm(request.POST)
@@ -1224,7 +1242,11 @@ class ProfileCreateBusinessRequest(LoginRequiredMixin, View):
             messages.success(request, "Спасибо, ваш запрос успешно отправлен, скоро с вами свяжется наш менеджер")
             return redirect("profile_update_finance")
 
-        return render(request, self.template_name, {"form": form, ** self.context})
+        return render(request, self.template_name, {
+            "form": form,
+            "story_list": story_list(request.user, "finance"),
+            ** self.context
+        })
 
 
 class ProfileUpdateFinanceView(LoginRequiredMixin, View):
@@ -1249,7 +1271,12 @@ class ProfileUpdateFinanceView(LoginRequiredMixin, View):
             )
 
         form = DashboardProfileChangeRateForm(request.POST, instance=request.user.profile)
-        return render(request, self.template_name, {"form": form, "period": period, ** self.context})
+        return render(request, self.template_name, {
+            "form": form,
+            "period": period,
+            "story_list": story_list(request.user, "finance"),
+            ** self.context
+        })
 
     def post(self, request):
         period = self.request.GET.get("period", "annually")
@@ -1266,7 +1293,11 @@ class ProfileUpdateFinanceView(LoginRequiredMixin, View):
             form.save()
             messages.success(request, "Тариф успешно обновлен")
 
-        return render(request, self.template_name, {"form": form, "period": period, ** self.context})
+        return render(request, self.template_name, {
+            "form": form,
+            "period": period,
+            "story_list": story_list(request.user, "finance"), ** self.context
+        })
 
 
 class ProfileUpdateView(LoginRequiredMixin, View):
@@ -1275,7 +1306,11 @@ class ProfileUpdateView(LoginRequiredMixin, View):
 
     def get(self, request):
         form = DashboardProfileChangeForm(instance=request.user.profile)
-        return render(request, self.template_name, {"form": form, **self.context})
+        return render(request, self.template_name, {
+            "form": form,
+            "story_list": story_list(request.user, "user"),
+            **self.context
+        })
 
     def post(self, request):
         form = DashboardProfileChangeForm(request.POST, instance=request.user.profile)
@@ -1284,7 +1319,11 @@ class ProfileUpdateView(LoginRequiredMixin, View):
             form.save()
             messages.success(request, "Профиль успешно обновлен")
 
-        return render(request, self.template_name, {"form": form, **self.context})
+        return render(request, self.template_name, {
+            "form": form,
+            "story_list": story_list(request.user, "user"),
+            **self.context
+        })
 
 
 class ReviewListView(LoginRequiredMixin, FilterView):
@@ -1308,6 +1347,7 @@ class ReviewListView(LoginRequiredMixin, FilterView):
         context["company"] = get_object_or_404(Company, pk=self.kwargs["company_pk"], users__in=[self.request.user])
         context["company_list_short"] = company_list_short(self.request.user, self.kwargs["company_pk"])
         context["nav"] = "reviews"
+        context["story_list"] = story_list(self.request.user, context["nav"])
         return context
 
     def get_ordering(self):
@@ -1382,7 +1422,14 @@ class UserUpdateView(LoginRequiredMixin, View):
 
     def get(self, request):
         form = DashboardUserChangeForm(instance=request.user)
-        return render(request, self.template_name, {"form": form, **self.context})
+        return render(
+            request,
+            self.template_name,
+            {
+                "form": form, **self.context,
+                "story_list": story_list(request.user, "user"),
+            }
+        )
 
     def post(self, request):
         form = DashboardUserChangeForm(request.POST, instance=request.user)
@@ -1391,4 +1438,11 @@ class UserUpdateView(LoginRequiredMixin, View):
             form.save()
             messages.success(request, "Профиль успешно обновлен")
 
-        return render(request, self.template_name, {"form": form, **self.context})
+        return render(
+            request,
+            self.template_name,
+            {
+                "form": form,
+                "story_list": story_list(request.user, "user"),
+                **self.context
+            })

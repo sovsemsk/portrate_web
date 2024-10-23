@@ -1012,7 +1012,7 @@ class Story(Model):
     is_active = BooleanField(default=False, verbose_name="активно?")
     is_visible_master = BooleanField(default=False, verbose_name="отображать в мастере?")
     is_visible_finance = BooleanField(default=False, verbose_name="отображать в тарифах?")
-    is_visible_profile = BooleanField(default=False, verbose_name="отображать в профиле?")
+    is_visible_user = BooleanField(default=False, verbose_name="отображать в профиле?")
     is_visible_home = BooleanField(default=False, verbose_name="отображать в списке филиалов?")
     is_visible_statistic = BooleanField(default=False, verbose_name="отображать в статистике?")
     is_visible_reviews = BooleanField(default=False, verbose_name="отображать в отзывах?")
