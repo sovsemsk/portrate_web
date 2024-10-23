@@ -76,11 +76,14 @@ class DashboardCompanyChangeYandexForm(ModelForm):
 
     parser_link_yandex = CharField(
         required=False,
-        # validators=[RegexValidator(
-        #     regex=r"^https:\/\/yandex\.ru\/maps\/org\/[\w\W]{1,}\/[\d]{1,}\/reviews[\/]{0,1}$",
-        #     message="Введите правильную ссылку «https://yandex.ru/maps/org/{NAME}/{ID}/reviews/»",
-        #     code="invalid_parser_link_yandex",
-        # )],
+        validators=[
+            RegexValidator(
+                regex=r"^https:\/\/yandex\.ru\/maps\/-\/[\w\W]{1,}[\/]{0,1}[\w\W]{0,}|"
+                      r"^https:\/\/yandex\.ru\/maps\/org\/[\w\W]{1,}\/[\d]{1,}\/reviews[\/]{0,1}[\w\W]{0,}$",
+                message="Введите правильную ссылку",
+                code="invalid_parser_link_yandex",
+            ),
+        ],
         widget=TextInput(attrs={"class": "bp5-input bp5-large"}),
     )
 
@@ -112,11 +115,17 @@ class DashboardCompanyChangeGisForm(ModelForm):
 
     parser_link_gis = CharField(
         required=False,
-        # validators=[RegexValidator(
-        #     regex=r"^https:\/\/2gis\.ru\/firm\/[\d]{1,}\/tab\/reviews[\/]{0,1}$",
-        #     message="Введите правильную ссылку «https://2gis.ru/firm/{ID}/tab/reviews»",
-        #     code="invalid_parser_link_yandex",
-        # )],
+        validators=[
+            RegexValidator(
+                regex=r"^https:\/\/go\.2gis\.com\/[\w\W]{1,}[\/]{0,1}$|"
+                      r"^https:\/\/go\.2gis\.ru\/[\w\W]{1,}[\/]{0,1}$|"
+                      r"^https:\/\/2gis\.ru\/firm\/[\d]{1,}\/tab\/reviews[\/]{0,1}[\w\W]{0,}$|"
+                      r"^https:\/\/2gis\.ru\/search\/[\w\W]{1,}\/firm\/[\d]{1,}\/[\w\W]{1,}\/tab\/reviews[\/]{0,1}[\w\W]{0,}$|"
+                      r"^https:\/\/2gis\.ru\/[\w\W]{1,}\/search\/[\w\W]{1,}\/firm\/[\d]{1,}\/[\w\W]{1,}\/tab\/reviews[\/]{0,1}[\w\W]{0,}$",
+                message="Введите правильную ссылку",
+                code="invalid_parser_link_gis",
+            )
+        ],
         widget=TextInput(attrs={"class": "bp5-input bp5-large"}),
     )
 
@@ -148,11 +157,13 @@ class DashboardCompanyChangeGoogleForm(ModelForm):
 
     parser_link_google = CharField(
         required=False,
-        # validators=[RegexValidator(
-        #     regex=r"^https:\/\/google\.com\/maps\/search\/\?api=1&query=~&query_place_id=[\w\W]{1,}[\/]{0,1}$",
-        #     message="Введите правильную ссылку «https://google.com/maps/search/?api=1&query=~&query_place_id={ID}»",
-        #     code="invalid_parser_link_yandex",
-        # )],
+        validators=[
+            RegexValidator(
+                regex=r"^https:\/\/maps\.app\.goo\.gl\/[\w\W]{1,}[\/]{0,1}$",
+                message="Введите правильную ссылку",
+                code="invalid_parser_link_google",
+            )
+        ],
         widget=TextInput(attrs={"class": "bp5-input bp5-large"}),
     )
 
@@ -644,26 +655,30 @@ class DashboardCompanyCreationLinkYandexForm(Form):
 
 class DashboardCompanyCreationLinkGisForm(Form):
     parser_link_gis = CharField(
-        validators=[RegexValidator(
-            regex=r"^https:\/\/go\.2gis\.com\/[\w\W]{1,}[\/]{0,1}$|"
-                  r"^https:\/\/go\.2gis\.ru\/[\w\W]{1,}[\/]{0,1}$|"
-                  r"^https:\/\/2gis\.ru\/firm\/[\d]{1,}\/tab\/reviews[\/]{0,1}[\w\W]{0,}$|"
-                  r"^https:\/\/2gis\.ru\/search\/[\w\W]{1,}\/firm\/[\d]{1,}\/[\w\W]{1,}\/tab\/reviews[\/]{0,1}[\w\W]{0,}$|"
-                  r"^https:\/\/2gis\.ru\/[\w\W]{1,}\/search\/[\w\W]{1,}\/firm\/[\d]{1,}\/[\w\W]{1,}\/tab\/reviews[\/]{0,1}[\w\W]{0,}$",
-            message="Введите правильную ссылку",
-            code="invalid_parser_link_gis",
-        )],
+        validators=[
+            RegexValidator(
+                regex=r"^https:\/\/go\.2gis\.com\/[\w\W]{1,}[\/]{0,1}$|"
+                      r"^https:\/\/go\.2gis\.ru\/[\w\W]{1,}[\/]{0,1}$|"
+                      r"^https:\/\/2gis\.ru\/firm\/[\d]{1,}\/tab\/reviews[\/]{0,1}[\w\W]{0,}$|"
+                      r"^https:\/\/2gis\.ru\/search\/[\w\W]{1,}\/firm\/[\d]{1,}\/[\w\W]{1,}\/tab\/reviews[\/]{0,1}[\w\W]{0,}$|"
+                      r"^https:\/\/2gis\.ru\/[\w\W]{1,}\/search\/[\w\W]{1,}\/firm\/[\d]{1,}\/[\w\W]{1,}\/tab\/reviews[\/]{0,1}[\w\W]{0,}$",
+                message="Введите правильную ссылку",
+                code="invalid_parser_link_gis",
+            )
+        ],
         widget=TextInput(attrs={"class": "bp5-input bp5-large"})
     )
 
 
 class DashboardCompanyCreationLinkGoogleForm(Form):
     parser_link_google = CharField(
-        validators=[RegexValidator(
-            regex=r"^https:\/\/maps\.app\.goo\.gl\/[\w\W]{1,}[\/]{0,1}$",
-            message="Введите правильную ссылку",
-            code="invalid_parser_link_google",
-        )],
+        validators=[
+            RegexValidator(
+                regex=r"^https:\/\/maps\.app\.goo\.gl\/[\w\W]{1,}[\/]{0,1}$",
+                message="Введите правильную ссылку",
+                code="invalid_parser_link_google",
+            )
+        ],
         widget=TextInput(attrs={"class": "bp5-input bp5-large"})
     )
 

@@ -20,8 +20,15 @@
                     <div class="bp5-input-group {% if form.parser_link_yandex.errors %}bp5-intent-danger{% endif %}">
                         {{form.parser_link_yandex}}
                     </div>
-                    <div class="bp5-form-helper-text">
-                        {% if form.parser_link_yandex.errors %}{{form.parser_link_yandex.errors.as_text}}{% else %}Например «https://yandex.ru/maps/org/{NAME}/{ID}/reviews»{% endif %}
+                    <div class="bp5-form-helper-text">{% if form.parser_link_yandex.errors %}{{form.parser_link_yandex.errors.as_text}}{% endif %}</div>
+                </div>
+            </div>
+            <div class="bp5-form-group">
+                <div class="bp5-form-content">
+                    <div class="bp5-callout">
+                        <p class="bp5-text-small">Примеры правильных ссылок</p>
+                        <li>https://yandex.ru/maps/-/{CODE}</li>
+                        <li>https://yandex.ru/maps/org/{NAME}/{ID}/reviews</li>
                     </div>
                 </div>
             </div>

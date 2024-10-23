@@ -20,8 +20,14 @@
                     <div class="bp5-input-group {% if form.parser_link_google.errors %}bp5-intent-danger{% endif %}">
                         {{form.parser_link_google}}
                     </div>
-                    <div class="bp5-form-helper-text">
-                        {% if form.parser_link_google.errors %}{{form.parser_link_google.errors.as_text}}{% else %}Например «https://google.com/maps/search/?api=1&query=~&query_place_id={ID}»{% endif %}
+                    <div class="bp5-form-helper-text">{% if form.parser_link_google.errors %}{{form.parser_link_google.errors.as_text}}{% endif %}</div>
+                </div>
+            </div>
+            <div class="bp5-form-group">
+                <div class="bp5-form-content">
+                    <div class="bp5-callout">
+                        <p class="bp5-text-small">Примеры правильных ссылок</p>
+                        <li>https://maps.app.goo.gl/{CODE}</li>
                     </div>
                 </div>
             </div>
