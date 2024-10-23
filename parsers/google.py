@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 
 
 class StartPage():
-    _tab_locator = (By.XPATH, ".//button[@class='hh2c6 G7m0Af'][2]")
+    _tab_locator = (By.XPATH, ".//button[@class='hh2c6 '][1]")
     _url = None
 
     def __init__(self, driver):

@@ -1,7 +1,7 @@
 {% extends 'dashboard/base.html' %}
 {% load static %}
 {% block navbar %}
-<a class="bp5-active bp5-button bp5-intent-success bp5-minimal" href="{% url 'company_create_link_gis' %}">Добавить филиал</a>
+<a class="bp5-active bp5-button bp5-intent-success bp5-minimal" href="{% url 'company_create_link_yandex' %}">Добавить филиал</a>
 {% endblock %}
 {% block content %}
 <h2 class="bp5-heading">Добавление филиала</h2>
@@ -19,7 +19,19 @@
                         </div>
                         <button class="bp5-button bp5-intent-warning">Далее</button>
                     </div>
-                    <div class="bp5-form-helper-text">{% if form.parser_link_gis.errors %}{{form.parser_link_gis.errors.as_text}}{% else %}Например «https://go.2gis.com/XXXXX»{% endif %}</div>
+                    <div class="bp5-form-helper-text">{% if form.parser_link_gis.errors %}{{form.parser_link_gis.errors.as_text}}{% endif %}</div>
+                </div>
+            </div>
+            <div class="bp5-form-group">
+                <div class="bp5-form-content">
+                    <div class="bp5-callout">
+                        <p class="bp5-text-small">Примеры правильных ссылок</p>
+                        <li>https://go.2gis.com/{CODE}</li>
+                        <li>https://go.2gis.ru/{CODE}</li>
+                        <li>https://2gis.ru/{CITY}/firm/{ID}/tab/reviews</li>
+                        <li>https://2gis.ru/search/{QUERY}/firm/{ID}/tab/reviews</li>
+                        <li>https://2gis.ru/{CITY}/search/{QUERY}/firm/{ID}/tab/reviews</li>
+                    </div>
                 </div>
             </div>
         </form>

@@ -39,7 +39,7 @@ class StartPage():
 
 class ReviewsPage():
     _rating_locator = (By.XPATH, ".//div[@class='_13nm4f0']")
-    _count_locator = (By.XPATH, ".//span[@class='_1xhlznaa']")
+    _count_locator = (By.XPATH, ".//div[@class='_1kmhi0c'][3]//span[@class='_1xhlznaa']")
     _review_locator = (By.XPATH, ".//div[@class='_1k5soqfl']")
 
     def __init__(self, driver):
@@ -154,7 +154,7 @@ def parse(company_id, task):
     # Парсинг
     web_driver = driver()
 
-    if not company.parser_link_gis.startswith("https://go.2gis.com/"):
+    if not company.parser_link_gis.startswith("https://go.2gis.com/") or not company.parser_link_gis.startswith("https://go.2gis.ru/"):
         try:
             web_driver.get(company.parser_link_gis)
             reviews_page = ReviewsPage(web_driver).show_all()

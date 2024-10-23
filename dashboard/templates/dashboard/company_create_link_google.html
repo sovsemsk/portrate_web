@@ -1,7 +1,7 @@
 {% extends 'dashboard/base.html' %}
 {% load static %}
 {% block navbar %}
-<a class="bp5-active bp5-button bp5-intent-success bp5-minimal" href="{% url 'company_create_link_google' %}">Добавить филиал</a>
+<a class="bp5-active bp5-button bp5-intent-success bp5-minimal" href="{% url 'company_create_link_yandex' %}">Добавить филиал</a>
 {% endblock %}
 {% block content %}
 <h2 class="bp5-heading">Добавление филиала</h2>
@@ -19,7 +19,15 @@
                         </div>
                         <button class="bp5-button bp5-intent-warning">Далее</button>
                     </div>
-                    <div class="bp5-form-helper-text">{% if form.parser_link_google.errors %}{{form.parser_link_google.errors.as_text}}{% else %}Например «https://maps.app.goo.gl/XXXXXXXXXXXXXXXXX»{% endif %}</div>
+                    <div class="bp5-form-helper-text">{% if form.parser_link_google.errors %}{{form.parser_link_google.errors.as_text}} {% endif %}</div>
+                </div>
+            </div>
+            <div class="bp5-form-group">
+                <div class="bp5-form-content">
+                    <div class="bp5-callout">
+                        <p class="bp5-text-small">Примеры правильных ссылок</p>
+                        <li>https://maps.app.goo.gl/{CODE}</li>
+                    </div>
                 </div>
             </div>
         </form>

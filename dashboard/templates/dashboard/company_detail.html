@@ -22,7 +22,7 @@
 <div class="bp5-form-group" data-hint="df5c8c8054e7">
     <div class="bp5-form-content">
         <div class="bp5-tag bp5-minimal bp5-intent-success">
-            Бот собирает до 100 последних отзывов при первом сборе, новые отзывы собираются без ограничений
+            Бот собирает до 100 последних отзывов при первом сборе, новые отзывы собираются без ограничений. Отзывы без имени или текста пропускаются.
             <button class="bp5-tag-remove" data-hide>
                 &nbsp;<span class="bp5-icon bp5-icon-cross"></span>&nbsp;
             </button>
@@ -598,7 +598,7 @@
                                 </div>
                             </td>
                             <td style="position:relative;">
-                                <div style="background:rgba(28, 110, 66, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_negative company.reviews_count_total 100 %}%;z-index:0;"></div>
+                                <div style="background:rgba(172, 47, 51, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_negative company.reviews_count_total 100 %}%;z-index:0;"></div>
                                 <div class="bp5-text-large">
                                     {% widthratio company.reviews_count_negative company.reviews_count_total 100 %}
                                     <span class="bp5-text-small">%</span>
