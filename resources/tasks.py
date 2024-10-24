@@ -1,3 +1,4 @@
+from datetime import datetime
 from hashlib import md5
 
 import celery
@@ -11,6 +12,11 @@ from parsers.gis import perform as gis_perform
 from parsers.google import perform as google_perform
 from parsers.avito import perform as avito_perform
 from resources.models import Company
+
+
+@shared_task(name="debug_task")
+def debug_task():
+    return datetime.now()
 
 
 @shared_task(name="parse_yandex_task")
