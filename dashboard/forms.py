@@ -38,6 +38,7 @@ from resources.tasks import (
 class SwitchSelectMultiple(CheckboxSelectMultiple):
     option_template_name = "forms/widgets/switch_option.html"
 
+
 class DashboardAuthenticationForm(AuthenticationForm):
     error_messages = {
         "invalid_login": "Пользователь не найден",
@@ -195,11 +196,13 @@ class DashboardCompanyChangeAvitoForm(ModelForm):
 
     parser_link_avito = CharField(
         required=False,
-        # validators=[RegexValidator(
-        #     regex=r"^https:\/\/avito\.ru\/brands\/[\w\W]{1,}\/$",
-        #     message="Введите правильную ссылку «https://avito.ru/brands/{NAME}/»",
-        #     code="invalid_parser_link_yandex",
-        # )],
+        validators=[
+            RegexValidator(
+                regex=r"^https:\/\/[\w\W]{0,3}\.avito\.ru\/brands\/[\w\W]{1,}[\/]{0,1}[\w\W]{0,}$",
+                message="Введите правильную ссылку",
+                code="invalid_parser_link_yandex",
+            )
+        ],
         widget=TextInput(attrs={"class": "bp5-input bp5-large"})
     )
 
@@ -652,6 +655,7 @@ class DashboardCompanyCreationLinkYandexForm(Form):
         ],
         widget=TextInput(attrs={"class": "bp5-input bp5-large"})
     )
+
 
 class DashboardCompanyCreationLinkGisForm(Form):
     parser_link_gis = CharField(

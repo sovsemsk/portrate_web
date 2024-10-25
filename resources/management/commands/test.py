@@ -19,8 +19,8 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         company = Company.objects.first()
         parsers_chain = []
-        # parsers_chain.append(parse_yandex_task.s(company_id=company.id))
-        parsers_chain.append(parse_gis_task.s(company_id=company.id))
+        parsers_chain.append(parse_yandex_task.s(company_id=company.id))
+        # parsers_chain.append(parse_gis_task.s(company_id=company.id))
         # parsers_chain.append(parse_google_task.s(company_id=company.id))
         # parsers_chain.append(parse_avito_task.s(company_id=company.id))
         # parsers_chain.append(parse_flamp_task.s(company_id=company.id))
