@@ -7,6 +7,7 @@ import time
 import dateparser
 from django.db import IntegrityError
 from selenium.common import NoSuchElementException
+from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 
 from parsers.driver import driver
@@ -27,7 +28,7 @@ class ReviewsPage():
 
     def _click_more_(self):
         try:
-            self.driver.execute_script("arguments[0].scrollIntoView();", self.driver.find_element(*self._more_locator))
+            ActionChains(self.driver).move_to_element(self.driver.find_element(*self._more_locator)).perform()
             time.sleep(10)
             self.driver.find_element(*self._more_locator).click()
             time.sleep(5)

@@ -11,6 +11,7 @@ from parsers.yandex import perform as yandex_perform
 from parsers.gis import perform as gis_perform
 from parsers.google import perform as google_perform
 from parsers.avito import perform as avito_perform
+from parsers.zoon import perform as zoon_perform
 from resources.models import Company
 
 
@@ -104,9 +105,10 @@ def parse_zoon_task(previous_result=None, company_id=None):
         return
 
     """ Блокировка для выполнения """
-    # cache.set(lock_id, lock_id)
+    cache.set(lock_id, lock_id)
 
     """ Задача """
+    zoon_perform(company_id, celery.current_task)
 
     """ Разблокировка для выполнения """
     cache.delete(lock_id)
