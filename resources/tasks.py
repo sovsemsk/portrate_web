@@ -12,6 +12,7 @@ from parsers.gis import perform as gis_perform
 from parsers.google import perform as google_perform
 from parsers.avito import perform as avito_perform
 from parsers.zoon import perform as zoon_perform
+from parsers.flamp import perform as flamp_perform
 from resources.models import Company
 
 
@@ -127,6 +128,7 @@ def parse_flamp_task(previous_result=None, company_id=None):
     cache.set(lock_id, lock_id)
 
     """ Задача """
+    flamp_perform(company_id, celery.current_task)
 
     """ Разблокировка для выполнения """
     cache.delete(lock_id)

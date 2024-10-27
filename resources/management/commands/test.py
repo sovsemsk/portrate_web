@@ -10,6 +10,7 @@ from resources.tasks import (
     parse_google_task,
     parse_avito_task,
     parse_zoon_task,
+    parse_flamp_task,
 )
 
 
@@ -23,6 +24,7 @@ class Command(BaseCommand):
         # parsers_chain.append(parse_gis_task.s(company_id=company.id))
         # parsers_chain.append(parse_google_task.s(company_id=company.id))
         # parsers_chain.append(parse_avito_task.s(company_id=company.id))
-        parsers_chain.append(parse_zoon_task.s(company_id=company.id))
+        # parsers_chain.append(parse_zoon_task.s(company_id=company.id))
+        parsers_chain.append(parse_flamp_task.s(company_id=company.id))
         chain(* parsers_chain).apply_async()
 
