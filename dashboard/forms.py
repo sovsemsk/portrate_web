@@ -270,7 +270,6 @@ class DashboardCompanyChangeFlampForm(ModelForm):
         model = Company
         fields = ["parser_link_flamp"]
 
-    # https://moscow.flamp.ru/firm/leon_restoran-70000001040570143#reviews
     parser_link_flamp = CharField(
         required=False,
         validators=[

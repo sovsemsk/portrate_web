@@ -19,6 +19,7 @@ logger = logging.getLogger(__name__)
 class ReviewsPage():
     _close_locator = (By.XPATH, ".//cat-services-cookie-banner//cat-brand-icon")
     _rating_locator = (By.XPATH, ".//cat-brand-filial-rating")
+    _count_locator = (By.XPATH, ".//a[@data-hash='reviews']")
     _review_locator = (By.XPATH, ".//cat-layouts-ugc-list/ul/li/cat-entities-ugc-item")
     _more_locator = (By.XPATH, ".//cat-elements-button[@class='js-cat-elements-button--next']")
 
@@ -41,7 +42,17 @@ class ReviewsPage():
 
     @property
     def rating(self):
-        return self.driver.find_element(*self._rating_locator).get_attribute("rating")
+        try:
+            return self.driver.find_element(*self._rating_locator).get_attribute("rating")
+        except (AttributeError, NoSuchElementException):
+            return None
+
+    @property
+    def count(self):
+        try:
+            return self.driver.find_element(*self._count_locator).get_attribute("textContent")
+        except (AttributeError, NoSuchElementException):
+            return None
 
     @property
     def reviews(self):
@@ -132,9 +143,8 @@ def perform(company_id, task):
                 logger.exception(f"Task {task.request.task}[{task.request.id}] failed:", exc_info=exc)
 
         company.rating_flamp = float(reviews_page.rating.replace(",", ".")) if reviews_page.rating else None
-        # company.reviews_count_remote_flamp = int("".join(re.findall(r"\d+", reviews_page.count))) if reviews_page.count else None
+        company.reviews_count_remote_flamp = int("".join(re.findall(r"\d+", reviews_page.count))) if reviews_page.count else None
         company.save(update_fields=["rating_flamp", "reviews_count_remote_flamp"])
-
     except IntegrityError:
         pass
 
