@@ -38,7 +38,11 @@ class ReviewsPage():
             return
 
     def click_agree(self):
-        self.driver.find_element(*self._close_locator).click()
+        try:
+            self.driver.find_element(*self._close_locator).click()
+        except:
+            pass
+
         return self
 
     def show_all(self):
