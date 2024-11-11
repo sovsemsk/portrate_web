@@ -13,6 +13,7 @@ from parsers.google import perform as google_perform
 from parsers.avito import perform as avito_perform
 from parsers.zoon import perform as zoon_perform
 from parsers.flamp import perform as flamp_perform
+from spiders.prodoctorov.case import perform as prodoctorov_perform
 from resources.models import Company
 
 
@@ -162,7 +163,7 @@ def parse_prodoctorov_task(previous_result=None, company_id=None):
         return
 
     """ Блокировка для выполнения """
-    cache.set(lock_id, lock_id)
+    prodoctorov_perform(company_id, celery.current_task)
 
     """ Задача """
 
@@ -272,6 +273,12 @@ def parse_all_task():
 
             if company.can_parse_avito and company.parser_link_avito:
                 parsers_chain.append(parse_avito_task.s(company_id=company.id))
+
+            if company.can_parse_zoon and company.parser_link_zoon:
+                parsers_chain.append(parse_zoon_task.s(company_id=company.id))
+
+            if company.can_parse_flamp and company.parser_link_flamp:
+                parsers_chain.append(parse_flamp_task.s(company_id=company.id))
 
             chain(*parsers_chain).apply_async()
 

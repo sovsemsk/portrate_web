@@ -9,6 +9,6 @@ def driver():
     })
 
 
-    driver = webdriver.Remote(command_executor="http://9bea7b5c.portrate.io/wd/hub", options=options)
-    # driver = webdriver.Chrome()
+    # driver = webdriver.Remote(command_executor="http://9bea7b5c.portrate.io/wd/hub", options=options)
+    driver = webdriver.Chrome()
     return driver
