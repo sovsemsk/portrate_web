@@ -1,5 +1,5 @@
 import time
-from typing import Self, NoReturn
+from typing import NoReturn
 
 from selenium.webdriver.remote.webelement import WebElement
 
@@ -21,12 +21,10 @@ class BasePageScrollMore(BasePage):
 
         self._scroll_more(new_node)
 
-    def show_all(self) -> Self:
+    def show_all(self) -> NoReturn:
         nodes = self.wait_and_find_elements(self._review_location)
 
         time.sleep(1)
 
         if len(nodes) > 0:
             self._scroll_more(nodes[-1])
-
-        return self

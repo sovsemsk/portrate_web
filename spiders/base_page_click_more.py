@@ -1,8 +1,4 @@
 import time
-from typing import Self, NoReturn
-
-from selenium.webdriver.common.by import By
-from selenium.webdriver.remote.webelement import WebElement
 
 from spiders.base_page import BasePage
 
