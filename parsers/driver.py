@@ -8,7 +8,5 @@ def driver():
         "env": ["LANG=ru_RU.UTF-8", "LANGUAGE=ru", "LC_ALL=ru_RU.UTF-8"]
     })
 
-
-    # driver = webdriver.Remote(command_executor="http://9bea7b5c.portrate.io/wd/hub", options=options)
-    driver = webdriver.Chrome()
+    driver = webdriver.Remote(command_executor="http://9bea7b5c.portrate.io/wd/hub", options=options)
     return driver
