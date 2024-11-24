@@ -97,14 +97,14 @@ class ReviewsPage():
 
             if len(text_els) == 1:
                 text = text_els[0].get_attribute("textContent")
-            elif len(text_els) > 1:
-                text = f"{
-                text_els[0].get_attribute('textContent') if text_els[0] in text_els else ''
-                }. {
-                text_els[1].get_attribute('textContent') if text_els[1] in text_els else ''
-                }. {
-                text_els[2].get_attribute('textContent') if text_els[2] in text_els  else ''
-                }"
+            # elif len(text_els) > 1:
+            #     text = f"{
+            #     text_els[0].get_attribute('textContent') if text_els[0] in text_els else ''
+            #     }. {
+            #     text_els[1].get_attribute('textContent') if text_els[1] in text_els else ''
+            #     }. {
+            #     text_els[2].get_attribute('textContent') if text_els[2] in text_els  else ''
+            #     }"
             else:
                 text = None
 
