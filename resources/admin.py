@@ -1,6 +1,6 @@
 from django.contrib.admin import ModelAdmin, register, TabularInline
 
-from .models import Company, Membership, Payment, Story, StorySlide
+from .models import Company, Membership, Payment, Story, StorySlide, InstructionSlide, Instruction
 
 
 class MembershipInlineAdmin(TabularInline):
@@ -90,6 +90,61 @@ class StoryAdmin(ModelAdmin):
         "is_visible_feedback",
         "is_visible_qr",
         "is_visible_notifications"
+    ]
+
+    search_fields = ["name"]
+
+
+class InstructionSlideInlineAdmin(TabularInline):
+    fields = ["sort", "preview", "image"]
+    model = InstructionSlide
+
+@register(Instruction)
+class InstructionAdmin(ModelAdmin):
+    inlines = [InstructionSlideInlineAdmin]
+
+    fieldsets = [
+        (
+            None,
+            {
+                "fields": ["name", "is_active"],
+            },
+        ),
+        (
+            "Разделы",
+            {
+                "fields": [
+                    "is_visible_yandex",
+                    "is_visible_gis",
+                    "is_visible_google",
+                    "is_visible_avito",
+                    "is_visible_zoon",
+                    "is_visible_flamp",
+                    "is_visible_yell",
+                    "is_visible_prodoctorov",
+                    "is_visible_yandex_services",
+                    "is_visible_otzovik",
+                    "is_visible_irecommend"
+                ],
+            },
+        ),
+    ]
+
+    list_display = ["name", "is_active"]
+
+    list_filter = [
+        "is_active",
+        "is_visible_yandex",
+        "is_visible_gis",
+        "is_visible_google",
+        "is_visible_avito",
+        "is_visible_zoon",
+        "is_visible_flamp",
+        "is_visible_yell",
+        "is_visible_prodoctorov",
+        "is_visible_yandex_services",
+        "is_visible_otzovik",
+        "is_visible_irecommend"
     ]
 
     search_fields = ["name"]

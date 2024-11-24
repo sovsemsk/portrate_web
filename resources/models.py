@@ -1036,7 +1036,7 @@ class Story(Model):
 class StorySlide(Model):
     """ Медиа истории """
     class Meta:
-        db_table = "resources_story_media"
+        db_table = "resources_story_slide"
         verbose_name = "медиа истории"
         verbose_name_plural = "медиа историй"
 
@@ -1053,6 +1053,63 @@ class StorySlide(Model):
     @property
     def is_video(self):
         return True if self.video else False
+
+    @property
+    def is_image(self):
+        return True if self.image else False
+
+    def __str__(self):
+        return str(self.story)
+
+
+class Instruction(Model):
+    """ История """
+    class Meta:
+        db_table = "resources_instruction"
+        verbose_name = "инструкция"
+        verbose_name_plural = "инструкции"
+
+    """ Автогенерация """
+    created_at = DateTimeField(auto_now_add=True, verbose_name="дата создания")
+
+    """ Настройки """
+    is_active = BooleanField(default=False, verbose_name="активно?")
+    is_visible_yandex = BooleanField(default=False, verbose_name="отображать в Яндекс?")
+    is_visible_gis = BooleanField(default=False, verbose_name="отображать в 2Гис?")
+    is_visible_google = BooleanField(default=False, verbose_name="отображать в Google?")
+    is_visible_avito = BooleanField(default=False, verbose_name="отображать в Авито?")
+    is_visible_zoon = BooleanField(default=False, verbose_name="отображать в Zoon?")
+    is_visible_flamp = BooleanField(default=False, verbose_name="отображать в Flamp?")
+    is_visible_yell = BooleanField(default=False, verbose_name="отображать в Yell?")
+    is_visible_prodoctorov = BooleanField(default=False, verbose_name="отображать в Продокторов?")
+    is_visible_yandex_services = BooleanField(default=False, verbose_name="отображать в Яндекс Сервисах?")
+    is_visible_otzovik = BooleanField(default=False, verbose_name="отображать в Отзовик?")
+    is_visible_irecommend = BooleanField(default=False, verbose_name="отображать в Irecommend?")
+    is_visible_tripadvisor = BooleanField(default=False, verbose_name="отображать в Tripadvisor?")
+
+    """ Данные """
+    name = CharField(verbose_name="название")
+
+    def __str__(self):
+        return str(self.name)
+
+
+class InstructionSlide(Model):
+    """ Медиа истории """
+    class Meta:
+        db_table = "resources_instruction_slide"
+        verbose_name = "медиа инструкции"
+        verbose_name_plural = "медиа инструкций"
+
+    """ Настройки """
+    sort = IntegerField(default=0, verbose_name="порядок")
+
+    """ Контент """
+    preview = ResizedImageField(crop=['middle', 'center'], size=[256, 256], upload_to="dashboard/%Y/%m/%d/", verbose_name="превью")
+    image = ImageField(blank=True, null=True, upload_to="dashboard/%Y/%m/%d/", verbose_name="изображение")
+
+    """ Связи """
+    story = ForeignKey("resources.Instruction", on_delete=CASCADE, verbose_name="история")
 
     @property
     def is_image(self):
