@@ -336,11 +336,19 @@
                             <td>
                                 <div class="bp5-text-large">{{ company.reviews_count_total_yell|default:'0' }}</div>
                             </td>
-                            <td>
-                                <div class="bp5-text-large">{{ company.reviews_count_positive_yell|default:'0' }}</div>
+                            <td style="position:relative;">
+                                <div style="background:rgba(28, 110, 66, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_positive_flamp company.reviews_count_total_flamp 100 %}%;z-index:0;"></div>
+                                <div class="bp5-text-large">
+                                    {% widthratio company.reviews_count_positive_yell company.reviews_count_total_yell 100 %}
+                                    <span class="bp5-text-small">%</span>
+                                </div>
                             </td>
-                            <td>
-                                <div class="bp5-text-large">{{ company.reviews_count_negative_yell|default:'0' }}</div>
+                            <td style="position:relative;">
+                                <div style="background:rgba(172, 47, 51, 0.05);height:100%;left:0;position:absolute;top:0;width:{% widthratio company.reviews_count_negative_flamp company.reviews_count_total_flamp 100 %}%;z-index:0;"></div>
+                                <div class="bp5-text-large">
+                                    {% widthratio company.reviews_count_negative_yell company.reviews_count_total_yell 100 %}
+                                    <span class="bp5-text-small">%</span>
+                                </div>
                             </td>
                             <td>
                                 <div class="bp5-entity-title">
