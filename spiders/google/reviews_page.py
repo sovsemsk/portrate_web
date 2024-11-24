@@ -51,16 +51,16 @@ class ReviewsPage(BasePageScrollMore):
 
         @property
         def created_at(self):
-            return self.find_element(self._created_at_location).get_attribute("textContent")
+            return self.wait_and_find_element(self._created_at_location).get_attribute("textContent")
 
         @property
         def name(self):
-            return self.find_element(self._name_location).get_attribute("textContent")
+            return self.wait_and_find_element(self._name_location).get_attribute("textContent")
 
         @property
         def stars(self):
-            return len(self.find_elements(self._stars_location))
+            return len(self.wait_and_find_elements(self._stars_location))
 
         @property
         def text(self):
-            return self.find_element(self._text_location).get_attribute("textContent")
+            return self.wait_and_find_element(self._text_location).get_attribute("textContent")

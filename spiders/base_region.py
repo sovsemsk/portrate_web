@@ -80,6 +80,22 @@ class BaseRegion:
         except TimeoutException:
             raise NoSuchElementException
 
+    def find_element(self, location: Tuple[str, str]) -> WebElement:
+        """
+        Поиск элемента
+
+        :param location: Кортеж из стратегии (By) и локатора
+        """
+        return self._element.find_element(*location)
+
+    def find_elements(self, location: Tuple[str, str]) -> list[WebElement]:
+        """
+        Поиск элемента
+
+        :param location: Кортеж из стратегии (By) и локатора
+        """
+        return self._element.find_elements(*location)
+
     def move_to_element(self, location: Tuple[str, str], timeout: int=10) -> NoReturn:
         """
         Смещение фокуса на элемент

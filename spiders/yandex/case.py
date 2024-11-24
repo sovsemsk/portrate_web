@@ -19,7 +19,6 @@ def perform(company_id):
 
     # Парсинг
     with Driver() as web_driver:
-
         web_driver.get(company.parser_link_yandex)
         reviews_page = ReviewsPage(web_driver)
         reviews_page.order_all()

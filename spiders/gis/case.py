@@ -27,7 +27,7 @@ def perform(company_id):
         for review in reviews_page.reviews:
             try:
                 Review.objects.create(
-                    created_at=dateparser.parse(review.created_at, languages=["ru", "en"]),
+                    created_at=dateparser.parse(review.created_at.replace(", отредактирован", ""), languages=["ru", "en"]),
                     is_visible=(company.__getattribute__(f"is_visible_{review.stars}") and company.is_visible_gis),
                     remote_id=hashlib.md5(f"{review.name}{review.created_at}".encode()).hexdigest(),
                     service=Service.GIS,

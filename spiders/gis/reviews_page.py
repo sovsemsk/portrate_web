@@ -36,7 +36,7 @@ class ReviewsPage(BasePageScrollMore):
             except (AttributeError, NoSuchElementException):
                 pass
 
-            if index == 99:
+            if len(result) >= 100:
                 break
 
         return result
@@ -49,22 +49,22 @@ class ReviewsPage(BasePageScrollMore):
 
         @property
         def created_at(self):
-            return self.wait_and_find_element(self._created_at_location).get_attribute("textContent")
+            return self.find_element(self._created_at_location).get_attribute("textContent")
 
         @property
         def name(self):
             try:
-                return self.wait_and_find_element(self._name_location[0]).get_attribute("textContent")
+                return self.find_element(self._name_location[0]).get_attribute("textContent")
             except (AttributeError, NoSuchElementException):
-                return self.wait_and_find_element(self._name_location[1]).get_attribute("textContent")
+                return self.find_element(self._name_location[1]).get_attribute("textContent")
 
         @property
         def stars(self):
-            return len(self.wait_and_find_elements(self._stars_location))
+            return len(self.find_elements(self._stars_location))
 
         @property
         def text(self):
             try:
-                return self.wait_and_find_element(self._text_location[0]).get_attribute("textContent")
+                return self.find_element(self._text_location[0]).get_attribute("textContent")
             except (AttributeError, NoSuchElementException):
-                return self.wait_and_find_element(self._text_location[1]).get_attribute("textContent")
+                return self.find_element(self._text_location[1]).get_attribute("textContent")

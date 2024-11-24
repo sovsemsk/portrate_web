@@ -11,7 +11,7 @@ class Command(BaseCommand):
         company = Company.objects.first()
 
         parsers_chain = [
-            # tasks.parse_yandex_task.s(company_id=company.id)
+            # tasks.parse_yandex_task.s(company_id=company.id),
             tasks.parse_gis_task.s(company_id=company.id)
         ]
 
