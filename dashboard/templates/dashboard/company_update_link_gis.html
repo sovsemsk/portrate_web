@@ -20,19 +20,7 @@
                     <div class="bp5-input-group {% if form.parser_link_gis.errors %}bp5-intent-danger{% endif %}">
                         {{form.parser_link_gis}}
                     </div>
-                    <div class="bp5-form-helper-text">{% if form.parser_link_gis.errors %}{{form.parser_link_gis.errors.as_text}}{% endif %}</div>
-                </div>
-            </div>
-            <div class="bp5-form-group">
-                <div class="bp5-form-content">
-                    <div class="bp5-callout">
-                        <p class="bp5-text-small">Примеры правильных ссылок</p>
-                        <li>https://go.2gis.com/{CODE}</li>
-                        <li>https://go.2gis.ru/{CODE}</li>
-                        <li>https://2gis.ru/{CITY}/firm/{ID}/tab/reviews</li>
-                        <li>https://2gis.ru/search/{QUERY}/firm/{ID}/tab/reviews</li>
-                        <li>https://2gis.ru/{CITY}/search/{QUERY}/firm/{ID}/tab/reviews</li>
-                    </div>
+                    {% if form.parser_link_gis.errors %}<div class="bp5-form-helper-text">{{form.parser_link_gis.errors.as_text}}</div>{% endif %}
                 </div>
             </div>
             <div class="bp5-form-group">

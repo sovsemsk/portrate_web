@@ -19,15 +19,7 @@
                         </div>
                         <button class="bp5-button bp5-intent-warning">Далее</button>
                     </div>
-                    <div class="bp5-form-helper-text">{% if form.parser_link_google.errors %}{{form.parser_link_google.errors.as_text}} {% endif %}</div>
-                </div>
-            </div>
-            <div class="bp5-form-group">
-                <div class="bp5-form-content">
-                    <div class="bp5-callout">
-                        <p class="bp5-text-small">Примеры правильных ссылок</p>
-                        <li>https://maps.app.goo.gl/{CODE}</li>
-                    </div>
+                    {% if form.parser_link_google.errors %}<div class="bp5-form-helper-text">{{form.parser_link_google.errors.as_text}}</div>{% endif %}
                 </div>
             </div>
         </form>

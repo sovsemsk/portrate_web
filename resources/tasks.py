@@ -7,8 +7,8 @@ from django.contrib.auth.models import User
 from django.core.cache import cache
 from djmoney.money import Money
 
-from parsers.yandex import perform as yandex_perform
-from parsers.gis import perform as gis_perform
+from spiders.yandex.case import perform as yandex_perform
+from spiders.gis.case import perform as gis_perform
 from parsers.google import perform as google_perform
 from parsers.avito import perform as avito_perform
 from parsers.zoon import perform as zoon_perform
@@ -34,7 +34,7 @@ def parse_yandex_task(previous_result=None, company_id=None):
     cache.set(lock_id, lock_id)
 
     """ Задача """
-    yandex_perform(company_id, celery.current_task)
+    yandex_perform(company_id)
 
     """ Разблокировка для выполнения """
     cache.delete(lock_id)
@@ -53,7 +53,7 @@ def parse_gis_task(previous_result=None, company_id=None):
     cache.set(lock_id, lock_id)
 
     """ Задача """
-    gis_perform(company_id, celery.current_task)
+    gis_perform(company_id)
 
     """ Разблокировка для выполнения """
     cache.delete(lock_id)

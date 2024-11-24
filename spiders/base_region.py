@@ -64,7 +64,7 @@ class BaseRegion:
         :param timeout: Время ожидания, секунды
         """
         try:
-            return self.wait_element_visible(location, timeout)
+            return self.wait(timeout).until(ec.presence_of_element_located(location))
         except TimeoutException:
             raise NoSuchElementException
 
@@ -76,7 +76,7 @@ class BaseRegion:
         :param timeout: Время ожидания, секунды
         """
         try:
-            return self.wait(timeout).until(ec.visibility_of_all_elements_located(location))
+            return self.wait(timeout).until(ec.presence_of_all_elements_located(location))
         except TimeoutException:
             raise NoSuchElementException
 

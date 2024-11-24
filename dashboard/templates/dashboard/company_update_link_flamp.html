@@ -20,20 +20,9 @@
                     <div class="bp5-input-group {% if form.parser_link_flamp.errors %}bp5-intent-danger{% endif %}">
                         {{form.parser_link_flamp}}
                     </div>
-                    <div class="bp5-form-helper-text">
-                        {% if form.parser_link_flamp.errors %}{{form.parser_link_flamp.errors.as_text}}{% endif %}
-                    </div>
+                    {% if form.parser_link_flamp.errors %}<div class="bp5-form-helper-text">{{form.parser_link_flamp.errors.as_text}}</div>{% endif %}
                 </div>
             </div>
-            <div class="bp5-form-group">
-                <div class="bp5-form-content">
-                    <div class="bp5-callout">
-                        <p class="bp5-text-small">Примеры правильных ссылок</p>
-                        <li>https://{CITY}.flamp.ru/firm/{NAME}-{ID}</li>
-                    </div>
-                </div>
-            </div>
-
             <div class="bp5-form-group">
                 <div class="bp5-form-content">
                     <button class="bp5-button bp5-large" type="submit">Сохранить</button>

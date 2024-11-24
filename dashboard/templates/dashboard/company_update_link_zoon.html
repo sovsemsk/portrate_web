@@ -20,9 +20,7 @@
                     <div class="bp5-input-group {% if form.parser_link_zoon.errors %}bp5-intent-danger{% endif %}">
                         {{ form.parser_link_zoon }}
                     </div>
-                    <div class="bp5-form-helper-text">
-                        {% if form.parser_link_zoon.errors %}{{form.parser_link_zoon.errors.as_text}}{% else %}Например «https://zoon.ru/{CITY}/{CATEGORY}/{NAME}/»{% endif %}
-                    </div>
+                    {% if form.parser_link_zoon.errors %}<div class="bp5-form-helper-text">{{form.parser_link_zoon.errors.as_text}}</div>{% endif %}
                 </div>
             </div>
             <div class="bp5-form-group">

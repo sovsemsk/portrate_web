@@ -10,7 +10,6 @@ from spiders.base_region import BaseRegion
 class ReviewsPage(BasePageScrollMore):
     _count_location = (By.XPATH, ".//h2[@class='card-section-header__title _wide']")
     _dropdown_location = (By.XPATH, ".//div[@class='rating-ranking-view']")
-    _header_location = (By.XPATH, ".//h1[@class='orgpage-header-view__header']")
     _rating_location = (By.XPATH, ".//div[@class='business-summary-rating-badge-view__rating']")
     _review_location = (By.XPATH, ".//div[@class='business-reviews-card-view__review']")
     _sort_location = (By.XPATH, ".//div[@aria-label='По новизне']")
@@ -45,23 +44,23 @@ class ReviewsPage(BasePageScrollMore):
         return result
 
     class ReviewRegion(BaseRegion):
-        _created_at_locator = (By.XPATH, ".//span[@class='business-review-view__date']")
-        _stars_locator = (By.XPATH, ".//span[@class='inline-image _loaded icon business-rating-badge-view__star _full']")
-        _name_locator = (By.XPATH, ".//span[@itemprop='name']")
-        _text_locator = (By.XPATH, ".//span[@class='business-review-view__body-text']")
+        _created_at_location = (By.XPATH, ".//span[@class='business-review-view__date']")
+        _stars_location = (By.XPATH, ".//span[@class='inline-image _loaded icon business-rating-badge-view__star _full']")
+        _name_location = (By.XPATH, ".//span[@itemprop='name']")
+        _text_location = (By.XPATH, ".//span[@class='business-review-view__body-text']")
 
         @property
         def created_at(self):
-            return self.wait_and_find_element(self._created_at_locator).get_attribute("textContent")
+            return self.wait_and_find_element(self._created_at_location).get_attribute("textContent")
 
         @property
         def name(self):
-            return self.wait_and_find_element(self._name_locator).get_attribute("textContent")
+            return self.wait_and_find_element(self._name_location).get_attribute("textContent")
 
         @property
         def stars(self):
-            return len(self.wait_and_find_elements(self._stars_locator))
+            return len(self.wait_and_find_elements(self._stars_location))
 
         @property
         def text(self):
-            return self.wait_and_find_element(self._text_locator).get_attribute("textContent")
+            return self.wait_and_find_element(self._text_location).get_attribute("textContent")

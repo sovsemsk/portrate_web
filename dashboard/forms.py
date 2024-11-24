@@ -77,14 +77,6 @@ class DashboardCompanyChangeYandexForm(ModelForm):
 
     parser_link_yandex = CharField(
         required=False,
-        validators=[
-            RegexValidator(
-                regex=r"^https:\/\/yandex\.ru\/maps\/-\/[\w\W]{1,}[\/]{0,1}[\w\W]{0,}|"
-                      r"^https:\/\/yandex\.ru\/maps\/org\/[\w\W]{1,}\/[\d]{1,}\/reviews[\/]{0,1}[\w\W]{0,}$",
-                message="Введите правильную ссылку",
-                code="invalid_parser_link_yandex",
-            ),
-        ],
         widget=TextInput(attrs={"class": "bp5-input bp5-large"}),
     )
 
@@ -116,17 +108,6 @@ class DashboardCompanyChangeGisForm(ModelForm):
 
     parser_link_gis = CharField(
         required=False,
-        validators=[
-            RegexValidator(
-                regex=r"^https:\/\/go\.2gis\.com\/[\w\W]{1,}[\/]{0,1}$|"
-                      r"^https:\/\/go\.2gis\.ru\/[\w\W]{1,}[\/]{0,1}$|"
-                      r"^https:\/\/2gis\.ru\/firm\/[\d]{1,}\/tab\/reviews[\/]{0,1}[\w\W]{0,}$|"
-                      r"^https:\/\/2gis\.ru\/search\/[\w\W]{1,}\/firm\/[\d]{1,}\/[\w\W]{1,}\/tab\/reviews[\/]{0,1}[\w\W]{0,}$|"
-                      r"^https:\/\/2gis\.ru\/[\w\W]{1,}\/search\/[\w\W]{1,}\/firm\/[\d]{1,}\/[\w\W]{1,}\/tab\/reviews[\/]{0,1}[\w\W]{0,}$",
-                message="Введите правильную ссылку",
-                code="invalid_parser_link_gis",
-            )
-        ],
         widget=TextInput(attrs={"class": "bp5-input bp5-large"}),
     )
 
@@ -158,13 +139,6 @@ class DashboardCompanyChangeGoogleForm(ModelForm):
 
     parser_link_google = CharField(
         required=False,
-        validators=[
-            RegexValidator(
-                regex=r"^https:\/\/maps\.app\.goo\.gl\/[\w\W]{1,}[\/]{0,1}$",
-                message="Введите правильную ссылку",
-                code="invalid_parser_link_google",
-            )
-        ],
         widget=TextInput(attrs={"class": "bp5-input bp5-large"}),
     )
 
@@ -196,13 +170,6 @@ class DashboardCompanyChangeAvitoForm(ModelForm):
 
     parser_link_avito = CharField(
         required=False,
-        validators=[
-            RegexValidator(
-                regex=r"^https:\/\/[\w\W]{0,3}\.avito\.ru\/brands\/[\w\W]{1,}[\/]{0,1}[\w\W]{0,}$",
-                message="Введите правильную ссылку",
-                code="invalid_parser_link_yandex",
-            )
-        ],
         widget=TextInput(attrs={"class": "bp5-input bp5-large"})
     )
 
@@ -234,13 +201,6 @@ class DashboardCompanyChangeZoonForm(ModelForm):
 
     parser_link_zoon = CharField(
         required=False,
-        validators=[
-            RegexValidator(
-                regex=r"^https:\/\/zoon\.ru\/[\w\W]{1,}\/[\w\W]{1,}\/[\w\W]{1,}[\/]{0,1}[\w\W]{0,}$",
-                message="Введите правильную ссылку",
-                code="invalid_parser_link_yandex",
-            )
-        ],
         widget=TextInput(attrs={"class": "bp5-input bp5-large"})
     )
 
@@ -272,13 +232,6 @@ class DashboardCompanyChangeFlampForm(ModelForm):
 
     parser_link_flamp = CharField(
         required=False,
-        validators=[
-            RegexValidator(
-                regex=r"^https:\/\/[\w\W]{1,}\.flamp\.ru\/firm\/[\w\W]{1,}-[\d]{1,}[\/]{0,1}$",
-                message="Введите правильную ссылку",
-                code="invalid_parser_link_yandex",
-            )
-        ],
         widget=TextInput(attrs={"class": "bp5-input bp5-large"})
     )
 
@@ -308,7 +261,10 @@ class DashboardCompanyChangeYellForm(ModelForm):
         model = Company
         fields = ["parser_link_yell"]
 
-    parser_link_yell = CharField(required=False, widget=TextInput(attrs={"class": "bp5-input bp5-large"}))
+    parser_link_yell = CharField(
+        required=False,
+        widget=TextInput(attrs={"class": "bp5-input bp5-large"})
+    )
 
     def __init__(self, *args, **kwargs):
         __init__ = super().__init__(*args, **kwargs)
@@ -336,7 +292,10 @@ class DashboardCompanyChangeProdoctorovForm(ModelForm):
         model = Company
         fields = ["parser_link_prodoctorov"]
 
-    parser_link_prodoctorov = CharField(required=False, widget=TextInput(attrs={"class": "bp5-input bp5-large"}))
+    parser_link_prodoctorov = CharField(
+        required=False,
+        widget=TextInput(attrs={"class": "bp5-input bp5-large"})
+    )
 
     def __init__(self, *args, **kwargs):
         __init__ = super().__init__(*args, **kwargs)
@@ -364,7 +323,10 @@ class DashboardCompanyChangeYandexServicesForm(ModelForm):
         model = Company
         fields = ["parser_link_yandex_services"]
 
-    parser_link_yandex_services = CharField(required=False, widget=TextInput(attrs={"class": "bp5-input bp5-large"}))
+    parser_link_yandex_services = CharField(
+        required=False,
+        widget=TextInput(attrs={"class": "bp5-input bp5-large"})
+    )
 
     def __init__(self, *args, **kwargs):
         __init__ = super().__init__(*args, **kwargs)
@@ -392,7 +354,10 @@ class DashboardCompanyChangeOtzovikForm(ModelForm):
         model = Company
         fields = ["parser_link_otzovik"]
 
-    parser_link_otzovik = CharField(required=False, widget=TextInput(attrs={"class": "bp5-input bp5-large"}))
+    parser_link_otzovik = CharField(
+        required=False,
+        widget=TextInput(attrs={"class": "bp5-input bp5-large"})
+    )
 
     def __init__(self, *args, **kwargs):
         __init__ = super().__init__(*args, **kwargs)
@@ -420,7 +385,10 @@ class DashboardCompanyChangeIrecommendForm(ModelForm):
         model = Company
         fields = ["parser_link_irecommend"]
 
-    parser_link_irecommend = CharField(required=False, widget=TextInput(attrs={"class": "bp5-input bp5-large"}))
+    parser_link_irecommend = CharField(
+        required=False,
+        widget=TextInput(attrs={"class": "bp5-input bp5-large"})
+    )
 
     def __init__(self, *args, **kwargs):
         __init__ = super().__init__(*args, **kwargs)
@@ -655,44 +623,18 @@ class DashboardCompanyCreationForm(ModelForm):
 
 class DashboardCompanyCreationLinkYandexForm(Form):
     parser_link_yandex = CharField(
-        validators=[
-            RegexValidator(
-                regex=r"^https:\/\/yandex\.ru\/maps\/-\/[\w\W]{1,}[\/]{0,1}[\w\W]{0,}|"
-                      r"^https:\/\/yandex\.ru\/maps\/org\/[\w\W]{1,}\/[\d]{1,}\/reviews[\/]{0,1}[\w\W]{0,}$",
-                message="Введите правильную ссылку",
-                code="invalid_parser_link_yandex",
-            ),
-        ],
         widget=TextInput(attrs={"class": "bp5-input bp5-large"})
     )
 
 
 class DashboardCompanyCreationLinkGisForm(Form):
     parser_link_gis = CharField(
-        validators=[
-            RegexValidator(
-                regex=r"^https:\/\/go\.2gis\.com\/[\w\W]{1,}[\/]{0,1}$|"
-                      r"^https:\/\/go\.2gis\.ru\/[\w\W]{1,}[\/]{0,1}$|"
-                      r"^https:\/\/2gis\.ru\/firm\/[\d]{1,}\/tab\/reviews[\/]{0,1}[\w\W]{0,}$|"
-                      r"^https:\/\/2gis\.ru\/search\/[\w\W]{1,}\/firm\/[\d]{1,}\/[\w\W]{1,}\/tab\/reviews[\/]{0,1}[\w\W]{0,}$|"
-                      r"^https:\/\/2gis\.ru\/[\w\W]{1,}\/search\/[\w\W]{1,}\/firm\/[\d]{1,}\/[\w\W]{1,}\/tab\/reviews[\/]{0,1}[\w\W]{0,}$",
-                message="Введите правильную ссылку",
-                code="invalid_parser_link_gis",
-            )
-        ],
         widget=TextInput(attrs={"class": "bp5-input bp5-large"})
     )
 
 
 class DashboardCompanyCreationLinkGoogleForm(Form):
     parser_link_google = CharField(
-        validators=[
-            RegexValidator(
-                regex=r"^https:\/\/maps\.app\.goo\.gl\/[\w\W]{1,}[\/]{0,1}$",
-                message="Введите правильную ссылку",
-                code="invalid_parser_link_google",
-            )
-        ],
         widget=TextInput(attrs={"class": "bp5-input bp5-large"})
     )
 

@@ -53,7 +53,7 @@ class BasePage:
         :param location: Кортеж из стратегии (By) и локатора
         :param timeout: Время ожидания, секунды
         """
-        return self.wait(timeout).until(ec.invisibility_of_element(location))
+        return self.wait(timeout).until(ec.invisibility_of_element_located(location))
 
     def wait_element_clickable(self, location: Tuple[str, str], timeout: int=10) -> Union[bool, WebElement]:
         """
@@ -72,7 +72,7 @@ class BasePage:
         :param timeout: Время ожидания, секунды
         """
         try:
-            return self.wait_element_visible(location, timeout)
+            return self.wait(timeout).until(ec.presence_of_element_located(location))
         except TimeoutException:
             raise NoSuchElementException
 
@@ -84,7 +84,7 @@ class BasePage:
         :param timeout: Время ожидания, секунды
         """
         try:
-            return self.wait(timeout).until(ec.visibility_of_all_elements_located(location))
+            return self.wait(timeout).until(ec.presence_of_all_elements_located(location))
         except TimeoutException:
             raise NoSuchElementException
 

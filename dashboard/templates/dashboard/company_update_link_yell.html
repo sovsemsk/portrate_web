@@ -20,9 +20,7 @@
                     <div class="bp5-input-group {% if form.parser_link_yell.errors %}bp5-intent-danger{% endif %}">
                         {{form.parser_link_yell}}
                     </div>
-                    <div class="bp5-form-helper-text">
-                        {% if form.parser_link_yell.errors %}{{form.parser_link_yell.errors.as_text}}{% else %}Например «https://yell.ru/{CITY}/com/{NAME}_{ID}»{% endif %}
-                    </div>
+                    {% if form.parser_link_yell.errors %}<div class="bp5-form-helper-text">{{form.parser_link_yell.errors.as_text}}</div>{% endif %}
                 </div>
             </div>
             <div class="bp5-form-group">

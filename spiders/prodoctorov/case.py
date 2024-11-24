@@ -1,5 +1,4 @@
 import hashlib
-import logging
 import re
 from datetime import datetime, timezone
 
@@ -8,10 +7,7 @@ from django.db import IntegrityError
 
 from resources.models import Company, Review, Service
 from spiders.prodoctorov.reviews_page import ReviewsPage
-from spiders.utils import driver
-
-
-logger = logging.getLogger(__name__)
+from spiders.utils import Driver
 
 
 def perform(company_id):
@@ -22,18 +18,9 @@ def perform(company_id):
     company.save(update_fields=["is_parser_run_prodoctorov"])
 
     # Парсинг
-    web_driver = driver()
-
-    web_driver.get(company.parser_link_prodoctorov)
-    reviews_page = ReviewsPage(web_driver).show_all()
-
-    return
-
-    try:
+    with Driver() as web_driver:
         web_driver.get(company.parser_link_prodoctorov)
         reviews_page = ReviewsPage(web_driver).show_all()
-
-        return
 
         for review in reviews_page.reviews:
             try:
@@ -53,11 +40,6 @@ def perform(company_id):
         company.rating_prodoctorov = float(".".join(re.findall(r"\d+", reviews_page.rating))) if reviews_page.rating else None
         company.reviews_count_remote_prodoctorov = int("".join(re.findall(r"\d+", reviews_page.count))) if reviews_page.count else None
         company.save(update_fields=["rating_prodoctorov", "reviews_count_remote_prodoctorov"])
-
-    except Exception as exc:
-        logger.exception(f"Task {task.request.task}[{task.request.id}] failed:", exc_info=exc)
-
-    web_driver.quit()
 
     # Запись в бд флагов окончания парсинга
     company.is_parser_run_prodoctorov = False
