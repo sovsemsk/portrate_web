@@ -9,11 +9,11 @@ from djmoney.money import Money
 
 from spiders.yandex.case import perform as yandex_perform
 from spiders.gis.case import perform as gis_perform
-from parsers.google import perform as google_perform
+from spiders.google.case import perform as google_perform
 from parsers.avito import perform as avito_perform
 from parsers.zoon import perform as zoon_perform
 from parsers.flamp import perform as flamp_perform
-from spiders.prodoctorov.case import perform as prodoctorov_perform
+from parsers.prodoctorov import perform as prodoctorov_perform
 from resources.models import Company
 
 
@@ -72,7 +72,7 @@ def parse_google_task(previous_result=None, company_id=None):
     cache.set(lock_id, lock_id)
 
     """ Задача """
-    google_perform(company_id, celery.current_task)
+    google_perform(company_id)
 
     """ Разблокировка для выполнения """
     cache.delete(lock_id)

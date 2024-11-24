@@ -32,11 +32,8 @@ class ReviewsPage(BasePageScrollMore):
     def reviews(self):
         result = []
 
-        for index, el in enumerate(self.wait_and_find_elements(self._review_location)):
-            try:
-                result.append(self.ReviewRegion(el))
-            except (AttributeError, NoSuchElementException):
-                pass
+        for el in self.wait_and_find_elements(self._review_location):
+            result.append(self.ReviewRegion(el))
 
             if len(result) >= 100:
                 break

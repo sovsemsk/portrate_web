@@ -4,6 +4,7 @@ from datetime import datetime, timezone
 
 import dateparser
 from django.db import IntegrityError
+from selenium.common import NoSuchElementException
 
 from resources.models import Company, Review, Service
 from spiders.yandex.reviews_page import ReviewsPage
@@ -36,7 +37,7 @@ def perform(company_id):
                     text=review.text,
                     company_id=company.id
                 )
-            except IntegrityError:
+            except (AttributeError, IntegrityError, NoSuchElementException):
                 pass
 
         company.rating_yandex = float(".".join(re.findall(r"\d+", reviews_page.rating))) if reviews_page.rating else None

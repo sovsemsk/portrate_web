@@ -8,11 +8,11 @@ from spiders.base_region import BaseRegion
 
 
 class ReviewsPage(BasePageScrollMore):
-    _count_location = (By.XPATH, ".//h2[@class='card-section-header__title _wide']")
-    _dropdown_location = (By.XPATH, ".//div[@class='rating-ranking-view']")
-    _rating_location = (By.XPATH, ".//div[@class='business-summary-rating-badge-view__rating']")
-    _review_location = (By.XPATH, ".//div[@class='business-reviews-card-view__review']")
-    _sort_location = (By.XPATH, ".//div[@aria-label='По новизне']")
+    _count_location = (By.XPATH, ".//div[@class='jANrlb ']/div[@class='fontBodySmall']")
+    _dropdown_location = (By.XPATH, ".//button[@class='HQzyZ']")
+    _rating_location = (By.XPATH, ".//div[@class='jANrlb ']/div[@class='fontDisplayLarge']")
+    _review_location = (By.XPATH, ".//div[@class='jftiEf fontBodyMedium ']")
+    _sort_location = (By.XPATH, ".//div[@class='fxNQSd' and @data-index='1']")
 
     @property
     def rating(self):
@@ -32,11 +32,8 @@ class ReviewsPage(BasePageScrollMore):
     def reviews(self):
         result = []
 
-        for index, el in enumerate(self.wait_and_find_elements(self._review_location)):
-            try:
-                result.append(self.ReviewRegion(el))
-            except (AttributeError, NoSuchElementException):
-                pass
+        for el in self.wait_and_find_elements(self._review_location):
+            result.append(self.ReviewRegion(el))
 
             if len(result) >= 100:
                 break
@@ -44,23 +41,29 @@ class ReviewsPage(BasePageScrollMore):
         return result
 
     class ReviewRegion(BaseRegion):
-        _created_at_location = (By.XPATH, ".//span[@class='business-review-view__date']")
-        _stars_location = (By.XPATH, ".//span[@class='inline-image _loaded icon business-rating-badge-view__star _full']")
-        _name_location = (By.XPATH, ".//span[@itemprop='name']")
-        _text_location = (By.XPATH, ".//span[@class='business-review-view__body-text']")
+        _created_at_location = (By.XPATH, ".//span[@class='rsqaWe']")
+        _stars_location = (By.XPATH, ".//span[@class='hCCjke google-symbols NhBTye elGi1d']")
+        _name_location = (By.XPATH, ".//div[@class='d4r55 ']")
+        _text_location = (By.XPATH, ".//span[@class='wiI7pd']")
+
+        _expand_location = (By.XPATH, ".//button[@class='w8nwRe kyuRq']")
+
+        @property
+        def remote_id(self):
+            return self._element.get_attribute("data-review-id")
 
         @property
         def created_at(self):
-            return self.wait_and_find_element(self._created_at_location).get_attribute("textContent")
+            return self.find_element(self._created_at_location).get_attribute("textContent")
 
         @property
         def name(self):
-            return self.wait_and_find_element(self._name_location).get_attribute("textContent")
+            return self.find_element(self._name_location).get_attribute("textContent")
 
         @property
         def stars(self):
-            return len(self.wait_and_find_elements(self._stars_location))
+            return len(self.find_elements(self._stars_location))
 
         @property
         def text(self):
-            return self.wait_and_find_element(self._text_location).get_attribute("textContent")
+            return self.find_element(self._text_location).get_attribute("textContent")

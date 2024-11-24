@@ -12,7 +12,8 @@ class Command(BaseCommand):
 
         parsers_chain = [
             # tasks.parse_yandex_task.s(company_id=company.id),
-            tasks.parse_gis_task.s(company_id=company.id)
+            # tasks.parse_gis_task.s(company_id=company.id),
+            tasks.parse_google_task.s(company_id=company.id)
         ]
 
         chain(* parsers_chain).apply_async()
