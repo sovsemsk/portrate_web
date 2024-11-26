@@ -129,9 +129,9 @@
 
                 if($("*[data-hint]").length){
                     $("*[data-hint]").find("*[data-hide]").click(event => {
-                        const hindEl = $(event.currentTarget).parents("*[data-hint]");
-                        Cookies.set(hindEl.data("hint"), true);
-                        hindEl.hide();
+                        const hintEl = $(event.currentTarget).parents("*[data-hint]");
+                        Cookies.set(hintEl.data("hint"), true);
+                        hintEl.hide();
                     });
                 }
 
@@ -184,6 +184,15 @@
                     $("*[data-story_modal]").find(".bp5-overlay-backdrop").click(event => {
                         storyModal.hide();
                         $("video").map((i, el) => el.pause());
+                    });
+                }
+
+                if($("*[data-instruction]").length){
+                    $("*[data-instruction]").find("*[data-instruction_toggle]").click(event => {
+                        event.preventDefault();
+                        const toggleEl = $(event.currentTarget);
+                        toggleEl.find("*[data-instruction_icon]").toggleClass("bp5-icon-chevron-down bp5-icon-chevron-up")
+                        toggleEl.parents("*[data-instruction]").toggleClass("bp5-section-collapsed").find("*[data-instruction_slide]").toggle();
                     });
                 }
 

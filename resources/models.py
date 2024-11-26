@@ -1105,8 +1105,8 @@ class InstructionSlide(Model):
     sort = IntegerField(default=0, verbose_name="порядок")
 
     """ Контент """
-    preview = ResizedImageField(crop=['middle', 'center'], size=[256, 256], upload_to="dashboard/%Y/%m/%d/", verbose_name="превью")
     image = ImageField(blank=True, null=True, upload_to="dashboard/%Y/%m/%d/", verbose_name="изображение")
+    description = TextField(verbose_name="описание")
 
     """ Связи """
     story = ForeignKey("resources.Instruction", on_delete=CASCADE, verbose_name="история")

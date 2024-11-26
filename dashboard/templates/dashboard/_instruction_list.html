@@ -1,0 +1,25 @@
+{% if instruction_list %}
+<h4 class="bp5-heading">Инструкции</h4>
+{% for instruction in instruction_list %}
+<div class="bp5-form-group">
+    <div class="bp5-form-content">
+        <div class="bp5-section bp5-section-collapsed bp5-card bp5-elevation-0" data-instruction>
+            <div role="button" class="bp5-section-header bp5-interactive" data-instruction_toggle>
+                <div class="bp5-section-header-left">
+                    <h6 class="bp5-heading bp5-section-header-title">{{instruction.name}}</h6>
+                </div>
+                <div class="bp5-section-header-right">
+                    <span class="bp5-icon bp5-icon-chevron-down bp5-text-muted" data-instruction_icon></span>
+                </div>
+            </div>
+            {% for instruction_slide in instruction.instructionslide_set.all %}
+            <div class="bp5-padded bp5-section-card" style="display: none;" data-instruction_slide>
+                <img src="{{instruction_slide.image.url}}" style="border-radius:5px;" width=100%>
+                {% if instruction_slide.description %}{{instruction_slide.description}}{% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endif %}

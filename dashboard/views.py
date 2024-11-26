@@ -20,7 +20,8 @@ from djmoney.money import Money
 
 from billing.tbank import Tbank
 from pdf.utils import make_stick, make_card, make_qr
-from resources.models import Company, Message, Payment, Review, Service, Story, StorySlide
+from resources.models import Company, Message, Payment, Review, Service, Story, StorySlide, Instruction, \
+    InstructionSlide
 from resources.tasks import parse_yandex_task, parse_gis_task, parse_google_task
 from services.search import SearchGis, SearchGoogle, SearchYandex
 from .filters import MessageFilter, ReviewFilter
@@ -77,6 +78,18 @@ def story_list(user, nav):
         Prefetch(
             "storyslide_set",
             queryset=StorySlide.objects.order_by("sort")
+        )
+    ).order_by("-created_at").all
+
+
+def instruction_list(user, nav):
+    return Instruction.objects.filter(** {
+        "is_active": True,
+        f"is_visible_{nav}": True
+    }).prefetch_related(
+        Prefetch(
+            "instructionslide_set",
+            queryset=InstructionSlide.objects.order_by("sort")
         )
     ).order_by("-created_at").all
 
@@ -162,7 +175,8 @@ class CompanyCreateLinkYandexView(LoginRequiredMixin, View):
                 "form": form,
                 "nav": "master",
                 "sub_nav": "yandex",
-                "story_list": story_list(request.user, "master")
+                "story_list": story_list(request.user, "master"),
+                "instruction_list": instruction_list(self.request.user, "yandex")
             }
         )
 
@@ -185,7 +199,8 @@ class CompanyCreateLinkYandexView(LoginRequiredMixin, View):
                 "form": form,
                 "nav": "master",
                 "sub_nav": "yandex",
-                "story_list": story_list(request.user, "master")
+                "story_list": story_list(request.user, "master"),
+                "instruction_list": instruction_list(self.request.user, "yandex")
             }
         )
 
@@ -209,7 +224,8 @@ class CompanyCreateLinkGisView(LoginRequiredMixin, View):
                 "form": form,
                 "nav": "master",
                 "sub_nav": "gis",
-                "story_list": story_list(request.user, "master")
+                "story_list": story_list(request.user, "master"),
+                "instruction_list": instruction_list(self.request.user, "gis")
             }
         )
 
@@ -232,7 +248,8 @@ class CompanyCreateLinkGisView(LoginRequiredMixin, View):
                 "form": form,
                 "nav": "master",
                 "sub_nav": "gis",
-                "story_list": story_list(request.user, "master")
+                "story_list": story_list(request.user, "master"),
+                "instruction_list": instruction_list(self.request.user, "gis")
             }
         )
 
@@ -256,7 +273,8 @@ class CompanyCreateLinkGoogleView(LoginRequiredMixin, View):
                 "form": form,
                 "nav": "master",
                 "sub_nav": "google",
-                "story_list": story_list(request.user, "master")
+                "story_list": story_list(request.user, "master"),
+                "instruction_list": instruction_list(self.request.user, "google")
             }
         )
 
@@ -279,7 +297,8 @@ class CompanyCreateLinkGoogleView(LoginRequiredMixin, View):
                 "form": form,
                 "nav": "master",
                 "sub_nav": "google",
-                "story_list": story_list(request.user, "master")
+                "story_list": story_list(request.user, "master"),
+                "instruction_list": instruction_list(self.request.user, "google")
             }
         )
 
@@ -803,6 +822,11 @@ class CompanyUpdateLinkYandexView(CompanyUpdateView):
 
         return super().dispatch(*args, **kwargs)
 
+    def get_context_data(self, ** kwargs):
+        context = super().get_context_data(** kwargs)
+        context["instruction_list"] = instruction_list(self.request.user, "yandex")
+        return context
+
 
 class CompanyUpdateLinkGisView(CompanyUpdateView):
     form_class = DashboardCompanyChangeGisForm
@@ -813,6 +837,11 @@ class CompanyUpdateLinkGisView(CompanyUpdateView):
             return redirect("profile_update_finance")
 
         return super().dispatch(*args, **kwargs)
+
+    def get_context_data(self, ** kwargs):
+        context = super().get_context_data(** kwargs)
+        context["instruction_list"] = instruction_list(self.request.user, "gis")
+        return context
 
 
 class CompanyUpdateLinkGoogleView(CompanyUpdateView):
@@ -825,6 +854,11 @@ class CompanyUpdateLinkGoogleView(CompanyUpdateView):
 
         return super().dispatch(*args, **kwargs)
 
+    def get_context_data(self, ** kwargs):
+        context = super().get_context_data(** kwargs)
+        context["instruction_list"] = instruction_list(self.request.user, "google")
+        return context
+
 
 class CompanyUpdateLinkAvitoView(CompanyUpdateView):
     form_class = DashboardCompanyChangeAvitoForm
@@ -835,6 +869,11 @@ class CompanyUpdateLinkAvitoView(CompanyUpdateView):
             return redirect("profile_update_finance")
 
         return super().dispatch(*args, **kwargs)
+
+    def get_context_data(self, ** kwargs):
+        context = super().get_context_data(** kwargs)
+        context["instruction_list"] = instruction_list(self.request.user, "avito")
+        return context
 
 
 class CompanyUpdateLinkZoonView(CompanyUpdateView):
@@ -847,6 +886,11 @@ class CompanyUpdateLinkZoonView(CompanyUpdateView):
 
         return super().dispatch(*args, **kwargs)
 
+    def get_context_data(self, ** kwargs):
+        context = super().get_context_data(** kwargs)
+        context["instruction_list"] = instruction_list(self.request.user, "zoon")
+        return context
+
 
 class CompanyUpdateLinkFlampView(CompanyUpdateView):
     form_class = DashboardCompanyChangeFlampForm
@@ -857,6 +901,11 @@ class CompanyUpdateLinkFlampView(CompanyUpdateView):
             return redirect("profile_update_finance")
 
         return super().dispatch(*args, **kwargs)
+
+    def get_context_data(self, ** kwargs):
+        context = super().get_context_data(** kwargs)
+        context["instruction_list"] = instruction_list(self.request.user, "flamp")
+        return context
 
 
 class CompanyUpdateLinkYellView(CompanyUpdateView):
@@ -869,6 +918,11 @@ class CompanyUpdateLinkYellView(CompanyUpdateView):
 
         return super().dispatch(*args, **kwargs)
 
+    def get_context_data(self, ** kwargs):
+        context = super().get_context_data(** kwargs)
+        context["instruction_list"] = instruction_list(self.request.user, "yell")
+        return context
+
 
 class CompanyUpdateLinkProdoctorovView(CompanyUpdateView):
     form_class = DashboardCompanyChangeProdoctorovForm
@@ -879,6 +933,11 @@ class CompanyUpdateLinkProdoctorovView(CompanyUpdateView):
             return redirect("profile_update_finance")
 
         return super().dispatch(*args, **kwargs)
+
+    def get_context_data(self, ** kwargs):
+        context = super().get_context_data(** kwargs)
+        context["instruction_list"] = instruction_list(self.request.user, "prodoctorov")
+        return context
 
 
 class CompanyUpdateLinkYandexServicesView(CompanyUpdateView):
@@ -891,6 +950,11 @@ class CompanyUpdateLinkYandexServicesView(CompanyUpdateView):
 
         return super().dispatch(*args, **kwargs)
 
+    def get_context_data(self, ** kwargs):
+        context = super().get_context_data(** kwargs)
+        context["instruction_list"] = instruction_list(self.request.user, "yandex_services")
+        return context
+
 
 class CompanyUpdateLinkOtzovikView(CompanyUpdateView):
     form_class = DashboardCompanyChangeOtzovikForm
@@ -901,6 +965,11 @@ class CompanyUpdateLinkOtzovikView(CompanyUpdateView):
             return redirect("profile_update_finance")
 
         return super().dispatch(*args, **kwargs)
+
+    def get_context_data(self, ** kwargs):
+        context = super().get_context_data(** kwargs)
+        context["instruction_list"] = instruction_list(self.request.user, "otzovik")
+        return context
 
 
 class CompanyUpdateLinkIrecommendView(CompanyUpdateView):
@@ -913,6 +982,11 @@ class CompanyUpdateLinkIrecommendView(CompanyUpdateView):
 
         return super().dispatch(*args, **kwargs)
 
+    def get_context_data(self, ** kwargs):
+        context = super().get_context_data(** kwargs)
+        context["instruction_list"] = instruction_list(self.request.user, "irecommend")
+        return context
+
 
 class CompanyUpdateLinkTripadvisorView(CompanyUpdateView):
     form_class = DashboardCompanyChangeTripadvisorForm
@@ -923,6 +997,11 @@ class CompanyUpdateLinkTripadvisorView(CompanyUpdateView):
             return redirect("profile_update_finance")
 
         return super().dispatch(*args, **kwargs)
+
+    def get_context_data(self, ** kwargs):
+        context = super().get_context_data(** kwargs)
+        context["instruction_list"] = instruction_list(self.request.user, "tripadvisor")
+        return context
 
 
 class CompanyUpdateWidgetView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):

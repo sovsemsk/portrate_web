@@ -96,8 +96,9 @@ class StoryAdmin(ModelAdmin):
 
 
 class InstructionSlideInlineAdmin(TabularInline):
-    fields = ["sort", "preview", "image"]
+    fields = ["sort", "image", "description"]
     model = InstructionSlide
+
 
 @register(Instruction)
 class InstructionAdmin(ModelAdmin):
