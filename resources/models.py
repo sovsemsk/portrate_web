@@ -1105,7 +1105,7 @@ class InstructionSlide(Model):
     sort = IntegerField(default=0, verbose_name="порядок")
 
     """ Контент """
-    image = ImageField(blank=True, null=True, upload_to="dashboard/%Y/%m/%d/", verbose_name="изображение")
+    image = ImageField(blank=False, null=False, upload_to="dashboard/%Y/%m/%d/", verbose_name="изображение")
     description = TextField(verbose_name="описание")
 
     """ Связи """
