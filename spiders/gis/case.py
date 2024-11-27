@@ -1,5 +1,4 @@
 import hashlib
-import re
 from datetime import datetime, timezone
 
 import dateparser
@@ -8,7 +7,7 @@ from selenium.common import NoSuchElementException
 
 from resources.models import Company, Review, Service
 from spiders.gis.reviews_page import ReviewsPage
-from spiders.utils import Driver
+from spiders.utils import Driver, extract_float, extract_int
 
 
 def perform(company_id):
@@ -22,7 +21,6 @@ def perform(company_id):
     with Driver() as web_driver:
         web_driver.get(company.parser_link_gis)
         reviews_page = ReviewsPage(web_driver)
-        reviews_page.close_promo()
         reviews_page.show_all()
 
         for review in reviews_page.reviews:
@@ -40,8 +38,8 @@ def perform(company_id):
             except (AttributeError, IntegrityError, NoSuchElementException):
                 pass
 
-        company.rating_gis = float(".".join(re.findall(r"\d+", reviews_page.rating))) if reviews_page.rating else None
-        company.reviews_count_remote_gis = int("".join(re.findall(r"\d+", reviews_page.count))) if reviews_page.count else None
+        company.rating_gis = extract_float(reviews_page.rating)
+        company.reviews_count_remote_gis = extract_int(reviews_page.count)
         company.save(update_fields=["rating_gis", "reviews_count_remote_gis"])
 
     # Запись в бд флагов окончания парсинга

@@ -8,7 +8,7 @@ from selenium.common import NoSuchElementException
 
 from resources.models import Company, Review, Service
 from spiders.yandex.reviews_page import ReviewsPage
-from spiders.utils import Driver
+from spiders.utils import Driver, extract_float, extract_int
 
 
 def perform(company_id):
@@ -40,8 +40,8 @@ def perform(company_id):
             except (AttributeError, IntegrityError, NoSuchElementException):
                 pass
 
-        company.rating_yandex = float(".".join(re.findall(r"\d+", reviews_page.rating))) if reviews_page.rating else None
-        company.reviews_count_remote_yandex = int("".join(re.findall(r"\d+", reviews_page.count))) if reviews_page.count else None
+        company.rating_yandex = extract_float(reviews_page.rating)
+        company.reviews_count_remote_yandex = extract_int(reviews_page.count)
         company.save(update_fields=["rating_yandex", "reviews_count_remote_yandex"])
 
     # Запись в бд флагов окончания парсинга

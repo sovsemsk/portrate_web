@@ -7,7 +7,7 @@ from spiders.base_region import BaseRegion
 
 
 class ReviewsPage(BasePageScrollMore):
-    _count_location = (By.XPATH, ".//h2[@class='card-section-header__title _wide']")
+    _count_location = (By.XPATH, ".//div[@class='business-reviews-card-view__title']//h2")
     _dropdown_location = (By.XPATH, ".//div[@class='rating-ranking-view']")
     _rating_location = (By.XPATH, ".//div[@class='business-summary-rating-badge-view__rating']")
     _review_location = (By.XPATH, ".//div[@class='business-reviews-card-view__review']")

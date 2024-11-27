@@ -10,9 +10,6 @@ class ReviewsPage(BasePageScrollMore):
     _rating_location = (By.XPATH, ".//div[@class='_13nm4f0']")
     _review_location = (By.XPATH, ".//div[@class='_1k5soqfl']")
 
-    # рекламное окно
-    _close_location = (By.XPATH, ".//button[@class='_jro6t0']")
-
     @property
     def rating(self):
         return self.wait_and_find_element(self._rating_location).get_attribute("textContent")
@@ -20,9 +17,6 @@ class ReviewsPage(BasePageScrollMore):
     @property
     def count(self):
         return self.wait_and_find_element(self._count_location).get_attribute("textContent")
-
-    def close_promo(self):
-        self.wait_and_click_element(self._close_location)
 
     @property
     def reviews(self):

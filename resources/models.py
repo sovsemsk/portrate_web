@@ -989,6 +989,9 @@ class Review(Model):
 @receiver(post_save, sender=Review)
 def review_post_save(sender, instance, created, ** kwargs):
     if created and not instance.company.__getattribute__(f"is_first_parsing_{instance.service.lower()}"):
+        # @TODO
+        return
+
         for user in instance.company.users.filter(
             ** {
                 f"membership__is_notify_{instance.service.lower()}": True,

@@ -31,6 +31,9 @@ class ReviewsPage(BasePageScrollMore):
     def reviews(self):
         result = []
 
+        print("@LEN")
+        print(len(self.wait_and_find_elements(self._review_location)))
+
         for el in self.wait_and_find_elements(self._review_location):
             result.append(self.ReviewRegion(el))
 
