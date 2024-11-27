@@ -23,6 +23,7 @@ def perform(company_id):
         reviews_page = ReviewsPage(web_driver)
         reviews_page.order_all()
         reviews_page.show_all()
+        # reviews_page.expand_all()
 
         for review in reviews_page.reviews:
             try:
