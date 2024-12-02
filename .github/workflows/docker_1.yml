@@ -9,12 +9,12 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      ID_RSA_DOCKER_1: ${{ secrets.ID_RSA_DOCKER_1 }}
+      ID_RSA_PUB_DOCKER_1: ${{ secrets.ID_RSA_PUB_DOCKER_1 }}
+      TEST_VAR: "HELLO"
     steps:
     - name: Configure ssh
-      env:
-        ID_RSA_DOCKER_1: ${{ secrets.ID_RSA_DOCKER_1 }}
-        ID_RSA_PUB_DOCKER_1: ${{ secrets.ID_RSA_PUB_DOCKER_1 }}
-        TEST_VAR: HELLO
       run: |
         mkdir -p ~/.ssh/
         echo $ID_RSA_DOCKER_1 > ~/.ssh/id_rsa
