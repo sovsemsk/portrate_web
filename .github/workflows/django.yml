@@ -32,4 +32,4 @@ jobs:
         ID_RSA_DOCKER_1: ${{ secrets.ID_RSA_DOCKER_1 }}
         ID_RSA_PUB_DOCKER_1: ${{ secrets.ID_RSA_PUB_DOCKER_1 }}
     - name: Clone 
-      run: cat ~/.ssh/id_rsa
+      run: cat ~/.ssh/config
