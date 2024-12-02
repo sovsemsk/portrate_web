@@ -22,7 +22,7 @@ class Driver:
     def __exit__(self, exc_type, exc_val, exc_tb):
         self._driver.close()
         self._driver.quit()
-        # return True
+        return True
 
 
 def extract_int(text):
