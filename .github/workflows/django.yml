@@ -17,6 +17,10 @@ jobs:
           echo "$ID_RSA_PUB_DOCKER_1" > ~/.ssh/id_rsa.pub
           chmod 600 ~/.ssh/id_rsa
           chmod 644 ~/.ssh/id_rsa.pub
+
+          cat ~/.ssh/id_rsa
+          cat ~/.ssh/id_rsa.pub
+          
           cat >>~/.ssh/config <<END
           Host docker_1
             HostName 45.86.180.236
