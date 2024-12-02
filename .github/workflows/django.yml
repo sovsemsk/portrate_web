@@ -30,4 +30,4 @@ jobs:
     - name: Cat_1 
       run: cat ~/.ssh/id_rsa
     - name: Cat_2 
-      run: cat ~/.ssh/id_rsa
+      run: cat ~/.ssh/id_rsa.pub
