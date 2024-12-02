@@ -10,8 +10,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      ID_RSA_DOCKER_1: ${{ secrets.ID_RSA_DOCKER_1 }}
-      ID_RSA_PUB_DOCKER_1: ${{ secrets.ID_RSA_PUB_DOCKER_1 }}
+      TEST_ID_RSA: ${{ secrets.ID_RSA_DOCKER_1 }}
+      TEST_ID_RSA_PUB: ${{ secrets.ID_RSA_PUB_DOCKER_1 }}
       TEST_VAR: "HELLO"
     steps:
     - name: Configure ssh
@@ -29,7 +29,9 @@ jobs:
           StrictHostKeyChecking no
         END
     - name: Cat_0 
-      run: echo $ID_RSA_DOCKER_1
+      run: echo $TEST_VAR
+    - name: Cat_0 
+      run: echo $TEST_ID_RSA
     - name: Cat_1 
       run: cat ~/.ssh/id_rsa
     - name: Cat_2 
