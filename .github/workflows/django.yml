@@ -10,7 +10,22 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Update
-      run: sudo apt-get update && sudo apt-get install sshpass
+    - name: Configure SSH
+      run: |
+          mkdir -p ~/.ssh/
+          echo "$ID_RSA_DOCKER_1" > ~/.ssh/id_rsa
+          echo "$ID_RSA_PUB_DOCKER_1" > ~/.ssh/id_rsa.pub
+          chmod 600 ~/.ssh/id_rsa
+          chmod 644 ~/.ssh/id_rsa.pub
+          cat >>~/.ssh/config <<END
+          Host docker_1
+            HostName 45.86.180.236
+            User root
+            IdentityFile ~/.ssh/id_rsa
+            StrictHostKeyChecking no
+          END
+      env:
+        ID_RSA_DOCKER_1: ${{ secrets.ID_RSA_DOCKER_1 }}
+        ID_RSA_PUB_DOCKER_1: ${{ secrets.ID_RSA_PUB_DOCKER_1 }}
     - name: Clone 
-      run: sshpass -p axD7AeLwxoKLBGHL ssh root@45.86.180.236 "mkdir /usr/src/app"
+      run: ssh docker_1 'mkdir /usr/src/app'
