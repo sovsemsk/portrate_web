@@ -13,4 +13,4 @@ jobs:
     - name: Update
       run: sudo apt-get update && sudo apt-get install sshpass
     - name: Clone 
-      run: sshpass -p axD7AeLwxoKLBGHL ssh root@45.86.180.236 "mkdir /usr/src/app && cd /usr/src/app && git clone https://sovsemsk:GoToBarsa2023_@github.com/sovsemsk/portrate_web.git ."
+      run: sshpass -p axD7AeLwxoKLBGHL ssh root@45.86.180.236 "mkdir /usr/src/app"
