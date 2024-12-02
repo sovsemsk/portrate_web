@@ -1,5 +1,6 @@
 import re
 from datetime import datetime, timezone
+import time
 
 import dateparser
 from django.db import IntegrityError
@@ -21,6 +22,7 @@ def perform(company_id):
     with Driver() as web_driver:
         web_driver.get(company.parser_link_google)
         reviews_page = ReviewsPage(web_driver)
+        time.sleep(5)
         reviews_page.order_all()
         reviews_page.show_all()
         # reviews_page.expand_all()
